@@ -225,39 +225,40 @@ namespace B7_Deviation.Controllers
                 status = ex.ToString();
             }
 
-
-            // Get Role Login
-            SqlConnection conn2 = new SqlConnection(constr);
-            try
+            if (status != "kosong")
             {
-                conn2.Open();
-                using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn2))
+                // Get Role Login
+                SqlConnection conn2 = new SqlConnection(constr);
+                try
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                    cmd.Parameters["@pilih"].Value = 2;
+                    conn2.Open();
+                    using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn2))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+                        cmd.Parameters["@pilih"].Value = 2;
 
-                    cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                    cmd.Parameters["@Username"].Value = Model.Username;
+                        cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+                        cmd.Parameters["@Username"].Value = Model.Username;
 
-                    result = (string)cmd.ExecuteScalar();
+                        result = (string)cmd.ExecuteScalar();
+                    }
+                    conn2.Close();
+                    Session["role"] = result;
                 }
-                conn2.Close();
-                Session["role"] = result;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (result == "kosong")
+                catch (Exception ex)
                 {
-                    status = "kosong";
+                    throw ex;
                 }
-                List.Add(status);
+                finally
+                {
+                    if (result == "kosong")
+                    {
+                        status = "kosong";
+                    }
+                    List.Add(status);
+                }
             }
-
             return Json(List);
         }
     }
