@@ -1,0 +1,784 @@
+﻿@*DELETE LAYOUT TO USE IT AS PARTIAL VIEW*@
+
+<!--**********************************
+        Content body start
+***********************************-->
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="d-inline" style="">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+                        <div class="form-group row">
+                            <div class="col">
+                                <br />
+                                <label>Register Number</label>
+                                <br />
+                                <label type="text" id="lblReq" style="font-weight:bold" disabled>@ViewBag.nomor</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col">
+                                <label>Tanggal Pembuatan Form</label>
+                                <input id="TbTglCreated" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Nomer Deviation</label>
+                                <input id="TbNmrDev" type="text" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Pengusul</label>
+                                <input id="TbPesul" type="text" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Departemen</label>
+                                <input id="TbDeptPusul" type="text" class="form-control" disabled="disabled">
+                            </div>
+                        </div>
+                        <!-- Readonly End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form>
+                                <!-- Site -->
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label label-trigger">Site<span class="text-danger">*</span></label>
+                                    <div class="col-sm-3">
+                                        <div class="btn-group mb-2 ">
+                                            <div class="basic-dropdown">
+                                                <div class="dropdown site-dropdown">
+                                                    <select id="ddlSite">
+                                                        <option>OKE NOICE</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Kategori Penyimpangan<span class="text-danger">*</span></label>
+                                    <div class="col-sm-3">
+                                        <div class="btn-group mb-2">
+                                            <div class="basic-dropdown">
+                                                <div class="dropdown">
+                                                    <select id="ddlKategori" disabled="disabled"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <textarea id="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+                                @*  Penyimpangan terencana *@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah penyimpangan ini terencana?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes" disabled> Ya
+
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No" disabled> Tidak
+
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Problem (What) -->
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Problem (What)<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtProblem" class="form-control" placeholder="Problem (What)" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+                                <!-- Requirement (Jika Ada) -->
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Requirement (Jika Ada)</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtReq" class="form-control" placeholder="Requirement (Jika Ada)" disabled></textarea>
+                                    </div>
+                                </div>
+
+                                @* Tanggal Kejadian *@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Tanggal dan Waktu Kejadian (When)</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input id="date-format" type="text" class="form-control" disabled="disabled">
+                                            <span class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="mdi mdi-calendar-check"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @* Lokasi *@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Lokasi (Where)<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtLokasi" class="form-control" placeholder="Lokasi (Where)" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+
+
+                                @* Siapa Saja *@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group">
+                                            
+                                        </div>
+                                        <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+                                            <table id="tblWho" class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:20px">No</th>
+                                                        <th>Nama</th>
+                                                        <th style="width:30px">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tblBodyWho">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*Bagaimana Urutan Kejadian*@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Bagaimana Urutan Kejadian (How)<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtHow" class="form-control" placeholder="Bagaimana Urutan Kejadian (How)" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+
+
+                                @*Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?*@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel4" data-travelNumber="1" id="pernah_yes_1" value="Yes" disabled="disabled"> Ya
+
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel4" type="radio" data-travelNumber="1" id="pernah_no_1" value="No" disabled="disabled"> Tidak
+
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <textarea name="travelDetails" id="txt1" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+
+                                @*Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?*@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel1" data-travelNumber="1" id="sama_yes_1" value="Yes" disabled="disabled"> Ya
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel1" type="radio" data-travelNumber="1" id="sama_no_1" value="No" disabled="disabled"> Tidak
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <textarea name="travelDetails" id="txtsama" class="form-control" placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+
+                                @*Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?*@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input type="radio" name="travel2" data-travelNumber="1" id="rilis_yes_2" value="Yes" disabled="disabled"> Ya
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input name="travel2" type="radio" data-travelNumber="1" id="rilis_no_2" value="No" disabled="disabled"> Tidak
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <textarea id="txtrilis" name="travelDetails" class="form-control" placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+
+                                @*Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?*@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel3" data-travelNumber="1" id="lain_yes_3" value="Yes" disabled="disabled"> Ya
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel3" type="radio" data-travelNumber="1" id="lain_no_3" value="No" disabled="disabled"> Tidak
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <textarea id="txtlain" name="travelDetails" class="form-control" placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+
+                                @*Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi*@
+
+                                <div class="form-group row">
+                                    <div class="col-sm-2 col-form-label">
+                                        <label>
+                                            Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi
+                                        </label>
+                                        <label style="font-size:x-small; color:red">
+                                            *Wajib diisi untuk penyimpangan tidak terencana
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi" disabled="disabled"></textarea>
+                                        <div class="row" style="padding-top: 5px">
+                                           
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 col-form-label"></label>
+                                    
+                                    <div class="col-sm-10">
+                                        <div class="table-responsive">
+                                            <table id="tbl_Attachment" class="table header-border">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <b>No</b>
+                                                        </th>
+                                                        <th>
+                                                            <b>File Name</b>
+                                                        </th>
+                                                        <th>
+                                                            <b>Action</b>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody_Attachment"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ************************** List Penilaian ***************************** -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form>
+                                <div class="form-group row">
+                                    <h4 class="col-sm-6 col-form-label">Penilaian Potensi Dampak dari penyimpangan<span class="text-danger">*</span></h4>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label>Kualitas Produk</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlKualProd" title="Kualitas Produk" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Risiko Finansial</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlRiskFin" title="Risiko Finansial" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Risiko Kesehatan Personil</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlKesehatanPer" title="Risiko Kesehatan Personil" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Baris 2 -->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label>Compliance</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlCompliance" title="Compliance" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Risiko Organisasi</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlRiskOrg" title="Risiko Organisasi" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Resiko Lingkungan</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlResLingk" title="Risiko Lingkungan" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Baris 3-->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label>Risiko Operasional</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlRiskOpr" title="Risiko Operasional" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Risiko Keamanan Personil</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlKeamamananP" title="Risiko Keamanan Personil" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Risiko Intelektual</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlRiskIntelek" title="Risiko Intelektual" disabled></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label>Tingkat Keparahan Penyimpangan</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <input id="txtKeparahan" type="text" class="form-control" disabled="disabled">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Form-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+
+<!--**********************************
+        Content body end
+    ***********************************-->
+
+<script>
+        $(document).ready(function () {
+
+            // LOAD ALL DETAILED FORM
+            LoadAll();
+
+            // LOAD LIST OF SITE LOCATION
+            $(".site-dropdown").click(function () {
+                GetAllSite();
+            });
+
+            $(".site-dropdown").change(function () {
+                alert($("#ddlSite").val());
+            });
+
+        });
+
+        function LoadAll() {
+            var nomor = @ViewBag.nomor;
+            var dto = {
+                ReqID: nomor
+            }
+
+            $.ajax({
+                url: "/SpvPelapor/App_LoadDeviationApproval",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+                    var text = '';
+
+                    //BUGGY
+                    GetFileAttachment();
+                    LoadUserInvolved();
+
+                    document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
+                    document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
+                    document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
+                    document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
+
+                    GetAllSite();
+
+                    text = '<Option class="dropdown-item" value = "' + data[0].ID_DEVIATION_CATEGORY + '" selected >' + data[0].ID_DEVIATION_CATEGORY;
+                    $("#ddlKategori").empty();
+                    $("#ddlKategori").append(text);
+                    $("#ddlKategori").selectpicker();
+
+                    
+
+                    document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
+                   
+                    document.getElementById('txtProblem').value = data[0].PROBLEM;
+                    document.getElementById('txtLokasi').value = data[0].LOCATION;
+                    document.getElementById('txtHow').value = data[0].ORDER_OF_EVENTS;
+                    document.getElementById('date-format').value = data[0].DATE_OF_INCIDENT;
+
+                    document.getElementById('txtTindakan').value = data[0].ACTION_WHEN_DEV;
+
+                    document.getElementById('txtReq').value = data[0].REQ;
+
+                    // 1st Card Radio Button
+
+                    // Travel 5 -> missing
+                    $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
+
+                    // Travel 4 -> missing
+                    $("input[name=travel4][value=" + data[0].THIRTY_FLAG + "]").prop('checked', true);
+                    document.getElementById('txt1').value = data[0].THIRTY;
+
+                    // Travel 1
+
+                    $("input[name=travel1][value=" + data[0].SAME_POTEN_DEV_FLAG + "]").prop('checked', true);
+                    document.getElementById('txtsama').value = data[0].SAME_POTEN_DEV;
+
+                    // Travel 2 (Txt2 HTML5 missing)
+
+                    $("input[name=travel2][value=" + data[0].POTEN_DEV_RLS_FLG + "]").prop('checked', true);
+                    document.getElementById('txtrilis').value = data[0].POTEN_DEV_RLS;
+
+                    // Travel 3 (Txt3 HTML5 missing)
+                    $("input[name=travel3][value=" + data[0].POTEN_DEV_OTH_FLG + "]").prop('checked', true);
+                    document.getElementById('txtlain').value = data[0].POTEN_DEV_OTH;
+
+                    // 2nd Card FINISHED!
+
+                    // 2nd Card Quality Product
+
+                    text = '<Option class="dropdown-item" value = "' + data[0].NO_QUALITY_PRODUCT+ '" selected >' + data[0].QUALITY_PRODUCT;
+
+                    $("#ddlKualProd").empty();
+                    $("#ddlKualProd").append(text);
+                    $("#ddlKualProd").selectpicker();
+
+                    // 2nd Card Compliance
+
+                    text= '<Option class="dropdown-item" value = "' + data[0].NO_COMPLIANCE + '" selected >' + data[0].COMPLIANCE;
+
+                    $("#ddlCompliance").empty();
+                    $("#ddlCompliance").append(text);
+                    $("#ddlCompliance").selectpicker();
+
+                    // 2nd Card Operational Risk
+
+                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_OPERATION + '" selected >' + data[0].RISK_OPERATION;
+
+                    $("#ddlRiskOpr").empty();
+                    $("#ddlRiskOpr").append(text);
+                    $("#ddlRiskOpr").selectpicker();
+
+                    // 2nd Card Financial Risk
+
+                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_FINANCIAL + '" selected >' + data[0].RISK_FINANCIAL;
+
+                    $("#ddlRiskFin").empty();
+                    $("#ddlRiskFin").append(text);
+                    $("#ddlRiskFin").selectpicker();
+
+                    // 2nd Card Organizational Risk
+
+                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_ORGANIZATION + '" selected >' + data[0].RISK_ORGANIZATION;
+
+                    $("#ddlRiskOrg").empty();
+                    $("#ddlRiskOrg").append(text);
+                    $("#ddlRiskOrg").selectpicker();
+
+                    // 2nd Card Personel Security Risk
+
+                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_SECURITY + '" selected >' + data[0].RISK_SECURITY;
+
+                    $("#ddlKeamamananP").empty();
+                    $("#ddlKeamamananP").append(text);
+                    $("#ddlKeamamananP").selectpicker();
+
+                    // 2nd Card Personel Security Risk
+
+                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_HEALTY + '" selected >' + data[0].RISK_HEALTY;
+
+                    $("#ddlKesehatanPer").empty();
+                    $("#ddlKesehatanPer").append(text);
+                    $("#ddlKesehatanPer").selectpicker();
+
+                    // 2nd Card Environment Risk
+
+                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_ENVIRONTMENT + '" selected >' + data[0].RISK_ENVIRONTMENT;
+
+                    $("#ddlResLingk").empty();
+                    $("#ddlResLingk").append(text);
+                    $("#ddlResLingk").selectpicker();
+
+                    // 2nd Card Intellectual Risk
+
+                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_INTELLECTUAL + '" selected >' + data[0].RISK_INTELLECTUAL;
+
+                    $("#ddlRiskIntelek").empty();
+                    $("#ddlRiskIntelek").append(text);
+                    $("#ddlRiskIntelek").selectpicker();
+
+                    // 2nd Card Severity Risk
+
+                    document.getElementById('txtKeparahan').value = data[0].SEVERTY_DEVIATION;
+
+                }, error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        }
+
+        function GetAllSite() {
+
+            GetAllSite = function () { };
+
+            var REQID = @ViewBag.nomor;
+
+            var dto = {
+                ReqID: REQID
+            }
+
+            $.ajax({
+                url: "/SpvPelapor/App_GetSiteName",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var count = data.length;
+                    var trhtml = '';
+                    var trav = 0;
+                    trhtml += '<select id="ddlSite">';
+                    trhtml += '<option disabled hidden class="dropdown-header"  value = " ">   Site Pelapor   </option>';
+
+                    if (count > 0) {
+                        for (trav = 0; trav < count; trav++) {
+
+                            if (data[trav].DDL_TRUE == '' || data[trav].DDL_TRUE == null) {
+                                trhtml += '<Option class="dropdown-item" selected value = "" > - ';
+                                break;
+                            }
+
+                            if (data[trav].DDL_TRUE == data[trav].DDL_CODE) {
+                                trhtml += '<Option class="dropdown-item" selected value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION ;
+                            } else {
+                                trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION ;
+                            }
+
+
+                        }
+                    }
+
+                    trhtml += '</select>';
+
+                    $(".site-dropdown").empty();
+                    $(".site-dropdown").append(trhtml);
+                    $("#ddlSite").selectpicker();
+
+                    GetAllSite = function () { };
+
+                },
+                error: function (ex) {
+                    alert('Error : ' + JSON.stringify(ex));
+                }
+            });
+        }
+
+        function LoadUserInvolved() {
+
+            var REQID = @ViewBag.nomor;
+
+            var dto = {
+                ReqID: REQID
+            }
+
+            $.ajax({
+                url: "/SpvPelapor/App_LoadUserInvolved",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    if (data != '') {
+                        $('#tblWho').attr('hidden', false);
+
+                        var trHTML = '';
+                        var trav = 0;
+                        var Count = data.length;
+                        for (trav = 0; trav < Count; trav++) {
+
+                            trHTML += '<tr><td>' + data[trav].NO + '</td>' +
+                                '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                                '<td style="display:none">' + data[trav].RecordID + '</td>' +
+                                '<td>' + data[trav].USER_NAME + '</td>' +
+                                '<td align="center"> - </td></tr>';
+
+                        }
+
+                        $("#tblBodyWho").empty();
+                        $("#tblBodyWho").append(trHTML);
+                        $("#tblBodyWho").addBack();
+                    }
+                    else {
+                        $('#tblWho').attr('hidden', true);
+                        $("#tblBodyWho").addBack();
+                    }
+
+                }
+                , error: function (ex) {
+                    alert('Error Load User Involved : ' + JSON.stringify(ex));
+                }
+            });
+        }
+
+        function GetFileAttachment() {
+
+            var ReqID = @ViewBag.nomor;
+            var dto = {
+                ReqID: ReqID
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/SpvPelapor/App_LoadAttachment",
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    if (data != '') {
+                        var trHTML = '';
+                        var trav = 0;
+                        var Count = data.length;
+
+                        if (Count > 0) {
+                            for (trav = 0; trav < Count; trav++) {
+                                var no = 1
+                                no = no + trav
+                                trHTML += '<tr><td>' + no + '</td>' +
+                                    '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                                    '<td style="display:none">' + data[trav].NO_FILE + '</td>' +
+                                    '<td>' + data[trav].file_name_upload + '</td>' +
+                                    '<td style="display:none;">' + data[trav].path_file + '</td>' +
+                                    '<td align="center"> - </td></tr>';
+                            }
+
+                            $("#tbl_Attachment").show();
+                            $("#tbody_Attachment").empty();
+                            $("#tbody_Attachment").append(trHTML);
+                            $("#tbody_Attachment").addBack();
+
+                        } else {
+                            $("#tbl_Attachment").hide();
+                        }
+                    } else {
+                        $("#tbl_Attachment").hide();
+                        $("#tbody_Attachment").addBack();
+                    }
+                },
+                error: function (ex) {
+                    alert('Error Load Attachment : ' + JSON.stringify(ex));
+                }
+            });
+        }
+</script>

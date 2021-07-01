@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewBag.Title = "DataTableList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
+
+<body>
+
+    <div class="content-body">
+
+        <div class="container-fluid">
+            <div class="card">
+                
+                <div class="card-body">
+                    <div class="form-group">
+                        <h2 class="d-inline">Pending Approval</h2>
+
+                    </div>
+                    <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="deviationdatatable" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="100px">REQ ID</th>
+                                <th width="100px">Deviation No</th>
+                                <th width="100px">ID Proposer</th>
+                                <th width="100px">Proposer Name</th>
+                                <th width="100px">Status</th>
+                                <th width="100px">Status Delegasi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deviationtable" class="nowrap">
+                            <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Load User once the page is loaded
+            LoadData();
+
+        });
+
+        function LoadData() {
+
+            var userid = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            var dto = {
+                IDUSER: userid
+            }
+
+            $.ajax({
+                url: "/QualityManager/QM_LoadDeviationData",
+                type: "post",
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+                    for (trav = 0; trav < Count; trav++) {
+
+                        // DOESNT MATTER IF IT IS DELEGATED OR NOT, GO TO THE FIRST PAGE OF QUALITY MANAGER (DISPOSISI TINDAKAN REMIDIAL)
+                        // EXPLANATION -> 1st IF: APPROVED BY KOORDINATOR (GOTO QUALITY MANAGER)
+                        // EXPLANATION -> 2nd IF: DELEGATED (GOTO DELEGATED PERSON) -> SAME VIEW WITH QUALITY MANAGER
+                        // EXPLANATION -> 3rd IF: REVISED BY THE REVIEWER (IF GOT REJECTED EARLIER)
+                        if (data[trav].STATUS == 'ADKOR1' || data[trav].STATUS == 'OKKOR1' || data[trav].STATUS == 'RTDQM1') {
+                            trHTML +=
+                                '<tr><td><a href="/QualityManager/QMHeader?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>' +
+                                '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                '<td>' + data[trav].ID_PROPOSER + '</td>' +
+                                '<td>' + data[trav].EMP_NAME + '</td>' +
+                                '<td>' + data[trav].STATUS_DESC + '</td>';
+
+
+                        } else if (data[trav].STATUS == 'URABS1') {
+                            trHTML +=
+                                '<tr><td><a href="/QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>' +
+                                '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                '<td>' + data[trav].ID_PROPOSER + '</td>' +
+                                '<td>' + data[trav].EMP_NAME + '</td>' +
+                                '<td>' + data[trav].STATUS_DESC + '</td>';
+                        
+                        // 2ND QUALITY MANAGER (DISPOSISI PRODUK/MATERIAL/SISTEM)
+                        } else {
+                            trHTML +=
+                                '<tr><td><a href="/QualityManager/DisposisiProdukMaterialSistem?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>' +
+                                '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                '<td>' + data[trav].ID_PROPOSER + '</td>' +
+                                '<td>' + data[trav].EMP_NAME + '</td>' +
+                                '<td>' + data[trav].STATUS_DESC + '</td>';
+                        }
+
+                        if (data[trav].FLAG_DELEGASI != null && data[trav].FLAG_DELEGASI != '') {
+                            trHTML +=
+                                '<td> DELEGATED </td>';
+                        } else {
+                            trHTML +=
+                                '<td> - </td>';
+
+                        }
+
+                        
+
+                    }
+
+                    $('#deviationtable').empty();
+                    $('#deviationtable').append(trHTML);
+                    $('#deviationdatatable').DataTable();
+                    LoadData = function () { };
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        }
+
+    </script>
+
+</body>
+
+

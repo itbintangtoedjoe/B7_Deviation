@@ -1,0 +1,557 @@
+﻿
+@{
+    ViewBag.Title = "PICHeader";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+
+                                        <button type="button" id="btnSave" class="col-sm-2 btn mb-1 btn-success form-control ">
+                                            Save
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
+
+
+                                        
+                                    </div>
+
+                                    <div class="form-group" id="xddlx" hidden="hidden">
+                                        <div class="col">
+                                            <label class="col col-form-label">Reviewer<span class="text-danger">*</span> :</label>
+                                        </div>
+                                        <div class="col">
+                                            <div class="col input-group form-group">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown user-dropdown form-inline">
+                                                        <select id="ddlReviewer" name="ddlReviewer" class="form-control">
+                                                            <option>Option 1</option>
+                                                            <option>Option 2</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
+                                                    <span class="input-group-text btn-success">
+                                                        <i class="fa fa-user-plus"></i>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col form-group">
+                                                <table id="tblWho" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width:20px">No</th>
+                                                            <th>Nama</th>
+                                                            <th>NIK</th>
+                                                            <th style="width:30px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tblBodyWho">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nama</label>
+                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTanggal">Tanggal:</label>
+                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        @Html.Partial("~/Views/QualityManager/QualityManagerPartialView.cshtml")
+
+    </div>
+
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        
+                        <div class="card-body">
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Hasil Tindakan Remedial<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id="txtHasilTindakan" style="width: 960px;"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row" id="can">
+                                <label class="col-sm-2 col-form-label">Upload Bukti Tindakan Remidial<span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        
+                                        @using (Html.BeginForm("Index", "PICRemidial", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        {
+                                            <input type="file" name="NamaFileUpload" id="idFileUploadAttach" style="padding-top:10px; width:400px;" />
+                                            <button type="button" id="spanBukti" class="col-sm-2 btn mb-1 btn-success ">Upload</button>
+                                        }
+                                    </div>
+                                    <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+                                        <table id="tblDis" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:20px">No</th>
+                                                    <th>Bukti Tindakan Remidial</th>
+                                                    <th style="width:30px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblBukti">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row form-group">
+                                    <h4 class="d-inline">Testing Cost</h4>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="testingDurasiPengerjaan" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="testingJumlahPelaksana" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Manhours Value<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="testingManhoursValue" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Cost of Analysis<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="testingCostAnalysis" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row form-group">
+                                    <h4 class="d-inline">Processing</h4>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="procDurasiPengerjaan" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="procJumlahPelaksana" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Manhours Value<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="procManhoursValue" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Material/Product<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="procMaterial" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Quantity<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="procQty" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Cost Material<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="procCostMaterial" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row form-group">
+                                    <h4 class="d-inline">Rejected</h4>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Material/Product<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="rejMaterial" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Quantity<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="rejQty" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Cost Material<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="rejCostMaterial" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row form-group">
+                                    <h4 class="d-inline">Machine Cost</h4>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="mcDurasiPengerjaan" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Jumlah Teknisi<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="mcJumlahTeknisi" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Manhours Value<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="mcManhoursValue" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Nama Mesin<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="mcNamaMesin" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Total Machine Hours Value<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="mcTotalMachineHours" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Sparepart<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="mcSparepart" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Harga Sparepart<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="mcHargaSparepart" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        LoadBukti();
+
+        $("#btnSave").click(function () {
+            Save();
+        });
+
+        $('#spanBukti').click(function () {
+            $.when($.ajax(InsertBukti())).then(function () {
+
+            });
+        });
+
+    });
+
+    function InsertBukti() {
+
+        var formData = new FormData();
+        var REQID = @ViewBag.nomor;
+        var totalFiles = document.getElementById("idFileUploadAttach").files.length;
+        var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("idFileUploadAttach").files[i];
+            formData.append("idFileUploadAttach", file);
+            formData.append("ReqID", REQID);
+            formData.append("UserNIK", usernik);
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/PICRemidial/PIC_InsertBukti",
+            data: formData,
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            JsonRequestBehavior: true,
+            success: function (data) {
+
+                if (data == 'S') {
+
+                    toastr.success("Bukti berhasil tersimpan !", "Tersimpan", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+
+                    LoadBukti();
+                }
+            }
+            , error: function (ex) {
+                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function LoadBukti() {
+
+        var REQID = @ViewBag.nomor;
+        var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var dto = {
+            ReqId: REQID,
+            USERNIK: USERNIK
+        }
+
+        $.ajax({
+            url: "/PICRemidial/PIC_LoadBukti",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data != '') {
+                    $('#tblDis').attr('hidden', false);
+
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+
+                    for (trav = 0; trav < Count; trav++) {
+                        var no = 1;
+                        no = no + trav;
+
+                        trHTML += '<tr><td>' + no + '</td>' +
+                            '<td>' + data[trav].FILE_NAME_UPLOAD + '</td>' +
+                            '<td><button onclick="DeleteKeteranganDisposisi(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
+                    }
+
+
+
+                    $("#tblBukti").empty();
+                    $("#tblBukti").append(trHTML);
+                    $("#tblBukti").addBack();
+                }
+                else {
+                    $("#tblBukti").addBack();
+                }
+
+            }
+            , error: function (ex) {
+                alert('Error Load User Involved : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function Save() {
+        var REQID = @ViewBag.nomor;
+        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        // Detailed Section
+
+        var HasilTindakan = $("#txtHasilTindakan").val();
+
+        // Testing Section
+        var testDP = $("#testingDurasiPengerjaan").val();
+        var testJP = $("#testingJumlahPelaksana").val();
+        var testMV = $("#testingManhoursValue").val();
+        var testCA = $("#testingCostAnalysis").val();
+
+        // Processing Section
+        var procDP = $("#procDurasiPengerjaan").val();
+        var procJP = $("#procJumlahPelaksana").val();
+        var procMV = $("#procManhoursValue").val();
+        var procM = $("#procMaterial").val();
+        var procQ = $("#procQty").val();
+        var procCM = $("#procCostMaterial").val();
+
+        // Rejection Section
+        var rejM = $("#rejMaterial").val();
+        var rejQ = $("#rejQty").val();
+        var rejCM = $("#rejCostMaterial").val();
+
+        // Machine Cost
+        var mcDP = $("#mcDurasiPengerjaan").val();
+        var mcJT = $("#mcJumlahTeknisi").val();
+        var mcMV = $("#mcManhoursValue").val();
+        var mcNM = $("#mcNamaMesin").val();
+        var mcMH = $("#mcTotalMachineHours").val();
+        var mcS = $("#mcSparepart").val();
+        var mcHS = $("#mcHargaSparepart").val();
+
+
+        var dto = {
+            REQID: REQID,
+            IDUSER: iduser,
+
+            HasilTindakan: HasilTindakan,
+            testDP: testDP,
+            testJP: testJP,
+            testMV: testMV,
+            testCA: testCA,
+            procDP: procDP,
+            procJP: procJP,
+            procMV: procMV,
+            procM: procM,
+            procQ: procQ,
+            procCM: procCM,
+            rejM: rejM,
+            rejQ: rejQ,
+            rejCM: rejCM,
+            mcDP: mcDP,
+            mcJT: mcJT,
+            mcMV: mcMV,
+            mcNM: mcNM,
+            mcMH: mcMH,
+            mcS: mcS,
+            mcHS: mcHS
+        };
+
+        $.ajax({
+            url: "/PICRemidial/PIC_Save",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                Swal.fire({
+                    title: 'Form Approved',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: `OK`
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        window.location.href = "/PICRemidial/PendingApproval"
+                    }
+                });
+
+            }
+            , error: function (ex) {
+                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function DeleteFileAttachment(button) {
+         var Row = $(button).closest("TR");
+         var ReqID = $("TD", Row).eq(1).html();
+         var RecordID = $("TD", Row).eq(2).html();
+         var FileName = $("TD", Row).eq(3).html();
+         var PathFile = $("TD", Row).eq(4).html();
+
+         var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var dto = {
+            ReqID: ReqID,
+            RecordID: RecordID,
+            PathFile: PathFile,
+            USERNIK: usernik
+        }
+
+        $.ajax({
+            url: "/Reviewer/Rev_DeleteAttachment",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data == 'S') {
+                    toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-left",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+
+                    GetFileAttachment();
+                }
+            },
+            error: function (ex) {
+               alert("ga ok")
+            }
+        });
+
+    }
+
+</script>
+
