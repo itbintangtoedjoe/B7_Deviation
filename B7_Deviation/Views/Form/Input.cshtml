@@ -36,7 +36,7 @@
                                 <label>Register Number</label>
                                 <br />
                                 <label id="lblReq" style="font-weight:bold"></label>
-                                <br />
+								<br />
                                 <button id="btnGenerateNumber" class="btn mb-1 btn-success btn-sm">Generate Nomer</button>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="formBody">
+        <div id="formBody" class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
@@ -330,7 +330,7 @@
                                         <input type="file" style="margin-left:-15px" name="NamaFileUpload" class="col-sm-6" id="idFileUpload"  />
                                         <br /> 
                                         <br />
-                                        <button type="button" id="btnUpload" class="col-sm-2 btn mb-1 btn-success form-control" onclick="this.form.reset()">Upload</button>
+                                        <button type="button" id="btnUpload" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>
                                     }
                                     
                                    
@@ -507,30 +507,59 @@
         </div>
 
         <!-- #/ container -->
+    </div>
 </div>
 
 <!--**********************************
     Content body end
 ***********************************-->
 <script>
-
+	//var $ = jQuery.noConflict();
     //window.addEventListener('beforeunload', function (e) {
-    //    e.preventDefault();
+	    
+	//	e.preventDefault();
     //    e.returnValue = '';
+		
+		
     //});
-
-    $(window).bind('beforeunload', function () {
-        OnExitRefresh();
+	
+	$(window).bind('beforeunload', function () {
+        Test();
+            
         return '';
     });
+	
+	function Test() {
+        
+        var reqid = $("#lblReq").text();
+        
+        var dto = {
+            ReqID: reqid
+        };
+		$.ajax({
+            url: "../Form/DeleteFromDB",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+            }
+            , error: function (ex) {
 
-    function OnExitRefresh() {
+            }
+        });
+
         DeleteFile();
         DeletePath();
-    }
 
-    function DeleteFile() {
+        
+    }
+	
+	
+	function DeleteFile() {
+
         var reqid = $("#lblReq").text();
+
         var dto = {
             ReqID: reqid
         };
@@ -544,7 +573,7 @@
             success: function (data) {
             }
             , error: function (ex) {
-                alert('Error DeleteFile : ' + JSON.stringify(ex));
+
             }
         });
     }
@@ -558,7 +587,7 @@
         };
 
         $.ajax({
-            url: "/Form/DeletePath",
+            url: "../Form/DeletePath",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -566,23 +595,25 @@
             success: function (data) {
             }
             , error: function (ex) {
-                alert('Error DeletePath : ' + JSON.stringify(ex));
+
             }
         });
     }
-
-
+	
+	
     $(document).ready(function () {
 
         GenerateDepartment();
-        $('#formBody').attr('hidden', true);
+		
         // Generate Req ID
         $(document).ready(function () {
             $('#tblWho').attr('hidden', true);
-            $.when($.ajax(GenerateDate())).then(function () {
-                GetFileAttachment();
-                LoadUserInvolved();
-            });
+            
+			$.when($.ajax(GenerateDate())).then(function () {
+				GetFileAttachment();
+				LoadUserInvolved();
+			});
+            
         });
 
         // Load
@@ -613,15 +644,16 @@
 
     // Button click
     $(document).ready(function () {
-
-        $('#lblReq').text('-');
+		$('#lblReq').text('-');
+	
         $('#spanUser').click(function () {
             $.when($.ajax(InsertNamaTerlibat())).then(function () {
                 $('#txtWho').value('');
             });
         });
 
-        $("#btnUpload").click(function () {            
+        $("#btnUpload").click(function () {
+            
             UploadAttachmentDeviation();
         });
 
@@ -632,7 +664,11 @@
             }
             InsertDeviation();
         });
-        $('#btnGenerateNumber').click(function () {
+		
+		// Set Form Input Hidden
+		$('#formBody').attr('hidden', true);
+		// tombol generate nomer Req ID
+		$('#btnGenerateNumber').click(function () {
             GenerateReqID();
             $('#formBody').attr('hidden', false);
             $('#btnGenerateNumber').attr('hidden', true);
@@ -658,7 +694,7 @@
             }
             else {
                 $("#divsimpang").hide();
-                $("#TxtNoWO").removeAttr("enabled");
+				$("#TxtNoWO").attr("disabled", true);
             }
         });
 
@@ -1363,7 +1399,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Form/GenerateDepartment",
+            url: "GenerateDepartment",
             data: JSON.stringify(dto),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -1416,7 +1452,7 @@
                 success: function (data) {
                     formData.append("ReqID", REQID);
                     if (data == 'S') {
-
+						$('#idFileUpload').val('');
                         toastr.success("File Attachment " + file.name + " Berhasil diupload", "Berhasil", {
                             "closeButton": false,
                             "debug": true,
@@ -1657,7 +1693,7 @@
                     title: 'Form Submitted'
                 });
 
-                window.location.href = "/PelaporPenyimpangan/DataTableList"
+                window.location.href = "/B7_Deviation/PelaporPenyimpangan/DataTableList"
             }
             , error: function (ex) {
                 alert('Error Insert Form Deviation: ' + JSON.stringify(ex));
@@ -1683,7 +1719,7 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 if (data == 'S') {
-
+					$('#txtWho').val('');
                     toastr.success("Data berhasil tersimpan !", "Tersimpan", {
                         "closeButton": false,
                         "debug": true,

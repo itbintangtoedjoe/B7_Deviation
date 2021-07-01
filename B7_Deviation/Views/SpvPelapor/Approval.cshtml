@@ -55,9 +55,7 @@
                                         <div class="btn-group mb-2 ">
                                             <div class="basic-dropdown">
                                                 <div class="dropdown site-dropdown">
-                                                    <select id="ddlSite">
-                                                        <option>OKE NOICE</option>
-                                                    </select>
+                                                    <select id="ddlSite" disabled="disabled"></select>
                                                 </div>
                                             </div>
                                         </div>
@@ -462,18 +460,10 @@
 
 <script>
         $(document).ready(function () {
-
+			
             // LOAD ALL DETAILED FORM
             LoadAll();
 
-            // LOAD LIST OF SITE LOCATION
-            $(".site-dropdown").click(function () {
-                GetAllSite();
-            });
-
-            $(".site-dropdown").change(function () {
-                alert($("#ddlSite").val());
-            });
 
         });
 
@@ -484,7 +474,7 @@
             }
 
             $.ajax({
-                url: "/SpvPelapor/App_LoadDeviationApproval",
+                url: "../SpvPelapor/App_LoadDeviationApproval",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify(dto),
@@ -492,17 +482,25 @@
                 success: function (data) {
 
                     var text = '';
-
+					console.log('Temu lawak');
                     //BUGGY
                     GetFileAttachment();
                     LoadUserInvolved();
+					
 
                     document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
                     document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
                     document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
                     document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
 
-                    GetAllSite();
+                    //GetAllSite();
+					
+					text = '<Option class="dropdown-item" selected value = "' + data[0].LOCATION_SITE + '" >' + data[0].DDL_DESC;
+                    $("#ddlSite").empty();
+                    $("#ddlSite").append(text);
+                    $("#ddlSite").selectpicker();
+					
+					var text = '';
 
                     text = '<Option class="dropdown-item" value = "' + data[0].ID_DEVIATION_CATEGORY + '" selected >' + data[0].ID_DEVIATION_CATEGORY;
                     $("#ddlKategori").empty();
@@ -631,7 +629,7 @@
 
         function GetAllSite() {
 
-            GetAllSite = function () { };
+            //GetAllSite = function () { };
 
             var REQID = @ViewBag.nomor;
 
@@ -640,7 +638,7 @@
             }
 
             $.ajax({
-                url: "/SpvPelapor/App_GetSiteName",
+                url: "../SpvPelapor/App_GetSiteName",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify(dto),
@@ -672,11 +670,15 @@
 
                     trhtml += '</select>';
 
-                    $(".site-dropdown").empty();
-                    $(".site-dropdown").append(trhtml);
+                    $("#ddlSite").empty();
+                    $("#ddlSite").append(trhtml);
                     $("#ddlSite").selectpicker();
+					$('#ddlSite').attr('disabled', true);
+					
 
-                    GetAllSite = function () { };
+                    //GetAllSite = function () { };
+					
+					alert($('#ddlSite').val());
 
                 },
                 error: function (ex) {
@@ -692,9 +694,9 @@
             var dto = {
                 ReqID: REQID
             }
-
+			
             $.ajax({
-                url: "/SpvPelapor/App_LoadUserInvolved",
+                url: "../SpvPelapor/App_LoadUserInvolved",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify(dto),
@@ -702,10 +704,12 @@
                 success: function (data) {
                     if (data != '') {
                         $('#tblWho').attr('hidden', false);
-
+						
                         var trHTML = '';
                         var trav = 0;
                         var Count = data.length;
+						
+						
                         for (trav = 0; trav < Count; trav++) {
 
                             trHTML += '<tr><td>' + data[trav].NO + '</td>' +
@@ -715,7 +719,8 @@
                                 '<td align="center"> - </td></tr>';
 
                         }
-
+						
+						
                         $("#tblBodyWho").empty();
                         $("#tblBodyWho").append(trHTML);
                         $("#tblBodyWho").addBack();
@@ -733,15 +738,16 @@
         }
 
         function GetFileAttachment() {
-
+			console.log('lawak');
+			
             var ReqID = @ViewBag.nomor;
             var dto = {
                 ReqID: ReqID
             }
-
+			
             $.ajax({
                 type: "POST",
-                url: "/SpvPelapor/App_LoadAttachment",
+                url: "../SpvPelapor/App_LoadAttachment",
                 data: JSON.stringify(dto),
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
@@ -762,7 +768,7 @@
                                     '<td style="display:none;">' + data[trav].path_file + '</td>' +
                                     '<td align="center"> - </td></tr>';
                             }
-
+							console.log(trHTML);
                             $("#tbl_Attachment").show();
                             $("#tbody_Attachment").empty();
                             $("#tbody_Attachment").append(trHTML);
@@ -777,7 +783,7 @@
                     }
                 },
                 error: function (ex) {
-                    alert('Error Load Attachment : ' + JSON.stringify(ex));
+                    alert('Error File Attachment : ' + JSON.stringify(ex));
                 }
             });
         }

@@ -22,7 +22,7 @@
                                     <div class="form-group">
 
                                         @* APPROVE PER HEADER *@
-                                        <button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control">
+                                        <button type="button" id="btnApprove" style="width:108.11px" class="btn mb-1 btn-success form-control">
                                             Approve
                                             <span class="fa fa-check-square-o"></span>
                                         </button>
@@ -56,9 +56,7 @@
                                             <div class="col input-group form-group">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown user-dropdown form-inline">
-                                                        <select id="ddlReviewer" name="ddlReviewer" class="form-control">
-                                                           
-                                                        </select>
+                                                        <select id="ddlReviewer" name="ddlReviewer" class="form-control"></select>
                                                     </div>
                                                 </div>
                                                 <span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
@@ -105,7 +103,7 @@
     </div>
 
     <div class="form-group">
-        @Html.Partial("~/Views/SpvPelapor/Approval.cshtml")
+        @Html.Partial("../SpvPelapor/Approval")
     </div>
 </div>
 
@@ -119,9 +117,7 @@
 
 
         $('#spanUser').click(function () {
-            $.when($.ajax(InsertNamaTerlibat())).then(function () {
-
-            });
+            InsertNamaTerlibat();
         });
 
         $("#btnReject").click(function () {
@@ -148,7 +144,7 @@
         };
 
         $.ajax({
-            url: "/Koordinator/Coor_Approve",
+            url: "../Koordinator/Coor_Approve",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -164,13 +160,13 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/Koordinator/PendingApproval"
+                        window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
                     }
                 })
 
             }
             , error: function (ex) {
-                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                alert('Error Approve : ' + JSON.stringify(ex));
             }
         });
     }
@@ -186,7 +182,7 @@
         };
 
         $.ajax({
-            url: "/Koordinator/Coor_Approve",
+            url: "../Koordinator/Coor_Approve",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -200,13 +196,13 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/Koordinator/PendingApproval"
+                        window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
                     }
                 })
 
             }
             , error: function (ex) {
-                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                alert('Error Approve Reviewer : ' + JSON.stringify(ex));
             }
         });
     }
@@ -245,7 +241,7 @@
                 };
 
                 $.ajax({
-                    url: "/Koordinator/Coor_Reject",
+                    url: "../Koordinator/Coor_Reject",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dto),
@@ -260,13 +256,13 @@
                         }).then((result) => {
 
                             if (result.isConfirmed) {
-                                window.location.href = "/Koordinator/PendingApproval"
+                                window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
                             }
                         })
 
                     }
                     , error: function (ex) {
-                        alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                        alert('Error Reject: ' + JSON.stringify(ex));
                     }
                 });
 
@@ -280,6 +276,11 @@
         var category = $("#ddlKategori").val();
         var location = $("#ddlSite").val();
         var dept = $("#TbDeptPusul").val();
+		
+		alert(REQID);
+		alert(category);
+		alert(location);
+		alert(dept);
 
         var dto = {
             ReqID: REQID,
@@ -289,7 +290,7 @@
         };
 
         $.ajax({
-            url: "/Koordinator/Coor_GetDevNum",
+            url: "../Koordinator/Coor_GetDevNum",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -298,14 +299,14 @@
 
             }
             , error: function (ex) {
-                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                alert('Error Get Dev Num: ' + JSON.stringify(ex));
             }
         });
     }
 
     function GetDDL() {
         $.ajax({
-            url: "/Koordinator/Coor_LoadUser",
+            url: "../Koordinator/Coor_LoadUser",
             type: "post",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -330,9 +331,6 @@
                 $("#ddlReviewer").select2({
                     placeholder: "* Please Select User *"
                 });
-
-
-
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
@@ -349,7 +347,7 @@
         }
 
         $.ajax({
-            url: "/Koordinator/Coor_InsertUserInvolved",
+            url: "../Koordinator/Coor_InsertUserInvolved",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -379,7 +377,7 @@
                 }
             }
             , error: function (ex) {
-                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                alert('Insert Nama Terlibat: ' + JSON.stringify(ex));
             }
         });
     }
@@ -393,7 +391,7 @@
         }
 
         $.ajax({
-            url: "/Koordinator/Coor_LoadUserInvolved",
+            url: "../Koordinator/Coor_LoadUserInvolved",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -442,7 +440,7 @@
         }
 
         $.ajax({
-            url: "/Koordinator/Coor_DeleteUserInvolved",
+            url: "../Koordinator/Coor_DeleteUserInvolved",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -486,7 +484,7 @@
         };
 
         $.ajax({
-            url: "/Koordinator/Coor_GetCurrStat",
+            url: "../Koordinator/Coor_GetCurrStat",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -498,7 +496,7 @@
                     $("#btnShowRev").removeAttr('hidden');
 
                     $("#btnShowRev").click(function () {
-                        window.location.href = "/Koordinator/ReviewerDataTable?Nomor=@ViewBag.nomor";
+                        window.location.href = "/B7_Deviation/Koordinator/ReviewerDataTable?Nomor=@ViewBag.nomor";
                     });
 
                     $("#btnApprove").attr("hidden", true);
@@ -509,36 +507,43 @@
                         ApproveReviewer();
 
                     });
-                } else {
+                } else { 
                     $("#btnShowRev").attr("hidden", true);
                     $("btnCancel").attr("hidden", true);
 
                     $("#btnApprove").removeAttr("hidden");
                     $("#btnReject").removeAttr("hidden");
+					
+					
 
                     $("#btnApprove").click(function () {
 
-                        $("#xddlx").removeAttr('hidden');
-
+                       
                         var tbl = document.getElementById('tblWho').rows.length;
-
-                        if (tbl <= 1) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Please Insert Reviewer First',
-                            });
-
+						var btnText = $("#btnApprove").text();
+							
+                        if (tbl <= 1 && $.trim(btnText) == 'Approve') {
                             $("#btnReject").attr("hidden", true);
-
+							$("#xddlx").removeAttr('hidden');
+							$("#btnApprove").text('Send to Reviewer');
+							$("#btnApprove").width("110px");
                             GetDDL();
                             return;
-                        } else {
-                            Approve();
                         }
-
-
-
+						else if (tbl <= 1 && $.trim(btnText) == 'Send to Reviewer')
+						{
+							
+							Swal.fire({
+									icon: 'error',
+									title: 'Oops...',
+									text: 'Please Insert Reviewer First',
+							});
+							return;
+						}
+						else
+						{
+							Approve();
+                        }
                     });
                 }
 
@@ -557,7 +562,7 @@
         };
 
         $.ajax({
-            url: "/Koordinator/Coor_CheckDelegate",
+            url: "../Koordinator/Coor_CheckDelegate",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -617,7 +622,7 @@
                 };
 
                 $.ajax({
-                    url: "/Koordinator/Coor_KoorCancel",
+                    url: "../Koordinator/Coor_KoorCancel",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dto),
@@ -632,7 +637,7 @@
                         }).then((result) => {
 
                             if (result.isConfirmed) {
-                                window.location.href = "/Koordinator/PendingApproval"
+                                window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
                             }
                         })
 
@@ -646,7 +651,7 @@
     }
 
     function Delegate() {
-        window.location.href = "/Koordinator/Delegasi?Nomor=@ViewBag.nomor";
+        window.location.href = "/B7_Deviation/Koordinator/Delegasi?Nomor=@ViewBag.nomor";
     }
 
 </script>

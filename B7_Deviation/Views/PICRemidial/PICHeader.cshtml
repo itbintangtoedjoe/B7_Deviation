@@ -322,7 +322,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/PICRemidial/PIC_InsertBukti",
+            url: "../PICRemidial/PIC_InsertBukti",
             data: formData,
             dataType: "json",
             contentType: false,
@@ -370,7 +370,7 @@
         }
 
         $.ajax({
-            url: "/PICRemidial/PIC_LoadBukti",
+            url: "../PICRemidial/PIC_LoadBukti",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -475,7 +475,7 @@
         };
 
         $.ajax({
-            url: "/PICRemidial/PIC_Save",
+            url: "../PICRemidial/PIC_Save",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -490,7 +490,7 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/PICRemidial/PendingApproval"
+                        window.location.href = "../B7_Deviation/PICRemidial/PendingApproval"
                     }
                 });
 
@@ -518,7 +518,7 @@
         }
 
         $.ajax({
-            url: "/Reviewer/Rev_DeleteAttachment",
+            url: "../Reviewer/Rev_DeleteAttachment",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),

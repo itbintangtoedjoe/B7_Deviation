@@ -171,7 +171,7 @@
         };
 
         $.ajax({
-            url: "/QualityManager/QM_GetCurrStat",
+            url: "../QualityManager/QM_GetCurrStat",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -201,7 +201,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_LoadDeviationApproval",
+            url: "../QualityManager/QM_LoadDeviationApproval",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -291,7 +291,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/QualityManager/QM_LoadAttachment",
+                        url: "../QualityManager/QM_LoadAttachment",
                         data: JSON.stringify(xto),
 
                         dataType: "json",
@@ -362,7 +362,7 @@
                                 };
 
                                 $.ajax({
-                                    url: "/QualityManager/QM_ApprovePerReviewer",
+                                    url: "../QualityManager/QM_ApprovePerReviewer",
                                     type: "post",
                                     data: JSON.stringify(dto),
                                     dataType: "json",
@@ -427,7 +427,7 @@
                                         };
 
                                         $.ajax({
-                                            url: "/QualityManager/QM_RejectPerReviewer",
+                                            url: "../QualityManager/QM_RejectPerReviewer",
                                             type: "post",
                                             dataType: "json",
                                             data: JSON.stringify(dto),
@@ -474,7 +474,7 @@
             }
 
             $.ajax({
-                url: "/SpvPelapor/App_LoadDeviationApproval",
+                url: "../SpvPelapor/App_LoadDeviationApproval",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify(dto),
@@ -507,7 +507,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_InsertKeteranganDisposisi",
+            url: "../QualityManager/QM_InsertKeteranganDisposisi",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -551,7 +551,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_LoadKeteranganDisposisi",
+            url: "../QualityManager/QM_LoadKeteranganDisposisi",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -604,7 +604,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_DeleteKeteranganDisposisi",
+            url: "../QualityManager/QM_DeleteKeteranganDisposisi",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),

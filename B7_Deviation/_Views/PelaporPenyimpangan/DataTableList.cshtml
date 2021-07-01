@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "DataTableList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
+
+<body>
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="form-group">
+                        <h2 class="d-inline">Deviation Table</h2>
+                    </div>
+                    <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="deviationdatatable" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="100px">Request ID</th>
+                                <th width="100px">Deviation Number</th>
+                                <th width="100px">Creation Date</th>
+                                <th width="100px">NIK Proposer</th>
+                                <th width="100px">Proposer Name</th>
+                                <th width="100px">Site Location</th>
+                                <th width="100px">Deviation Category</th>
+                                <th width="100px">Status</th>
+                                <th width="100px" hidden>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="deviationtable" class="nowrap">
+                            <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Load User once the page is loaded
+            LoadData();
+
+        });
+
+        function LoadData() {
+
+            var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+            var dto = {
+
+                IDUSER: iduser,
+               
+            };
+
+            $.ajax({
+                url: "/PelaporPenyimpangan/SemiMasterView",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+                    for (trav = 0; trav < Count; trav++) {
+
+
+                        trHTML +=
+                            '<tr><td align="center"><a href="/DataDeviasi/Deviasi?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>' +
+                            '<td align="center">' + data[trav].DEVIATION_NO + '</td>' +
+                            '<td align="center">' + data[trav].CREATION_DATE + '</td>' +
+                            '<td align="center">' + data[trav].ID_PROPOSER + '</td>' +
+                            '<td align="left">' + data[trav].EMPNAME + '</td>' +
+                            '<td align="left">' + data[trav].LOCATION_SITE + '</td>' +
+                            '<td align="left">' + data[trav].DEVIATION_CATEGORY + '</td>' +
+                            '<td align="left">' + data[trav].STATUS_DESC + '</td>' +
+                            '<td align="center" hidden>' + data[trav].REQ_ID + '</td>';
+                    }
+
+                    $('#deviationtable').empty();
+                    $('#deviationtable').append(trHTML);
+                    $('#deviationdatatable').DataTable();
+
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        }
+
+
+
+    </script>
+
+</body>
+
+
+
+
+

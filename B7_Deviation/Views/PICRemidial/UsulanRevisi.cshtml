@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="txtTanggal">Revisi Tindakan Remedial:</label>
-                                        <textarea class="form-control"></textarea>
+                                        <textarea id="tindakan" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                 }
 
                 $.ajax({
-                    url: "/PICRemidial/PIC_SubmitUsulanRevisi",
+                    url: "../PICRemidial/PIC_SubmitUsulanRevisi",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dto),
@@ -147,7 +147,7 @@
                         }).then((result) => {
 
                             if (result.isConfirmed) {
-                                window.location.href = "/PICRemidial/PendingApproval"
+                                window.location.href = "../PICRemidial/PendingApproval"
                             }
                         })
 

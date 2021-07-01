@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Pengusul:</label>
+                                        <label>Approval:</label>
                                         <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
                                     </div>
                                     <div class="form-group">
@@ -79,7 +79,7 @@
         };
 
         $.ajax({
-            url: "/SpvPelapor/Spv_Approve",
+            url: "../SpvPelapor/Spv_Approve",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -94,7 +94,7 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/SpvPelapor/PendingApproval"
+                        window.location.href = "/B7_Deviation/SpvPelapor/PendingApproval"
                     }
                 })
 
@@ -139,7 +139,7 @@
                 };
 
                 $.ajax({
-                    url: "/SpvPelapor/Spv_Reject",
+                    url: "Spv_Reject",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dto),
@@ -154,7 +154,7 @@
                         }).then((result) => {
 
                             if (result.isConfirmed) {
-                                window.location.href = "/SpvPelapor/PendingApproval"
+                                window.location.href = "/B7_Deviation/SpvPelapor/PendingApproval"
                             }
                         })
 

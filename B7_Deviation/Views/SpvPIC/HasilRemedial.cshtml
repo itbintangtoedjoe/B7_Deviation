@@ -761,7 +761,7 @@
         }
 
         $.ajax({
-            url: "/SpvPelapor/App_LoadDeviationApproval",
+            url: "../SpvPelapor/App_LoadDeviationApproval",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -918,7 +918,7 @@
         }
 
         $.ajax({
-            url: "/SpvPelapor/App_GetSiteName",
+            url: "../SpvPelapor/App_GetSiteName",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -970,7 +970,7 @@
             }
 
         $.ajax({
-            url: "/SpvPelapor/App_LoadUserInvolved",
+            url: "../SpvPelapor/App_LoadUserInvolved",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1015,7 +1015,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/SpvPelapor/App_LoadAttachment",
+            url: "../SpvPelapor/App_LoadAttachment",
             data: JSON.stringify(dto),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -1063,7 +1063,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_LoadDeviationApproval",
+            url: "../QualityManager/QM_LoadDeviationApproval",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1144,7 +1144,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/QualityManager/QM_LoadAttachment",
+                        url: "../QualityManager/QM_LoadAttachment",
                         data: JSON.stringify(xto),
 
                         dataType: "json",
@@ -1215,7 +1215,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_LoadKeteranganDisposisi",
+            url: "../QualityManager/QM_LoadKeteranganDisposisi",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1267,7 +1267,7 @@
         }
 
         $.ajax({
-            url: "/SpvPIC/LoadBukti",
+            url: "../SpvPIC/LoadBukti",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1315,7 +1315,7 @@
         }
 
         $.ajax({
-            url: "/SpvPIC/LoadPICSection",
+            url: "../SpvPIC/LoadPICSection",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1368,7 +1368,7 @@
         }
 
         $.ajax({
-            url: "/SpvPIC/Approve",
+            url: "../SpvPIC/Approve",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1383,7 +1383,7 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/SpvPIC/PendingApproval"
+                        window.location.href = "/B7_Deviation/SpvPIC/PendingApproval"
                     }
                 })
 
@@ -1430,7 +1430,7 @@
                 };
 
                 $.ajax({
-                    url: "/SpvPIC/Reject",
+                    url: "../SpvPIC/Reject",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dto),
@@ -1445,7 +1445,7 @@
                         }).then((result) => {
 
                             if (result.isConfirmed) {
-                                window.location.href = "/SpvPIC/PendingApproval"
+                                window.location.href = "/B7_Deviation/SpvPIC/PendingApproval"
                             }
                         })
 

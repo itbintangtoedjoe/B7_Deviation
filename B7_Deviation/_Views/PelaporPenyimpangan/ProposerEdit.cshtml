@@ -1,0 +1,1761 @@
+﻿
+@{
+    ViewBag.Title = "ProposerHeader";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <h4 class="d-inline">Edit Deviation Form</h4>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <button type="button" id="btnSubmit" class="col-sm-2 btn mb-1 btn-success form-control ">
+                                            Submit
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
+                                        <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control">
+                                            Cancel
+                                            <span class="fa fa-ban"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nama</label>
+                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTanggal">Tanggal:</label>
+                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="d-inline" style="">Laporan Penyimpangan</h4>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <br />
+                                    <label>Register Number</label>
+                                    <br />
+                                    <label id="lblReq" style="font-weight:bold"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label>Tanggal</label>
+                                    <input id="TbTglCreated" class="form-control" readonly="readonly">
+                                </div>
+                                <div class="col">
+                                    <label>Nomer Deviation</label>
+                                    <input id="TbNmrDev" type="text" class="form-control" readonly="readonly" value="-">
+                                </div>
+                                <div class="col">
+                                    <label>Pengusul</label>
+                                    <input id="TbPesul" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+                                </div>
+                                <div class="col">
+                                    <label>Departemen</label>
+                                    <input id="TbDeptPusul" type="text" class="form-control" readonly="readonly">
+                                </div>
+                            </div>
+                            <!-- Readonly End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-validation">
+                                <form class="form-valide" onsubmit="return s();" action="#" method="post">
+                                    <!-- Site -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label" for="ddlSite">Site<span class="text-danger">*</span></label>
+
+                                        <div class="col-sm-3">
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlSite" name="ddlSite"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Kategori Penyimpangan<span class="text-danger">*</span></label>
+                                        <div class="col-sm-3">
+                                            <div>
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlKategori" name="ddlKategori"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div id="divsimpang">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlJenSi" name="ddlJenSi">></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div id="divproduk">
+                                                <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan"></textarea>
+                                        </div>
+                                    </div>
+                                    @*  Penyimpangan terencana *@
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Apakah penyimpangan ini terencana?<span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes"> Ya
+
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No" checked> Tidak
+
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Problem (What) -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Problem (What)<span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <textarea id="txtProblem" class="form-control" placeholder="Problem (What)"></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- Requirement (Jika Ada) -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Requirement (Jika Ada)</label>
+                                        <div class="col-sm-10">
+                                            <textarea id="txtReq" class="form-control" placeholder="Requirement (Jika Ada)"></textarea>
+                                        </div>
+                                    </div>
+
+                                    @* Tanggal Kejadian *@
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Tanggal dan Waktu Kejadian (When)</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <input id="date-format" type="text" class="form-control">
+                                                <span class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="mdi mdi-calendar-check"></i>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @* Lokasi *@
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Lokasi (Where)<span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <textarea id="txtLokasi" class="form-control" placeholder="Lokasi (Where)"></textarea>
+                                        </div>
+                                    </div>
+
+
+                                    @* Siapa Saja *@
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
+                                        <div class="col-sm-7">
+                                            <div class="input-group">
+                                                <input id="txtWho" class="form-control" placeholder="Siapa saja yang terlibat (Who)">
+                                                <span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
+                                                    <span class="input-group-text btn-success">
+                                                        <i class="fa fa-user-plus"></i>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+                                                <table id="tblWho" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width:20px">No</th>
+                                                            <th>Nama</th>
+                                                            <th style="width:30px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tblBodyWho">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*Bagaimana Urutan Kejadian*@
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Bagaimana Urutan Kejadian (How)<span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <textarea id="txtHow" class="form-control" placeholder="Bagaimana Urutan Kejadian (How)"></textarea>
+                                        </div>
+                                    </div>
+
+
+                                    @*Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?*@
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?<span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input type="radio" name="travel4" data-travelNumber="1" id="pernah_yes_1" value="Yes"> Ya
+
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input name="travel4" type="radio" data-travelNumber="1" id="pernah_no_1" value="No" checked> Tidak
+
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <textarea name="travelDetails" id="txt30hari" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" disabled></textarea>
+                                        </div>
+                                    </div>
+
+                                    @*Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?*@
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?<span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input type="radio" name="travel1" data-travelNumber="1" id="sama_yes_1" value="Yes"> Ya
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input name="travel1" type="radio" data-travelNumber="1" id="sama_no_1" value="No" checked> Tidak
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <textarea name="travelDetails" id="txtsama" class="form-control" placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" disabled></textarea>
+                                        </div>
+                                    </div>
+
+                                    @*Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?*@
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?<span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="form-check form-check-inline">
+                                                    <div class="form-check form-check-inline">
+                                                        <label>
+                                                            <input type="radio" name="travel2" data-travelNumber="1" id="rilis_yes_2" value="Yes"> Ya
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label>
+                                                            <input name="travel2" type="radio" data-travelNumber="1" id="rilis_no_2" value="No" checked> Tidak
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <textarea id="txtrilis" name="travelDetails" class="form-control" placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" disabled></textarea>
+                                        </div>
+                                    </div>
+
+                                    @*Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?*@
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?<span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input type="radio" name="travel3" data-travelNumber="1" id="lain_yes_3" value="Yes"> Ya
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input name="travel3" type="radio" data-travelNumber="1" id="lain_no_3" value="No" checked> Tidak
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <textarea id="txtlain" name="travelDetails" class="form-control" placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" disabled></textarea>
+                                        </div>
+                                    </div>
+
+                                    @*Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi*@
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-2 col-form-label">
+                                            <label>
+                                                Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi
+                                            </label>
+                                            <label style="font-size:x-small; color:red">
+                                                *Wajib diisi untuk penyimpangan tidak terencana
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <textarea id="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
+                                            <div class="row" style="padding-top: 5px">
+                                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                {
+                                                    <input type="file" name="NamaFileUpload" class="col-sm-6" id="idFileUpload" style="padding-top:10px;" />
+                                                    <hr />
+                                                    <button type="button" id="btnUpload" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>}
+
+                                                <!--<button type="button" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>-->
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 col-form-label"></label>
+                                        <div class="col-sm-10">
+                                            <div class="table-responsive">
+                                                <table id="tbl_Attachment" class="table header-border">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                <b>No</b>
+                                                            </th>
+                                                            <th>
+                                                                <b>File Name</b>
+                                                            </th>
+                                                            <th>
+                                                                <b>Action</b>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbody_Attachment"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ************************** List Penilaian ***************************** -->
+
+                                    <div class="form-group row">
+                                        <h4 class="col-sm-6 col-form-label">Penilaian Potensi Dampak dari penyimpangan<span class="text-danger">*</span></h4>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>Kualitas Produk</label>
+                                                <br />
+                                                <div class="btn-group mb-2">
+                                                    <div class="basic-dropdown">
+                                                        <div class="dropdown">
+                                                            <select id="ddlKualProd" title="Kualitas Produk"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label>Risiko Finansial</label>
+                                                <br />
+                                                <div class="btn-group mb-2">
+                                                    <div class="basic-dropdown">
+                                                        <div class="dropdown">
+                                                            <select id="ddlRiskFin" title="Risiko Finansial"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label>Risiko Kesehatan Personil</label>
+                                                <br />
+                                                <div class="btn-group mb-2">
+                                                    <div class="basic-dropdown">
+                                                        <div class="dropdown">
+                                                            <select id="ddlKesehatanPer" title="Risiko Kesehatan Personil"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Baris 2 -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>Compliance</label>
+                                                <br />
+                                                <div class="btn-group mb-2">
+                                                    <div class="basic-dropdown">
+                                                        <div class="dropdown">
+                                                            <select id="ddlCompliance" title="Compliance"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label>Risiko Organisasi</label>
+                                                <br />
+                                                <div class="btn-group mb-2">
+                                                    <div class="basic-dropdown">
+                                                        <div class="dropdown">
+                                                            <select id="ddlRiskOrg" title="Risiko Organisasi"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label>Resiko Lingkungan</label>
+                                                <br />
+                                                <div class="btn-group mb-2">
+                                                    <div class="basic-dropdown">
+                                                        <div class="dropdown">
+                                                            <select id="ddlResLingk" title="Risiko Lingkungan"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Baris 3-->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>Risiko Operasional</label>
+                                                <br />
+                                                <div class="btn-group mb-2">
+                                                    <div class="basic-dropdown">
+                                                        <div class="dropdown">
+                                                            <select id="ddlRiskOpr" title="Risiko Operasional"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label>Risiko Keamanan Personil</label>
+                                                <br />
+                                                <div class="btn-group mb-2">
+                                                    <div class="basic-dropdown">
+                                                        <div class="dropdown">
+                                                            <select id="ddlKeamamananP" title="Risiko Keamanan Personil"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label>Risiko Intelektual</label>
+                                                <br />
+                                                <div class="btn-group mb-2">
+                                                    <div class="basic-dropdown">
+                                                        <div class="dropdown">
+                                                            <select id="ddlRiskIntelek" title="Risiko Intelektual"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>Tingkat Keparahan Penyimpangan</label>
+                                                <br />
+                                                <div class="btn-group mb-2">
+                                                    <input id="txtKeparahan" type="text" class="form-control" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- End Form-->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- #/ container -->
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            if (!$(".form-valide").valid()) {
+                return;
+            }
+            InsertDeviation();
+
+        });
+
+        $("#btnCancel").click(function () {
+            window.location.href = "/PelaporPenyimpangan/PendingApproval"
+
+        });
+
+    });
+
+    function Submit() {
+        var REQID = @ViewBag.nomor;
+        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var dto = {
+            REQID: REQID,
+            IDUSER: iduser
+        };
+
+        $.ajax({
+            url: "/PelaporPenyimpangan/Prop_SubmitRejectedSPV",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                Swal.fire({
+                    title: 'Form Submitted',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: `OK`
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        window.location.href = "/PelaporPenyimpangan/PendingApproval"
+                    }
+                })
+
+            }
+            , error: function (ex) {
+                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+
+
+    $(document).ready(function () {
+
+        GenerateDepartment();
+
+        // Generate Req ID
+        $(document).ready(function () {
+            $('#tblWho').attr('hidden', true);
+            $.when($.ajax(GenerateReqID())).then(function () {
+                $.when($.ajax(GenerateDate())).then(function () {
+                    GetFileAttachment();
+                    LoadUserInvolved();
+                });
+            });
+        });
+
+        // Load
+        $(document).ready(function () {
+            GetSiteName();
+            GetKategoriDeviation();
+            GetJenisDeviation();
+            SetupRbDtPicker();
+
+        });
+
+        // Load Drop down poin keparahan
+        $(document).ready(function () {
+            GetKualitasProduk();
+            GetCompliance();
+            GetResikoOperasional();
+
+            GetResikoFinansial();
+            GetResikoOrganisasi();
+            GetResikoKeamPersonil();
+
+            GetResikoKesehatanPersonil();
+            GetResikokLingkungan();
+            GetResikoIntelektual();
+        });
+
+    });
+
+    // Button click
+    $(document).ready(function () {
+        $('#spanUser').click(function () {
+            $.when($.ajax(InsertNamaTerlibat())).then(function () {
+
+            });
+        });
+
+        $("#btnUpload").click(function () {
+            UploadAttachmentDeviation();
+        });
+
+        
+    });
+
+    // Drop Down List Click
+    $(document).ready(function () {
+        $("#ddlSite").change(function () {
+
+        });
+
+        $("#divsimpang").hide();
+        $('#divproduk').hide();
+        $('#divproduk').hide();
+
+        $("#ddlKategori").change(function () {
+            if ($("#ddlKategori").val() == 'QUA') {
+                $("#divsimpang").show();
+            }
+            else {
+                $("#divsimpang").hide();
+            }
+        });
+
+        $("#ddlJenSi").change(function () {
+            if ($('#ddlJenSi').val() == 'PRODUK' || $('#ddlJenSi').val() == 'MATAWL') {
+                $('#divproduk').show();
+            }
+            else {
+                $('#divproduk').hide();
+            }
+        });
+
+
+        $('#ddlKualProd').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt(this.value)
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlRiskFin').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlKesehatanPer').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlCompliance').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlRiskOrg').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlResLingk').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlRiskOpr').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlKeamamananP').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlRiskIntelek').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt(this.value)
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+    });
+
+    // Load Dropdownlist
+    function GetSiteName() {
+        $.ajax({
+            url: "/Form/GetSiteName",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header"  value = " ">   Site Pelapor   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlSite").empty();
+                $("#ddlSite").append(trhtml);
+                $("#ddlSite").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetKategoriDeviation() {
+        $.ajax({
+            url: "/Form/GetKategoriDeviation",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlKategori").empty();
+                $("#ddlKategori").append(trhtml);
+                $("#ddlKategori").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetJenisDeviation() {
+        $.ajax({
+            url: "/Form/GetJenisDeviation",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Jenis Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlJenSi").empty();
+                $("#ddlJenSi").append(trhtml);
+                $("#ddlJenSi").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    // Set Picker disable text
+    function SetupRbDtPicker() {
+
+        //$("input[name='travel1'][value='No']").prop('checked', true);
+        //$("input[name='travel2'][value='No']").prop('checked', true);
+        //$("input[name='travel3'][value='No']").prop('checked', true);
+        //$("input[name='travel4'][value='No']").prop('checked', true);
+        //$("input[name='travel5'][value='No']").prop('checked', true);
+        //$("textarea[name = 'travelDetails']").val('');
+
+        //$("input[type=radio]").change(function () {
+        //    var id = $(this).attr("id").split("_");
+        //    id = id[id.length - 1];
+        //    $("#txt" + id).attr("disabled", !($(this).val() == "Yes"));
+        //});
+        //$("textarea[name = 'travelDetails']").attr("disabled", true);
+        $('#ddlSite selectpicker').selectpicker();
+
+
+        $('input[type=radio][name=travel1]').change(function () {
+            if ($('input[name="travel1"]:checked').val() == 'Yes') {
+
+                $("#txtsama").removeAttr("disabled");
+            } else {
+                $("#txtsama").attr("disabled", true);
+            }
+
+        });
+
+        $('input[type=radio][name=travel2]').change(function () {
+            if ($('input[name="travel2"]:checked').val() == 'Yes') {
+
+                $("#txtrilis").removeAttr("disabled");
+            } else {
+                $("#txtrilis").attr("disabled", true);
+            }
+
+        });
+
+        $('input[type=radio][name=travel3]').change(function () {
+            if ($('input[name="travel3"]:checked').val() == 'Yes') {
+
+                $("#txtlain").removeAttr("disabled");
+            } else {
+                $("#txtlain").attr("disabled", true);
+            }
+
+        });
+
+        $('input[type=radio][name=travel4]').change(function () {
+            if ($('input[name="travel4"]:checked').val() == 'Yes') {
+
+                $("#txt30hari").removeAttr("disabled");
+            } else {
+                $("#txt30hari").attr("disabled", true);
+            }
+
+        });
+
+
+    }
+
+
+    // Dropdown list pentuan angka keparahan
+    function GetKualitasProduk() {
+
+        $.ajax({
+            url: "/Form/GetKualitasProduk",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlKualProd").empty();
+                $("#ddlKualProd").append(trhtml);
+                $("#ddlKualProd").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetCompliance() {
+
+        $.ajax({
+            url: "/Form/GetCompliance",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlCompliance").empty();
+                $("#ddlCompliance").append(trhtml);
+                $("#ddlCompliance").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetResikoOperasional() {
+
+        $.ajax({
+            url: "/Form/GetResikoOperasional",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlRiskOpr").empty();
+                $("#ddlRiskOpr").append(trhtml);
+                $("#ddlRiskOpr").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+
+    function GetResikoFinansial() {
+
+        $.ajax({
+            url: "/Form/GetResikoFinansial",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlRiskFin").empty();
+                $("#ddlRiskFin").append(trhtml);
+                $("#ddlRiskFin").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetResikoOrganisasi() {
+
+        $.ajax({
+            url: "/Form/GetResikoOrganisasi",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlRiskOrg").empty();
+                $("#ddlRiskOrg").append(trhtml);
+                $("#ddlRiskOrg").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetResikoKeamPersonil() {
+
+        $.ajax({
+            url: "/Form/GetResikoKeamPersonil",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlKeamamananP").empty();
+                $("#ddlKeamamananP").append(trhtml);
+                $("#ddlKeamamananP").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+
+    function GetResikoKesehatanPersonil() {
+
+        $.ajax({
+            url: "/Form/GetResikoKesehatanPersonil",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlKesehatanPer").empty();
+                $("#ddlKesehatanPer").append(trhtml);
+                $("#ddlKesehatanPer").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetResikokLingkungan() {
+
+        $.ajax({
+            url: "/Form/GetResikokLingkungan",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlResLingk").empty();
+                $("#ddlResLingk").append(trhtml);
+                $("#ddlResLingk").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetResikoIntelektual() {
+
+        $.ajax({
+            url: "/Form/GetResikoIntelektual",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#ddlRiskIntelek").empty();
+                $("#ddlRiskIntelek").append(trhtml);
+                $("#ddlRiskIntelek").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+
+    // Generate Date Jquery
+    function GenerateDate() {
+        // Start Show Date
+        var d = new Date();
+        var day = d.getDay();
+        var date = d.getDate();
+        date = (date < 10) ? ("0" + date) : date;
+        var year = d.getFullYear();
+        var month = d.getMonth();
+        var xx = d.getMonth();
+        var hour = d.getHours();
+        hour = (hour < 10) ? ("0" + hour) : hour;
+        var minuts = d.getMinutes();
+        minuts = (minuts < 10) ? ("0" + minuts) : minuts;
+        var monthArr = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "October", "November", "Desember"];
+        var daysArr = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+        month = monthArr[month];
+        day = daysArr[day];
+
+        $('#TbTglCreated').attr("value", date + " " + month + " " + year + " " + hour + ":" + minuts);
+    }
+
+    function GenerateDepartment() {
+        var ID_PROPOSER = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var dto = {
+            IdProposer: ID_PROPOSER
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Form/GenerateDepartment",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $("#TbDeptPusul").val(data);
+
+            },
+            error: function (ex) {
+            }
+        });
+
+    }
+
+    // Generate ReqID
+    function GenerateReqID() {
+        $('#lblReq').text(@ViewBag.nomor);
+
+    }
+
+    // File Attachment Deviation
+    function UploadAttachmentDeviation() {
+        var formData = new FormData();
+        var REQID = $("#lblReq").text();
+        var totalFiles = document.getElementById("idFileUpload").files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("idFileUpload").files[i];
+            formData.append("idFileUpload", file);
+            formData.append("ReqID", REQID);
+        }
+
+        if (file.name != null || file.name != "") {
+            $.ajax({
+                type: "POST",
+                url: "/Form/UploadAttachment",
+                data: formData,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    formData.append("ReqID", REQID);
+                    if (data == 'S') {
+
+                        toastr.success("File Attachment " + file.name + " Berhasil diupload", "Berhasil", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+                        GetFileAttachment(REQID);
+                    }
+                }
+                , error: function (ex) {
+                    alert('Error Upload Attachment: ' + JSON.stringify(ex));
+                }
+            });
+        }
+    }
+
+    function GetFileAttachment() {
+
+        var ReqID = $('#lblReq').text();
+        var dto = {
+            ReqID: ReqID
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Form/LoadAttachment",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data != '') {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+                    if (Count > 0) {
+                        for (trav = 0; trav < Count; trav++) {
+                            var no = 1
+                            no = no + trav
+                            trHTML += '<tr><td>' + no + '</td>' +
+                                '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                                '<td style="display:none">' + data[trav].NO_FILE + '</td>' +
+                                '<td>' + data[trav].file_name_upload + '</td>' +
+                                '<td style="display:none;">' + data[trav].path_file + '</td>' +
+                                '<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
+                        }
+
+                        $("#tbl_Attachment").show();
+                        $("#tbody_Attachment").empty();
+                        $("#tbody_Attachment").append(trHTML);
+                        $("#tbody_Attachment").addBack();
+
+                    } else {
+                        $("#tbl_Attachment").hide();
+                    }
+                } else {
+                    $("#tbl_Attachment").hide();
+                    $("#tbody_Attachment").addBack();
+                }
+            },
+            error: function (ex) {
+                alert('Error Load Attachment : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function DeleteFileAttachment(button) {
+        event.preventDefault();
+        var Row = $(button).closest("TR");
+        var ReqID = $("TD", Row).eq(1).html();
+        var RecordID = $("TD", Row).eq(2).html();
+        var FileName = $("TD", Row).eq(3).html();
+        var PathFile = $("TD", Row).eq(4).html();
+
+        var dto = {
+            ReqID: ReqID,
+            RecordID: RecordID,
+            PathFile: PathFile
+        }
+
+        $.ajax({
+            url: "/Form/DeleteAttachment",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data == 'S') {
+                    toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-left",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+
+                    GetFileAttachment();
+                }
+            },
+            error: function (ex) {
+                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+            }
+        });
+
+    }
+
+    // Save Deviation
+    function InsertDeviation() {
+
+        var ID_PROPOSER = '@Request.RequestContext.HttpContext.Session["xUser"]';
+        var DEPARTEMENT = $("#TbDeptPusul").val();
+        var PROBLEM = $("#txtProblem").val();
+        var DATE_OF_INCIDENT = $("#date-format").val();
+        var LOCATION_SITE = $("#ddlSite").val();
+        var DEVIATION_CATEGORY = $("#ddlKategori").val();
+        var DEVIATION_TYPE = $("#ddlJenSi").val();
+        var KET_CATEGORY = $("#txtKetKategori").val();
+        var CR_DATE_USER = $("#TbTglCreated").val();
+        var LOCATION = $("#txtLokasi").val();
+
+
+        var USER_INVOLVED = $("#txtWho").val();
+        var ORDER_OF_EVENTS = $("#txtHow").val();
+
+        var PLAN_DEV_FLAG = $('input[name="travel5"]:checked').val();
+
+        var SAME_POTEN_DEV_FLAG = $('input[name="travel1"]:checked').val();
+        var SAME_POTEN_DEV = $("#txtsama").val();
+        var POTEN_DEV_RLS_FLG = $('input[name="travel2"]:checked').val();
+        var POTEN_DEV_RLS = $("#txtrilis").val();
+        var POTEN_DEV_OTH_FLG = $('input[name="travel3"]:checked').val();
+        var POTEN_DEV_OTH = $("#txtlain").val();
+        var ACTION_WHEN_DEV = $("#txtTindakan").val();
+        var FILE_UPLOAD_ID = $("#txtUpload").val();
+        var QUALITY_PRODUCT = $("#ddlKualProd").val();
+        var COMPLIANCE = $("#ddlCompliance").val();
+        var RISK_OPERATION = $("#ddlRiskOpr").val();
+        var RISK_FINANCIAL = $("#ddlRiskFin").val();
+        var RISK_ORGANIZATION = $("#ddlRiskOrg").val();
+        var RISK_SECURITY = $("#ddlKeamamananP").val();
+        var RISK_HEALTY = $("#ddlKesehatanPer").val();
+        var RISK_ENVIRONTMENT = $("#ddlResLingk").val();
+        var RISK_INTELLECTUAL = $("#ddlRiskIntelek").val();
+        var SEVERTY_DEVIATION = $("#txtKeparahan").val();
+        var REQID = $("#lblReq").text();
+
+        var REQ = $("#txtReq").val();
+
+        var THIRTY_FLAG = $('input[name="travel4"]:checked').val();
+        var THIRTY = $("#txt30hari").val();
+
+        var FLAG_KOOR = document.getElementById('ddlKategori').value;
+
+        if (FLAG_KOOR == 'QPR' || FLAG_KOOR == 'QNA' || FLAG_KOOR == 'QMT' || FLAG_KOOR == 'LLI') {
+            FLAG_KOOR = 'Coordinator_QA';
+        } else if (FLAG_KOOR == 'QNS' || FLAG_KOOR == 'HSE' ){
+            FLAG_KOOR = 'Coordinator_QS';
+        }
+
+        alert(FLAG_KOOR);
+
+        var dto = {
+            CrDateUser: CR_DATE_USER,
+            IdProposer: ID_PROPOSER,
+            Departement: DEPARTEMENT,
+            Problem: PROBLEM,
+            Date_of_incident: DATE_OF_INCIDENT,
+            LocationSite: LOCATION_SITE,
+            DeviationCategory: DEVIATION_CATEGORY,
+            DeviationType: DEVIATION_TYPE,
+            KetCategory: KET_CATEGORY,
+            Location: LOCATION,
+
+            User_involved: USER_INVOLVED,
+            OrderOfEvents: ORDER_OF_EVENTS,
+            SamePotenDevFlag: SAME_POTEN_DEV_FLAG,
+            SamePotennDev: SAME_POTEN_DEV,
+            PotenDevRlsFlg: POTEN_DEV_RLS_FLG,
+            PotenDevRls: POTEN_DEV_RLS,
+            PotenDevOTHFlg: POTEN_DEV_OTH_FLG,
+            PotenDevOTH: POTEN_DEV_OTH,
+
+            ActionWhenDev: ACTION_WHEN_DEV,
+            File_upload_id: FILE_UPLOAD_ID,
+            QualityProduct: QUALITY_PRODUCT,
+            Compliance: COMPLIANCE,
+            RiskOperasional: RISK_OPERATION,
+            RiskFinancial: RISK_FINANCIAL,
+            RiskOrganization: RISK_ORGANIZATION,
+            RiskSecurity: RISK_SECURITY,
+            RiskHealty: RISK_HEALTY,
+            RiskEnvirontment: RISK_ENVIRONTMENT,
+            RiskIntellectual: RISK_INTELLECTUAL,
+            SevertyDeviation: SEVERTY_DEVIATION,
+            ReqID: REQID,
+
+            FLAG_KOOR: FLAG_KOOR,
+
+            PLAN_DEV: PLAN_DEV_FLAG,
+            THIRTY_FLAG: THIRTY_FLAG,
+            THIRTY: THIRTY,
+            REQ: REQ
+
+        };
+
+        $.ajax({
+            url: "/Form/InsertFormDeviation",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Form Submitted'
+                });
+
+                window.location.href = "/PelaporPenyimpangan/PendingApproval"
+            }
+            , error: function (ex) {
+                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    // Save Orang terlibat
+    function InsertNamaTerlibat() {
+        var UserInvolved = $('#txtWho').val();
+        var REQID = $("#lblReq").text();
+
+        var dto = {
+            REQID: REQID,
+            UserInvolved: UserInvolved
+        }
+
+        $.ajax({
+            url: "/Form/UserInvolved",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data == 'S') {
+
+                    toastr.success("Data berhasil tersimpan !", "Tersimpan", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+
+                    LoadUserInvolved();
+                }
+            }
+            , error: function (ex) {
+                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function LoadUserInvolved() {
+
+        var REQID = $("#lblReq").text();
+
+        var dto = {
+            REQID: REQID
+        }
+
+        $.ajax({
+            url: "/Form/LoadUserInvolved",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data != '') {
+                    $('#tblWho').attr('hidden', false);
+
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+                    for (trav = 0; trav < Count; trav++) {
+                        trHTML += '<tr><td>' + data[trav].NO + '</td>' +
+                            '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                            '<td style="display:none">' + data[trav].RecordID + '</td>' +
+                            '<td>' + data[trav].USER_NAME + '</td>' +
+                            '<td><button onclick="DeleteUserInvolved(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
+                    }
+
+                    $("#tblBodyWho").empty();
+                    $("#tblBodyWho").append(trHTML);
+                    $("#tblBodyWho").addBack();
+                }
+                else {
+                    $('#tblWho').attr('hidden', true);
+                    $("#tblBodyWho").addBack();
+                }
+
+            }
+            , error: function (ex) {
+                alert('Error Load User Involved : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function DeleteUserInvolved(button) {
+        event.preventDefault();
+        var row = $(button).closest("TR");
+        var ReqID = $("TD", row).eq(1).html();
+        var RecordID = $("TD", row).eq(2).html();
+
+        var dto = {
+            REQID: ReqID,
+            RecordID: RecordID
+        }
+
+        $.ajax({
+            url: "/Form/DeleteUserInvolved",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                if (data == 'S') {
+                    toastr.success("Data berhasil terhapus !", "Terhapus", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+
+                    LoadUserInvolved();
+                }
+            }
+            , error: function (ex) {
+                alert('Error Delete User Involved : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function s() {
+        return false;
+    }
+</script>
+
+
+

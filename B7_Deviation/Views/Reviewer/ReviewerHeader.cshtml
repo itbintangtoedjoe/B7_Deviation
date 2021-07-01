@@ -40,7 +40,7 @@
                                     <div class="form-group">
 
                                         <div class="table-responsive">
-                                            <table id="tbl_Attachment" class="table header-border">
+                                            <table id="tbl_AttachmentReviewer" class="table header-border">
                                                 <thead>
                                                     <tr>
                                                         <th>
@@ -54,7 +54,7 @@
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="tbody_Attachment"></tbody>
+                                                <tbody id="tbody_AttachmentReviewer"></tbody>
                                             </table>
                                         </div>
 
@@ -83,7 +83,7 @@
     </div>
 
     <div class="form-group">
-        @Html.Partial("~/Views/SpvPelapor/Approval.cshtml")
+        @Html.Partial("../SpvPelapor/Approval")
     </div>
 
 </div>
@@ -127,7 +127,7 @@
         };
 
         $.ajax({
-            url: "/Reviewer/Rev_Submit",
+            url: "../Reviewer/Rev_Submit",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -142,7 +142,7 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/Reviewer/PendingApproval"
+                        window.location.href = "/B7_Deviation/Reviewer/PendingApproval"
                     }
                 })
 
@@ -169,7 +169,7 @@
         if (file.name != null || file.name != "") {
             $.ajax({
                 type: "POST",
-                url: "/Reviewer/Rev_UploadAttachment",
+                url: "../Reviewer/Rev_UploadAttachment",
                 data: formData,
                 dataType: "json",
                 contentType: false,
@@ -196,7 +196,7 @@
                             "showMethod": "fadeIn",
                             "hideMethod": "fadeOut"
                         });
-                        GetFileAttachment(REQID);
+                        GetFileAttachmentReviewer(REQID);
                     }
                 }
                 , error: function (ex) {
@@ -208,7 +208,7 @@
         }
     }
 
-    function GetFileAttachment() {
+    function GetFileAttachmentReviewer() {
 
         var ReqID = @ViewBag.nomor;
         var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
@@ -219,7 +219,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Reviewer/Rev_LoadAttachment",
+            url: "../Reviewer/Rev_LoadAttachment",
             data: JSON.stringify(dto),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -241,17 +241,17 @@
                                 '<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
                         }
 
-                        $("#tbl_Attachment").show();
-                        $("#tbody_Attachment").empty();
-                        $("#tbody_Attachment").append(trHTML);
-                        $("#tbody_Attachment").addBack();
+                        $("#tbl_AttachmentReviewer").show();
+                        $("#tbody_AttachmentReviewer").empty();
+                        $("#tbody_AttachmentReviewer").append(trHTML);
+                        $("#tbody_AttachmentReviewer").addBack();
 
                     } else {
-                        $("#tbl_Attachment").hide();
+                        $("#tbl_AttachmentReviewer").hide();
                     }
                 } else {
-                    $("#tbl_Attachment").hide();
-                    $("#tbody_Attachment").addBack();
+                    $("#tbl_AttachmentReviewer").hide();
+                    $("#tbody_AttachmentReviewer").addBack();
                 }
             },
             error: function (ex) {
@@ -277,7 +277,7 @@
         }
 
         $.ajax({
-            url: "/Reviewer/Rev_DeleteAttachment",
+            url: "../Reviewer/Rev_DeleteAttachment",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -302,7 +302,7 @@
                         "hideMethod": "fadeOut"
                     });
 
-                    GetFileAttachment();
+                    GetFileAttachmentReviewer();
                 }
             },
             error: function (ex) {

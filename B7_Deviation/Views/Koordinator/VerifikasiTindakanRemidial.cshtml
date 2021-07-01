@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
+<link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
 
 <div class="content-body">
     <div class="form-group">
@@ -206,7 +206,7 @@
         }
 
         $.ajax({
-            url: "/Koordinator/Coor_LoadPICData",
+            url: "../Koordinator/Coor_LoadPICData",
             type: "post",
             data: JSON.stringify(dto),
             dataType: "json",
@@ -272,7 +272,7 @@
         }
 
         $.ajax({
-            url: "/Koordinator/Coor_ShowBuktiTable",
+            url: "../Koordinator/Coor_ShowBuktiTable",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -313,7 +313,7 @@
         };
 
         $.ajax({
-            url: "/Koordinator/Coor_CheckFormStatus",
+            url: "../Koordinator/Coor_CheckFormStatus",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -368,7 +368,7 @@
                 };
 
                 $.ajax({
-                    url: "/Koordinator/Coor_KoorCancel",
+                    url: "../Koordinator/Coor_KoorCancel",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dto),
@@ -376,7 +376,7 @@
                     success: function (data) {
 
                         alert('Form Canceled');
-                        window.location.href = "/Koordinator/PendingApproval"
+                        window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
 
                     }
                     , error: function (ex) {
@@ -407,7 +407,7 @@
         };
 
         $.ajax({
-            url: "/Koordinator/Coor_ApprovePIC",
+            url: "../Koordinator/Coor_ApprovePIC",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -423,7 +423,7 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/Koordinator/PendingApproval"
+                        window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
                     }
                 });
 
@@ -468,7 +468,7 @@
                 };
 
                 $.ajax({
-                    url: "/Koordinator/Coor_Reject",
+                    url: "../Koordinator/Coor_Reject",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dto),
@@ -484,7 +484,7 @@
                         }).then((result) => {
 
                             if (result.isConfirmed) {
-                                window.location.href = "/Koordinator/PendingApproval"
+                                window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
                             }
                         });
 

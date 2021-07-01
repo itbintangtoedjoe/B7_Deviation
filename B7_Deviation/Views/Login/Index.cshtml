@@ -57,12 +57,12 @@
                     success: function (data) {
                         if (data[0] == "True") {
                             
-                            var url = "/HomePage/Index";
+                            var url = "../HomePage/Index";
                             $(location).attr('href', url);
                         }
                         else
                             if (data[0] == "kosong") {
-                                var url = "/Login/Index";
+                                var url = "../Login/Index";
 
                                 swal("UnVerified!", 'Data User harus didaftarkan terlebih dahulu !', "error");
                                 setTimeout(function () {
@@ -72,7 +72,7 @@
                                 
                             }
                             else {
-                                var url = "/Login/Index";
+                                var url = "../Login/Index";
                             
                                 swal("UnVerified!", data[0], "error");
                                 setTimeout(function () {

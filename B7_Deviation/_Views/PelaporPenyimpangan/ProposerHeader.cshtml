@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "ProposerHeader";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* WHERE PROPOSER ONLY SEE THEIR FORM (NOT EDITABLE) *@
+
+<div class="content-body">
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <h4 class="d-inline">Edit Deviation Form</h4>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nama</label>
+                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTanggal">Tanggal:</label>
+                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.Partial("~/Views/SpvPelapor/Approval.cshtml")
+    </div>
+</div>
+
+

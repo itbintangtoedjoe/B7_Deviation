@@ -1,0 +1,644 @@
+﻿@*Header for Quality Manager*@
+
+
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="d-inline" style="">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+                        <div class="form-group row">
+                            <div class="col">
+                                <br />
+                                <label>Register Number</label>
+                                <br />
+                                <label type="text" id="lblReq" style="font-weight:bold" disabled>@ViewBag.nomor</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col">
+                                <label>Tanggal</label>
+                                <input id="TbTglCreated" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Nomer Deviation</label>
+                                <input id="TbNmrDev" type="text" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Pengusul</label>
+                                <input id="TbPesul" type="text" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Departemen</label>
+                                <input id="TbDeptPusul" type="text" class="form-control" disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form id="ReviewerList">
+
+                                <div class="form-group row" id="Reviewer">
+                                    <div class="container-fluid">
+                                        
+                                        <div class="card-body row">
+                                            <div class="col-md-7">
+
+                                                <div class="row form-group">
+                                                    <label class="col-form-label label-trigger">Keterangan Review</label>
+                                                </div>
+
+                                                <div class="row form-group">
+                                                    <textarea placeholder="Keterangan Reviewer" style="width: 500px; height: auto;"></textarea>
+                                                </div>
+
+                                                <div class="row form-group">
+                                                    <label class="col-form-label label-trigger">File Pendukung</label>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="table table-striped table-bordered">
+                                                        <table id="tbl_Attachment" class="table header-border">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        <b>No</b>
+                                                                    </th>
+                                                                    <th>
+                                                                        <b>File Name</b>
+                                                                    </th>
+                                                                    <th hidden="hidden">
+                                                                        <b></b>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tbody_Attachment"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-5">
+
+                                                <div class="row form-group">
+                                                    <label class="col-form-label label-trigger">Nama Reviewer</label>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <textarea id="txtHow" class="form-control" placeholder="Nama Reviewer" disabled="disabled" ></textarea>
+                                                </div>
+
+                                                <div class="row form-group center">
+                                                    <button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control ">
+                                                        Approve
+                                                        <span class="fa fa-check-square-o"></span>
+                                                    </button>
+                                                    <button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
+                                                        Reject
+                                                        <span class="fa fa-ban"></span>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row" id="can" hidden="hidden">
+                                    <label class="col-sm-2 col-form-label">Keterangan Disposisi<span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group">
+                                            <textarea id="txtDisposisi" placeholder="Keterangan Disposisi" style="width: 600px; "></textarea>
+                                            <span id="spanDisposisi" class="input-group-append" title="Tambah orang terlibat">
+                                                <span class="input-group-text btn-success">
+                                                    <i class="fa fa-plus"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+                                            <table id="tblDis" class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:20px">No</th>
+                                                        <th>Keterangan Disposisi</th>
+                                                        <th style="width:30px">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tblDisKet">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    $(document).ready(function () {
+        LoadHeader();
+        LoadReviewerData();
+
+        GetCurrStat();
+
+
+        $('#spanDisposisi').click(function () {
+            $.when($.ajax(InsertDisposisi())).then(function () {
+
+            });
+        });
+
+    });
+
+    function GetCurrStat() {
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            REQID: REQID
+        };
+
+        $.ajax({
+            url: "/QualityManager/QM_GetCurrStat",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                if (data == "CAN") {
+
+                    LoadKeteranganDisposisi();
+                    $("#can").removeAttr('hidden');
+                } else {
+                    $("#can").attr("hidden", true);
+
+                }
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function LoadReviewerData() {
+        var nomor = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: nomor
+        }
+
+        $.ajax({
+            url: "/QualityManager/QM_LoadDeviationApproval",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+
+                var flag = 0;
+                var text = '';
+                var trav = 0;
+                var Count = data.length;
+                var trHTML = '';
+
+                for (trav = 0; trav < Count; trav++) {
+
+                    text +=
+                        '<div class="container-fluid">' +
+
+                        '<div class="card-body bg-gallery row">' +
+                        '<div class="col-md-7">' +
+
+                        '<div class="row form-group">' +
+                        '<label class="col-form-label label-trigger">Keterangan Review</label>' +
+                        '</div>' +
+
+                        '<div class="row form-group">' +
+                        '<textarea placeholder="Keterangan Reviewer" class="form-control" style="width: 500px; height: 200px;" disabled>'  + data[trav].KETERANGAN_REVIEW +  '</textarea>'+ 
+                        '</div>' +
+
+                        '<div class="row form-group">' +
+                        '<label class="col-form-label label-trigger">File Pendukung</label>' +
+                        '</div>' +
+
+                        '<div class="row form-group">' +
+                        '<div class="table-responsive">' +
+                        '<table id="tbl_Attachment" class="table table-info table-striped table-bordered" style="width: 500px">' +
+                        '<thead>' +
+                        '<tr>' +
+                        '<th>' +
+                        '<b>No</b>' +
+                        '</th>' +
+                        '<th>' +
+                        '<b>File Name</b>' +
+                        '</th>' +
+                        '</tr>' +
+                        '</thead>' +
+                        '<tbody id="tbody_Attachment' + trav + '"></tbody>' +
+                        '</table>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+
+                        '<div class="col-md-5" id="go">' +
+
+                        '<input type="text" value="' + data[trav].USER_NIK + '" hidden="hidden" id="nik' + trav + '">' +
+
+                        '<div class="row form-group">' +
+                        '<label class="col-form-label label-trigger">Nama Reviewer</label>' +
+                        '</div>' +
+                        '<div class="row form-group">' +
+                        '<input class="form-control" placeholder="Nama Reviewer" disabled="disabled" value="' + data[trav].USER_NAME + '">' +  
+                        '</div>';
+
+                    if (data[trav].FLAG_REVIEW == "REVIEW APPROVED BY COORDINATOR" || data[trav].FLAG_REVIEW == "DONE REVISE FROM QUALITY MANAGER") {
+                        text +=
+                            '<div class="row form-group center">' +
+                            '<div class="form-group">' + '<button type="button" id="Approve' + trav + '"class="btn mb-1 btn-success  form-group" style="width:100px;">Approve</button>' + '</div>' +
+                            '<div class="form-group">' + '<button type="button" id="Reject' + trav + '"class="btn mb-1 btn-danger  form-group" style="width:100px;">Reject</button>' + '</div>' +
+                            '</div>';
+                    }
+
+                    text +=
+                        '</div>' +
+
+                        '</div>' +
+                        '</div>';
+
+
+
+                    // FUNCTION FOR LOAD REVIEWER'S REVIEW
+                    var usernik = data[trav].USER_NIK
+                    var trap = 0;
+                    var xto = {
+                        ReqID: nomor,
+                        USERNIK: usernik
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/QualityManager/QM_LoadAttachment",
+                        data: JSON.stringify(xto),
+
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (datac) {
+
+                            var trax = 0;
+                            var hitung = datac.length;
+                            var trHTML = '';
+                            var no = 0;
+
+                            // JAVASCRIPT WORKS ASYNC-LY, USING THIS METHOD WILL PREVENT IT FROM BREAKING THE CODE
+
+                            // 1st LOOP FOR TOTAL DOCUMENT
+                            for (trap = 0; trap < hitung; trap++) {
+                                // 2nd LOOP FOR TOTAL REVIEWER
+                                for (flag = 0; flag < trav; flag++) {
+                                    // IF CLAUSE WHERE DOCUMENT AND REVIEWER HAS THE SAME ATTRIBUTES
+                                    if (datac[trap].REVIEWER_ID == data[flag].USER_NIK) {
+                                        var no = 1;
+                                        no = no + trap
+
+                                        trHTML +=
+                                            '<tr><td>' + no + '</td>' +
+                                            '<td><a href="../' + datac[trap].PATH_FILE + '" download="' + datac[trap].PATH_FILE + '">' + datac[trap].FILE_NAME_UPLOAD + '</a></td>' +
+                                            '<td hidden="hidden">' + datac[trap].REVIEWER_ID + '</td>';
+
+                                        $("#tbody_Attachment" + flag).empty();
+                                        $("#tbody_Attachment" + flag).append(trHTML);
+                                        $("#tbody_Attachment" + flag).addBack();
+
+                                        
+
+                                    }
+                                }
+                                
+
+                            }
+
+                        }, error: function (ex) {
+                            alert('Error Load Attachment : ' + JSON.stringify(ex));
+                        }, async: true
+
+                    });
+
+
+                }
+
+                $("#Reviewer").empty();
+                $("#Reviewer").append(text);
+
+                // BEGIN APPROVE AND REJECT FUNCTION
+                $(function () {
+                    var i = 0;
+
+                    for (i = 0; i < Count; i++) {
+                        (function (i) {
+                            // LOOP FUNCTION FOR APPROVAL PER REVIEWER
+                            $("#Approve" + i).click(function () {
+
+                                var CURR_USER_NIK = data[i].USER_NIK
+                                var loginuser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+                                var dto = {
+                                    REQID: nomor,
+                                    USER_NIK: CURR_USER_NIK,
+                                    LOGIN_USER: loginuser
+                                };
+
+                                $.ajax({
+                                    url: "/QualityManager/QM_ApprovePerReviewer",
+                                    type: "post",
+                                    data: JSON.stringify(dto),
+                                    dataType: "json",
+                                    contentType: "application/json;charset=utf-8",
+                                    success: function (data) {
+
+                                        Swal.fire({
+                                            title: 'Reviewer Approvvevd',
+                                            showDenyButton: false,
+                                            showCancelButton: false,
+                                            confirmButtonText: `OK`
+                                        }).then((result) => {
+
+                                            if (result.isConfirmed) {
+                                                LoadReviewerData();
+
+                                            }
+                                        })
+
+
+                                    },
+                                    error: function (ex) {
+                                        alert(JSON.stringify(ex));
+                                    }
+                                });
+
+
+                            });
+
+                            // LOOP FUNCTION FOR REJECTION PER REVIEWER
+                            $("#Reject" + i).click(function () {
+
+                                Swal.fire({
+                                    title: 'Reason???',
+                                    input: 'text',
+                                    inputAttributes: {
+                                        autocapitalize: 'off'
+                                    },
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Submit',
+                                    showLoaderOnConfirm: true,
+                                    allowOutsideClick: () => Swal.isLoading()
+                                }).then((result) => {
+
+                                    if (result.value == null || result.value == '') {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: 'Please Insert Reason!'
+                                        });
+                                    } else if (result.isConfirmed) {
+
+                                        var Keterangan = result.value;
+                                        var CURR_USER_NIK = data[i].USER_NIK
+                                        var loginuser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+                                        var dto = {
+                                            REQID: nomor,
+                                            KETERANGAN_REJECT: Keterangan,
+                                            USER_NIK: CURR_USER_NIK,
+                                            LOGIN_USER: loginuser
+                                        };
+
+                                        $.ajax({
+                                            url: "/QualityManager/QM_RejectPerReviewer",
+                                            type: "post",
+                                            dataType: "json",
+                                            data: JSON.stringify(dto),
+                                            contentType: "application/json;charset=utf-8",
+                                            success: function (data) {
+
+                                                Swal.fire({
+                                                    title: 'Reviewer Rejected',
+                                                    showDenyButton: false,
+                                                    showCancelButton: false,
+                                                    confirmButtonText: `OK`
+                                                }).then((result) => {
+
+                                                    if (result.isConfirmed) {
+                                                        LoadReviewerData();
+
+                                                    }
+                                                })
+                                            }
+                                            , error: function (ex) {
+                                                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                                            }
+                                        });
+                                    }
+                                });
+
+                            });
+
+                        })(i);
+                    }
+                });
+
+                GetCurrStat();
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }, async: false
+        });
+    }
+
+    function LoadHeader() {
+        var nomor = @ViewBag.nomor;
+            var dto = {
+                ReqID: nomor
+            }
+
+            $.ajax({
+                url: "/SpvPelapor/App_LoadDeviationApproval",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+                    document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
+                    document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
+                    document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
+                    document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
+
+                }, error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+    }
+
+    function InsertDisposisi() {
+
+        var REQID = @ViewBag.nomor;
+        var DEVID = $("#TbNmrDev").val();
+        var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+        var KETERANGAN = $('#txtDisposisi').val();
+
+        var dto = {
+            REQ_ID: REQID,
+            DEV_ID: DEVID,
+            USER_NIK: USERNIK,
+            KETERANGAN_DISPOSISI: KETERANGAN
+        }
+
+        $.ajax({
+            url: "/QualityManager/QM_InsertKeteranganDisposisi",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data == 'S') {
+
+                    toastr.success("Data berhasil tersimpan !", "Tersimpan", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+
+                    LoadKeteranganDisposisi();
+                }
+            }
+            , error: function (ex) {
+                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function LoadKeteranganDisposisi() {
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            REQ_ID: REQID
+        }
+
+        $.ajax({
+            url: "/QualityManager/QM_LoadKeteranganDisposisi",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data != '') {
+                    $('#tblDis').attr('hidden', false);
+
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+
+                    for (trav = 0; trav < Count; trav++) {
+                        var no = 1;
+                        no = no + trav;
+
+                        trHTML += '<tr><td hidden="hidden">' + data[trav].NO_DISPOSISI + '</td>' +
+                            '<td>' + no + '</td>' +
+                            '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                            '<td><button onclick="DeleteKeteranganDisposisi(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
+                    }
+
+                    $("#tblDisKet").empty();
+                    $("#tblDisKet").append(trHTML);
+                    $("#tblDisKet").addBack();
+                }
+                else {
+                    $('#tblDis').attr('hidden', true);
+                    $("#tblDisKet").addBack();
+                }
+
+            }
+            , error: function (ex) {
+                alert('Error Load User Involved : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function DeleteKeteranganDisposisi(button) {
+        event.preventDefault();
+        var row = $(button).closest("TR");
+        var ReqID = @ViewBag.nomor;
+        var RecordID = $("TD", row).eq(0).html();
+
+        var dto = {
+            REQID: ReqID,
+            RecordID: RecordID
+        }
+
+        $.ajax({
+            url: "/QualityManager/QM_DeleteKeteranganDisposisi",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                if (data == 'S') {
+                    toastr.success("Data berhasil terhapus !", "Terhapus", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+
+                    LoadKeteranganDisposisi();
+                }
+            }
+            , error: function (ex) {
+                alert('Error Delete User Involved : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    
+
+</script>

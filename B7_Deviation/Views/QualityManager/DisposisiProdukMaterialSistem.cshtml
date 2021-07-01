@@ -7,8 +7,8 @@
 @* THE DUPLICATION OF KOORDINATOR WHEN APPROVING / REJECTING PIC REMEDIAL STATUS *@
 @* I COPY THE CODE AND ADD SOME TO SHORTHEN THE CODE *@
 
-<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
+<link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
 
 <div class="content-body">
     <div class="form-group">
@@ -259,7 +259,7 @@
         };
 
         $.ajax({
-            url: "/QualityManager/QM_CheckStatusQMApproval2",
+            url: "../QualityManager/QM_CheckStatusQMApproval2",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -286,7 +286,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_LoadKoorSub",
+            url: "../QualityManager/QM_LoadKoorSub",
             type: "post",
             data: JSON.stringify(dto),
             dataType: "json",
@@ -316,7 +316,7 @@
         }
 
         $.ajax({
-            url: "/Koordinator/Coor_LoadPICData",
+            url: "../Koordinator/Coor_LoadPICData",
             type: "post",
             data: JSON.stringify(dto),
             dataType: "json",
@@ -382,7 +382,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_ShowBuktiTable",
+            url: "../QualityManager/QM_ShowBuktiTable",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -434,7 +434,7 @@
         };
 
         $.ajax({
-            url: "/QualityManager/QM_LanjutCARPAR",
+            url: "../QualityManager/QM_LanjutCARPAR",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -449,7 +449,7 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/QualityManager/PendingApproval"
+                        window.location.href = "/B7_Deviation/QualityManager/PendingApproval"
                     }
                 });
 
@@ -494,7 +494,7 @@
                 };
 
                 $.ajax({
-                    url: "/QualityManager/QM_TidakLanjut",
+                    url: "../QualityManager/QM_TidakLanjut",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dto),
@@ -509,7 +509,7 @@
                         }).then((result) => {
 
                             if (result.isConfirmed) {
-                                window.location.href = "/QualityManager/PendingApproval"
+                                window.location.href = "/B7_Deviation/QualityManager/PendingApproval"
                             }
                         });
 

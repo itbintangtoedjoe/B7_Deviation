@@ -61,7 +61,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="/Home/Index">
+                <a href="../HomePage/Index">
                     <b class="logo-abbr">
                         <img src="~/Content/Styles/images/logo.png" alt="">
                     </b>
@@ -134,22 +134,34 @@
                         <div hidden="hidden">
                             <input type="text" id="txtPIC" />
                         </div>
+                        @*Form Deviation*@
+                        <ul id="ulMaster" aria-expanded="false">
+                            <li><a href="/B7_Deviation/Form/Input">Form Deviation</a></li>
+                        </ul>
 
-                        @*Pelapor Penyimpangan*@
-                        <ul id="Pelapor" aria-expanded="false">
-                            <li><a href="../Form/Input">Form Deviation</a></li>
-                            <li><a href="../PelaporPenyimpangan/PendingApproval">List Pending Task</a></li> 
-                            <li><a href="../PelaporPenyimpangan/DataTableList">List Deviation</a></li>
+                        @*List Deviation*@
+                        <ul id="ulMaster" aria-expanded="false">
+                            <li><a href="/B7_Deviation/DataDeviasi/ListDeviasi">List Deviation</a></li>
                         </ul>
-                        @*SPV Pelapor Penyimpangan*@
-                        <ul id="SPVPelapor" aria-expanded="false">
-                            <li><a href="../SpvPelapor/PendingApproval">List Pending Task</a></li>
-                            <li><a href="../SpvPelapor/DataTableList">List Deviation</a></li>
+
+                        @*CMS ShowUser*@
+                        <ul id="ulMaster" aria-expanded="false">
+                            <li><a href="/B7_Deviation/CMS/ShowUser">CMS User</a></li>
                         </ul>
-                        @*Koordinator Penyimpangan*@
-                        <ul id="SPVPelapor" aria-expanded="false">
-                            <li><a href="../Koordinator/PendingApproval">List Pending Task</a></li>
-                            <li><a href="../Koordinator/DataTableList">List Deviation</a></li>
+
+                        @*Pending Approval Superior*@
+						<ul id="ulMaster" aria-expanded="false">
+                            <li><a href="/B7_Deviation/SpvPelapor/PendingApproval">Pending Approval Superior</a></li>
+                        </ul>
+						
+						@*Pending Approval Koordinator*@
+						<ul id="ulMaster" aria-expanded="false">
+                            <li><a href="/B7_Deviation/Koordinator/PendingApproval">Pending Approval Koordinator</a></li>
+                        </ul>
+						
+						@*Pending Approval Reviewer*@
+						<ul id="ulMaster" aria-expanded="false">
+                            <li><a href="/B7_Deviation/Reviewer/PendingApproval">Pending Approval Reviewer</a></li>
                         </ul>
                     </li>
 
@@ -265,7 +277,7 @@
 
         $(document).ready(function () {
             $('#spanLogout').click(function () {
-                var url = "/Login/Index";
+                var url = "/B7_Deviation/Login/Index";
 
                 swal({
                     title: "Logout!",
@@ -349,7 +361,7 @@
 
         function CheckIsLogin() {
             var IsLogin = '@Request.RequestContext.HttpContext.Session["xUser"]';
-            var url = "/Login/Index";
+            var url = "/B7_Deviation/Login/Index";
 
             if (IsLogin === '' || IsLogin === null) {
 

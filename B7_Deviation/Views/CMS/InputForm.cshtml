@@ -51,7 +51,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="empid" type="text" placeholder="Enter Employee ID" style="display:block;" name="empid" required />
+                                    <input class="form-control" id="empid" type="text" placeholder="Enter Employee ID" style="display:block;" name="empid" required/>
                                 </div>
                             </div>
 
@@ -63,7 +63,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="username" type="text" placeholder="Enter Username" style="display:block;" name="username" required />
+                                    <input class="form-control" id="username" type="text" placeholder="Enter Username" style="display:block;" name="username"  required/>
                                 </div>
                             </div>
 
@@ -75,7 +75,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="password" type="password" placeholder="Enter Password" style="display:block;" name="password" required />
+                                    <input class="form-control" id="password" type="password" placeholder="Enter Password" style="display:block;" name="password"  required/>
                                 </div>
                             </div>
 
@@ -86,9 +86,9 @@
                                         <span class="text-danger">*</span>
                                     </label>
                                 </div>
-                                <rdiv class="col-lg-6">
-                                    <input class="form-control" id="email" type="email" placeholder="Enter Email" style="display:block;" name="email" required />
-                                </rdiv>
+                                <div class="col-lg-6">
+                                    <input class="form-control" id="email" type="email" placeholder="Enter Email" style="display:block;" name="email"  required/>
+                                </div>
                             </div>
 
                             <div class="row form-group">
@@ -99,7 +99,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="empname" type="text" placeholder="Enter Name" style="display:block;" name="empname" required />
+                                    <input class="form-control" id="empname" type="text" placeholder="Enter Name" style="display:block;" name="empname"  required/>
                                 </div>
                             </div>
 
@@ -111,7 +111,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="jobttlname" type="text" placeholder="Enter Job" style="display:block;" name="jobttlname" required />
+                                    <input class="form-control" id="jobttlname" type="text" placeholder="Enter Job" style="display:block;" name="jobttlname"  required/>
                                 </div>
                             </div>
 
@@ -123,7 +123,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="superiorid" type="text" placeholder="Enter Superior ID" style="display:block;" name="superiorid" required />
+                                    <input class="form-control" id="superiorid" type="text" placeholder="Enter Superior ID" style="display:block;" name="superiorid"  required/>
                                 </div>
                             </div>
 
@@ -135,7 +135,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="superiorname" type="text" placeholder="Enter Superior Name" style="display:block;" name="superiorname" required />
+                                    <input class="form-control" id="superiorname" type="text" placeholder="Enter Superior Name" style="display:block;" name="superiorname"  required/>
                                 </div>
                             </div>
 
@@ -159,7 +159,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="emailsuperior" type="email" placeholder="Enter Superior Email" style="display:block;" name="emailsuperior" required />
+                                    <input class="form-control" id="emailsuperior" type="email" placeholder="Enter Superior Email" style="display:block;" name="emailsuperior"  required/>
                                 </div>
                             </div>
 
@@ -239,6 +239,7 @@
 
         var empid = $('#empid').val();
         var username = $('#username').val();
+        var password = $('#password').val();
         var email = $('#email').val();
         var empname = $('#empname').val();
         var jobttlname = $('#jobttlname').val();
@@ -253,6 +254,7 @@
             username: username,
             email: email,
             empname: empname,
+            password : password,
             jobttlname: jobttlname,
             superiorid: superiorid,
             superiorname: superiorname,
@@ -262,7 +264,7 @@
         }
 
         $.ajax({
-            url: 'CMS_SaveForm',
+            url: '../CMS/CMS_SaveForm',
             type: 'post',
             data: JSON.stringify(dto),
             dataType: 'json',
@@ -275,7 +277,7 @@
                     showConfirmButton: false,
                     timer: 1500
                 });
-                window.location.href = "/CMS/ShowUser"
+                window.location.href = "/B7_Deviation/CMS/ShowUser"
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -286,7 +288,7 @@
 
     function GetRole() {
         $.ajax({
-            url: "CMS_GetRole",
+            url: "../CMS/CMS_GetRole",
             type: "post",
             dataType: "json",
             contentType: "application/json;charset=utf-8",

@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Report</h2>
+
+<div class="content-body">
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <iframe id="ifrmReportViewer" style="height:1000px; width:100%;" frameborder="0" scrolling="yes"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div hidden="hidden">
+        <input type="text" id="txtEN" value="@ViewBag.nomor">
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        ReportValidationCheck();
+    });
+
+    function ReportValidationCheck() {
+        var ENSend = $("#txtEN").val();
+        url = "../Report/Report.aspx?Nomor=" + ENSend;
+
+        var myframe = document.getElementById("ifrmReportViewer");
+        if (myframe !== null) {
+            if (myframe.src) {
+                myframe.src = url;
+            }
+            else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                myframe.contentWindow.location = url;
+            }
+            else {
+                myframe.setAttribute('src', url);
+            }
+        }
+        return false;
+    }
+</script>
+
+

@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <h1>Show List of Users</h1>
 
-                    <a href="/CMS/InputForm" class="btn btn-primary">Add User</a>
+                    <a href="/B7_Deviation/CMS/InputForm" class="btn btn-primary">Add User</a>
 
                     <hr />
 
@@ -91,7 +91,7 @@
         var no = $("TD", row).eq(0).html();
 
         $.ajax({
-            url: "CMS_LoadUser",
+            url: "../CMS/CMS_LoadUser",
             type: "post",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -173,7 +173,7 @@
         }
 
         $.ajax({
-            url: "CMS_UpdateEntry",
+            url: "../CMS/CMS_UpdateEntry",
             type: "post",
             data: JSON.stringify(dto),
             dataType: "json",
@@ -208,7 +208,7 @@
                 }
 
                 $.ajax({
-                    url: "CMS_DeleteEntry",
+                    url: "../CMS/CMS_DeleteEntry",
                     type: "post",
                     data: JSON.stringify(dto),
                     dataType: "json",
@@ -234,7 +234,7 @@
 
     function LoadUser() {
         $.ajax({
-            url: "CMS_LoadUser",
+            url: "../CMS/CMS_LoadUser",
             type: "post",
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -271,7 +271,7 @@
 
     function GetRole() {
         $.ajax({
-            url: "CMS_GetRole",
+            url: "../CMS/CMS_GetRole",
             type: "post",
             dataType: "json",
             contentType: "application/json;charset=utf-8",

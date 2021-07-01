@@ -525,7 +525,7 @@
         });
 
         $("#btnCancel").click(function () {
-            window.location.href = "/PelaporPenyimpangan/PendingApproval"
+            window.location.href = "/B7_Deviation/PelaporPenyimpangan/PendingApproval"
 
         });
 
@@ -541,7 +541,7 @@
         };
 
         $.ajax({
-            url: "/PelaporPenyimpangan/Prop_SubmitRejectedSPV",
+            url: "../PelaporPenyimpangan/Prop_SubmitRejectedSPV",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -556,7 +556,7 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/PelaporPenyimpangan/PendingApproval"
+                        window.location.href = "/B7_Deviation/PelaporPenyimpangan/PendingApproval"
                     }
                 })
 
@@ -919,7 +919,7 @@
     // Load Dropdownlist
     function GetSiteName() {
         $.ajax({
-            url: "/Form/GetSiteName",
+            url: "../Form/GetSiteName",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -944,7 +944,7 @@
 
     function GetKategoriDeviation() {
         $.ajax({
-            url: "/Form/GetKategoriDeviation",
+            url: "../Form/GetKategoriDeviation",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -969,7 +969,7 @@
 
     function GetJenisDeviation() {
         $.ajax({
-            url: "/Form/GetJenisDeviation",
+            url: "../Form/GetJenisDeviation",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1059,7 +1059,7 @@
     function GetKualitasProduk() {
 
         $.ajax({
-            url: "/Form/GetKualitasProduk",
+            url: "../Form/GetKualitasProduk",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1085,7 +1085,7 @@
     function GetCompliance() {
 
         $.ajax({
-            url: "/Form/GetCompliance",
+            url: "../Form/GetCompliance",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1111,7 +1111,7 @@
     function GetResikoOperasional() {
 
         $.ajax({
-            url: "/Form/GetResikoOperasional",
+            url: "../Form/GetResikoOperasional",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1138,7 +1138,7 @@
     function GetResikoFinansial() {
 
         $.ajax({
-            url: "/Form/GetResikoFinansial",
+            url: "../Form/GetResikoFinansial",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1164,7 +1164,7 @@
     function GetResikoOrganisasi() {
 
         $.ajax({
-            url: "/Form/GetResikoOrganisasi",
+            url: "../Form/GetResikoOrganisasi",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1190,7 +1190,7 @@
     function GetResikoKeamPersonil() {
 
         $.ajax({
-            url: "/Form/GetResikoKeamPersonil",
+            url: "../Form/GetResikoKeamPersonil",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1217,7 +1217,7 @@
     function GetResikoKesehatanPersonil() {
 
         $.ajax({
-            url: "/Form/GetResikoKesehatanPersonil",
+            url: "../Form/GetResikoKesehatanPersonil",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1243,7 +1243,7 @@
     function GetResikokLingkungan() {
 
         $.ajax({
-            url: "/Form/GetResikokLingkungan",
+            url: "../Form/GetResikokLingkungan",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1269,7 +1269,7 @@
     function GetResikoIntelektual() {
 
         $.ajax({
-            url: "/Form/GetResikoIntelektual",
+            url: "../Form/GetResikoIntelektual",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1324,7 +1324,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Form/GenerateDepartment",
+            url: "../Form/GenerateDepartment",
             data: JSON.stringify(dto),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -1359,7 +1359,7 @@
         if (file.name != null || file.name != "") {
             $.ajax({
                 type: "POST",
-                url: "/Form/UploadAttachment",
+                url: "../Form/UploadAttachment",
                 data: formData,
                 dataType: "json",
                 contentType: false,
@@ -1404,7 +1404,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Form/LoadAttachment",
+            url: "../Form/LoadAttachment",
             data: JSON.stringify(dto),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -1460,7 +1460,7 @@
         }
 
         $.ajax({
-            url: "/Form/DeleteAttachment",
+            url: "../Form/DeleteAttachment",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1595,7 +1595,7 @@
         };
 
         $.ajax({
-            url: "/Form/InsertFormDeviation",
+            url: "../Form/InsertFormDeviation",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1606,7 +1606,7 @@
                     title: 'Form Submitted'
                 });
 
-                window.location.href = "/PelaporPenyimpangan/PendingApproval"
+                window.location.href = "/B7_Deviation/PelaporPenyimpangan/PendingApproval"
             }
             , error: function (ex) {
                 alert('Error Delete Attachment: ' + JSON.stringify(ex));
@@ -1625,7 +1625,7 @@
         }
 
         $.ajax({
-            url: "/Form/UserInvolved",
+            url: "../Form/UserInvolved",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1669,7 +1669,7 @@
         }
 
         $.ajax({
-            url: "/Form/LoadUserInvolved",
+            url: "../Form/LoadUserInvolved",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1717,7 +1717,7 @@
         }
 
         $.ajax({
-            url: "/Form/DeleteUserInvolved",
+            url: "../Form/DeleteUserInvolved",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),

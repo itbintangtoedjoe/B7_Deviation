@@ -115,7 +115,7 @@
         }
 
         $.ajax({
-            url: "/Koordinator/Coor_Delegate",
+            url: "../Koordinator/Coor_Delegate",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -131,7 +131,7 @@
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        window.location.href = "/Koordinator/PendingApproval"
+                        window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
                     } 
                 })
             },
@@ -144,7 +144,7 @@
 
     function LoadDelegasiList() {
         $.ajax({
-            url: "/Koordinator/Coor_LoadDelegasiList",
+            url: "../Koordinator/Coor_LoadDelegasiList",
             type: "post",
             dataType: "json",
             contentType: "application/json;charset=utf-8",

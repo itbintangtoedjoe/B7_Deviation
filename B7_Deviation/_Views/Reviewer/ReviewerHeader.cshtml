@@ -1,0 +1,319 @@
+﻿
+@{
+    ViewBag.Title = "ReviewerHeader";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-body">
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan (Reviewer)</h4>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <button type="button" id="btnSubmit" class="col-sm-2 btn mb-1 btn-success form-control ">
+                                            Submit
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtReason" class="form-text">Keterangan: <span style="color:red;">*</span></label>
+                                        <textarea id="txtReason" class="form-control" style="background-color:lightyellow; width: 675px; height: 100px;"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-text">Supporting File: <span style="color:red">*</span></label>
+                                        @using (Html.BeginForm("Index", "Reviewer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        {
+                                            <input type="file" name="NamaFileUpload" id="idFileUploadAttach" style="padding-top:10px;" />
+                                            <button type="button" id="btnUploadAttachment" class="col-sm-2 btn mb-1 btn-success ">Upload</button>
+                                            }
+
+                                    </div>
+                                    <div class="form-group">
+
+                                        <div class="table-responsive">
+                                            <table id="tbl_Attachment" class="table header-border">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <b>No</b>
+                                                        </th>
+                                                        <th>
+                                                            <b>File Name</b>
+                                                        </th>
+                                                        <th>
+                                                            <b>Action</b>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody_Attachment"></tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nama</label>
+                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+                                    </div>
+                                    
+                                    
+                                    <div class="form-group">
+                                        <label for="txtTanggal">Tanggal:</label>
+                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")"/> 
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.Partial("~/Views/SpvPelapor/Approval.cshtml")
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+
+            if ($("#txtReason").val() == '' || $("#txtReason").val() == null) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please Insert Reason First',
+                });
+                return;
+            } else {
+                Submit();
+            }
+
+        });
+
+        $("#btnUploadAttachment").click(function () {
+            UploadAttachmentDeviation();
+        });
+
+    });
+
+
+    function Submit() {
+        var REQID = @ViewBag.nomor;
+        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+        var keterangan = $("#txtReason").val();
+
+        var dto = {
+
+            REQID: REQID,
+            KETERANGAN: keterangan,
+            IDUSER: iduser
+        };
+
+        $.ajax({
+            url: "/Reviewer/Rev_Submit",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                Swal.fire({
+                    title: 'Review Submitted',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: `OK`
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        window.location.href = "/Reviewer/PendingApproval"
+                    }
+                })
+
+            }
+            , error: function (ex) {
+                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function UploadAttachmentDeviation() {
+        var formData = new FormData();
+        var REQID = @ViewBag.nomor;
+        var totalFiles = document.getElementById("idFileUploadAttach").files.length;
+        var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("idFileUploadAttach").files[i];
+            formData.append("idFileUploadAttach", file);
+            formData.append("ReqID", REQID);
+            formData.append("UserNIK", usernik);
+        }
+
+        if (file.name != null || file.name != "") {
+            $.ajax({
+                type: "POST",
+                url: "/Reviewer/Rev_UploadAttachment",
+                data: formData,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                JsonRequestBehavior: true,
+                success: function (data) {
+                    formData.append("ReqID", REQID);
+                    if (data == 'S') {
+
+                        toastr.success("File Attachment " + file.name + " Berhasil diupload", "Berhasil", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+                        GetFileAttachment(REQID);
+                    }
+                }
+                , error: function (ex) {
+                    alert('Error Upload Attachment: ' + JSON.stringify(ex));
+                }
+            });
+        } else {
+
+        }
+    }
+
+    function GetFileAttachment() {
+
+        var ReqID = @ViewBag.nomor;
+        var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
+        var dto = {
+            ReqID: ReqID,
+            USERNIK: usernik
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Reviewer/Rev_LoadAttachment",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data != '') {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+                    if (Count > 0) {
+                        for (trav = 0; trav < Count; trav++) {
+                            var no = 1
+                            no = no + trav
+                            trHTML += '<tr><td>' + no + '</td>' +
+                                '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                                '<td style="display:none">' + data[trav].NO_FILE + '</td>' +
+                                '<td>' + data[trav].FILE_NAME_UPLOAD + '</td>' +
+                                '<td style="display:none;">' + data[trav].PATH_FILE + '</td>' +
+                                '<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
+                        }
+
+                        $("#tbl_Attachment").show();
+                        $("#tbody_Attachment").empty();
+                        $("#tbody_Attachment").append(trHTML);
+                        $("#tbody_Attachment").addBack();
+
+                    } else {
+                        $("#tbl_Attachment").hide();
+                    }
+                } else {
+                    $("#tbl_Attachment").hide();
+                    $("#tbody_Attachment").addBack();
+                }
+            },
+            error: function (ex) {
+                alert('Error Load Attachment : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+     function DeleteFileAttachment(button) {
+         var Row = $(button).closest("TR");
+         var ReqID = $("TD", Row).eq(1).html();
+         var RecordID = $("TD", Row).eq(2).html();
+         var FileName = $("TD", Row).eq(3).html();
+         var PathFile = $("TD", Row).eq(4).html();
+
+         var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var dto = {
+            ReqID: ReqID,
+            RecordID: RecordID,
+            PathFile: PathFile,
+            USERNIK: usernik
+        }
+
+        $.ajax({
+            url: "/Reviewer/Rev_DeleteAttachment",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data == 'S') {
+                    toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-left",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+
+                    GetFileAttachment();
+                }
+            },
+            error: function (ex) {
+               alert("ga ok")
+            }
+        });
+
+    }
+
+    function s() {
+        return false;
+    }
+
+</script>

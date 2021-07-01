@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
+<link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
 
 <div class="content-body">
 
@@ -652,7 +652,7 @@
         };
 
         $.ajax({
-            url: "/DataDeviasi/DD_GetCurrStatus",
+            url: "../DataDeviasi/DD_GetCurrStatus",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -664,7 +664,7 @@
                     $("#cancelid").removeAttr("hidden");
 
                     $.ajax({
-                        url: "/DataDeviasi/DD_GetCancelReason",
+                        url: "../DataDeviasi/DD_GetCancelReason",
                         type: "post",
                         dataType: "json",
                         data: JSON.stringify(dto),
@@ -696,7 +696,7 @@
         }
 
         $.ajax({
-            url: "/SpvPelapor/App_LoadDeviationApproval",
+            url: "../SpvPelapor/App_LoadDeviationApproval",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -846,7 +846,7 @@
         }
 
         $.ajax({
-            url: "/SpvPelapor/App_GetSiteName",
+            url: "../SpvPelapor/App_GetSiteName",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -900,7 +900,7 @@
             }
 
         $.ajax({
-            url: "/SpvPelapor/App_LoadUserInvolved",
+            url: "../SpvPelapor/App_LoadUserInvolved",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -945,7 +945,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/SpvPelapor/App_LoadAttachment",
+            url: "../SpvPelapor/App_LoadAttachment",
             data: JSON.stringify(dto),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -994,7 +994,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_LoadDeviationApproval",
+            url: "../QualityManager/QM_LoadDeviationApproval",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1075,7 +1075,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/QualityManager/QM_LoadAttachment",
+                        url: "../QualityManager/QM_LoadAttachment",
                         data: JSON.stringify(xto),
 
                         dataType: "json",
@@ -1139,7 +1139,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_LoadKeteranganDisposisi",
+            url: "../QualityManager/QM_LoadKeteranganDisposisi",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1189,7 +1189,7 @@
         }
 
         $.ajax({
-            url: "/Koordinator/Coor_LoadPICData",
+            url: "../Koordinator/Coor_LoadPICData",
             type: "post",
             data: JSON.stringify(dto),
             dataType: "json",
@@ -1255,7 +1255,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_ShowBuktiTable",
+            url: "../QualityManager/QM_ShowBuktiTable",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -1295,7 +1295,7 @@
         }
 
         $.ajax({
-            url: "/QualityManager/QM_LoadKoorSub",
+            url: "../QualityManager/QM_LoadKoorSub",
             type: "post",
             data: JSON.stringify(dto),
             dataType: "json",
