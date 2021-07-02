@@ -97,6 +97,72 @@ namespace B7_Deviation.Controllers
             return Json(ModelData);
         }
 
+        public ActionResult CMS_CheckEmpID(SaveUser Model)
+        {
+            string conSQL = mySetting.ConnectionString;
+
+            SqlConnection conn = new SqlConnection(conSQL);
+            List<string> ModelData = new List<string>();
+            string result;
+
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_CheckInputCMS", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@empid", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@empid"].Value = Model.Empid;
+
+                    command.Parameters.Add("@option", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@option"].Value = "Check EmpID";
+
+                    result = (string)command.ExecuteScalar();
+                    conn.Close();
+                    ModelData.Add(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(ModelData);
+        }
+
+        public ActionResult CMS_CheckUsername(SaveUser Model)
+        {
+            string conSQL = mySetting.ConnectionString;
+
+            SqlConnection conn = new SqlConnection(conSQL);
+            List<string> ModelData = new List<string>();
+            string result;
+
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_CheckInputCMS", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@username"].Value = Model.Username;
+
+                    command.Parameters.Add("@option", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@option"].Value = "Check Username";
+
+                    result = (string)command.ExecuteScalar();
+                    conn.Close();
+                    ModelData.Add(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(ModelData);
+        }
+
         public ActionResult CMS_GetRole()
         {
             string conString = mySetting.ConnectionString;

@@ -51,7 +51,8 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="empid" type="text" placeholder="Enter Employee ID" style="display:block;" name="empid" required/>
+                                    <input class="form-control" id="empid" type="text" placeholder="Enter Employee ID" style="display:block;" name="empid" required />
+                                    <span hidden="hidden" id="confid" class="text-danger">Employee ID Already Exists, Please Insert a Different Employee ID</span>
                                 </div>
                             </div>
 
@@ -63,7 +64,8 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="username" type="text" placeholder="Enter Username" style="display:block;" name="username"  required/>
+                                    <input class="form-control" id="username" type="text" placeholder="Enter Username" style="display:block;" name="username" required />
+                                    <span hidden="hidden" id="confusername" class="text-danger">Username Already Exists, Please Insert a Different Username</span>
                                 </div>
                             </div>
 
@@ -75,7 +77,20 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="password" type="password" placeholder="Enter Password" style="display:block;" name="password"  required/>
+                                    <input class="form-control" id="password" type="password" placeholder="Enter Password" style="display:block;" name="password" required />
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-lg-4 col-form-label">
+                                    <label for="repassword" class="col-form-label">
+                                        Confirm Password
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input class="form-control" id="repassword" type="password" placeholder="Enter Password" style="display:block;" name="repassword" required />
+                                    <span hidden="hidden" class="text-danger" id="redconf">Confirmation Password Must be Same with Password</span>
                                 </div>
                             </div>
 
@@ -87,7 +102,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="email" type="email" placeholder="Enter Email" style="display:block;" name="email"  required/>
+                                    <input class="form-control" id="email" type="email" placeholder="Enter Email" style="display:block;" name="email" required />
                                 </div>
                             </div>
 
@@ -99,7 +114,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="empname" type="text" placeholder="Enter Name" style="display:block;" name="empname"  required/>
+                                    <input class="form-control" id="empname" type="text" placeholder="Enter Name" style="display:block;" name="empname" required />
                                 </div>
                             </div>
 
@@ -111,7 +126,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="jobttlname" type="text" placeholder="Enter Job" style="display:block;" name="jobttlname"  required/>
+                                    <input class="form-control" id="jobttlname" type="text" placeholder="Enter Job" style="display:block;" name="jobttlname" required />
                                 </div>
                             </div>
 
@@ -123,7 +138,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="superiorid" type="text" placeholder="Enter Superior ID" style="display:block;" name="superiorid"  required/>
+                                    <input class="form-control" id="superiorid" type="text" placeholder="Enter Superior ID" style="display:block;" name="superiorid" required />
                                 </div>
                             </div>
 
@@ -135,7 +150,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="superiorname" type="text" placeholder="Enter Superior Name" style="display:block;" name="superiorname"  required/>
+                                    <input class="form-control" id="superiorname" type="text" placeholder="Enter Superior Name" style="display:block;" name="superiorname" required />
                                 </div>
                             </div>
 
@@ -159,7 +174,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="emailsuperior" type="email" placeholder="Enter Superior Email" style="display:block;" name="emailsuperior"  required/>
+                                    <input class="form-control" id="emailsuperior" type="email" placeholder="Enter Superior Email" style="display:block;" name="emailsuperior" required />
                                 </div>
                             </div>
 
@@ -176,6 +191,10 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <input type="text" hidden="hidden" id="reconfid" value="" />
+                            <input type="text" hidden="hidden" id="reconfusername" value="" />
+
 
                         </form>
                     </div>
@@ -212,6 +231,21 @@
             if (!$(".form-user").valid()) {
                 return
             };
+
+            // Check Confirmation Password
+
+            if ($("#password").val() != $("#repassword").val()) {
+                $("#redconf").removeAttr("Hidden");
+                return
+            } 
+
+            CheckEmpID();
+            CheckUserName();
+
+            if ($("#reconfid").val() != "ga ok" && $("#reconfusername").val() != "ga ok") {
+                return
+            } 
+
             SaveForm();
         });
 
@@ -234,6 +268,70 @@
         });
 
     });
+
+    function CheckEmpID() {
+        var empid = $('#empid').val();
+
+        var dto = {
+            empid: empid
+        }
+
+        $.ajax({
+            url: '../CMS/CMS_CheckEmpID',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data == "ID Exists") {
+                    $("#confid").removeAttr("Hidden");
+                    $("#reconfid").val("EmpID Ada");
+                    $("#empid").val(null);
+                } else {
+                    $("#confid").attr("Hidden", true);
+                    $("#reconfid").val("ga ok");
+                }
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+
+
+    }
+
+    function CheckUserName() {
+        var username = $('#username').val();
+
+        var dto = {
+            Username: username
+        }
+
+        $.ajax({
+            url: '../CMS/CMS_CheckUsername',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data == "Username Exists") {
+                    $("#confusername").removeAttr("Hidden");
+                    $("#username").val(null);
+                    $("#reconfusername").val("Username Ada");
+                    
+
+                } else {
+                    $("#confusername").attr("Hidden", true);
+                    $("#reconfusername").val("ga ok");
+                }
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+    }
 
     function SaveForm() {
 
@@ -277,7 +375,7 @@
                     showConfirmButton: false,
                     timer: 1500
                 });
-                window.location.href = "/B7_Deviation/CMS/ShowUser"
+                window.location.href = "/CMS/ShowUser"
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
