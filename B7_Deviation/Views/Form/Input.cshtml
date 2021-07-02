@@ -51,7 +51,7 @@
                             </div>
                             <div class="col">
                                 <label>Pengusul</label>
-                                <input id="TbPesul" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+                                <input id="TbPesul" type="text" class="form-control" readonly="readonly" value='@Request.RequestContext.HttpContext.Session["fullname"]' >
                             </div>
                             <div class="col">
                                 <label>Departemen</label>
@@ -516,23 +516,23 @@
 <script>
 	//var $ = jQuery.noConflict();
     //window.addEventListener('beforeunload', function (e) {
-	    
+
 	//	e.preventDefault();
     //    e.returnValue = '';
-		
-		
+
+
     //});
-	
+
 	$(window).bind('beforeunload', function () {
         Test();
-            
+
         return '';
     });
-	
+
 	function Test() {
-        
+
         var reqid = $("#lblReq").text();
-        
+
         var dto = {
             ReqID: reqid
         };
@@ -552,10 +552,10 @@
         DeleteFile();
         DeletePath();
 
-        
+
     }
-	
-	
+
+
 	function DeleteFile() {
 
         var reqid = $("#lblReq").text();
@@ -599,21 +599,21 @@
             }
         });
     }
-	
-	
+
+
     $(document).ready(function () {
 
-        GenerateDepartment();
-		
+        GenerateDepartment();        
+
         // Generate Req ID
         $(document).ready(function () {
             $('#tblWho').attr('hidden', true);
-            
+
 			$.when($.ajax(GenerateDate())).then(function () {
 				GetFileAttachment();
 				LoadUserInvolved();
 			});
-            
+
         });
 
         // Load
@@ -645,7 +645,7 @@
     // Button click
     $(document).ready(function () {
 		$('#lblReq').text('-');
-	
+
         $('#spanUser').click(function () {
             $.when($.ajax(InsertNamaTerlibat())).then(function () {
                 $('#txtWho').value('');
@@ -653,7 +653,7 @@
         });
 
         $("#btnUpload").click(function () {
-            
+
             UploadAttachmentDeviation();
         });
 
@@ -664,7 +664,7 @@
             }
             InsertDeviation();
         });
-		
+
 		// Set Form Input Hidden
 		$('#formBody').attr('hidden', true);
 		// tombol generate nomer Req ID
@@ -685,7 +685,7 @@
         $("#TxtNoWO").attr("disabled", true);
         $('#divproduk').hide();
         $('#divproduk').hide();
-        
+
 
         $("#ddlKategori").change(function () {
             if ($("#ddlKategori").val() == 'QPR') {
@@ -699,7 +699,7 @@
         });
 
 
-        
+
         //$("#ddlJenSi").change(function () {
         //    if ($('#ddlJenSi').val() == 'PRODUK' || $('#ddlJenSi').val() == 'MATAWL') {
         //        $('#divproduk').show();
@@ -1031,7 +1031,7 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
-                var trhtml = '';                
+                var trhtml = '';
                 var trav = 0;
                 var arr = new Array();
                 var jsonObj = [];
@@ -1059,7 +1059,7 @@
                         response(results.slice(0, 10));
                     }
                 });
-                
+
             },
             error: function (ex) {
                 alert('Error : ' + JSON.stringify(ex));
@@ -1405,7 +1405,7 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 $("#TbDeptPusul").val(data);
-                
+
             },
             error: function (ex) {
             }
@@ -1693,7 +1693,7 @@
                     title: 'Form Submitted'
                 });
 
-                window.location.href = "/B7_Deviation/PelaporPenyimpangan/DataTableList"
+                window.location.href = "../PelaporPenyimpangan/DataTableList"
             }
             , error: function (ex) {
                 alert('Error Insert Form Deviation: ' + JSON.stringify(ex));
@@ -1842,4 +1842,6 @@
     function s() {
         return false;
     }
+
+    
 </script>

@@ -21,7 +21,9 @@ namespace B7_Deviation.Controllers
         public static extern int FormatMessage(int dwFlags, ref IntPtr lpSource, int dwMessageId, int dwLanguageId, ref string lpBuffer, int nSize, ref IntPtr Arguments);
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
         public static extern bool CloseHandle(IntPtr handle);
-       
+
+        readonly private DataTable DT = new DataTable();
+
         public ActionResult Index()
         {
             Session.Clear();
@@ -240,11 +242,16 @@ namespace B7_Deviation.Controllers
 
                         cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
                         cmd.Parameters["@Username"].Value = Model.Username;
+                        
+                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                        //result = (string)cmd.ExecuteScalar();
+                        dataAdapt.SelectCommand = cmd;
 
-                        result = (string)cmd.ExecuteScalar();
+                        dataAdapt.Fill(DT);
                     }
                     conn2.Close();
-                    Session["role"] = result;
+                    Session["role"] = DT.Rows[0]["role_deviation"];
+                    Session["fullname"] = DT.Rows[0]["empname"];
                 }
                 catch (Exception ex)
                 {

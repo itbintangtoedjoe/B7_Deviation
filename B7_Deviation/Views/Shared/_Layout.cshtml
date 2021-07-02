@@ -140,8 +140,8 @@
                         </div>
                         <ul id="pelapor" aria-expanded="false">
                             <li><a href="../Form/Input">Form Deviation</a></li>
-                            <li><a href="../DataTable/PendingApproval">List Pending Task</a></li>
-                            <li><a href="../DataTable/DataTableList">List Deviation</a></li>
+                            <li><a href="../DataDeviasi/PendingTask">List Pending Task</a></li>
+                            <li><a href="../DataDeviasi/DataTableList">List Deviation</a></li>
                         </ul>
                     </li>
 
@@ -154,8 +154,8 @@
                             </span>
                         </a>
                         <ul id="spvpelapor" aria-expanded="false">
-                            <li><a href="../DataTable/PendingApproval">List Pending Task</a></li>
-                            <li><a href="../DataTable/DataTableList">List Deviation</a></li>
+                            <li><a href="../DataDeviasi/PendingApproval">List Pending Task</a></li>
+                            <li><a href="../DataDeviasi/DataTableList">List Deviation</a></li>
                         </ul>
                     </li>
 
@@ -376,7 +376,7 @@
 
 
         function CheckIsLogin() {
-            var IsLogin = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            var IsLogin = '@Request.RequestContext.HttpContext.Session["fullname"]';
             var IsRole = '@Request.RequestContext.HttpContext.Session["role"]';
             var url = "../Login/Index";
 
@@ -393,8 +393,6 @@
                     $(location).attr('href', url);
                 }, 2000);
             }
-
-
             $('#UserLoginXd').text(IsLogin);
         }
     </script>
