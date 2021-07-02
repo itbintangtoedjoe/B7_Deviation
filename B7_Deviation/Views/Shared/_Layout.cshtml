@@ -123,67 +123,62 @@
         <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li class="nav-label">Dashboard</li>
+                    <li class="nav-label">
+                        Dashboard
+                    </li>
+
+                    @*pelapor*@
                     <li>
                         <a class="has-arrow" aria-expanded="false">
                             <i class="icon-direction menu-icon"></i><!--speedometer-->
                             <span class="nav-text">
-                                Deviation
+                                Pelapor Deviation
                             </span>
                         </a>
                         <div hidden="hidden">
                             <input type="text" id="txtPIC" />
                         </div>
-                        @*pelapor*@
                         <ul id="pelapor" aria-expanded="false">
                             <li><a href="../Form/Input">Form Deviation</a></li>
-                            <li><a href="../PelaporPenyimpangan/PendingApproval">List Pending Task</a></li>
-                            <li><a href="../PelaporPenyimpangan/DataTableList">List Deviation</a></li>
+                            <li><a href="../DataTable/PendingApproval">List Pending Task</a></li>
+                            <li><a href="../DataTable/DataTableList">List Deviation</a></li>
                         </ul>
+                    </li>
 
-                        @*SPV Pelapor*@
+                    @*List Task Deviation*@
+                    <li>
+                        <a class="has-arrow" aria-expanded="false">
+                            <i class="icon-direction menu-icon"></i><!--speedometer-->
+                            <span class="nav-text">
+                                Data Deviation
+                            </span>
+                        </a>
                         <ul id="spvpelapor" aria-expanded="false">
-                            <li><a href="../SPVPelapor/PendingApproval">List Pending Task</a></li>
-                            <li><a href="../SPVPelapor/DataTableList">List Deviation</a></li>
+                            <li><a href="../DataTable/PendingApproval">List Pending Task</a></li>
+                            <li><a href="../DataTable/DataTableList">List Deviation</a></li>
                         </ul>
+                    </li>
 
-                        @*Reviewer*@
-                        <ul id="reviewer" aria-expanded="false">
-                            <li><a href="../Reviewer/PendingApproval">List Pending Task</a></li>
-                            <li><a href="../Reviewer/DataTableList">List Deviation</a></li>
-                        </ul>
+                    
 
-                        @*Quality Manager*@
-                        <ul id="qualitymanager" aria-expanded="false">
-                            <li><a href="../QualityManager/PendingApproval">List Pending Task</a></li>
-                            <li><a href="../QualityManager/DataTableList">List Deviation</a></li>
-                        </ul>
-
-                        @*PIC Remidial*@
-                        <ul id="picremidial" aria-expanded="false">
-                            <li><a href="../PICRemidial/PendingApproval">List Pending Task</a></li>
-                            <li><a href="../PICRemidial/DataTableList">List Deviation</a></li>
-                        </ul>
-
-
-                        @*SPV PIC*@
-                        <ul id="spvpic" aria-expanded="false">
-                            <li><a href="../SpvPIC/PendingApproval">List Pending Task</a></li>
-                            <li><a href="../SpvPIC/DataTableList">List Deviation</a></li>
-                        </ul>
-
-                        @*Koordinator*@
-                        <ul id="koordinator" aria-expanded="false">
-                            <li><a href="../Koordinator/PendingApproval">Pending Approval Koordinator</a></li>
-                            <li><a href="../Koordinator/DataTableList">Pending Approval Koordinator</a></li>
-                        </ul>
+                    @*Koordinator*@
+                    <li>
+                        <a class="has-arrow" aria-expanded="false">
+                            <i class="icon-direction menu-icon"></i>
+                            <span class="nav-text">
+                                Koordination Deviation
+                            </span>
+                        </a>
                         @*CMS ShowUser*@
                         <ul id="cms" aria-expanded="false">
                             <li><a href="../CMS/InputForm">Input User Deviation>CMS User</a></li>
                             <li><a href="../CMS/ShowUser">List User Deviation>CMS User</a></li>
                         </ul>
-
-
+                        <ul id="koordinator" aria-expanded="false">
+                            <li><a href="../Koordinator/PendingApproval">Pending Approval Koordinator</a></li>
+                            <li><a href="../Koordinator/DataTableList">Pending Approval Koordinator</a></li>
+                        </ul>
+                        
                     </li>
 
                 </ul>

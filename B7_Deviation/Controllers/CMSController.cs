@@ -411,6 +411,34 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+        public ActionResult GetFullName(LoginModel Model)
+        {
+            string conSQL = mySetting.ConnectionString;
 
+            SqlConnection conn = new SqlConnection(conSQL);
+            List<string> ModelData = new List<string>();
+            string result;
+
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_GET_FULLNAME", conn))
+                {
+                    
+                    command.CommandType = CommandType.StoredProcedure;                    
+
+                    command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@username"].Value = Model.Username;
+                    conn.Open();
+                    result = (string)command.ExecuteScalar();
+                    conn.Close();
+                    ModelData.Add(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(ModelData);
+        }
     }
 }

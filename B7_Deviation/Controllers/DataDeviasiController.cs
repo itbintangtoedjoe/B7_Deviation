@@ -161,5 +161,49 @@ namespace B7_Deviation.Controllers
             ModelData.Add(result);
             return Json(ModelData, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult PendingTask()
+        {
+            return View();
+        }
+
+        public ActionResult LoadPendingList(ApprovalModel Model)
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_LoadDeviationData", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Pending Task List";
+
+                    command.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@UserID"].Value = Model.IDUSER;
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
     }
 }

@@ -63,7 +63,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Nama</label>
-                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" >
                                     </div>
                                     
                                     
@@ -91,7 +91,7 @@
 <script>
 
     $(document).ready(function () {
-
+        GetFullName();
         $("#btnSubmit").click(function () {
 
             if ($("#txtReason").val() == '' || $("#txtReason").val() == null) {
@@ -314,6 +314,27 @@
 
     function s() {
         return false;
+    }
+
+    function GetFullName() {
+        var t_username = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var dto = {
+            Username: t_username
+        }
+        $.ajax({
+            type: "POST",
+            url: "../CMS/GetFullName",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $('#xdxdxdxd').val(data);
+            },
+            error: function (ex) {
+                alert('Error Get Full Name : ' + JSON.stringify(ex));
+            }
+        });
     }
 
 </script>

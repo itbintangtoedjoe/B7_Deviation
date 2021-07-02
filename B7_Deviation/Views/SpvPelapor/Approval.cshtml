@@ -459,332 +459,337 @@
     ***********************************-->
 
 <script>
-        $(document).ready(function () {
-			
-            // LOAD ALL DETAILED FORM
-            LoadAll();
+    $(document).ready(function () {
+
+        // LOAD ALL DETAILED FORM
+        LoadAll();
 
 
+    });
+
+    function LoadAll() {
+        var nomor = @ViewBag.nomor;
+        var dto = {
+            ReqID: nomor
+        }
+
+        $.ajax({
+            url: "../SpvPelapor/App_LoadDeviationApproval",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var text = '';
+				console.log('Temu lawak');
+                //BUGGY
+                GetFileAttachment();
+                LoadUserInvolved();
+
+
+                document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
+                document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
+
+                //document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
+                document.getElementById('TbPesul').value = data[0].NAME_PROPOSER;
+                
+                document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
+
+                //GetAllSite();
+
+				text = '<Option class="dropdown-item" selected value = "' + data[0].LOCATION_SITE + '" >' + data[0].DDL_DESC;
+                $("#ddlSite").empty();
+                $("#ddlSite").append(text);
+                $("#ddlSite").selectpicker();
+
+				var text = '';
+
+                text = '<Option class="dropdown-item" value = "' + data[0].ID_DEVIATION_CATEGORY + '" selected >' + data[0].ID_DEVIATION_CATEGORY;
+                $("#ddlKategori").empty();
+                $("#ddlKategori").append(text);
+                $("#ddlKategori").selectpicker();
+
+
+
+                document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
+
+                document.getElementById('txtProblem').value = data[0].PROBLEM;
+                document.getElementById('txtLokasi').value = data[0].LOCATION;
+                document.getElementById('txtHow').value = data[0].ORDER_OF_EVENTS;
+                document.getElementById('date-format').value = data[0].DATE_OF_INCIDENT;
+
+                document.getElementById('txtTindakan').value = data[0].ACTION_WHEN_DEV;
+
+                document.getElementById('txtReq').value = data[0].REQ;
+
+                // 1st Card Radio Button
+
+                // Travel 5 -> missing
+                $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
+
+                // Travel 4 -> missing
+                $("input[name=travel4][value=" + data[0].THIRTY_FLAG + "]").prop('checked', true);
+                document.getElementById('txt1').value = data[0].THIRTY;
+
+                // Travel 1
+
+                $("input[name=travel1][value=" + data[0].SAME_POTEN_DEV_FLAG + "]").prop('checked', true);
+                document.getElementById('txtsama').value = data[0].SAME_POTEN_DEV;
+
+                // Travel 2 (Txt2 HTML5 missing)
+
+                $("input[name=travel2][value=" + data[0].POTEN_DEV_RLS_FLG + "]").prop('checked', true);
+                document.getElementById('txtrilis').value = data[0].POTEN_DEV_RLS;
+
+                // Travel 3 (Txt3 HTML5 missing)
+                $("input[name=travel3][value=" + data[0].POTEN_DEV_OTH_FLG + "]").prop('checked', true);
+                document.getElementById('txtlain').value = data[0].POTEN_DEV_OTH;
+
+                // 2nd Card FINISHED!
+
+                // 2nd Card Quality Product
+
+                text = '<Option class="dropdown-item" value = "' + data[0].NO_QUALITY_PRODUCT+ '" selected >' + data[0].QUALITY_PRODUCT;
+
+                $("#ddlKualProd").empty();
+                $("#ddlKualProd").append(text);
+                $("#ddlKualProd").selectpicker();
+
+                // 2nd Card Compliance
+
+                text= '<Option class="dropdown-item" value = "' + data[0].NO_COMPLIANCE + '" selected >' + data[0].COMPLIANCE;
+
+                $("#ddlCompliance").empty();
+                $("#ddlCompliance").append(text);
+                $("#ddlCompliance").selectpicker();
+
+                // 2nd Card Operational Risk
+
+                text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_OPERATION + '" selected >' + data[0].RISK_OPERATION;
+
+                $("#ddlRiskOpr").empty();
+                $("#ddlRiskOpr").append(text);
+                $("#ddlRiskOpr").selectpicker();
+
+                // 2nd Card Financial Risk
+
+                text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_FINANCIAL + '" selected >' + data[0].RISK_FINANCIAL;
+
+                $("#ddlRiskFin").empty();
+                $("#ddlRiskFin").append(text);
+                $("#ddlRiskFin").selectpicker();
+
+                // 2nd Card Organizational Risk
+
+                text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_ORGANIZATION + '" selected >' + data[0].RISK_ORGANIZATION;
+
+                $("#ddlRiskOrg").empty();
+                $("#ddlRiskOrg").append(text);
+                $("#ddlRiskOrg").selectpicker();
+
+                // 2nd Card Personel Security Risk
+
+                text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_SECURITY + '" selected >' + data[0].RISK_SECURITY;
+
+                $("#ddlKeamamananP").empty();
+                $("#ddlKeamamananP").append(text);
+                $("#ddlKeamamananP").selectpicker();
+
+                // 2nd Card Personel Security Risk
+
+                text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_HEALTY + '" selected >' + data[0].RISK_HEALTY;
+
+                $("#ddlKesehatanPer").empty();
+                $("#ddlKesehatanPer").append(text);
+                $("#ddlKesehatanPer").selectpicker();
+
+                // 2nd Card Environment Risk
+
+                text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_ENVIRONTMENT + '" selected >' + data[0].RISK_ENVIRONTMENT;
+
+                $("#ddlResLingk").empty();
+                $("#ddlResLingk").append(text);
+                $("#ddlResLingk").selectpicker();
+
+                // 2nd Card Intellectual Risk
+
+                text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_INTELLECTUAL + '" selected >' + data[0].RISK_INTELLECTUAL;
+
+                $("#ddlRiskIntelek").empty();
+                $("#ddlRiskIntelek").append(text);
+                $("#ddlRiskIntelek").selectpicker();
+
+                // 2nd Card Severity Risk
+
+                document.getElementById('txtKeparahan').value = data[0].SEVERTY_DEVIATION;
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
         });
+    }
 
-        function LoadAll() {
-            var nomor = @ViewBag.nomor;
-            var dto = {
-                ReqID: nomor
-            }
+    function GetAllSite() {
 
-            $.ajax({
-                url: "../SpvPelapor/App_LoadDeviationApproval",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
+        //GetAllSite = function () { };
 
-                    var text = '';
-					console.log('Temu lawak');
-                    //BUGGY
-                    GetFileAttachment();
-                    LoadUserInvolved();
-					
+        var REQID = @ViewBag.nomor;
 
-                    document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
-                    document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
-                    document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
-                    document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
-
-                    //GetAllSite();
-					
-					text = '<Option class="dropdown-item" selected value = "' + data[0].LOCATION_SITE + '" >' + data[0].DDL_DESC;
-                    $("#ddlSite").empty();
-                    $("#ddlSite").append(text);
-                    $("#ddlSite").selectpicker();
-					
-					var text = '';
-
-                    text = '<Option class="dropdown-item" value = "' + data[0].ID_DEVIATION_CATEGORY + '" selected >' + data[0].ID_DEVIATION_CATEGORY;
-                    $("#ddlKategori").empty();
-                    $("#ddlKategori").append(text);
-                    $("#ddlKategori").selectpicker();
-
-                    
-
-                    document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
-                   
-                    document.getElementById('txtProblem').value = data[0].PROBLEM;
-                    document.getElementById('txtLokasi').value = data[0].LOCATION;
-                    document.getElementById('txtHow').value = data[0].ORDER_OF_EVENTS;
-                    document.getElementById('date-format').value = data[0].DATE_OF_INCIDENT;
-
-                    document.getElementById('txtTindakan').value = data[0].ACTION_WHEN_DEV;
-
-                    document.getElementById('txtReq').value = data[0].REQ;
-
-                    // 1st Card Radio Button
-
-                    // Travel 5 -> missing
-                    $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
-
-                    // Travel 4 -> missing
-                    $("input[name=travel4][value=" + data[0].THIRTY_FLAG + "]").prop('checked', true);
-                    document.getElementById('txt1').value = data[0].THIRTY;
-
-                    // Travel 1
-
-                    $("input[name=travel1][value=" + data[0].SAME_POTEN_DEV_FLAG + "]").prop('checked', true);
-                    document.getElementById('txtsama').value = data[0].SAME_POTEN_DEV;
-
-                    // Travel 2 (Txt2 HTML5 missing)
-
-                    $("input[name=travel2][value=" + data[0].POTEN_DEV_RLS_FLG + "]").prop('checked', true);
-                    document.getElementById('txtrilis').value = data[0].POTEN_DEV_RLS;
-
-                    // Travel 3 (Txt3 HTML5 missing)
-                    $("input[name=travel3][value=" + data[0].POTEN_DEV_OTH_FLG + "]").prop('checked', true);
-                    document.getElementById('txtlain').value = data[0].POTEN_DEV_OTH;
-
-                    // 2nd Card FINISHED!
-
-                    // 2nd Card Quality Product
-
-                    text = '<Option class="dropdown-item" value = "' + data[0].NO_QUALITY_PRODUCT+ '" selected >' + data[0].QUALITY_PRODUCT;
-
-                    $("#ddlKualProd").empty();
-                    $("#ddlKualProd").append(text);
-                    $("#ddlKualProd").selectpicker();
-
-                    // 2nd Card Compliance
-
-                    text= '<Option class="dropdown-item" value = "' + data[0].NO_COMPLIANCE + '" selected >' + data[0].COMPLIANCE;
-
-                    $("#ddlCompliance").empty();
-                    $("#ddlCompliance").append(text);
-                    $("#ddlCompliance").selectpicker();
-
-                    // 2nd Card Operational Risk
-
-                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_OPERATION + '" selected >' + data[0].RISK_OPERATION;
-
-                    $("#ddlRiskOpr").empty();
-                    $("#ddlRiskOpr").append(text);
-                    $("#ddlRiskOpr").selectpicker();
-
-                    // 2nd Card Financial Risk
-
-                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_FINANCIAL + '" selected >' + data[0].RISK_FINANCIAL;
-
-                    $("#ddlRiskFin").empty();
-                    $("#ddlRiskFin").append(text);
-                    $("#ddlRiskFin").selectpicker();
-
-                    // 2nd Card Organizational Risk
-
-                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_ORGANIZATION + '" selected >' + data[0].RISK_ORGANIZATION;
-
-                    $("#ddlRiskOrg").empty();
-                    $("#ddlRiskOrg").append(text);
-                    $("#ddlRiskOrg").selectpicker();
-
-                    // 2nd Card Personel Security Risk
-
-                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_SECURITY + '" selected >' + data[0].RISK_SECURITY;
-
-                    $("#ddlKeamamananP").empty();
-                    $("#ddlKeamamananP").append(text);
-                    $("#ddlKeamamananP").selectpicker();
-
-                    // 2nd Card Personel Security Risk
-
-                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_HEALTY + '" selected >' + data[0].RISK_HEALTY;
-
-                    $("#ddlKesehatanPer").empty();
-                    $("#ddlKesehatanPer").append(text);
-                    $("#ddlKesehatanPer").selectpicker();
-
-                    // 2nd Card Environment Risk
-
-                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_ENVIRONTMENT + '" selected >' + data[0].RISK_ENVIRONTMENT;
-
-                    $("#ddlResLingk").empty();
-                    $("#ddlResLingk").append(text);
-                    $("#ddlResLingk").selectpicker();
-
-                    // 2nd Card Intellectual Risk
-
-                    text = '<Option class="dropdown-item" value = "' + data[0].NO_RISK_INTELLECTUAL + '" selected >' + data[0].RISK_INTELLECTUAL;
-
-                    $("#ddlRiskIntelek").empty();
-                    $("#ddlRiskIntelek").append(text);
-                    $("#ddlRiskIntelek").selectpicker();
-
-                    // 2nd Card Severity Risk
-
-                    document.getElementById('txtKeparahan').value = data[0].SEVERTY_DEVIATION;
-
-                }, error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
+        var dto = {
+            ReqID: REQID
         }
 
-        function GetAllSite() {
+        $.ajax({
+            url: "../SpvPelapor/App_GetSiteName",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<select id="ddlSite">';
+                trhtml += '<option disabled hidden class="dropdown-header"  value = " ">   Site Pelapor   </option>';
 
-            //GetAllSite = function () { };
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
 
-            var REQID = @ViewBag.nomor;
-
-            var dto = {
-                ReqID: REQID
-            }
-
-            $.ajax({
-                url: "../SpvPelapor/App_GetSiteName",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    var count = data.length;
-                    var trhtml = '';
-                    var trav = 0;
-                    trhtml += '<select id="ddlSite">';
-                    trhtml += '<option disabled hidden class="dropdown-header"  value = " ">   Site Pelapor   </option>';
-
-                    if (count > 0) {
-                        for (trav = 0; trav < count; trav++) {
-
-                            if (data[trav].DDL_TRUE == '' || data[trav].DDL_TRUE == null) {
-                                trhtml += '<Option class="dropdown-item" selected value = "" > - ';
-                                break;
-                            }
-
-                            if (data[trav].DDL_TRUE == data[trav].DDL_CODE) {
-                                trhtml += '<Option class="dropdown-item" selected value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION ;
-                            } else {
-                                trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION ;
-                            }
-
-
+                        if (data[trav].DDL_TRUE == '' || data[trav].DDL_TRUE == null) {
+                            trhtml += '<Option class="dropdown-item" selected value = "" > - ';
+                            break;
                         }
-                    }
 
-                    trhtml += '</select>';
-
-                    $("#ddlSite").empty();
-                    $("#ddlSite").append(trhtml);
-                    $("#ddlSite").selectpicker();
-					$('#ddlSite').attr('disabled', true);
-					
-
-                    //GetAllSite = function () { };
-					
-					alert($('#ddlSite').val());
-
-                },
-                error: function (ex) {
-                    alert('Error : ' + JSON.stringify(ex));
-                }
-            });
-        }
-
-        function LoadUserInvolved() {
-
-            var REQID = @ViewBag.nomor;
-
-            var dto = {
-                ReqID: REQID
-            }
-			
-            $.ajax({
-                url: "../SpvPelapor/App_LoadUserInvolved",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    if (data != '') {
-                        $('#tblWho').attr('hidden', false);
-						
-                        var trHTML = '';
-                        var trav = 0;
-                        var Count = data.length;
-						
-						
-                        for (trav = 0; trav < Count; trav++) {
-
-                            trHTML += '<tr><td>' + data[trav].NO + '</td>' +
-                                '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
-                                '<td style="display:none">' + data[trav].RecordID + '</td>' +
-                                '<td>' + data[trav].USER_NAME + '</td>' +
-                                '<td align="center"> - </td></tr>';
-
-                        }
-						
-						
-                        $("#tblBodyWho").empty();
-                        $("#tblBodyWho").append(trHTML);
-                        $("#tblBodyWho").addBack();
-                    }
-                    else {
-                        $('#tblWho').attr('hidden', true);
-                        $("#tblBodyWho").addBack();
-                    }
-
-                }
-                , error: function (ex) {
-                    alert('Error Load User Involved : ' + JSON.stringify(ex));
-                }
-            });
-        }
-
-        function GetFileAttachment() {
-			console.log('lawak');
-			
-            var ReqID = @ViewBag.nomor;
-            var dto = {
-                ReqID: ReqID
-            }
-			
-            $.ajax({
-                type: "POST",
-                url: "../SpvPelapor/App_LoadAttachment",
-                data: JSON.stringify(dto),
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    if (data != '') {
-                        var trHTML = '';
-                        var trav = 0;
-                        var Count = data.length;
-
-                        if (Count > 0) {
-                            for (trav = 0; trav < Count; trav++) {
-                                var no = 1
-                                no = no + trav
-                                trHTML += '<tr><td>' + no + '</td>' +
-                                    '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
-                                    '<td style="display:none">' + data[trav].NO_FILE + '</td>' +
-                                    '<td>' + data[trav].file_name_upload + '</td>' +
-                                    '<td style="display:none;">' + data[trav].path_file + '</td>' +
-                                    '<td align="center"> - </td></tr>';
-                            }
-							console.log(trHTML);
-                            $("#tbl_Attachment").show();
-                            $("#tbody_Attachment").empty();
-                            $("#tbody_Attachment").append(trHTML);
-                            $("#tbody_Attachment").addBack();
-
+                        if (data[trav].DDL_TRUE == data[trav].DDL_CODE) {
+                            trhtml += '<Option class="dropdown-item" selected value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION ;
                         } else {
-                            $("#tbl_Attachment").hide();
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION ;
                         }
+
+
+                    }
+                }
+
+                trhtml += '</select>';
+
+                $("#ddlSite").empty();
+                $("#ddlSite").append(trhtml);
+                $("#ddlSite").selectpicker();
+				$('#ddlSite').attr('disabled', true);
+
+
+                //GetAllSite = function () { };
+
+				alert($('#ddlSite').val());
+
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function LoadUserInvolved() {
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        }
+
+        $.ajax({
+            url: "../SpvPelapor/App_LoadUserInvolved",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data != '') {
+                    $('#tblWho').attr('hidden', false);
+
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+
+                    for (trav = 0; trav < Count; trav++) {
+
+                        trHTML += '<tr><td>' + data[trav].NO + '</td>' +
+                            '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                            '<td style="display:none">' + data[trav].RecordID + '</td>' +
+                            '<td>' + data[trav].USER_NAME + '</td>' +
+                            '<td align="center"> - </td></tr>';
+
+                    }
+
+
+                    $("#tblBodyWho").empty();
+                    $("#tblBodyWho").append(trHTML);
+                    $("#tblBodyWho").addBack();
+                }
+                else {
+                    $('#tblWho').attr('hidden', true);
+                    $("#tblBodyWho").addBack();
+                }
+
+            }
+            , error: function (ex) {
+                alert('Error Load User Involved : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetFileAttachment() {
+		console.log('lawak');
+
+        var ReqID = @ViewBag.nomor;
+        var dto = {
+            ReqID: ReqID
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "../SpvPelapor/App_LoadAttachment",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data != '') {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+                    if (Count > 0) {
+                        for (trav = 0; trav < Count; trav++) {
+                            var no = 1
+                            no = no + trav
+                            trHTML += '<tr><td>' + no + '</td>' +
+                                '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                                '<td style="display:none">' + data[trav].NO_FILE + '</td>' +
+                                '<td>' + data[trav].file_name_upload + '</td>' +
+                                '<td style="display:none;">' + data[trav].path_file + '</td>' +
+                                '<td align="center"> - </td></tr>';
+                        }
+						console.log(trHTML);
+                        $("#tbl_Attachment").show();
+                        $("#tbody_Attachment").empty();
+                        $("#tbody_Attachment").append(trHTML);
+                        $("#tbody_Attachment").addBack();
+
                     } else {
                         $("#tbl_Attachment").hide();
-                        $("#tbody_Attachment").addBack();
                     }
-                },
-                error: function (ex) {
-                    alert('Error File Attachment : ' + JSON.stringify(ex));
+                } else {
+                    $("#tbl_Attachment").hide();
+                    $("#tbody_Attachment").addBack();
                 }
-            });
-        }
+            },
+            error: function (ex) {
+                alert('Error File Attachment : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+   
 </script>
