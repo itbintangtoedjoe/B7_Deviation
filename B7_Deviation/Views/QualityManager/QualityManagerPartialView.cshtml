@@ -151,6 +151,7 @@
     $(document).ready(function () {
         LoadHeader();
         LoadReviewerData();
+        
 
         GetCurrStat();
 
@@ -228,7 +229,7 @@
                         '</div>' +
 
                         '<div class="row form-group">' +
-                        '<textarea placeholder="Keterangan Reviewer" class="form-control" style="width: 500px; height: 200px;" disabled>'  + data[trav].KETERANGAN_REVIEW +  '</textarea>'+ 
+                        '<textarea placeholder="Keterangan Reviewer" class="form-control" style="width: 500px; height: 200px;" disabled>'  + data[trav].KETERANGAN_REVIEW +  '</textarea>'+
                         '</div>' +
 
                         '<div class="row form-group">' +
@@ -262,7 +263,7 @@
                         '<label class="col-form-label label-trigger">Nama Reviewer</label>' +
                         '</div>' +
                         '<div class="row form-group">' +
-                        '<input class="form-control" placeholder="Nama Reviewer" disabled="disabled" value="' + data[trav].USER_NAME + '">' +  
+                        '<input class="form-control" placeholder="Nama Reviewer" disabled="disabled" value="' + data[trav].USER_NAME + '">' +
                         '</div>';
 
                     if (data[trav].FLAG_REVIEW == "REVIEW APPROVED BY COORDINATOR" || data[trav].FLAG_REVIEW == "DONE REVISE FROM QUALITY MANAGER") {
@@ -323,11 +324,11 @@
                                         $("#tbody_Attachment" + flag).append(trHTML);
                                         $("#tbody_Attachment" + flag).addBack();
 
-                                        
+
 
                                     }
                                 }
-                                
+
 
                             }
 
@@ -573,7 +574,7 @@
                             '<td>' + no + '</td>' +
                             '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
                             '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                            '<td><button onclick="DeleteKeteranganDisposisi(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
+                            '<td><button onclick="DeleteKeteranganDisposisi(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button> <button onclick="EditDisposisi(this)" class="btn btn-success"><span class="fa fa-pencil"><strong></strong></span></button ></td ></tr > ';
                     }
 
                     $("#tblDisKet").empty();
@@ -587,7 +588,7 @@
 
             }
             , error: function (ex) {
-                alert('Error Load User Involved : ' + JSON.stringify(ex));
+                alert('Error Load Keterangan Disposisi : ' + JSON.stringify(ex));
             }
         });
     }
@@ -639,6 +640,103 @@
         });
     }
 
-    
+    function EditDisposisi(button) {
+        event.preventDefault();
+
+        var row = $(button).closest("TR");
+        var no = $("TD", row).eq(0).html();
+
+         var REQID = @ViewBag.nomor;
+
+        var dto = {
+            REQ_ID: REQID
+        }
+
+        $.ajax({
+            url: "../QualityManager/QM_LoadKeteranganDisposisi",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trHTML = '';
+                var trav = 0;
+                var Count = data.length;
+
+
+                for (trav = 0; trav < Count; trav++) {
+                    var nom = 1;
+                    nom = nom + trav;
+
+                    if (no == data[trav].NO_DISPOSISI) {
+                        trHTML += '<tr><td hidden="hidden">' + data[trav].NO_DISPOSISI + '</td>' +
+                            '<td>' + no + '</td>' +
+                            '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                            '<td><input type="text" class="form-control" value="' + data[trav].KETERANGAN_DISPOSISI + '"/></td>' +
+                            '<td><button onclick="Cancel(this)" class="btn btn-danger"><span class="fa fa-ban"><strong></strong></span></button> <button onclick="Update(this)" class="btn btn-success"><span class="fa fa-floppy-o"><strong></strong></span></button ></td ></tr > ';
+
+
+                    } else {
+                        trHTML += '<tr><td hidden="hidden">' + data[trav].NO_DISPOSISI + '</td>' +
+                            '<td>' + no + '</td>' +
+                            '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                            '<td><button onclick="DeleteKeteranganDisposisi(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button> <button onclick="EditDisposisi(this)" class="btn btn-success"><span class="fa fa-pencil"><strong></strong></span></button ></td ></tr > ';
+
+                    }
+
+                }
+
+                $("#tblDisKet").empty();
+                $("#tblDisKet").append(trHTML);
+                $("#tblDisKet").addBack();
+
+            },
+            error: function (ex) {
+                alert("Edit Disposisi: " + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function Cancel(button) {
+        event.preventDefault();
+        LoadKeteranganDisposisi();
+    }
+
+    function Update(button) {
+        event.preventDefault();
+        var row = $(button).closest("TR");
+
+        var keterangan = $("TD", row).eq(3).find("input[type='text']").val();
+        var nomordisposisi = $("TD", row).eq(0).html();
+        var reqid = @ViewBag.nomor;
+
+
+        var dto = {
+
+            REQ_ID: reqid,
+            NO_DISPOSISI: nomordisposisi,
+            KETERANGAN_DISPOSISI: keterangan
+        }
+
+        $.ajax({
+            url: "../QualityManager/QM_UpdateKeteranganDisposisi",
+            type: "post",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                event.preventDefault();
+                LoadKeteranganDisposisi();
+                Swal.fire('Successfully Update Disposisi');
+            },
+            error: function (ex) {
+                alert("Update Keterangan Disposisi: " + JSON.stringify(ex));
+            }
+        });
+    }
+
+
 
 </script>

@@ -90,8 +90,14 @@
 
 <script>
 
+    $(window).bind('beforeunload', function () {
+        BeforeUnload();
+
+        return '';
+    });
+
     $(document).ready(function () {
-        GetFullName();
+
         $("#btnSubmit").click(function () {
 
             if ($("#txtReason").val() == '' || $("#txtReason").val() == null) {
@@ -112,6 +118,43 @@
         });
 
     });
+
+    function BeforeUnload() {
+        var reqid = $("#lblReq").text();
+        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var dto = {
+            LOGIN_USER: iduser,
+            REQID: reqid
+        };
+
+        $.ajax({
+            url: "../Reviewer/Reviewer_DeletePath",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+            }
+            , error: function (ex) {
+                alert("Delete Path in DB: " + stringify(ex));
+            }
+        });
+
+        $.ajax({
+            url: "../Reviewer/Reviewer_DeleteFile",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+            }
+            , error: function (ex) {
+                alert("Delete Actual File: " + stringify(ex));
+            }
+        });
+
+    }
 
 
     function Submit() {
@@ -142,13 +185,13 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/B7_Deviation/Reviewer/PendingApproval"
+                        window.location.href = "../Reviewer/PendingApproval"
                     }
                 })
 
             }
             , error: function (ex) {
-                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                alert('Error Sumbit: ' + JSON.stringify(ex));
             }
         });
     }
@@ -196,7 +239,7 @@
                             "showMethod": "fadeIn",
                             "hideMethod": "fadeOut"
                         });
-                        GetFileAttachmentReviewer(REQID);
+                        GetFileAttachment(REQID);
                     }
                 }
                 , error: function (ex) {
@@ -208,7 +251,7 @@
         }
     }
 
-    function GetFileAttachmentReviewer() {
+    function GetFileAttachment() {
 
         var ReqID = @ViewBag.nomor;
         var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
@@ -241,21 +284,21 @@
                                 '<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
                         }
 
-                        $("#tbl_AttachmentReviewer").show();
-                        $("#tbody_AttachmentReviewer").empty();
-                        $("#tbody_AttachmentReviewer").append(trHTML);
-                        $("#tbody_AttachmentReviewer").addBack();
+                        $("#tbl_Attachment").show();
+                        $("#tbody_Attachment").empty();
+                        $("#tbody_Attachment").append(trHTML);
+                        $("#tbody_Attachment").addBack();
 
                     } else {
-                        $("#tbl_AttachmentReviewer").hide();
+                        $("#tbl_Attachment").hide();
                     }
                 } else {
-                    $("#tbl_AttachmentReviewer").hide();
-                    $("#tbody_AttachmentReviewer").addBack();
+                    $("#tbl_Attachment").hide();
+                    $("#tbody_Attachment").addBack();
                 }
             },
             error: function (ex) {
-                alert('Error Load Attachment : ' + JSON.stringify(ex));
+                alert('Error Load File Attachment : ' + JSON.stringify(ex));
             }
         });
     }
@@ -302,11 +345,11 @@
                         "hideMethod": "fadeOut"
                     });
 
-                    GetFileAttachmentReviewer();
+                    GetFileAttachment();
                 }
             },
             error: function (ex) {
-               alert("ga ok")
+                alert("Error Delete File Attachment: " + stringify(ex));
             }
         });
 
@@ -316,6 +359,6 @@
         return false;
     }
 
-    
+
 
 </script>

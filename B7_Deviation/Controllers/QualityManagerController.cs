@@ -56,6 +56,45 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
+        public ActionResult QM_UpdateKeteranganDisposisi(DisposisiModel Model)
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            string result;
+            List<string> ModelData = new List<string>();
+
+            try
+            {
+                Conn.Open();
+                using (SqlCommand Command = new SqlCommand("DEVIATION_FORM_INPUT", Conn))
+                {
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Parameters.Add("@Option", SqlDbType.Int);
+                    Command.Parameters["@Option"].Value = 21;
+
+                    Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                    Command.Parameters["@REQID"].Value = Model.REQ_ID;
+
+                    Command.Parameters.Add("@NOMOR_DISPOSISI", SqlDbType.VarChar);
+                    Command.Parameters["@NOMOR_DISPOSISI"].Value = Model.NO_DISPOSISI;
+
+                    Command.Parameters.Add("@KETERANGAN_DISPOSISI", SqlDbType.NVarChar);
+                    Command.Parameters["@KETERANGAN_DISPOSISI"].Value = Model.KETERANGAN_DISPOSISI;
+
+                    result = (string)Command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData);
+        }
+
         public ActionResult SemiMasterView(ApprovalModel Model)
         {
             string conString = mySetting.ConnectionString;

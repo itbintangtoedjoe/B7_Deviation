@@ -32,6 +32,108 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
+        public ActionResult Reviewer_DeletePath(ReviewerModel Model)
+        {
+            string result;
+            List<string> ModelData = new List<string>();
+
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_DeletePath]", Conn))
+                {
+                    /* Header*/
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                    command.Parameters["@UserID"].Value = Model.LOGIN_USER;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "DELETE REVIEWER FILE";
+
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Reviewer_DeleteFile(ReviewerModel Model)
+        {
+            string conString = mySetting.ConnectionString;
+            List<string> ModelData = new List<string>();
+
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_DeletePath]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                    command.Parameters["@UserID"].Value = Model.LOGIN_USER;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "SEARCH REVIEWER FILE";
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+
+            string PathFile;
+
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    PathFile = dr[col].ToString();
+
+                    try
+                    {
+                        System.IO.File.Delete(PathFile);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+
+                    row.Add(col.ColumnName, dr[col]);
+                }
+            }
+
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult SemiMasterView(ApprovalModel Model)
         {
             string conString = mySetting.ConnectionString;
