@@ -259,6 +259,41 @@ namespace B7_Deviation.Controllers
 
 
         //Function ini akan berjalan ketika close browser
+        public ActionResult DeleteFromDB(DeviationModel Model)
+        {
+            string result;
+            List<string> ModelData = new List<string>();
+
+            string ConString = MyDB.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_DeleteFromDB]", Conn))
+                {
+                    /* Header*/
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.ReqID;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Form Input";
+
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult DeletePath(DeviationModel Model)
         {
             string result;

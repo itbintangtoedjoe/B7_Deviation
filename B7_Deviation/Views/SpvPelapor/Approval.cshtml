@@ -71,7 +71,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                       
+
                                     </div>
                                     <div class="col-sm-7">
                                         <textarea id="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan" disabled="disabled"></textarea>
@@ -145,7 +145,7 @@
                                     <label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
                                     <div class="col-sm-7">
                                         <div class="input-group">
-                                            
+
                                         </div>
                                         <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
                                             <table id="tblWho" class="table table-striped table-bordered">
@@ -262,7 +262,6 @@
                                 </div>
 
                                 @*Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi*@
-
                                 <div class="form-group row">
                                     <div class="col-sm-2 col-form-label">
                                         <label>
@@ -273,13 +272,14 @@
                                         </label>
                                     </div>
                                     <div class="col-sm-10">
-                                        <textarea id="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi" disabled="disabled"></textarea>
-                                        <div class="row" style="padding-top: 5px">
-                                           
-                                        </div>
+                                        <textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
+
                                     </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <label class="col-sm-2 col-form-label"></label>
-                                    
+
                                     <div class="col-sm-10">
                                         <div class="table-responsive">
                                             <table id="tbl_Attachment" class="table header-border">
@@ -482,7 +482,6 @@
             success: function (data) {
 
                 var text = '';
-				console.log('Temu lawak');
                 //BUGGY
                 GetFileAttachment();
                 LoadUserInvolved();
@@ -726,7 +725,6 @@
 
                     $("#tblBodyWho").empty();
                     $("#tblBodyWho").append(trHTML);
-                    $("#tblBodyWho").addBack();
                 }
                 else {
                     $('#tblWho').attr('hidden', true);

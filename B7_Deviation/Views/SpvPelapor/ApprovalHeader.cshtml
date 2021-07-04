@@ -94,13 +94,13 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/B7_Deviation/SpvPelapor/PendingApproval"
+                        window.location.href = "../SpvPelapor/PendingApproval"
                     }
                 })
 
             }
             , error: function (ex) {
-                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                alert('Error Approve: ' + JSON.stringify(ex));
             }
         });
     }
@@ -139,7 +139,7 @@
                 };
 
                 $.ajax({
-                    url: "Spv_Reject",
+                    url: "../SpvPelapor/Spv_Reject",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dto),
@@ -154,13 +154,13 @@
                         }).then((result) => {
 
                             if (result.isConfirmed) {
-                                window.location.href = "/B7_Deviation/SpvPelapor/PendingApproval"
+                                window.location.href = "../SpvPelapor/PendingApproval"
                             }
                         })
 
                     }
                     , error: function (ex) {
-                        alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                        alert('Error Reject : ' + JSON.stringify(ex));
                     }
                 });
             }

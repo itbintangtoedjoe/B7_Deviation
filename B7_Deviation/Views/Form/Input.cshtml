@@ -522,86 +522,16 @@
 
 
     //});
-
-	$(window).bind('beforeunload', function () {
-        Test();
-
-        return '';
-    });
-
-	function Test() {
-
-        var reqid = $("#lblReq").text();
-
-        var dto = {
-            ReqID: reqid
-        };
-		$.ajax({
-            url: "../Form/DeleteFromDB",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-            }
-            , error: function (ex) {
-
-            }
-        });
-
-        DeleteFile();
-        DeletePath();
-
-
-    }
-
-
-	function DeleteFile() {
-
-        var reqid = $("#lblReq").text();
-
-        var dto = {
-            ReqID: reqid
-        };
-
-        $.ajax({
-            url: "../Form/DeleteFile",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-            }
-            , error: function (ex) {
-
-            }
-        });
-    }
-
-    function DeletePath() {
-
-        var reqid = $("#lblReq").text();
-
-        var dto = {
-            ReqID: reqid
-        };
-
-        $.ajax({
-            url: "../Form/DeletePath",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-            }
-            , error: function (ex) {
-
-            }
-        });
-    }
-
+    var CheckDelete = 0;
 
     $(document).ready(function () {
+        $(window).bind('beforeunload', function () {
+            if (CheckDelete = 0) {
+                ClearWeb();
+            }
+            
+            return '';
+        });
 
         GenerateDepartment();        
 
@@ -971,6 +901,74 @@
             }
         });
     });
+
+    function ClearWeb() {
+
+        var reqid = $("#lblReq").text();
+
+        var dto = {
+            ReqID: reqid
+        };
+        $.ajax({
+            url: "../Form/DeleteFromDB",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+            }
+            , error: function (ex) {
+
+            }
+        });
+
+        DeleteFile();
+        DeletePath();
+    }
+
+    function DeleteFile() {
+
+        var reqid = $("#lblReq").text();
+
+        var dto = {
+            ReqID: reqid
+        };
+
+        $.ajax({
+            url: "../Form/DeleteFile",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+            }
+            , error: function (ex) {
+
+            }
+        });
+    }
+
+    function DeletePath() {
+
+        var reqid = $("#lblReq").text();
+
+        var dto = {
+            ReqID: reqid
+        };
+
+        $.ajax({
+            url: "../Form/DeletePath",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+            }
+            , error: function (ex) {
+
+            }
+        });
+    }
 
     // Load Dropdownlist
     function GetSiteName() {
@@ -1692,7 +1690,7 @@
                     icon: 'success',
                     title: 'Form Submitted'
                 });
-
+                CheckDelete = 1;
                 window.location.href = "../PelaporPenyimpangan/DataTableList"
             }
             , error: function (ex) {

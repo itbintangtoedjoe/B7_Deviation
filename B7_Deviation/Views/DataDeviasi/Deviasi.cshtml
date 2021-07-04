@@ -62,7 +62,6 @@
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown site-dropdown">
                                                         <select id="ddlSite">
-                                                            <option>OKE NOICE</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -80,7 +79,7 @@
                                                 </div>
                                             </div>
                                             <br>
-                                            
+
                                         </div>
                                         <div class="col-sm-7">
                                             <textarea id="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan" disabled="disabled"></textarea>
@@ -269,7 +268,6 @@
                                     </div>
 
                                     @*Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi*@
-
                                     <div class="form-group row">
                                         <div class="col-sm-2 col-form-label">
                                             <label>
@@ -279,7 +277,15 @@
                                                 *Wajib diisi untuk penyimpangan tidak terencana
                                             </label>
                                         </div>
+                                        <div class="col-sm-10">
+                                            <textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" disabled="disabled"></textarea>
 
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-2 col-form-label">
+                                        </div>
                                         <div class="col-sm-10">
                                             <div class="table-responsive">
                                                 <table id="tbl_Attachment" class="table header-border">
@@ -707,12 +713,13 @@
 
                 document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
                 document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
-                document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
+                //document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
+                document.getElementById('TbPesul').value = data[0].NAME_PROPOSER;
                 document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
 
                 GetAllSite();
 
-                text = '<Option class="dropdown-item" value = "' + data[0].ID_DEVIATION_CATEGORY + '" selected >' + data[0].ID_DEVIATION_CATEGORY;
+                text = '<Option class="dropdown-item" value = "' + data[0].ID_DEVIATION_CATEGORY + '" selected >' + data[0].DEVIATION_CATEGORY;
 
                 $("#ddlKategori").empty();
                 $("#ddlKategori").append(text);
@@ -724,10 +731,10 @@
                 document.getElementById('txtLokasi').value = data[0].LOCATION;
                 document.getElementById('txtHow').value = data[0].ORDER_OF_EVENTS;
                 document.getElementById('date-format').value = data[0].DATE_OF_INCIDENT;
-
+                document.getElementById('txtTindakan').value = data[0].ACTION_WHEN_DEV;
                 document.getElementById('txtReq').value = data[0].REQ;
 
-
+                
                 // 1st Card Radio Button
 
                 // Travel 5 -> missing
@@ -740,7 +747,7 @@
                 // Travel 1
 
                 $("input[name=travel1][value=" + data[0].SAME_POTEN_DEV_FLAG + "]").prop('checked', true);
-                document.getElementById('txt1').value = data[0].SAME_POTEN_DEV;
+                document.getElementById('txtsama').value = data[0].SAME_POTEN_DEV;
 
                 // Travel 2 (Txt2 HTML5 missing)
 

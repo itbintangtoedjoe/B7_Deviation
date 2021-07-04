@@ -30,7 +30,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Nama</label>
-                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
                                     </div>
                                     <div class="form-group">
                                         <label for="txtTanggal">Tanggal:</label>
@@ -106,7 +106,7 @@
 
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Kategori Penyimpangan<span class="text-danger">*</span></label>
+                                        <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
                                         <div class="col-sm-3">
                                             <div>
                                                 <div class="basic-dropdown">
@@ -118,15 +118,14 @@
                                             <br>
                                             <div id="divsimpang">
                                                 <div class="basic-dropdown">
-                                                    <div class="dropdown">
-                                                        <select id="ddlJenSi" name="ddlJenSi">></select>
-                                                    </div>
+                                                    @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
+                                                    <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
                                                 </div>
                                             </div>
                                             <br>
-                                            <div id="divproduk">
+                                            @*<div id="divproduk">
                                                 <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
-                                            </div>
+                                            </div>*@
                                         </div>
                                         <div class="col-sm-7">
                                             <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan"></textarea>
@@ -525,7 +524,7 @@
         });
 
         $("#btnCancel").click(function () {
-            window.location.href = "/B7_Deviation/PelaporPenyimpangan/PendingApproval"
+            window.location.href = "../PelaporPenyimpangan/PendingApproval"
 
         });
 
@@ -556,13 +555,13 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/B7_Deviation/PelaporPenyimpangan/PendingApproval"
+                        window.location.href = "../PelaporPenyimpangan/PendingApproval"
                     }
                 })
 
             }
             , error: function (ex) {
-                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                alert('Error Submit: ' + JSON.stringify(ex));
             }
         });
     }
@@ -937,7 +936,7 @@
                 $("#ddlSite").selectpicker();
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error GetSiteName : ' + JSON.stringify(ex));
             }
         });
     }
@@ -962,32 +961,51 @@
                 $("#ddlKategori").selectpicker();
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error GetKategoriDeviation : ' + JSON.stringify(ex));
             }
         });
     }
 
     function GetJenisDeviation() {
+        //GetNoWOOracle
         $.ajax({
-            url: "../Form/GetJenisDeviation",
+            url: "../Form/GetNoWOOracle",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-                trhtml += '<option disabled selected hidden class="dropdown-header">   Jenis Penyimpangan   </option>';
-                if (count > 0) {
-                    for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
-                    }
+                var arr = new Array();
+                var jsonObj = [];
+                //trhtml += '<option disabled selected hidden class="dropdown-header" style="padding-left: 18px;">No WO Oracle</option>';
+                //if (count > 0) {
+                //    for (trav = 0; trav < count; trav++) {
+                //        trhtml += '<Option class="dropdown-item" value = "' + data[trav].WO_NUMBER + '" > ' + data[trav].WO_NUMBER;
+                //    }
+                //}
+                //$("#ddlJenSi").empty();
+                //$("#ddlJenSi").append(trhtml);
+                //$("#ddlJenSi").select2();
+                for (trav = 0; trav < count; trav++) {
+                    arr[trav] = data[trav].WO_NUMBER;
+                    var item = {}
+                    item["label"] = arr[trav];
+                    item["value"] = arr[trav];
+                    jsonObj.push(item);
                 }
-                $("#ddlJenSi").empty();
-                $("#ddlJenSi").append(trhtml);
-                $("#ddlJenSi").selectpicker();
+                console.log(jsonObj);
+
+                $("#TxtNoWO").autocomplete({
+                    source: function (request, response) {
+                        var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                        response(results.slice(0, 10));
+                    }
+                });
+
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error Get Jenis Deviation: ' + JSON.stringify(ex));
             }
         });
     }
@@ -1077,7 +1095,7 @@
                 $("#ddlKualProd").selectpicker();
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error GetKualitasProduk : ' + JSON.stringify(ex));
             }
         });
     }
@@ -1103,7 +1121,7 @@
                 $("#ddlCompliance").selectpicker();
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error GetCompliance : ' + JSON.stringify(ex));
             }
         });
     }
@@ -1129,7 +1147,7 @@
                 $("#ddlRiskOpr").selectpicker();
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error GetResikoOperasional : ' + JSON.stringify(ex));
             }
         });
     }
@@ -1156,7 +1174,7 @@
                 $("#ddlRiskFin").selectpicker();
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error GetResikoFinansial : ' + JSON.stringify(ex));
             }
         });
     }
@@ -1182,7 +1200,7 @@
                 $("#ddlRiskOrg").selectpicker();
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error GetResikoOrganisasi : ' + JSON.stringify(ex));
             }
         });
     }
@@ -1208,7 +1226,7 @@
                 $("#ddlKeamamananP").selectpicker();
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error GetResikoKeamPersonil : ' + JSON.stringify(ex));
             }
         });
     }
@@ -1235,7 +1253,7 @@
                 $("#ddlKesehatanPer").selectpicker();
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error GetResikoKesehatanPersonil : ' + JSON.stringify(ex));
             }
         });
     }
@@ -1261,7 +1279,7 @@
                 $("#ddlResLingk").selectpicker();
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error GetResikokLingkungan : ' + JSON.stringify(ex));
             }
         });
     }
@@ -1287,7 +1305,7 @@
                 $("#ddlRiskIntelek").selectpicker();
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                alert('Error GetResikoIntelektual : ' + JSON.stringify(ex));
             }
         });
     }
@@ -1333,6 +1351,7 @@
 
             },
             error: function (ex) {
+                alert('Error GenerateDepartment : ' + JSON.stringify(ex));
             }
         });
 
@@ -1389,7 +1408,7 @@
                     }
                 }
                 , error: function (ex) {
-                    alert('Error Upload Attachment: ' + JSON.stringify(ex));
+                    alert('Error Upload Attachment Deviation: ' + JSON.stringify(ex));
                 }
             });
         }
@@ -1440,7 +1459,7 @@
                 }
             },
             error: function (ex) {
-                alert('Error Load Attachment : ' + JSON.stringify(ex));
+                alert('Error Get File Attachment : ' + JSON.stringify(ex));
             }
         });
     }
@@ -1489,7 +1508,7 @@
                 }
             },
             error: function (ex) {
-                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                alert('Error Delete File Attachment: ' + JSON.stringify(ex));
             }
         });
 
@@ -1606,7 +1625,7 @@
                     title: 'Form Submitted'
                 });
 
-                window.location.href = "/B7_Deviation/PelaporPenyimpangan/PendingApproval"
+                window.location.href = "../PelaporPenyimpangan/PendingApproval"
             }
             , error: function (ex) {
                 alert('Error Delete Attachment: ' + JSON.stringify(ex));
