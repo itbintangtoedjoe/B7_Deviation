@@ -5327,6 +5327,8 @@
     <Content Include="Views\SpvPIC\PICProposal.cshtml" />
     <Content Include="Views\DataDeviasi\PendingTask.cshtml" />
     <Content Include="Views\PICRemidial\DataTableList.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\DataDeviasi\DataTableList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
