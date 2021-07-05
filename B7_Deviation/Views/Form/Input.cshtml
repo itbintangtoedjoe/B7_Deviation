@@ -547,7 +547,6 @@
         $(document).ready(function () {
             GetSiteName();
             GetKategoriDeviation();
-            GetJenisDeviation();
             SetupRbDtPicker();
 
         });
@@ -618,6 +617,7 @@
             if ($("#ddlKategori").val() == 'QPR') {
                 $("#divsimpang").show();
                 $("#TxtNoWO").removeAttr("disabled");
+                GetJenisDeviation();
             }
             else {
                 $("#divsimpang").hide();
@@ -1835,6 +1835,4 @@
     function s() {
         return false;
     }
-
-
 </script>

@@ -70,7 +70,7 @@
                             </div>
                             <div class="col">
                                 <label>Pengusul</label>
-                                <input id="TbPesul" type="text" class="form-control" readonly="readonly" value='@Request.RequestContext.HttpContext.Session["fullname"]'>
+                                <input id="TbPesul" type="text" class="form-control" readonly="readonly">
                             </div>
                             <div class="col">
                                 <label>Departemen</label>
@@ -934,7 +934,7 @@
                         if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
                             trhtml += '<option selected class="dropdown-item"  value = "' + data[trav].DDL_TRUE + ' ">' + data[trav].DDL_DESCRIPTION + '</option>';
                         } else {
-                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION +'</option>';
 
                         }
 
@@ -962,7 +962,13 @@
                 trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                        if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                            trhtml += '<Option selected class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description + '</option>';
+                        }
+                        else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description + '</option>';
+                        }
+                        
                     }
                 }
                 $("#ddlKategori").empty();
@@ -1943,7 +1949,8 @@
 
                 document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
                 document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
-                document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
+                //document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
+                document.getElementById('TbPesul').value = data[0].NAME_PROPOSER;
                 document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
 
                 LoadKategori();
