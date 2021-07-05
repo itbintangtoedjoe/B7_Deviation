@@ -425,6 +425,45 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+        public ActionResult GetSiteName2(DeviationModel Model)
+        {
+            string ConString = MyDB.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_DEVHELPER", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Get Site";
+
+                    command.Parameters.Add("@Nomor", SqlDbType.Int);
+                    command.Parameters["@Nomor"].Value = Model.ReqID;
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
         public ActionResult GetKategoriDeviation()
         {
             string ConString = MyDB.ConnectionString;

@@ -515,6 +515,9 @@
 <script>
 
     $(document).ready(function () {
+
+        LoadAll();
+
         $("#btnSubmit").click(function () {
             if (!$(".form-valide").valid()) {
                 return;
@@ -567,7 +570,6 @@
     }
 
 
-
     $(document).ready(function () {
 
         GenerateDepartment();
@@ -592,21 +594,6 @@
 
         });
 
-        // Load Drop down poin keparahan
-        $(document).ready(function () {
-            GetKualitasProduk();
-            GetCompliance();
-            GetResikoOperasional();
-
-            GetResikoFinansial();
-            GetResikoOrganisasi();
-            GetResikoKeamPersonil();
-
-            GetResikoKesehatanPersonil();
-            GetResikokLingkungan();
-            GetResikoIntelektual();
-        });
-
     });
 
     // Button click
@@ -621,7 +608,7 @@
             UploadAttachmentDeviation();
         });
 
-        
+
     });
 
     // Drop Down List Click
@@ -917,18 +904,33 @@
 
     // Load Dropdownlist
     function GetSiteName() {
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
         $.ajax({
-            url: "../Form/GetSiteName",
+            url: "../Form/GetSiteName2",
             type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-                trhtml += '<option disabled selected hidden class="dropdown-header"  value = " ">   Site Pelapor   </option>';
+               
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                        
+                        if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                            trhtml += '<option selected class="dropdown-item"  value = "' + data[trav].DDL_TRUE + ' ">' + data[trav].DDL_DESCRIPTION + '</option>';
+                        } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+
+                        }
+
                     }
                 }
                 $("#ddlSite").empty();
@@ -1076,18 +1078,32 @@
     // Dropdown list pentuan angka keparahan
     function GetKualitasProduk() {
 
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
         $.ajax({
-            url: "../Form/GetKualitasProduk",
+            url: "../PelaporPenyimpangan/GetKualitasProduk",
             type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
                     }
                 }
                 $("#ddlKualProd").empty();
@@ -1102,18 +1118,33 @@
 
     function GetCompliance() {
 
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
         $.ajax({
-            url: "../Form/GetCompliance",
+            url: "../PelaporPenyimpangan/GetCompliance",
             type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+
+
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
                     }
                 }
                 $("#ddlCompliance").empty();
@@ -1128,18 +1159,33 @@
 
     function GetResikoOperasional() {
 
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
         $.ajax({
-            url: "../Form/GetResikoOperasional",
+            url: "../PelaporPenyimpangan/GetResikoOperational",
             type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+
+
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
                     }
                 }
                 $("#ddlRiskOpr").empty();
@@ -1155,18 +1201,33 @@
 
     function GetResikoFinansial() {
 
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
         $.ajax({
-            url: "../Form/GetResikoFinansial",
+            url: "../PelaporPenyimpangan/GetResikoFinansial",
             type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+
+
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
                     }
                 }
                 $("#ddlRiskFin").empty();
@@ -1181,18 +1242,33 @@
 
     function GetResikoOrganisasi() {
 
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
         $.ajax({
-            url: "../Form/GetResikoOrganisasi",
+            url: "../PelaporPenyimpangan/GetResikoOrganisasi",
             type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+
+
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
                     }
                 }
                 $("#ddlRiskOrg").empty();
@@ -1207,18 +1283,33 @@
 
     function GetResikoKeamPersonil() {
 
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
         $.ajax({
-            url: "../Form/GetResikoKeamPersonil",
+            url: "../PelaporPenyimpangan/GetResikoKeamPersonil",
             type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+
+
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
                     }
                 }
                 $("#ddlKeamamananP").empty();
@@ -1234,18 +1325,33 @@
 
     function GetResikoKesehatanPersonil() {
 
+       var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
         $.ajax({
-            url: "../Form/GetResikoKesehatanPersonil",
+            url: "../PelaporPenyimpangan/GetResikoKesehatanPersonil",
             type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+
+
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
                     }
                 }
                 $("#ddlKesehatanPer").empty();
@@ -1260,18 +1366,33 @@
 
     function GetResikokLingkungan() {
 
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
         $.ajax({
-            url: "../Form/GetResikokLingkungan",
+            url: "../PelaporPenyimpangan/GetResikoLingkungan",
             type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+
+
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
                     }
                 }
                 $("#ddlResLingk").empty();
@@ -1286,20 +1407,37 @@
 
     function GetResikoIntelektual() {
 
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
         $.ajax({
-            url: "../Form/GetResikoIntelektual",
+            url: "../PelaporPenyimpangan/GetResikoIntelektual",
             type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+
+
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
                     }
                 }
+
+
                 $("#ddlRiskIntelek").empty();
                 $("#ddlRiskIntelek").append(trhtml);
                 $("#ddlRiskIntelek").selectpicker();
@@ -1773,6 +1911,157 @@
 
     function s() {
         return false;
+    }
+
+    function LoadAll() {
+
+        var nomor = @ViewBag.nomor;
+        var dto = {
+            ReqID: nomor
+        }
+
+        $.ajax({
+            url: "../SpvPelapor/App_LoadDeviationApproval",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var text = '';
+
+                //BUGGY
+                GetFileAttachment();
+                LoadUserInvolved();
+
+                document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
+                document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
+                document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
+                document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
+
+                LoadKategori();
+
+                document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
+
+                document.getElementById('txtProblem').value = data[0].PROBLEM;
+                document.getElementById('txtLokasi').value = data[0].LOCATION;
+                document.getElementById('txtHow').value = data[0].ORDER_OF_EVENTS;
+                document.getElementById('date-format').value = data[0].DATE_OF_INCIDENT;
+
+                document.getElementById('txtTindakan').value = data[0].ACTION_WHEN_DEV;
+
+                document.getElementById('txtReq').value = data[0].REQ;
+
+                // 1st Card Radio Button
+
+                // Travel 5 -> missing
+                $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
+
+                // Travel 4 -> missing
+                $("input[name=travel4][value=" + data[0].THIRTY_FLAG + "]").prop('checked', true);
+                document.getElementById('txt30hari').value = data[0].THIRTY;
+
+                // Travel 1
+
+                $("input[name=travel1][value=" + data[0].SAME_POTEN_DEV_FLAG + "]").prop('checked', true);
+                document.getElementById('txtsama').value = data[0].SAME_POTEN_DEV;
+
+                // Travel 2 (Txt2 HTML5 missing)
+
+                $("input[name=travel2][value=" + data[0].POTEN_DEV_RLS_FLG + "]").prop('checked', true);
+                document.getElementById('txtrilis').value = data[0].POTEN_DEV_RLS;
+
+                // Travel 3 (Txt3 HTML5 missing)
+                $("input[name=travel3][value=" + data[0].POTEN_DEV_OTH_FLG + "]").prop('checked', true);
+                document.getElementById('txtlain').value = data[0].POTEN_DEV_OTH;
+
+                // 2nd Card FINISHED!
+
+                // 2nd Card Quality Product
+
+                // Kualitas Produk
+
+                GetKualitasProduk();
+                GetCompliance();
+                GetResikoOperasional();
+
+                GetResikoFinansial();
+                GetResikoOrganisasi();
+                GetResikoKeamPersonil();
+
+                GetResikoKesehatanPersonil();
+                GetResikokLingkungan();
+                GetResikoIntelektual();
+
+                // 2nd Card Severity Risk
+
+                document.getElementById('txtKeparahan').value = data[0].SEVERTY_DEVIATION;
+
+                $('textarea').each(function () {
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;width:500px;overflow-y:hidden;');
+                }).on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+     function LoadKategori() {
+
+        LoadKategori = function () { };
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        }
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/LoadKategori",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+                trhtml += '<option class="dropdown-header"  value = " ">   Kategori   </option>';
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        if (data[trav].DDL_TRUE == '' || data[trav].DDL_TRUE == null) {
+                            trhtml += '<Option class="dropdown-item" selected value = "" > - ';
+                            break;
+                        }
+
+                        if (data[trav].DDL_TRUE == data[trav].DDL_CODE) {
+                            trhtml += '<Option class="dropdown-item" selected value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                        } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                        }
+
+
+                    }
+                }
+
+                $("#ddlKategori").empty();
+                $("#ddlKategori").append(trhtml);
+                $("#ddlKategori").selectpicker();
+
+                LoadKategori = function () { };
+
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
     }
 </script>
 
