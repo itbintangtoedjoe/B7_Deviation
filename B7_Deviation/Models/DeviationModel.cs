@@ -51,6 +51,7 @@ namespace B7_Deviation.Models
         public string THIRTY { get; set; }
         public string THIRTY_FLAG { get; set; }
         public string REQ { get; set; }
+        public string NO_WO_ORACLE { get; set; }
     }
 
     public class LoginModel

@@ -43,470 +43,477 @@
                 </div>
             </div>
         </div>
-
     </div>
 
-    <div class="form-group">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="d-inline" style="">Laporan Penyimpangan</h4>
-                            <div class="form-group row">
-                                <div class="col">
-                                    <br />
-                                    <label>Register Number</label>
-                                    <br />
-                                    <label id="lblReq" style="font-weight:bold"></label>
-                                </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="d-inline" style="">Laporan Penyimpangan Baru</h4>
+                        <div class="form-group row">
+                            <div class="col">
+                                <br />
+                                <label>Register Number</label>
+                                <br />
+                                <label id="lblReq" style="font-weight:bold"></label>
                             </div>
-                            <div class="form-group row">
-                                <div class="col">
-                                    <label>Tanggal</label>
-                                    <input id="TbTglCreated" class="form-control" readonly="readonly">
-                                </div>
-                                <div class="col">
-                                    <label>Nomer Deviation</label>
-                                    <input id="TbNmrDev" type="text" class="form-control" readonly="readonly" value="-">
-                                </div>
-                                <div class="col">
-                                    <label>Pengusul</label>
-                                    <input id="TbPesul" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
-                                </div>
-                                <div class="col">
-                                    <label>Departemen</label>
-                                    <input id="TbDeptPusul" type="text" class="form-control" readonly="readonly">
-                                </div>
-                            </div>
-                            <!-- Readonly End -->
                         </div>
+                        <div class="form-group row">
+                            <div class="col">
+                                <label>Tanggal</label>
+                                <input id="TbTglCreated" class="form-control" readonly="readonly">
+                            </div>
+                            <div class="col">
+                                <label>Nomer Deviation</label>
+                                <input id="TbNmrDev" type="text" class="form-control" readonly="readonly">
+                            </div>
+                            <div class="col">
+                                <label>Pengusul</label>
+                                <input id="TbPesul" type="text" class="form-control" readonly="readonly" value='@Request.RequestContext.HttpContext.Session["fullname"]'>
+                            </div>
+                            <div class="col">
+                                <label>Departemen</label>
+                                <input id="TbDeptPusul" type="text" class="form-control" readonly="readonly">
+                            </div>
+                        </div>
+                        <!-- Readonly End -->
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-validation">
-                                <form class="form-valide" onsubmit="return s();" action="#" method="post">
-                                    <!-- Site -->
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="ddlSite">Site<span class="text-danger">*</span></label>
+        </div>
+        <div id="formBody" class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-validation">
+                            <form class="form-valide" onsubmit="return s();" action="#" method="post">
+                                <!-- Site -->
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="ddlSite">Site<span class="text-danger">*</span></label>
 
-                                        <div class="col-sm-3">
-                                            <div class="btn-group mb-2">
-                                                <div class="basic-dropdown">
-                                                    <div class="dropdown">
-                                                        <select id="ddlSite" name="ddlSite"></select>
-                                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="btn-group mb-2">
+                                            <div class="basic-dropdown">
+                                                <div class="dropdown">
+                                                    <select id="ddlSite" name="ddlSite"></select>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
-                                        <div class="col-sm-3">
-                                            <div>
-                                                <div class="basic-dropdown">
-                                                    <div class="dropdown">
-                                                        <select id="ddlKategori" name="ddlKategori"></select>
-                                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
+                                    <div class="col-sm-3">
+                                        <div>
+                                            <div class="basic-dropdown">
+                                                <div class="dropdown">
+                                                    <select id="ddlKategori" name="ddlKategori"></select>
                                                 </div>
                                             </div>
-                                            <br>
-                                            <div id="divsimpang">
-                                                <div class="basic-dropdown">
-                                                    @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
-                                                    <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
-                                                </div>
+                                        </div>
+                                        <br>
+                                        <div id="divsimpang">
+                                            <div class="basic-dropdown">
+                                                @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
+                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
                                             </div>
-                                            <br>
-                                            @*<div id="divproduk">
+                                        </div>
+                                        <br>
+                                        @*<div id="divproduk">
                                                 <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
                                             </div>*@
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan"></textarea>
-                                        </div>
                                     </div>
-                                    @*  Penyimpangan terencana *@
+                                    <div class="col-sm-7">
+                                        <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan"></textarea>
+                                    </div>
+                                </div>
+                                @*  Penyimpangan terencana *@
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Apakah penyimpangan ini terencana?<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <div class="form-group">
-                                                <div class="form-check form-check-inline">
-                                                    <label>
-                                                        <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes"> Ya
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah penyimpangan ini terencana?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes"> Ya
 
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <label>
-                                                        <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No" checked> Tidak
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No" checked> Tidak
 
-                                                    </label>
-                                                </div>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Problem (What) -->
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Problem (What)<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <textarea id="txtProblem" class="form-control" placeholder="Problem (What)"></textarea>
-                                        </div>
-                                    </div>
-                                    <!-- Requirement (Jika Ada) -->
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Requirement (Jika Ada)</label>
-                                        <div class="col-sm-10">
-                                            <textarea id="txtReq" class="form-control" placeholder="Requirement (Jika Ada)"></textarea>
-                                        </div>
-                                    </div>
+                                </div>
 
-                                    @* Tanggal Kejadian *@
+                                <!-- Problem (What) -->
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Problem (What)<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtProblem" name="txtProblem" class="form-control" placeholder="Problem (What)"></textarea>
+                                    </div>
+                                </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Tanggal dan Waktu Kejadian (When)</label>
-                                        <div class="col-sm-4">
-                                            <div class="input-group">
-                                                <input id="date-format" type="text" class="form-control">
-                                                <span class="input-group-append">
-                                                    <span class="input-group-text">
-                                                        <i class="mdi mdi-calendar-check"></i>
-                                                    </span>
+                                <!-- Requirement (Jika Ada) -->
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Requirement (Jika Ada)</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtReq" name="txtReq" class="form-control" placeholder="Requirement (Jika Ada)"></textarea>
+                                    </div>
+                                </div>
+
+                                @* Tanggal Kejadian *@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Tanggal dan Waktu Kejadian (When)</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input id="date-format" name="date-format" type="text" class="form-control">
+                                            <span class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="mdi mdi-calendar-check"></i>
                                                 </span>
-                                            </div>
+                                            </span>
                                         </div>
                                     </div>
+                                </div>
 
-                                    @* Lokasi *@
+                                @* Lokasi *@
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Lokasi (Where)<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <textarea id="txtLokasi" class="form-control" placeholder="Lokasi (Where)"></textarea>
-                                        </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Lokasi (Where)<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Lokasi (Where)"></textarea>
                                     </div>
+                                </div>
 
 
-                                    @* Siapa Saja *@
+                                @* Siapa Saja *@
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
-                                        <div class="col-sm-7">
-                                            <div class="input-group">
-                                                <input id="txtWho" class="form-control" placeholder="Siapa saja yang terlibat (Who)">
-                                                <span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
-                                                    <span class="input-group-text btn-success">
-                                                        <i class="fa fa-user-plus"></i>
-                                                    </span>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group">
+                                            <input id="txtWho" class="form-control" placeholder="Siapa saja yang terlibat (Who)">
+                                            <span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
+                                                <span class="input-group-text btn-success">
+                                                    <i class="fa fa-user-plus"></i>
                                                 </span>
-                                            </div>
-                                            <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
-                                                <table id="tblWho" class="table table-striped table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width:20px">No</th>
-                                                            <th>Nama</th>
-                                                            <th style="width:30px">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="tblBodyWho">
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+                                            <table id="tblWho" class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:20px">No</th>
+                                                        <th>Nama</th>
+                                                        <th style="width:30px">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tblBodyWho">
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
+                                </div>
 
-                                    @*Bagaimana Urutan Kejadian*@
+                                @*Bagaimana Urutan Kejadian*@
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Bagaimana Urutan Kejadian (How)<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <textarea id="txtHow" class="form-control" placeholder="Bagaimana Urutan Kejadian (How)"></textarea>
-                                        </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Bagaimana Urutan Kejadian (How)<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtHow" name="txtHow" class="form-control" placeholder="Bagaimana Urutan Kejadian (How)"></textarea>
                                     </div>
+                                </div>
 
 
-                                    @*Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?*@
+                                @*Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?*@
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <div class="form-group">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel4" data-travelNumber="1" id="pernah_yes_1" value="Yes"> Ya
+
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel4" type="radio" data-travelNumber="1" id="pernah_no_1" value="No" checked> Tidak
+
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <textarea name="txt30hari" id="txt30hari" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" disabled></textarea>
+                                    </div>
+                                </div>
+
+                                @*Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?*@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel1" data-travelNumber="1" id="sama_yes_1" value="Yes"> Ya
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel1" type="radio" data-travelNumber="1" id="sama_no_1" value="No" checked> Tidak
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <textarea name="txtsama" id="txtsama" class="form-control" placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" disabled></textarea>
+                                    </div>
+                                </div>
+
+                                @*Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?*@
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
                                                 <div class="form-check form-check-inline">
                                                     <label>
-                                                        <input type="radio" name="travel4" data-travelNumber="1" id="pernah_yes_1" value="Yes"> Ya
-
+                                                        <input type="radio" name="travel2" data-travelNumber="1" id="rilis_yes_2" value="Yes"> Ya
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <label>
-                                                        <input name="travel4" type="radio" data-travelNumber="1" id="pernah_no_1" value="No" checked> Tidak
-
+                                                        <input name="travel2" type="radio" data-travelNumber="1" id="rilis_no_2" value="No" checked> Tidak
                                                     </label>
                                                 </div>
                                             </div>
-                                            <textarea name="travelDetails" id="txt30hari" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" disabled></textarea>
                                         </div>
+                                        <textarea id="txtrilis" name="txtrilis" class="form-control" placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" disabled></textarea>
                                     </div>
+                                </div>
 
-                                    @*Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?*@
+                                @*Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?*@
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <div class="form-group">
-                                                <div class="form-check form-check-inline">
-                                                    <label>
-                                                        <input type="radio" name="travel1" data-travelNumber="1" id="sama_yes_1" value="Yes"> Ya
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <label>
-                                                        <input name="travel1" type="radio" data-travelNumber="1" id="sama_no_1" value="No" checked> Tidak
-                                                    </label>
-                                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel3" data-travelNumber="1" id="lain_yes_3" value="Yes"> Ya
+                                                </label>
                                             </div>
-                                            <textarea name="travelDetails" id="txtsama" class="form-control" placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" disabled></textarea>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel3" type="radio" data-travelNumber="1" id="lain_no_3" value="No" checked> Tidak
+                                                </label>
+                                            </div>
                                         </div>
+                                        <textarea id="txtlain" name="txtlain" class="form-control" placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" disabled></textarea>
                                     </div>
+                                </div>
 
-                                    @*Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?*@
+                                @*Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi*@
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <div class="form-group">
-                                                <div class="form-check form-check-inline">
-                                                    <div class="form-check form-check-inline">
-                                                        <label>
-                                                            <input type="radio" name="travel2" data-travelNumber="1" id="rilis_yes_2" value="Yes"> Ya
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <label>
-                                                            <input name="travel2" type="radio" data-travelNumber="1" id="rilis_no_2" value="No" checked> Tidak
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <textarea id="txtrilis" name="travelDetails" class="form-control" placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" disabled></textarea>
-                                        </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 col-form-label">
+                                        <label>
+                                            Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi
+                                        </label>
+                                        <label style="font-size:x-small; color:red">
+                                            *Wajib diisi untuk penyimpangan tidak terencana
+                                        </label>
                                     </div>
+                                    <div class="col-sm-10">
+                                        <textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
 
-                                    @*Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?*@
+                                    </div>
+                                </div>
+                            </form>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <div class="form-group">
-                                                <div class="form-check form-check-inline">
-                                                    <label>
-                                                        <input type="radio" name="travel3" data-travelNumber="1" id="lain_yes_3" value="Yes"> Ya
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <label>
-                                                        <input name="travel3" type="radio" data-travelNumber="1" id="lain_no_3" value="No" checked> Tidak
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <textarea id="txtlain" name="travelDetails" class="form-control" placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" disabled></textarea>
-                                        </div>
-                                    </div>
+                            <div class="form-group row">
+                                <div class="col-sm-2 col-form-label">
 
-                                    @*Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi*@
+                                </div>
+                                <div class="col-sm-10">
 
-                                    <div class="form-group row">
-                                        <div class="col-sm-2 col-form-label">
-                                            <label>
-                                                Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi
-                                            </label>
-                                            <label style="font-size:x-small; color:red">
-                                                *Wajib diisi untuk penyimpangan tidak terencana
-                                            </label>
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <textarea id="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
-                                            <div class="row" style="padding-top: 5px">
-                                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                                {
-                                                    <input type="file" name="NamaFileUpload" class="col-sm-6" id="idFileUpload" style="padding-top:10px;" />
-                                                    <hr />
-                                                    <button type="button" id="btnUpload" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>}
+                                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        <input type="file" style="margin-left:-15px" name="NamaFileUpload" class="col-sm-6" id="idFileUpload" />
+                                        <br />
+                                        <br />
+                                        <button type="button" id="btnUpload" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>
+                                    }
 
-                                                <!--<button type="button" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>-->
-                                            </div>
-                                        </div>
-                                        <label class="col-sm-2 col-form-label"></label>
-                                        <div class="col-sm-10">
-                                            <div class="table-responsive">
-                                                <table id="tbl_Attachment" class="table header-border">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>
-                                                                <b>No</b>
-                                                            </th>
-                                                            <th>
-                                                                <b>File Name</b>
-                                                            </th>
-                                                            <th>
-                                                                <b>Action</b>
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="tbody_Attachment"></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- ************************** List Penilaian ***************************** -->
-
-                                    <div class="form-group row">
-                                        <h4 class="col-sm-6 col-form-label">Penilaian Potensi Dampak dari penyimpangan<span class="text-danger">*</span></h4>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col">
-                                                <label>Kualitas Produk</label>
-                                                <br />
-                                                <div class="btn-group mb-2">
-                                                    <div class="basic-dropdown">
-                                                        <div class="dropdown">
-                                                            <select id="ddlKualProd" title="Kualitas Produk"></select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label>Risiko Finansial</label>
-                                                <br />
-                                                <div class="btn-group mb-2">
-                                                    <div class="basic-dropdown">
-                                                        <div class="dropdown">
-                                                            <select id="ddlRiskFin" title="Risiko Finansial"></select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label>Risiko Kesehatan Personil</label>
-                                                <br />
-                                                <div class="btn-group mb-2">
-                                                    <div class="basic-dropdown">
-                                                        <div class="dropdown">
-                                                            <select id="ddlKesehatanPer" title="Risiko Kesehatan Personil"></select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Baris 2 -->
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col">
-                                                <label>Compliance</label>
-                                                <br />
-                                                <div class="btn-group mb-2">
-                                                    <div class="basic-dropdown">
-                                                        <div class="dropdown">
-                                                            <select id="ddlCompliance" title="Compliance"></select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label>Risiko Organisasi</label>
-                                                <br />
-                                                <div class="btn-group mb-2">
-                                                    <div class="basic-dropdown">
-                                                        <div class="dropdown">
-                                                            <select id="ddlRiskOrg" title="Risiko Organisasi"></select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label>Resiko Lingkungan</label>
-                                                <br />
-                                                <div class="btn-group mb-2">
-                                                    <div class="basic-dropdown">
-                                                        <div class="dropdown">
-                                                            <select id="ddlResLingk" title="Risiko Lingkungan"></select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Baris 3-->
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col">
-                                                <label>Risiko Operasional</label>
-                                                <br />
-                                                <div class="btn-group mb-2">
-                                                    <div class="basic-dropdown">
-                                                        <div class="dropdown">
-                                                            <select id="ddlRiskOpr" title="Risiko Operasional"></select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label>Risiko Keamanan Personil</label>
-                                                <br />
-                                                <div class="btn-group mb-2">
-                                                    <div class="basic-dropdown">
-                                                        <div class="dropdown">
-                                                            <select id="ddlKeamamananP" title="Risiko Keamanan Personil"></select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <label>Risiko Intelektual</label>
-                                                <br />
-                                                <div class="btn-group mb-2">
-                                                    <div class="basic-dropdown">
-                                                        <div class="dropdown">
-                                                            <select id="ddlRiskIntelek" title="Risiko Intelektual"></select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col">
-                                                <label>Tingkat Keparahan Penyimpangan</label>
-                                                <br />
-                                                <div class="btn-group mb-2">
-                                                    <input id="txtKeparahan" type="text" class="form-control" readonly="readonly">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- End Form-->
-                                </form>
+                                    @*<button type="button" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>*@
+                                </div>
                             </div>
                         </div>
+
+
+                        <form class="form-valide2" onsubmit="return s();" action="#" method="post">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label"></label>
+
+                                <div class="col-sm-10">
+                                    <div class="table-responsive">
+                                        <table id="tbl_Attachment" class="table header-border">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <b>No</b>
+                                                    </th>
+                                                    <th>
+                                                        <b>File Name</b>
+                                                    </th>
+                                                    <th>
+                                                        <b>Action</b>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_Attachment"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label for="ddlKualProd">Kualitas Produk</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlKualProd" name="ddlKualProd" title="Kualitas Produk"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <label for="ddlRiskFin">Risiko Finansial</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlRiskFin" name="ddlRiskFin" title="Risiko Finansial"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="ddlKesehatanPer">Risiko Kesehatan Personil</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlKesehatanPer" name="ddlKesehatanPer" title="Risiko Kesehatan Personil"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                @*Baris 2*@
+
+                                <div class="col">
+                                    <label for="ddlCompliance">Compliance</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlCompliance" name="ddlCompliance" title="Compliance"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="ddlRiskOrg">Risiko Organisasi</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlRiskOrg" name="ddlRiskOrg" title="Risiko Organisasi"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="ddlResLingk">Resiko Lingkungan</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlResLingk" name="ddlResLingk" title="Risiko Lingkungan"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                @*Baris 3*@
+
+                                <div class="col">
+                                    <label for="ddlRiskOpr">Risiko Operasional</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlRiskOpr" name="ddlRiskOpr" title="Risiko Operasional"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="ddlKeamamananP">Risiko Keamanan Personil</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlKeamamananP" name="ddlKeamamananP" title="Risiko Keamanan Personil"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="ddlRiskIntelek">Risiko Intelektual</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlRiskIntelek" name="ddlRiskIntelek" title="Risiko Intelektual"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="txtKeparahan">Tingkat Keparahan Penyimpangan</label>
+                                        <br />
+                                        <div class="btn-group mb-2">
+                                            <input id="txtKeparahan" name="txtKeparahan" type="text" class="form-control" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </form>
                     </div>
                 </div>
             </div>
-
-            <!-- #/ container -->
         </div>
-
     </div>
 </div>
 
