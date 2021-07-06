@@ -69,20 +69,29 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Kategori Penyimpangan<span class="text-danger">*</span></label>
+                                        <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
                                         <div class="col-sm-3">
-                                            <div class="btn-group mb-2">
+                                            <div>
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlKategori" disabled="disabled"></select>
+                                                        <select id="ddlKategori" name="ddlKategori"></select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <br>
-
+                                            <div id="divsimpang">
+                                                <div class="basic-dropdown">
+                                                    @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
+                                                    <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            @*<div id="divproduk">
+                                                    <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
+                                                </div>*@
                                         </div>
                                         <div class="col-sm-7">
-                                            <textarea id="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan" disabled="disabled"></textarea>
+                                            <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan"></textarea>
                                         </div>
                                     </div>
                                     @*  Penyimpangan terencana *@
@@ -331,7 +340,7 @@
                                                 <div class="btn-group mb-2">
                                                     <div class="basic-dropdown">
                                                         <div class="dropdown">
-                                                            <select id="ddlKualProd" title="Kualitas Produk" disabled></select>
+                                                            <select id="ddlKualProd" title="Kualitas Produk" ></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -342,7 +351,7 @@
                                                 <div class="btn-group mb-2">
                                                     <div class="basic-dropdown">
                                                         <div class="dropdown">
-                                                            <select id="ddlRiskFin" title="Risiko Finansial" disabled></select>
+                                                            <select id="ddlRiskFin" title="Risiko Finansial" ></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -353,7 +362,7 @@
                                                 <div class="btn-group mb-2">
                                                     <div class="basic-dropdown">
                                                         <div class="dropdown">
-                                                            <select id="ddlKesehatanPer" title="Risiko Kesehatan Personil" disabled></select>
+                                                            <select id="ddlKesehatanPer" title="Risiko Kesehatan Personil" ></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -369,7 +378,7 @@
                                                 <div class="btn-group mb-2">
                                                     <div class="basic-dropdown">
                                                         <div class="dropdown">
-                                                            <select id="ddlCompliance" title="Compliance" disabled></select>
+                                                            <select id="ddlCompliance" title="Compliance" ></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -380,7 +389,7 @@
                                                 <div class="btn-group mb-2">
                                                     <div class="basic-dropdown">
                                                         <div class="dropdown">
-                                                            <select id="ddlRiskOrg" title="Risiko Organisasi" disabled></select>
+                                                            <select id="ddlRiskOrg" title="Risiko Organisasi" ></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -391,7 +400,7 @@
                                                 <div class="btn-group mb-2">
                                                     <div class="basic-dropdown">
                                                         <div class="dropdown">
-                                                            <select id="ddlResLingk" title="Risiko Lingkungan" disabled></select>
+                                                            <select id="ddlResLingk" title="Risiko Lingkungan" ></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -407,7 +416,7 @@
                                                 <div class="btn-group mb-2">
                                                     <div class="basic-dropdown">
                                                         <div class="dropdown">
-                                                            <select id="ddlRiskOpr" title="Risiko Operasional" disabled></select>
+                                                            <select id="ddlRiskOpr" title="Risiko Operasional" ></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -418,7 +427,7 @@
                                                 <div class="btn-group mb-2">
                                                     <div class="basic-dropdown">
                                                         <div class="dropdown">
-                                                            <select id="ddlKeamamananP" title="Risiko Keamanan Personil" disabled></select>
+                                                            <select id="ddlKeamamananP" title="Risiko Keamanan Personil" ></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -429,7 +438,7 @@
                                                 <div class="btn-group mb-2">
                                                     <div class="basic-dropdown">
                                                         <div class="dropdown">
-                                                            <select id="ddlRiskIntelek" title="Risiko Intelektual" disabled></select>
+                                                            <select id="ddlRiskIntelek" title="Risiko Intelektual" ></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -442,7 +451,7 @@
                                                 <label>Tingkat Keparahan Penyimpangan</label>
                                                 <br />
                                                 <div class="btn-group mb-2">
-                                                    <input id="txtKeparahan" type="text" class="form-control" disabled="disabled" s>
+                                                    <input id="txtKeparahan" type="text" class="form-control" ="disabled" s>
                                                 </div>
                                             </div>
                                         </div>
@@ -626,6 +635,9 @@
 
 <script>
     $(document).ready(function () {
+        $.ajaxPrefilter(function (options, original_Options, jqXHR) {
+            options.async = true;
+        });
 
         /* MASTER */
         GetCurrStatus();
@@ -635,9 +647,9 @@
         LoadUserInvolved();
         GetFileAttachment();
 
-        $(".site-dropdown").click(function () {
-            GetAllSite();
-        });
+        //$(".site-dropdown").click(function () {
+        //    GetAllSite();
+        //});
 
         /* LIST OF REVIEWER AND DISPOSISI */
         LoadReviewerData();
@@ -646,6 +658,10 @@
         /* REMEDIAL RESULT */
         LoadData();
         LoadKoorSub();
+
+    });
+
+    $(document).ready(function () {
 
     });
 
@@ -714,15 +730,34 @@
                 document.getElementById('TbPesul').value = data[0].NAME_PROPOSER;
                 document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
 
-                GetAllSite();
+                //GetAllSite();
+                
+                text = '<Option class="dropdown-item" disabled value = "' + data[0].LOCATION_SITE + '" selected >' + data[0].DDL_DESC;
+                $("#ddlSite").empty();
+                $("#ddlSite").append(text);
+                $("#ddlSite").selectpicker();
 
-                text = '<Option class="dropdown-item" value = "' + data[0].ID_DEVIATION_CATEGORY + '" selected >' + data[0].DEVIATION_CATEGORY;
 
+                text = '';
+                text = '<Option class="dropdown-item" disabled value = "' + data[0].ID_DEVIATION_CATEGORY + '" selected >' + data[0].DEVIATION_CATEGORY;
                 $("#ddlKategori").empty();
                 $("#ddlKategori").append(text);
                 $("#ddlKategori").selectpicker();
 
+                if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
+                    $("#divsimpang").show();
+                    $("#TxtNoWO").attr("disabled", true);
+                    $('#TxtNoWO').val(data[0].NO_WO_ORACLE);
+                }
+                else {
+                    $("#divsimpang").hide();
+                    $("#TxtNoWO").attr("disabled", true);
+                }
+
+               
+
                 document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
+                
 
                 document.getElementById('txtProblem').value = data[0].PROBLEM;
                 document.getElementById('txtLokasi').value = data[0].LOCATION;
@@ -734,26 +769,49 @@
                 
                 // 1st Card Radio Button
 
-                // Travel 5 -> missing
-                $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
-
-                // Travel 4 -> missing
-                $("input[name=travel4][value=" + data[0].THIRTY_FLAG + "]").prop('checked', true);
-                document.getElementById('txt1').value = data[0].THIRTY;
-
                 // Travel 1
-
                 $("input[name=travel1][value=" + data[0].SAME_POTEN_DEV_FLAG + "]").prop('checked', true);
-                document.getElementById('txtsama').value = data[0].SAME_POTEN_DEV;
+                if (data[0].SAME_POTEN_DEV_FLAG == 'Yes') {
+
+                    $("#txtsama").removeAttr("disabled");
+                } else {
+                    $("#txtsama").attr("disabled", true);
+                }
+                $('#txtsama').val(data[0].SAME_POTEN_DEV);
 
                 // Travel 2 (Txt2 HTML5 missing)
 
                 $("input[name=travel2][value=" + data[0].POTEN_DEV_RLS_FLG + "]").prop('checked', true);
-                document.getElementById('txtrilis').value = data[0].POTEN_DEV_RLS;
+                if (data[0].POTEN_DEV_RLS_FLG == 'Yes') {
+
+                    $("#txtrilis").removeAttr("disabled");
+                } else {
+                    $("#txtrilis").attr("disabled", true);
+                }
+                $('#txtrilis').val(data[0].POTEN_DEV_RLS);
 
                 // Travel 3 (Txt3 HTML5 missing)
                 $("input[name=travel3][value=" + data[0].POTEN_DEV_OTH_FLG + "]").prop('checked', true);
-                document.getElementById('txtlain').value = data[0].POTEN_DEV_OTH;
+                if (data[0].POTEN_DEV_OTH_FLG == 'Yes') {
+
+                    $("#txtlain").removeAttr("disabled");
+                } else {
+                    $("#txtlain").attr("disabled", true);
+                }
+                $('#txtlain').val(data[0].POTEN_DEV_OTH);
+
+                // Travel 4 -> missing
+                $("input[name=travel4][value=" + data[0].THIRTY_FLAG + "]").prop('checked', true);
+                if (data[0].THIRTY_FLAG == 'Yes') {
+
+                    $("#txt30hari").removeAttr("disabled");
+                } else {
+                    $("#txt30hari").attr("disabled", true);
+                }
+                $('#txt30hari').val(data[0].THIRTY);
+
+                // Travel 5 -> missing
+                $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
 
                 // 2nd Card FINISHED!
 
@@ -834,7 +892,8 @@
                 document.getElementById('txtKeparahan').value = data[0].SEVERTY_DEVIATION;
 
                 $('textarea').each(function () {
-                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;width:500px;overflow-y:hidden;');
+                    //this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;width:500px;overflow-y:hidden;');
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
                 }).on('input', function () {
                     this.style.height = 'auto';
                     this.style.height = (this.scrollHeight) + 'px';
@@ -846,7 +905,7 @@
         });
     }
 
-    function GetAllSite() {
+    @*function GetAllSite() {
 
         GetAllSite = function () { };
 
@@ -900,7 +959,7 @@
                 alert('Error : ' + JSON.stringify(ex));
             }
         });
-    }
+    }*@
 
     function LoadUserInvolved() {
 
@@ -918,7 +977,7 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 if (data != '') {
-                    $('#tblWho').attr('hidden', false);
+                    //$('#tblWho').attr('hidden', false);
 
                     var trHTML = '';
                     var trav = 0;
@@ -936,7 +995,7 @@
                     $("#tblBodyWho").addBack();
                 }
                 else {
-                    $('#tblWho').attr('hidden', true);
+                    //$('#tblWho').attr('hidden', true);
                     $("#tblBodyWho").addBack();
                 }
 

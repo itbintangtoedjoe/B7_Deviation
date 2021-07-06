@@ -583,7 +583,7 @@
 
         // Generate Req ID
         $(document).ready(function () {
-            $('#tblWho').attr('hidden', true);
+            //$('#tblWho').attr('hidden', true);
             $.when($.ajax(GenerateReqID())).then(function () {
                 $.when($.ajax(GenerateDate())).then(function () {
                     GetFileAttachment();
@@ -596,7 +596,6 @@
         $(document).ready(function () {
             GetSiteName();
             GetKategoriDeviation();
-            GetJenisDeviation();
             SetupRbDtPicker();
 
         });
@@ -631,6 +630,7 @@
         $("#ddlKategori").change(function () {
             if ($("#ddlKategori").val() == 'QUA') {
                 $("#divsimpang").show();
+                GetJenisDeviation();
             }
             else {
                 $("#divsimpang").hide();
@@ -983,9 +983,15 @@
 
     function GetJenisDeviation() {
         //GetNoWOOracle
+        var LocationSite = LOCATION_SITE = $("#ddlSite").val();
+        var dto = {
+            LocationSite: LocationSite
+        }
+
         $.ajax({
             url: "../Form/GetNoWOOracle",
             type: "post",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
@@ -1716,9 +1722,7 @@
             FLAG_KOOR = 'Coordinator_QA';
         } else if (FLAG_KOOR == 'QNS' || FLAG_KOOR == 'HSE' ){
             FLAG_KOOR = 'Coordinator_QS';
-        }
-
-        alert(FLAG_KOOR);
+        }        
 
         var dto = {
             CrDateUser: CR_DATE_USER,
@@ -1846,7 +1850,7 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 if (data != '') {
-                    $('#tblWho').attr('hidden', false);
+                    //$('#tblWho').attr('hidden', false);
 
                     var trHTML = '';
                     var trav = 0;
@@ -1864,7 +1868,7 @@
                     $("#tblBodyWho").addBack();
                 }
                 else {
-                    $('#tblWho').attr('hidden', true);
+                    //$('#tblWho').attr('hidden', true);
                     $("#tblBodyWho").addBack();
                 }
 
@@ -1966,28 +1970,50 @@
 
                 document.getElementById('txtReq').value = data[0].REQ;
 
-                // 1st Card Radio Button
-
-                // Travel 5 -> missing
-                $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
-
-                // Travel 4 -> missing
-                $("input[name=travel4][value=" + data[0].THIRTY_FLAG + "]").prop('checked', true);
-                document.getElementById('txt30hari').value = data[0].THIRTY;
-
+                // 1st Card Radio Button                
                 // Travel 1
-
                 $("input[name=travel1][value=" + data[0].SAME_POTEN_DEV_FLAG + "]").prop('checked', true);
-                document.getElementById('txtsama').value = data[0].SAME_POTEN_DEV;
+                if (data[0].SAME_POTEN_DEV_FLAG == 'Yes') {
+
+                    $("#txtsama").removeAttr("disabled");
+                } else {
+                    $("#txtsama").attr("disabled", true);
+                }
+                $('#txtsama').val(data[0].SAME_POTEN_DEV);
 
                 // Travel 2 (Txt2 HTML5 missing)
 
                 $("input[name=travel2][value=" + data[0].POTEN_DEV_RLS_FLG + "]").prop('checked', true);
-                document.getElementById('txtrilis').value = data[0].POTEN_DEV_RLS;
+                if (data[0].POTEN_DEV_RLS_FLG == 'Yes') {
+
+                    $("#txtrilis").removeAttr("disabled");
+                } else {
+                    $("#txtrilis").attr("disabled", true);
+                }
+                $('#txtrilis').val(data[0].POTEN_DEV_RLS);
 
                 // Travel 3 (Txt3 HTML5 missing)
                 $("input[name=travel3][value=" + data[0].POTEN_DEV_OTH_FLG + "]").prop('checked', true);
-                document.getElementById('txtlain').value = data[0].POTEN_DEV_OTH;
+                if (data[0].POTEN_DEV_OTH_FLG == 'Yes') {
+
+                    $("#txtlain").removeAttr("disabled");
+                } else {
+                    $("#txtlain").attr("disabled", true);
+                }
+                $('#txtlain').val(data[0].POTEN_DEV_OTH);
+
+                // Travel 4 -> missing
+                $("input[name=travel4][value=" + data[0].THIRTY_FLAG + "]").prop('checked', true);
+                if (data[0].THIRTY_FLAG == 'Yes') {
+
+                    $("#txt30hari").removeAttr("disabled");
+                } else {
+                    $("#txt30hari").attr("disabled", true);
+                }
+                $('#txt30hari').val(data[0].THIRTY);
+
+                // Travel 5 -> missing
+                $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
 
                 // 2nd Card FINISHED!
 
@@ -2012,7 +2038,7 @@
                 document.getElementById('txtKeparahan').value = data[0].SEVERTY_DEVIATION;
 
                 $('textarea').each(function () {
-                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;width:500px;overflow-y:hidden;');
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
                 }).on('input', function () {
                     this.style.height = 'auto';
                     this.style.height = (this.scrollHeight) + 'px';

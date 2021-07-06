@@ -500,13 +500,14 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
-        public ActionResult GetNoWOOracle()
+        public ActionResult GetNoWOOracle(DeviationModel Model)
         {
             try 
             {
                 using (OracleCommand command = new OracleCommand("XXB7_DEVIATION.GET_NO_WO", OraDBConn))
                 {
                     command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("p_location_site", OracleDbType.Varchar2).Value = Model.LocationSite;
                     command.Parameters.Add("out_cursor", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
                     OraDBConn.Open();
                     DataAdapt.SelectCommand = command;
@@ -947,6 +948,9 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@LOCATION", SqlDbType.VarChar);
                     command.Parameters["@LOCATION"].Value = Model.Location;
+
+                    command.Parameters.Add("@NO_WO_ORACLE", SqlDbType.VarChar);
+                    command.Parameters["@NO_WO_ORACLE"].Value = Model.NO_WO_ORACLE;
                     /* END Header */
 
                     /* Strat Details */

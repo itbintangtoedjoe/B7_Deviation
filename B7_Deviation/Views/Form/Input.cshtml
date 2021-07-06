@@ -584,7 +584,7 @@
         });
 
         $('#btnSaveForm').click(function () {
-            alert('clicked')
+            
             if (!$(".form-valide").valid() || !$(".form-valide2").valid()) {
                 return;
             }
@@ -970,7 +970,7 @@
     // Load Dropdownlist
     function GetSiteName() {
         $.ajax({
-            url: "GetSiteName",
+            url: "../Form/GetSiteName",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -995,7 +995,7 @@
 
     function GetKategoriDeviation() {
         $.ajax({
-            url: "GetKategoriDeviation",
+            url: "../Form/GetKategoriDeviation",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -1020,9 +1020,14 @@
 
     function GetJenisDeviation() {
         //GetNoWOOracle
+        var LocationSite = LOCATION_SITE = $("#ddlSite").val();
+        var dto = {
+            LocationSite: LocationSite
+        }
         $.ajax({
-            url: "GetNoWOOracle",
+            url: "../Form/GetNoWOOracle",
             type: "post",
+            data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var count = data.length;
@@ -1627,7 +1632,7 @@
         } else if (FLAG_KOOR == 'QNS' || FLAG_KOOR == 'HSE' ){
             FLAG_KOOR = 'Coordinator_QS';
         }
-
+        
         var dto = {
             CrDateUser: CR_DATE_USER,
             IdProposer: ID_PROPOSER,
@@ -1663,19 +1668,18 @@
             SevertyDeviation: SEVERTY_DEVIATION,
             ReqID: REQID,
 
-            WO_NUMBER_ORACLE: WO_NUMBER,
+            NO_WO_ORACLE: NO_WO_ORACLE,
 
             FLAG_KOOR: FLAG_KOOR,
 
             PLAN_DEV: PLAN_DEV_FLAG,
             THIRTY_FLAG: THIRTY_FLAG,
             THIRTY: THIRTY,
-            REQ: REQ,
-            NO_WO_ORACLE: NO_WO_ORACLE
+            REQ: REQ            
         };
 
         $.ajax({
-            url: "InsertFormDeviation",
+            url: "../Form/InsertFormDeviation",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),

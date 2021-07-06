@@ -4965,6 +4965,8 @@
     <Content Include="Content\Styles\images\profile\9.jpg" />
     <Content Include="Content\Styles\images\profile\cover.jpg" />
     <Content Include="Content\Styles\images\profile\profile.png" />
+    <Content Include="Content\Styles\images\sort_asc.png" />
+    <Content Include="Content\Styles\images\sort_both.png" />
     <Content Include="Content\Styles\images\users\1.jpg" />
     <Content Include="Content\Styles\images\users\2.jpg" />
     <Content Include="Content\Styles\images\users\3.jpg" />
