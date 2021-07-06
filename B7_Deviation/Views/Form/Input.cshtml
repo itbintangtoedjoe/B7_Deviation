@@ -574,7 +574,7 @@
 
         $('#spanUser').click(function () {
             $.when($.ajax(InsertNamaTerlibat())).then(function () {
-                $('#txtWho').value('');
+                $('#txtWho').val('');
             });
         });
 
@@ -603,9 +603,6 @@
 
     // Drop Down List Click
     $(document).ready(function () {
-        $("#ddlSite").change(function () {
-
-        });
 
         $("#divsimpang").hide();
         $("#TxtNoWO").attr("disabled", true);
@@ -1588,8 +1585,7 @@
         var PROBLEM = $("#txtProblem").val();
         var DATE_OF_INCIDENT = $("#date-format").val();
         var LOCATION_SITE = $("#ddlSite").val();
-        var DEVIATION_CATEGORY = $("#ddlKategori").val();
-        var WO_NUMBER = $("#ddlJenSi").val();
+        var DEVIATION_CATEGORY = $("#ddlKategori").val();        
         var KET_CATEGORY = $("#txtKetKategori").val();
         var CR_DATE_USER = $("#TbTglCreated").val();
         var LOCATION = $("#txtLokasi").val();
@@ -1690,7 +1686,8 @@
                     title: 'Form Submitted'
                 });
                 CheckDelete = 1;
-                window.location.href = "../PelaporPenyimpangan/DataTableList"
+                window.location.href = "../DataDeviasi/DataTableList";
+                
             }
             , error: function (ex) {
                 alert('Error Insert Form Deviation: ' + JSON.stringify(ex));

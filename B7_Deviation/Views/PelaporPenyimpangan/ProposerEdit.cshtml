@@ -606,7 +606,7 @@
     $(document).ready(function () {
         $('#spanUser').click(function () {
             $.when($.ajax(InsertNamaTerlibat())).then(function () {
-
+                $('#txtWho').val('');
             });
         });
 
@@ -619,32 +619,32 @@
 
     // Drop Down List Click
     $(document).ready(function () {
-        $("#ddlSite").change(function () {
-
-        });
-
         $("#divsimpang").hide();
+        $("#TxtNoWO").attr("disabled", true);
         $('#divproduk').hide();
         $('#divproduk').hide();
+
 
         $("#ddlKategori").change(function () {
-            if ($("#ddlKategori").val() == 'QUA') {
+            if ($("#ddlKategori").val() == 'QPR') {
                 $("#divsimpang").show();
+                $("#TxtNoWO").removeAttr("disabled");
                 GetJenisDeviation();
             }
             else {
                 $("#divsimpang").hide();
+                $("#TxtNoWO").attr("disabled", true);
             }
         });
 
-        $("#ddlJenSi").change(function () {
-            if ($('#ddlJenSi').val() == 'PRODUK' || $('#ddlJenSi').val() == 'MATAWL') {
-                $('#divproduk').show();
-            }
-            else {
-                $('#divproduk').hide();
-            }
-        });
+        //$("#ddlJenSi").change(function () {
+        //    if ($('#ddlJenSi').val() == 'PRODUK' || $('#ddlJenSi').val() == 'MATAWL') {
+        //        $('#divproduk').show();
+        //    }
+        //    else {
+        //        $('#divproduk').hide();
+        //    }
+        //});
 
 
         $('#ddlKualProd').change(function () {
@@ -1806,7 +1806,7 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 if (data == 'S') {
-
+                    $('#txtWho').val('');
                     toastr.success("Data berhasil tersimpan !", "Tersimpan", {
                         "closeButton": false,
                         "debug": true,

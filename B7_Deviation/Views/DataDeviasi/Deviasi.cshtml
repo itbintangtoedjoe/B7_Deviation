@@ -91,7 +91,7 @@
                                                 </div>*@
                                         </div>
                                         <div class="col-sm-7">
-                                            <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan"></textarea>
+                                            <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan" readonly="readonly"></textarea>
                                         </div>
                                     </div>
                                     @*  Penyimpangan terencana *@
@@ -102,13 +102,13 @@
                                             <div class="form-group">
                                                 <div class="form-check form-check-inline">
                                                     <label>
-                                                        <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes" disabled> Ya
+                                                        <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes" disabled="disabled"> Ya
 
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <label>
-                                                        <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No" checked disabled> Tidak
+                                                        <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No"  disabled="disabled"> Tidak
 
                                                     </label>
                                                 </div>
@@ -1195,7 +1195,7 @@
                 $("#Reviewer").append(text);
 
                 $('textarea').each(function () {
-                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;width:500px;overflow-y:hidden;');
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
                 }).on('input', function () {
                     this.style.height = 'auto';
                     this.style.height = (this.scrollHeight) + 'px';
