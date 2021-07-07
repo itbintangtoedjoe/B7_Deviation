@@ -9,6 +9,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using B7_Deviation.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace B7_Deviation.Controllers
 {
@@ -28,6 +30,180 @@ namespace B7_Deviation.Controllers
         public ActionResult Input()
         {
             return View();
+        }
+
+        public ActionResult SendEmailInputProposal(EmailModel Model)
+        {
+            string ConString = MyDB.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            List<string> ModelData = new List<string>();
+
+            if (Model.TableType == "One")
+            {
+                try
+                {
+                    Conn.Open();
+                    using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
+                    {
+                        Command.CommandType = CommandType.StoredProcedure;
+
+                        if(Model.WhoReceiver == "Superior after Form Input")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Form Input";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }else if(Model.WhoReceiver == "Proposer after Superior Reject")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+
+                        SqlDataAdapter dataAdap = new SqlDataAdapter();
+                        dataAdap.SelectCommand = Command;
+
+
+                        dataAdap.Fill(DT);
+                    }
+                    Conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                Dictionary<string, object> row;
+                row = new Dictionary<string, object>();
+                foreach (DataRow dr in DT.Rows)
+                {
+                    foreach (DataColumn col in DT.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                    Model.EmailReceiver = dr[1].ToString();
+                    Model.Receiver = dr[0].ToString();
+
+                }
+
+                Model.Sender = "Admin";
+                Model.EmailSender = "apidevelopmentb7@gmail.com";
+
+                var receiverEmail = new MailAddress(Model.EmailReceiver, Model.Receiver);
+                var senderEmail = new MailAddress(Model.EmailSender, Model.Sender);
+
+                var sub = Model.Subject;
+                var body = Model.Body;
+                var mess = new MailMessage();
+                mess.From = senderEmail;
+                mess.Body = body;
+                mess.Subject = sub;
+                mess.Bcc.Add(new MailAddress("billywinata@gmail.com", "Billy"));
+                mess.Priority = MailPriority.High;
+                mess.IsBodyHtml = true;
+                mess.To.Add(receiverEmail);
+                
+
+                // Password Email Sender
+                string pw = "Welcome123!";
+
+                var client = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    EnableSsl = true,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, pw)
+                };
+
+                client.Send(mess);
+
+            }
+            else if(Model.TableType == "More Than One")
+            {
+                // MORE THAN 1 RECEIVER
+
+                try
+                {
+                    Conn.Open();
+                    using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
+                    {
+                        Command.CommandType = CommandType.StoredProcedure;
+
+                        if (Model.WhoReceiver == "Koordinator after Superior Approved")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        
+                        SqlDataAdapter dataAdap = new SqlDataAdapter();
+                        dataAdap.SelectCommand = Command;
+
+
+                        dataAdap.Fill(DT);
+                    }
+                    Conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                Dictionary<string, object> row;
+                row = new Dictionary<string, object>();
+                foreach (DataRow dr in DT.Rows)
+                {
+                    
+                    Model.EmailReceiver = dr[0].ToString();
+                    Model.Receiver = dr[1].ToString();
+
+                    Model.Sender = "Admin";
+                    Model.EmailSender = "apidevelopmentb7@gmail.com";
+
+                    var receiverEmail = new MailAddress(Model.EmailReceiver, Model.Receiver);
+                    var senderEmail = new MailAddress(Model.EmailSender, Model.Sender);
+
+                    var sub = Model.Subject;
+                    var body = Model.Body;
+                    var mess = new MailMessage();
+                    mess.From = senderEmail;
+                    mess.Body = body;
+                    mess.Subject = sub;
+                    mess.Bcc.Add(new MailAddress("billywinata@gmail.com", "Billy"));
+                    mess.Priority = MailPriority.High;
+                    mess.IsBodyHtml = true;
+                    mess.To.Add(receiverEmail);
+
+                    // Password Email Sender
+                    string pw = "Welcome123!";
+
+                    var client = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        EnableSsl = true,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(senderEmail.Address, pw)
+                    };
+
+                    client.Send(mess);
+
+                }
+
+            }
+
+            return Json(ModelData);
         }
 
         public ActionResult GenerateNoReqID()
