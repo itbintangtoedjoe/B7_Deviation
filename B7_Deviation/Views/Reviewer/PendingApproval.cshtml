@@ -46,10 +46,11 @@
         });
 
         function LoadData() {
-
+            var reqid = @ViewBag.nomor;
             var userid = '@Request.RequestContext.HttpContext.Session["xUser"]';
             var dto = {
-                IDUSER: userid
+                IDUSER: userid,
+                REQID: reqid
             }
 
             $.ajax({

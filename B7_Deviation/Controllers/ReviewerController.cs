@@ -22,8 +22,9 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
-        public ActionResult PendingApproval()
+        public ActionResult PendingApproval(String Nomor)
         {
+            ViewBag.nomor = Nomor;
             return View();
         }
 
@@ -192,6 +193,9 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "Reviewer";
+
+                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
 
                     command.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar);
                     command.Parameters["@UserID"].Value = Model.IDUSER;

@@ -1,530 +1,530 @@
 ﻿
 @{
-    ViewBag.Title = "HeaderKoordinator";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "HeaderKoordinator";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 <div class="content-body">
-    <div class="form-group">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+	<div class="form-group">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="form-group">
+								<h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
 
-                            </div>
-                            
-                            <div class="form-group row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
+							</div>
+							
+							<div class="form-group row">
+								<div class="col-md-8">
+									<div class="form-group">
 
-                                        @* APPROVE PER HEADER *@
-                                        <button type="button" id="btnApprove" style="width:108.11px" class="btn mb-1 btn-success form-control">
-                                            Approve
-                                            <span class="fa fa-check-square-o"></span>
-                                        </button>
+										@* APPROVE PER HEADER *@
+										<button type="button" id="btnApprove" style="width:108.11px" class="btn mb-1 btn-success form-control">
+											Approve
+											<span class="fa fa-check-square-o"></span>
+										</button>
 
-                                        @* REJECT PER HEADER *@
-                                        <button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
-                                            Reject
-                                            <span class="fa fa-ban"></span>
-                                        </button>
+										@* REJECT PER HEADER *@
+										<button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
+											Reject
+											<span class="fa fa-ban"></span>
+										</button>
 
 
-                                        <button type="button" id="btnShowRev" class="col-sm-2 btn mb-1 btn-info form-control" hidden="hidden">
-                                            Show Reviewer
-                                        </button>
+										<button type="button" id="btnShowRev" class="col-sm-2 btn mb-1 btn-info form-control" hidden="hidden">
+											Show Reviewer
+										</button>
 
-                                        <button type="button" id="btnDelegate" class="col-sm-2 btn mb-1 btn-warning form-control" hidden="hidden">
-                                            Delegate
-                                        </button>
+										<button type="button" id="btnDelegate" class="col-sm-2 btn mb-1 btn-warning form-control" hidden="hidden">
+											Delegate
+										</button>
 
-                                        <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control" hidden="hidden">
-                                            Cancel
-                                            <span class="fa fa-trash-o"></span>
-                                        </button>
-                                    </div>
+										<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control" hidden="hidden">
+											Cancel
+											<span class="fa fa-trash-o"></span>
+										</button>
+									</div>
 
-                                    <div class="form-group" id="xddlx" hidden="hidden">
-                                        <div class="col">
-                                            <label class="col col-form-label">Reviewer<span class="text-danger">*</span> :</label>
-                                        </div>
-                                        <div class="col">
-                                            <div class="col input-group form-group">
-                                                <div class="basic-dropdown">
-                                                    <div class="dropdown user-dropdown form-inline">
-                                                        <select id="ddlReviewer" name="ddlReviewer" class="form-control"></select>
-                                                    </div>
-                                                </div>
-                                                <span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
-                                                    <span class="input-group-text btn-success">
-                                                        <i class="fa fa-user-plus"></i>
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <div class="col form-group">
-                                                <table id="tblWho" class="table table-striped table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width:20px">No</th>
-                                                            <th>Nama</th>
-                                                            <th>NIK</th>
-                                                            <th style="width:30px">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="tblBodyWho">
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+									<div class="form-group" id="xddlx" hidden="hidden">
+										<div class="col">
+											<label class="col col-form-label">Reviewer<span class="text-danger">*</span> :</label>
+										</div>
+										<div class="col">
+											<div class="col input-group form-group">
+												<div class="basic-dropdown">
+													<div class="dropdown user-dropdown form-inline">
+														<select id="ddlReviewer" name="ddlReviewer" class="form-control"></select>
+													</div>
+												</div>
+												<span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
+													<span class="input-group-text btn-success">
+														<i class="fa fa-user-plus"></i>
+													</span>
+												</span>
+											</div>
+											<div class="col form-group">
+												<table id="tblWho" class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th style="width:20px">No</th>
+															<th>Nama</th>
+															<th>NIK</th>
+															<th style="width:30px">Action</th>
+														</tr>
+													</thead>
+													<tbody id="tblBodyWho">
+													</tbody>
+												</table>
+											</div>
+										</div>
 
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Nama</label>
-                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtTanggal">Tanggal:</label>
-                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Nama</label>
+										<input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+									</div>
+									<div class="form-group">
+										<label for="txtTanggal">Tanggal:</label>
+										<input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    </div>
+	</div>
 
-    <div class="form-group">
-        @Html.Partial("../SpvPelapor/Approval")
-    </div>
+	<div class="form-group">
+		@Html.Partial("../SpvPelapor/Approval")
+	</div>
 </div>
 
 <script>
 
-    $(document).ready(function () {
-
-        GetCurrStat();
-
-        GetDelegateStatus();
-
-
-        $('#spanUser').click(function () {
-            InsertNamaTerlibat();
-        });
-
-        $("#btnReject").click(function () {
-            Reject();
-        });
-
-
-        $("#btnCancel").click(function () {
-            Cancel();
-        });
-
-        // BUTTON APPROVE(S) ARE SPECIFIED IN GETCURRSTAT FUNCTION TO SPECIFY WHICH APPROVAL IS WHICH
-
-    });
-
-    function Approve() {
-        var REQID = @ViewBag.nomor;
-        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-        var dto = {
-
-            REQID: REQID,
-            IDUSER: iduser
-        };
-
-        $.ajax({
-            url: "../Koordinator/Coor_Approve",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                GetDevNum();
-
-                Swal.fire({
-                    title: 'Form Approved',
-                    showDenyButton: false,
-                    showCancelButton: false,
-                    confirmButtonText: `OK`
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
-                    }
-                })
-
-            }
-            , error: function (ex) {
-                alert('Error Approve : ' + JSON.stringify(ex));
-            }
-        });
-    }
-
-    function ApproveReviewer() {
-        var REQID = @ViewBag.nomor;
-        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-        var dto = {
-
-            REQID: REQID,
-            IDUSER: iduser
-        };
-
-        $.ajax({
-            url: "../Koordinator/Coor_Approve",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                Swal.fire({
-                    title: 'Form Approved',
-                    showDenyButton: false,
-                    showCancelButton: false,
-                    confirmButtonText: `OK`
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
-                    }
-                })
-
-            }
-            , error: function (ex) {
-                alert('Error Approve Reviewer : ' + JSON.stringify(ex));
-            }
-        });
-    }
-
-    function Reject() {
-
-        Swal.fire({
-            title: 'Reason???',
-            input: 'text',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Submit',
-            showLoaderOnConfirm: true,
-
-            allowOutsideClick: () => Swal.isLoading()
-        }).then((result) => {
-
-            if (result.value == null || result.value == '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please Insert Reason!'
-                });
-            } else if (result.isConfirmed) {
-
-                var REQID = @ViewBag.nomor;
-                var Keterangan = result.value;
-                var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-                var dto = {
-                    REQID: REQID,
-                    KETERANGAN: Keterangan,
-                    IDUSER: iduser
-                };
-
-                $.ajax({
-                    url: "../Koordinator/Coor_Reject",
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(dto),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-
-                        Swal.fire({
-                            title: 'Form Rejected',
-                            showDenyButton: false,
-                            showCancelButton: false,
-                            confirmButtonText: `OK`
-                        }).then((result) => {
-
-                            if (result.isConfirmed) {
-                                window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
-                            }
-                        })
-
-                    }
-                    , error: function (ex) {
-                        alert('Error Reject: ' + JSON.stringify(ex));
-                    }
-                });
-
-            }
-
-        });
-    }
-
-    function GetDevNum() {
-        var REQID = @ViewBag.nomor;
-        var category = $("#ddlKategori").val();
-        var location = $("#ddlSite").val();
-        var dept = $("#TbDeptPusul").val();
-
-        var dto = {
-            ReqID: REQID,
-            DeviationCategory: category,
-            LocationSite: location,
-            Departement: dept
-        };
-
-        $.ajax({
-            url: "../Koordinator/Coor_GetDevNum",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-
-            }
-            , error: function (ex) {
-                alert('Error Get Dev Num: ' + JSON.stringify(ex));
-            }
-        });
-    }
-
-    function GetDDL() {
-        $.ajax({
-            url: "../Koordinator/Coor_LoadUser",
-            type: "post",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var trhtml = "";
-                var trav = 0;
-                var count = data.length;
-
-                trhtml += '<select id="ddlReviewer" class="form-control">';
-                trhtml += '<option disabled class="dropdown-header">* Select User *</option>';
-
-                if (count > 0) {
-                    for (trav = 0; trav < count; trav++) {
-                        trhtml += '<option class="dropdown-item" value = "' + data[trav].EmpId + '" > ' + data[trav].EmpName;
-                    }
-                }
-
-                trhtml += '</select>';
-
-                $(".user-dropdown").empty();
-                $(".user-dropdown").append(trhtml);
-                $("#ddlReviewer").select2({
-                    placeholder: "* Please Select User *"
-                });
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
-
-    function InsertNamaTerlibat() {
-        var UserInvolved = document.getElementById('ddlReviewer').value;
-        var REQID = @ViewBag.nomor;
-
-        var dto = {
-            REQID: REQID,
-            UserInvolved: UserInvolved
-        }
-
-        $.ajax({
-            url: "../Koordinator/Coor_InsertUserInvolved",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                if (data == 'S') {
-
-                    toastr.success("Data berhasil tersimpan !", "Tersimpan", {
-                        "closeButton": false,
-                        "debug": true,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "100",
-                        "hideDuration": "1000",
-                        "timeOut": "1000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    });
-
-                    LoadUserInvolved();
-                }
-            }
-            , error: function (ex) {
-                alert('Insert Nama Terlibat: ' + JSON.stringify(ex));
-            }
-        });
-    }
-
-    function LoadUserInvolved() {
-
-        var REQID = @ViewBag.nomor;
-
-        var dto = {
-            REQID: REQID
-        }
-
-        $.ajax({
-            url: "../Koordinator/Coor_LoadUserInvolved",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                if (data != '') {
-                    $('#tblWho').attr('hidden', false);
-
-                    var trHTML = '';
-                    var trav = 0;
-                    var Count = data.length;
-                    for (trav = 0; trav < Count; trav++) {
-                        trHTML += '<tr><td>' + data[trav].NO + '</td>' +
-                            '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
-                            '<td style="display:none">' + data[trav].RecordID + '</td>' +
-                            '<td>' + data[trav].USER_NAME + '</td>' +
-                            '<td>' + data[trav].USER_NIK + '</td>' +
-                            '<td><button onclick="DeleteUserInvolved(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
-                    }
-
-                    $("#tblBodyWho").empty();
-                    $("#tblBodyWho").append(trHTML);
-                    $("#tblBodyWho").addBack();
-                }
-                else {
-                    $('#tblWho').attr('hidden', true);
-                    $("#tblBodyWho").addBack();
-                }
-
-            }
-            , error: function (ex) {
-                alert('Error Load User Involved : ' + JSON.stringify(ex));
-            }
-        });
-    }
-
-    function DeleteUserInvolved(button) {
-        event.preventDefault();
-        var row = $(button).closest("TR");
-        var ReqID = $("TD", row).eq(1).html();
-        var RecordID = $("TD", row).eq(2).html();
-
-        var dto = {
-            REQID: ReqID,
-            RecordID: RecordID
-        }
-
-        $.ajax({
-            url: "../Koordinator/Coor_DeleteUserInvolved",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-
-                if (data == 'S') {
-                    toastr.success("Data berhasil terhapus !", "Terhapus", {
-                        "closeButton": false,
-                        "debug": true,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "100",
-                        "hideDuration": "1000",
-                        "timeOut": "1000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    });
-
-                    LoadUserInvolved();
-                }
-            }
-            , error: function (ex) {
-                alert('Error Delete User Involved : ' + JSON.stringify(ex));
-            }
-        });
-    }
-
-    function GetCurrStat() {
-        var REQID = @ViewBag.nomor;
-
-        var dto = {
-            REQID: REQID
-
-        };
-
-        $.ajax({
-            url: "../Koordinator/Coor_GetCurrStat",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-
-                if (data == 'S') {
-                    $("#btnCancel").removeAttr('hidden');
-                    $("#btnShowRev").removeAttr('hidden');
-
-                    $("#btnShowRev").click(function () {
-                        window.location.href = "/B7_Deviation/Koordinator/ReviewerDataTable?Nomor=@ViewBag.nomor";
-                    });
-
-                    $("#btnApprove").attr("hidden", true);
-                    $("#btnReject").attr("hidden", true);
-
-                    $("#btnApprove").click(function () {
-
-                        ApproveReviewer();
-
-                    });
-                } else { 
-                    $("#btnShowRev").attr("hidden", true);
-                    $("btnCancel").attr("hidden", true);
-
-                    $("#btnApprove").removeAttr("hidden");
-                    $("#btnReject").removeAttr("hidden");
+	$(document).ready(function () {
+
+		GetCurrStat();
+
+		GetDelegateStatus();
+
+
+		$('#spanUser').click(function () {
+			InsertNamaTerlibat();
+		});
+
+		$("#btnReject").click(function () {
+			Reject();
+		});
+
+
+		$("#btnCancel").click(function () {
+			Cancel();
+		});
+
+		// BUTTON APPROVE(S) ARE SPECIFIED IN GETCURRSTAT FUNCTION TO SPECIFY WHICH APPROVAL IS WHICH
+
+	});
+
+	function Approve() {
+		var REQID = @ViewBag.nomor;
+		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+
+			REQID: REQID,
+			IDUSER: iduser
+		};
+
+		$.ajax({
+			url: "../Koordinator/Coor_Approve",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				GetDevNum();
+
+				Swal.fire({
+					title: 'Form Approved',
+					showDenyButton: false,
+					showCancelButton: false,
+					confirmButtonText: `OK`
+				}).then((result) => {
+
+					if (result.isConfirmed) {
+						window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+					}
+				})
+
+			}
+			, error: function (ex) {
+				alert('Error Approve : ' + JSON.stringify(ex));
+			}
+		});
+	}
+
+	function ApproveReviewer() {
+		var REQID = @ViewBag.nomor;
+		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+
+			REQID: REQID,
+			IDUSER: iduser
+		};
+
+		$.ajax({
+			url: "../Koordinator/Coor_Approve",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				Swal.fire({
+					title: 'Form Approved',
+					showDenyButton: false,
+					showCancelButton: false,
+					confirmButtonText: `OK`
+				}).then((result) => {
+
+					if (result.isConfirmed) {
+						window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+					}
+				})
+
+			}
+			, error: function (ex) {
+				alert('Error Approve Reviewer : ' + JSON.stringify(ex));
+			}
+		});
+	}
+
+	function Reject() {
+
+		Swal.fire({
+			title: 'Reason???',
+			input: 'text',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			showCancelButton: true,
+			confirmButtonText: 'Submit',
+			showLoaderOnConfirm: true,
+
+			allowOutsideClick: () => Swal.isLoading()
+		}).then((result) => {
+
+			if (result.value == null || result.value == '') {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Please Insert Reason!'
+				});
+			} else if (result.isConfirmed) {
+
+				var REQID = @ViewBag.nomor;
+				var Keterangan = result.value;
+				var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+				var dto = {
+					REQID: REQID,
+					KETERANGAN: Keterangan,
+					IDUSER: iduser
+				};
+
+				$.ajax({
+					url: "../Koordinator/Coor_Reject",
+					type: "post",
+					dataType: "json",
+					data: JSON.stringify(dto),
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+
+						Swal.fire({
+							title: 'Form Rejected',
+							showDenyButton: false,
+							showCancelButton: false,
+							confirmButtonText: `OK`
+						}).then((result) => {
+
+							if (result.isConfirmed) {
+								window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+							}
+						})
+
+					}
+					, error: function (ex) {
+						alert('Error Reject: ' + JSON.stringify(ex));
+					}
+				});
+
+			}
+
+		});
+	}
+
+	function GetDevNum() {
+		var REQID = @ViewBag.nomor;
+		var category = $("#ddlKategori").val();
+		var location = $("#ddlSite").val();
+		var dept = $("#TbDeptPusul").val();
+
+		var dto = {
+			ReqID: REQID,
+			DeviationCategory: category,
+			LocationSite: location,
+			Departement: dept
+		};
+
+		$.ajax({
+			url: "../Koordinator/Coor_GetDevNum",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+			}
+			, error: function (ex) {
+				alert('Error Get Dev Num: ' + JSON.stringify(ex));
+			}
+		});
+	}
+
+	function GetDDL() {
+		$.ajax({
+			url: "../Koordinator/Coor_LoadUser",
+			type: "post",
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				var trhtml = "";
+				var trav = 0;
+				var count = data.length;
+
+				trhtml += '<select id="ddlReviewer" class="form-control">';
+				trhtml += '<option disabled class="dropdown-header">* Select User *</option>';
+
+				if (count > 0) {
+					for (trav = 0; trav < count; trav++) {
+						trhtml += '<option class="dropdown-item" value = "' + data[trav].EmpId + '" > ' + data[trav].EmpName;
+					}
+				}
+
+				trhtml += '</select>';
+
+				$(".user-dropdown").empty();
+				$(".user-dropdown").append(trhtml);
+				$("#ddlReviewer").select2({
+					placeholder: "* Please Select User *"
+				});
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+	}
+
+	function InsertNamaTerlibat() {
+		var UserInvolved = document.getElementById('ddlReviewer').value;
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			REQID: REQID,
+			UserInvolved: UserInvolved
+		}
+
+		$.ajax({
+			url: "../Koordinator/Coor_InsertUserInvolved",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				if (data == 'S') {
+
+					toastr.success("Data berhasil tersimpan !", "Tersimpan", {
+						"closeButton": false,
+						"debug": true,
+						"newestOnTop": false,
+						"progressBar": false,
+						"positionClass": "toast-top-right",
+						"preventDuplicates": false,
+						"onclick": null,
+						"showDuration": "100",
+						"hideDuration": "1000",
+						"timeOut": "1000",
+						"extendedTimeOut": "1000",
+						"showEasing": "swing",
+						"hideEasing": "linear",
+						"showMethod": "fadeIn",
+						"hideMethod": "fadeOut"
+					});
+
+					LoadUserInvolved();
+				}
+			}
+			, error: function (ex) {
+				alert('Insert Nama Terlibat: ' + JSON.stringify(ex));
+			}
+		});
+	}
+
+	function LoadUserInvolved() {
+
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			REQID: REQID
+		}
+
+		$.ajax({
+			url: "../Koordinator/Coor_LoadUserInvolved",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				if (data != '') {
+					$('#tblWho').attr('hidden', false);
+
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+					for (trav = 0; trav < Count; trav++) {
+						trHTML += '<tr><td>' + data[trav].NO + '</td>' +
+							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+							'<td style="display:none">' + data[trav].RecordID + '</td>' +
+							'<td>' + data[trav].USER_NAME + '</td>' +
+							'<td>' + data[trav].USER_NIK + '</td>' +
+							'<td><button onclick="DeleteUserInvolved(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
+					}
+
+					$("#tblBodyWho").empty();
+					$("#tblBodyWho").append(trHTML);
+					$("#tblBodyWho").addBack();
+				}
+				else {
+					$('#tblWho').attr('hidden', true);
+					$("#tblBodyWho").addBack();
+				}
+
+			}
+			, error: function (ex) {
+				alert('Error Load User Involved : ' + JSON.stringify(ex));
+			}
+		});
+	}
+
+	function DeleteUserInvolved(button) {
+		event.preventDefault();
+		var row = $(button).closest("TR");
+		var ReqID = $("TD", row).eq(1).html();
+		var RecordID = $("TD", row).eq(2).html();
+
+		var dto = {
+			REQID: ReqID,
+			RecordID: RecordID
+		}
+
+		$.ajax({
+			url: "../Koordinator/Coor_DeleteUserInvolved",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				if (data == 'S') {
+					toastr.success("Data berhasil terhapus !", "Terhapus", {
+						"closeButton": false,
+						"debug": true,
+						"newestOnTop": false,
+						"progressBar": false,
+						"positionClass": "toast-top-right",
+						"preventDuplicates": false,
+						"onclick": null,
+						"showDuration": "100",
+						"hideDuration": "1000",
+						"timeOut": "1000",
+						"extendedTimeOut": "1000",
+						"showEasing": "swing",
+						"hideEasing": "linear",
+						"showMethod": "fadeIn",
+						"hideMethod": "fadeOut"
+					});
+
+					LoadUserInvolved();
+				}
+			}
+			, error: function (ex) {
+				alert('Error Delete User Involved : ' + JSON.stringify(ex));
+			}
+		});
+	}
+
+	function GetCurrStat() {
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			REQID: REQID
+
+		};
+
+		$.ajax({
+			url: "../Koordinator/Coor_GetCurrStat",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				if (data == 'S') {
+					$("#btnCancel").removeAttr('hidden');
+					$("#btnShowRev").removeAttr('hidden');
+
+					$("#btnShowRev").click(function () {
+						window.location.href = "/B7_Deviation/Koordinator/ReviewerDataTable?Nomor=@ViewBag.nomor";
+					});
+
+					$("#btnApprove").attr("hidden", true);
+					$("#btnReject").attr("hidden", true);
+
+					$("#btnApprove").click(function () {
+
+						ApproveReviewer();
+
+					});
+				} else { 
+					$("#btnShowRev").attr("hidden", true);
+					$("btnCancel").attr("hidden", true);
+
+					$("#btnApprove").removeAttr("hidden");
+					$("#btnReject").removeAttr("hidden");
 					
 					
 
-                    $("#btnApprove").click(function () {
+					$("#btnApprove").click(function () {
 
-                       
-                        var tbl = document.getElementById('tblWho').rows.length;
+					   
+						var tbl = document.getElementById('tblWho').rows.length;
 						var btnText = $("#btnApprove").text();
 							
-                        if (tbl <= 1 && $.trim(btnText) == 'Approve') {
-                            $("#btnReject").attr("hidden", true);
+						if (tbl <= 1 && $.trim(btnText) == 'Approve') {
+							$("#btnReject").attr("hidden", true);
 							$("#xddlx").removeAttr('hidden');
 							$("#btnApprove").text('Send to Reviewer');
 							$("#btnApprove").width("110px");
-                            GetDDL();
-                            return;
-                        }
+							GetDDL();
+							return;
+						}
 						else if (tbl <= 1 && $.trim(btnText) == 'Send to Reviewer')
 						{
 							
@@ -538,116 +538,116 @@
 						else
 						{
 							Approve();
-                        }
-                    });
-                }
+						}
+					});
+				}
 
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+	}
 
-    function GetDelegateStatus() {
-        var REQID = @ViewBag.nomor;
+	function GetDelegateStatus() {
+		var REQID = @ViewBag.nomor;
 
-        var dto = {
-            REQID: REQID
+		var dto = {
+			REQID: REQID
 
-        };
+		};
 
-        $.ajax({
-            url: "../Koordinator/Coor_CheckDelegate",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
+		$.ajax({
+			url: "../Koordinator/Coor_CheckDelegate",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
 
-                if (data == 'Can Delegate') {
-                    $("#btnDelegate").removeAttr('hidden');
+				if (data == 'Can Delegate') {
+					$("#btnDelegate").removeAttr('hidden');
 
-                    $("#btnDelegate").click(function () {
+					$("#btnDelegate").click(function () {
 
-                        Delegate();
+						Delegate();
 
-                    });
+					});
 
-                } else {
-                    $("#btnDelegate").attr("hidden", true);
+				} else {
+					$("#btnDelegate").attr("hidden", true);
 
-                }
+				}
 
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+	}
 
-    function Cancel() {
-        Swal.fire({
-            title: 'Cancel Reason ...',
-            input: 'text',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Submit',
-            showLoaderOnConfirm: true,
+	function Cancel() {
+		Swal.fire({
+			title: 'Cancel Reason ...',
+			input: 'text',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			showCancelButton: true,
+			confirmButtonText: 'Submit',
+			showLoaderOnConfirm: true,
 
-            allowOutsideClick: () => Swal.isLoading()
-        }).then((result) => {
+			allowOutsideClick: () => Swal.isLoading()
+		}).then((result) => {
 
-            if (result.value == null || result.value == '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please Insert Reason!'
-                });
-            } else if (result.isConfirmed) {
+			if (result.value == null || result.value == '') {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Please Insert Reason!'
+				});
+			} else if (result.isConfirmed) {
 
-                var REQID = @ViewBag.nomor;
-                var Keterangan = result.value;
-                var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+				var REQID = @ViewBag.nomor;
+				var Keterangan = result.value;
+				var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-                var dto = {
-                    REQID: REQID,
-                    KETERANGAN: Keterangan,
-                    IDUSER: iduser
-                };
+				var dto = {
+					REQID: REQID,
+					KETERANGAN: Keterangan,
+					IDUSER: iduser
+				};
 
-                $.ajax({
-                    url: "../Koordinator/Coor_KoorCancel",
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(dto),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
+				$.ajax({
+					url: "../Koordinator/Coor_KoorCancel",
+					type: "post",
+					dataType: "json",
+					data: JSON.stringify(dto),
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
 
-                        Swal.fire({
-                            title: 'Form Cancelled',
-                            showDenyButton: false,
-                            showCancelButton: false,
-                            confirmButtonText: `OK`
-                        }).then((result) => {
+						Swal.fire({
+							title: 'Form Cancelled',
+							showDenyButton: false,
+							showCancelButton: false,
+							confirmButtonText: `OK`
+						}).then((result) => {
 
-                            if (result.isConfirmed) {
-                                window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
-                            }
-                        })
+							if (result.isConfirmed) {
+								window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+							}
+						})
 
-                    }
-                    , error: function (ex) {
+					}
+					, error: function (ex) {
 
-                    }
-                });
-            }
-        });
-    }
+					}
+				});
+			}
+		});
+	}
 
-    function Delegate() {
-        window.location.href = "/B7_Deviation/Koordinator/Delegasi?Nomor=@ViewBag.nomor";
-    }
+	function Delegate() {
+		window.location.href = "/B7_Deviation/Koordinator/Delegasi?Nomor=@ViewBag.nomor";
+	}
 
 </script>
 

@@ -106,6 +106,9 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "PIC";
 
+                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
                     command.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar);
                     command.Parameters["@UserID"].Value = Model.IDUSER;
 

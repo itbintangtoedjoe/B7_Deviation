@@ -52,8 +52,10 @@
         function LoadData() {
 
             var userid = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            var reqid = @ViewBag.nomor;
             var dto = {
-                IDUSER: userid
+                IDUSER: userid,
+                REQID: reqid
             }
 
             $.ajax({
