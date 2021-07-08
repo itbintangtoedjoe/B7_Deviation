@@ -32,31 +32,61 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
-        public string GenBody(string TableType, string Receiver, string ReqID)
-        {
-            string EmailBody = "";
-            if (TableType == "One")
-            {
-                if (Receiver == "Superior after Form Input")
-                {
-                    EmailBody = "<html><body>Dear " + Receiver + ", Proposal with No: <b>" + ReqID + " </b> Need Your Approval</body></html>";
-                }
-                else if (Receiver == "Proposer after Superior Reject")
-                {
-                    EmailBody = "<html><body>Dear " + Receiver + ", Proposal with No: <b>" + ReqID + " </b> Is Rejected by Superior</body></html>";
-                }
-            }
-            return EmailBody;
-        }
 
         public ActionResult SendEmailInputProposal(EmailModel Model)
         {
+
+            string EmailBody = "";
+            string EmailSubject = "B7 - Deviation";
+            if (Model.TableType == "One")
+            {
+                if (Model.WhoReceiver == "Superior after Form Input")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Your Approval</body></html>";
+                }
+                else if (Model.WhoReceiver == "Proposer after Superior Reject")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Is Rejected by Superior</body></html>";
+                }
+                else if (Model.WhoReceiver == "Reviewer after Koordinator Approved")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Your Review with Proposal with No: <b>" + Model.ReqID + " </b> Is Approved by Koordinator</body></html>";
+                }
+                else if (Model.WhoReceiver == "Reviewer after Koordinator Reject")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Your Review with Proposal with No: <b>" + Model.ReqID + " </b> Is Rejected by Koordinator</body></html>";
+                }
+            }
+            else if (Model.TableType == "More Than One")
+            {
+                if (Model.WhoReceiver == "Koordinator after Superior Approved")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Your Approval as Coordinator</body></html>";
+                }
+                else if (Model.WhoReceiver == "Reviewer after Appointed")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Your Review as Reviewer</body></html>";
+                }
+                else if (Model.WhoReceiver == "Koordinator after Reviewer Submit")
+                {
+                    EmailBody = "<html><body>Dear,Reviewer: " + Model.Receiver + " with Proposal with No: <b>" + Model.ReqID + " </b> Need Your Review as Reviewer</body></html>";
+                }
+                else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer")
+                {
+                    EmailBody = "<html><body>Dear,Reviewer: " + Model.Receiver + " with Proposal with No: <b>" + Model.ReqID + " </b> Need Your Approval as Quality Manager</body></html>";
+                }
+                else if (Model.WhoReceiver == "Koordinator after QM Approve")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Assign PIC</body></html>";
+                }
+            }
+
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
-            List<string> ModelData = new List<string>();           
+            List<string> ModelData = new List<string>();
 
             if (Model.TableType == "One")
-            {              
+            {
                 try
                 {
                     Conn.Open();
@@ -64,20 +94,37 @@ namespace B7_Deviation.Controllers
                     {
                         Command.CommandType = CommandType.StoredProcedure;
 
-                        if(Model.WhoReceiver == "Superior after Form Input")
+                        if (Model.WhoReceiver == "Superior after Form Input")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Form Input";
 
                             Command.Parameters.Add("@UserID", SqlDbType.VarChar);
                             Command.Parameters["@UserID"].Value = Model.Receiver;
-                        }else if(Model.WhoReceiver == "Proposer after Superior Reject")
+                        }
+                        else if (Model.WhoReceiver == "Proposer after Superior Reject")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Reviewer after Koordinator Approved")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer One";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }
+                        else if (Model.WhoReceiver == "Reviewer after Koordinator Reject")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer One";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
                         }
 
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
@@ -114,17 +161,17 @@ namespace B7_Deviation.Controllers
                 var receiverEmail = new MailAddress(Model.EmailReceiver, Model.Receiver);
                 var senderEmail = new MailAddress(Model.EmailSender, Model.Sender);
 
-                var sub = "B7 - Deviation";
-                var body = Model.Body;
+                var sub = EmailSubject;
+                var body = EmailBody;
                 var mess = new MailMessage();
                 mess.From = senderEmail;
-                mess.Body = body;
+                mess.Body = EmailBody;
                 mess.Subject = sub;
                 mess.Bcc.Add(new MailAddress("billywinata@gmail.com", "Billy"));
                 mess.Priority = MailPriority.High;
                 mess.IsBodyHtml = true;
                 mess.To.Add(receiverEmail);
-                
+
 
                 // Password Email Sender
                 string pw = "Welcome123!";
@@ -142,7 +189,7 @@ namespace B7_Deviation.Controllers
                 client.Send(mess);
 
             }
-            else if(Model.TableType == "More Than One")
+            else if (Model.TableType == "More Than One")
             {
                 // MORE THAN 1 RECEIVER
 
@@ -161,7 +208,39 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        
+                        else if (Model.WhoReceiver == "Reviewer after Appointed")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviwer after Appointed";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Koordinator after Reviewer Submit")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Koordinator after QM Approve")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
                         dataAdap.SelectCommand = Command;
 
@@ -180,9 +259,9 @@ namespace B7_Deviation.Controllers
                 row = new Dictionary<string, object>();
                 foreach (DataRow dr in DT.Rows)
                 {
-                    
-                    Model.EmailReceiver = dr[0].ToString();
-                    Model.Receiver = dr[1].ToString();
+
+                    Model.EmailReceiver = dr[1].ToString();
+                    Model.Receiver = dr[0].ToString();
 
                     Model.Sender = "Admin";
                     Model.EmailSender = "apidevelopmentb7@gmail.com";
@@ -190,11 +269,11 @@ namespace B7_Deviation.Controllers
                     var receiverEmail = new MailAddress(Model.EmailReceiver, Model.Receiver);
                     var senderEmail = new MailAddress(Model.EmailSender, Model.Sender);
 
-                    var sub = Model.Subject;
-                    var body = Model.Body;
+                    var sub = EmailSubject;
+                    var body = EmailBody;
                     var mess = new MailMessage();
                     mess.From = senderEmail;
-                    mess.Body = body;
+                    mess.Body = EmailBody;
                     mess.Subject = sub;
                     mess.Bcc.Add(new MailAddress("billywinata@gmail.com", "Billy"));
                     mess.Priority = MailPriority.High;
@@ -219,6 +298,7 @@ namespace B7_Deviation.Controllers
 
             return Json(ModelData);
         }
+
 
         public ActionResult GenerateNoReqID()
         {

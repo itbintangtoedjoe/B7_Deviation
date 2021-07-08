@@ -182,6 +182,34 @@
                 }
             });
 
+            var REQID = $("#lblReq").text();
+            var receiver = $("TD", row).eq(1).html();
+
+            var tabletype = "One";
+            var whoreceiver = "Reviewer after Koordinator Approved";
+
+            var dtx = {
+                Receiver: receiver,
+                ReqID: REQID,
+                Body: body,
+                Subject: subject,
+                TableType: tabletype,
+                WhoReceiver: whoreceiver
+            };
+
+            $.ajax({
+                type: "post",
+                url: '../Form/SendEmailInputProposal',
+                data: JSON.stringify(dtx),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+                }, error: function (ex) {
+                    alert("Error Email: " + JSON.stringify(ex));
+                }
+            });
+
         }
 
         function Reject(button) {
@@ -243,6 +271,36 @@
                         },
                         error: function (ex) {
                             alert(JSON.stringify(ex));
+                        }
+                    });
+
+                    var REQID = $("#lblReq").text();
+                    var receiver = $("TD", row).eq(1).html();
+
+
+
+                    var tabletype = "One";
+                    var whoreceiver = "Reviewer after Koordinator Reject";
+
+                    var dtx = {
+                        Receiver: receiver,
+                        ReqID: REQID,
+                        Body: body,
+                        Subject: subject,
+                        TableType: tabletype,
+                        WhoReceiver: whoreceiver
+                    };
+
+                    $.ajax({
+                        type: "post",
+                        url: '../Form/SendEmailInputProposal',
+                        data: JSON.stringify(dtx),
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+
+                        }, error: function (ex) {
+                            alert("Error Email: " + JSON.stringify(ex));
                         }
                     });
 

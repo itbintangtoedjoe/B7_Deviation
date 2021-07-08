@@ -117,7 +117,7 @@
 
 
 		$('#spanUser').click(function () {
-			InsertNamaTerlibat();
+			CheckEmailAvailability();
 		});
 
 		$("#btnReject").click(function () {
@@ -132,6 +132,34 @@
 		// BUTTON APPROVE(S) ARE SPECIFIED IN GETCURRSTAT FUNCTION TO SPECIFY WHICH APPROVAL IS WHICH
 
 	});
+
+	function CheckEmailAvailability() {
+		var UserInvolved = document.getElementById('ddlReviewer').value;
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			REQID: REQID,
+			UserInvolved: UserInvolved
+		}
+
+		$.ajax({
+			url: "../Form/CheckEmailAvailability",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				if (data == 'ADA') {
+					InsertNamaTerlibat();
+				} else {
+					alert("please insert email first");
+				}
+			}
+			, error: function (ex) {
+				alert('Check Email Availability: ' + JSON.stringify(ex));
+			}
+		});
+	}
 
 	function Approve() {
 		var REQID = @ViewBag.nomor;
@@ -167,6 +195,36 @@
 			}
 			, error: function (ex) {
 				alert('Error Approve : ' + JSON.stringify(ex));
+			}
+		});
+
+		var REQID = $("#lblReq").text();
+		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var subject = 'B7 - Deviation';
+
+		var tabletype = "More Than One";
+		var whoreceiver = "Reviewer after Appointed";
+
+		var dtx = {
+			Receiver: receiver,
+			ReqID: REQID,
+			Body: body,
+			Subject: subject,
+			TableType: tabletype,
+			WhoReceiver: whoreceiver
+		};
+
+		$.ajax({
+			type: "post",
+			url: '../Form/SendEmailInputProposal',
+			data: JSON.stringify(dtx),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+			}, error: function (ex) {
+				alert("Error Email: " + JSON.stringify(ex));
 			}
 		});
 	}
@@ -502,21 +560,21 @@
 						ApproveReviewer();
 
 					});
-				} else { 
+				} else {
 					$("#btnShowRev").attr("hidden", true);
 					$("btnCancel").attr("hidden", true);
 
 					$("#btnApprove").removeAttr("hidden");
 					$("#btnReject").removeAttr("hidden");
-					
-					
+
+
 
 					$("#btnApprove").click(function () {
 
-					   
+
 						var tbl = document.getElementById('tblWho').rows.length;
 						var btnText = $("#btnApprove").text();
-							
+
 						if (tbl <= 1 && $.trim(btnText) == 'Approve') {
 							$("#btnReject").attr("hidden", true);
 							$("#xddlx").removeAttr('hidden');
@@ -527,7 +585,7 @@
 						}
 						else if (tbl <= 1 && $.trim(btnText) == 'Send to Reviewer')
 						{
-							
+
 							Swal.fire({
 									icon: 'error',
 									title: 'Oops...',
