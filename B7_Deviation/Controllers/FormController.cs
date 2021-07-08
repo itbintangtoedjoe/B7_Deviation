@@ -32,14 +32,31 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
+        public string GenBody(string TableType, string Receiver, string ReqID)
+        {
+            string EmailBody = "";
+            if (TableType == "One")
+            {
+                if (Receiver == "Superior after Form Input")
+                {
+                    EmailBody = "<html><body>Dear " + Receiver + ", Proposal with No: <b>" + ReqID + " </b> Need Your Approval</body></html>";
+                }
+                else if (Receiver == "Proposer after Superior Reject")
+                {
+                    EmailBody = "<html><body>Dear " + Receiver + ", Proposal with No: <b>" + ReqID + " </b> Is Rejected by Superior</body></html>";
+                }
+            }
+            return EmailBody;
+        }
+
         public ActionResult SendEmailInputProposal(EmailModel Model)
         {
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
-            List<string> ModelData = new List<string>();
+            List<string> ModelData = new List<string>();           
 
             if (Model.TableType == "One")
-            {
+            {              
                 try
                 {
                     Conn.Open();
@@ -97,7 +114,7 @@ namespace B7_Deviation.Controllers
                 var receiverEmail = new MailAddress(Model.EmailReceiver, Model.Receiver);
                 var senderEmail = new MailAddress(Model.EmailSender, Model.Sender);
 
-                var sub = Model.Subject;
+                var sub = "B7 - Deviation";
                 var body = Model.Body;
                 var mess = new MailMessage();
                 mess.From = senderEmail;
@@ -196,11 +213,8 @@ namespace B7_Deviation.Controllers
                         UseDefaultCredentials = false,
                         Credentials = new NetworkCredential(senderEmail.Address, pw)
                     };
-
                     client.Send(mess);
-
                 }
-
             }
 
             return Json(ModelData);

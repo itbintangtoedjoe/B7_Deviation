@@ -62,19 +62,29 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Kategori Penyimpangan<span class="text-danger">*</span></label>
+                                    <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
                                     <div class="col-sm-3">
-                                        <div class="btn-group mb-2">
+                                        <div>
                                             <div class="basic-dropdown">
                                                 <div class="dropdown">
-                                                    <select id="ddlKategori" disabled="disabled"></select>
+                                                    <select id="ddlKategori" name="ddlKategori"></select>
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <br>
+                                        <div id="divsimpang">
+                                            <div class="basic-dropdown">
+                                                @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
+                                                <input id="TxtNoWO" name="TxtNoWO" type="text" readonly class="form-control" placeholder="No WO Oracle">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        @*<div id="divproduk">
+                                            <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
+                                        </div>*@
                                     </div>
                                     <div class="col-sm-7">
-                                        <textarea id="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan" disabled="disabled"></textarea>
+                                        <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" readonly placeholder="Keterangan lebih terkait penyimpangan"></textarea>
                                     </div>
                                 </div>
                                 @*  Penyimpangan terencana *@
@@ -272,7 +282,7 @@
                                         </label>
                                     </div>
                                     <div class="col-sm-10">
-                                        <textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
+                                        <textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" readonly="readonly" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
 
                                     </div>
                                 </div>
@@ -325,7 +335,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlKualProd" title="Kualitas Produk" disabled></select>
+                                                        <select id="ddlKualProd" title="Kualitas Produk" ></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -336,7 +346,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlRiskFin" title="Risiko Finansial" disabled></select>
+                                                        <select id="ddlRiskFin" title="Risiko Finansial" ></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -347,7 +357,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlKesehatanPer" title="Risiko Kesehatan Personil" disabled></select>
+                                                        <select id="ddlKesehatanPer" title="Risiko Kesehatan Personil" ></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -363,7 +373,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlCompliance" title="Compliance" disabled></select>
+                                                        <select id="ddlCompliance" title="Compliance" ></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -374,7 +384,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlRiskOrg" title="Risiko Organisasi" disabled></select>
+                                                        <select id="ddlRiskOrg" title="Risiko Organisasi" ></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -385,7 +395,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlResLingk" title="Risiko Lingkungan" disabled></select>
+                                                        <select id="ddlResLingk" title="Risiko Lingkungan" ></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -401,7 +411,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlRiskOpr" title="Risiko Operasional" disabled></select>
+                                                        <select id="ddlRiskOpr" title="Risiko Operasional" ></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -412,7 +422,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlKeamamananP" title="Risiko Keamanan Personil" disabled></select>
+                                                        <select id="ddlKeamamananP" title="Risiko Keamanan Personil" ></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -423,7 +433,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlRiskIntelek" title="Risiko Intelektual" disabled></select>
+                                                        <select id="ddlRiskIntelek" title="Risiko Intelektual"></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -436,7 +446,7 @@
                                             <label>Tingkat Keparahan Penyimpangan</label>
                                             <br />
                                             <div class="btn-group mb-2">
-                                                <input id="txtKeparahan" type="text" class="form-control" disabled="disabled">
+                                                <input id="txtKeparahan" type="text" class="form-control" >
                                             </div>
                                         </div>
                                     </div>
@@ -504,12 +514,12 @@
 
 				var text = '';
 
-                text = '<Option class="dropdown-item" value = "' + data[0].ID_DEVIATION_CATEGORY + '" selected >' + data[0].ID_DEVIATION_CATEGORY;
+                text = '<Option class="dropdown-item" value = "' + data[0].ID_DEVIATION_CATEGORY + '" selected >' + data[0].DEVIATION_CATEGORY;
                 $("#ddlKategori").empty();
                 $("#ddlKategori").append(text);
                 $("#ddlKategori").selectpicker();
 
-
+                $('#TxtNoWO').val(data[0].NO_WO_ORACLE);
 
                 document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
 

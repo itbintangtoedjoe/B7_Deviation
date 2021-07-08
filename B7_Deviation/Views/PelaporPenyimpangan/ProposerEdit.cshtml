@@ -537,7 +537,7 @@
         });
 
         $("#btnCancel").click(function () {
-            window.location.href = "../PelaporPenyimpangan/PendingApproval"
+            window.location.href = "../DataDeviasi/PendingTask"
 
         });
 
@@ -1720,6 +1720,7 @@
         var THIRTY = $("#txt30hari").val();
 
         var FLAG_KOOR = document.getElementById('ddlKategori').value;
+        var NO_WO_ORACLE = $('#TxtNoWO').val();
 
         if (FLAG_KOOR == 'QPR' || FLAG_KOOR == 'QNA' || FLAG_KOOR == 'QMT' || FLAG_KOOR == 'LLI') {
             FLAG_KOOR = 'Coordinator_QA';
@@ -1767,7 +1768,8 @@
             PLAN_DEV: PLAN_DEV_FLAG,
             THIRTY_FLAG: THIRTY_FLAG,
             THIRTY: THIRTY,
-            REQ: REQ
+            REQ: REQ,
+            NO_WO_ORACLE: NO_WO_ORACLE
 
         };
 
@@ -1783,7 +1785,7 @@
                     title: 'Form Submitted'
                 });
 
-                window.location.href = "../PelaporPenyimpangan/PendingApproval"
+                window.location.href = "../DataDeviasi/PendingTask"
             }
             , error: function (ex) {
                 alert('Error Delete Attachment: ' + JSON.stringify(ex));
@@ -1963,6 +1965,8 @@
                 LoadKategori();
 
                 document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
+
+                $('#TxtNoWO').val(data[0].NO_WO_ORACLE);
 
                 document.getElementById('txtProblem').value = data[0].PROBLEM;
                 document.getElementById('txtLokasi').value = data[0].LOCATION;
