@@ -55,7 +55,7 @@
                                         <div class="btn-group mb-2 ">
                                             <div class="basic-dropdown">
                                                 <div class="dropdown site-dropdown">
-                                                    <select id="ddlSite" disabled="disabled"></select>
+                                                    <select id="ddlSite"></select>
                                                 </div>
                                             </div>
                                         </div>
@@ -446,7 +446,7 @@
                                             <label>Tingkat Keparahan Penyimpangan</label>
                                             <br />
                                             <div class="btn-group mb-2">
-                                                <input id="txtKeparahan" type="text" class="form-control" >
+                                                <input id="txtKeparahan" type="text" readonly class="form-control" >
                                             </div>
                                         </div>
                                     </div>
@@ -633,6 +633,13 @@
 
                 document.getElementById('txtKeparahan').value = data[0].SEVERTY_DEVIATION;
 
+                $('textarea').each(function () {
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                }).on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
@@ -772,14 +779,15 @@
                         for (trav = 0; trav < Count; trav++) {
                             var no = 1
                             no = no + trav
+
                             trHTML += '<tr><td>' + no + '</td>' +
                                 '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
                                 '<td style="display:none">' + data[trav].NO_FILE + '</td>' +
                                 '<td>' + data[trav].file_name_upload + '</td>' +
                                 '<td style="display:none;">' + data[trav].path_file + '</td>' +
-                                '<td align="center"> - </td></tr>';
+                                '<td align="center"><a href=' + data[trav].path_file + ' target="_blank"><i class="fa fa-cloud-download"></i></a></td></tr>';
                         }
-						console.log(trHTML);
+						
                         $("#tbl_Attachment").show();
                         $("#tbody_Attachment").empty();
                         $("#tbody_Attachment").append(trHTML);

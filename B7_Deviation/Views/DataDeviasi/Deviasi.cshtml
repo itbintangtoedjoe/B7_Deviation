@@ -228,7 +228,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <textarea name="travelDetails" id="txtsama" class="form-control" placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" disabled="disabled"></textarea>
+                                            <textarea name="travelDetails" id="txtsama" class="form-control" readonly placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" disabled="disabled"></textarea>
                                         </div>
                                     </div>
 
@@ -251,7 +251,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <textarea id="txtrilis" name="travelDetails" class="form-control" placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" disabled="disabled"></textarea>
+                                            <textarea id="txtrilis" name="travelDetails" class="form-control" readonly placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" disabled="disabled"></textarea>
                                         </div>
                                     </div>
 
@@ -272,7 +272,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <textarea id="txtlain" name="travelDetails" class="form-control" placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" disabled="disabled"></textarea>
+                                            <textarea id="txtlain" name="travelDetails" class="form-control" readonly placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" disabled="disabled"></textarea>
                                         </div>
                                     </div>
 
@@ -1034,7 +1034,7 @@
                                 '<td style="display:none">' + data[trav].NO_FILE + '</td>' +
                                 '<td>' + data[trav].file_name_upload + '</td>' +
                                 '<td style="display:none;">' + data[trav].path_file + '</td>' +
-                                '<td> - </td></tr>';
+                                '<td align="center"><a href=' + data[trav].path_file + ' target="_blank"><i class="fa fa-cloud-download"></i></a></td></tr>';
                         }
 
                         $("#tbody_Attachment").empty();

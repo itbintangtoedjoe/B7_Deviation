@@ -598,7 +598,7 @@
         // Load
         $(document).ready(function () {
             GetSiteName();
-            GetKategoriDeviation();
+            //GetKategoriDeviation();
             SetupRbDtPicker();
 
         });
@@ -640,16 +640,7 @@
             }
         });
 
-        //$("#ddlJenSi").change(function () {
-        //    if ($('#ddlJenSi').val() == 'PRODUK' || $('#ddlJenSi').val() == 'MATAWL') {
-        //        $('#divproduk').show();
-        //    }
-        //    else {
-        //        $('#divproduk').hide();
-        //    }
-        //});
-
-
+       
         $('#ddlKualProd').change(function () {
             var nilai = [];
 
@@ -1036,23 +1027,7 @@
 
     // Set Picker disable text
     function SetupRbDtPicker() {
-
-        //$("input[name='travel1'][value='No']").prop('checked', true);
-        //$("input[name='travel2'][value='No']").prop('checked', true);
-        //$("input[name='travel3'][value='No']").prop('checked', true);
-        //$("input[name='travel4'][value='No']").prop('checked', true);
-        //$("input[name='travel5'][value='No']").prop('checked', true);
-        //$("textarea[name = 'travelDetails']").val('');
-
-        //$("input[type=radio]").change(function () {
-        //    var id = $(this).attr("id").split("_");
-        //    id = id[id.length - 1];
-        //    $("#txt" + id).attr("disabled", !($(this).val() == "Yes"));
-        //});
-        //$("textarea[name = 'travelDetails']").attr("disabled", true);
         $('#ddlSite selectpicker').selectpicker();
-
-
         $('input[type=radio][name=travel1]').change(function () {
             if ($('input[name="travel1"]:checked').val() == 'Yes') {
 
@@ -1092,8 +1067,6 @@
             }
 
         });
-
-
     }
 
 
@@ -1966,6 +1939,15 @@
 
                 document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
 
+                if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
+                    $("#divsimpang").show();
+                    $("#TxtNoWO").removeAttr("disabled");
+                    GetJenisDeviation();
+                }
+                else {
+                    $("#divsimpang").hide();
+                    $("#TxtNoWO").attr("disabled", true);
+                }
                 $('#TxtNoWO').val(data[0].NO_WO_ORACLE);
 
                 document.getElementById('txtProblem').value = data[0].PROBLEM;
@@ -2093,8 +2075,6 @@
                         } else {
                             trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
                         }
-
-
                     }
                 }
 

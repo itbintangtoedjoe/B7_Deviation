@@ -5341,6 +5341,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Attachment\FormUsulan\" />
+    <Folder Include="Content\Attachment\PICRemidial\" />
+    <Folder Include="Content\Attachment\Reviwer\" />
     <Folder Include="Content\Scripts\plugins\jqvmap\js\maps\" />
     <Folder Include="Content\Scripts\plugins\summernote\css\" />
   </ItemGroup>

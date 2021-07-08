@@ -70,9 +70,9 @@
 
                         trHTML +=
                             '<tr><td align="center"><a href="../DataDeviasi/Deviasi?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>' +
-                            '<td align="center">' + data[trav].DEVIATION_NO + '</td>' +
+                            '<td align="left">' + data[trav].DEVIATION_NO + '</td>' +
                             '<td align="center">' + data[trav].CREATION_DATE + '</td>' +
-                            '<td align="center">' + data[trav].ID_PROPOSER + '</td>' +
+                            '<td align="left">' + data[trav].ID_PROPOSER + '</td>' +
                             '<td align="left">' + data[trav].EMPNAME + '</td>' +
                             '<td align="left">' + data[trav].LOCATION_SITE + '</td>' +
                             '<td align="left">' + data[trav].DEVIATION_CATEGORY + '</td>' +
@@ -82,7 +82,9 @@
 
                     $('#deviationtable').empty();
                     $('#deviationtable').append(trHTML);
-                    $('#deviationdatatable').DataTable();
+                    $('#deviationdatatable').DataTable({
+                        order: [[0, "desc"]]
+                    });
 
                 },
                 error: function (ex) {

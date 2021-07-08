@@ -159,7 +159,7 @@ namespace B7_Deviation.Controllers
                 var fileName = ReqID + '_' + DateTimeF + '_' + Path.GetFileName(file.FileName);
 
 
-                URLAttachment = Path.Combine(@"D:\B7_Deviation\B7_Deviation\Content\TempBuktiFiles", fileName);
+                URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\PICRemidial\", fileName);
                 //D:\TempURLFiles LOCAL DIRECTORY
                 //10.167.1.78\Intranetportal\Intranet Attachment\Deviation\
                 file.SaveAs(URLAttachment);
