@@ -32,6 +32,40 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
+        public ActionResult CheckEmailAvailability(DeviationModel model)
+        {
+            string result; 
+            List<string> ModelData = new List<string>();
+            string ConString = MyDB.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_FetchEmail", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Check Email Availability";
+
+                    command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                    command.Parameters["@UserID"].Value = model.UserInvolved;
+
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+
+                //result = ex.ToString();
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData);
+        }
+
 
         public ActionResult SendEmailInputProposal(EmailModel Model)
         {
@@ -55,6 +89,10 @@ namespace B7_Deviation.Controllers
                 else if (Model.WhoReceiver == "Reviewer after Koordinator Reject")
                 {
                     EmailBody = "<html><body>Dear " + Model.Receiver + ", Your Review with Proposal with No: <b>" + Model.ReqID + " </b> Is Rejected by Koordinator</body></html>";
+                }else if(Model.WhoReceiver == "PIC after Appointed")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Your Review as PIC</body></html>";
+
                 }
             }
             else if (Model.TableType == "More Than One")
@@ -78,6 +116,9 @@ namespace B7_Deviation.Controllers
                 else if (Model.WhoReceiver == "Koordinator after QM Approve")
                 {
                     EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Assign PIC</body></html>";
+                }else if(Model.WhoReceiver == "Koordinator after PIC Submit")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Verifikasi Tindakan Remedial</body></html>";
                 }
             }
 
@@ -125,6 +166,14 @@ namespace B7_Deviation.Controllers
 
                             Command.Parameters.Add("@UserID", SqlDbType.VarChar);
                             Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }else if(Model.WhoReceiver == "PIC after Appointed")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer One";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+
                         }
 
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
@@ -239,6 +288,13 @@ namespace B7_Deviation.Controllers
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }else if(Model.WhoReceiver == "Koordinator after PIC Submit")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
 
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
@@ -285,8 +341,7 @@ namespace B7_Deviation.Controllers
 
                     var client = new SmtpClient
                     {
-                        Host = "smtp.gmail.com",
-                        Port = 587,
+                        Host = "10.100.18.216",
                         DeliveryMethod = SmtpDeliveryMethod.Network,
                         EnableSsl = true,
                         UseDefaultCredentials = false,

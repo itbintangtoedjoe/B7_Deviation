@@ -1,503 +1,531 @@
 ﻿
 @{
-    ViewBag.Title = "VerifikasiTindakanRemidial";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "VerifikasiTindakanRemidial";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
 <script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
 
 <div class="content-body">
-    <div class="form-group">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
+	<div class="form-group">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
 
-                            <div class="form-group">
-                                <h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
-                            </div>
+							<div class="form-group">
+								<h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+							</div>
 
-                            <div class="form-group row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
+							<div class="form-group row">
+								<div class="col-md-8">
+									<div class="form-group">
 
-                                        <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control ">
-                                            Cancel
-                                            <span class="fa fa-check-square-o"></span>
-                                        </button>
+										<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control ">
+											Cancel
+											<span class="fa fa-check-square-o"></span>
+										</button>
 
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Nama</label>
-                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtTanggal">Tanggal:</label>
-                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Nama</label>
+										<input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+									</div>
+									<div class="form-group">
+										<label for="txtTanggal">Tanggal:</label>
+										<input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    </div>
+	</div>
 
-    <div class="form-group">
-        @Html.Partial("~/Views/QualityManager/QualityManagerPartialView.cshtml")
-    </div>
+	<div class="form-group">
+		@Html.Partial("~/Views/QualityManager/QualityManagerPartialView.cshtml")
+	</div>
 
-    <div class="form-group">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            
-                                <table class="table table-striped table-bordered table-responsive" id="deviationdatatable" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th width="75px">No</th>
-                                            <th width="100px">Usulan Tindakan Remedial</th>
-                                            <th width="200px">Action</th>
-                                            <th width="75px">Testing Jumlah Personel</th>
-                                            <th width="75px">Testing Durasi Pengerjaan</th>
-                                            <th width="75px">Testing Manhours Value</th>
-                                            <th width="75px">Testing Cost of Analysis</th>
-                                            <th width="75px">Process Durasi Pengerjaan</th>
-                                            <th width="75px">Process Jumlah Pelaksana</th>
-                                            <th width="75px">Process Manhours Value</th>
-                                            <th width="75px">Reject Material</th>
-                                            <th width="75px">Reject Quantity</th>
-                                            <th width="75px">Reject Cost Material</th>
-                                            <th width="75px">Nama Sparepart</th>
-                                            <th width="75px">Harga Sparepart</th>
-                                            <th width="75px">Nama PIC</th>
-                                            <th width="75px" hidden="hidden">NIK PIC</th>
-                                            <th width="200px">Action</th>
-                                        </tr>
+	<div class="form-group">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							
+								<table class="table table-striped table-bordered table-responsive" id="deviationdatatable" width="100%">
+									<thead>
+										<tr>
+											<th width="75px">No</th>
+											<th width="100px">Usulan Tindakan Remedial</th>
+											<th width="200px">Action</th>
+											<th width="75px">Testing Jumlah Personel</th>
+											<th width="75px">Testing Durasi Pengerjaan</th>
+											<th width="75px">Testing Manhours Value</th>
+											<th width="75px">Testing Cost of Analysis</th>
+											<th width="75px">Process Durasi Pengerjaan</th>
+											<th width="75px">Process Jumlah Pelaksana</th>
+											<th width="75px">Process Manhours Value</th>
+											<th width="75px">Reject Material</th>
+											<th width="75px">Reject Quantity</th>
+											<th width="75px">Reject Cost Material</th>
+											<th width="75px">Nama Sparepart</th>
+											<th width="75px">Harga Sparepart</th>
+											<th width="75px">Nama PIC</th>
+											<th width="75px" hidden="hidden">NIK PIC</th>
+											<th width="200px">Action</th>
+										</tr>
 
-                                    </thead>
-                                    <tbody id="deviationtable" class="">
-                                    </tbody>
-                                </table>
-                            
-                            
+									</thead>
+									<tbody id="deviationtable" class="">
+									</tbody>
+								</table>
+							
+							
 
-                        </div>
-
-
-                    </div>
-                    <div class="card" id="tabel2" hidden="hidden">
-                        <div class="card-body">
-                            <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="buktidatatable" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th width="75px">No</th>
-                                        <th width="100px">NIK PIC</th>
-                                        <th width="75px">Nama File</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody id="buktitable" class="nowrap">
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group" id="koorsubmission" hidden="hidden">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <label class="col-sm-2 col-form-label">Investigation Time</label>
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
-                                <div class="col-sm-10">
-                                    <input type="number" id="ITDP" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
-                                <div class="col-sm-10">
-                                    <input type="number" id="ITJP" class="form-control" />
-                                </div>
-                            </div>
-
-                        </div>
-                        <label class="col-sm-2 col-form-label">Meeting Time</label>
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
-                                <div class="col-sm-10">
-                                    <input type="number" id="MTDP" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
-                                <div class="col-sm-10">
-                                    <input type="number" id="MTJP" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
+						</div>
 
 
-                            <button type="button" id="btnApprove" class="col-sm-2 btn btn-success">
-                                Approve
-                                <span class="fa fa-check-square-o"></span>
-                            </button>
-                            <button type="button" id="btnReject" class="col-sm-2 btn btn-danger">
-                                Reject
-                                <span class="fa fa-check-square-o"></span>
-                            </button>
+					</div>
+					<div class="card" id="tabel2" hidden="hidden">
+						<div class="card-body">
+							<table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="buktidatatable" width="100%">
+								<thead>
+									<tr>
+										<th width="75px">No</th>
+										<th width="100px">NIK PIC</th>
+										<th width="75px">Nama File</th>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+									</tr>
+								</thead>
+								<tbody id="buktitable" class="nowrap">
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group" id="koorsubmission" hidden="hidden">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<label class="col-sm-2 col-form-label">Investigation Time</label>
+						<div class="card-body">
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+								<div class="col-sm-10">
+									<input type="number" id="ITDP" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
+								<div class="col-sm-10">
+									<input type="number" id="ITJP" class="form-control" />
+								</div>
+							</div>
+
+						</div>
+						<label class="col-sm-2 col-form-label">Meeting Time</label>
+						<div class="card-body">
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+								<div class="col-sm-10">
+									<input type="number" id="MTDP" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
+								<div class="col-sm-10">
+									<input type="number" id="MTJP" class="form-control" />
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+
+
+							<button type="button" id="btnApprove" class="col-sm-2 btn btn-success">
+								Approve
+								<span class="fa fa-check-square-o"></span>
+							</button>
+							<button type="button" id="btnReject" class="col-sm-2 btn btn-danger">
+								Reject
+								<span class="fa fa-check-square-o"></span>
+							</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
 
 <script>
-    $(document).ready(function () {
-
-
-
-
-        CheckFormStatus();
-
-        LoadData();
-
-        $("#btnCancel").click(function () {
-            Cancel();
-        });
-
-        $("#btnApprove").click(function () {
-            Approve();
-        });
-
-        $("#btnReject").click(function () {
-            Reject();
-        });
-
-    });
-
-    function LoadData() {
-
-        var nomor = @ViewBag.nomor;
-        var dto = {
-            REQID: nomor
-        }
-
-        $.ajax({
-            url: "../Koordinator/Coor_LoadPICData",
-            type: "post",
-            data: JSON.stringify(dto),
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var trHTML = '';
-                var trav = 0;
-                var Count = data.length;
-                for (trav = 0; trav < Count; trav++) {
-                    var counter = 1;
-                    counter += trav;
-                    trHTML +=
-                        '<tr><td align="center">' + counter + '</td>' +
-                        '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                        '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-                        '<td>' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
-                        '<td>' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
-                        '<td>' + data[trav].TESTING_MANHOURS_VALUE + '</td>' +
-                        '<td>' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>'+
-                        '<td>' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
-                        '<td>' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
-                        '<td>' + data[trav].PROC_MANHOURS_VALUE + '</td>' +
-                        '<td>' + data[trav].REJ_MATERIAL + '</td>' +
-                        '<td>' + data[trav].REJ_QUANTITY + '</td>' +
-                        '<td>' + data[trav].REJ_COST_MATERIAL + '</td>' +
-                        '<td>' + data[trav].MC_SPAREPART + '</td>' +
-                        '<td>' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
-                        '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                        '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
-
-                    if (data[trav].FLAG_PIC == 'REJECTED' || data[trav].FLAG_PIC == null) {
-                        trHTML +=
-                            '<td> - </td></tr>';
-
-                    } else {
-                        trHTML +=
-                            '<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td ></tr > ';
-
-                    }
-                }
-
-                $('#deviationtable').empty();
-                $('#deviationtable').append(trHTML);
-                $('#deviationdatatable').DataTable();
-
-            },
-            error: function (ex) {
-
-                alert(JSON.stringify(ex));
-            }
-        });
-    };
-
-    function ShowBukti(button) {
-        event.preventDefault();
-        var row = $(button).closest("TR");
-        var ReqID = @ViewBag.nomor;
-        var picnik = $("TD", row).eq(16).html();
-
-        var dto = {
-            REQID: ReqID,
-            IDUSER: picnik
-        }
-
-        $.ajax({
-            url: "../Koordinator/Coor_ShowBuktiTable",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var trHTML = '';
-                var trav = 0;
-                var Count = data.length;
-
-                for (trav = 0; trav < Count; trav++) {
-                    var no = 1;
-                    no = no + trav;
-                    trHTML +=
-                        '<tr><td>' + no + '</td>' +
-                        '<td>' + data[trav].PIC_ID + '</td>' +
-                        '<td><a href="../' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
-
-                }
-
-                $('#buktitable').empty();
-                $('#buktitable').append(trHTML);
-                $('#buktidatatable').DataTable();
-
-                $("#tabel2").removeAttr("hidden");
-            }
-            , error: function (ex) {
-                alert('Error Delete User Involved : ' + JSON.stringify(ex));
-            }
-        });
-    }
-
-    function CheckFormStatus() {
-        var REQID = @ViewBag.nomor;
-
-        var dto = {
-            REQID: REQID
-
-        };
-
-        $.ajax({
-            url: "../Koordinator/Coor_CheckFormStatus",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-
-                if (data == 'PIC Submitted') {
-                    $("#koorsubmission").removeAttr("hidden");
-
-                } else {
-                    $("#koorsubmission").attr("hidden", true);
-
-
-                }
-
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
-
-    function Cancel() {
-        Swal.fire({
-            title: 'Cancel Reason ...',
-            input: 'text',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Submit',
-            showLoaderOnConfirm: true,
-
-            allowOutsideClick: () => Swal.isLoading()
-        }).then((result) => {
-
-            if (result.value == null || result.value == '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please Insert Reason!'
-                });
-            } else if (result.isConfirmed) {
-
-                var REQID = @ViewBag.nomor;
-                var Keterangan = result.value;
-                var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-                var dto = {
-                    REQID: REQID,
-                    KETERANGAN: Keterangan,
-                    IDUSER: iduser
-                };
-
-                $.ajax({
-                    url: "../Koordinator/Coor_KoorCancel",
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(dto),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-
-                        alert('Form Canceled');
-                        window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
-
-                    }
-                    , error: function (ex) {
-
-                    }
-                });
-            }
-        });
-    }
-
-    function Approve() {
-        var REQID = @ViewBag.nomor;
-        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-        var itdp = $("#ITDP").val();
-        var itjp = $("#ITJP").val();
-        var mtdp = $("#MTDP").val();
-        var mtjp = $("#MTJP").val();
-
-        var dto = {
-
-            REQID: REQID,
-            IDUSER: iduser,
-            ITDP: itdp,
-            ITJP: itjp,
-            MTDP: mtdp,
-            MTJP: mtjp
-        };
-
-        $.ajax({
-            url: "../Koordinator/Coor_ApprovePIC",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-
-                Swal.fire({
-                    title: 'Form Approved',
-                    icon: 'success',
-                    showDenyButton: false,
-                    showCancelButton: false,
-                    confirmButtonText: `OK`
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
-                    }
-                });
-
-            }
-            , error: function (ex) {
-
-            }
-        });
-    }
-
-    function Reject() {
-
-        Swal.fire({
-            title: 'Reason???',
-            input: 'text',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Submit',
-            showLoaderOnConfirm: true,
-
-            allowOutsideClick: () => Swal.isLoading()
-        }).then((result) => {
-
-            if (result.value == null || result.value == '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please Insert Reason!'
-                });
-            } else if (result.isConfirmed) {
-
-                var REQID = @ViewBag.nomor;
-                var Keterangan = result.value;
-                var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-                var dto = {
-                    REQID: REQID,
-                    KETERANGAN: Keterangan,
-                    IDUSER: iduser
-                };
-
-                $.ajax({
-                    url: "../Koordinator/Coor_Reject",
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(dto),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-
-                        Swal.fire({
-                            title: 'Form Rejected',
-                            icon: 'success',
-                            showDenyButton: false,
-                            showCancelButton: false,
-                            confirmButtonText: `OK`
-                        }).then((result) => {
-
-                            if (result.isConfirmed) {
-                                window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
-                            }
-                        });
-
-                    }
-                    , error: function (ex) {
-                        alert('Error Delete Attachment: ' + JSON.stringify(ex));
-                    }
-                });
-
-            }
-
-        });
-    }
+	$(document).ready(function () {
+
+		CheckFormStatus();
+
+		LoadData();
+
+		$("#btnCancel").click(function () {
+			Cancel();
+		});
+
+		$("#btnApprove").click(function () {
+			Approve();
+		});
+
+		$("#btnReject").click(function () {
+			Reject();
+		});
+
+	});
+
+	function LoadData() {
+
+		var nomor = @ViewBag.nomor;
+		var dto = {
+			REQID: nomor
+		}
+
+		$.ajax({
+			url: "../Koordinator/Coor_LoadPICData",
+			type: "post",
+			data: JSON.stringify(dto),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				var trHTML = '';
+				var trav = 0;
+				var Count = data.length;
+				for (trav = 0; trav < Count; trav++) {
+					var counter = 1;
+					counter += trav;
+					trHTML +=
+						'<tr><td align="center">' + counter + '</td>' +
+						'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+						'<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+						'<td>' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
+						'<td>' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
+						'<td>' + data[trav].TESTING_MANHOURS_VALUE + '</td>' +
+						'<td>' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>'+
+						'<td>' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
+						'<td>' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+						'<td>' + data[trav].PROC_MANHOURS_VALUE + '</td>' +
+						'<td>' + data[trav].REJ_MATERIAL + '</td>' +
+						'<td>' + data[trav].REJ_QUANTITY + '</td>' +
+						'<td>' + data[trav].REJ_COST_MATERIAL + '</td>' +
+						'<td>' + data[trav].MC_SPAREPART + '</td>' +
+						'<td>' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
+						'<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+						'<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
+
+					if (data[trav].FLAG_PIC == 'REJECTED' || data[trav].FLAG_PIC == null) {
+						trHTML +=
+							'<td> - </td></tr>';
+
+					} else {
+						trHTML +=
+							'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td ></tr > ';
+
+					}
+				}
+
+				$('#deviationtable').empty();
+				$('#deviationtable').append(trHTML);
+				$('#deviationdatatable').DataTable();
+
+			},
+			error: function (ex) {
+
+				alert(JSON.stringify(ex));
+			}
+		});
+	};
+
+	function ShowBukti(button) {
+		event.preventDefault();
+		var row = $(button).closest("TR");
+		var ReqID = @ViewBag.nomor;
+		var picnik = $("TD", row).eq(16).html();
+
+		var dto = {
+			REQID: ReqID,
+			IDUSER: picnik
+		}
+
+		$.ajax({
+			url: "../Koordinator/Coor_ShowBuktiTable",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				var trHTML = '';
+				var trav = 0;
+				var Count = data.length;
+
+				for (trav = 0; trav < Count; trav++) {
+					var no = 1;
+					no = no + trav;
+					trHTML +=
+						'<tr><td>' + no + '</td>' +
+						'<td>' + data[trav].PIC_ID + '</td>' +
+						'<td><a href="../' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+
+				}
+
+				$('#buktitable').empty();
+				$('#buktitable').append(trHTML);
+				$('#buktidatatable').DataTable();
+
+				$("#tabel2").removeAttr("hidden");
+			}
+			, error: function (ex) {
+				alert('Error Delete User Involved : ' + JSON.stringify(ex));
+			}
+		});
+	}
+
+	function CheckFormStatus() {
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			REQID: REQID
+
+		};
+
+		$.ajax({
+			url: "../Koordinator/Coor_CheckFormStatus",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				if (data == 'PIC Submitted') {
+					$("#koorsubmission").removeAttr("hidden");
+
+				} else {
+					$("#koorsubmission").attr("hidden", true);
+
+
+				}
+
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+	}
+
+	function Cancel() {
+		Swal.fire({
+			title: 'Cancel Reason ...',
+			input: 'text',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			showCancelButton: true,
+			confirmButtonText: 'Submit',
+			showLoaderOnConfirm: true,
+
+			allowOutsideClick: () => Swal.isLoading()
+		}).then((result) => {
+
+			if (result.value == null || result.value == '') {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Please Insert Reason!'
+				});
+			} else if (result.isConfirmed) {
+
+				var REQID = @ViewBag.nomor;
+				var Keterangan = result.value;
+				var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+				var dto = {
+					REQID: REQID,
+					KETERANGAN: Keterangan,
+					IDUSER: iduser
+				};
+
+				$.ajax({
+					url: "../Koordinator/Coor_KoorCancel",
+					type: "post",
+					dataType: "json",
+					data: JSON.stringify(dto),
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+
+						alert('Form Canceled');
+						window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+
+					}
+					, error: function (ex) {
+
+					}
+				});
+			}
+		});
+	}
+
+	function Approve() {
+		var REQID = @ViewBag.nomor;
+		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var itdp = $("#ITDP").val();
+		var itjp = $("#ITJP").val();
+		var mtdp = $("#MTDP").val();
+		var mtjp = $("#MTJP").val();
+
+		var dto = {
+
+			REQID: REQID,
+			IDUSER: iduser,
+			ITDP: itdp,
+			ITJP: itjp,
+			MTDP: mtdp,
+			MTJP: mtjp
+		};
+
+		$.ajax({
+			url: "../Koordinator/Coor_ApprovePIC",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				Swal.fire({
+					title: 'Form Approved',
+					icon: 'success',
+					showDenyButton: false,
+					showCancelButton: false,
+					confirmButtonText: `OK`
+				}).then((result) => {
+
+					if (result.isConfirmed) {
+						window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+					}
+				});
+
+			}
+			, error: function (ex) {
+
+			}
+		});
+
+		var REQID = @ViewBag.nomor;
+		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var subject = 'B7 - Deviation';
+
+		var tabletype = "More Than One";
+		var whoreceiver = "QM after Koordinator Verifikasi OK";
+
+		var dtx = {
+			Receiver: receiver,
+			ReqID: REQID,
+			Body: body,
+			Subject: subject,
+			TableType: tabletype,
+			WhoReceiver: whoreceiver
+		};
+
+		$.ajax({
+			type: "post",
+			url: '../Form/SendEmailInputProposal',
+			data: JSON.stringify(dtx),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+			}, error: function (ex) {
+				alert("Error Email: " + JSON.stringify(ex));
+			}
+		});
+
+	}
+
+	function Reject() {
+
+		Swal.fire({
+			title: 'Reason???',
+			input: 'text',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			showCancelButton: true,
+			confirmButtonText: 'Submit',
+			showLoaderOnConfirm: true,
+
+			allowOutsideClick: () => Swal.isLoading()
+		}).then((result) => {
+
+			if (result.value == null || result.value == '') {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Please Insert Reason!'
+				});
+			} else if (result.isConfirmed) {
+
+				var REQID = @ViewBag.nomor;
+				var Keterangan = result.value;
+				var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+				var dto = {
+					REQID: REQID,
+					KETERANGAN: Keterangan,
+					IDUSER: iduser
+				};
+
+				$.ajax({
+					url: "../Koordinator/Coor_Reject",
+					type: "post",
+					dataType: "json",
+					data: JSON.stringify(dto),
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+
+						Swal.fire({
+							title: 'Form Rejected',
+							icon: 'success',
+							showDenyButton: false,
+							showCancelButton: false,
+							confirmButtonText: `OK`
+						}).then((result) => {
+
+							if (result.isConfirmed) {
+								window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+							}
+						});
+
+					}
+					, error: function (ex) {
+						alert('Error Delete Attachment: ' + JSON.stringify(ex));
+					}
+				});
+
+			}
+
+		});
+	}
 
 
 </script>
