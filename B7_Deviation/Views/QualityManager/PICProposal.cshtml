@@ -142,6 +142,31 @@
 
                 }
             });
+
+            var receiver = $("TD", row).eq(9).html();
+
+            var tabletype = "One";
+            var whoreceiver = "Reviewer Approved Usulan Revisi by QM";
+
+            var dto = {
+                Receiver: receiver,
+                ReqID: REQID,
+                TableType: tabletype,
+                WhoReceiver: whoreceiver
+            };
+
+            $.ajax({
+                type: "post",
+                url: '../Form/SendEmailInputProposal',
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+                }, error: function (ex) {
+                    alert("Error Email: " + JSON.stringify(ex));
+                }
+            });
         }
 
         function RejectPIC(button) {
@@ -188,6 +213,31 @@
                 }
                 , error: function (ex) {
 
+                }
+            });
+
+            var receiver = $("TD", row).eq(9).html();
+
+            var tabletype = "One";
+            var whoreceiver = "Reviewer Rejected Usulan Revisi";
+
+            var dto = {
+                Receiver: receiver,
+                ReqID: REQID,
+                TableType: tabletype,
+                WhoReceiver: whoreceiver
+            };
+
+            $.ajax({
+                type: "post",
+                url: '../Form/SendEmailInputProposal',
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+                }, error: function (ex) {
+                    alert("Error Email: " + JSON.stringify(ex));
                 }
             });
         }

@@ -183,6 +183,32 @@
 
 					LoadKeteranganDisposisi();
 					$("#can").removeAttr('hidden');
+
+					var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+					var tabletype = "More Than One";
+					var whoreceiver = "Koordinator after QM Approve";
+
+					var dtx = {
+						Receiver: receiver,
+						ReqID: REQID,
+						TableType: tabletype,
+						WhoReceiver: whoreceiver
+					};
+
+					$.ajax({
+						type: "post",
+						url: '../Form/SendEmailInputProposal',
+						data: JSON.stringify(dtx),
+						dataType: "json",
+						contentType: "application/json;charset=utf-8",
+							success: function (data) {
+						},
+						error: function (ex) {
+							alert("Error Email: " + JSON.stringify(ex));
+						}
+					});
+
 				} else {
 					$("#can").attr("hidden", true);
 
@@ -193,34 +219,7 @@
 			}
 		});
 
-		var REQID = $("#lblReq").text();
-		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-		var tabletype = "More Than One";
-		var whoreceiver = "Koordinator after QM Approve";
-
-		var dtx = {
-			Receiver: receiver,
-			ReqID: REQID,
-			Body: body,
-			Subject: subject,
-			TableType: tabletype,
-			WhoReceiver: whoreceiver
-		};
-
-		$.ajax({
-			type: "post",
-			url: '../Form/SendEmailInputProposal',
-			data: JSON.stringify(dtx),
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-				success: function (data) {
-			},
-			error: function (ex) {
-				alert("Error Email: " + JSON.stringify(ex));
-				}
-			});
-		}
+	}
 
 	function LoadReviewerData() {
 		var nomor = @ViewBag.nomor;

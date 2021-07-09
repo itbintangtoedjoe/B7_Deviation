@@ -26,6 +26,11 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
+        public ActionResult FindDeviation()
+        {
+            return View();
+        }
+
         public ActionResult Deviasi(String Nomor)
         {
             ViewBag.nomor = Nomor;
@@ -50,9 +55,539 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
+        public ActionResult MasterList(String Nama)
+        {
+            ViewBag.nama = Nama;
+            return View();
+        }
+
+        public ActionResult LeadTime(String Nama)
+        {
+            ViewBag.nama = Nama;
+            return View();
+        }
+
+        public ActionResult FindMasterList()
+        {
+            return View();
+        }
+
+        public ActionResult FindLeadTime()
+        {
+            return View();
+        }
+
         public ActionResult DataTableList()
         {
             return View();
+        }
+
+        // START OF MASTER TABLE SECTION
+        public ActionResult FilteredTable(FilterModel Model)
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Filtered Table";
+
+                    command.Parameters.Add("@StatusPenyimpangan", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@StatusPenyimpangan"].Value = Model.StatusPenyimpangan;
+
+                    command.Parameters.Add("@DepartemenPelapor", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@DepartemenPelapor"].Value = Model.DepartemenPelapor;
+
+                    command.Parameters.Add("@KategoriPenyimpangan", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@KategoriPenyimpangan"].Value = Model.KategoriPenyimpangan;
+
+                    command.Parameters.Add("@JenisPenyimpangan", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@JenisPenyimpangan"].Value = Model.JenisPenyimpangan;
+
+                    command.Parameters.Add("@TahunPelaporan", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@TahunPelaporan"].Value = Model.TahunPelaporan;
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+        public ActionResult StatusPenyimpangan()
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Status Penyimpangan";
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+        public ActionResult DepartemenPelapor()
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Departemen Pelapor";
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+        public ActionResult KategoriPenyimpangan()
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Kategori Penyimpangan";
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+        public ActionResult JenisPenyimpangan()
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Jenis Penyimpangan";
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+        public ActionResult TahunLaporan()
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Tahun Laporan";
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+        // END OF MASTER TABLE SECTION
+
+        // START OF MASTERLIST SECTION
+        public ActionResult MasterListFilteredTable(FilterModel Model)
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Master List Filtered Table";
+
+                    command.Parameters.Add("@StatusPenyimpangan", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@StatusPenyimpangan"].Value = Model.StatusPenyimpangan;
+
+                    command.Parameters.Add("@DepartemenPelapor", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@DepartemenPelapor"].Value = Model.DepartemenPelapor;
+
+                    command.Parameters.Add("@KategoriPenyimpangan", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@KategoriPenyimpangan"].Value = Model.KategoriPenyimpangan;
+
+                    command.Parameters.Add("@JenisPenyimpangan", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@JenisPenyimpangan"].Value = Model.JenisPenyimpangan;
+
+                    command.Parameters.Add("@TahunPelaporan", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@TahunPelaporan"].Value = Model.TahunPelaporan;
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+        public ActionResult StatusPenyimpanganMLFT()
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Status Penyimpangan MLFT";
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+        public ActionResult DepartemenPelaporMLFT()
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Departemen Pelapor MLFT";
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+        public ActionResult KategoriPenyimpanganMLFT()
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Kategori Penyimpangan MLFT";
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+        public ActionResult JenisPenyimpanganMLFT()
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Jenis Penyimpangan MLFT";
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+        public ActionResult TahunLaporanMLFT()
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_Filter", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Tahun Laporan MLFT";
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+        // END OF MASTERLIST SECTION
+
+        public ActionResult DD_LoadDataTableMLFT()
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_Filter]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Master List Filtered Table";
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
         }
 
         public ActionResult SemiMasterView(ApprovalModel Model)

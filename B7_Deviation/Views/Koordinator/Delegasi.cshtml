@@ -1,175 +1,201 @@
 ﻿
 @{
-    ViewBag.Title = "Delegasi";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Delegasi";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="content-body">
-    <div class="form-group">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
+	<div class="form-group">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
 
-                            <div class="form-group">
-                                <h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
-                            </div>
+							<div class="form-group">
+								<h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+							</div>
 
-                            <div class="form-group row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
+							<div class="form-group row">
+								<div class="col-md-8">
+									<div class="form-group">
 
-                                        <button type="button" id="btnDelegate" class="col-sm-2 btn mb-1 btn-success form-control">
-                                            Delegate
-                                        </button>
+										<button type="button" id="btnDelegate" class="col-sm-2 btn mb-1 btn-success form-control">
+											Delegate
+										</button>
 
-                                        <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control">
-                                            Cancel
-                                        </button>
+										<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control">
+											Cancel
+										</button>
 
-                                    </div>
+									</div>
 
-                                    <div class="form-group">
-                                        <label for="listDelegasi" class="form-text">Delegasi Disposisi Tindakan Remedial: <span style="color:red;">*</span></label>
-                                        <select id="listDelegasi">
-                                            <option class="dropdown-header">* SELECT NAMA DELEGASI *</option>
-                                        </select>
-                                    </div>
+									<div class="form-group">
+										<label for="listDelegasi" class="form-text">Delegasi Disposisi Tindakan Remedial: <span style="color:red;">*</span></label>
+										<select id="listDelegasi">
+											<option class="dropdown-header">* SELECT NAMA DELEGASI *</option>
+										</select>
+									</div>
 
-                                    <div class="form-group">
-                                        <label for="txtReason" class="form-text">Alasan Delegasi: <span style="color:red;">*</span></label>
-                                        <textarea id="txtReason" style="width: 600px;"></textarea>
-                                    </div>
+									<div class="form-group">
+										<label for="txtReason" class="form-text">Alasan Delegasi: <span style="color:red;">*</span></label>
+										<textarea id="txtReason" style="width: 600px;"></textarea>
+									</div>
 
-                                </div>
-                                
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Nama</label>
-                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtTanggal">Tanggal:</label>
-                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+								</div>
+								
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Nama</label>
+										<input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+									</div>
+									<div class="form-group">
+										<label for="txtTanggal">Tanggal:</label>
+										<input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    </div>
+	</div>
 
-    <div class="form-group">
-        @Html.Partial("~/Views/SpvPelapor/Approval.cshtml")
-    </div>
+	<div class="form-group">
+		@Html.Partial("~/Views/SpvPelapor/Approval.cshtml")
+	</div>
 </div>
 
 <script>
-    $(document).ready(function () {
-        LoadDelegasiList();
+	$(document).ready(function () {
+		LoadDelegasiList();
 
-        $("#btnCancel").click(function () {
-            window.history.back();
-        });
+		$("#btnCancel").click(function () {
+			window.history.back();
+		});
 
-        $("#btnDelegate").click(function () {
+		$("#btnDelegate").click(function () {
 
-            if ($("#txtReason").val() == '' || $("#txtReason").val() == null || $("#listDelegasi").val() == '') {
+			if ($("#txtReason").val() == '' || $("#txtReason").val() == null || $("#listDelegasi").val() == '') {
 
-                Swal.fire({
-                    title: 'Reason and Delegasi Cannot Be Left Blank',
-                    icon: 'error',
-                    showCancelButton: false,
-                    confirmButtonText: `OK`,
-                    showDenyButton: false
-                }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
-                    if (result.isConfirmed) {
-                        return;
-                    } 
-                });
+				Swal.fire({
+					title: 'Reason and Delegasi Cannot Be Left Blank',
+					icon: 'error',
+					showCancelButton: false,
+					confirmButtonText: `OK`,
+					showDenyButton: false
+				}).then((result) => {
+					/* Read more about isConfirmed, isDenied below */
+					if (result.isConfirmed) {
+						return;
+					}
+				});
 
-            } else {
-                Delegate();
-            }
+			} else {
+				Delegate();
+			}
 
-        });
+		});
 
-    });
+	});
 
-    function Delegate() {
-        var nomor = @ViewBag.nomor;
-        var userid = $("#listDelegasi").val();
-        var reason = $("#txtReason").val();
+	function Delegate() {
+		var nomor = @ViewBag.nomor;
+		var userid = $("#listDelegasi").val();
+		var reason = $("#txtReason").val();
 
-        // I use Reviewer Model coz it has the same attribute as Disposisi
-        // Should have be KETERANGAN_DELEGASI
-        var dto = {
-            USER_NIK: userid,
-            REQID: nomor,
-            KETERANGAN_REVIEW: reason
-        }
+		// I use Reviewer Model coz it has the same attribute as Disposisi
+		// Should have be KETERANGAN_DELEGASI
+		var dto = {
+			USER_NIK: userid,
+			REQID: nomor,
+			KETERANGAN_REVIEW: reason
+		}
 
-        $.ajax({
-            url: "../Koordinator/Coor_Delegate",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
+		$.ajax({
+			url: "../Koordinator/Coor_Delegate",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
 
-                Swal.fire({
-                    title: 'Insert Delegasi Berhasil',
-                    showDenyButton: false,
-                    icon: 'success',
-                    showCancelButton: false,
-                    confirmButtonText: `OK`
-                }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
-                    if (result.isConfirmed) {
-                        window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
-                    } 
-                })
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
+				Swal.fire({
+					title: 'Insert Delegasi Berhasil',
+					showDenyButton: false,
+					icon: 'success',
+					showCancelButton: false,
+					confirmButtonText: `OK`
+				}).then((result) => {
+					/* Read more about isConfirmed, isDenied below */
+					if (result.isConfirmed) {
+						window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+					}
+				})
+			},
+			error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
 
-    }
+		var REQID = @ViewBag.nomor;
+		var receiver = $("#listDelegasi").val();
 
-    function LoadDelegasiList() {
-        $.ajax({
-            url: "../Koordinator/Coor_LoadDelegasiList",
-            type: "post",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
+		var tabletype = "One";
+		var whoreceiver = "Delegasi";
 
-                var trhtml = "";
-                var trav = 0;
-                var count = data.length;
+		var dtX = {
+			Receiver: receiver,
+			ReqID: REQID,
+			TableType: tabletype,
+			WhoReceiver: whoreceiver
+		};
 
-                trhtml += '<option disabled class="dropdown-header" value="" selected>* SELECT NAMA DELEGASI *</option>';
-                if (count > 0) {
-                    for (trav = 0; trav < count; trav++) {
-                        trhtml +=
-                            '<option class="dropdown-item" value = "' + data[trav].EmpId + '">' + data[trav].EmpName + '</option>';
-                    }
+		$.ajax({
+			type: "post",
+			url: '../Form/SendEmailInputProposal',
+			data: JSON.stringify(dto),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
 
-                    $("#listDelegasi").empty();
-                    $("#listDelegasi").append(trhtml);
-                    $("#listDelegasi").select2();
-                }
+			}, error: function (ex) {
+				alert("Error Email: " + JSON.stringify(ex));
+			}
+		});
 
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
+	}
+
+	function LoadDelegasiList() {
+		$.ajax({
+			url: "../Koordinator/Coor_LoadDelegasiList",
+			type: "post",
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				var trhtml = "";
+				var trav = 0;
+				var count = data.length;
+
+				trhtml += '<option disabled class="dropdown-header" value="" selected>* SELECT NAMA DELEGASI *</option>';
+				if (count > 0) {
+					for (trav = 0; trav < count; trav++) {
+						trhtml +=
+							'<option class="dropdown-item" value = "' + data[trav].EmpId + '">' + data[trav].EmpName + '</option>';
+					}
+
+					$("#listDelegasi").empty();
+					$("#listDelegasi").append(trhtml);
+					$("#listDelegasi").select2();
+				}
+
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+	}
 
 </script>

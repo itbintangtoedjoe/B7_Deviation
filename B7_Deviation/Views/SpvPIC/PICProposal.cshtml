@@ -1,198 +1,249 @@
 ﻿
 @{
-    ViewBag.Title = "PICProposal";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "PICProposal";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
 <script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
 
 <body>
-    <div class="content-body">
+	<div class="content-body">
 
-        <div class="container-fluid">
-            <div class="card">
+		<div class="container-fluid">
+			<div class="card">
 
-                <div class="card-body">
-                    <div class="form-group">
-                        <h2 class="d-inline">B7 Deviation Data Table</h2>
+				<div class="card-body">
+					<div class="form-group">
+						<h2 class="d-inline">B7 Deviation Data Table</h2>
 
-                    </div>
-                    <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="deviationdatatable" width="100%">
-                        <thead>
-                            <tr>
-                                <th>Request ID</th>
-                                <th>Status</th>
-                                <th>NIK PIC</th>
-                                <th>PIC Name</th>
-                                <th>Due Date</th>
-                                <th>Keterangan Disposisi</th>
-                                <th>Proposed Due Date</th>
-                                <th>Proposed Keterangan Disposisi</th>
-                                <th>Alasan Revisi</th>
-                                <th width="100px" hidden></th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="deviationtable" class="nowrap">
-                            <tr>
-                                
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+					</div>
+					<table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="deviationdatatable" width="100%">
+						<thead>
+							<tr>
+								<th>Request ID</th>
+								<th>Status</th>
+								<th>NIK PIC</th>
+								<th>PIC Name</th>
+								<th>Due Date</th>
+								<th>Keterangan Disposisi</th>
+								<th>Proposed Due Date</th>
+								<th>Proposed Keterangan Disposisi</th>
+								<th>Alasan Revisi</th>
+								<th width="100px" hidden></th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="deviationtable" class="nowrap">
+							<tr>
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <script>
-        $(document).ready(function () {
-            // Load User once the page is loaded
-            LoadData();
+	<script>
+		$(document).ready(function () {
+			// Load User once the page is loaded
+			LoadData();
 
-        });
+		});
 
-        function LoadData() {
+		function LoadData() {
 
-            var REQID = @ViewBag.nomor;
+			var REQID = @ViewBag.nomor;
 
-            var dto = {
-                REQID: REQID
-            }
+			var dto = {
+				REQID: REQID
+			}
 
-            $.ajax({
-                url: "../SpvPelapor/Spv_PICLoadDataTable",
-                type: "post",
-                data: JSON.stringify(dto),
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    var trHTML = '';
-                    var trav = 0;
-                    var Count = data.length;
-                    for (trav = 0; trav < Count; trav++) {
+			$.ajax({
+				url: "../SpvPelapor/Spv_PICLoadDataTable",
+				type: "post",
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+					for (trav = 0; trav < Count; trav++) {
 
-                        trHTML +=
-                            '<tr><td>' + data[trav].REQ_ID + '</td>' +
-                            '<td>' + data[trav].STATUS + '</td>' +
-                            '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
-                            '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                            '<td>' + data[trav].DUE_DATE + '</td>' +
-                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                            '<td>' + data[trav].REVISI_DUE_DATE + '</td>' +
-                            '<td>' + data[trav].REVISI_TINDAKAN_REMEDIAL + '</td>' +
-                            '<td>' + data[trav].ALASAN_REVISI + '</td>' +
-                            '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
-                            '<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" onclick=ApprovePIC(this) class="btn btn-success" style="width:120px;"/> <input type="button" id="Reject" value="Reject" onclick=RejectPIC(this) class="btn btn-danger" style="width:100px;"/></td>';
-                    }
+						trHTML +=
+							'<tr><td>' + data[trav].REQ_ID + '</td>' +
+							'<td>' + data[trav].STATUS + '</td>' +
+							'<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+							'<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+							'<td>' + data[trav].DUE_DATE + '</td>' +
+							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+							'<td>' + data[trav].REVISI_DUE_DATE + '</td>' +
+							'<td>' + data[trav].REVISI_TINDAKAN_REMEDIAL + '</td>' +
+							'<td>' + data[trav].ALASAN_REVISI + '</td>' +
+							'<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
+							'<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" onclick=ApprovePIC(this) class="btn btn-success" style="width:120px;"/> <input type="button" id="Reject" value="Reject" onclick=RejectPIC(this) class="btn btn-danger" style="width:100px;"/></td>';
+					}
 
-                    $('#deviationtable').empty();
-                    $('#deviationtable').append(trHTML);
-                    $('#deviationdatatable').DataTable();
+					$('#deviationtable').empty();
+					$('#deviationtable').append(trHTML);
+					$('#deviationdatatable').DataTable();
 
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-        }
+				},
+				error: function (ex) {
+					alert(JSON.stringify(ex));
+				}
+			});
+		}
 
-        function ApprovePIC(button) {
+		function ApprovePIC(button) {
 
-            var row = $(button).closest("TR");
+			var row = $(button).closest("TR");
 
-            var no_disposisi = $("TD", row).eq(9).html();
-            var req_id = @ViewBag.nomor;
-            var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+			var no_disposisi = $("TD", row).eq(9).html();
+			var req_id = @ViewBag.nomor;
+			var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-            var dto = {
-                REQID: req_id,
-                NO_DISPOSISI: no_disposisi,
-                IDUSER: curr_user
-            }
+			var dto = {
+				REQID: req_id,
+				NO_DISPOSISI: no_disposisi,
+				IDUSER: curr_user
+			}
 
-            $.ajax({
-                url: "../SpvPelapor/Spv_ApprovePIC",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
+			$.ajax({
+				url: "../SpvPelapor/Spv_ApprovePIC",
+				type: "post",
+				dataType: "json",
+				data: JSON.stringify(dto),
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
 
-                    toastr.success("Assign PIC Berhasil!", "Tersimpan", {
-                        "closeButton": false,
-                        "debug": true,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "100",
-                        "hideDuration": "1000",
-                        "timeOut": "1000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    });
+					toastr.success("Assign PIC Berhasil!", "Tersimpan", {
+						"closeButton": false,
+						"debug": true,
+						"newestOnTop": false,
+						"progressBar": false,
+						"positionClass": "toast-top-right",
+						"preventDuplicates": false,
+						"onclick": null,
+						"showDuration": "100",
+						"hideDuration": "1000",
+						"timeOut": "1000",
+						"extendedTimeOut": "1000",
+						"showEasing": "swing",
+						"hideEasing": "linear",
+						"showMethod": "fadeIn",
+						"hideMethod": "fadeOut"
+					});
 
-                    LoadData();
-                }
-                , error: function (ex) {
+					LoadData();
+				}
+				, error: function (ex) {
 
-                }
-            });
-        }
+				}
+			});
 
-        function RejectPIC(button) {
+			var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-            var row = $(button).closest("TR");
+			var tabletype = "More Than One";
+			var whoreceiver = "QM PIC Usulan Revisi";
 
-            var no_disposisi = $("TD", row).eq(9).html();
-            var req_id = @ViewBag.nomor;
-            var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+			var dto = {
+				Receiver: receiver,
+				ReqID: REQID,
+				TableType: tabletype,
+				WhoReceiver: whoreceiver
+			};
 
-            var dto = {
-                REQID: req_id,
-                NO_DISPOSISI: no_disposisi,
-                IDUSER: curr_user
-            }
+			$.ajax({
+				type: "post",
+				url: '../Form/SendEmailInputProposal',
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
 
-            $.ajax({
-                url: "../SpvPelapor/Spv_RejectPIC",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
+				}, error: function (ex) {
+					alert("Error Email: " + JSON.stringify(ex));
+				}
+			});
+		}
 
-                    toastr.success("Assign PIC Berhasil!", "Tersimpan", {
-                        "closeButton": false,
-                        "debug": true,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "100",
-                        "hideDuration": "1000",
-                        "timeOut": "1000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    });
+		function RejectPIC(button) {
 
-                    LoadData();
-                }
-                , error: function (ex) {
+			var row = $(button).closest("TR");
 
-                }
-            });
-        }
-    </script>
+			var no_disposisi = $("TD", row).eq(9).html();
+			var req_id = @ViewBag.nomor;
+			var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+			var dto = {
+				REQID: req_id,
+				NO_DISPOSISI: no_disposisi,
+				IDUSER: curr_user
+			}
+
+			$.ajax({
+				url: "../SpvPelapor/Spv_RejectPIC",
+				type: "post",
+				dataType: "json",
+				data: JSON.stringify(dto),
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+
+					toastr.success("Assign PIC Berhasil!", "Tersimpan", {
+						"closeButton": false,
+						"debug": true,
+						"newestOnTop": false,
+						"progressBar": false,
+						"positionClass": "toast-top-right",
+						"preventDuplicates": false,
+						"onclick": null,
+						"showDuration": "100",
+						"hideDuration": "1000",
+						"timeOut": "1000",
+						"extendedTimeOut": "1000",
+						"showEasing": "swing",
+						"hideEasing": "linear",
+						"showMethod": "fadeIn",
+						"hideMethod": "fadeOut"
+					});
+
+					LoadData();
+				}
+				, error: function (ex) {
+
+				}
+			});
+
+			var receiver = $("TD", row).eq(9).html();
+
+			var tabletype = "One";
+			var whoreceiver = "Reviewer Rejected Usulan Revisi";
+
+			var dto = {
+				Receiver: receiver,
+				ReqID: REQID,
+				TableType: tabletype,
+				WhoReceiver: whoreceiver
+			};
+
+			$.ajax({
+				type: "post",
+				url: '../Form/SendEmailInputProposal',
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+
+				}, error: function (ex) {
+					alert("Error Email: " + JSON.stringify(ex));
+				}
+			});
+
+		}
+	</script>
 
 
 </body>

@@ -93,6 +93,27 @@ namespace B7_Deviation.Controllers
                 {
                     EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Your Review as PIC</body></html>";
 
+                }else if(Model.WhoReceiver == "Pelapor after Lanjut CAPA")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Has been Approved and Proceeded to CAPA</body></html>";
+                }else if(Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Has been Approved and Not Proceeded to CAPA</body></html>";
+                }else if(Model.WhoReceiver == "Canceled")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Has been Canceled</body></html>";
+                }else if(Model.WhoReceiver == "Delegasi")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Has been Delegated to you</body></html>";
+                }else if(Model.WhoReceiver == "SPV PIC Usulan Revisi")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> proposed revision</body></html>";
+                }else if(Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> proposed revision has been rejected</body></html>";
+                }else if(Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> proposed revision has been approved</body></html>";
                 }
             }
             else if (Model.TableType == "More Than One")
@@ -119,6 +140,15 @@ namespace B7_Deviation.Controllers
                 }else if(Model.WhoReceiver == "Koordinator after PIC Submit")
                 {
                     EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Verifikasi Tindakan Remedial</body></html>";
+                }else if(Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Your Approval as Quality Manager</body></html>";
+                }else if(Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Has been Rejected by Quality Manager, Need Your Review as Reviewer</body></html>";
+                }else if(Model.WhoReceiver == "QM PIC Usulan Revisi")
+                {
+                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> proposed revision</body></html>";
                 }
             }
 
@@ -174,6 +204,61 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@UserID", SqlDbType.VarChar);
                             Command.Parameters["@UserID"].Value = Model.Receiver;
 
+                        }else if(Model.WhoReceiver == "Pelapor after Lanjut CAPA")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }else if(Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }else if(Model.WhoReceiver == "Canceled")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }else if(Model.WhoReceiver == "Delegasi")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Delegasi";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }else if(Model.WhoReceiver == "SPV PIC Usulan Revisi")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "SPV PIC Usulan Revisi";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }else if(Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer Rejected Usulan Revisi";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }else if(Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer Rejected Usulan Revisi";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
 
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
@@ -295,6 +380,27 @@ namespace B7_Deviation.Controllers
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }else if(Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }else if(Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviwer after Appointed";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }else if(Model.WhoReceiver == "QM PIC Usulan Revisi")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
 
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
@@ -341,7 +447,8 @@ namespace B7_Deviation.Controllers
 
                     var client = new SmtpClient
                     {
-                        Host = "10.100.18.216",
+                        Host = "smtp.gmail.com",
+                        Port = 587,
                         DeliveryMethod = SmtpDeliveryMethod.Network,
                         EnableSsl = true,
                         UseDefaultCredentials = false,

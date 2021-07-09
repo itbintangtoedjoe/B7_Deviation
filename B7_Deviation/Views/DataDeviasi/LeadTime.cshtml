@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Report";
+    ViewBag.Title = "LeadTime";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -20,7 +20,8 @@
     </div>
 
     <div hidden="hidden">
-        <input type="text" id="txtEN" value="@ViewBag.nomor">
+        <input type="text" id="txtED" value="@ViewBag.nama">
+
     </div>
 </div>
 
@@ -32,8 +33,9 @@
     });
 
     function ReportValidationCheck() {
-        var ENSend = $("#txtEN").val();
-        url = "../Report/Report.aspx?Nomor=" + ENSend;
+        var EDSend = $("#txtED").val();
+
+        url = "../Report/LeadTime.aspx?Nama=" + EDSend;
 
         var myframe = document.getElementById("ifrmReportViewer");
         if (myframe !== null) {
@@ -50,5 +52,8 @@
         return false;
     }
 </script>
+
+
+
 
 

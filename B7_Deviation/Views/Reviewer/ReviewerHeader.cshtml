@@ -195,19 +195,13 @@
 			}
 		});
 
-		var REQID = $("#lblReq").text();
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-		var subject = 'B7 - Deviation';
-
 		var tabletype = "More Than One";
 		var whoreceiver = "Koordinator after Reviewer Submit";
 
 		var dtx = {
 			Receiver: receiver,
 			ReqID: REQID,
-			Body: body,
-			Subject: subject,
 			TableType: tabletype,
 			WhoReceiver: whoreceiver
 		};

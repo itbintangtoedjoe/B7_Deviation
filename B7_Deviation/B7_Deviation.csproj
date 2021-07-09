@@ -5014,6 +5014,7 @@
     <Compile Include="Models\DeviationModel.cs" />
     <Compile Include="Models\DisposisiModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
+    <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\PICModel.cs" />
     <Compile Include="Models\ReviewerModel.cs" />
     <Compile Include="Models\SaveUser.cs" />

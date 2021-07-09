@@ -16,6 +16,19 @@
                     <div class="form-group">
                         <h2 class="d-inline">Deviation List</h2>
                     </div>
+
+                    <div class="form-group">
+                        <input type="button" id="MasterList" value="Print Master List" class="btn btn-info" style="width:auto;" />
+                        <input type="button" id="LeadTime" value="Print Lead Time" class="btn btn-info" style="width:auto;" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="button" id="Find" value="Find Deviation" class="btn btn-info" style="width:auto;" />
+                        <input type="button" id="FindMasterList" value="Find Master List" class="btn btn-info" style="width:auto;" />
+                        <input type="button" id="FindLeadTime" value="Find Lead Time" class="btn btn-info" style="width:auto;" />
+
+                    </div>
+
                     <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="deviationdatatable" width="100%">
                         <thead>
                             <tr>
@@ -50,6 +63,26 @@
         $(document).ready(function () {
             // Load User once the page is loaded
             LoadData();
+
+            $("#Find").click(function () {
+                window.location.href = "/DataDeviasi/FindDeviation"
+            });
+
+            $("#MasterList").click(function () {
+                MasterList();
+            });
+
+            $("#LeadTime").click(function () {
+                LeadTime();
+            });
+
+            $("#FindMasterList").click(function () {
+                window.location.href = "../DataDeviasi/FindMasterList"
+            });
+
+            $("#FindLeadTime").click(function () {
+                window.location.href = "../DataDeviasi/FindLeadTime"
+            });
 
         });
 
@@ -97,10 +130,33 @@
             var row = $(button).closest("TR");
 
             var Nomor = $("TD", row).eq(9).html();
-            
+
             window.location.href = "../DataDeviasi/Report?Nomor=" + Nomor
-            
-       
+
+
+        }
+
+        function View(button) {
+            var row = $(button).closest("TR");
+
+            var Nomor = $("TD", row).eq(0).html();
+
+            window.location.href = "../DataDeviasi/Deviasi?Nomor=" + Nomor
+
+
+        }
+
+        function MasterList() {
+
+            var Nama = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+            window.location.href = "../DataDeviasi/MasterList?Nama=" + Nama
+        }
+
+        function LeadTime() {
+            var Nama = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+            window.location.href = "../DataDeviasi/LeadTime?Nama=" + Nama
         }
 
     </script>

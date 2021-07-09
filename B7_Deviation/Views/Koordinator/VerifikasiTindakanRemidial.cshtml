@@ -380,6 +380,32 @@
 
 					}
 				});
+
+				var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+				var tabletype = "One";
+				var whoreceiver = "Canceled";
+
+				var dtx = {
+					Receiver: receiver,
+					ReqID: REQID,
+
+					TableType: tabletype,
+					WhoReceiver: whoreceiver
+				};
+
+				$.ajax({
+					type: "post",
+					url: '../Form/SendEmailInputProposal',
+					data: JSON.stringify(dtx),
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+
+					}, error: function (ex) {
+						alert("Error Email: " + JSON.stringify(ex));
+					}
+				});
 			}
 		});
 	}
@@ -429,20 +455,13 @@
 
 			}
 		});
-
-		var REQID = @ViewBag.nomor;
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-		var subject = 'B7 - Deviation';
-
 		var tabletype = "More Than One";
 		var whoreceiver = "QM after Koordinator Verifikasi OK";
 
 		var dtx = {
 			Receiver: receiver,
 			ReqID: REQID,
-			Body: body,
-			Subject: subject,
 			TableType: tabletype,
 			WhoReceiver: whoreceiver
 		};
@@ -519,6 +538,32 @@
 					}
 					, error: function (ex) {
 						alert('Error Delete Attachment: ' + JSON.stringify(ex));
+					}
+				});
+
+				
+				var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+				var tabletype = "More Than One";
+				var whoreceiver = "QM after Koordinator Verifikasi Not OK";
+
+				var dtx = {
+					Receiver: receiver,
+					ReqID: REQID,
+					TableType: tabletype,
+					WhoReceiver: whoreceiver
+				};
+
+				$.ajax({
+					type: "post",
+					url: '../Form/SendEmailInputProposal',
+					data: JSON.stringify(dtx),
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+
+					}, error: function (ex) {
+						alert("Error Email: " + JSON.stringify(ex));
 					}
 				});
 

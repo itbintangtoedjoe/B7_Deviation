@@ -1,0 +1,607 @@
+﻿
+@{
+    ViewBag.Title = "FindDeviation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
+
+<style>
+    .ellipsis {
+        max-width: 250px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+
+<body>
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="form-group">
+                        <h2 class="d-inline">Find Deviaton</h2>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Status Penyimpangan</label>
+                            <div class="col-md-3 col-form-label">
+                                <div class="btn-group">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown ">
+                                            <select id="statuspenyimpangan">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Departemen Pelapor</label>
+                            <div class="col-md-3 col-form-label">
+                                <div class="btn-group">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown ">
+                                            <select id="departemenpelapor">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Kategori Penyimpangan</label>
+                            <div class="col-md-3 col-form-label">
+                                <div class="btn-group">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown ">
+                                            <select id="kategoripenyimpangan">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Jenis Penyimpangan</label>
+                            <div class="col-md-3 col-form-label">
+                                <div class="btn-group">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown ">
+                                            <select id="jenispenyimpangan">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label">Tahun Pelaporan</label>
+                            <div class="col-md-3 col-form-label">
+                                <div class="btn-group">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown ">
+                                            <select id="tahunpelaporan">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" width="100%" id="deviationdatatable">
+                        <thead>
+                            <tr>
+                                <th width="100px">Request ID</th>
+                                <th width="100px">Nomor Penyimpangan</th>
+                                <th width="100px">Nama Pelapor</th>
+                                <th width="100px">Kategori Penyimpangan</th>
+                                <th width="100px">Jenis Penyimpangan</th>
+                                <th width="100px">Deskripsi Singkat</th>
+                                <th width="100px">Status</th>
+                                <th width="100px">Nomor CAPA</th>
+                                <th width="100px">Tanggal Closed</th>
+                                <th width="100px">Alasan Cancelled</th>
+                                <th width="100px">Tanggal Cancelled</th>
+                                <th width="100px">Action</th>
+                                <th width="100px" hidden>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deviationtable" class="nowrap">
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Load User once the page is loaded
+            LoadData();
+            LoadFilter();
+            CheckFilter();
+
+            $("#Find").click(function () {
+                window.location.href = "/DataDeviasi/FindDeviation"
+            });
+
+        });
+
+        //AUTO SEND PARAMETER
+
+        function CheckFilter() {
+            $("#statuspenyimpangan").change(function () {
+                if ($("#statuspenyimpangan").val() != "") {
+
+                    var sp = $("#statuspenyimpangan").val();
+                    var dp = $("#departemenpelapor").val();
+                    var kp = $("#kategoripenyimpangan").val();
+                    var jp = $("#jenispenyimpangan").val();
+                    var tp = $("#tahunpelaporan").val();
+
+                    FilteredTable(sp, dp, kp, jp, tp);
+                }
+            });
+
+            $("#departemenpelapor").change(function () {
+                if ($("#departemenpelapor").val() != "") {
+
+                    var sp = $("#statuspenyimpangan").val();
+                    var dp = $("#departemenpelapor").val();
+                    var kp = $("#kategoripenyimpangan").val();
+                    var jp = $("#jenispenyimpangan").val();
+                    var tp = $("#tahunpelaporan").val();
+
+                    FilteredTable(sp, dp, kp, jp, tp);
+
+                }
+            });
+
+            $("#kategoripenyimpangan").change(function () {
+                if ($("#kategoripenyimpangan").val() != "") {
+
+                    var sp = $("#statuspenyimpangan").val();
+                    var dp = $("#departemenpelapor").val();
+                    var kp = $("#kategoripenyimpangan").val();
+                    var jp = $("#jenispenyimpangan").val();
+                    var tp = $("#tahunpelaporan").val();
+
+                    FilteredTable(sp, dp, kp, jp, tp);
+
+                }
+            });
+
+            $("#jenispenyimpangan").change(function () {
+                if ($("#jenispenyimpangan").val() != "") {
+
+                    var sp = $("#statuspenyimpangan").val();
+                    var dp = $("#departemenpelapor").val();
+                    var kp = $("#kategoripenyimpangan").val();
+                    var jp = $("#jenispenyimpangan").val();
+                    var tp = $("#tahunpelaporan").val();
+
+                    FilteredTable(sp, dp, kp, jp, tp);
+
+                }
+            });
+
+            $("#tahunpelaporan").change(function () {
+                if ($("#tahunpelaporan").val() != "") {
+
+                    var sp = $("#statuspenyimpangan").val();
+                    var dp = $("#departemenpelapor").val();
+                    var kp = $("#kategoripenyimpangan").val();
+                    var jp = $("#jenispenyimpangan").val();
+                    var tp = $("#tahunpelaporan").val();
+
+                    FilteredTable(sp, dp, kp, jp, tp);
+
+                }
+            });
+
+        }
+
+        // SEND PARAMETER TO CONTROLLER
+
+        function FilteredTable(sp, dp, kp, jp, tp) {
+
+            var statuspenyimpangan = sp;
+            var departemenpelapor = dp;
+            var kategoripenyimpangan = kp;
+            var jenispenyimpangan = jp;
+            var tahunpelaporan = tp;
+
+            var dto = {
+                StatusPenyimpangan: statuspenyimpangan,
+                DepartemenPelapor: departemenpelapor,
+                KategoriPenyimpangan: kategoripenyimpangan,
+                JenisPenyimpangan: jenispenyimpangan,
+                TahunPelaporan: tahunpelaporan
+            }
+
+            $.ajax({
+                url: "/DataDeviasi/FilteredTable",
+                type: "post",
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+                    for (trav = 0; trav < Count; trav++) {
+
+                        // IF STATUS = OPEN, USER ONLY ABLE TO SEE PROGRESS (SUS)
+                        // IF STATUS = CANCELLED, USER ONLY ABLE TO SEE REASON AND CANCEL DATE
+                        if (
+                            data[trav].STAT == 'OPEN' ||
+                            data[trav].STAT == 'CANCELED' ||
+                            (
+                                data[trav].STAT == 'APKOR1' && data[trav].FLAG_APKOR == 'COOR WAIT'
+                            )
+
+                            ||
+
+                            (
+                                data[trav].STAT == 'PICDD1' && data[trav].FLAG_PICDD == 'COOR WAIT'
+                            )
+                        ) {
+                            // LIAT DOANG
+                            trHTML +=
+                                '<tr><td>' + data[trav].REQ_ID + '</td>' +
+                                '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                '<td>' + data[trav].EMPNAME + '</td>' +
+                                '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +
+                                '<td>' + data[trav].PLAN_DEV + '</td>' +
+                                '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
+                                '<td>' + data[trav].STATUS + '</td>' +
+                                '<td>' + data[trav].NO_CARPAR + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
+                                '<td align="center">-</td>' +
+                                '<td hidden>' + data[trav].REQ_ID + '</td>';
+
+                            // WHEN STATUS = APPROVED, USER ABLE TO DOWNLOAD
+                        } else if (
+
+                            data[trav].STAT == 'CLOSE' ||
+                            data[trav].STAT == 'APSPV1' ||
+                            (
+                                data[trav].STAT == 'APKOR1' && data[trav].FLAG_APKOR == 'COOR APPROVED'
+                            )
+
+                            ||
+
+                            data[trav].STAT == 'OKKOR1' ||
+                            data[trav].STAT == 'DTRQM1' ||
+                            data[trav].STAT == 'VTROK1'
+                        ) {
+                            // BISA DONLOT
+                            trHTML +=
+                                '<tr><td>' + data[trav].REQ_ID + '</td>' +
+                                '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                '<td>' + data[trav].EMPNAME + '</td>' +
+                                '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +
+                                '<td>' + data[trav].PLAN_DEV + '</td>' +
+                                '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
+                                '<td>' + data[trav].STATUS + '</td>' +
+                                '<td>' + data[trav].NO_CARPAR + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
+                                '<td> <input type="button" id="Print" value="Print" onclick=Print(this) class="btn btn-success" style="width:auto;"/> <input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
+                                '<td hidden>' + data[trav].REQ_ID + '</td>';
+
+                            // WHEN GOT REJECTED WHATSOEVER
+                        } else {
+                            // LIAT DOANG
+                            trHTML +=
+                                '<tr><td>' + data[trav].REQ_ID + '</td>' +
+                                '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                '<td>' + data[trav].EMPNAME + '</td>' +
+                                '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +
+                                '<td>' + data[trav].PLAN_DEV + '</td>' +
+                                '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
+                                '<td>' + data[trav].STATUS + '</td>' +
+                                '<td>' + data[trav].NO_CARPAR + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
+                                '<td align="center">-</td>' +
+                                '<td hidden>' + data[trav].REQ_ID + '</td>';
+                        }
+
+
+                    }
+
+                    $('#datatableuser').DataTable().clear().destroy();
+                    $('#deviationtable').empty();
+                    $('#deviationtable').append(trHTML);
+                    $('#deviationdatatable').DataTable();
+
+
+                },
+                error: function (ex) {
+
+                    alert(JSON.stringify(ex));
+                }
+            });
+        };
+
+        function LoadFilter() {
+            //Status Penyimpangan
+            $.ajax({
+                url: "/DataDeviasi/StatusPenyimpangan",
+                type: "post",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var count = data.length;
+                    var trhtml = '';
+                    var trav = 0;
+                    trhtml += '<option disabled selected hidden class="dropdown-header">   Status Penyimpangan   </option>';
+                    if (count > 0) {
+                        for (trav = 0; trav < count; trav++) {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].STATUS + '" > ' + data[trav].STATUS_PENYIMPANGAN;
+                        }
+                    }
+                    $("#statuspenyimpangan").empty();
+                    $("#statuspenyimpangan").append(trhtml);
+                    $("#statuspenyimpangan").selectpicker();
+                },
+                error: function (ex) {
+                    alert('Error : ' + JSON.stringify(ex));
+                }
+            });
+
+            //Departemen Pelapor
+            $.ajax({
+                url: "/DataDeviasi/DepartemenPelapor",
+                type: "post",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var count = data.length;
+                    var trhtml = '';
+                    var trav = 0;
+                    trhtml += '<option disabled selected hidden class="dropdown-header">   Departemen Pelapor   </option>';
+                    if (count > 0) {
+                        for (trav = 0; trav < count; trav++) {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DEPARTEMENT + '" > ' + data[trav].DEPARTEMENT;
+                        }
+                    }
+                    $("#departemenpelapor").empty();
+                    $("#departemenpelapor").append(trhtml);
+                    $("#departemenpelapor").selectpicker();
+                },
+                error: function (ex) {
+                    alert('Error : ' + JSON.stringify(ex));
+                }
+            });
+
+            //KategoriPenyimpangan
+            $.ajax({
+                url: "/DataDeviasi/KategoriPenyimpangan",
+                type: "post",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var count = data.length;
+                    var trhtml = '';
+                    var trav = 0;
+                    trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                    if (count > 0) {
+                        for (trav = 0; trav < count; trav++) {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DEVIATION_CATEGORY + '" > ' + data[trav].KATEGORI_PENYIMPANGAN;
+                        }
+                    }
+                    $("#kategoripenyimpangan").empty();
+                    $("#kategoripenyimpangan").append(trhtml);
+                    $("#kategoripenyimpangan").selectpicker();
+                },
+                error: function (ex) {
+                    alert('Error : ' + JSON.stringify(ex));
+                }
+            });
+
+            //JenisPenyimpangan
+            $.ajax({
+                url: "/DataDeviasi/JenisPenyimpangan",
+                type: "post",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var count = data.length;
+                    var trhtml = '';
+                    var trav = 0;
+                    trhtml += '<option disabled selected hidden class="dropdown-header">   Jenis Penyimpangan   </option>';
+                    if (count > 0) {
+                        for (trav = 0; trav < count; trav++) {
+
+
+                            if (data[trav].PLAN_DEV == "Yes") {
+                                trhtml += '<Option class="dropdown-item" value = "' + data[trav].PLAN_DEV + '" >Terencana';
+                            } else if (data[trav].PLAN_DEV == "No") {
+                                trhtml += '<Option class="dropdown-item" value = "' + data[trav].PLAN_DEV + '" >Tidak Terencana';
+                            }
+                        }
+                    }
+                    $("#jenispenyimpangan").empty();
+                    $("#jenispenyimpangan").append(trhtml);
+                    $("#jenispenyimpangan").selectpicker();
+                },
+                error: function (ex) {
+                    alert('Error : ' + JSON.stringify(ex));
+                }
+            });
+
+            //Tahun Pelaporan
+            $.ajax({
+                url: "/DataDeviasi/TahunLaporan",
+                type: "post",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var count = data.length;
+                    var trhtml = '';
+                    var trav = 0;
+                    trhtml += '<option disabled selected hidden class="dropdown-header">   Tahun Laporan   </option>';
+                    if (count > 0) {
+                        for (trav = 0; trav < count; trav++) {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].TAHUN_LAPORAN + '" > ' + data[trav].TAHUN_LAPORAN;
+                        }
+                    }
+                    $("#tahunpelaporan").empty();
+                    $("#tahunpelaporan").append(trhtml);
+                    $("#tahunpelaporan").selectpicker();
+                },
+                error: function (ex) {
+                    alert('Error : ' + JSON.stringify(ex));
+                }
+            });
+
+        }
+
+        function LoadData() {
+
+            $.ajax({
+                url: "/DataDeviasi/DD_LoadDataTable",
+                type: "post",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+                    for (trav = 0; trav < Count; trav++) {
+
+                        // IF STATUS = OPEN, USER ONLY ABLE TO SEE PROGRESS (SUS)
+                        // IF STATUS = CANCELLED, USER ONLY ABLE TO SEE REASON AND CANCEL DATE
+                        if (
+                            data[trav].STAT == 'OPEN' ||
+                            data[trav].STAT == 'CANCELED' ||
+                            (
+                                data[trav].STAT == 'APKOR1' && data[trav].FLAG_APKOR == 'COOR WAIT'
+                            )
+
+                            ||
+
+                            (
+                                data[trav].STAT == 'PICDD1' && data[trav].FLAG_PICDD == 'COOR WAIT'
+                            )
+                        ) {
+                            // LIAT DOANG
+                            trHTML +=
+                                '<tr><td>' + data[trav].REQ_ID + '</td>' +
+                                '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                '<td>' + data[trav].EMPNAME + '</td>' +
+                                '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +
+                                '<td>' + data[trav].PLAN_DEV + '</td>' +
+                                '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
+                                '<td>' + data[trav].STATUS + '</td>' +
+                                '<td>' + data[trav].NO_CARPAR + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
+                                '<td align="center">-</td>' +
+                                '<td hidden>' + data[trav].REQ_ID + '</td>';
+
+                            // WHEN STATUS = APPROVED, USER ABLE TO DOWNLOAD
+                        } else if (
+
+                            data[trav].STAT == 'CLOSE' ||
+                            data[trav].STAT == 'APSPV1' ||
+                            (
+                                data[trav].STAT == 'APKOR1' && data[trav].FLAG_APKOR == 'COOR APPROVED'
+                            )
+
+                            ||
+
+                            data[trav].STAT == 'OKKOR1' ||
+                            data[trav].STAT == 'DTRQM1' ||
+                            data[trav].STAT == 'VTROK1'
+                        ) {
+                            // BISA DONLOT
+                            trHTML +=
+                                '<tr><td>' + data[trav].REQ_ID + '</td>' +
+                                '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                '<td>' + data[trav].EMPNAME + '</td>' +
+                                '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +
+                                '<td>' + data[trav].PLAN_DEV + '</td>' +
+                                '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
+                                '<td>' + data[trav].STATUS + '</td>' +
+                                '<td>' + data[trav].NO_CARPAR + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
+                                '<td> <input type="button" id="Print" value="Print" onclick=Print(this) class="btn btn-success" style="width:auto;"/> <input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
+                                '<td hidden>' + data[trav].REQ_ID + '</td>';
+
+                            // WHEN GOT REJECTED WHATSOEVER
+                        } else {
+                            // LIAT DOANG
+                            trHTML +=
+                                '<tr><td>' + data[trav].REQ_ID + '</td>' +
+                                '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                '<td>' + data[trav].EMPNAME + '</td>' +
+                                '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +
+                                '<td>' + data[trav].PLAN_DEV + '</td>' +
+                                '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
+                                '<td>' + data[trav].STATUS + '</td>' +
+                                '<td>' + data[trav].NO_CARPAR + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
+                                '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
+                                '<td align="center">-</td>' +
+                                '<td hidden>' + data[trav].REQ_ID + '</td>';
+                        }
+
+
+                    }
+
+                    $('#deviationtable').empty();
+                    $('#deviationtable').append(trHTML);
+                    $('#deviationdatatable').DataTable();
+
+
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        }
+
+        function Print(button) {
+            var row = $(button).closest("TR");
+
+            var Nomor = $("TD", row).eq(0).html();
+
+            window.location.href = "/DataDeviasi/Report?Nomor=" + Nomor
+        }
+
+        function View(button) {
+            var row = $(button).closest("TR");
+
+            var Nomor = $("TD", row).eq(0).html();
+
+            window.location.href = "/DataDeviasi/Deviasi?Nomor=" + Nomor
+
+        }
+
+    </script>
+
+</body>
+
+
+
+
+
