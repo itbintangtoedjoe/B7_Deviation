@@ -5,8 +5,8 @@
 }
 
 
-<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
+<link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
 
 <style>
     .ellipsis {
@@ -234,7 +234,7 @@
             }
 
             $.ajax({
-                url: "/DataDeviasi/FilteredTable",
+                url: "../DataDeviasi/FilteredTable",
                 type: "post",
                 data: JSON.stringify(dto),
                 dataType: "json",
@@ -346,7 +346,7 @@
         function LoadFilter() {
             //Status Penyimpangan
             $.ajax({
-                url: "/DataDeviasi/StatusPenyimpangan",
+                url: "../DataDeviasi/StatusPenyimpangan",
                 type: "post",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
@@ -370,7 +370,7 @@
 
             //Departemen Pelapor
             $.ajax({
-                url: "/DataDeviasi/DepartemenPelapor",
+                url: "../DataDeviasi/DepartemenPelapor",
                 type: "post",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
@@ -394,7 +394,7 @@
 
             //KategoriPenyimpangan
             $.ajax({
-                url: "/DataDeviasi/KategoriPenyimpangan",
+                url: "../DataDeviasi/KategoriPenyimpangan",
                 type: "post",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
@@ -418,7 +418,7 @@
 
             //JenisPenyimpangan
             $.ajax({
-                url: "/DataDeviasi/JenisPenyimpangan",
+                url: "../DataDeviasi/JenisPenyimpangan",
                 type: "post",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
@@ -448,7 +448,7 @@
 
             //Tahun Pelaporan
             $.ajax({
-                url: "/DataDeviasi/TahunLaporan",
+                url: "../DataDeviasi/TahunLaporan",
                 type: "post",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
@@ -475,7 +475,7 @@
         function LoadData() {
 
             $.ajax({
-                url: "/DataDeviasi/DD_LoadDataTable",
+                url: "../DataDeviasi/DD_LoadDataTable",
                 type: "post",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
@@ -585,7 +585,7 @@
 
             var Nomor = $("TD", row).eq(0).html();
 
-            window.location.href = "/DataDeviasi/Report?Nomor=" + Nomor
+            window.location.href = "../DataDeviasi/Report?Nomor=" + Nomor
         }
 
         function View(button) {
@@ -593,7 +593,7 @@
 
             var Nomor = $("TD", row).eq(0).html();
 
-            window.location.href = "/DataDeviasi/Deviasi?Nomor=" + Nomor
+            window.location.href = "../DataDeviasi/Deviasi?Nomor=" + Nomor
 
         }
 
