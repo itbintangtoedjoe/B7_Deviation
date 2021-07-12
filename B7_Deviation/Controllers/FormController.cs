@@ -522,6 +522,7 @@ namespace B7_Deviation.Controllers
         public ActionResult UploadAttachment(FormCollection formCollection)
         {
             string FileNameForDB = ""
+                , URLDownload = ""
                 , URLAttachment = ""
                 , result = ""
                 , ReqID = formCollection["ReqID"];
@@ -540,7 +541,9 @@ namespace B7_Deviation.Controllers
                 //URLAttachment = Path.Combine(@"D:\B7_Deviation\B7_Deviation\Content\TempURLFiles", fileName);
 
                 //URLAttachment = Path.Combine(@"\\KALBOX-B7.BINTANG7.com\Intranetportal\Intranet Attachment\Deviation\Form Usulan\", fileName);
+                //URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\FormUsulan\", fileName);
                 URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\FormUsulan\", fileName);
+                URLDownload = Path.Combine(@"/B7_Deviation/Content/Attachment/FormUsulan/", fileName);
                 //10.167.1.78\Intranetportal\Intranet Attachment\Deviation\
                 file.SaveAs(URLAttachment);
                 FileNameForDB = fileName;
@@ -559,7 +562,7 @@ namespace B7_Deviation.Controllers
                         command.Parameters["@FILE_NAME_UPLOAD"].Value = FileNameForDB;
 
                         command.Parameters.Add("@PATH_FILE", SqlDbType.VarChar);
-                        command.Parameters["@PATH_FILE"].Value = URLAttachment;
+                        command.Parameters["@PATH_FILE"].Value = URLDownload;
 
                         command.Parameters.Add("@REQID", SqlDbType.VarChar);
                         command.Parameters["@REQID"].Value = ReqID;

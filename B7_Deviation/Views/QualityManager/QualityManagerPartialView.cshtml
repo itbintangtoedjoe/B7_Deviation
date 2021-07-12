@@ -157,9 +157,7 @@
 
 
 		$('#spanDisposisi').click(function () {
-			$.when($.ajax(InsertDisposisi())).then(function () {
-
-			});
+			InsertDisposisi();
 		});
 
 	});
@@ -350,13 +348,8 @@
 										$("#tbody_Attachment" + flag).empty();
 										$("#tbody_Attachment" + flag).append(trHTML);
 										$("#tbody_Attachment" + flag).addBack();
-
-
-
 									}
 								}
-
-
 							}
 
 						}, error: function (ex) {
@@ -406,11 +399,8 @@
 
 											if (result.isConfirmed) {
 												LoadReviewerData();
-
 											}
 										})
-
-
 									},
 									error: function (ex) {
 										alert(JSON.stringify(ex));

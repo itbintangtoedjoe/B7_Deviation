@@ -279,6 +279,7 @@ namespace B7_Deviation.Controllers
         {
             string FileNameForDB = ""
                 , URLAttachment = ""
+                , URLDownload = ""
                 , result = ""
                 , ReqID = formCollection["ReqID"]
                 , UserNIK = formCollection["UserNIK"];
@@ -295,6 +296,7 @@ namespace B7_Deviation.Controllers
                 
 
                 URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\Reviwer\", fileName);
+                URLDownload = Path.Combine(@"/B7_Deviation/Content/Attachment/Reviwer/", fileName);
                 //D:\TempURLFiles LOCAL DIRECTORY
                 //10.167.1.78\Intranetportal\Intranet Attachment\Deviation\
                 file.SaveAs(URLAttachment);
@@ -317,7 +319,7 @@ namespace B7_Deviation.Controllers
                         command.Parameters["@FILE_NAME_UPLOAD"].Value = FileNameForDB;
 
                         command.Parameters.Add("@PATH_FILE", SqlDbType.VarChar);
-                        command.Parameters["@PATH_FILE"].Value = URLAttachment;
+                        command.Parameters["@PATH_FILE"].Value = URLDownload;
 
                         command.Parameters.Add("@REQID", SqlDbType.VarChar);
                         command.Parameters["@REQID"].Value = ReqID;

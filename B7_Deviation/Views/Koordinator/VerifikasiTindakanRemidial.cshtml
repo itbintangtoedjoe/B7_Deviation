@@ -251,7 +251,6 @@
 
 			},
 			error: function (ex) {
-
 				alert(JSON.stringify(ex));
 			}
 		});
@@ -319,11 +318,8 @@
 
 				if (data == 'PIC Submitted') {
 					$("#koorsubmission").removeAttr("hidden");
-
 				} else {
 					$("#koorsubmission").attr("hidden", true);
-
-
 				}
 
 			}, error: function (ex) {
@@ -373,7 +369,7 @@
 					success: function (data) {
 
 						alert('Form Canceled');
-						window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+                        window.location.href = "../DataDeviasi/PendingTask"
 
 					}
 					, error: function (ex) {
@@ -446,7 +442,7 @@
 				}).then((result) => {
 
 					if (result.isConfirmed) {
-						window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+                        window.location.href = "../DataDeviasi/PendingTask"
 					}
 				});
 
@@ -531,7 +527,7 @@
 						}).then((result) => {
 
 							if (result.isConfirmed) {
-								window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+                                window.location.href = "../DataDeviasi/PendingTask"
 							}
 						});
 

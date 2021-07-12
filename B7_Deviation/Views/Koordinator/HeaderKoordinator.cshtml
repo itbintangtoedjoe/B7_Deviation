@@ -188,7 +188,7 @@
 				}).then((result) => {
 
 					if (result.isConfirmed) {
-						window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+                        window.location.href = "../DataDeviasi/PendingTask"
 					}
 				})
 
@@ -248,7 +248,7 @@
 				}).then((result) => {
 
 					if (result.isConfirmed) {
-						window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+						window.location.href = "../Koordinator/PendingApproval"
 					}
 				})
 
@@ -308,7 +308,7 @@
 						}).then((result) => {
 
 							if (result.isConfirmed) {
-								window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+								window.location.href = "../Koordinator/PendingApproval"
 							}
 						})
 
@@ -543,7 +543,7 @@
 					$("#btnShowRev").removeAttr('hidden');
 
 					$("#btnShowRev").click(function () {
-						window.location.href = "/B7_Deviation/Koordinator/ReviewerDataTable?Nomor=@ViewBag.nomor";
+						window.location.href = "../Koordinator/ReviewerDataTable?Nomor=@ViewBag.nomor";
 					});
 
 					$("#btnApprove").attr("hidden", true);
@@ -684,7 +684,7 @@
 						}).then((result) => {
 
 							if (result.isConfirmed) {
-								window.location.href = "/B7_Deviation/Koordinator/PendingApproval"
+								window.location.href = "../DataDeviasi/PendingTask"
 							}
 						})
 
@@ -724,7 +724,7 @@
 	}
 
 	function Delegate() {
-		window.location.href = "/B7_Deviation/Koordinator/Delegasi?Nomor=@ViewBag.nomor";
+		window.location.href = "../Koordinator/Delegasi?Nomor=@ViewBag.nomor";
 	}
 
 </script>

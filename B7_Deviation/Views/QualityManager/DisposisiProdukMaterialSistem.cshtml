@@ -296,10 +296,6 @@
 				$("#ITDP").val(data[0].IT_DURASI_PENGERJAAN);
 				$("#ITJP").val(data[0].IT_JUMLAH_PELAKSANA);
 				$("#MTJP").val(data[0].MT_JUMLAH_PELAKSANA);
-				$("#MTDP").val(data[0].MT_DURASI_PENGERJAAN);
-
-
-
 			},
 			error: function (ex) {
 
@@ -354,7 +350,6 @@
 					} else {
 						trHTML +=
 							'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td ></tr > ';
-
 					}
 				}
 
@@ -449,7 +444,7 @@
 				}).then((result) => {
 
 					if (result.isConfirmed) {
-						window.location.href = "/B7_Deviation/QualityManager/PendingApproval"
+                        window.location.href = "../DataDeviasi/PendingTask"
 					}
 				});
 
@@ -539,7 +534,7 @@
 						}).then((result) => {
 
 							if (result.isConfirmed) {
-								window.location.href = "/B7_Deviation/QualityManager/PendingApproval"
+                                window.location.href = "../DataDeviasi/PendingTask"
 							}
 						});
 

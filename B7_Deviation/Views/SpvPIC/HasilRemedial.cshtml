@@ -895,7 +895,7 @@
                 document.getElementById('txtKeparahan').value = data[0].SEVERTY_DEVIATION;
 
                 $('textarea').each(function () {
-                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;width:500px;overflow-y:hidden;');
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
                 }).on('input', function () {
                     this.style.height = 'auto';
                     this.style.height = (this.scrollHeight) + 'px';
@@ -1383,7 +1383,7 @@
                 }).then((result) => {
 
                     if (result.isConfirmed) {
-                        window.location.href = "/B7_Deviation/SpvPIC/PendingApproval"
+                        window.location.href = "../DataDeviasi/PendingTask"
                     }
                 })
 
@@ -1445,7 +1445,7 @@
                         }).then((result) => {
 
                             if (result.isConfirmed) {
-                                window.location.href = "/B7_Deviation/SpvPIC/PendingApproval"
+                                window.location.href = "../DataDeviasi/PendingTask"
                             }
                         })
 

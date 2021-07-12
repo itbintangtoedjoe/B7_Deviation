@@ -53,9 +53,7 @@
             var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
             var dto = {
-
                 IDUSER: iduser,
-
             };
 
             $.ajax({
@@ -73,7 +71,7 @@
                         trHTML +=
                             '<tr><td>' + data[trav].REQ_ID + '</td>' +
                             '<td>' + data[trav].ID_PROPOSER + '</td>' +
-                            '<td><a href="/B7_Deviation/Reviewer/ReviewerHeader?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].USER_NAME + '</td>' +
+                            '<td><a href="../Reviewer/ReviewerHeader?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].USER_NAME + '</td>' +
                             '<td>' + data[trav].USER_NIK + '</td>' +
                             '<td>' + data[trav].FLAG_REVIEW + '</td>' +
                             '<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
@@ -90,8 +88,6 @@
                 }
             });
         }
-
-
 
     </script>
 

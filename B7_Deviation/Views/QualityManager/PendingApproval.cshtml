@@ -76,7 +76,7 @@
                         // EXPLANATION -> 3rd IF: REVISED BY THE REVIEWER (IF GOT REJECTED EARLIER)
                         if (data[trav].STATUS == 'ADKOR1' || data[trav].STATUS == 'OKKOR1' || data[trav].STATUS == 'RTDQM1') {
                             trHTML +=
-                                '<tr><td><a href="/B7_Deviation/QualityManager/QMHeader?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>' +
+                                '<tr><td><a href="../QualityManager/QMHeader?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>' +
                                 '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                 '<td>' + data[trav].ID_PROPOSER + '</td>' +
                                 '<td>' + data[trav].EMP_NAME + '</td>' +
@@ -85,7 +85,7 @@
 
                         } else if (data[trav].STATUS == 'URABS1') {
                             trHTML +=
-                                '<tr><td><a href="/B7_Deviation/QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>' +
+                                '<tr><td><a href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>' +
                                 '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                 '<td>' + data[trav].ID_PROPOSER + '</td>' +
                                 '<td>' + data[trav].EMP_NAME + '</td>' +
@@ -94,7 +94,7 @@
                         // 2ND QUALITY MANAGER (DISPOSISI PRODUK/MATERIAL/SISTEM)
                         } else {
                             trHTML +=
-                                '<tr><td><a href="/B7_Deviation/QualityManager/DisposisiProdukMaterialSistem?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>' +
+                                '<tr><td><a href="../QualityManager/DisposisiProdukMaterialSistem?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>' +
                                 '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                 '<td>' + data[trav].ID_PROPOSER + '</td>' +
                                 '<td>' + data[trav].EMP_NAME + '</td>' +
@@ -109,8 +109,6 @@
                                 '<td> - </td>';
 
                         }
-
-                        
 
                     }
 
