@@ -573,9 +573,7 @@
 		$('#lblReq').text('-');
 
 		$('#spanUser').click(function () {
-			$.when($.ajax(InsertNamaTerlibat())).then(function () {
-				$('#txtWho').val('');
-			});
+			InsertNamaTerlibat();
 		});
 
 		$("#btnUpload").click(function () {

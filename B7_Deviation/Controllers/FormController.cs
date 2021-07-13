@@ -69,95 +69,65 @@ namespace B7_Deviation.Controllers
 
         public ActionResult SendEmailInputProposal(EmailModel Model)
         {
+            MailMessage Msg = new MailMessage();
+            SmtpClient MailObject = new SmtpClient("10.100.18.216");
 
-            string EmailBody = "";
-            string EmailSubject = "B7 - Deviation";
-            if (Model.TableType == "One")
-            {
-                if (Model.WhoReceiver == "Superior after Form Input")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Your Approval</body></html>";
-                }
-                else if (Model.WhoReceiver == "Proposer after Superior Reject")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Is Rejected by Superior</body></html>";
-                }
-                else if (Model.WhoReceiver == "Reviewer after Koordinator Approved")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Your Review with Proposal with No: <b>" + Model.ReqID + " </b> Is Approved by Koordinator</body></html>";
-                }
-                else if (Model.WhoReceiver == "Reviewer after Koordinator Reject")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Your Review with Proposal with No: <b>" + Model.ReqID + " </b> Is Rejected by Koordinator</body></html>";
-                }else if(Model.WhoReceiver == "PIC after Appointed")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Your Review as PIC</body></html>";
-
-                }else if(Model.WhoReceiver == "Pelapor after Lanjut CAPA")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Has been Approved and Proceeded to CAPA</body></html>";
-                }else if(Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Has been Approved and Not Proceeded to CAPA</body></html>";
-                }else if(Model.WhoReceiver == "Canceled")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Has been Canceled</body></html>";
-                }else if(Model.WhoReceiver == "Delegasi")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Has been Delegated to you</body></html>";
-                }else if(Model.WhoReceiver == "SPV PIC Usulan Revisi")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> proposed revision</body></html>";
-                }else if(Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> proposed revision has been rejected</body></html>";
-                }else if(Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> proposed revision has been approved</body></html>";
-                }
-            }
-            else if (Model.TableType == "More Than One")
-            {
-                if (Model.WhoReceiver == "Koordinator after Superior Approved")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Your Approval as Coordinator</body></html>";
-                }
-                else if (Model.WhoReceiver == "Reviewer after Appointed")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Your Review as Reviewer</body></html>";
-                }
-                else if (Model.WhoReceiver == "Koordinator after Reviewer Submit")
-                {
-                    EmailBody = "<html><body>Dear,Reviewer: " + Model.Receiver + " with Proposal with No: <b>" + Model.ReqID + " </b> Need Your Review as Reviewer</body></html>";
-                }
-                else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer")
-                {
-                    EmailBody = "<html><body>Dear,Reviewer: " + Model.Receiver + " with Proposal with No: <b>" + Model.ReqID + " </b> Need Your Approval as Quality Manager</body></html>";
-                }
-                else if (Model.WhoReceiver == "Koordinator after QM Approve")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Assign PIC</body></html>";
-                }else if(Model.WhoReceiver == "Koordinator after PIC Submit")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Verifikasi Tindakan Remedial</body></html>";
-                }else if(Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Need Your Approval as Quality Manager</body></html>";
-                }else if(Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> Has been Rejected by Quality Manager, Need Your Review as Reviewer</body></html>";
-                }else if(Model.WhoReceiver == "QM PIC Usulan Revisi")
-                {
-                    EmailBody = "<html><body>Dear " + Model.Receiver + ", Proposal with No: <b>" + Model.ReqID + " </b> proposed revision</body></html>";
-                }
-            }
+            Msg.From = new MailAddress("notification@bintang7.com", "Deviation Notification");
+            Msg.Bcc.Add(new MailAddress("shinvin10@gmail.com"));
+            Msg.Priority = MailPriority.High;
+            Msg.IsBodyHtml = true;
+            Msg.Subject = "Deviation Notification";
 
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
             List<string> ModelData = new List<string>();
+            DT.Reset();
+            string EmailBody = ""
+                 , t_deviation_no = ""
+                 , t_problem = ""
+                 , t_category = ""
+                 , t_location = ""
+                 , t_status = "";
+
+            //SettingAttribute Detail Email
+            try
+            {
+                Conn.Open();
+                using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
+                {
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    Command.Parameters["@Option"].Value = "LoadDetailEmail";
+
+                    Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                    Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = Command;
+
+
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            foreach (DataRow dr in DT.Rows)
+            {
+                t_deviation_no = dr[1].ToString();
+                t_problem = dr[2].ToString();
+                t_location = dr[3].ToString();
+                t_category = dr[4].ToString();
+                t_status = dr[5].ToString();
+            }
+
+            DT.Reset();
 
             if (Model.TableType == "One")
             {
+                //SettingAttribute Email and Name
                 try
                 {
                     Conn.Open();
@@ -263,8 +233,6 @@ namespace B7_Deviation.Controllers
 
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
                         dataAdap.SelectCommand = Command;
-
-
                         dataAdap.Fill(DT);
                     }
                     Conn.Close();
@@ -273,55 +241,271 @@ namespace B7_Deviation.Controllers
                 {
                     throw ex;
                 }
-
-                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-                Dictionary<string, object> row;
-                row = new Dictionary<string, object>();
                 foreach (DataRow dr in DT.Rows)
                 {
-                    foreach (DataColumn col in DT.Columns)
-                    {
-                        row.Add(col.ColumnName, dr[col]);
-                    }
-                    rows.Add(row);
                     Model.EmailReceiver = dr[1].ToString();
                     Model.Receiver = dr[0].ToString();
+                }
+                
+                if (Model.WhoReceiver == "Superior after Form Input")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Need Your Approval</b>" +
+                        "</br>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href="+"https://b7-b2b.bintang7.com/B7_Deviation/Login/Index"+">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Proposer after Superior Reject")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Is Rejected by Superior</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Reviewer after Koordinator Approved")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Your Review with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        " <b> Is Approved by Koordinator </b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Reviewer after Koordinator Reject")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Your Review with, </br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        " <b>Is Rejected by Koordinator</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "PIC after Appointed")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with, </br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Need Your Review as PIC</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
 
                 }
-
-                Model.Sender = "Admin";
-                Model.EmailSender = "apidevelopmentb7@gmail.com";
-
-                var receiverEmail = new MailAddress(Model.EmailReceiver, Model.Receiver);
-                var senderEmail = new MailAddress(Model.EmailSender, Model.Sender);
-
-                var sub = EmailSubject;
-                var body = EmailBody;
-                var mess = new MailMessage();
-                mess.From = senderEmail;
-                mess.Body = EmailBody;
-                mess.Subject = sub;
-                mess.Bcc.Add(new MailAddress("billywinata@gmail.com", "Billy"));
-                mess.Priority = MailPriority.High;
-                mess.IsBodyHtml = true;
-                mess.To.Add(receiverEmail);
-
-
-                // Password Email Sender
-                string pw = "Welcome123!";
-
-                var client = new SmtpClient
+                else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA")
                 {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    EnableSsl = true,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(senderEmail.Address, pw)
-                };
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Has been Approved and Proceeded to CAPA</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with, </br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        " <b>Has been Approved and Not Proceeded to CAPA</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Canceled")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with, </br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b> Has been Canceled</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Delegasi")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b> Has been Delegated to you</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "SPV PIC Usulan Revisi")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Proposed Revision</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Proposed revision has been Rejected</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Proposed revision has been Approved</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
 
-                client.Send(mess);
+                //Model.Sender = "Admin";
+                //Model.EmailSender = "apidevelopmentb7@gmail.com";
 
+                //var receiverEmail = new MailAddress(Model.EmailReceiver, Model.Receiver);
+                //var senderEmail = new MailAddress(Model.EmailSender, Model.Sender);
+
+                //var sub = EmailSubject;
+                //var body = EmailBody;
+                //var mess = new MailMessage();
+                //mess.From = senderEmail;
+                //mess.Body = EmailBody;
+                //mess.Subject = sub;
+                //mess.Bcc.Add(new MailAddress("billywinata@gmail.com", "Billy"));
+                //mess.Priority = MailPriority.High;
+                //mess.IsBodyHtml = true;
+                //mess.To.Add(receiverEmail);
+
+
+                //// Password Email Sender
+                //string pw = "Welcome123!";
+
+                //var client = new SmtpClient
+                //{
+                //    Host = "smtp.gmail.com",
+                //    Port = 587,
+                //    DeliveryMethod = SmtpDeliveryMethod.Network,
+                //    EnableSsl = true,
+                //    UseDefaultCredentials = false,
+                //    Credentials = new NetworkCredential(senderEmail.Address, pw)
+                //};
+
+                //client.Send(mess);
+
+
+                // Start Setting Send Notification
+                Msg.To.Add(new MailAddress(Model.EmailReceiver, Model.Receiver));
+                Msg.Subject = "Deviation Notification";
+                Msg.Body = EmailBody;
+                MailObject.Send(Msg);
+                // End Setting Send Notification
             }
             else if (Model.TableType == "More Than One")
             {
@@ -416,48 +600,186 @@ namespace B7_Deviation.Controllers
                     throw ex;
                 }
 
+                if (Model.WhoReceiver == "Koordinator after Superior Approved")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</b>Need Your Approval as Coordinator</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Reviewer after Appointed")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        " Need Your Review as Reviewer" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Koordinator after Reviewer Submit")
+                {
+                    EmailBody = "<html><body>Dear Reviewer: " + Session["fullname"] + ",</br>" +
+                        "With Proposal with</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        " Need Your Review as Reviewer" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer")
+                {
+                    EmailBody = "<html><body>Dear Reviewer: " + Session["fullname"] + ", </br>" +
+                        "with Proposal with, </br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Need Your Approval as Quality Manager</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Koordinator after QM Approve")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with ,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Need Assign PIC</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "Koordinator after PIC Submit")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Need Verifikasi Tindakan Remedial</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with, </br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Need Your Approval as Quality Manager</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with, </br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        " Has been Rejected by Quality Manager, Need Your Review as Reviewer" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+                else if (Model.WhoReceiver == "QM PIC Usulan Revisi")
+                {
+                    EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
+                        "Proposal with,</br></br>" +
+                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
+                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
+                        "Problem        : <b>" + t_problem + "</b></br>" +
+                        "Category       : <b>" + t_location + "</b></br>" +
+                        "Location       : <b>" + t_category + "</b></br>" +
+                        "Status         : <b>" + t_status + "</b></br>" +
+                        "</br>" +
+                        "</br>" +
+                        "</br>" +
+                        "<b>Proposed revision</b>" +
+                        "</br>" +
+                        "Access : " +
+                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                }
+
                 List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-                Dictionary<string, object> row;
-                row = new Dictionary<string, object>();
+                _ = new Dictionary<string, object>();
                 foreach (DataRow dr in DT.Rows)
                 {
 
                     Model.EmailReceiver = dr[1].ToString();
                     Model.Receiver = dr[0].ToString();
 
-                    Model.Sender = "Admin";
-                    Model.EmailSender = "apidevelopmentb7@gmail.com";
-
-                    var receiverEmail = new MailAddress(Model.EmailReceiver, Model.Receiver);
-                    var senderEmail = new MailAddress(Model.EmailSender, Model.Sender);
-
-                    var sub = EmailSubject;
-                    var body = EmailBody;
-                    var mess = new MailMessage();
-                    mess.From = senderEmail;
-                    mess.Body = EmailBody;
-                    mess.Subject = sub;
-                    mess.Bcc.Add(new MailAddress("billywinata@gmail.com", "Billy"));
-                    mess.Priority = MailPriority.High;
-                    mess.IsBodyHtml = true;
-                    mess.To.Add(receiverEmail);
-
-                    // Password Email Sender
-                    string pw = "Welcome123!";
-
-                    var client = new SmtpClient
-                    {
-                        Host = "smtp.gmail.com",
-                        Port = 587,
-                        DeliveryMethod = SmtpDeliveryMethod.Network,
-                        EnableSsl = true,
-                        UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential(senderEmail.Address, pw)
-                    };
-                    client.Send(mess);
+                    // Start Setting Send Notification
+                    Msg.To.Add(new MailAddress(Model.EmailReceiver, Model.Receiver));
+                    Msg.Subject = "Deviation Notification";
+                    Msg.Body = EmailBody;
+                    MailObject.Send(Msg);
+                    // End Setting Send Notification
                 }
             }
-
+            Msg.To.Clear();
+            Msg.Bcc.Clear();
             return Json(ModelData);
         }
 
