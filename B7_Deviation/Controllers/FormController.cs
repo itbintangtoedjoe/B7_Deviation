@@ -246,258 +246,568 @@ namespace B7_Deviation.Controllers
                     Model.EmailReceiver = dr[1].ToString();
                     Model.Receiver = dr[0].ToString();
                 }
-                
+
                 if (Model.WhoReceiver == "Superior after Form Input")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Need Your Approval</b>" +
-                        "</br>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href="+"https://b7-b2b.bintang7.com/B7_Deviation/Login/Index"+">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Approval</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
                 }
                 else if (Model.WhoReceiver == "Proposer after Superior Reject")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Is Rejected by Superior</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Is Rejected by Superior</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
                 }
                 else if (Model.WhoReceiver == "Reviewer after Koordinator Approved")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Your Review with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        " <b> Is Approved by Koordinator </b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Is Approved by Koordinator</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
                 }
                 else if (Model.WhoReceiver == "Reviewer after Koordinator Reject")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Your Review with, </br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        " <b>Is Rejected by Koordinator</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +                        
+                        "<tr>" +
+                            "<td><b>Is Rejected by Koordinator</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
                 }
                 else if (Model.WhoReceiver == "PIC after Appointed")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with, </br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Need Your Review as PIC</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +                        
+                        "<tr>" +
+                            "<td><b>Need Your Review as PIC</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
 
                 }
                 else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Has been Approved and Proceeded to CAPA</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Has been Approved and Proceeded to CAPA</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                  
                 }
                 else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with, </br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        " <b>Has been Approved and Not Proceeded to CAPA</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Has been Approved and Not Proceeded to CAPA</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                   
                 }
                 else if (Model.WhoReceiver == "Canceled")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with, </br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b> Has been Canceled</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Has been Canceled</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
                 }
                 else if (Model.WhoReceiver == "Delegasi")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b> Has been Delegated to you</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Has been Delegated to you</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                   
                 }
                 else if (Model.WhoReceiver == "SPV PIC Usulan Revisi")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Proposed Revision</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Proposed Revision</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                   
                 }
                 else if (Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Proposed revision has been Rejected</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Proposed revision has been Rejected</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
                 }
                 else if (Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Proposed revision has been Approved</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Proposed Revision has been Approved</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
                 }
-
-                //Model.Sender = "Admin";
-                //Model.EmailSender = "apidevelopmentb7@gmail.com";
-
-                //var receiverEmail = new MailAddress(Model.EmailReceiver, Model.Receiver);
-                //var senderEmail = new MailAddress(Model.EmailSender, Model.Sender);
-
-                //var sub = EmailSubject;
-                //var body = EmailBody;
-                //var mess = new MailMessage();
-                //mess.From = senderEmail;
-                //mess.Body = EmailBody;
-                //mess.Subject = sub;
-                //mess.Bcc.Add(new MailAddress("billywinata@gmail.com", "Billy"));
-                //mess.Priority = MailPriority.High;
-                //mess.IsBodyHtml = true;
-                //mess.To.Add(receiverEmail);
-
-
-                //// Password Email Sender
-                //string pw = "Welcome123!";
-
-                //var client = new SmtpClient
-                //{
-                //    Host = "smtp.gmail.com",
-                //    Port = 587,
-                //    DeliveryMethod = SmtpDeliveryMethod.Network,
-                //    EnableSsl = true,
-                //    UseDefaultCredentials = false,
-                //    Credentials = new NetworkCredential(senderEmail.Address, pw)
-                //};
-
-                //client.Send(mess);
 
 
                 // Start Setting Send Notification
@@ -604,162 +914,428 @@ namespace B7_Deviation.Controllers
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</b>Need Your Approval as Coordinator</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +                        
+                        "<tr>" +
+                            "<td><b>Need Your Approval as Coordinator</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
                 }
                 else if (Model.WhoReceiver == "Reviewer after Appointed")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        " Need Your Review as Reviewer" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +                        
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Review as Reviewer</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";                  
                 }
                 else if (Model.WhoReceiver == "Koordinator after Reviewer Submit")
                 {
                     EmailBody = "<html><body>Dear Reviewer: " + Session["fullname"] + ",</br>" +
-                        "With Proposal with</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        " Need Your Review as Reviewer" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "Proposal with</br></br>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Review as Reviewer</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                
                 }
                 else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer")
                 {
                     EmailBody = "<html><body>Dear Reviewer: " + Session["fullname"] + ", </br>" +
-                        "with Proposal with, </br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Need Your Approval as Quality Manager</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "Proposal with, </br></br>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Approval as Quality Manager</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                
                 }
                 else if (Model.WhoReceiver == "Koordinator after QM Approve")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with ,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Need Assign PIC</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Need Assign PIC</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+               
                 }
                 else if (Model.WhoReceiver == "Koordinator after PIC Submit")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Need Verifikasi Tindakan Remedial</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Need Verifikasi Tindakan Remedial</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                   
                 }
                 else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with, </br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Need Your Approval as Quality Manager</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Approval as Quality Manager</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                   
                 }
                 else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with, </br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        " Has been Rejected by Quality Manager, Need Your Review as Reviewer" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Has been Rejected by Quality Manager, Need Your Review as Reviewer</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
                 }
                 else if (Model.WhoReceiver == "QM PIC Usulan Revisi")
                 {
                     EmailBody = "<html><body>Dear " + Session["fullname"] + ",</br>" +
                         "Proposal with,</br></br>" +
-                        "Req No         : <b>" + Model.ReqID + "</b></br>" +
-                        "Deviation No   : <b>" + t_deviation_no + "</b></br>" +
-                        "Problem        : <b>" + t_problem + "</b></br>" +
-                        "Category       : <b>" + t_location + "</b></br>" +
-                        "Location       : <b>" + t_category + "</b></br>" +
-                        "Status         : <b>" + t_status + "</b></br>" +
-                        "</br>" +
-                        "</br>" +
-                        "</br>" +
-                        "<b>Proposed revision</b>" +
-                        "</br>" +
-                        "Access : " +
-                        "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a> </body></html>";
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_status + "</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "<td><b>Proposed Revision</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+
                 }
 
                 List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
