@@ -283,7 +283,6 @@ namespace B7_Deviation.Controllers
                             "<td><b>" + t_status + "</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        "<tr></tr>" +
                         "<tr>" +
                             "<td><b>Need Your Approval</b></td>" +
                         "</tr>" +
@@ -330,7 +329,6 @@ namespace B7_Deviation.Controllers
                             "<td><b>" + t_status + "</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        "<tr></tr>" +
                         "<tr>" +
                             "<td><b>Is Rejected by Superior</b></td>" +
                         "</tr>" +
@@ -376,7 +374,6 @@ namespace B7_Deviation.Controllers
                             "<td>:</td>" +
                             "<td><b>" + t_status + "</b></td>" +
                         "</tr>" +
-                        "<tr></tr>" +
                         "<tr></tr>" +
                         "<tr>" +
                             "<td><b>Is Approved by Koordinator</b></td>" +
