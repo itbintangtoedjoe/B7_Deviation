@@ -38,9 +38,6 @@
 											Show Reviewer
 										</button>
 
-										<button type="button" id="btnDelegate" class="col-sm-2 btn mb-1 btn-warning form-control" hidden="hidden">
-											Delegate
-										</button>
 
 										<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control" hidden="hidden">
 											Cancel
@@ -112,9 +109,6 @@
 	$(document).ready(function () {
 
 		GetCurrStat();
-
-		GetDelegateStatus();
-
 
 		$('#spanUser').click(function () {
 			CheckEmailAvailability();
@@ -188,7 +182,7 @@
 				}).then((result) => {
 
 					if (result.isConfirmed) {
-                        window.location.href = "../DataDeviasi/PendingTask"
+						window.location.href = "../DataDeviasi/PendingTask"
 					}
 				})
 
@@ -600,41 +594,7 @@
 		});
 	}
 
-	function GetDelegateStatus() {
-		var REQID = @ViewBag.nomor;
-
-		var dto = {
-			REQID: REQID
-
-		};
-
-		$.ajax({
-			url: "../Koordinator/Coor_CheckDelegate",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-
-				if (data == 'Can Delegate') {
-					$("#btnDelegate").removeAttr('hidden');
-
-					$("#btnDelegate").click(function () {
-
-						Delegate();
-
-					});
-
-				} else {
-					$("#btnDelegate").attr("hidden", true);
-
-				}
-
-			}, error: function (ex) {
-				alert(JSON.stringify(ex));
-			}
-		});
-	}
+	
 
 	function Cancel() {
 		Swal.fire({
@@ -723,9 +683,7 @@
 		});
 	}
 
-	function Delegate() {
-		window.location.href = "../Koordinator/Delegasi?Nomor=@ViewBag.nomor";
-	}
+	
 
 </script>
 

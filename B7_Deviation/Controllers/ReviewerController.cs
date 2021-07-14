@@ -295,7 +295,7 @@ namespace B7_Deviation.Controllers
                 var fileName = ReqID + '_' + DateTimeF + '_' + Path.GetFileName(file.FileName);
                 
 
-                URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\Reviwer\", fileName);
+                URLAttachment = Path.Combine("\\10.100.18.54\\B7_Deviation\\Content\\Attachment\\Reviwer\\", fileName);
                 URLDownload = Path.Combine(@"/B7_Deviation/Content/Attachment/Reviwer/", fileName);
                 //D:\TempURLFiles LOCAL DIRECTORY
                 //10.167.1.78\Intranetportal\Intranet Attachment\Deviation\
