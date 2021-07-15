@@ -9,7 +9,7 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="SP_ReportBagianTerkaitTableAdapter" GeneratorDataComponentClassName="SP_ReportBagianTerkaitTableAdapter" Name="SP_ReportBagianTerkait" UserDataComponentName="SP_ReportBagianTerkaitTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="DB_DEVIATION (Web.config)" DbObjectName="B7_QUALITY_SYSTEM.dbo.SP_ReportBagianTerkait" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DB_DEVIATION (Web.config)" DbObjectName="B7_QUALITY_SYSTEM.dbo.SP_ReportBagianTerkait" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.SP_ReportBagianTerkait</CommandText>
@@ -23,6 +23,7 @@
             </MainSource>
             <Mappings>
               <Mapping SourceColumn="OrgGroupName" DataSetColumn="OrgGroupName" />
+              <Mapping SourceColumn="BagianTerkait" DataSetColumn="BagianTerkait" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -34,13 +35,20 @@
   <xs:element name="ReportBagianTerkaitDataSource" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ReportBagianTerkaitDataSource" msprop:Generator_UserDSName="ReportBagianTerkaitDataSource">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="SP_ReportBagianTerkait" msprop:Generator_TableClassName="SP_ReportBagianTerkaitDataTable" msprop:Generator_TableVarName="tableSP_ReportBagianTerkait" msprop:Generator_TablePropName="SP_ReportBagianTerkait" msprop:Generator_RowDeletingName="SP_ReportBagianTerkaitRowDeleting" msprop:Generator_RowChangingName="SP_ReportBagianTerkaitRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportBagianTerkaitRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportBagianTerkaitRowDeleted" msprop:Generator_UserTableName="SP_ReportBagianTerkait" msprop:Generator_RowChangedName="SP_ReportBagianTerkaitRowChanged" msprop:Generator_RowEvArgName="SP_ReportBagianTerkaitRowChangeEvent" msprop:Generator_RowClassName="SP_ReportBagianTerkaitRow">
+        <xs:element name="SP_ReportBagianTerkait" msprop:Generator_TableClassName="SP_ReportBagianTerkaitDataTable" msprop:Generator_TableVarName="tableSP_ReportBagianTerkait" msprop:Generator_RowChangedName="SP_ReportBagianTerkaitRowChanged" msprop:Generator_TablePropName="SP_ReportBagianTerkait" msprop:Generator_RowDeletingName="SP_ReportBagianTerkaitRowDeleting" msprop:Generator_RowChangingName="SP_ReportBagianTerkaitRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportBagianTerkaitRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportBagianTerkaitRowDeleted" msprop:Generator_RowClassName="SP_ReportBagianTerkaitRow" msprop:Generator_UserTableName="SP_ReportBagianTerkait" msprop:Generator_RowEvArgName="SP_ReportBagianTerkaitRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="OrgGroupName" msprop:Generator_ColumnVarNameInTable="columnOrgGroupName" msprop:Generator_ColumnPropNameInRow="OrgGroupName" msprop:Generator_ColumnPropNameInTable="OrgGroupNameColumn" msprop:Generator_UserColumnName="OrgGroupName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BagianTerkait" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnBagianTerkait" msprop:Generator_ColumnPropNameInRow="BagianTerkait" msprop:Generator_ColumnPropNameInTable="BagianTerkaitColumn" msprop:Generator_UserColumnName="BagianTerkait" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8000" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>

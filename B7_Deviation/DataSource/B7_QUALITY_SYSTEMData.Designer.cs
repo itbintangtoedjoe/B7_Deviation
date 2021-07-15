@@ -377,6 +377,10 @@ namespace B7_Deviation.DataSource {
             
             private global::System.Data.DataColumn columnREQ;
             
+            private global::System.Data.DataColumn columnSUPERIORNAME;
+            
+            private global::System.Data.DataColumn columnAPPDATE;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_ReportDataTable() {
@@ -804,6 +808,22 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SUPERIORNAMEColumn {
+                get {
+                    return this.columnSUPERIORNAME;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn APPDATEColumn {
+                get {
+                    return this.columnAPPDATE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -888,7 +908,9 @@ namespace B7_Deviation.DataSource {
                         string PLAN_DEV, 
                         string THIRTY_FLAG, 
                         string THIRTY, 
-                        string REQ) {
+                        string REQ, 
+                        string SUPERIORNAME, 
+                        System.DateTime APPDATE) {
                 SP_ReportRow rowSP_ReportRow = ((SP_ReportRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         REQ_ID,
@@ -939,7 +961,9 @@ namespace B7_Deviation.DataSource {
                         PLAN_DEV,
                         THIRTY_FLAG,
                         THIRTY,
-                        REQ};
+                        REQ,
+                        SUPERIORNAME,
+                        APPDATE};
                 rowSP_ReportRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_ReportRow);
                 return rowSP_ReportRow;
@@ -1011,6 +1035,8 @@ namespace B7_Deviation.DataSource {
                 this.columnTHIRTY_FLAG = base.Columns["THIRTY_FLAG"];
                 this.columnTHIRTY = base.Columns["THIRTY"];
                 this.columnREQ = base.Columns["REQ"];
+                this.columnSUPERIORNAME = base.Columns["SUPERIORNAME"];
+                this.columnAPPDATE = base.Columns["APPDATE"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1114,6 +1140,10 @@ namespace B7_Deviation.DataSource {
                 base.Columns.Add(this.columnTHIRTY);
                 this.columnREQ = new global::System.Data.DataColumn("REQ", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnREQ);
+                this.columnSUPERIORNAME = new global::System.Data.DataColumn("SUPERIORNAME", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSUPERIORNAME);
+                this.columnAPPDATE = new global::System.Data.DataColumn("APPDATE", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAPPDATE);
                 this.columnREQ_ID.AllowDBNull = false;
                 this.columnREQ_ID.MaxLength = 50;
                 this.columnDEVIATION_ID.MaxLength = 50;
@@ -1165,6 +1195,9 @@ namespace B7_Deviation.DataSource {
                 this.columnTHIRTY_FLAG.MaxLength = 10;
                 this.columnTHIRTY.MaxLength = 2000;
                 this.columnREQ.MaxLength = 2000;
+                this.columnSUPERIORNAME.ReadOnly = true;
+                this.columnSUPERIORNAME.MaxLength = 80;
+                this.columnAPPDATE.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2076,6 +2109,38 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string SUPERIORNAME {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_Report.SUPERIORNAMEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SUPERIORNAME\' in table \'SP_Report\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_Report.SUPERIORNAMEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime APPDATE {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableSP_Report.APPDATEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'APPDATE\' in table \'SP_Report\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_Report.APPDATEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDEVIATION_IDNull() {
                 return this.IsNull(this.tableSP_Report.DEVIATION_IDColumn);
             }
@@ -2625,6 +2690,30 @@ namespace B7_Deviation.DataSource {
             public void SetREQNull() {
                 this[this.tableSP_Report.REQColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsSUPERIORNAMENull() {
+                return this.IsNull(this.tableSP_Report.SUPERIORNAMEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetSUPERIORNAMENull() {
+                this[this.tableSP_Report.SUPERIORNAMEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsAPPDATENull() {
+                return this.IsNull(this.tableSP_Report.APPDATEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetAPPDATENull() {
+                this[this.tableSP_Report.APPDATEColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -2835,6 +2924,8 @@ namespace B7_Deviation.DataSource.B7_QUALITY_SYSTEMDataTableAdapters {
             tableMapping.ColumnMappings.Add("THIRTY_FLAG", "THIRTY_FLAG");
             tableMapping.ColumnMappings.Add("THIRTY", "THIRTY");
             tableMapping.ColumnMappings.Add("REQ", "REQ");
+            tableMapping.ColumnMappings.Add("SUPERIORNAME", "SUPERIORNAME");
+            tableMapping.ColumnMappings.Add("APPDATE", "APPDATE");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

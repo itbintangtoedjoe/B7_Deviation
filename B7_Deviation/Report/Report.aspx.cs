@@ -39,6 +39,7 @@ namespace B7_Deviation.Report
                 DataTable dt11 = new DataTable();
                 DataTable dt12 = new DataTable();
                 DataTable dt13 = new DataTable();
+                DataTable dt14 = new DataTable();
 
                 conn.Open();
 
@@ -144,6 +145,19 @@ namespace B7_Deviation.Report
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
                     dataAdapt.Fill(dt8);
+                }
+
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_ReportKoordinator2]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Nomor;
+
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+                    dataAdapt.Fill(dt14);
                 }
 
                 using (SqlCommand command = new SqlCommand("[dbo].[SP_ReportPICTable]", conn))
@@ -265,6 +279,11 @@ namespace B7_Deviation.Report
                 ReportDataSource DataSource13 = new ReportDataSource("ReportCarParDataSource", dt13);
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource13);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("ReportCarParDataSet", dt13));
+
+                ReportDataSource DataSource14 = new ReportDataSource("ReportKoordinatorDataSource2", dt14);
+                this.ReportViewer1.LocalReport.DataSources.Add(DataSource14);
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("ReportKoordinatorDataSet2", dt14));
+
             }
         }
     }

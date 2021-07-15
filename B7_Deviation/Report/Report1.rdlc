@@ -40,11 +40,13 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=FormatDateTime(Now(), DateFormat.GeneralDate)</Value>
+                    <Value>=Format(Now(),"dd/MM/yyyy")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox174</rd:DefaultName>
@@ -104,7 +106,9 @@
                     <Style />
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ID_PROPOSER</rd:DefaultName>
@@ -3044,7 +3048,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=FormatDateTime(Now(), DateFormat.ShortDate)</Value>
+                    <Value>=First(Format(Fields!CREATION_DATE.Value,"dd/MM/yyyy"), "DataSet1")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -3451,6 +3455,190 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox301">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Atasan Pelapor</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox298</rd:DefaultName>
+            <Top>7.21106cm</Top>
+            <Left>9.40121cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.68558cm</Width>
+            <ZIndex>37</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox302">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!SUPERIORNAME.Value, "DataSet1")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox299</rd:DefaultName>
+            <Top>7.21106cm</Top>
+            <Left>12.45044cm</Left>
+            <Height>0.6cm</Height>
+            <Width>5.9925cm</Width>
+            <ZIndex>38</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox303">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Tanggal</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox300</rd:DefaultName>
+            <Top>7.98745cm</Top>
+            <Left>9.38005cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.68558cm</Width>
+            <ZIndex>39</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox184">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Format(Fields!APPDATE.Value,"dd/MM/yyyy"), "DataSet1")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox174</rd:DefaultName>
+            <Top>7.98745cm</Top>
+            <Left>4.90175in</Left>
+            <Height>0.23622in</Height>
+            <Width>2.35834in</Width>
+            <ZIndex>40</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox92">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox21</rd:DefaultName>
+            <Top>7.21106cm</Top>
+            <Left>12.17097cm</Left>
+            <Height>0.6cm</Height>
+            <Width>0.27947cm</Width>
+            <ZIndex>41</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox94">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox21</rd:DefaultName>
+            <Top>7.98745cm</Top>
+            <Left>12.17097cm</Left>
+            <Height>0.6cm</Height>
+            <Width>0.27947cm</Width>
+            <ZIndex>42</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
         <PageBreak>
           <BreakLocation>Start</BreakLocation>
@@ -3548,21 +3736,21 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OrgGroupName">
+                        <Textbox Name="BagianTerkait">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OrgGroupName.Value</Value>
+                                  <Value>=Fields!BagianTerkait.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OrgGroupName</rd:DefaultName>
+                          <rd:DefaultName>BagianTerkait</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -6792,7 +6980,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!CoorName.Value, "ReportKoordinatorDataSet")</Value>
+                    <Value>=First(Fields!CoorName.Value, "ReportKoordinatorDataSet2")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -7466,6 +7654,13 @@
       </ConnectionProperties>
       <rd:DataSourceID>8030fddd-402a-47ac-8451-f6ae9d4c15a2</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="ReportKoordinatorDataSource2">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>82296b45-ea91-4ad0-9a5f-2120384f8e56</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DataSet1">
@@ -7670,10 +7865,18 @@
           <DataField>REQ</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="SUPERIORNAME">
+          <DataField>SUPERIORNAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="APPDATE">
+          <DataField>APPDATE</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>B7_QUALITY_SYSTEMData</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\B7_QUALITY_SYSTEMData.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\B7_OnlineApp\B7_Deviation\B7_Deviation\DataSource\B7_QUALITY_SYSTEMData.xsd</rd:SchemaPath>
         <rd:TableName>SP_Report</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -7814,10 +8017,14 @@
           <DataField>OrgGroupName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="BagianTerkait">
+          <DataField>BagianTerkait</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportBagianTerkaitDataSource</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\ReportBagianTerkaitDataSource.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\B7_OnlineApp\B7_Deviation\B7_Deviation\DataSource\ReportBagianTerkaitDataSource.xsd</rd:SchemaPath>
         <rd:TableName>SP_ReportBagianTerkait</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -8198,6 +8405,26 @@
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
         <rd:TableAdapterName>SP_ReportCarParTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="ReportKoordinatorDataSet2">
+      <Query>
+        <DataSourceName>ReportKoordinatorDataSource2</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CoorName">
+          <DataField>CoorName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>ReportKoordinatorDataSource2</rd:DataSetName>
+        <rd:SchemaPath>D:\B7_OnlineApp\B7_Deviation\B7_Deviation\ReportKoordinatorDataSource2.xsd</rd:SchemaPath>
+        <rd:TableName>SP_ReportKoordinator2</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>SP_ReportKoordinator2TableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
