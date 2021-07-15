@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_Deviation {
+namespace B7_Deviation.DataSource {
     
     
     /// <summary>
@@ -20,17 +20,17 @@ namespace B7_Deviation {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("ReportBuktiTindakanRemedialDataSource")]
+    [global::System.Xml.Serialization.XmlRootAttribute("B7_QUALITY_SYSTEMUserInvolved")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class ReportBuktiTindakanRemedialDataSource : global::System.Data.DataSet {
+    public partial class B7_QUALITY_SYSTEMUserInvolved : global::System.Data.DataSet {
         
-        private SP_ReportBuktiTindakanRemedialDataTable tableSP_ReportBuktiTindakanRemedial;
+        private SP_UserInvolvedTableDataTable tableSP_UserInvolvedTable;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public ReportBuktiTindakanRemedialDataSource() {
+        public B7_QUALITY_SYSTEMUserInvolved() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace B7_Deviation {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected ReportBuktiTindakanRemedialDataSource(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected B7_QUALITY_SYSTEMUserInvolved(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace B7_Deviation {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["SP_ReportBuktiTindakanRemedial"] != null)) {
-                    base.Tables.Add(new SP_ReportBuktiTindakanRemedialDataTable(ds.Tables["SP_ReportBuktiTindakanRemedial"]));
+                if ((ds.Tables["SP_UserInvolvedTable"] != null)) {
+                    base.Tables.Add(new SP_UserInvolvedTableDataTable(ds.Tables["SP_UserInvolvedTable"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace B7_Deviation {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public SP_ReportBuktiTindakanRemedialDataTable SP_ReportBuktiTindakanRemedial {
+        public SP_UserInvolvedTableDataTable SP_UserInvolvedTable {
             get {
-                return this.tableSP_ReportBuktiTindakanRemedial;
+                return this.tableSP_UserInvolvedTable;
             }
         }
         
@@ -127,7 +127,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            ReportBuktiTindakanRemedialDataSource cln = ((ReportBuktiTindakanRemedialDataSource)(base.Clone()));
+            B7_QUALITY_SYSTEMUserInvolved cln = ((B7_QUALITY_SYSTEMUserInvolved)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace B7_Deviation {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["SP_ReportBuktiTindakanRemedial"] != null)) {
-                    base.Tables.Add(new SP_ReportBuktiTindakanRemedialDataTable(ds.Tables["SP_ReportBuktiTindakanRemedial"]));
+                if ((ds.Tables["SP_UserInvolvedTable"] != null)) {
+                    base.Tables.Add(new SP_UserInvolvedTableDataTable(ds.Tables["SP_UserInvolvedTable"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableSP_ReportBuktiTindakanRemedial = ((SP_ReportBuktiTindakanRemedialDataTable)(base.Tables["SP_ReportBuktiTindakanRemedial"]));
+            this.tableSP_UserInvolvedTable = ((SP_UserInvolvedTableDataTable)(base.Tables["SP_UserInvolvedTable"]));
             if ((initTable == true)) {
-                if ((this.tableSP_ReportBuktiTindakanRemedial != null)) {
-                    this.tableSP_ReportBuktiTindakanRemedial.InitVars();
+                if ((this.tableSP_UserInvolvedTable != null)) {
+                    this.tableSP_UserInvolvedTable.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "ReportBuktiTindakanRemedialDataSource";
+            this.DataSetName = "B7_QUALITY_SYSTEMUserInvolved";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/ReportBuktiTindakanRemedialDataSource.xsd";
+            this.Namespace = "http://tempuri.org/B7_QUALITY_SYSTEMUserInvolved.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableSP_ReportBuktiTindakanRemedial = new SP_ReportBuktiTindakanRemedialDataTable();
-            base.Tables.Add(this.tableSP_ReportBuktiTindakanRemedial);
+            this.tableSP_UserInvolvedTable = new SP_UserInvolvedTableDataTable();
+            base.Tables.Add(this.tableSP_UserInvolvedTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeSP_ReportBuktiTindakanRemedial() {
+        private bool ShouldSerializeSP_UserInvolvedTable() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            ReportBuktiTindakanRemedialDataSource ds = new ReportBuktiTindakanRemedialDataSource();
+            B7_QUALITY_SYSTEMUserInvolved ds = new B7_QUALITY_SYSTEMUserInvolved();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,23 +270,29 @@ namespace B7_Deviation {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void SP_ReportBuktiTindakanRemedialRowChangeEventHandler(object sender, SP_ReportBuktiTindakanRemedialRowChangeEvent e);
+        public delegate void SP_UserInvolvedTableRowChangeEventHandler(object sender, SP_UserInvolvedTableRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class SP_ReportBuktiTindakanRemedialDataTable : global::System.Data.TypedTableBase<SP_ReportBuktiTindakanRemedialRow> {
+        public partial class SP_UserInvolvedTableDataTable : global::System.Data.TypedTableBase<SP_UserInvolvedTableRow> {
             
-            private global::System.Data.DataColumn columnFILE_NAME_UPLOAD;
+            private global::System.Data.DataColumn columnREQ_ID;
             
-            private global::System.Data.DataColumn columnEmpName;
+            private global::System.Data.DataColumn columnRecordID;
+            
+            private global::System.Data.DataColumn columnUSER_NAME;
+            
+            private global::System.Data.DataColumn columnCREATION_DATE;
+            
+            private global::System.Data.DataColumn columnNO_URUT;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportBuktiTindakanRemedialDataTable() {
-                this.TableName = "SP_ReportBuktiTindakanRemedial";
+            public SP_UserInvolvedTableDataTable() {
+                this.TableName = "SP_UserInvolvedTable";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -294,7 +300,7 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_ReportBuktiTindakanRemedialDataTable(global::System.Data.DataTable table) {
+            internal SP_UserInvolvedTableDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -311,24 +317,48 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected SP_ReportBuktiTindakanRemedialDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected SP_UserInvolvedTableDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn FILE_NAME_UPLOADColumn {
+            public global::System.Data.DataColumn REQ_IDColumn {
                 get {
-                    return this.columnFILE_NAME_UPLOAD;
+                    return this.columnREQ_ID;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn EmpNameColumn {
+            public global::System.Data.DataColumn RecordIDColumn {
                 get {
-                    return this.columnEmpName;
+                    return this.columnRecordID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn USER_NAMEColumn {
+                get {
+                    return this.columnUSER_NAME;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CREATION_DATEColumn {
+                get {
+                    return this.columnCREATION_DATE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn NO_URUTColumn {
+                get {
+                    return this.columnNO_URUT;
                 }
             }
             
@@ -343,46 +373,49 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportBuktiTindakanRemedialRow this[int index] {
+            public SP_UserInvolvedTableRow this[int index] {
                 get {
-                    return ((SP_ReportBuktiTindakanRemedialRow)(this.Rows[index]));
+                    return ((SP_UserInvolvedTableRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportBuktiTindakanRemedialRowChangeEventHandler SP_ReportBuktiTindakanRemedialRowChanging;
+            public event SP_UserInvolvedTableRowChangeEventHandler SP_UserInvolvedTableRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportBuktiTindakanRemedialRowChangeEventHandler SP_ReportBuktiTindakanRemedialRowChanged;
+            public event SP_UserInvolvedTableRowChangeEventHandler SP_UserInvolvedTableRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportBuktiTindakanRemedialRowChangeEventHandler SP_ReportBuktiTindakanRemedialRowDeleting;
+            public event SP_UserInvolvedTableRowChangeEventHandler SP_UserInvolvedTableRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportBuktiTindakanRemedialRowChangeEventHandler SP_ReportBuktiTindakanRemedialRowDeleted;
+            public event SP_UserInvolvedTableRowChangeEventHandler SP_UserInvolvedTableRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddSP_ReportBuktiTindakanRemedialRow(SP_ReportBuktiTindakanRemedialRow row) {
+            public void AddSP_UserInvolvedTableRow(SP_UserInvolvedTableRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportBuktiTindakanRemedialRow AddSP_ReportBuktiTindakanRemedialRow(string FILE_NAME_UPLOAD, string EmpName) {
-                SP_ReportBuktiTindakanRemedialRow rowSP_ReportBuktiTindakanRemedialRow = ((SP_ReportBuktiTindakanRemedialRow)(this.NewRow()));
+            public SP_UserInvolvedTableRow AddSP_UserInvolvedTableRow(string REQ_ID, string USER_NAME, System.DateTime CREATION_DATE, long NO_URUT) {
+                SP_UserInvolvedTableRow rowSP_UserInvolvedTableRow = ((SP_UserInvolvedTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        FILE_NAME_UPLOAD,
-                        EmpName};
-                rowSP_ReportBuktiTindakanRemedialRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowSP_ReportBuktiTindakanRemedialRow);
-                return rowSP_ReportBuktiTindakanRemedialRow;
+                        REQ_ID,
+                        null,
+                        USER_NAME,
+                        CREATION_DATE,
+                        NO_URUT};
+                rowSP_UserInvolvedTableRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSP_UserInvolvedTableRow);
+                return rowSP_UserInvolvedTableRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                SP_ReportBuktiTindakanRemedialDataTable cln = ((SP_ReportBuktiTindakanRemedialDataTable)(base.Clone()));
+                SP_UserInvolvedTableDataTable cln = ((SP_UserInvolvedTableDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -390,52 +423,65 @@ namespace B7_Deviation {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new SP_ReportBuktiTindakanRemedialDataTable();
+                return new SP_UserInvolvedTableDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnFILE_NAME_UPLOAD = base.Columns["FILE_NAME_UPLOAD"];
-                this.columnEmpName = base.Columns["EmpName"];
+                this.columnREQ_ID = base.Columns["REQ_ID"];
+                this.columnRecordID = base.Columns["RecordID"];
+                this.columnUSER_NAME = base.Columns["USER_NAME"];
+                this.columnCREATION_DATE = base.Columns["CREATION_DATE"];
+                this.columnNO_URUT = base.Columns["NO_URUT"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnFILE_NAME_UPLOAD = new global::System.Data.DataColumn("FILE_NAME_UPLOAD", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFILE_NAME_UPLOAD);
-                this.columnEmpName = new global::System.Data.DataColumn("EmpName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEmpName);
-                this.columnFILE_NAME_UPLOAD.MaxLength = 100;
-                this.columnEmpName.ReadOnly = true;
-                this.columnEmpName.MaxLength = 80;
+                this.columnREQ_ID = new global::System.Data.DataColumn("REQ_ID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnREQ_ID);
+                this.columnRecordID = new global::System.Data.DataColumn("RecordID", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRecordID);
+                this.columnUSER_NAME = new global::System.Data.DataColumn("USER_NAME", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUSER_NAME);
+                this.columnCREATION_DATE = new global::System.Data.DataColumn("CREATION_DATE", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCREATION_DATE);
+                this.columnNO_URUT = new global::System.Data.DataColumn("NO_URUT", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNO_URUT);
+                this.columnREQ_ID.AllowDBNull = false;
+                this.columnREQ_ID.MaxLength = 50;
+                this.columnRecordID.AutoIncrement = true;
+                this.columnRecordID.AllowDBNull = false;
+                this.columnRecordID.ReadOnly = true;
+                this.columnUSER_NAME.MaxLength = 500;
+                this.columnNO_URUT.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportBuktiTindakanRemedialRow NewSP_ReportBuktiTindakanRemedialRow() {
-                return ((SP_ReportBuktiTindakanRemedialRow)(this.NewRow()));
+            public SP_UserInvolvedTableRow NewSP_UserInvolvedTableRow() {
+                return ((SP_UserInvolvedTableRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new SP_ReportBuktiTindakanRemedialRow(builder);
+                return new SP_UserInvolvedTableRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(SP_ReportBuktiTindakanRemedialRow);
+                return typeof(SP_UserInvolvedTableRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.SP_ReportBuktiTindakanRemedialRowChanged != null)) {
-                    this.SP_ReportBuktiTindakanRemedialRowChanged(this, new SP_ReportBuktiTindakanRemedialRowChangeEvent(((SP_ReportBuktiTindakanRemedialRow)(e.Row)), e.Action));
+                if ((this.SP_UserInvolvedTableRowChanged != null)) {
+                    this.SP_UserInvolvedTableRowChanged(this, new SP_UserInvolvedTableRowChangeEvent(((SP_UserInvolvedTableRow)(e.Row)), e.Action));
                 }
             }
             
@@ -443,8 +489,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.SP_ReportBuktiTindakanRemedialRowChanging != null)) {
-                    this.SP_ReportBuktiTindakanRemedialRowChanging(this, new SP_ReportBuktiTindakanRemedialRowChangeEvent(((SP_ReportBuktiTindakanRemedialRow)(e.Row)), e.Action));
+                if ((this.SP_UserInvolvedTableRowChanging != null)) {
+                    this.SP_UserInvolvedTableRowChanging(this, new SP_UserInvolvedTableRowChangeEvent(((SP_UserInvolvedTableRow)(e.Row)), e.Action));
                 }
             }
             
@@ -452,8 +498,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.SP_ReportBuktiTindakanRemedialRowDeleted != null)) {
-                    this.SP_ReportBuktiTindakanRemedialRowDeleted(this, new SP_ReportBuktiTindakanRemedialRowChangeEvent(((SP_ReportBuktiTindakanRemedialRow)(e.Row)), e.Action));
+                if ((this.SP_UserInvolvedTableRowDeleted != null)) {
+                    this.SP_UserInvolvedTableRowDeleted(this, new SP_UserInvolvedTableRowChangeEvent(((SP_UserInvolvedTableRow)(e.Row)), e.Action));
                 }
             }
             
@@ -461,14 +507,14 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.SP_ReportBuktiTindakanRemedialRowDeleting != null)) {
-                    this.SP_ReportBuktiTindakanRemedialRowDeleting(this, new SP_ReportBuktiTindakanRemedialRowChangeEvent(((SP_ReportBuktiTindakanRemedialRow)(e.Row)), e.Action));
+                if ((this.SP_UserInvolvedTableRowDeleting != null)) {
+                    this.SP_UserInvolvedTableRowDeleting(this, new SP_UserInvolvedTableRowChangeEvent(((SP_UserInvolvedTableRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveSP_ReportBuktiTindakanRemedialRow(SP_ReportBuktiTindakanRemedialRow row) {
+            public void RemoveSP_UserInvolvedTableRow(SP_UserInvolvedTableRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -477,7 +523,7 @@ namespace B7_Deviation {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ReportBuktiTindakanRemedialDataSource ds = new ReportBuktiTindakanRemedialDataSource();
+                B7_QUALITY_SYSTEMUserInvolved ds = new B7_QUALITY_SYSTEMUserInvolved();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -495,7 +541,7 @@ namespace B7_Deviation {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "SP_ReportBuktiTindakanRemedialDataTable";
+                attribute2.FixedValue = "SP_UserInvolvedTableDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -539,73 +585,121 @@ namespace B7_Deviation {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class SP_ReportBuktiTindakanRemedialRow : global::System.Data.DataRow {
+        public partial class SP_UserInvolvedTableRow : global::System.Data.DataRow {
             
-            private SP_ReportBuktiTindakanRemedialDataTable tableSP_ReportBuktiTindakanRemedial;
+            private SP_UserInvolvedTableDataTable tableSP_UserInvolvedTable;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_ReportBuktiTindakanRemedialRow(global::System.Data.DataRowBuilder rb) : 
+            internal SP_UserInvolvedTableRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableSP_ReportBuktiTindakanRemedial = ((SP_ReportBuktiTindakanRemedialDataTable)(this.Table));
+                this.tableSP_UserInvolvedTable = ((SP_UserInvolvedTableDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string FILE_NAME_UPLOAD {
+            public string REQ_ID {
+                get {
+                    return ((string)(this[this.tableSP_UserInvolvedTable.REQ_IDColumn]));
+                }
+                set {
+                    this[this.tableSP_UserInvolvedTable.REQ_IDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public long RecordID {
+                get {
+                    return ((long)(this[this.tableSP_UserInvolvedTable.RecordIDColumn]));
+                }
+                set {
+                    this[this.tableSP_UserInvolvedTable.RecordIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string USER_NAME {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportBuktiTindakanRemedial.FILE_NAME_UPLOADColumn]));
+                        return ((string)(this[this.tableSP_UserInvolvedTable.USER_NAMEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'FILE_NAME_UPLOAD\' in table \'SP_ReportBuktiTindakanRemedial\'" +
-                                " is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'USER_NAME\' in table \'SP_UserInvolvedTable\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportBuktiTindakanRemedial.FILE_NAME_UPLOADColumn] = value;
+                    this[this.tableSP_UserInvolvedTable.USER_NAMEColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string EmpName {
+            public System.DateTime CREATION_DATE {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportBuktiTindakanRemedial.EmpNameColumn]));
+                        return ((global::System.DateTime)(this[this.tableSP_UserInvolvedTable.CREATION_DATEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'EmpName\' in table \'SP_ReportBuktiTindakanRemedial\' is DBNul" +
-                                "l.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CREATION_DATE\' in table \'SP_UserInvolvedTable\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportBuktiTindakanRemedial.EmpNameColumn] = value;
+                    this[this.tableSP_UserInvolvedTable.CREATION_DATEColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsFILE_NAME_UPLOADNull() {
-                return this.IsNull(this.tableSP_ReportBuktiTindakanRemedial.FILE_NAME_UPLOADColumn);
+            public long NO_URUT {
+                get {
+                    try {
+                        return ((long)(this[this.tableSP_UserInvolvedTable.NO_URUTColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NO_URUT\' in table \'SP_UserInvolvedTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_UserInvolvedTable.NO_URUTColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetFILE_NAME_UPLOADNull() {
-                this[this.tableSP_ReportBuktiTindakanRemedial.FILE_NAME_UPLOADColumn] = global::System.Convert.DBNull;
+            public bool IsUSER_NAMENull() {
+                return this.IsNull(this.tableSP_UserInvolvedTable.USER_NAMEColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsEmpNameNull() {
-                return this.IsNull(this.tableSP_ReportBuktiTindakanRemedial.EmpNameColumn);
+            public void SetUSER_NAMENull() {
+                this[this.tableSP_UserInvolvedTable.USER_NAMEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetEmpNameNull() {
-                this[this.tableSP_ReportBuktiTindakanRemedial.EmpNameColumn] = global::System.Convert.DBNull;
+            public bool IsCREATION_DATENull() {
+                return this.IsNull(this.tableSP_UserInvolvedTable.CREATION_DATEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCREATION_DATENull() {
+                this[this.tableSP_UserInvolvedTable.CREATION_DATEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsNO_URUTNull() {
+                return this.IsNull(this.tableSP_UserInvolvedTable.NO_URUTColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetNO_URUTNull() {
+                this[this.tableSP_UserInvolvedTable.NO_URUTColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -613,22 +707,22 @@ namespace B7_Deviation {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class SP_ReportBuktiTindakanRemedialRowChangeEvent : global::System.EventArgs {
+        public class SP_UserInvolvedTableRowChangeEvent : global::System.EventArgs {
             
-            private SP_ReportBuktiTindakanRemedialRow eventRow;
+            private SP_UserInvolvedTableRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportBuktiTindakanRemedialRowChangeEvent(SP_ReportBuktiTindakanRemedialRow row, global::System.Data.DataRowAction action) {
+            public SP_UserInvolvedTableRowChangeEvent(SP_UserInvolvedTableRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportBuktiTindakanRemedialRow Row {
+            public SP_UserInvolvedTableRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -644,7 +738,7 @@ namespace B7_Deviation {
         }
     }
 }
-namespace B7_Deviation.ReportBuktiTindakanRemedialDataSourceTableAdapters {
+namespace B7_Deviation.DataSource.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
     
     
     /// <summary>
@@ -656,7 +750,7 @@ namespace B7_Deviation.ReportBuktiTindakanRemedialDataSourceTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class SP_ReportBuktiTindakanRemedialTableAdapter : global::System.ComponentModel.Component {
+    public partial class SP_UserInvolvedTableTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -670,7 +764,7 @@ namespace B7_Deviation.ReportBuktiTindakanRemedialDataSourceTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public SP_ReportBuktiTindakanRemedialTableAdapter() {
+        public SP_UserInvolvedTableTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -767,9 +861,12 @@ namespace B7_Deviation.ReportBuktiTindakanRemedialDataSourceTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "SP_ReportBuktiTindakanRemedial";
-            tableMapping.ColumnMappings.Add("FILE_NAME_UPLOAD", "FILE_NAME_UPLOAD");
-            tableMapping.ColumnMappings.Add("EmpName", "EmpName");
+            tableMapping.DataSetTable = "SP_UserInvolvedTable";
+            tableMapping.ColumnMappings.Add("REQ_ID", "REQ_ID");
+            tableMapping.ColumnMappings.Add("RecordID", "RecordID");
+            tableMapping.ColumnMappings.Add("USER_NAME", "USER_NAME");
+            tableMapping.ColumnMappings.Add("CREATION_DATE", "CREATION_DATE");
+            tableMapping.ColumnMappings.Add("NO_URUT", "NO_URUT");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -786,17 +883,17 @@ namespace B7_Deviation.ReportBuktiTindakanRemedialDataSourceTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.SP_ReportBuktiTindakanRemedial";
+            this._commandCollection[0].CommandText = "dbo.SP_UserInvolvedTable";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ReportBuktiTindakanRemedialDataSource.SP_ReportBuktiTindakanRemedialDataTable dataTable, string Nomor) {
+        public virtual int Fill(B7_QUALITY_SYSTEMUserInvolved.SP_UserInvolvedTableDataTable dataTable, string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -815,7 +912,7 @@ namespace B7_Deviation.ReportBuktiTindakanRemedialDataSourceTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ReportBuktiTindakanRemedialDataSource.SP_ReportBuktiTindakanRemedialDataTable GetData(string Nomor) {
+        public virtual B7_QUALITY_SYSTEMUserInvolved.SP_UserInvolvedTableDataTable GetData(string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -823,7 +920,7 @@ namespace B7_Deviation.ReportBuktiTindakanRemedialDataSourceTableAdapters {
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nomor));
             }
-            ReportBuktiTindakanRemedialDataSource.SP_ReportBuktiTindakanRemedialDataTable dataTable = new ReportBuktiTindakanRemedialDataSource.SP_ReportBuktiTindakanRemedialDataTable();
+            B7_QUALITY_SYSTEMUserInvolved.SP_UserInvolvedTableDataTable dataTable = new B7_QUALITY_SYSTEMUserInvolved.SP_UserInvolvedTableDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -897,7 +994,7 @@ namespace B7_Deviation.ReportBuktiTindakanRemedialDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(ReportBuktiTindakanRemedialDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(B7_QUALITY_SYSTEMUserInvolved dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -907,7 +1004,7 @@ namespace B7_Deviation.ReportBuktiTindakanRemedialDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(ReportBuktiTindakanRemedialDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(B7_QUALITY_SYSTEMUserInvolved dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -917,7 +1014,7 @@ namespace B7_Deviation.ReportBuktiTindakanRemedialDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(ReportBuktiTindakanRemedialDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(B7_QUALITY_SYSTEMUserInvolved dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -951,7 +1048,7 @@ namespace B7_Deviation.ReportBuktiTindakanRemedialDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(ReportBuktiTindakanRemedialDataSource dataSet) {
+        public virtual int UpdateAll(B7_QUALITY_SYSTEMUserInvolved dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

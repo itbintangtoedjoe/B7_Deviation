@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_Deviation {
+namespace B7_Deviation.DataSource {
     
     
     /// <summary>
@@ -2662,7 +2662,7 @@ namespace B7_Deviation {
         }
     }
 }
-namespace B7_Deviation.B7_QUALITY_SYSTEMDataTableAdapters {
+namespace B7_Deviation.DataSource.B7_QUALITY_SYSTEMDataTableAdapters {
     
     
     /// <summary>

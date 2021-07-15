@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_Deviation {
+namespace B7_Deviation.DataSource {
     
     
     /// <summary>
@@ -20,17 +20,17 @@ namespace B7_Deviation {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("AttachmentDataSource")]
+    [global::System.Xml.Serialization.XmlRootAttribute("ReportBuktiTindakanRemedialDataSource")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class AttachmentDataSource : global::System.Data.DataSet {
+    public partial class ReportBuktiTindakanRemedialDataSource : global::System.Data.DataSet {
         
-        private SP_AttachDataTable tableSP_Attach;
+        private SP_ReportBuktiTindakanRemedialDataTable tableSP_ReportBuktiTindakanRemedial;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public AttachmentDataSource() {
+        public ReportBuktiTindakanRemedialDataSource() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace B7_Deviation {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected AttachmentDataSource(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected ReportBuktiTindakanRemedialDataSource(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace B7_Deviation {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["SP_Attach"] != null)) {
-                    base.Tables.Add(new SP_AttachDataTable(ds.Tables["SP_Attach"]));
+                if ((ds.Tables["SP_ReportBuktiTindakanRemedial"] != null)) {
+                    base.Tables.Add(new SP_ReportBuktiTindakanRemedialDataTable(ds.Tables["SP_ReportBuktiTindakanRemedial"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace B7_Deviation {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public SP_AttachDataTable SP_Attach {
+        public SP_ReportBuktiTindakanRemedialDataTable SP_ReportBuktiTindakanRemedial {
             get {
-                return this.tableSP_Attach;
+                return this.tableSP_ReportBuktiTindakanRemedial;
             }
         }
         
@@ -127,7 +127,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            AttachmentDataSource cln = ((AttachmentDataSource)(base.Clone()));
+            ReportBuktiTindakanRemedialDataSource cln = ((ReportBuktiTindakanRemedialDataSource)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace B7_Deviation {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["SP_Attach"] != null)) {
-                    base.Tables.Add(new SP_AttachDataTable(ds.Tables["SP_Attach"]));
+                if ((ds.Tables["SP_ReportBuktiTindakanRemedial"] != null)) {
+                    base.Tables.Add(new SP_ReportBuktiTindakanRemedialDataTable(ds.Tables["SP_ReportBuktiTindakanRemedial"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableSP_Attach = ((SP_AttachDataTable)(base.Tables["SP_Attach"]));
+            this.tableSP_ReportBuktiTindakanRemedial = ((SP_ReportBuktiTindakanRemedialDataTable)(base.Tables["SP_ReportBuktiTindakanRemedial"]));
             if ((initTable == true)) {
-                if ((this.tableSP_Attach != null)) {
-                    this.tableSP_Attach.InitVars();
+                if ((this.tableSP_ReportBuktiTindakanRemedial != null)) {
+                    this.tableSP_ReportBuktiTindakanRemedial.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "AttachmentDataSource";
+            this.DataSetName = "ReportBuktiTindakanRemedialDataSource";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/AttachmentDataSource.xsd";
+            this.Namespace = "http://tempuri.org/ReportBuktiTindakanRemedialDataSource.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableSP_Attach = new SP_AttachDataTable();
-            base.Tables.Add(this.tableSP_Attach);
+            this.tableSP_ReportBuktiTindakanRemedial = new SP_ReportBuktiTindakanRemedialDataTable();
+            base.Tables.Add(this.tableSP_ReportBuktiTindakanRemedial);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeSP_Attach() {
+        private bool ShouldSerializeSP_ReportBuktiTindakanRemedial() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            AttachmentDataSource ds = new AttachmentDataSource();
+            ReportBuktiTindakanRemedialDataSource ds = new ReportBuktiTindakanRemedialDataSource();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,27 +270,23 @@ namespace B7_Deviation {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void SP_AttachRowChangeEventHandler(object sender, SP_AttachRowChangeEvent e);
+        public delegate void SP_ReportBuktiTindakanRemedialRowChangeEventHandler(object sender, SP_ReportBuktiTindakanRemedialRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class SP_AttachDataTable : global::System.Data.TypedTableBase<SP_AttachRow> {
-            
-            private global::System.Data.DataColumn columnREQ_ID;
-            
-            private global::System.Data.DataColumn columnNO_FILE;
+        public partial class SP_ReportBuktiTindakanRemedialDataTable : global::System.Data.TypedTableBase<SP_ReportBuktiTindakanRemedialRow> {
             
             private global::System.Data.DataColumn columnFILE_NAME_UPLOAD;
             
-            private global::System.Data.DataColumn columnPATH_FILE;
+            private global::System.Data.DataColumn columnEmpName;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_AttachDataTable() {
-                this.TableName = "SP_Attach";
+            public SP_ReportBuktiTindakanRemedialDataTable() {
+                this.TableName = "SP_ReportBuktiTindakanRemedial";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -298,7 +294,7 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_AttachDataTable(global::System.Data.DataTable table) {
+            internal SP_ReportBuktiTindakanRemedialDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -315,25 +311,9 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected SP_AttachDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected SP_ReportBuktiTindakanRemedialDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn REQ_IDColumn {
-                get {
-                    return this.columnREQ_ID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn NO_FILEColumn {
-                get {
-                    return this.columnNO_FILE;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -346,9 +326,9 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PATH_FILEColumn {
+            public global::System.Data.DataColumn EmpNameColumn {
                 get {
-                    return this.columnPATH_FILE;
+                    return this.columnEmpName;
                 }
             }
             
@@ -363,48 +343,46 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_AttachRow this[int index] {
+            public SP_ReportBuktiTindakanRemedialRow this[int index] {
                 get {
-                    return ((SP_AttachRow)(this.Rows[index]));
+                    return ((SP_ReportBuktiTindakanRemedialRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_AttachRowChangeEventHandler SP_AttachRowChanging;
+            public event SP_ReportBuktiTindakanRemedialRowChangeEventHandler SP_ReportBuktiTindakanRemedialRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_AttachRowChangeEventHandler SP_AttachRowChanged;
+            public event SP_ReportBuktiTindakanRemedialRowChangeEventHandler SP_ReportBuktiTindakanRemedialRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_AttachRowChangeEventHandler SP_AttachRowDeleting;
+            public event SP_ReportBuktiTindakanRemedialRowChangeEventHandler SP_ReportBuktiTindakanRemedialRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_AttachRowChangeEventHandler SP_AttachRowDeleted;
+            public event SP_ReportBuktiTindakanRemedialRowChangeEventHandler SP_ReportBuktiTindakanRemedialRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddSP_AttachRow(SP_AttachRow row) {
+            public void AddSP_ReportBuktiTindakanRemedialRow(SP_ReportBuktiTindakanRemedialRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_AttachRow AddSP_AttachRow(string REQ_ID, int NO_FILE, string FILE_NAME_UPLOAD, string PATH_FILE) {
-                SP_AttachRow rowSP_AttachRow = ((SP_AttachRow)(this.NewRow()));
+            public SP_ReportBuktiTindakanRemedialRow AddSP_ReportBuktiTindakanRemedialRow(string FILE_NAME_UPLOAD, string EmpName) {
+                SP_ReportBuktiTindakanRemedialRow rowSP_ReportBuktiTindakanRemedialRow = ((SP_ReportBuktiTindakanRemedialRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        REQ_ID,
-                        NO_FILE,
                         FILE_NAME_UPLOAD,
-                        PATH_FILE};
-                rowSP_AttachRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowSP_AttachRow);
-                return rowSP_AttachRow;
+                        EmpName};
+                rowSP_ReportBuktiTindakanRemedialRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSP_ReportBuktiTindakanRemedialRow);
+                return rowSP_ReportBuktiTindakanRemedialRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                SP_AttachDataTable cln = ((SP_AttachDataTable)(base.Clone()));
+                SP_ReportBuktiTindakanRemedialDataTable cln = ((SP_ReportBuktiTindakanRemedialDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -412,59 +390,52 @@ namespace B7_Deviation {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new SP_AttachDataTable();
+                return new SP_ReportBuktiTindakanRemedialDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnREQ_ID = base.Columns["REQ_ID"];
-                this.columnNO_FILE = base.Columns["NO_FILE"];
                 this.columnFILE_NAME_UPLOAD = base.Columns["FILE_NAME_UPLOAD"];
-                this.columnPATH_FILE = base.Columns["PATH_FILE"];
+                this.columnEmpName = base.Columns["EmpName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnREQ_ID = new global::System.Data.DataColumn("REQ_ID", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnREQ_ID);
-                this.columnNO_FILE = new global::System.Data.DataColumn("NO_FILE", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNO_FILE);
                 this.columnFILE_NAME_UPLOAD = new global::System.Data.DataColumn("FILE_NAME_UPLOAD", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFILE_NAME_UPLOAD);
-                this.columnPATH_FILE = new global::System.Data.DataColumn("PATH_FILE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPATH_FILE);
-                this.columnREQ_ID.AllowDBNull = false;
-                this.columnREQ_ID.MaxLength = 50;
-                this.columnFILE_NAME_UPLOAD.MaxLength = 500;
-                this.columnPATH_FILE.MaxLength = 1000;
+                this.columnEmpName = new global::System.Data.DataColumn("EmpName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpName);
+                this.columnFILE_NAME_UPLOAD.MaxLength = 100;
+                this.columnEmpName.ReadOnly = true;
+                this.columnEmpName.MaxLength = 80;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_AttachRow NewSP_AttachRow() {
-                return ((SP_AttachRow)(this.NewRow()));
+            public SP_ReportBuktiTindakanRemedialRow NewSP_ReportBuktiTindakanRemedialRow() {
+                return ((SP_ReportBuktiTindakanRemedialRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new SP_AttachRow(builder);
+                return new SP_ReportBuktiTindakanRemedialRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(SP_AttachRow);
+                return typeof(SP_ReportBuktiTindakanRemedialRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.SP_AttachRowChanged != null)) {
-                    this.SP_AttachRowChanged(this, new SP_AttachRowChangeEvent(((SP_AttachRow)(e.Row)), e.Action));
+                if ((this.SP_ReportBuktiTindakanRemedialRowChanged != null)) {
+                    this.SP_ReportBuktiTindakanRemedialRowChanged(this, new SP_ReportBuktiTindakanRemedialRowChangeEvent(((SP_ReportBuktiTindakanRemedialRow)(e.Row)), e.Action));
                 }
             }
             
@@ -472,8 +443,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.SP_AttachRowChanging != null)) {
-                    this.SP_AttachRowChanging(this, new SP_AttachRowChangeEvent(((SP_AttachRow)(e.Row)), e.Action));
+                if ((this.SP_ReportBuktiTindakanRemedialRowChanging != null)) {
+                    this.SP_ReportBuktiTindakanRemedialRowChanging(this, new SP_ReportBuktiTindakanRemedialRowChangeEvent(((SP_ReportBuktiTindakanRemedialRow)(e.Row)), e.Action));
                 }
             }
             
@@ -481,8 +452,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.SP_AttachRowDeleted != null)) {
-                    this.SP_AttachRowDeleted(this, new SP_AttachRowChangeEvent(((SP_AttachRow)(e.Row)), e.Action));
+                if ((this.SP_ReportBuktiTindakanRemedialRowDeleted != null)) {
+                    this.SP_ReportBuktiTindakanRemedialRowDeleted(this, new SP_ReportBuktiTindakanRemedialRowChangeEvent(((SP_ReportBuktiTindakanRemedialRow)(e.Row)), e.Action));
                 }
             }
             
@@ -490,14 +461,14 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.SP_AttachRowDeleting != null)) {
-                    this.SP_AttachRowDeleting(this, new SP_AttachRowChangeEvent(((SP_AttachRow)(e.Row)), e.Action));
+                if ((this.SP_ReportBuktiTindakanRemedialRowDeleting != null)) {
+                    this.SP_ReportBuktiTindakanRemedialRowDeleting(this, new SP_ReportBuktiTindakanRemedialRowChangeEvent(((SP_ReportBuktiTindakanRemedialRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveSP_AttachRow(SP_AttachRow row) {
+            public void RemoveSP_ReportBuktiTindakanRemedialRow(SP_ReportBuktiTindakanRemedialRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -506,7 +477,7 @@ namespace B7_Deviation {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                AttachmentDataSource ds = new AttachmentDataSource();
+                ReportBuktiTindakanRemedialDataSource ds = new ReportBuktiTindakanRemedialDataSource();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -524,7 +495,7 @@ namespace B7_Deviation {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "SP_AttachDataTable";
+                attribute2.FixedValue = "SP_ReportBuktiTindakanRemedialDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -568,42 +539,15 @@ namespace B7_Deviation {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class SP_AttachRow : global::System.Data.DataRow {
+        public partial class SP_ReportBuktiTindakanRemedialRow : global::System.Data.DataRow {
             
-            private SP_AttachDataTable tableSP_Attach;
+            private SP_ReportBuktiTindakanRemedialDataTable tableSP_ReportBuktiTindakanRemedial;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_AttachRow(global::System.Data.DataRowBuilder rb) : 
+            internal SP_ReportBuktiTindakanRemedialRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableSP_Attach = ((SP_AttachDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string REQ_ID {
-                get {
-                    return ((string)(this[this.tableSP_Attach.REQ_IDColumn]));
-                }
-                set {
-                    this[this.tableSP_Attach.REQ_IDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int NO_FILE {
-                get {
-                    try {
-                        return ((int)(this[this.tableSP_Attach.NO_FILEColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NO_FILE\' in table \'SP_Attach\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_Attach.NO_FILEColumn] = value;
-                }
+                this.tableSP_ReportBuktiTindakanRemedial = ((SP_ReportBuktiTindakanRemedialDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -611,67 +555,57 @@ namespace B7_Deviation {
             public string FILE_NAME_UPLOAD {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_Attach.FILE_NAME_UPLOADColumn]));
+                        return ((string)(this[this.tableSP_ReportBuktiTindakanRemedial.FILE_NAME_UPLOADColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'FILE_NAME_UPLOAD\' in table \'SP_Attach\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'FILE_NAME_UPLOAD\' in table \'SP_ReportBuktiTindakanRemedial\'" +
+                                " is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_Attach.FILE_NAME_UPLOADColumn] = value;
+                    this[this.tableSP_ReportBuktiTindakanRemedial.FILE_NAME_UPLOADColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PATH_FILE {
+            public string EmpName {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_Attach.PATH_FILEColumn]));
+                        return ((string)(this[this.tableSP_ReportBuktiTindakanRemedial.EmpNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PATH_FILE\' in table \'SP_Attach\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpName\' in table \'SP_ReportBuktiTindakanRemedial\' is DBNul" +
+                                "l.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_Attach.PATH_FILEColumn] = value;
+                    this[this.tableSP_ReportBuktiTindakanRemedial.EmpNameColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsNO_FILENull() {
-                return this.IsNull(this.tableSP_Attach.NO_FILEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetNO_FILENull() {
-                this[this.tableSP_Attach.NO_FILEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsFILE_NAME_UPLOADNull() {
-                return this.IsNull(this.tableSP_Attach.FILE_NAME_UPLOADColumn);
+                return this.IsNull(this.tableSP_ReportBuktiTindakanRemedial.FILE_NAME_UPLOADColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetFILE_NAME_UPLOADNull() {
-                this[this.tableSP_Attach.FILE_NAME_UPLOADColumn] = global::System.Convert.DBNull;
+                this[this.tableSP_ReportBuktiTindakanRemedial.FILE_NAME_UPLOADColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPATH_FILENull() {
-                return this.IsNull(this.tableSP_Attach.PATH_FILEColumn);
+            public bool IsEmpNameNull() {
+                return this.IsNull(this.tableSP_ReportBuktiTindakanRemedial.EmpNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPATH_FILENull() {
-                this[this.tableSP_Attach.PATH_FILEColumn] = global::System.Convert.DBNull;
+            public void SetEmpNameNull() {
+                this[this.tableSP_ReportBuktiTindakanRemedial.EmpNameColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -679,22 +613,22 @@ namespace B7_Deviation {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class SP_AttachRowChangeEvent : global::System.EventArgs {
+        public class SP_ReportBuktiTindakanRemedialRowChangeEvent : global::System.EventArgs {
             
-            private SP_AttachRow eventRow;
+            private SP_ReportBuktiTindakanRemedialRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_AttachRowChangeEvent(SP_AttachRow row, global::System.Data.DataRowAction action) {
+            public SP_ReportBuktiTindakanRemedialRowChangeEvent(SP_ReportBuktiTindakanRemedialRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_AttachRow Row {
+            public SP_ReportBuktiTindakanRemedialRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -710,7 +644,7 @@ namespace B7_Deviation {
         }
     }
 }
-namespace B7_Deviation.AttachmentDataSourceTableAdapters {
+namespace B7_Deviation.DataSource.ReportBuktiTindakanRemedialDataSourceTableAdapters {
     
     
     /// <summary>
@@ -722,7 +656,7 @@ namespace B7_Deviation.AttachmentDataSourceTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class SP_AttachTableAdapter : global::System.ComponentModel.Component {
+    public partial class SP_ReportBuktiTindakanRemedialTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -736,7 +670,7 @@ namespace B7_Deviation.AttachmentDataSourceTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public SP_AttachTableAdapter() {
+        public SP_ReportBuktiTindakanRemedialTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -833,11 +767,9 @@ namespace B7_Deviation.AttachmentDataSourceTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "SP_Attach";
-            tableMapping.ColumnMappings.Add("REQ_ID", "REQ_ID");
-            tableMapping.ColumnMappings.Add("NO_FILE", "NO_FILE");
+            tableMapping.DataSetTable = "SP_ReportBuktiTindakanRemedial";
             tableMapping.ColumnMappings.Add("FILE_NAME_UPLOAD", "FILE_NAME_UPLOAD");
-            tableMapping.ColumnMappings.Add("PATH_FILE", "PATH_FILE");
+            tableMapping.ColumnMappings.Add("EmpName", "EmpName");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -854,17 +786,17 @@ namespace B7_Deviation.AttachmentDataSourceTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.SP_Attach";
+            this._commandCollection[0].CommandText = "dbo.SP_ReportBuktiTindakanRemedial";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(AttachmentDataSource.SP_AttachDataTable dataTable, string Nomor) {
+        public virtual int Fill(ReportBuktiTindakanRemedialDataSource.SP_ReportBuktiTindakanRemedialDataTable dataTable, string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -883,7 +815,7 @@ namespace B7_Deviation.AttachmentDataSourceTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual AttachmentDataSource.SP_AttachDataTable GetData(string Nomor) {
+        public virtual ReportBuktiTindakanRemedialDataSource.SP_ReportBuktiTindakanRemedialDataTable GetData(string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -891,7 +823,7 @@ namespace B7_Deviation.AttachmentDataSourceTableAdapters {
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nomor));
             }
-            AttachmentDataSource.SP_AttachDataTable dataTable = new AttachmentDataSource.SP_AttachDataTable();
+            ReportBuktiTindakanRemedialDataSource.SP_ReportBuktiTindakanRemedialDataTable dataTable = new ReportBuktiTindakanRemedialDataSource.SP_ReportBuktiTindakanRemedialDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -965,7 +897,7 @@ namespace B7_Deviation.AttachmentDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(AttachmentDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(ReportBuktiTindakanRemedialDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -975,7 +907,7 @@ namespace B7_Deviation.AttachmentDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(AttachmentDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(ReportBuktiTindakanRemedialDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -985,7 +917,7 @@ namespace B7_Deviation.AttachmentDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(AttachmentDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(ReportBuktiTindakanRemedialDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -1019,7 +951,7 @@ namespace B7_Deviation.AttachmentDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(AttachmentDataSource dataSet) {
+        public virtual int UpdateAll(ReportBuktiTindakanRemedialDataSource dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

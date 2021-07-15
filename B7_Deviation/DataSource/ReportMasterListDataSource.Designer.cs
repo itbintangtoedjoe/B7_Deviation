@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_Deviation {
+namespace B7_Deviation.DataSource {
     
     
     /// <summary>
@@ -20,17 +20,17 @@ namespace B7_Deviation {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("ReportTindakanRemedialDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("ReportMasterListDataSource")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class ReportTindakanRemedialDataSet : global::System.Data.DataSet {
+    public partial class ReportMasterListDataSource : global::System.Data.DataSet {
         
-        private SP_ReportTindakanRemedialDataTable tableSP_ReportTindakanRemedial;
+        private SP_ReportMasterListDataTable tableSP_ReportMasterList;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public ReportTindakanRemedialDataSet() {
+        public ReportMasterListDataSource() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace B7_Deviation {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected ReportTindakanRemedialDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected ReportMasterListDataSource(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace B7_Deviation {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["SP_ReportTindakanRemedial"] != null)) {
-                    base.Tables.Add(new SP_ReportTindakanRemedialDataTable(ds.Tables["SP_ReportTindakanRemedial"]));
+                if ((ds.Tables["SP_ReportMasterList"] != null)) {
+                    base.Tables.Add(new SP_ReportMasterListDataTable(ds.Tables["SP_ReportMasterList"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace B7_Deviation {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public SP_ReportTindakanRemedialDataTable SP_ReportTindakanRemedial {
+        public SP_ReportMasterListDataTable SP_ReportMasterList {
             get {
-                return this.tableSP_ReportTindakanRemedial;
+                return this.tableSP_ReportMasterList;
             }
         }
         
@@ -127,7 +127,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            ReportTindakanRemedialDataSet cln = ((ReportTindakanRemedialDataSet)(base.Clone()));
+            ReportMasterListDataSource cln = ((ReportMasterListDataSource)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace B7_Deviation {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["SP_ReportTindakanRemedial"] != null)) {
-                    base.Tables.Add(new SP_ReportTindakanRemedialDataTable(ds.Tables["SP_ReportTindakanRemedial"]));
+                if ((ds.Tables["SP_ReportMasterList"] != null)) {
+                    base.Tables.Add(new SP_ReportMasterListDataTable(ds.Tables["SP_ReportMasterList"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableSP_ReportTindakanRemedial = ((SP_ReportTindakanRemedialDataTable)(base.Tables["SP_ReportTindakanRemedial"]));
+            this.tableSP_ReportMasterList = ((SP_ReportMasterListDataTable)(base.Tables["SP_ReportMasterList"]));
             if ((initTable == true)) {
-                if ((this.tableSP_ReportTindakanRemedial != null)) {
-                    this.tableSP_ReportTindakanRemedial.InitVars();
+                if ((this.tableSP_ReportMasterList != null)) {
+                    this.tableSP_ReportMasterList.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "ReportTindakanRemedialDataSet";
+            this.DataSetName = "ReportMasterListDataSource";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/ReportTindakanRemedialDataSet.xsd";
+            this.Namespace = "http://tempuri.org/ReportMasterListDataSource.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableSP_ReportTindakanRemedial = new SP_ReportTindakanRemedialDataTable();
-            base.Tables.Add(this.tableSP_ReportTindakanRemedial);
+            this.tableSP_ReportMasterList = new SP_ReportMasterListDataTable();
+            base.Tables.Add(this.tableSP_ReportMasterList);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeSP_ReportTindakanRemedial() {
+        private bool ShouldSerializeSP_ReportMasterList() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            ReportTindakanRemedialDataSet ds = new ReportTindakanRemedialDataSet();
+            ReportMasterListDataSource ds = new ReportMasterListDataSource();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,51 +270,43 @@ namespace B7_Deviation {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void SP_ReportTindakanRemedialRowChangeEventHandler(object sender, SP_ReportTindakanRemedialRowChangeEvent e);
+        public delegate void SP_ReportMasterListRowChangeEventHandler(object sender, SP_ReportMasterListRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class SP_ReportTindakanRemedialDataTable : global::System.Data.TypedTableBase<SP_ReportTindakanRemedialRow> {
+        public partial class SP_ReportMasterListDataTable : global::System.Data.TypedTableBase<SP_ReportMasterListRow> {
             
-            private global::System.Data.DataColumn columnKETERANGAN_DISPOSISI;
+            private global::System.Data.DataColumn columnCREATION_DATE;
             
-            private global::System.Data.DataColumn columnPIC_REMEDIAL_NAME;
+            private global::System.Data.DataColumn columnDEVIATION_NO;
             
-            private global::System.Data.DataColumn columnPIC_REMEDIAL_NIK;
+            private global::System.Data.DataColumn columnEmpName;
             
-            private global::System.Data.DataColumn columnTESTING_JUMLAH_PELAKSANA;
+            private global::System.Data.DataColumn columnDEVIATION_CATEGORY;
             
-            private global::System.Data.DataColumn columnTESTING_DURASI_PENGERJAAN;
+            private global::System.Data.DataColumn columnPLAN_DEV;
             
-            private global::System.Data.DataColumn columnTESTING_MANHOURS_VALUE;
+            private global::System.Data.DataColumn columnSTATUS;
             
-            private global::System.Data.DataColumn columnTESTING_COST_OF_ANALYSIS;
+            private global::System.Data.DataColumn columnNO_CARPAR;
             
-            private global::System.Data.DataColumn columnPROC_JUMLAH_PELAKSANA;
+            private global::System.Data.DataColumn columnCLOSED_DATE;
             
-            private global::System.Data.DataColumn columnPROC_DURASI_PENGERJAAN;
+            private global::System.Data.DataColumn columnALASAN_CANCEL;
             
-            private global::System.Data.DataColumn columnPROC_MANHOURS_VALUE;
+            private global::System.Data.DataColumn columnCANCEL_DATE;
             
-            private global::System.Data.DataColumn columnREJ_MATERIAL;
+            private global::System.Data.DataColumn columnNAMA;
             
-            private global::System.Data.DataColumn columnREJ_QTY;
-            
-            private global::System.Data.DataColumn columnREJ_COST_MATERIAL;
-            
-            private global::System.Data.DataColumn columnMC_SPAREPART;
-            
-            private global::System.Data.DataColumn columnMC_TOTAL_HARGA_SPAREPART;
-            
-            private global::System.Data.DataColumn columnHASIL_TINDAKAN;
+            private global::System.Data.DataColumn columnAPPROVERNAME;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportTindakanRemedialDataTable() {
-                this.TableName = "SP_ReportTindakanRemedial";
+            public SP_ReportMasterListDataTable() {
+                this.TableName = "SP_ReportMasterList";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -322,7 +314,7 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_ReportTindakanRemedialDataTable(global::System.Data.DataTable table) {
+            internal SP_ReportMasterListDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -339,136 +331,104 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected SP_ReportTindakanRemedialDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected SP_ReportMasterListDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn KETERANGAN_DISPOSISIColumn {
+            public global::System.Data.DataColumn CREATION_DATEColumn {
                 get {
-                    return this.columnKETERANGAN_DISPOSISI;
+                    return this.columnCREATION_DATE;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PIC_REMEDIAL_NAMEColumn {
+            public global::System.Data.DataColumn DEVIATION_NOColumn {
                 get {
-                    return this.columnPIC_REMEDIAL_NAME;
+                    return this.columnDEVIATION_NO;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PIC_REMEDIAL_NIKColumn {
+            public global::System.Data.DataColumn EmpNameColumn {
                 get {
-                    return this.columnPIC_REMEDIAL_NIK;
+                    return this.columnEmpName;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn TESTING_JUMLAH_PELAKSANAColumn {
+            public global::System.Data.DataColumn DEVIATION_CATEGORYColumn {
                 get {
-                    return this.columnTESTING_JUMLAH_PELAKSANA;
+                    return this.columnDEVIATION_CATEGORY;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn TESTING_DURASI_PENGERJAANColumn {
+            public global::System.Data.DataColumn PLAN_DEVColumn {
                 get {
-                    return this.columnTESTING_DURASI_PENGERJAAN;
+                    return this.columnPLAN_DEV;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn TESTING_MANHOURS_VALUEColumn {
+            public global::System.Data.DataColumn STATUSColumn {
                 get {
-                    return this.columnTESTING_MANHOURS_VALUE;
+                    return this.columnSTATUS;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn TESTING_COST_OF_ANALYSISColumn {
+            public global::System.Data.DataColumn NO_CARPARColumn {
                 get {
-                    return this.columnTESTING_COST_OF_ANALYSIS;
+                    return this.columnNO_CARPAR;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PROC_JUMLAH_PELAKSANAColumn {
+            public global::System.Data.DataColumn CLOSED_DATEColumn {
                 get {
-                    return this.columnPROC_JUMLAH_PELAKSANA;
+                    return this.columnCLOSED_DATE;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PROC_DURASI_PENGERJAANColumn {
+            public global::System.Data.DataColumn ALASAN_CANCELColumn {
                 get {
-                    return this.columnPROC_DURASI_PENGERJAAN;
+                    return this.columnALASAN_CANCEL;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PROC_MANHOURS_VALUEColumn {
+            public global::System.Data.DataColumn CANCEL_DATEColumn {
                 get {
-                    return this.columnPROC_MANHOURS_VALUE;
+                    return this.columnCANCEL_DATE;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn REJ_MATERIALColumn {
+            public global::System.Data.DataColumn NAMAColumn {
                 get {
-                    return this.columnREJ_MATERIAL;
+                    return this.columnNAMA;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn REJ_QTYColumn {
+            public global::System.Data.DataColumn APPROVERNAMEColumn {
                 get {
-                    return this.columnREJ_QTY;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn REJ_COST_MATERIALColumn {
-                get {
-                    return this.columnREJ_COST_MATERIAL;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn MC_SPAREPARTColumn {
-                get {
-                    return this.columnMC_SPAREPART;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn MC_TOTAL_HARGA_SPAREPARTColumn {
-                get {
-                    return this.columnMC_TOTAL_HARGA_SPAREPART;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn HASIL_TINDAKANColumn {
-                get {
-                    return this.columnHASIL_TINDAKAN;
+                    return this.columnAPPROVERNAME;
                 }
             }
             
@@ -483,76 +443,56 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportTindakanRemedialRow this[int index] {
+            public SP_ReportMasterListRow this[int index] {
                 get {
-                    return ((SP_ReportTindakanRemedialRow)(this.Rows[index]));
+                    return ((SP_ReportMasterListRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportTindakanRemedialRowChangeEventHandler SP_ReportTindakanRemedialRowChanging;
+            public event SP_ReportMasterListRowChangeEventHandler SP_ReportMasterListRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportTindakanRemedialRowChangeEventHandler SP_ReportTindakanRemedialRowChanged;
+            public event SP_ReportMasterListRowChangeEventHandler SP_ReportMasterListRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportTindakanRemedialRowChangeEventHandler SP_ReportTindakanRemedialRowDeleting;
+            public event SP_ReportMasterListRowChangeEventHandler SP_ReportMasterListRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportTindakanRemedialRowChangeEventHandler SP_ReportTindakanRemedialRowDeleted;
+            public event SP_ReportMasterListRowChangeEventHandler SP_ReportMasterListRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddSP_ReportTindakanRemedialRow(SP_ReportTindakanRemedialRow row) {
+            public void AddSP_ReportMasterListRow(SP_ReportMasterListRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportTindakanRemedialRow AddSP_ReportTindakanRemedialRow(
-                        string KETERANGAN_DISPOSISI, 
-                        string PIC_REMEDIAL_NAME, 
-                        string PIC_REMEDIAL_NIK, 
-                        string TESTING_JUMLAH_PELAKSANA, 
-                        string TESTING_DURASI_PENGERJAAN, 
-                        string TESTING_MANHOURS_VALUE, 
-                        string TESTING_COST_OF_ANALYSIS, 
-                        string PROC_JUMLAH_PELAKSANA, 
-                        string PROC_DURASI_PENGERJAAN, 
-                        string PROC_MANHOURS_VALUE, 
-                        string REJ_MATERIAL, 
-                        string REJ_QTY, 
-                        string REJ_COST_MATERIAL, 
-                        string MC_SPAREPART, 
-                        string MC_TOTAL_HARGA_SPAREPART, 
-                        string HASIL_TINDAKAN) {
-                SP_ReportTindakanRemedialRow rowSP_ReportTindakanRemedialRow = ((SP_ReportTindakanRemedialRow)(this.NewRow()));
+            public SP_ReportMasterListRow AddSP_ReportMasterListRow(string CREATION_DATE, string DEVIATION_NO, string EmpName, string DEVIATION_CATEGORY, string PLAN_DEV, string STATUS, string NO_CARPAR, string CLOSED_DATE, string ALASAN_CANCEL, string CANCEL_DATE, string NAMA, string APPROVERNAME) {
+                SP_ReportMasterListRow rowSP_ReportMasterListRow = ((SP_ReportMasterListRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        KETERANGAN_DISPOSISI,
-                        PIC_REMEDIAL_NAME,
-                        PIC_REMEDIAL_NIK,
-                        TESTING_JUMLAH_PELAKSANA,
-                        TESTING_DURASI_PENGERJAAN,
-                        TESTING_MANHOURS_VALUE,
-                        TESTING_COST_OF_ANALYSIS,
-                        PROC_JUMLAH_PELAKSANA,
-                        PROC_DURASI_PENGERJAAN,
-                        PROC_MANHOURS_VALUE,
-                        REJ_MATERIAL,
-                        REJ_QTY,
-                        REJ_COST_MATERIAL,
-                        MC_SPAREPART,
-                        MC_TOTAL_HARGA_SPAREPART,
-                        HASIL_TINDAKAN};
-                rowSP_ReportTindakanRemedialRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowSP_ReportTindakanRemedialRow);
-                return rowSP_ReportTindakanRemedialRow;
+                        CREATION_DATE,
+                        DEVIATION_NO,
+                        EmpName,
+                        DEVIATION_CATEGORY,
+                        PLAN_DEV,
+                        STATUS,
+                        NO_CARPAR,
+                        CLOSED_DATE,
+                        ALASAN_CANCEL,
+                        CANCEL_DATE,
+                        NAMA,
+                        APPROVERNAME};
+                rowSP_ReportMasterListRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSP_ReportMasterListRow);
+                return rowSP_ReportMasterListRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                SP_ReportTindakanRemedialDataTable cln = ((SP_ReportTindakanRemedialDataTable)(base.Clone()));
+                SP_ReportMasterListDataTable cln = ((SP_ReportMasterListDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -560,119 +500,102 @@ namespace B7_Deviation {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new SP_ReportTindakanRemedialDataTable();
+                return new SP_ReportMasterListDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnKETERANGAN_DISPOSISI = base.Columns["KETERANGAN_DISPOSISI"];
-                this.columnPIC_REMEDIAL_NAME = base.Columns["PIC_REMEDIAL_NAME"];
-                this.columnPIC_REMEDIAL_NIK = base.Columns["PIC_REMEDIAL_NIK"];
-                this.columnTESTING_JUMLAH_PELAKSANA = base.Columns["TESTING_JUMLAH_PELAKSANA"];
-                this.columnTESTING_DURASI_PENGERJAAN = base.Columns["TESTING_DURASI_PENGERJAAN"];
-                this.columnTESTING_MANHOURS_VALUE = base.Columns["TESTING_MANHOURS_VALUE"];
-                this.columnTESTING_COST_OF_ANALYSIS = base.Columns["TESTING_COST_OF_ANALYSIS"];
-                this.columnPROC_JUMLAH_PELAKSANA = base.Columns["PROC_JUMLAH_PELAKSANA"];
-                this.columnPROC_DURASI_PENGERJAAN = base.Columns["PROC_DURASI_PENGERJAAN"];
-                this.columnPROC_MANHOURS_VALUE = base.Columns["PROC_MANHOURS_VALUE"];
-                this.columnREJ_MATERIAL = base.Columns["REJ_MATERIAL"];
-                this.columnREJ_QTY = base.Columns["REJ_QTY"];
-                this.columnREJ_COST_MATERIAL = base.Columns["REJ_COST_MATERIAL"];
-                this.columnMC_SPAREPART = base.Columns["MC_SPAREPART"];
-                this.columnMC_TOTAL_HARGA_SPAREPART = base.Columns["MC_TOTAL_HARGA_SPAREPART"];
-                this.columnHASIL_TINDAKAN = base.Columns["HASIL_TINDAKAN"];
+                this.columnCREATION_DATE = base.Columns["CREATION_DATE"];
+                this.columnDEVIATION_NO = base.Columns["DEVIATION_NO"];
+                this.columnEmpName = base.Columns["EmpName"];
+                this.columnDEVIATION_CATEGORY = base.Columns["DEVIATION_CATEGORY"];
+                this.columnPLAN_DEV = base.Columns["PLAN_DEV"];
+                this.columnSTATUS = base.Columns["STATUS"];
+                this.columnNO_CARPAR = base.Columns["NO_CARPAR"];
+                this.columnCLOSED_DATE = base.Columns["CLOSED_DATE"];
+                this.columnALASAN_CANCEL = base.Columns["ALASAN_CANCEL"];
+                this.columnCANCEL_DATE = base.Columns["CANCEL_DATE"];
+                this.columnNAMA = base.Columns["NAMA"];
+                this.columnAPPROVERNAME = base.Columns["APPROVERNAME"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnKETERANGAN_DISPOSISI = new global::System.Data.DataColumn("KETERANGAN_DISPOSISI", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnKETERANGAN_DISPOSISI);
-                this.columnPIC_REMEDIAL_NAME = new global::System.Data.DataColumn("PIC_REMEDIAL_NAME", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPIC_REMEDIAL_NAME);
-                this.columnPIC_REMEDIAL_NIK = new global::System.Data.DataColumn("PIC_REMEDIAL_NIK", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPIC_REMEDIAL_NIK);
-                this.columnTESTING_JUMLAH_PELAKSANA = new global::System.Data.DataColumn("TESTING_JUMLAH_PELAKSANA", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTESTING_JUMLAH_PELAKSANA);
-                this.columnTESTING_DURASI_PENGERJAAN = new global::System.Data.DataColumn("TESTING_DURASI_PENGERJAAN", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTESTING_DURASI_PENGERJAAN);
-                this.columnTESTING_MANHOURS_VALUE = new global::System.Data.DataColumn("TESTING_MANHOURS_VALUE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTESTING_MANHOURS_VALUE);
-                this.columnTESTING_COST_OF_ANALYSIS = new global::System.Data.DataColumn("TESTING_COST_OF_ANALYSIS", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTESTING_COST_OF_ANALYSIS);
-                this.columnPROC_JUMLAH_PELAKSANA = new global::System.Data.DataColumn("PROC_JUMLAH_PELAKSANA", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPROC_JUMLAH_PELAKSANA);
-                this.columnPROC_DURASI_PENGERJAAN = new global::System.Data.DataColumn("PROC_DURASI_PENGERJAAN", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPROC_DURASI_PENGERJAAN);
-                this.columnPROC_MANHOURS_VALUE = new global::System.Data.DataColumn("PROC_MANHOURS_VALUE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPROC_MANHOURS_VALUE);
-                this.columnREJ_MATERIAL = new global::System.Data.DataColumn("REJ_MATERIAL", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnREJ_MATERIAL);
-                this.columnREJ_QTY = new global::System.Data.DataColumn("REJ_QTY", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnREJ_QTY);
-                this.columnREJ_COST_MATERIAL = new global::System.Data.DataColumn("REJ_COST_MATERIAL", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnREJ_COST_MATERIAL);
-                this.columnMC_SPAREPART = new global::System.Data.DataColumn("MC_SPAREPART", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnMC_SPAREPART);
-                this.columnMC_TOTAL_HARGA_SPAREPART = new global::System.Data.DataColumn("MC_TOTAL_HARGA_SPAREPART", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnMC_TOTAL_HARGA_SPAREPART);
-                this.columnHASIL_TINDAKAN = new global::System.Data.DataColumn("HASIL_TINDAKAN", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnHASIL_TINDAKAN);
-                this.columnKETERANGAN_DISPOSISI.MaxLength = 8000;
-                this.columnPIC_REMEDIAL_NAME.MaxLength = 100;
-                this.columnPIC_REMEDIAL_NIK.MaxLength = 100;
-                this.columnTESTING_JUMLAH_PELAKSANA.ReadOnly = true;
-                this.columnTESTING_JUMLAH_PELAKSANA.MaxLength = 5;
-                this.columnTESTING_DURASI_PENGERJAAN.ReadOnly = true;
-                this.columnTESTING_DURASI_PENGERJAAN.MaxLength = 50;
-                this.columnTESTING_MANHOURS_VALUE.ReadOnly = true;
-                this.columnTESTING_MANHOURS_VALUE.MaxLength = 10;
-                this.columnTESTING_COST_OF_ANALYSIS.ReadOnly = true;
-                this.columnTESTING_COST_OF_ANALYSIS.MaxLength = 10;
-                this.columnPROC_JUMLAH_PELAKSANA.ReadOnly = true;
-                this.columnPROC_JUMLAH_PELAKSANA.MaxLength = 5;
-                this.columnPROC_DURASI_PENGERJAAN.ReadOnly = true;
-                this.columnPROC_DURASI_PENGERJAAN.MaxLength = 10;
-                this.columnPROC_MANHOURS_VALUE.ReadOnly = true;
-                this.columnPROC_MANHOURS_VALUE.MaxLength = 5;
-                this.columnREJ_MATERIAL.ReadOnly = true;
-                this.columnREJ_MATERIAL.MaxLength = 2000;
-                this.columnREJ_QTY.ReadOnly = true;
-                this.columnREJ_QTY.MaxLength = 5;
-                this.columnREJ_COST_MATERIAL.ReadOnly = true;
-                this.columnREJ_COST_MATERIAL.MaxLength = 10;
-                this.columnMC_SPAREPART.ReadOnly = true;
-                this.columnMC_SPAREPART.MaxLength = 1000;
-                this.columnMC_TOTAL_HARGA_SPAREPART.ReadOnly = true;
-                this.columnMC_TOTAL_HARGA_SPAREPART.MaxLength = 10;
-                this.columnHASIL_TINDAKAN.MaxLength = 8000;
+                this.columnCREATION_DATE = new global::System.Data.DataColumn("CREATION_DATE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCREATION_DATE);
+                this.columnDEVIATION_NO = new global::System.Data.DataColumn("DEVIATION_NO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDEVIATION_NO);
+                this.columnEmpName = new global::System.Data.DataColumn("EmpName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpName);
+                this.columnDEVIATION_CATEGORY = new global::System.Data.DataColumn("DEVIATION_CATEGORY", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDEVIATION_CATEGORY);
+                this.columnPLAN_DEV = new global::System.Data.DataColumn("PLAN_DEV", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPLAN_DEV);
+                this.columnSTATUS = new global::System.Data.DataColumn("STATUS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSTATUS);
+                this.columnNO_CARPAR = new global::System.Data.DataColumn("NO_CARPAR", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNO_CARPAR);
+                this.columnCLOSED_DATE = new global::System.Data.DataColumn("CLOSED_DATE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCLOSED_DATE);
+                this.columnALASAN_CANCEL = new global::System.Data.DataColumn("ALASAN_CANCEL", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnALASAN_CANCEL);
+                this.columnCANCEL_DATE = new global::System.Data.DataColumn("CANCEL_DATE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCANCEL_DATE);
+                this.columnNAMA = new global::System.Data.DataColumn("NAMA", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNAMA);
+                this.columnAPPROVERNAME = new global::System.Data.DataColumn("APPROVERNAME", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAPPROVERNAME);
+                this.columnCREATION_DATE.ReadOnly = true;
+                this.columnCREATION_DATE.MaxLength = 50;
+                this.columnDEVIATION_NO.MaxLength = 50;
+                this.columnEmpName.ReadOnly = true;
+                this.columnEmpName.MaxLength = 80;
+                this.columnDEVIATION_CATEGORY.ReadOnly = true;
+                this.columnDEVIATION_CATEGORY.MaxLength = 500;
+                this.columnPLAN_DEV.ReadOnly = true;
+                this.columnPLAN_DEV.MaxLength = 28;
+                this.columnSTATUS.ReadOnly = true;
+                this.columnSTATUS.MaxLength = 200;
+                this.columnNO_CARPAR.ReadOnly = true;
+                this.columnNO_CARPAR.MaxLength = 2000;
+                this.columnCLOSED_DATE.ReadOnly = true;
+                this.columnCLOSED_DATE.MaxLength = 50;
+                this.columnALASAN_CANCEL.ReadOnly = true;
+                this.columnALASAN_CANCEL.MaxLength = 2000;
+                this.columnCANCEL_DATE.ReadOnly = true;
+                this.columnCANCEL_DATE.MaxLength = 50;
+                this.columnNAMA.ReadOnly = true;
+                this.columnNAMA.MaxLength = 100;
+                this.columnAPPROVERNAME.ReadOnly = true;
+                this.columnAPPROVERNAME.MaxLength = 2000;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportTindakanRemedialRow NewSP_ReportTindakanRemedialRow() {
-                return ((SP_ReportTindakanRemedialRow)(this.NewRow()));
+            public SP_ReportMasterListRow NewSP_ReportMasterListRow() {
+                return ((SP_ReportMasterListRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new SP_ReportTindakanRemedialRow(builder);
+                return new SP_ReportMasterListRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(SP_ReportTindakanRemedialRow);
+                return typeof(SP_ReportMasterListRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.SP_ReportTindakanRemedialRowChanged != null)) {
-                    this.SP_ReportTindakanRemedialRowChanged(this, new SP_ReportTindakanRemedialRowChangeEvent(((SP_ReportTindakanRemedialRow)(e.Row)), e.Action));
+                if ((this.SP_ReportMasterListRowChanged != null)) {
+                    this.SP_ReportMasterListRowChanged(this, new SP_ReportMasterListRowChangeEvent(((SP_ReportMasterListRow)(e.Row)), e.Action));
                 }
             }
             
@@ -680,8 +603,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.SP_ReportTindakanRemedialRowChanging != null)) {
-                    this.SP_ReportTindakanRemedialRowChanging(this, new SP_ReportTindakanRemedialRowChangeEvent(((SP_ReportTindakanRemedialRow)(e.Row)), e.Action));
+                if ((this.SP_ReportMasterListRowChanging != null)) {
+                    this.SP_ReportMasterListRowChanging(this, new SP_ReportMasterListRowChangeEvent(((SP_ReportMasterListRow)(e.Row)), e.Action));
                 }
             }
             
@@ -689,8 +612,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.SP_ReportTindakanRemedialRowDeleted != null)) {
-                    this.SP_ReportTindakanRemedialRowDeleted(this, new SP_ReportTindakanRemedialRowChangeEvent(((SP_ReportTindakanRemedialRow)(e.Row)), e.Action));
+                if ((this.SP_ReportMasterListRowDeleted != null)) {
+                    this.SP_ReportMasterListRowDeleted(this, new SP_ReportMasterListRowChangeEvent(((SP_ReportMasterListRow)(e.Row)), e.Action));
                 }
             }
             
@@ -698,14 +621,14 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.SP_ReportTindakanRemedialRowDeleting != null)) {
-                    this.SP_ReportTindakanRemedialRowDeleting(this, new SP_ReportTindakanRemedialRowChangeEvent(((SP_ReportTindakanRemedialRow)(e.Row)), e.Action));
+                if ((this.SP_ReportMasterListRowDeleting != null)) {
+                    this.SP_ReportMasterListRowDeleting(this, new SP_ReportMasterListRowChangeEvent(((SP_ReportMasterListRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveSP_ReportTindakanRemedialRow(SP_ReportTindakanRemedialRow row) {
+            public void RemoveSP_ReportMasterListRow(SP_ReportMasterListRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -714,7 +637,7 @@ namespace B7_Deviation {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ReportTindakanRemedialDataSet ds = new ReportTindakanRemedialDataSet();
+                ReportMasterListDataSource ds = new ReportMasterListDataSource();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -732,7 +655,7 @@ namespace B7_Deviation {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "SP_ReportTindakanRemedialDataTable";
+                attribute2.FixedValue = "SP_ReportMasterListDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -776,478 +699,352 @@ namespace B7_Deviation {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class SP_ReportTindakanRemedialRow : global::System.Data.DataRow {
+        public partial class SP_ReportMasterListRow : global::System.Data.DataRow {
             
-            private SP_ReportTindakanRemedialDataTable tableSP_ReportTindakanRemedial;
+            private SP_ReportMasterListDataTable tableSP_ReportMasterList;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_ReportTindakanRemedialRow(global::System.Data.DataRowBuilder rb) : 
+            internal SP_ReportMasterListRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableSP_ReportTindakanRemedial = ((SP_ReportTindakanRemedialDataTable)(this.Table));
+                this.tableSP_ReportMasterList = ((SP_ReportMasterListDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string KETERANGAN_DISPOSISI {
+            public string CREATION_DATE {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.KETERANGAN_DISPOSISIColumn]));
+                        return ((string)(this[this.tableSP_ReportMasterList.CREATION_DATEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'KETERANGAN_DISPOSISI\' in table \'SP_ReportTindakanRemedial\' " +
-                                "is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CREATION_DATE\' in table \'SP_ReportMasterList\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportTindakanRemedial.KETERANGAN_DISPOSISIColumn] = value;
+                    this[this.tableSP_ReportMasterList.CREATION_DATEColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PIC_REMEDIAL_NAME {
+            public string DEVIATION_NO {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.PIC_REMEDIAL_NAMEColumn]));
+                        return ((string)(this[this.tableSP_ReportMasterList.DEVIATION_NOColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PIC_REMEDIAL_NAME\' in table \'SP_ReportTindakanRemedial\' is " +
-                                "DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'DEVIATION_NO\' in table \'SP_ReportMasterList\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportTindakanRemedial.PIC_REMEDIAL_NAMEColumn] = value;
+                    this[this.tableSP_ReportMasterList.DEVIATION_NOColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PIC_REMEDIAL_NIK {
+            public string EmpName {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.PIC_REMEDIAL_NIKColumn]));
+                        return ((string)(this[this.tableSP_ReportMasterList.EmpNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PIC_REMEDIAL_NIK\' in table \'SP_ReportTindakanRemedial\' is D" +
-                                "BNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpName\' in table \'SP_ReportMasterList\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportTindakanRemedial.PIC_REMEDIAL_NIKColumn] = value;
+                    this[this.tableSP_ReportMasterList.EmpNameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string TESTING_JUMLAH_PELAKSANA {
+            public string DEVIATION_CATEGORY {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.TESTING_JUMLAH_PELAKSANAColumn]));
+                        return ((string)(this[this.tableSP_ReportMasterList.DEVIATION_CATEGORYColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TESTING_JUMLAH_PELAKSANA\' in table \'SP_ReportTindakanRemedi" +
-                                "al\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportTindakanRemedial.TESTING_JUMLAH_PELAKSANAColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string TESTING_DURASI_PENGERJAAN {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.TESTING_DURASI_PENGERJAANColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TESTING_DURASI_PENGERJAAN\' in table \'SP_ReportTindakanRemed" +
-                                "ial\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportTindakanRemedial.TESTING_DURASI_PENGERJAANColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string TESTING_MANHOURS_VALUE {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.TESTING_MANHOURS_VALUEColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TESTING_MANHOURS_VALUE\' in table \'SP_ReportTindakanRemedial" +
-                                "\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportTindakanRemedial.TESTING_MANHOURS_VALUEColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string TESTING_COST_OF_ANALYSIS {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.TESTING_COST_OF_ANALYSISColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TESTING_COST_OF_ANALYSIS\' in table \'SP_ReportTindakanRemedi" +
-                                "al\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportTindakanRemedial.TESTING_COST_OF_ANALYSISColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PROC_JUMLAH_PELAKSANA {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.PROC_JUMLAH_PELAKSANAColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PROC_JUMLAH_PELAKSANA\' in table \'SP_ReportTindakanRemedial\'" +
-                                " is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportTindakanRemedial.PROC_JUMLAH_PELAKSANAColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PROC_DURASI_PENGERJAAN {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.PROC_DURASI_PENGERJAANColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PROC_DURASI_PENGERJAAN\' in table \'SP_ReportTindakanRemedial" +
-                                "\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportTindakanRemedial.PROC_DURASI_PENGERJAANColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PROC_MANHOURS_VALUE {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.PROC_MANHOURS_VALUEColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PROC_MANHOURS_VALUE\' in table \'SP_ReportTindakanRemedial\' i" +
-                                "s DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportTindakanRemedial.PROC_MANHOURS_VALUEColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string REJ_MATERIAL {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.REJ_MATERIALColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'REJ_MATERIAL\' in table \'SP_ReportTindakanRemedial\' is DBNul" +
+                        throw new global::System.Data.StrongTypingException("The value for column \'DEVIATION_CATEGORY\' in table \'SP_ReportMasterList\' is DBNul" +
                                 "l.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportTindakanRemedial.REJ_MATERIALColumn] = value;
+                    this[this.tableSP_ReportMasterList.DEVIATION_CATEGORYColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string REJ_QTY {
+            public string PLAN_DEV {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.REJ_QTYColumn]));
+                        return ((string)(this[this.tableSP_ReportMasterList.PLAN_DEVColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'REJ_QTY\' in table \'SP_ReportTindakanRemedial\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'PLAN_DEV\' in table \'SP_ReportMasterList\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportTindakanRemedial.REJ_QTYColumn] = value;
+                    this[this.tableSP_ReportMasterList.PLAN_DEVColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string REJ_COST_MATERIAL {
+            public string STATUS {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.REJ_COST_MATERIALColumn]));
+                        return ((string)(this[this.tableSP_ReportMasterList.STATUSColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'REJ_COST_MATERIAL\' in table \'SP_ReportTindakanRemedial\' is " +
-                                "DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'STATUS\' in table \'SP_ReportMasterList\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportTindakanRemedial.REJ_COST_MATERIALColumn] = value;
+                    this[this.tableSP_ReportMasterList.STATUSColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string MC_SPAREPART {
+            public string NO_CARPAR {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.MC_SPAREPARTColumn]));
+                        return ((string)(this[this.tableSP_ReportMasterList.NO_CARPARColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'MC_SPAREPART\' in table \'SP_ReportTindakanRemedial\' is DBNul" +
-                                "l.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'NO_CARPAR\' in table \'SP_ReportMasterList\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportTindakanRemedial.MC_SPAREPARTColumn] = value;
+                    this[this.tableSP_ReportMasterList.NO_CARPARColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string MC_TOTAL_HARGA_SPAREPART {
+            public string CLOSED_DATE {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.MC_TOTAL_HARGA_SPAREPARTColumn]));
+                        return ((string)(this[this.tableSP_ReportMasterList.CLOSED_DATEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'MC_TOTAL_HARGA_SPAREPART\' in table \'SP_ReportTindakanRemedi" +
-                                "al\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CLOSED_DATE\' in table \'SP_ReportMasterList\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportTindakanRemedial.MC_TOTAL_HARGA_SPAREPARTColumn] = value;
+                    this[this.tableSP_ReportMasterList.CLOSED_DATEColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string HASIL_TINDAKAN {
+            public string ALASAN_CANCEL {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportTindakanRemedial.HASIL_TINDAKANColumn]));
+                        return ((string)(this[this.tableSP_ReportMasterList.ALASAN_CANCELColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'HASIL_TINDAKAN\' in table \'SP_ReportTindakanRemedial\' is DBN" +
-                                "ull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'ALASAN_CANCEL\' in table \'SP_ReportMasterList\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportTindakanRemedial.HASIL_TINDAKANColumn] = value;
+                    this[this.tableSP_ReportMasterList.ALASAN_CANCELColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsKETERANGAN_DISPOSISINull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.KETERANGAN_DISPOSISIColumn);
+            public string CANCEL_DATE {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportMasterList.CANCEL_DATEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CANCEL_DATE\' in table \'SP_ReportMasterList\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportMasterList.CANCEL_DATEColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetKETERANGAN_DISPOSISINull() {
-                this[this.tableSP_ReportTindakanRemedial.KETERANGAN_DISPOSISIColumn] = global::System.Convert.DBNull;
+            public string NAMA {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportMasterList.NAMAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NAMA\' in table \'SP_ReportMasterList\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportMasterList.NAMAColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPIC_REMEDIAL_NAMENull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.PIC_REMEDIAL_NAMEColumn);
+            public string APPROVERNAME {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportMasterList.APPROVERNAMEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'APPROVERNAME\' in table \'SP_ReportMasterList\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportMasterList.APPROVERNAMEColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPIC_REMEDIAL_NAMENull() {
-                this[this.tableSP_ReportTindakanRemedial.PIC_REMEDIAL_NAMEColumn] = global::System.Convert.DBNull;
+            public bool IsCREATION_DATENull() {
+                return this.IsNull(this.tableSP_ReportMasterList.CREATION_DATEColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPIC_REMEDIAL_NIKNull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.PIC_REMEDIAL_NIKColumn);
+            public void SetCREATION_DATENull() {
+                this[this.tableSP_ReportMasterList.CREATION_DATEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPIC_REMEDIAL_NIKNull() {
-                this[this.tableSP_ReportTindakanRemedial.PIC_REMEDIAL_NIKColumn] = global::System.Convert.DBNull;
+            public bool IsDEVIATION_NONull() {
+                return this.IsNull(this.tableSP_ReportMasterList.DEVIATION_NOColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTESTING_JUMLAH_PELAKSANANull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.TESTING_JUMLAH_PELAKSANAColumn);
+            public void SetDEVIATION_NONull() {
+                this[this.tableSP_ReportMasterList.DEVIATION_NOColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTESTING_JUMLAH_PELAKSANANull() {
-                this[this.tableSP_ReportTindakanRemedial.TESTING_JUMLAH_PELAKSANAColumn] = global::System.Convert.DBNull;
+            public bool IsEmpNameNull() {
+                return this.IsNull(this.tableSP_ReportMasterList.EmpNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTESTING_DURASI_PENGERJAANNull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.TESTING_DURASI_PENGERJAANColumn);
+            public void SetEmpNameNull() {
+                this[this.tableSP_ReportMasterList.EmpNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTESTING_DURASI_PENGERJAANNull() {
-                this[this.tableSP_ReportTindakanRemedial.TESTING_DURASI_PENGERJAANColumn] = global::System.Convert.DBNull;
+            public bool IsDEVIATION_CATEGORYNull() {
+                return this.IsNull(this.tableSP_ReportMasterList.DEVIATION_CATEGORYColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTESTING_MANHOURS_VALUENull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.TESTING_MANHOURS_VALUEColumn);
+            public void SetDEVIATION_CATEGORYNull() {
+                this[this.tableSP_ReportMasterList.DEVIATION_CATEGORYColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTESTING_MANHOURS_VALUENull() {
-                this[this.tableSP_ReportTindakanRemedial.TESTING_MANHOURS_VALUEColumn] = global::System.Convert.DBNull;
+            public bool IsPLAN_DEVNull() {
+                return this.IsNull(this.tableSP_ReportMasterList.PLAN_DEVColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTESTING_COST_OF_ANALYSISNull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.TESTING_COST_OF_ANALYSISColumn);
+            public void SetPLAN_DEVNull() {
+                this[this.tableSP_ReportMasterList.PLAN_DEVColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTESTING_COST_OF_ANALYSISNull() {
-                this[this.tableSP_ReportTindakanRemedial.TESTING_COST_OF_ANALYSISColumn] = global::System.Convert.DBNull;
+            public bool IsSTATUSNull() {
+                return this.IsNull(this.tableSP_ReportMasterList.STATUSColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPROC_JUMLAH_PELAKSANANull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.PROC_JUMLAH_PELAKSANAColumn);
+            public void SetSTATUSNull() {
+                this[this.tableSP_ReportMasterList.STATUSColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPROC_JUMLAH_PELAKSANANull() {
-                this[this.tableSP_ReportTindakanRemedial.PROC_JUMLAH_PELAKSANAColumn] = global::System.Convert.DBNull;
+            public bool IsNO_CARPARNull() {
+                return this.IsNull(this.tableSP_ReportMasterList.NO_CARPARColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPROC_DURASI_PENGERJAANNull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.PROC_DURASI_PENGERJAANColumn);
+            public void SetNO_CARPARNull() {
+                this[this.tableSP_ReportMasterList.NO_CARPARColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPROC_DURASI_PENGERJAANNull() {
-                this[this.tableSP_ReportTindakanRemedial.PROC_DURASI_PENGERJAANColumn] = global::System.Convert.DBNull;
+            public bool IsCLOSED_DATENull() {
+                return this.IsNull(this.tableSP_ReportMasterList.CLOSED_DATEColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPROC_MANHOURS_VALUENull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.PROC_MANHOURS_VALUEColumn);
+            public void SetCLOSED_DATENull() {
+                this[this.tableSP_ReportMasterList.CLOSED_DATEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPROC_MANHOURS_VALUENull() {
-                this[this.tableSP_ReportTindakanRemedial.PROC_MANHOURS_VALUEColumn] = global::System.Convert.DBNull;
+            public bool IsALASAN_CANCELNull() {
+                return this.IsNull(this.tableSP_ReportMasterList.ALASAN_CANCELColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsREJ_MATERIALNull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.REJ_MATERIALColumn);
+            public void SetALASAN_CANCELNull() {
+                this[this.tableSP_ReportMasterList.ALASAN_CANCELColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetREJ_MATERIALNull() {
-                this[this.tableSP_ReportTindakanRemedial.REJ_MATERIALColumn] = global::System.Convert.DBNull;
+            public bool IsCANCEL_DATENull() {
+                return this.IsNull(this.tableSP_ReportMasterList.CANCEL_DATEColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsREJ_QTYNull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.REJ_QTYColumn);
+            public void SetCANCEL_DATENull() {
+                this[this.tableSP_ReportMasterList.CANCEL_DATEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetREJ_QTYNull() {
-                this[this.tableSP_ReportTindakanRemedial.REJ_QTYColumn] = global::System.Convert.DBNull;
+            public bool IsNAMANull() {
+                return this.IsNull(this.tableSP_ReportMasterList.NAMAColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsREJ_COST_MATERIALNull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.REJ_COST_MATERIALColumn);
+            public void SetNAMANull() {
+                this[this.tableSP_ReportMasterList.NAMAColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetREJ_COST_MATERIALNull() {
-                this[this.tableSP_ReportTindakanRemedial.REJ_COST_MATERIALColumn] = global::System.Convert.DBNull;
+            public bool IsAPPROVERNAMENull() {
+                return this.IsNull(this.tableSP_ReportMasterList.APPROVERNAMEColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsMC_SPAREPARTNull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.MC_SPAREPARTColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetMC_SPAREPARTNull() {
-                this[this.tableSP_ReportTindakanRemedial.MC_SPAREPARTColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsMC_TOTAL_HARGA_SPAREPARTNull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.MC_TOTAL_HARGA_SPAREPARTColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetMC_TOTAL_HARGA_SPAREPARTNull() {
-                this[this.tableSP_ReportTindakanRemedial.MC_TOTAL_HARGA_SPAREPARTColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsHASIL_TINDAKANNull() {
-                return this.IsNull(this.tableSP_ReportTindakanRemedial.HASIL_TINDAKANColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetHASIL_TINDAKANNull() {
-                this[this.tableSP_ReportTindakanRemedial.HASIL_TINDAKANColumn] = global::System.Convert.DBNull;
+            public void SetAPPROVERNAMENull() {
+                this[this.tableSP_ReportMasterList.APPROVERNAMEColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1255,22 +1052,22 @@ namespace B7_Deviation {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class SP_ReportTindakanRemedialRowChangeEvent : global::System.EventArgs {
+        public class SP_ReportMasterListRowChangeEvent : global::System.EventArgs {
             
-            private SP_ReportTindakanRemedialRow eventRow;
+            private SP_ReportMasterListRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportTindakanRemedialRowChangeEvent(SP_ReportTindakanRemedialRow row, global::System.Data.DataRowAction action) {
+            public SP_ReportMasterListRowChangeEvent(SP_ReportMasterListRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportTindakanRemedialRow Row {
+            public SP_ReportMasterListRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -1286,7 +1083,7 @@ namespace B7_Deviation {
         }
     }
 }
-namespace B7_Deviation.ReportTindakanRemedialDataSetTableAdapters {
+namespace B7_Deviation.DataSource.ReportMasterListDataSourceTableAdapters {
     
     
     /// <summary>
@@ -1298,7 +1095,7 @@ namespace B7_Deviation.ReportTindakanRemedialDataSetTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class SP_ReportTindakanRemedialTableAdapter : global::System.ComponentModel.Component {
+    public partial class SP_ReportMasterListTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -1312,7 +1109,7 @@ namespace B7_Deviation.ReportTindakanRemedialDataSetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public SP_ReportTindakanRemedialTableAdapter() {
+        public SP_ReportMasterListTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -1409,23 +1206,19 @@ namespace B7_Deviation.ReportTindakanRemedialDataSetTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "SP_ReportTindakanRemedial";
-            tableMapping.ColumnMappings.Add("KETERANGAN_DISPOSISI", "KETERANGAN_DISPOSISI");
-            tableMapping.ColumnMappings.Add("PIC_REMEDIAL_NAME", "PIC_REMEDIAL_NAME");
-            tableMapping.ColumnMappings.Add("PIC_REMEDIAL_NIK", "PIC_REMEDIAL_NIK");
-            tableMapping.ColumnMappings.Add("TESTING_JUMLAH_PELAKSANA", "TESTING_JUMLAH_PELAKSANA");
-            tableMapping.ColumnMappings.Add("TESTING_DURASI_PENGERJAAN", "TESTING_DURASI_PENGERJAAN");
-            tableMapping.ColumnMappings.Add("TESTING_MANHOURS_VALUE", "TESTING_MANHOURS_VALUE");
-            tableMapping.ColumnMappings.Add("TESTING_COST_OF_ANALYSIS", "TESTING_COST_OF_ANALYSIS");
-            tableMapping.ColumnMappings.Add("PROC_JUMLAH_PELAKSANA", "PROC_JUMLAH_PELAKSANA");
-            tableMapping.ColumnMappings.Add("PROC_DURASI_PENGERJAAN", "PROC_DURASI_PENGERJAAN");
-            tableMapping.ColumnMappings.Add("PROC_MANHOURS_VALUE", "PROC_MANHOURS_VALUE");
-            tableMapping.ColumnMappings.Add("REJ_MATERIAL", "REJ_MATERIAL");
-            tableMapping.ColumnMappings.Add("REJ_QTY", "REJ_QTY");
-            tableMapping.ColumnMappings.Add("REJ_COST_MATERIAL", "REJ_COST_MATERIAL");
-            tableMapping.ColumnMappings.Add("MC_SPAREPART", "MC_SPAREPART");
-            tableMapping.ColumnMappings.Add("MC_TOTAL_HARGA_SPAREPART", "MC_TOTAL_HARGA_SPAREPART");
-            tableMapping.ColumnMappings.Add("HASIL_TINDAKAN", "HASIL_TINDAKAN");
+            tableMapping.DataSetTable = "SP_ReportMasterList";
+            tableMapping.ColumnMappings.Add("CREATION_DATE", "CREATION_DATE");
+            tableMapping.ColumnMappings.Add("DEVIATION_NO", "DEVIATION_NO");
+            tableMapping.ColumnMappings.Add("EmpName", "EmpName");
+            tableMapping.ColumnMappings.Add("DEVIATION_CATEGORY", "DEVIATION_CATEGORY");
+            tableMapping.ColumnMappings.Add("PLAN_DEV", "PLAN_DEV");
+            tableMapping.ColumnMappings.Add("STATUS", "STATUS");
+            tableMapping.ColumnMappings.Add("NO_CARPAR", "NO_CARPAR");
+            tableMapping.ColumnMappings.Add("CLOSED_DATE", "CLOSED_DATE");
+            tableMapping.ColumnMappings.Add("ALASAN_CANCEL", "ALASAN_CANCEL");
+            tableMapping.ColumnMappings.Add("CANCEL_DATE", "CANCEL_DATE");
+            tableMapping.ColumnMappings.Add("NAMA", "NAMA");
+            tableMapping.ColumnMappings.Add("APPROVERNAME", "APPROVERNAME");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1442,23 +1235,23 @@ namespace B7_Deviation.ReportTindakanRemedialDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.SP_ReportTindakanRemedial";
+            this._commandCollection[0].CommandText = "dbo.SP_ReportMasterList";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nama", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ReportTindakanRemedialDataSet.SP_ReportTindakanRemedialDataTable dataTable, string Nomor) {
+        public virtual int Fill(ReportMasterListDataSource.SP_ReportMasterListDataTable dataTable, string Nama) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((Nomor == null)) {
+            if ((Nama == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nomor));
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nama));
             }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -1471,15 +1264,15 @@ namespace B7_Deviation.ReportTindakanRemedialDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ReportTindakanRemedialDataSet.SP_ReportTindakanRemedialDataTable GetData(string Nomor) {
+        public virtual ReportMasterListDataSource.SP_ReportMasterListDataTable GetData(string Nama) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((Nomor == null)) {
+            if ((Nama == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nomor));
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nama));
             }
-            ReportTindakanRemedialDataSet.SP_ReportTindakanRemedialDataTable dataTable = new ReportTindakanRemedialDataSet.SP_ReportTindakanRemedialDataTable();
+            ReportMasterListDataSource.SP_ReportMasterListDataTable dataTable = new ReportMasterListDataSource.SP_ReportMasterListDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -1553,7 +1346,7 @@ namespace B7_Deviation.ReportTindakanRemedialDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(ReportTindakanRemedialDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(ReportMasterListDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1563,7 +1356,7 @@ namespace B7_Deviation.ReportTindakanRemedialDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(ReportTindakanRemedialDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(ReportMasterListDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1573,7 +1366,7 @@ namespace B7_Deviation.ReportTindakanRemedialDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(ReportTindakanRemedialDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(ReportMasterListDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -1607,7 +1400,7 @@ namespace B7_Deviation.ReportTindakanRemedialDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(ReportTindakanRemedialDataSet dataSet) {
+        public virtual int UpdateAll(ReportMasterListDataSource dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

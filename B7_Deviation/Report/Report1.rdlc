@@ -7673,7 +7673,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>B7_QUALITY_SYSTEMData</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_Deviation\B7_Deviation\B7_QUALITY_SYSTEMData.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\B7_QUALITY_SYSTEMData.xsd</rd:SchemaPath>
         <rd:TableName>SP_Report</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -7709,7 +7709,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>B7_QUALITY_SYSTEMUserInvolved</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\ignatius.kurniawan\Source\Repos\ignatiusipin\B7_Deviation\B7_Deviation\B7_QUALITY_SYSTEMUserInvolved.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\B7_QUALITY_SYSTEMUserInvolved.xsd</rd:SchemaPath>
         <rd:TableName>SP_UserInvolvedTable</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -7741,7 +7741,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>AttachmentDataSource</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_Deviation\B7_Deviation\AttachmentDataSource.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\AttachmentDataSource.xsd</rd:SchemaPath>
         <rd:TableName>SP_Attach</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -7797,7 +7797,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>FormDetailDataSet</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_Deviation\B7_Deviation\FormDetailDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\FormDetailDataSet.xsd</rd:SchemaPath>
         <rd:TableName>SP_FormDetail</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -7817,7 +7817,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportBagianTerkaitDataSource</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_Deviation\B7_Deviation\ReportBagianTerkaitDataSource.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\ReportBagianTerkaitDataSource.xsd</rd:SchemaPath>
         <rd:TableName>SP_ReportBagianTerkait</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -7881,7 +7881,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportReviewerDataSource</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_Deviation\B7_Deviation\ReportReviewerDataSource.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\ReportReviewerDataSource.xsd</rd:SchemaPath>
         <rd:TableName>SP_ReportReviewer</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -7965,7 +7965,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportFileReviewerDataSource</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_Deviation\B7_Deviation\ReportFileReviewerDataSource.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\ReportFileReviewerDataSource.xsd</rd:SchemaPath>
         <rd:TableName>SP_ReportFileReviewer</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -7985,7 +7985,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportKoordinatorDataSource</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_Deviation\B7_Deviation\ReportKoordinatorDataSource.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\ReportKoordinatorDataSource.xsd</rd:SchemaPath>
         <rd:TableName>SP_ReportKoordinator</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -8021,7 +8021,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportPICTableDataSource</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_Deviation\B7_Deviation\ReportPICTableDataSource.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\ReportPICTableDataSource.xsd</rd:SchemaPath>
         <rd:TableName>SP_ReportPICTable</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -8045,7 +8045,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportNamaManagerDelegasiDataSource</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\ignatius.kurniawan\Source\Repos\ignatiusipin\B7_Deviation\B7_Deviation\ReportNamaManagerDelegasiDataSource.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\ReportNamaManagerDelegasiDataSource.xsd</rd:SchemaPath>
         <rd:TableName>SP_ReportNamaManagerDelegasi</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -8125,7 +8125,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportTindakanRemedialDataSet</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_Deviation\B7_Deviation\ReportTindakanRemedialDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\ReportTindakanRemedialDataSet.xsd</rd:SchemaPath>
         <rd:TableName>SP_ReportTindakanRemedial</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -8149,7 +8149,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportBuktiTindakanRemedialDataSource</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_Deviation\B7_Deviation\ReportBuktiTindakanRemedialDataSource.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\ReportBuktiTindakanRemedialDataSource.xsd</rd:SchemaPath>
         <rd:TableName>SP_ReportBuktiTindakanRemedial</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -8193,7 +8193,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportCarParDataSource</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_Deviation\B7_Deviation\ReportCarParDataSource.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Ignatius Irvin\source\repos\B7_Deviation\B7_Deviation\DataSource\ReportCarParDataSource.xsd</rd:SchemaPath>
         <rd:TableName>SP_ReportCarPar</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

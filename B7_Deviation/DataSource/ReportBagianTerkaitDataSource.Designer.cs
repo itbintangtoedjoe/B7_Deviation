@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_Deviation {
+namespace B7_Deviation.DataSource {
     
     
     /// <summary>
@@ -20,17 +20,17 @@ namespace B7_Deviation {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("ReportMasterListDataSource")]
+    [global::System.Xml.Serialization.XmlRootAttribute("ReportBagianTerkaitDataSource")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class ReportMasterListDataSource : global::System.Data.DataSet {
+    public partial class ReportBagianTerkaitDataSource : global::System.Data.DataSet {
         
-        private SP_ReportMasterListDataTable tableSP_ReportMasterList;
+        private SP_ReportBagianTerkaitDataTable tableSP_ReportBagianTerkait;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public ReportMasterListDataSource() {
+        public ReportBagianTerkaitDataSource() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace B7_Deviation {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected ReportMasterListDataSource(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected ReportBagianTerkaitDataSource(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace B7_Deviation {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["SP_ReportMasterList"] != null)) {
-                    base.Tables.Add(new SP_ReportMasterListDataTable(ds.Tables["SP_ReportMasterList"]));
+                if ((ds.Tables["SP_ReportBagianTerkait"] != null)) {
+                    base.Tables.Add(new SP_ReportBagianTerkaitDataTable(ds.Tables["SP_ReportBagianTerkait"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace B7_Deviation {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public SP_ReportMasterListDataTable SP_ReportMasterList {
+        public SP_ReportBagianTerkaitDataTable SP_ReportBagianTerkait {
             get {
-                return this.tableSP_ReportMasterList;
+                return this.tableSP_ReportBagianTerkait;
             }
         }
         
@@ -127,7 +127,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            ReportMasterListDataSource cln = ((ReportMasterListDataSource)(base.Clone()));
+            ReportBagianTerkaitDataSource cln = ((ReportBagianTerkaitDataSource)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace B7_Deviation {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["SP_ReportMasterList"] != null)) {
-                    base.Tables.Add(new SP_ReportMasterListDataTable(ds.Tables["SP_ReportMasterList"]));
+                if ((ds.Tables["SP_ReportBagianTerkait"] != null)) {
+                    base.Tables.Add(new SP_ReportBagianTerkaitDataTable(ds.Tables["SP_ReportBagianTerkait"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableSP_ReportMasterList = ((SP_ReportMasterListDataTable)(base.Tables["SP_ReportMasterList"]));
+            this.tableSP_ReportBagianTerkait = ((SP_ReportBagianTerkaitDataTable)(base.Tables["SP_ReportBagianTerkait"]));
             if ((initTable == true)) {
-                if ((this.tableSP_ReportMasterList != null)) {
-                    this.tableSP_ReportMasterList.InitVars();
+                if ((this.tableSP_ReportBagianTerkait != null)) {
+                    this.tableSP_ReportBagianTerkait.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "ReportMasterListDataSource";
+            this.DataSetName = "ReportBagianTerkaitDataSource";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/ReportMasterListDataSource.xsd";
+            this.Namespace = "http://tempuri.org/ReportBagianTerkaitDataSource.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableSP_ReportMasterList = new SP_ReportMasterListDataTable();
-            base.Tables.Add(this.tableSP_ReportMasterList);
+            this.tableSP_ReportBagianTerkait = new SP_ReportBagianTerkaitDataTable();
+            base.Tables.Add(this.tableSP_ReportBagianTerkait);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeSP_ReportMasterList() {
+        private bool ShouldSerializeSP_ReportBagianTerkait() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            ReportMasterListDataSource ds = new ReportMasterListDataSource();
+            ReportBagianTerkaitDataSource ds = new ReportBagianTerkaitDataSource();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,43 +270,21 @@ namespace B7_Deviation {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void SP_ReportMasterListRowChangeEventHandler(object sender, SP_ReportMasterListRowChangeEvent e);
+        public delegate void SP_ReportBagianTerkaitRowChangeEventHandler(object sender, SP_ReportBagianTerkaitRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class SP_ReportMasterListDataTable : global::System.Data.TypedTableBase<SP_ReportMasterListRow> {
+        public partial class SP_ReportBagianTerkaitDataTable : global::System.Data.TypedTableBase<SP_ReportBagianTerkaitRow> {
             
-            private global::System.Data.DataColumn columnCREATION_DATE;
-            
-            private global::System.Data.DataColumn columnDEVIATION_NO;
-            
-            private global::System.Data.DataColumn columnEmpName;
-            
-            private global::System.Data.DataColumn columnDEVIATION_CATEGORY;
-            
-            private global::System.Data.DataColumn columnPLAN_DEV;
-            
-            private global::System.Data.DataColumn columnSTATUS;
-            
-            private global::System.Data.DataColumn columnNO_CARPAR;
-            
-            private global::System.Data.DataColumn columnCLOSED_DATE;
-            
-            private global::System.Data.DataColumn columnALASAN_CANCEL;
-            
-            private global::System.Data.DataColumn columnCANCEL_DATE;
-            
-            private global::System.Data.DataColumn columnNAMA;
-            
-            private global::System.Data.DataColumn columnAPPROVERNAME;
+            private global::System.Data.DataColumn columnOrgGroupName;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportMasterListDataTable() {
-                this.TableName = "SP_ReportMasterList";
+            public SP_ReportBagianTerkaitDataTable() {
+                this.TableName = "SP_ReportBagianTerkait";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -314,7 +292,7 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_ReportMasterListDataTable(global::System.Data.DataTable table) {
+            internal SP_ReportBagianTerkaitDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -331,104 +309,16 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected SP_ReportMasterListDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected SP_ReportBagianTerkaitDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn CREATION_DATEColumn {
+            public global::System.Data.DataColumn OrgGroupNameColumn {
                 get {
-                    return this.columnCREATION_DATE;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DEVIATION_NOColumn {
-                get {
-                    return this.columnDEVIATION_NO;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn EmpNameColumn {
-                get {
-                    return this.columnEmpName;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DEVIATION_CATEGORYColumn {
-                get {
-                    return this.columnDEVIATION_CATEGORY;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PLAN_DEVColumn {
-                get {
-                    return this.columnPLAN_DEV;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn STATUSColumn {
-                get {
-                    return this.columnSTATUS;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn NO_CARPARColumn {
-                get {
-                    return this.columnNO_CARPAR;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn CLOSED_DATEColumn {
-                get {
-                    return this.columnCLOSED_DATE;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ALASAN_CANCELColumn {
-                get {
-                    return this.columnALASAN_CANCEL;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn CANCEL_DATEColumn {
-                get {
-                    return this.columnCANCEL_DATE;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn NAMAColumn {
-                get {
-                    return this.columnNAMA;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn APPROVERNAMEColumn {
-                get {
-                    return this.columnAPPROVERNAME;
+                    return this.columnOrgGroupName;
                 }
             }
             
@@ -443,56 +333,45 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportMasterListRow this[int index] {
+            public SP_ReportBagianTerkaitRow this[int index] {
                 get {
-                    return ((SP_ReportMasterListRow)(this.Rows[index]));
+                    return ((SP_ReportBagianTerkaitRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportMasterListRowChangeEventHandler SP_ReportMasterListRowChanging;
+            public event SP_ReportBagianTerkaitRowChangeEventHandler SP_ReportBagianTerkaitRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportMasterListRowChangeEventHandler SP_ReportMasterListRowChanged;
+            public event SP_ReportBagianTerkaitRowChangeEventHandler SP_ReportBagianTerkaitRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportMasterListRowChangeEventHandler SP_ReportMasterListRowDeleting;
+            public event SP_ReportBagianTerkaitRowChangeEventHandler SP_ReportBagianTerkaitRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportMasterListRowChangeEventHandler SP_ReportMasterListRowDeleted;
+            public event SP_ReportBagianTerkaitRowChangeEventHandler SP_ReportBagianTerkaitRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddSP_ReportMasterListRow(SP_ReportMasterListRow row) {
+            public void AddSP_ReportBagianTerkaitRow(SP_ReportBagianTerkaitRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportMasterListRow AddSP_ReportMasterListRow(string CREATION_DATE, string DEVIATION_NO, string EmpName, string DEVIATION_CATEGORY, string PLAN_DEV, string STATUS, string NO_CARPAR, string CLOSED_DATE, string ALASAN_CANCEL, string CANCEL_DATE, string NAMA, string APPROVERNAME) {
-                SP_ReportMasterListRow rowSP_ReportMasterListRow = ((SP_ReportMasterListRow)(this.NewRow()));
+            public SP_ReportBagianTerkaitRow AddSP_ReportBagianTerkaitRow(string OrgGroupName) {
+                SP_ReportBagianTerkaitRow rowSP_ReportBagianTerkaitRow = ((SP_ReportBagianTerkaitRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        CREATION_DATE,
-                        DEVIATION_NO,
-                        EmpName,
-                        DEVIATION_CATEGORY,
-                        PLAN_DEV,
-                        STATUS,
-                        NO_CARPAR,
-                        CLOSED_DATE,
-                        ALASAN_CANCEL,
-                        CANCEL_DATE,
-                        NAMA,
-                        APPROVERNAME};
-                rowSP_ReportMasterListRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowSP_ReportMasterListRow);
-                return rowSP_ReportMasterListRow;
+                        OrgGroupName};
+                rowSP_ReportBagianTerkaitRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSP_ReportBagianTerkaitRow);
+                return rowSP_ReportBagianTerkaitRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                SP_ReportMasterListDataTable cln = ((SP_ReportMasterListDataTable)(base.Clone()));
+                SP_ReportBagianTerkaitDataTable cln = ((SP_ReportBagianTerkaitDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -500,102 +379,47 @@ namespace B7_Deviation {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new SP_ReportMasterListDataTable();
+                return new SP_ReportBagianTerkaitDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnCREATION_DATE = base.Columns["CREATION_DATE"];
-                this.columnDEVIATION_NO = base.Columns["DEVIATION_NO"];
-                this.columnEmpName = base.Columns["EmpName"];
-                this.columnDEVIATION_CATEGORY = base.Columns["DEVIATION_CATEGORY"];
-                this.columnPLAN_DEV = base.Columns["PLAN_DEV"];
-                this.columnSTATUS = base.Columns["STATUS"];
-                this.columnNO_CARPAR = base.Columns["NO_CARPAR"];
-                this.columnCLOSED_DATE = base.Columns["CLOSED_DATE"];
-                this.columnALASAN_CANCEL = base.Columns["ALASAN_CANCEL"];
-                this.columnCANCEL_DATE = base.Columns["CANCEL_DATE"];
-                this.columnNAMA = base.Columns["NAMA"];
-                this.columnAPPROVERNAME = base.Columns["APPROVERNAME"];
+                this.columnOrgGroupName = base.Columns["OrgGroupName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnCREATION_DATE = new global::System.Data.DataColumn("CREATION_DATE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCREATION_DATE);
-                this.columnDEVIATION_NO = new global::System.Data.DataColumn("DEVIATION_NO", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDEVIATION_NO);
-                this.columnEmpName = new global::System.Data.DataColumn("EmpName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEmpName);
-                this.columnDEVIATION_CATEGORY = new global::System.Data.DataColumn("DEVIATION_CATEGORY", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDEVIATION_CATEGORY);
-                this.columnPLAN_DEV = new global::System.Data.DataColumn("PLAN_DEV", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPLAN_DEV);
-                this.columnSTATUS = new global::System.Data.DataColumn("STATUS", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSTATUS);
-                this.columnNO_CARPAR = new global::System.Data.DataColumn("NO_CARPAR", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNO_CARPAR);
-                this.columnCLOSED_DATE = new global::System.Data.DataColumn("CLOSED_DATE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCLOSED_DATE);
-                this.columnALASAN_CANCEL = new global::System.Data.DataColumn("ALASAN_CANCEL", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnALASAN_CANCEL);
-                this.columnCANCEL_DATE = new global::System.Data.DataColumn("CANCEL_DATE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCANCEL_DATE);
-                this.columnNAMA = new global::System.Data.DataColumn("NAMA", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNAMA);
-                this.columnAPPROVERNAME = new global::System.Data.DataColumn("APPROVERNAME", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAPPROVERNAME);
-                this.columnCREATION_DATE.ReadOnly = true;
-                this.columnCREATION_DATE.MaxLength = 50;
-                this.columnDEVIATION_NO.MaxLength = 50;
-                this.columnEmpName.ReadOnly = true;
-                this.columnEmpName.MaxLength = 80;
-                this.columnDEVIATION_CATEGORY.ReadOnly = true;
-                this.columnDEVIATION_CATEGORY.MaxLength = 500;
-                this.columnPLAN_DEV.ReadOnly = true;
-                this.columnPLAN_DEV.MaxLength = 28;
-                this.columnSTATUS.ReadOnly = true;
-                this.columnSTATUS.MaxLength = 200;
-                this.columnNO_CARPAR.ReadOnly = true;
-                this.columnNO_CARPAR.MaxLength = 2000;
-                this.columnCLOSED_DATE.ReadOnly = true;
-                this.columnCLOSED_DATE.MaxLength = 50;
-                this.columnALASAN_CANCEL.ReadOnly = true;
-                this.columnALASAN_CANCEL.MaxLength = 2000;
-                this.columnCANCEL_DATE.ReadOnly = true;
-                this.columnCANCEL_DATE.MaxLength = 50;
-                this.columnNAMA.ReadOnly = true;
-                this.columnNAMA.MaxLength = 100;
-                this.columnAPPROVERNAME.ReadOnly = true;
-                this.columnAPPROVERNAME.MaxLength = 2000;
+                this.columnOrgGroupName = new global::System.Data.DataColumn("OrgGroupName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOrgGroupName);
+                this.columnOrgGroupName.MaxLength = 40;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportMasterListRow NewSP_ReportMasterListRow() {
-                return ((SP_ReportMasterListRow)(this.NewRow()));
+            public SP_ReportBagianTerkaitRow NewSP_ReportBagianTerkaitRow() {
+                return ((SP_ReportBagianTerkaitRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new SP_ReportMasterListRow(builder);
+                return new SP_ReportBagianTerkaitRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(SP_ReportMasterListRow);
+                return typeof(SP_ReportBagianTerkaitRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.SP_ReportMasterListRowChanged != null)) {
-                    this.SP_ReportMasterListRowChanged(this, new SP_ReportMasterListRowChangeEvent(((SP_ReportMasterListRow)(e.Row)), e.Action));
+                if ((this.SP_ReportBagianTerkaitRowChanged != null)) {
+                    this.SP_ReportBagianTerkaitRowChanged(this, new SP_ReportBagianTerkaitRowChangeEvent(((SP_ReportBagianTerkaitRow)(e.Row)), e.Action));
                 }
             }
             
@@ -603,8 +427,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.SP_ReportMasterListRowChanging != null)) {
-                    this.SP_ReportMasterListRowChanging(this, new SP_ReportMasterListRowChangeEvent(((SP_ReportMasterListRow)(e.Row)), e.Action));
+                if ((this.SP_ReportBagianTerkaitRowChanging != null)) {
+                    this.SP_ReportBagianTerkaitRowChanging(this, new SP_ReportBagianTerkaitRowChangeEvent(((SP_ReportBagianTerkaitRow)(e.Row)), e.Action));
                 }
             }
             
@@ -612,8 +436,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.SP_ReportMasterListRowDeleted != null)) {
-                    this.SP_ReportMasterListRowDeleted(this, new SP_ReportMasterListRowChangeEvent(((SP_ReportMasterListRow)(e.Row)), e.Action));
+                if ((this.SP_ReportBagianTerkaitRowDeleted != null)) {
+                    this.SP_ReportBagianTerkaitRowDeleted(this, new SP_ReportBagianTerkaitRowChangeEvent(((SP_ReportBagianTerkaitRow)(e.Row)), e.Action));
                 }
             }
             
@@ -621,14 +445,14 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.SP_ReportMasterListRowDeleting != null)) {
-                    this.SP_ReportMasterListRowDeleting(this, new SP_ReportMasterListRowChangeEvent(((SP_ReportMasterListRow)(e.Row)), e.Action));
+                if ((this.SP_ReportBagianTerkaitRowDeleting != null)) {
+                    this.SP_ReportBagianTerkaitRowDeleting(this, new SP_ReportBagianTerkaitRowChangeEvent(((SP_ReportBagianTerkaitRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveSP_ReportMasterListRow(SP_ReportMasterListRow row) {
+            public void RemoveSP_ReportBagianTerkaitRow(SP_ReportBagianTerkaitRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -637,7 +461,7 @@ namespace B7_Deviation {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ReportMasterListDataSource ds = new ReportMasterListDataSource();
+                ReportBagianTerkaitDataSource ds = new ReportBagianTerkaitDataSource();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -655,7 +479,7 @@ namespace B7_Deviation {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "SP_ReportMasterListDataTable";
+                attribute2.FixedValue = "SP_ReportBagianTerkaitDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -699,352 +523,43 @@ namespace B7_Deviation {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class SP_ReportMasterListRow : global::System.Data.DataRow {
+        public partial class SP_ReportBagianTerkaitRow : global::System.Data.DataRow {
             
-            private SP_ReportMasterListDataTable tableSP_ReportMasterList;
+            private SP_ReportBagianTerkaitDataTable tableSP_ReportBagianTerkait;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_ReportMasterListRow(global::System.Data.DataRowBuilder rb) : 
+            internal SP_ReportBagianTerkaitRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableSP_ReportMasterList = ((SP_ReportMasterListDataTable)(this.Table));
+                this.tableSP_ReportBagianTerkait = ((SP_ReportBagianTerkaitDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string CREATION_DATE {
+            public string OrgGroupName {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_ReportMasterList.CREATION_DATEColumn]));
+                        return ((string)(this[this.tableSP_ReportBagianTerkait.OrgGroupNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CREATION_DATE\' in table \'SP_ReportMasterList\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'OrgGroupName\' in table \'SP_ReportBagianTerkait\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportMasterList.CREATION_DATEColumn] = value;
+                    this[this.tableSP_ReportBagianTerkait.OrgGroupNameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DEVIATION_NO {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportMasterList.DEVIATION_NOColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DEVIATION_NO\' in table \'SP_ReportMasterList\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportMasterList.DEVIATION_NOColumn] = value;
-                }
+            public bool IsOrgGroupNameNull() {
+                return this.IsNull(this.tableSP_ReportBagianTerkait.OrgGroupNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string EmpName {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportMasterList.EmpNameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'EmpName\' in table \'SP_ReportMasterList\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportMasterList.EmpNameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DEVIATION_CATEGORY {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportMasterList.DEVIATION_CATEGORYColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DEVIATION_CATEGORY\' in table \'SP_ReportMasterList\' is DBNul" +
-                                "l.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportMasterList.DEVIATION_CATEGORYColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PLAN_DEV {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportMasterList.PLAN_DEVColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PLAN_DEV\' in table \'SP_ReportMasterList\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportMasterList.PLAN_DEVColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string STATUS {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportMasterList.STATUSColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'STATUS\' in table \'SP_ReportMasterList\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportMasterList.STATUSColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string NO_CARPAR {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportMasterList.NO_CARPARColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NO_CARPAR\' in table \'SP_ReportMasterList\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportMasterList.NO_CARPARColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string CLOSED_DATE {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportMasterList.CLOSED_DATEColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CLOSED_DATE\' in table \'SP_ReportMasterList\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportMasterList.CLOSED_DATEColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string ALASAN_CANCEL {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportMasterList.ALASAN_CANCELColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ALASAN_CANCEL\' in table \'SP_ReportMasterList\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportMasterList.ALASAN_CANCELColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string CANCEL_DATE {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportMasterList.CANCEL_DATEColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CANCEL_DATE\' in table \'SP_ReportMasterList\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportMasterList.CANCEL_DATEColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string NAMA {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportMasterList.NAMAColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NAMA\' in table \'SP_ReportMasterList\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportMasterList.NAMAColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string APPROVERNAME {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportMasterList.APPROVERNAMEColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'APPROVERNAME\' in table \'SP_ReportMasterList\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportMasterList.APPROVERNAMEColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsCREATION_DATENull() {
-                return this.IsNull(this.tableSP_ReportMasterList.CREATION_DATEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetCREATION_DATENull() {
-                this[this.tableSP_ReportMasterList.CREATION_DATEColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDEVIATION_NONull() {
-                return this.IsNull(this.tableSP_ReportMasterList.DEVIATION_NOColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDEVIATION_NONull() {
-                this[this.tableSP_ReportMasterList.DEVIATION_NOColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsEmpNameNull() {
-                return this.IsNull(this.tableSP_ReportMasterList.EmpNameColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetEmpNameNull() {
-                this[this.tableSP_ReportMasterList.EmpNameColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDEVIATION_CATEGORYNull() {
-                return this.IsNull(this.tableSP_ReportMasterList.DEVIATION_CATEGORYColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDEVIATION_CATEGORYNull() {
-                this[this.tableSP_ReportMasterList.DEVIATION_CATEGORYColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPLAN_DEVNull() {
-                return this.IsNull(this.tableSP_ReportMasterList.PLAN_DEVColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPLAN_DEVNull() {
-                this[this.tableSP_ReportMasterList.PLAN_DEVColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsSTATUSNull() {
-                return this.IsNull(this.tableSP_ReportMasterList.STATUSColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetSTATUSNull() {
-                this[this.tableSP_ReportMasterList.STATUSColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsNO_CARPARNull() {
-                return this.IsNull(this.tableSP_ReportMasterList.NO_CARPARColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetNO_CARPARNull() {
-                this[this.tableSP_ReportMasterList.NO_CARPARColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsCLOSED_DATENull() {
-                return this.IsNull(this.tableSP_ReportMasterList.CLOSED_DATEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetCLOSED_DATENull() {
-                this[this.tableSP_ReportMasterList.CLOSED_DATEColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsALASAN_CANCELNull() {
-                return this.IsNull(this.tableSP_ReportMasterList.ALASAN_CANCELColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetALASAN_CANCELNull() {
-                this[this.tableSP_ReportMasterList.ALASAN_CANCELColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsCANCEL_DATENull() {
-                return this.IsNull(this.tableSP_ReportMasterList.CANCEL_DATEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetCANCEL_DATENull() {
-                this[this.tableSP_ReportMasterList.CANCEL_DATEColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsNAMANull() {
-                return this.IsNull(this.tableSP_ReportMasterList.NAMAColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetNAMANull() {
-                this[this.tableSP_ReportMasterList.NAMAColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsAPPROVERNAMENull() {
-                return this.IsNull(this.tableSP_ReportMasterList.APPROVERNAMEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetAPPROVERNAMENull() {
-                this[this.tableSP_ReportMasterList.APPROVERNAMEColumn] = global::System.Convert.DBNull;
+            public void SetOrgGroupNameNull() {
+                this[this.tableSP_ReportBagianTerkait.OrgGroupNameColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1052,22 +567,22 @@ namespace B7_Deviation {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class SP_ReportMasterListRowChangeEvent : global::System.EventArgs {
+        public class SP_ReportBagianTerkaitRowChangeEvent : global::System.EventArgs {
             
-            private SP_ReportMasterListRow eventRow;
+            private SP_ReportBagianTerkaitRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportMasterListRowChangeEvent(SP_ReportMasterListRow row, global::System.Data.DataRowAction action) {
+            public SP_ReportBagianTerkaitRowChangeEvent(SP_ReportBagianTerkaitRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportMasterListRow Row {
+            public SP_ReportBagianTerkaitRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -1083,7 +598,7 @@ namespace B7_Deviation {
         }
     }
 }
-namespace B7_Deviation.ReportMasterListDataSourceTableAdapters {
+namespace B7_Deviation.DataSource.ReportBagianTerkaitDataSourceTableAdapters {
     
     
     /// <summary>
@@ -1095,7 +610,7 @@ namespace B7_Deviation.ReportMasterListDataSourceTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class SP_ReportMasterListTableAdapter : global::System.ComponentModel.Component {
+    public partial class SP_ReportBagianTerkaitTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -1109,7 +624,7 @@ namespace B7_Deviation.ReportMasterListDataSourceTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public SP_ReportMasterListTableAdapter() {
+        public SP_ReportBagianTerkaitTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -1206,19 +721,8 @@ namespace B7_Deviation.ReportMasterListDataSourceTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "SP_ReportMasterList";
-            tableMapping.ColumnMappings.Add("CREATION_DATE", "CREATION_DATE");
-            tableMapping.ColumnMappings.Add("DEVIATION_NO", "DEVIATION_NO");
-            tableMapping.ColumnMappings.Add("EmpName", "EmpName");
-            tableMapping.ColumnMappings.Add("DEVIATION_CATEGORY", "DEVIATION_CATEGORY");
-            tableMapping.ColumnMappings.Add("PLAN_DEV", "PLAN_DEV");
-            tableMapping.ColumnMappings.Add("STATUS", "STATUS");
-            tableMapping.ColumnMappings.Add("NO_CARPAR", "NO_CARPAR");
-            tableMapping.ColumnMappings.Add("CLOSED_DATE", "CLOSED_DATE");
-            tableMapping.ColumnMappings.Add("ALASAN_CANCEL", "ALASAN_CANCEL");
-            tableMapping.ColumnMappings.Add("CANCEL_DATE", "CANCEL_DATE");
-            tableMapping.ColumnMappings.Add("NAMA", "NAMA");
-            tableMapping.ColumnMappings.Add("APPROVERNAME", "APPROVERNAME");
+            tableMapping.DataSetTable = "SP_ReportBagianTerkait";
+            tableMapping.ColumnMappings.Add("OrgGroupName", "OrgGroupName");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1235,23 +739,23 @@ namespace B7_Deviation.ReportMasterListDataSourceTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.SP_ReportMasterList";
+            this._commandCollection[0].CommandText = "dbo.SP_ReportBagianTerkait";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nama", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ReportMasterListDataSource.SP_ReportMasterListDataTable dataTable, string Nama) {
+        public virtual int Fill(ReportBagianTerkaitDataSource.SP_ReportBagianTerkaitDataTable dataTable, string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((Nama == null)) {
+            if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nama));
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nomor));
             }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -1264,15 +768,15 @@ namespace B7_Deviation.ReportMasterListDataSourceTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ReportMasterListDataSource.SP_ReportMasterListDataTable GetData(string Nama) {
+        public virtual ReportBagianTerkaitDataSource.SP_ReportBagianTerkaitDataTable GetData(string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((Nama == null)) {
+            if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nama));
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nomor));
             }
-            ReportMasterListDataSource.SP_ReportMasterListDataTable dataTable = new ReportMasterListDataSource.SP_ReportMasterListDataTable();
+            ReportBagianTerkaitDataSource.SP_ReportBagianTerkaitDataTable dataTable = new ReportBagianTerkaitDataSource.SP_ReportBagianTerkaitDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -1346,7 +850,7 @@ namespace B7_Deviation.ReportMasterListDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(ReportMasterListDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(ReportBagianTerkaitDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1356,7 +860,7 @@ namespace B7_Deviation.ReportMasterListDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(ReportMasterListDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(ReportBagianTerkaitDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1366,7 +870,7 @@ namespace B7_Deviation.ReportMasterListDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(ReportMasterListDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(ReportBagianTerkaitDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -1400,7 +904,7 @@ namespace B7_Deviation.ReportMasterListDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(ReportMasterListDataSource dataSet) {
+        public virtual int UpdateAll(ReportBagianTerkaitDataSource dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

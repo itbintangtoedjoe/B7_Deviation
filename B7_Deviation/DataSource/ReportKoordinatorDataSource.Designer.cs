@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_Deviation {
+namespace B7_Deviation.DataSource {
     
     
     /// <summary>
@@ -20,17 +20,17 @@ namespace B7_Deviation {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("ReportPICTableDataSource")]
+    [global::System.Xml.Serialization.XmlRootAttribute("ReportKoordinatorDataSource")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class ReportPICTableDataSource : global::System.Data.DataSet {
+    public partial class ReportKoordinatorDataSource : global::System.Data.DataSet {
         
-        private SP_ReportPICTableDataTable tableSP_ReportPICTable;
+        private SP_ReportKoordinatorDataTable tableSP_ReportKoordinator;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public ReportPICTableDataSource() {
+        public ReportKoordinatorDataSource() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace B7_Deviation {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected ReportPICTableDataSource(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected ReportKoordinatorDataSource(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace B7_Deviation {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["SP_ReportPICTable"] != null)) {
-                    base.Tables.Add(new SP_ReportPICTableDataTable(ds.Tables["SP_ReportPICTable"]));
+                if ((ds.Tables["SP_ReportKoordinator"] != null)) {
+                    base.Tables.Add(new SP_ReportKoordinatorDataTable(ds.Tables["SP_ReportKoordinator"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace B7_Deviation {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public SP_ReportPICTableDataTable SP_ReportPICTable {
+        public SP_ReportKoordinatorDataTable SP_ReportKoordinator {
             get {
-                return this.tableSP_ReportPICTable;
+                return this.tableSP_ReportKoordinator;
             }
         }
         
@@ -127,7 +127,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            ReportPICTableDataSource cln = ((ReportPICTableDataSource)(base.Clone()));
+            ReportKoordinatorDataSource cln = ((ReportKoordinatorDataSource)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace B7_Deviation {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["SP_ReportPICTable"] != null)) {
-                    base.Tables.Add(new SP_ReportPICTableDataTable(ds.Tables["SP_ReportPICTable"]));
+                if ((ds.Tables["SP_ReportKoordinator"] != null)) {
+                    base.Tables.Add(new SP_ReportKoordinatorDataTable(ds.Tables["SP_ReportKoordinator"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableSP_ReportPICTable = ((SP_ReportPICTableDataTable)(base.Tables["SP_ReportPICTable"]));
+            this.tableSP_ReportKoordinator = ((SP_ReportKoordinatorDataTable)(base.Tables["SP_ReportKoordinator"]));
             if ((initTable == true)) {
-                if ((this.tableSP_ReportPICTable != null)) {
-                    this.tableSP_ReportPICTable.InitVars();
+                if ((this.tableSP_ReportKoordinator != null)) {
+                    this.tableSP_ReportKoordinator.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "ReportPICTableDataSource";
+            this.DataSetName = "ReportKoordinatorDataSource";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/ReportPICTableDataSource.xsd";
+            this.Namespace = "http://tempuri.org/ReportKoordinatorDataSource.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableSP_ReportPICTable = new SP_ReportPICTableDataTable();
-            base.Tables.Add(this.tableSP_ReportPICTable);
+            this.tableSP_ReportKoordinator = new SP_ReportKoordinatorDataTable();
+            base.Tables.Add(this.tableSP_ReportKoordinator);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeSP_ReportPICTable() {
+        private bool ShouldSerializeSP_ReportKoordinator() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            ReportPICTableDataSource ds = new ReportPICTableDataSource();
+            ReportKoordinatorDataSource ds = new ReportKoordinatorDataSource();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,29 +270,21 @@ namespace B7_Deviation {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void SP_ReportPICTableRowChangeEventHandler(object sender, SP_ReportPICTableRowChangeEvent e);
+        public delegate void SP_ReportKoordinatorRowChangeEventHandler(object sender, SP_ReportKoordinatorRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class SP_ReportPICTableDataTable : global::System.Data.TypedTableBase<SP_ReportPICTableRow> {
+        public partial class SP_ReportKoordinatorDataTable : global::System.Data.TypedTableBase<SP_ReportKoordinatorRow> {
             
-            private global::System.Data.DataColumn columnNO_DISPOSISI;
-            
-            private global::System.Data.DataColumn columnKETERANGAN_DISPOSISI;
-            
-            private global::System.Data.DataColumn columnPIC_REMEDIAL_NIK;
-            
-            private global::System.Data.DataColumn columnPIC_REMEDIAL_NAME;
-            
-            private global::System.Data.DataColumn columnDUE_DATE;
+            private global::System.Data.DataColumn columnCoorName;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportPICTableDataTable() {
-                this.TableName = "SP_ReportPICTable";
+            public SP_ReportKoordinatorDataTable() {
+                this.TableName = "SP_ReportKoordinator";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -300,7 +292,7 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_ReportPICTableDataTable(global::System.Data.DataTable table) {
+            internal SP_ReportKoordinatorDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -317,48 +309,16 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected SP_ReportPICTableDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected SP_ReportKoordinatorDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn NO_DISPOSISIColumn {
+            public global::System.Data.DataColumn CoorNameColumn {
                 get {
-                    return this.columnNO_DISPOSISI;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn KETERANGAN_DISPOSISIColumn {
-                get {
-                    return this.columnKETERANGAN_DISPOSISI;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PIC_REMEDIAL_NIKColumn {
-                get {
-                    return this.columnPIC_REMEDIAL_NIK;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PIC_REMEDIAL_NAMEColumn {
-                get {
-                    return this.columnPIC_REMEDIAL_NAME;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DUE_DATEColumn {
-                get {
-                    return this.columnDUE_DATE;
+                    return this.columnCoorName;
                 }
             }
             
@@ -373,49 +333,45 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportPICTableRow this[int index] {
+            public SP_ReportKoordinatorRow this[int index] {
                 get {
-                    return ((SP_ReportPICTableRow)(this.Rows[index]));
+                    return ((SP_ReportKoordinatorRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportPICTableRowChangeEventHandler SP_ReportPICTableRowChanging;
+            public event SP_ReportKoordinatorRowChangeEventHandler SP_ReportKoordinatorRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportPICTableRowChangeEventHandler SP_ReportPICTableRowChanged;
+            public event SP_ReportKoordinatorRowChangeEventHandler SP_ReportKoordinatorRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportPICTableRowChangeEventHandler SP_ReportPICTableRowDeleting;
+            public event SP_ReportKoordinatorRowChangeEventHandler SP_ReportKoordinatorRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_ReportPICTableRowChangeEventHandler SP_ReportPICTableRowDeleted;
+            public event SP_ReportKoordinatorRowChangeEventHandler SP_ReportKoordinatorRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddSP_ReportPICTableRow(SP_ReportPICTableRow row) {
+            public void AddSP_ReportKoordinatorRow(SP_ReportKoordinatorRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportPICTableRow AddSP_ReportPICTableRow(int NO_DISPOSISI, string KETERANGAN_DISPOSISI, string PIC_REMEDIAL_NIK, string PIC_REMEDIAL_NAME, string DUE_DATE) {
-                SP_ReportPICTableRow rowSP_ReportPICTableRow = ((SP_ReportPICTableRow)(this.NewRow()));
+            public SP_ReportKoordinatorRow AddSP_ReportKoordinatorRow(string CoorName) {
+                SP_ReportKoordinatorRow rowSP_ReportKoordinatorRow = ((SP_ReportKoordinatorRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        NO_DISPOSISI,
-                        KETERANGAN_DISPOSISI,
-                        PIC_REMEDIAL_NIK,
-                        PIC_REMEDIAL_NAME,
-                        DUE_DATE};
-                rowSP_ReportPICTableRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowSP_ReportPICTableRow);
-                return rowSP_ReportPICTableRow;
+                        CoorName};
+                rowSP_ReportKoordinatorRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSP_ReportKoordinatorRow);
+                return rowSP_ReportKoordinatorRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                SP_ReportPICTableDataTable cln = ((SP_ReportPICTableDataTable)(base.Clone()));
+                SP_ReportKoordinatorDataTable cln = ((SP_ReportKoordinatorDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -423,63 +379,48 @@ namespace B7_Deviation {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new SP_ReportPICTableDataTable();
+                return new SP_ReportKoordinatorDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnNO_DISPOSISI = base.Columns["NO_DISPOSISI"];
-                this.columnKETERANGAN_DISPOSISI = base.Columns["KETERANGAN_DISPOSISI"];
-                this.columnPIC_REMEDIAL_NIK = base.Columns["PIC_REMEDIAL_NIK"];
-                this.columnPIC_REMEDIAL_NAME = base.Columns["PIC_REMEDIAL_NAME"];
-                this.columnDUE_DATE = base.Columns["DUE_DATE"];
+                this.columnCoorName = base.Columns["CoorName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnNO_DISPOSISI = new global::System.Data.DataColumn("NO_DISPOSISI", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNO_DISPOSISI);
-                this.columnKETERANGAN_DISPOSISI = new global::System.Data.DataColumn("KETERANGAN_DISPOSISI", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnKETERANGAN_DISPOSISI);
-                this.columnPIC_REMEDIAL_NIK = new global::System.Data.DataColumn("PIC_REMEDIAL_NIK", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPIC_REMEDIAL_NIK);
-                this.columnPIC_REMEDIAL_NAME = new global::System.Data.DataColumn("PIC_REMEDIAL_NAME", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPIC_REMEDIAL_NAME);
-                this.columnDUE_DATE = new global::System.Data.DataColumn("DUE_DATE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDUE_DATE);
-                this.columnKETERANGAN_DISPOSISI.MaxLength = 8000;
-                this.columnPIC_REMEDIAL_NIK.MaxLength = 100;
-                this.columnPIC_REMEDIAL_NAME.MaxLength = 100;
-                this.columnDUE_DATE.ReadOnly = true;
-                this.columnDUE_DATE.MaxLength = 50;
+                this.columnCoorName = new global::System.Data.DataColumn("CoorName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCoorName);
+                this.columnCoorName.ReadOnly = true;
+                this.columnCoorName.MaxLength = 80;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportPICTableRow NewSP_ReportPICTableRow() {
-                return ((SP_ReportPICTableRow)(this.NewRow()));
+            public SP_ReportKoordinatorRow NewSP_ReportKoordinatorRow() {
+                return ((SP_ReportKoordinatorRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new SP_ReportPICTableRow(builder);
+                return new SP_ReportKoordinatorRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(SP_ReportPICTableRow);
+                return typeof(SP_ReportKoordinatorRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.SP_ReportPICTableRowChanged != null)) {
-                    this.SP_ReportPICTableRowChanged(this, new SP_ReportPICTableRowChangeEvent(((SP_ReportPICTableRow)(e.Row)), e.Action));
+                if ((this.SP_ReportKoordinatorRowChanged != null)) {
+                    this.SP_ReportKoordinatorRowChanged(this, new SP_ReportKoordinatorRowChangeEvent(((SP_ReportKoordinatorRow)(e.Row)), e.Action));
                 }
             }
             
@@ -487,8 +428,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.SP_ReportPICTableRowChanging != null)) {
-                    this.SP_ReportPICTableRowChanging(this, new SP_ReportPICTableRowChangeEvent(((SP_ReportPICTableRow)(e.Row)), e.Action));
+                if ((this.SP_ReportKoordinatorRowChanging != null)) {
+                    this.SP_ReportKoordinatorRowChanging(this, new SP_ReportKoordinatorRowChangeEvent(((SP_ReportKoordinatorRow)(e.Row)), e.Action));
                 }
             }
             
@@ -496,8 +437,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.SP_ReportPICTableRowDeleted != null)) {
-                    this.SP_ReportPICTableRowDeleted(this, new SP_ReportPICTableRowChangeEvent(((SP_ReportPICTableRow)(e.Row)), e.Action));
+                if ((this.SP_ReportKoordinatorRowDeleted != null)) {
+                    this.SP_ReportKoordinatorRowDeleted(this, new SP_ReportKoordinatorRowChangeEvent(((SP_ReportKoordinatorRow)(e.Row)), e.Action));
                 }
             }
             
@@ -505,14 +446,14 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.SP_ReportPICTableRowDeleting != null)) {
-                    this.SP_ReportPICTableRowDeleting(this, new SP_ReportPICTableRowChangeEvent(((SP_ReportPICTableRow)(e.Row)), e.Action));
+                if ((this.SP_ReportKoordinatorRowDeleting != null)) {
+                    this.SP_ReportKoordinatorRowDeleting(this, new SP_ReportKoordinatorRowChangeEvent(((SP_ReportKoordinatorRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveSP_ReportPICTableRow(SP_ReportPICTableRow row) {
+            public void RemoveSP_ReportKoordinatorRow(SP_ReportKoordinatorRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -521,7 +462,7 @@ namespace B7_Deviation {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ReportPICTableDataSource ds = new ReportPICTableDataSource();
+                ReportKoordinatorDataSource ds = new ReportKoordinatorDataSource();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -539,7 +480,7 @@ namespace B7_Deviation {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "SP_ReportPICTableDataTable";
+                attribute2.FixedValue = "SP_ReportKoordinatorDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -583,156 +524,43 @@ namespace B7_Deviation {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class SP_ReportPICTableRow : global::System.Data.DataRow {
+        public partial class SP_ReportKoordinatorRow : global::System.Data.DataRow {
             
-            private SP_ReportPICTableDataTable tableSP_ReportPICTable;
+            private SP_ReportKoordinatorDataTable tableSP_ReportKoordinator;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_ReportPICTableRow(global::System.Data.DataRowBuilder rb) : 
+            internal SP_ReportKoordinatorRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableSP_ReportPICTable = ((SP_ReportPICTableDataTable)(this.Table));
+                this.tableSP_ReportKoordinator = ((SP_ReportKoordinatorDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int NO_DISPOSISI {
+            public string CoorName {
                 get {
                     try {
-                        return ((int)(this[this.tableSP_ReportPICTable.NO_DISPOSISIColumn]));
+                        return ((string)(this[this.tableSP_ReportKoordinator.CoorNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NO_DISPOSISI\' in table \'SP_ReportPICTable\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CoorName\' in table \'SP_ReportKoordinator\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_ReportPICTable.NO_DISPOSISIColumn] = value;
+                    this[this.tableSP_ReportKoordinator.CoorNameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string KETERANGAN_DISPOSISI {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportPICTable.KETERANGAN_DISPOSISIColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'KETERANGAN_DISPOSISI\' in table \'SP_ReportPICTable\' is DBNul" +
-                                "l.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportPICTable.KETERANGAN_DISPOSISIColumn] = value;
-                }
+            public bool IsCoorNameNull() {
+                return this.IsNull(this.tableSP_ReportKoordinator.CoorNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PIC_REMEDIAL_NIK {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportPICTable.PIC_REMEDIAL_NIKColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PIC_REMEDIAL_NIK\' in table \'SP_ReportPICTable\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportPICTable.PIC_REMEDIAL_NIKColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PIC_REMEDIAL_NAME {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportPICTable.PIC_REMEDIAL_NAMEColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PIC_REMEDIAL_NAME\' in table \'SP_ReportPICTable\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportPICTable.PIC_REMEDIAL_NAMEColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DUE_DATE {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_ReportPICTable.DUE_DATEColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DUE_DATE\' in table \'SP_ReportPICTable\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_ReportPICTable.DUE_DATEColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsNO_DISPOSISINull() {
-                return this.IsNull(this.tableSP_ReportPICTable.NO_DISPOSISIColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetNO_DISPOSISINull() {
-                this[this.tableSP_ReportPICTable.NO_DISPOSISIColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsKETERANGAN_DISPOSISINull() {
-                return this.IsNull(this.tableSP_ReportPICTable.KETERANGAN_DISPOSISIColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetKETERANGAN_DISPOSISINull() {
-                this[this.tableSP_ReportPICTable.KETERANGAN_DISPOSISIColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPIC_REMEDIAL_NIKNull() {
-                return this.IsNull(this.tableSP_ReportPICTable.PIC_REMEDIAL_NIKColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPIC_REMEDIAL_NIKNull() {
-                this[this.tableSP_ReportPICTable.PIC_REMEDIAL_NIKColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPIC_REMEDIAL_NAMENull() {
-                return this.IsNull(this.tableSP_ReportPICTable.PIC_REMEDIAL_NAMEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPIC_REMEDIAL_NAMENull() {
-                this[this.tableSP_ReportPICTable.PIC_REMEDIAL_NAMEColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDUE_DATENull() {
-                return this.IsNull(this.tableSP_ReportPICTable.DUE_DATEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDUE_DATENull() {
-                this[this.tableSP_ReportPICTable.DUE_DATEColumn] = global::System.Convert.DBNull;
+            public void SetCoorNameNull() {
+                this[this.tableSP_ReportKoordinator.CoorNameColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -740,22 +568,22 @@ namespace B7_Deviation {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class SP_ReportPICTableRowChangeEvent : global::System.EventArgs {
+        public class SP_ReportKoordinatorRowChangeEvent : global::System.EventArgs {
             
-            private SP_ReportPICTableRow eventRow;
+            private SP_ReportKoordinatorRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportPICTableRowChangeEvent(SP_ReportPICTableRow row, global::System.Data.DataRowAction action) {
+            public SP_ReportKoordinatorRowChangeEvent(SP_ReportKoordinatorRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportPICTableRow Row {
+            public SP_ReportKoordinatorRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -771,7 +599,7 @@ namespace B7_Deviation {
         }
     }
 }
-namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
+namespace B7_Deviation.DataSource.ReportKoordinatorDataSourceTableAdapters {
     
     
     /// <summary>
@@ -783,7 +611,7 @@ namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class SP_ReportPICTableTableAdapter : global::System.ComponentModel.Component {
+    public partial class SP_ReportKoordinatorTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -797,7 +625,7 @@ namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public SP_ReportPICTableTableAdapter() {
+        public SP_ReportKoordinatorTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -894,12 +722,8 @@ namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "SP_ReportPICTable";
-            tableMapping.ColumnMappings.Add("NO_DISPOSISI", "NO_DISPOSISI");
-            tableMapping.ColumnMappings.Add("KETERANGAN_DISPOSISI", "KETERANGAN_DISPOSISI");
-            tableMapping.ColumnMappings.Add("PIC_REMEDIAL_NIK", "PIC_REMEDIAL_NIK");
-            tableMapping.ColumnMappings.Add("PIC_REMEDIAL_NAME", "PIC_REMEDIAL_NAME");
-            tableMapping.ColumnMappings.Add("DUE_DATE", "DUE_DATE");
+            tableMapping.DataSetTable = "SP_ReportKoordinator";
+            tableMapping.ColumnMappings.Add("CoorName", "CoorName");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -916,7 +740,7 @@ namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.SP_ReportPICTable";
+            this._commandCollection[0].CommandText = "dbo.SP_ReportKoordinator";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -926,7 +750,7 @@ namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ReportPICTableDataSource.SP_ReportPICTableDataTable dataTable, string Nomor) {
+        public virtual int Fill(ReportKoordinatorDataSource.SP_ReportKoordinatorDataTable dataTable, string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -945,7 +769,7 @@ namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ReportPICTableDataSource.SP_ReportPICTableDataTable GetData(string Nomor) {
+        public virtual ReportKoordinatorDataSource.SP_ReportKoordinatorDataTable GetData(string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -953,7 +777,7 @@ namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nomor));
             }
-            ReportPICTableDataSource.SP_ReportPICTableDataTable dataTable = new ReportPICTableDataSource.SP_ReportPICTableDataTable();
+            ReportKoordinatorDataSource.SP_ReportKoordinatorDataTable dataTable = new ReportKoordinatorDataSource.SP_ReportKoordinatorDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -1027,7 +851,7 @@ namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(ReportPICTableDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(ReportKoordinatorDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1037,7 +861,7 @@ namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(ReportPICTableDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(ReportKoordinatorDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1047,7 +871,7 @@ namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(ReportPICTableDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(ReportKoordinatorDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -1081,7 +905,7 @@ namespace B7_Deviation.ReportPICTableDataSourceTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(ReportPICTableDataSource dataSet) {
+        public virtual int UpdateAll(ReportKoordinatorDataSource dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

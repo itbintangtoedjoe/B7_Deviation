@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_Deviation {
+namespace B7_Deviation.DataSource {
     
     
     /// <summary>
@@ -20,17 +20,17 @@ namespace B7_Deviation {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("FormDetailDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("AttachmentDataSource")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class FormDetailDataSet : global::System.Data.DataSet {
+    public partial class AttachmentDataSource : global::System.Data.DataSet {
         
-        private SP_FormDetailDataTable tableSP_FormDetail;
+        private SP_AttachDataTable tableSP_Attach;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public FormDetailDataSet() {
+        public AttachmentDataSource() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace B7_Deviation {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected FormDetailDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected AttachmentDataSource(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace B7_Deviation {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["SP_FormDetail"] != null)) {
-                    base.Tables.Add(new SP_FormDetailDataTable(ds.Tables["SP_FormDetail"]));
+                if ((ds.Tables["SP_Attach"] != null)) {
+                    base.Tables.Add(new SP_AttachDataTable(ds.Tables["SP_Attach"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace B7_Deviation {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public SP_FormDetailDataTable SP_FormDetail {
+        public SP_AttachDataTable SP_Attach {
             get {
-                return this.tableSP_FormDetail;
+                return this.tableSP_Attach;
             }
         }
         
@@ -127,7 +127,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            FormDetailDataSet cln = ((FormDetailDataSet)(base.Clone()));
+            AttachmentDataSource cln = ((AttachmentDataSource)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace B7_Deviation {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["SP_FormDetail"] != null)) {
-                    base.Tables.Add(new SP_FormDetailDataTable(ds.Tables["SP_FormDetail"]));
+                if ((ds.Tables["SP_Attach"] != null)) {
+                    base.Tables.Add(new SP_AttachDataTable(ds.Tables["SP_Attach"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableSP_FormDetail = ((SP_FormDetailDataTable)(base.Tables["SP_FormDetail"]));
+            this.tableSP_Attach = ((SP_AttachDataTable)(base.Tables["SP_Attach"]));
             if ((initTable == true)) {
-                if ((this.tableSP_FormDetail != null)) {
-                    this.tableSP_FormDetail.InitVars();
+                if ((this.tableSP_Attach != null)) {
+                    this.tableSP_Attach.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "FormDetailDataSet";
+            this.DataSetName = "AttachmentDataSource";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/FormDetailDataSet.xsd";
+            this.Namespace = "http://tempuri.org/AttachmentDataSource.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableSP_FormDetail = new SP_FormDetailDataTable();
-            base.Tables.Add(this.tableSP_FormDetail);
+            this.tableSP_Attach = new SP_AttachDataTable();
+            base.Tables.Add(this.tableSP_Attach);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeSP_FormDetail() {
+        private bool ShouldSerializeSP_Attach() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            FormDetailDataSet ds = new FormDetailDataSet();
+            AttachmentDataSource ds = new AttachmentDataSource();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,39 +270,27 @@ namespace B7_Deviation {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void SP_FormDetailRowChangeEventHandler(object sender, SP_FormDetailRowChangeEvent e);
+        public delegate void SP_AttachRowChangeEventHandler(object sender, SP_AttachRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class SP_FormDetailDataTable : global::System.Data.TypedTableBase<SP_FormDetailRow> {
+        public partial class SP_AttachDataTable : global::System.Data.TypedTableBase<SP_AttachRow> {
             
-            private global::System.Data.DataColumn columnQUALITY_PRODUCT;
+            private global::System.Data.DataColumn columnREQ_ID;
             
-            private global::System.Data.DataColumn columnCOMPLIANCE;
+            private global::System.Data.DataColumn columnNO_FILE;
             
-            private global::System.Data.DataColumn columnRISK_OPERATION;
+            private global::System.Data.DataColumn columnFILE_NAME_UPLOAD;
             
-            private global::System.Data.DataColumn columnRISK_FINANCIAL;
-            
-            private global::System.Data.DataColumn columnRISK_ORG;
-            
-            private global::System.Data.DataColumn columnRISK_SECURITY;
-            
-            private global::System.Data.DataColumn columnRISK_HEALTHY;
-            
-            private global::System.Data.DataColumn columnRISK_ENVIRONMENT;
-            
-            private global::System.Data.DataColumn columnRISK_INTELLECTUAL;
-            
-            private global::System.Data.DataColumn columnSEVERTY_DEVIATION;
+            private global::System.Data.DataColumn columnPATH_FILE;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_FormDetailDataTable() {
-                this.TableName = "SP_FormDetail";
+            public SP_AttachDataTable() {
+                this.TableName = "SP_Attach";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -310,7 +298,7 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_FormDetailDataTable(global::System.Data.DataTable table) {
+            internal SP_AttachDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -327,88 +315,40 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected SP_FormDetailDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected SP_AttachDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn QUALITY_PRODUCTColumn {
+            public global::System.Data.DataColumn REQ_IDColumn {
                 get {
-                    return this.columnQUALITY_PRODUCT;
+                    return this.columnREQ_ID;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn COMPLIANCEColumn {
+            public global::System.Data.DataColumn NO_FILEColumn {
                 get {
-                    return this.columnCOMPLIANCE;
+                    return this.columnNO_FILE;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RISK_OPERATIONColumn {
+            public global::System.Data.DataColumn FILE_NAME_UPLOADColumn {
                 get {
-                    return this.columnRISK_OPERATION;
+                    return this.columnFILE_NAME_UPLOAD;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RISK_FINANCIALColumn {
+            public global::System.Data.DataColumn PATH_FILEColumn {
                 get {
-                    return this.columnRISK_FINANCIAL;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RISK_ORGColumn {
-                get {
-                    return this.columnRISK_ORG;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RISK_SECURITYColumn {
-                get {
-                    return this.columnRISK_SECURITY;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RISK_HEALTHYColumn {
-                get {
-                    return this.columnRISK_HEALTHY;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RISK_ENVIRONMENTColumn {
-                get {
-                    return this.columnRISK_ENVIRONMENT;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RISK_INTELLECTUALColumn {
-                get {
-                    return this.columnRISK_INTELLECTUAL;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn SEVERTY_DEVIATIONColumn {
-                get {
-                    return this.columnSEVERTY_DEVIATION;
+                    return this.columnPATH_FILE;
                 }
             }
             
@@ -423,54 +363,48 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_FormDetailRow this[int index] {
+            public SP_AttachRow this[int index] {
                 get {
-                    return ((SP_FormDetailRow)(this.Rows[index]));
+                    return ((SP_AttachRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_FormDetailRowChangeEventHandler SP_FormDetailRowChanging;
+            public event SP_AttachRowChangeEventHandler SP_AttachRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_FormDetailRowChangeEventHandler SP_FormDetailRowChanged;
+            public event SP_AttachRowChangeEventHandler SP_AttachRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_FormDetailRowChangeEventHandler SP_FormDetailRowDeleting;
+            public event SP_AttachRowChangeEventHandler SP_AttachRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_FormDetailRowChangeEventHandler SP_FormDetailRowDeleted;
+            public event SP_AttachRowChangeEventHandler SP_AttachRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddSP_FormDetailRow(SP_FormDetailRow row) {
+            public void AddSP_AttachRow(SP_AttachRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_FormDetailRow AddSP_FormDetailRow(string QUALITY_PRODUCT, string COMPLIANCE, string RISK_OPERATION, string RISK_FINANCIAL, string RISK_ORG, string RISK_SECURITY, string RISK_HEALTHY, string RISK_ENVIRONMENT, string RISK_INTELLECTUAL, string SEVERTY_DEVIATION) {
-                SP_FormDetailRow rowSP_FormDetailRow = ((SP_FormDetailRow)(this.NewRow()));
+            public SP_AttachRow AddSP_AttachRow(string REQ_ID, int NO_FILE, string FILE_NAME_UPLOAD, string PATH_FILE) {
+                SP_AttachRow rowSP_AttachRow = ((SP_AttachRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        QUALITY_PRODUCT,
-                        COMPLIANCE,
-                        RISK_OPERATION,
-                        RISK_FINANCIAL,
-                        RISK_ORG,
-                        RISK_SECURITY,
-                        RISK_HEALTHY,
-                        RISK_ENVIRONMENT,
-                        RISK_INTELLECTUAL,
-                        SEVERTY_DEVIATION};
-                rowSP_FormDetailRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowSP_FormDetailRow);
-                return rowSP_FormDetailRow;
+                        REQ_ID,
+                        NO_FILE,
+                        FILE_NAME_UPLOAD,
+                        PATH_FILE};
+                rowSP_AttachRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSP_AttachRow);
+                return rowSP_AttachRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                SP_FormDetailDataTable cln = ((SP_FormDetailDataTable)(base.Clone()));
+                SP_AttachDataTable cln = ((SP_AttachDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -478,92 +412,59 @@ namespace B7_Deviation {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new SP_FormDetailDataTable();
+                return new SP_AttachDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnQUALITY_PRODUCT = base.Columns["QUALITY_PRODUCT"];
-                this.columnCOMPLIANCE = base.Columns["COMPLIANCE"];
-                this.columnRISK_OPERATION = base.Columns["RISK_OPERATION"];
-                this.columnRISK_FINANCIAL = base.Columns["RISK_FINANCIAL"];
-                this.columnRISK_ORG = base.Columns["RISK_ORG"];
-                this.columnRISK_SECURITY = base.Columns["RISK_SECURITY"];
-                this.columnRISK_HEALTHY = base.Columns["RISK_HEALTHY"];
-                this.columnRISK_ENVIRONMENT = base.Columns["RISK_ENVIRONMENT"];
-                this.columnRISK_INTELLECTUAL = base.Columns["RISK_INTELLECTUAL"];
-                this.columnSEVERTY_DEVIATION = base.Columns["SEVERTY_DEVIATION"];
+                this.columnREQ_ID = base.Columns["REQ_ID"];
+                this.columnNO_FILE = base.Columns["NO_FILE"];
+                this.columnFILE_NAME_UPLOAD = base.Columns["FILE_NAME_UPLOAD"];
+                this.columnPATH_FILE = base.Columns["PATH_FILE"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnQUALITY_PRODUCT = new global::System.Data.DataColumn("QUALITY_PRODUCT", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnQUALITY_PRODUCT);
-                this.columnCOMPLIANCE = new global::System.Data.DataColumn("COMPLIANCE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCOMPLIANCE);
-                this.columnRISK_OPERATION = new global::System.Data.DataColumn("RISK_OPERATION", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRISK_OPERATION);
-                this.columnRISK_FINANCIAL = new global::System.Data.DataColumn("RISK_FINANCIAL", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRISK_FINANCIAL);
-                this.columnRISK_ORG = new global::System.Data.DataColumn("RISK_ORG", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRISK_ORG);
-                this.columnRISK_SECURITY = new global::System.Data.DataColumn("RISK_SECURITY", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRISK_SECURITY);
-                this.columnRISK_HEALTHY = new global::System.Data.DataColumn("RISK_HEALTHY", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRISK_HEALTHY);
-                this.columnRISK_ENVIRONMENT = new global::System.Data.DataColumn("RISK_ENVIRONMENT", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRISK_ENVIRONMENT);
-                this.columnRISK_INTELLECTUAL = new global::System.Data.DataColumn("RISK_INTELLECTUAL", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRISK_INTELLECTUAL);
-                this.columnSEVERTY_DEVIATION = new global::System.Data.DataColumn("SEVERTY_DEVIATION", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSEVERTY_DEVIATION);
-                this.columnQUALITY_PRODUCT.ReadOnly = true;
-                this.columnQUALITY_PRODUCT.MaxLength = 500;
-                this.columnCOMPLIANCE.ReadOnly = true;
-                this.columnCOMPLIANCE.MaxLength = 500;
-                this.columnRISK_OPERATION.ReadOnly = true;
-                this.columnRISK_OPERATION.MaxLength = 500;
-                this.columnRISK_FINANCIAL.ReadOnly = true;
-                this.columnRISK_FINANCIAL.MaxLength = 500;
-                this.columnRISK_ORG.ReadOnly = true;
-                this.columnRISK_ORG.MaxLength = 500;
-                this.columnRISK_SECURITY.ReadOnly = true;
-                this.columnRISK_SECURITY.MaxLength = 500;
-                this.columnRISK_HEALTHY.ReadOnly = true;
-                this.columnRISK_HEALTHY.MaxLength = 500;
-                this.columnRISK_ENVIRONMENT.ReadOnly = true;
-                this.columnRISK_ENVIRONMENT.MaxLength = 500;
-                this.columnRISK_INTELLECTUAL.ReadOnly = true;
-                this.columnRISK_INTELLECTUAL.MaxLength = 500;
-                this.columnSEVERTY_DEVIATION.MaxLength = 50;
+                this.columnREQ_ID = new global::System.Data.DataColumn("REQ_ID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnREQ_ID);
+                this.columnNO_FILE = new global::System.Data.DataColumn("NO_FILE", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNO_FILE);
+                this.columnFILE_NAME_UPLOAD = new global::System.Data.DataColumn("FILE_NAME_UPLOAD", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFILE_NAME_UPLOAD);
+                this.columnPATH_FILE = new global::System.Data.DataColumn("PATH_FILE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPATH_FILE);
+                this.columnREQ_ID.AllowDBNull = false;
+                this.columnREQ_ID.MaxLength = 50;
+                this.columnFILE_NAME_UPLOAD.MaxLength = 500;
+                this.columnPATH_FILE.MaxLength = 1000;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_FormDetailRow NewSP_FormDetailRow() {
-                return ((SP_FormDetailRow)(this.NewRow()));
+            public SP_AttachRow NewSP_AttachRow() {
+                return ((SP_AttachRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new SP_FormDetailRow(builder);
+                return new SP_AttachRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(SP_FormDetailRow);
+                return typeof(SP_AttachRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.SP_FormDetailRowChanged != null)) {
-                    this.SP_FormDetailRowChanged(this, new SP_FormDetailRowChangeEvent(((SP_FormDetailRow)(e.Row)), e.Action));
+                if ((this.SP_AttachRowChanged != null)) {
+                    this.SP_AttachRowChanged(this, new SP_AttachRowChangeEvent(((SP_AttachRow)(e.Row)), e.Action));
                 }
             }
             
@@ -571,8 +472,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.SP_FormDetailRowChanging != null)) {
-                    this.SP_FormDetailRowChanging(this, new SP_FormDetailRowChangeEvent(((SP_FormDetailRow)(e.Row)), e.Action));
+                if ((this.SP_AttachRowChanging != null)) {
+                    this.SP_AttachRowChanging(this, new SP_AttachRowChangeEvent(((SP_AttachRow)(e.Row)), e.Action));
                 }
             }
             
@@ -580,8 +481,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.SP_FormDetailRowDeleted != null)) {
-                    this.SP_FormDetailRowDeleted(this, new SP_FormDetailRowChangeEvent(((SP_FormDetailRow)(e.Row)), e.Action));
+                if ((this.SP_AttachRowDeleted != null)) {
+                    this.SP_AttachRowDeleted(this, new SP_AttachRowChangeEvent(((SP_AttachRow)(e.Row)), e.Action));
                 }
             }
             
@@ -589,14 +490,14 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.SP_FormDetailRowDeleting != null)) {
-                    this.SP_FormDetailRowDeleting(this, new SP_FormDetailRowChangeEvent(((SP_FormDetailRow)(e.Row)), e.Action));
+                if ((this.SP_AttachRowDeleting != null)) {
+                    this.SP_AttachRowDeleting(this, new SP_AttachRowChangeEvent(((SP_AttachRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveSP_FormDetailRow(SP_FormDetailRow row) {
+            public void RemoveSP_AttachRow(SP_AttachRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -605,7 +506,7 @@ namespace B7_Deviation {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                FormDetailDataSet ds = new FormDetailDataSet();
+                AttachmentDataSource ds = new AttachmentDataSource();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -623,7 +524,7 @@ namespace B7_Deviation {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "SP_FormDetailDataTable";
+                attribute2.FixedValue = "SP_AttachDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -667,295 +568,110 @@ namespace B7_Deviation {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class SP_FormDetailRow : global::System.Data.DataRow {
+        public partial class SP_AttachRow : global::System.Data.DataRow {
             
-            private SP_FormDetailDataTable tableSP_FormDetail;
+            private SP_AttachDataTable tableSP_Attach;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_FormDetailRow(global::System.Data.DataRowBuilder rb) : 
+            internal SP_AttachRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableSP_FormDetail = ((SP_FormDetailDataTable)(this.Table));
+                this.tableSP_Attach = ((SP_AttachDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string QUALITY_PRODUCT {
+            public string REQ_ID {
+                get {
+                    return ((string)(this[this.tableSP_Attach.REQ_IDColumn]));
+                }
+                set {
+                    this[this.tableSP_Attach.REQ_IDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int NO_FILE {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_FormDetail.QUALITY_PRODUCTColumn]));
+                        return ((int)(this[this.tableSP_Attach.NO_FILEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'QUALITY_PRODUCT\' in table \'SP_FormDetail\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'NO_FILE\' in table \'SP_Attach\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_FormDetail.QUALITY_PRODUCTColumn] = value;
+                    this[this.tableSP_Attach.NO_FILEColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string COMPLIANCE {
+            public string FILE_NAME_UPLOAD {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_FormDetail.COMPLIANCEColumn]));
+                        return ((string)(this[this.tableSP_Attach.FILE_NAME_UPLOADColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'COMPLIANCE\' in table \'SP_FormDetail\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'FILE_NAME_UPLOAD\' in table \'SP_Attach\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_FormDetail.COMPLIANCEColumn] = value;
+                    this[this.tableSP_Attach.FILE_NAME_UPLOADColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string RISK_OPERATION {
+            public string PATH_FILE {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_FormDetail.RISK_OPERATIONColumn]));
+                        return ((string)(this[this.tableSP_Attach.PATH_FILEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'RISK_OPERATION\' in table \'SP_FormDetail\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'PATH_FILE\' in table \'SP_Attach\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_FormDetail.RISK_OPERATIONColumn] = value;
+                    this[this.tableSP_Attach.PATH_FILEColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string RISK_FINANCIAL {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_FormDetail.RISK_FINANCIALColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'RISK_FINANCIAL\' in table \'SP_FormDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_FormDetail.RISK_FINANCIALColumn] = value;
-                }
+            public bool IsNO_FILENull() {
+                return this.IsNull(this.tableSP_Attach.NO_FILEColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string RISK_ORG {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_FormDetail.RISK_ORGColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'RISK_ORG\' in table \'SP_FormDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_FormDetail.RISK_ORGColumn] = value;
-                }
+            public void SetNO_FILENull() {
+                this[this.tableSP_Attach.NO_FILEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string RISK_SECURITY {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_FormDetail.RISK_SECURITYColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'RISK_SECURITY\' in table \'SP_FormDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_FormDetail.RISK_SECURITYColumn] = value;
-                }
+            public bool IsFILE_NAME_UPLOADNull() {
+                return this.IsNull(this.tableSP_Attach.FILE_NAME_UPLOADColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string RISK_HEALTHY {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_FormDetail.RISK_HEALTHYColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'RISK_HEALTHY\' in table \'SP_FormDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_FormDetail.RISK_HEALTHYColumn] = value;
-                }
+            public void SetFILE_NAME_UPLOADNull() {
+                this[this.tableSP_Attach.FILE_NAME_UPLOADColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string RISK_ENVIRONMENT {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_FormDetail.RISK_ENVIRONMENTColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'RISK_ENVIRONMENT\' in table \'SP_FormDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_FormDetail.RISK_ENVIRONMENTColumn] = value;
-                }
+            public bool IsPATH_FILENull() {
+                return this.IsNull(this.tableSP_Attach.PATH_FILEColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string RISK_INTELLECTUAL {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_FormDetail.RISK_INTELLECTUALColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'RISK_INTELLECTUAL\' in table \'SP_FormDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_FormDetail.RISK_INTELLECTUALColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string SEVERTY_DEVIATION {
-                get {
-                    try {
-                        return ((string)(this[this.tableSP_FormDetail.SEVERTY_DEVIATIONColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'SEVERTY_DEVIATION\' in table \'SP_FormDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSP_FormDetail.SEVERTY_DEVIATIONColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsQUALITY_PRODUCTNull() {
-                return this.IsNull(this.tableSP_FormDetail.QUALITY_PRODUCTColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetQUALITY_PRODUCTNull() {
-                this[this.tableSP_FormDetail.QUALITY_PRODUCTColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsCOMPLIANCENull() {
-                return this.IsNull(this.tableSP_FormDetail.COMPLIANCEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetCOMPLIANCENull() {
-                this[this.tableSP_FormDetail.COMPLIANCEColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsRISK_OPERATIONNull() {
-                return this.IsNull(this.tableSP_FormDetail.RISK_OPERATIONColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetRISK_OPERATIONNull() {
-                this[this.tableSP_FormDetail.RISK_OPERATIONColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsRISK_FINANCIALNull() {
-                return this.IsNull(this.tableSP_FormDetail.RISK_FINANCIALColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetRISK_FINANCIALNull() {
-                this[this.tableSP_FormDetail.RISK_FINANCIALColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsRISK_ORGNull() {
-                return this.IsNull(this.tableSP_FormDetail.RISK_ORGColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetRISK_ORGNull() {
-                this[this.tableSP_FormDetail.RISK_ORGColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsRISK_SECURITYNull() {
-                return this.IsNull(this.tableSP_FormDetail.RISK_SECURITYColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetRISK_SECURITYNull() {
-                this[this.tableSP_FormDetail.RISK_SECURITYColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsRISK_HEALTHYNull() {
-                return this.IsNull(this.tableSP_FormDetail.RISK_HEALTHYColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetRISK_HEALTHYNull() {
-                this[this.tableSP_FormDetail.RISK_HEALTHYColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsRISK_ENVIRONMENTNull() {
-                return this.IsNull(this.tableSP_FormDetail.RISK_ENVIRONMENTColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetRISK_ENVIRONMENTNull() {
-                this[this.tableSP_FormDetail.RISK_ENVIRONMENTColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsRISK_INTELLECTUALNull() {
-                return this.IsNull(this.tableSP_FormDetail.RISK_INTELLECTUALColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetRISK_INTELLECTUALNull() {
-                this[this.tableSP_FormDetail.RISK_INTELLECTUALColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsSEVERTY_DEVIATIONNull() {
-                return this.IsNull(this.tableSP_FormDetail.SEVERTY_DEVIATIONColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetSEVERTY_DEVIATIONNull() {
-                this[this.tableSP_FormDetail.SEVERTY_DEVIATIONColumn] = global::System.Convert.DBNull;
+            public void SetPATH_FILENull() {
+                this[this.tableSP_Attach.PATH_FILEColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -963,22 +679,22 @@ namespace B7_Deviation {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class SP_FormDetailRowChangeEvent : global::System.EventArgs {
+        public class SP_AttachRowChangeEvent : global::System.EventArgs {
             
-            private SP_FormDetailRow eventRow;
+            private SP_AttachRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_FormDetailRowChangeEvent(SP_FormDetailRow row, global::System.Data.DataRowAction action) {
+            public SP_AttachRowChangeEvent(SP_AttachRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_FormDetailRow Row {
+            public SP_AttachRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -994,7 +710,7 @@ namespace B7_Deviation {
         }
     }
 }
-namespace B7_Deviation.FormDetailDataSetTableAdapters {
+namespace B7_Deviation.DataSource.AttachmentDataSourceTableAdapters {
     
     
     /// <summary>
@@ -1006,7 +722,7 @@ namespace B7_Deviation.FormDetailDataSetTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class SP_FormDetailTableAdapter : global::System.ComponentModel.Component {
+    public partial class SP_AttachTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -1020,7 +736,7 @@ namespace B7_Deviation.FormDetailDataSetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public SP_FormDetailTableAdapter() {
+        public SP_AttachTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -1117,17 +833,11 @@ namespace B7_Deviation.FormDetailDataSetTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "SP_FormDetail";
-            tableMapping.ColumnMappings.Add("QUALITY_PRODUCT", "QUALITY_PRODUCT");
-            tableMapping.ColumnMappings.Add("COMPLIANCE", "COMPLIANCE");
-            tableMapping.ColumnMappings.Add("RISK_OPERATION", "RISK_OPERATION");
-            tableMapping.ColumnMappings.Add("RISK_FINANCIAL", "RISK_FINANCIAL");
-            tableMapping.ColumnMappings.Add("RISK_ORG", "RISK_ORG");
-            tableMapping.ColumnMappings.Add("RISK_SECURITY", "RISK_SECURITY");
-            tableMapping.ColumnMappings.Add("RISK_HEALTHY", "RISK_HEALTHY");
-            tableMapping.ColumnMappings.Add("RISK_ENVIRONMENT", "RISK_ENVIRONMENT");
-            tableMapping.ColumnMappings.Add("RISK_INTELLECTUAL", "RISK_INTELLECTUAL");
-            tableMapping.ColumnMappings.Add("SEVERTY_DEVIATION", "SEVERTY_DEVIATION");
+            tableMapping.DataSetTable = "SP_Attach";
+            tableMapping.ColumnMappings.Add("REQ_ID", "REQ_ID");
+            tableMapping.ColumnMappings.Add("NO_FILE", "NO_FILE");
+            tableMapping.ColumnMappings.Add("FILE_NAME_UPLOAD", "FILE_NAME_UPLOAD");
+            tableMapping.ColumnMappings.Add("PATH_FILE", "PATH_FILE");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1144,7 +854,7 @@ namespace B7_Deviation.FormDetailDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.SP_FormDetail";
+            this._commandCollection[0].CommandText = "dbo.SP_Attach";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1154,7 +864,7 @@ namespace B7_Deviation.FormDetailDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(FormDetailDataSet.SP_FormDetailDataTable dataTable, string Nomor) {
+        public virtual int Fill(AttachmentDataSource.SP_AttachDataTable dataTable, string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -1173,7 +883,7 @@ namespace B7_Deviation.FormDetailDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual FormDetailDataSet.SP_FormDetailDataTable GetData(string Nomor) {
+        public virtual AttachmentDataSource.SP_AttachDataTable GetData(string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -1181,7 +891,7 @@ namespace B7_Deviation.FormDetailDataSetTableAdapters {
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nomor));
             }
-            FormDetailDataSet.SP_FormDetailDataTable dataTable = new FormDetailDataSet.SP_FormDetailDataTable();
+            AttachmentDataSource.SP_AttachDataTable dataTable = new AttachmentDataSource.SP_AttachDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -1255,7 +965,7 @@ namespace B7_Deviation.FormDetailDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(FormDetailDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(AttachmentDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1265,7 +975,7 @@ namespace B7_Deviation.FormDetailDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(FormDetailDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(AttachmentDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1275,7 +985,7 @@ namespace B7_Deviation.FormDetailDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(FormDetailDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(AttachmentDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -1309,7 +1019,7 @@ namespace B7_Deviation.FormDetailDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(FormDetailDataSet dataSet) {
+        public virtual int UpdateAll(AttachmentDataSource dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

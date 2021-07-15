@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_Deviation {
+namespace B7_Deviation.DataSource {
     
     
     /// <summary>
@@ -20,17 +20,17 @@ namespace B7_Deviation {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("B7_QUALITY_SYSTEMUserInvolved")]
+    [global::System.Xml.Serialization.XmlRootAttribute("ReportFileReviewerDataSource")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class B7_QUALITY_SYSTEMUserInvolved : global::System.Data.DataSet {
+    public partial class ReportFileReviewerDataSource : global::System.Data.DataSet {
         
-        private SP_UserInvolvedTableDataTable tableSP_UserInvolvedTable;
+        private SP_ReportFileReviewerDataTable tableSP_ReportFileReviewer;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public B7_QUALITY_SYSTEMUserInvolved() {
+        public ReportFileReviewerDataSource() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace B7_Deviation {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected B7_QUALITY_SYSTEMUserInvolved(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected ReportFileReviewerDataSource(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace B7_Deviation {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["SP_UserInvolvedTable"] != null)) {
-                    base.Tables.Add(new SP_UserInvolvedTableDataTable(ds.Tables["SP_UserInvolvedTable"]));
+                if ((ds.Tables["SP_ReportFileReviewer"] != null)) {
+                    base.Tables.Add(new SP_ReportFileReviewerDataTable(ds.Tables["SP_ReportFileReviewer"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace B7_Deviation {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public SP_UserInvolvedTableDataTable SP_UserInvolvedTable {
+        public SP_ReportFileReviewerDataTable SP_ReportFileReviewer {
             get {
-                return this.tableSP_UserInvolvedTable;
+                return this.tableSP_ReportFileReviewer;
             }
         }
         
@@ -127,7 +127,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            B7_QUALITY_SYSTEMUserInvolved cln = ((B7_QUALITY_SYSTEMUserInvolved)(base.Clone()));
+            ReportFileReviewerDataSource cln = ((ReportFileReviewerDataSource)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace B7_Deviation {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["SP_UserInvolvedTable"] != null)) {
-                    base.Tables.Add(new SP_UserInvolvedTableDataTable(ds.Tables["SP_UserInvolvedTable"]));
+                if ((ds.Tables["SP_ReportFileReviewer"] != null)) {
+                    base.Tables.Add(new SP_ReportFileReviewerDataTable(ds.Tables["SP_ReportFileReviewer"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableSP_UserInvolvedTable = ((SP_UserInvolvedTableDataTable)(base.Tables["SP_UserInvolvedTable"]));
+            this.tableSP_ReportFileReviewer = ((SP_ReportFileReviewerDataTable)(base.Tables["SP_ReportFileReviewer"]));
             if ((initTable == true)) {
-                if ((this.tableSP_UserInvolvedTable != null)) {
-                    this.tableSP_UserInvolvedTable.InitVars();
+                if ((this.tableSP_ReportFileReviewer != null)) {
+                    this.tableSP_ReportFileReviewer.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "B7_QUALITY_SYSTEMUserInvolved";
+            this.DataSetName = "ReportFileReviewerDataSource";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/B7_QUALITY_SYSTEMUserInvolved.xsd";
+            this.Namespace = "http://tempuri.org/ReportFileReviewerDataSource.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableSP_UserInvolvedTable = new SP_UserInvolvedTableDataTable();
-            base.Tables.Add(this.tableSP_UserInvolvedTable);
+            this.tableSP_ReportFileReviewer = new SP_ReportFileReviewerDataTable();
+            base.Tables.Add(this.tableSP_ReportFileReviewer);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeSP_UserInvolvedTable() {
+        private bool ShouldSerializeSP_ReportFileReviewer() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace B7_Deviation {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            B7_QUALITY_SYSTEMUserInvolved ds = new B7_QUALITY_SYSTEMUserInvolved();
+            ReportFileReviewerDataSource ds = new ReportFileReviewerDataSource();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,14 +270,14 @@ namespace B7_Deviation {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void SP_UserInvolvedTableRowChangeEventHandler(object sender, SP_UserInvolvedTableRowChangeEvent e);
+        public delegate void SP_ReportFileReviewerRowChangeEventHandler(object sender, SP_ReportFileReviewerRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class SP_UserInvolvedTableDataTable : global::System.Data.TypedTableBase<SP_UserInvolvedTableRow> {
+        public partial class SP_ReportFileReviewerDataTable : global::System.Data.TypedTableBase<SP_ReportFileReviewerRow> {
             
             private global::System.Data.DataColumn columnREQ_ID;
             
@@ -285,14 +285,38 @@ namespace B7_Deviation {
             
             private global::System.Data.DataColumn columnUSER_NAME;
             
+            private global::System.Data.DataColumn columnUSER_NIK;
+            
+            private global::System.Data.DataColumn columnURL;
+            
             private global::System.Data.DataColumn columnCREATION_DATE;
             
-            private global::System.Data.DataColumn columnNO_URUT;
+            private global::System.Data.DataColumn columnCREATED_BY;
+            
+            private global::System.Data.DataColumn columnUPDATE_DATE;
+            
+            private global::System.Data.DataColumn columnUPDATED_BY;
+            
+            private global::System.Data.DataColumn columnFLAG_REVIEW;
+            
+            private global::System.Data.DataColumn columnKETERANGAN_REVIEW;
+            
+            private global::System.Data.DataColumn columnKETERANGAN_REJECT;
+            
+            private global::System.Data.DataColumn columnREQ_ID1;
+            
+            private global::System.Data.DataColumn columnNO_FILE;
+            
+            private global::System.Data.DataColumn columnFILE_NAME_UPLOAD;
+            
+            private global::System.Data.DataColumn columnPATH_FILE;
+            
+            private global::System.Data.DataColumn columnREVIEWER_ID;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_UserInvolvedTableDataTable() {
-                this.TableName = "SP_UserInvolvedTable";
+            public SP_ReportFileReviewerDataTable() {
+                this.TableName = "SP_ReportFileReviewer";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -300,7 +324,7 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_UserInvolvedTableDataTable(global::System.Data.DataTable table) {
+            internal SP_ReportFileReviewerDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -317,7 +341,7 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected SP_UserInvolvedTableDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected SP_ReportFileReviewerDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -348,6 +372,22 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn USER_NIKColumn {
+                get {
+                    return this.columnUSER_NIK;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn URLColumn {
+                get {
+                    return this.columnURL;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn CREATION_DATEColumn {
                 get {
                     return this.columnCREATION_DATE;
@@ -356,9 +396,89 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn NO_URUTColumn {
+            public global::System.Data.DataColumn CREATED_BYColumn {
                 get {
-                    return this.columnNO_URUT;
+                    return this.columnCREATED_BY;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn UPDATE_DATEColumn {
+                get {
+                    return this.columnUPDATE_DATE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn UPDATED_BYColumn {
+                get {
+                    return this.columnUPDATED_BY;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FLAG_REVIEWColumn {
+                get {
+                    return this.columnFLAG_REVIEW;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn KETERANGAN_REVIEWColumn {
+                get {
+                    return this.columnKETERANGAN_REVIEW;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn KETERANGAN_REJECTColumn {
+                get {
+                    return this.columnKETERANGAN_REJECT;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn REQ_ID1Column {
+                get {
+                    return this.columnREQ_ID1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn NO_FILEColumn {
+                get {
+                    return this.columnNO_FILE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FILE_NAME_UPLOADColumn {
+                get {
+                    return this.columnFILE_NAME_UPLOAD;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PATH_FILEColumn {
+                get {
+                    return this.columnPATH_FILE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn REVIEWER_IDColumn {
+                get {
+                    return this.columnREVIEWER_ID;
                 }
             }
             
@@ -373,49 +493,77 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_UserInvolvedTableRow this[int index] {
+            public SP_ReportFileReviewerRow this[int index] {
                 get {
-                    return ((SP_UserInvolvedTableRow)(this.Rows[index]));
+                    return ((SP_ReportFileReviewerRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_UserInvolvedTableRowChangeEventHandler SP_UserInvolvedTableRowChanging;
+            public event SP_ReportFileReviewerRowChangeEventHandler SP_ReportFileReviewerRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_UserInvolvedTableRowChangeEventHandler SP_UserInvolvedTableRowChanged;
+            public event SP_ReportFileReviewerRowChangeEventHandler SP_ReportFileReviewerRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_UserInvolvedTableRowChangeEventHandler SP_UserInvolvedTableRowDeleting;
+            public event SP_ReportFileReviewerRowChangeEventHandler SP_ReportFileReviewerRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event SP_UserInvolvedTableRowChangeEventHandler SP_UserInvolvedTableRowDeleted;
+            public event SP_ReportFileReviewerRowChangeEventHandler SP_ReportFileReviewerRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddSP_UserInvolvedTableRow(SP_UserInvolvedTableRow row) {
+            public void AddSP_ReportFileReviewerRow(SP_ReportFileReviewerRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_UserInvolvedTableRow AddSP_UserInvolvedTableRow(string REQ_ID, string USER_NAME, System.DateTime CREATION_DATE, long NO_URUT) {
-                SP_UserInvolvedTableRow rowSP_UserInvolvedTableRow = ((SP_UserInvolvedTableRow)(this.NewRow()));
+            public SP_ReportFileReviewerRow AddSP_ReportFileReviewerRow(
+                        string REQ_ID, 
+                        string USER_NAME, 
+                        string USER_NIK, 
+                        string URL, 
+                        System.DateTime CREATION_DATE, 
+                        string CREATED_BY, 
+                        System.DateTime UPDATE_DATE, 
+                        string UPDATED_BY, 
+                        string FLAG_REVIEW, 
+                        string KETERANGAN_REVIEW, 
+                        string KETERANGAN_REJECT, 
+                        string REQ_ID1, 
+                        int NO_FILE, 
+                        string FILE_NAME_UPLOAD, 
+                        string PATH_FILE, 
+                        string REVIEWER_ID) {
+                SP_ReportFileReviewerRow rowSP_ReportFileReviewerRow = ((SP_ReportFileReviewerRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         REQ_ID,
                         null,
                         USER_NAME,
+                        USER_NIK,
+                        URL,
                         CREATION_DATE,
-                        NO_URUT};
-                rowSP_UserInvolvedTableRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowSP_UserInvolvedTableRow);
-                return rowSP_UserInvolvedTableRow;
+                        CREATED_BY,
+                        UPDATE_DATE,
+                        UPDATED_BY,
+                        FLAG_REVIEW,
+                        KETERANGAN_REVIEW,
+                        KETERANGAN_REJECT,
+                        REQ_ID1,
+                        NO_FILE,
+                        FILE_NAME_UPLOAD,
+                        PATH_FILE,
+                        REVIEWER_ID};
+                rowSP_ReportFileReviewerRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSP_ReportFileReviewerRow);
+                return rowSP_ReportFileReviewerRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                SP_UserInvolvedTableDataTable cln = ((SP_UserInvolvedTableDataTable)(base.Clone()));
+                SP_ReportFileReviewerDataTable cln = ((SP_ReportFileReviewerDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -423,7 +571,7 @@ namespace B7_Deviation {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new SP_UserInvolvedTableDataTable();
+                return new SP_ReportFileReviewerDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -432,8 +580,20 @@ namespace B7_Deviation {
                 this.columnREQ_ID = base.Columns["REQ_ID"];
                 this.columnRecordID = base.Columns["RecordID"];
                 this.columnUSER_NAME = base.Columns["USER_NAME"];
+                this.columnUSER_NIK = base.Columns["USER_NIK"];
+                this.columnURL = base.Columns["URL"];
                 this.columnCREATION_DATE = base.Columns["CREATION_DATE"];
-                this.columnNO_URUT = base.Columns["NO_URUT"];
+                this.columnCREATED_BY = base.Columns["CREATED_BY"];
+                this.columnUPDATE_DATE = base.Columns["UPDATE_DATE"];
+                this.columnUPDATED_BY = base.Columns["UPDATED_BY"];
+                this.columnFLAG_REVIEW = base.Columns["FLAG_REVIEW"];
+                this.columnKETERANGAN_REVIEW = base.Columns["KETERANGAN_REVIEW"];
+                this.columnKETERANGAN_REJECT = base.Columns["KETERANGAN_REJECT"];
+                this.columnREQ_ID1 = base.Columns["REQ_ID1"];
+                this.columnNO_FILE = base.Columns["NO_FILE"];
+                this.columnFILE_NAME_UPLOAD = base.Columns["FILE_NAME_UPLOAD"];
+                this.columnPATH_FILE = base.Columns["PATH_FILE"];
+                this.columnREVIEWER_ID = base.Columns["REVIEWER_ID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -441,47 +601,81 @@ namespace B7_Deviation {
             private void InitClass() {
                 this.columnREQ_ID = new global::System.Data.DataColumn("REQ_ID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnREQ_ID);
-                this.columnRecordID = new global::System.Data.DataColumn("RecordID", typeof(long), null, global::System.Data.MappingType.Element);
+                this.columnRecordID = new global::System.Data.DataColumn("RecordID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRecordID);
                 this.columnUSER_NAME = new global::System.Data.DataColumn("USER_NAME", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUSER_NAME);
+                this.columnUSER_NIK = new global::System.Data.DataColumn("USER_NIK", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUSER_NIK);
+                this.columnURL = new global::System.Data.DataColumn("URL", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnURL);
                 this.columnCREATION_DATE = new global::System.Data.DataColumn("CREATION_DATE", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCREATION_DATE);
-                this.columnNO_URUT = new global::System.Data.DataColumn("NO_URUT", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNO_URUT);
-                this.columnREQ_ID.AllowDBNull = false;
+                this.columnCREATED_BY = new global::System.Data.DataColumn("CREATED_BY", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCREATED_BY);
+                this.columnUPDATE_DATE = new global::System.Data.DataColumn("UPDATE_DATE", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUPDATE_DATE);
+                this.columnUPDATED_BY = new global::System.Data.DataColumn("UPDATED_BY", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUPDATED_BY);
+                this.columnFLAG_REVIEW = new global::System.Data.DataColumn("FLAG_REVIEW", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFLAG_REVIEW);
+                this.columnKETERANGAN_REVIEW = new global::System.Data.DataColumn("KETERANGAN_REVIEW", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnKETERANGAN_REVIEW);
+                this.columnKETERANGAN_REJECT = new global::System.Data.DataColumn("KETERANGAN_REJECT", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnKETERANGAN_REJECT);
+                this.columnREQ_ID1 = new global::System.Data.DataColumn("REQ_ID1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnREQ_ID1);
+                this.columnNO_FILE = new global::System.Data.DataColumn("NO_FILE", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNO_FILE);
+                this.columnFILE_NAME_UPLOAD = new global::System.Data.DataColumn("FILE_NAME_UPLOAD", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFILE_NAME_UPLOAD);
+                this.columnPATH_FILE = new global::System.Data.DataColumn("PATH_FILE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPATH_FILE);
+                this.columnREVIEWER_ID = new global::System.Data.DataColumn("REVIEWER_ID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnREVIEWER_ID);
                 this.columnREQ_ID.MaxLength = 50;
                 this.columnRecordID.AutoIncrement = true;
                 this.columnRecordID.AllowDBNull = false;
                 this.columnRecordID.ReadOnly = true;
-                this.columnUSER_NAME.MaxLength = 500;
-                this.columnNO_URUT.ReadOnly = true;
+                this.columnUSER_NAME.MaxLength = 50;
+                this.columnUSER_NIK.MaxLength = 50;
+                this.columnURL.MaxLength = 50;
+                this.columnCREATED_BY.MaxLength = 50;
+                this.columnUPDATED_BY.MaxLength = 50;
+                this.columnFLAG_REVIEW.MaxLength = 50;
+                this.columnKETERANGAN_REVIEW.MaxLength = 8000;
+                this.columnKETERANGAN_REJECT.MaxLength = 8000;
+                this.columnREQ_ID1.AllowDBNull = false;
+                this.columnREQ_ID1.MaxLength = 50;
+                this.columnFILE_NAME_UPLOAD.MaxLength = 1000;
+                this.columnPATH_FILE.MaxLength = 5000;
+                this.columnREVIEWER_ID.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_UserInvolvedTableRow NewSP_UserInvolvedTableRow() {
-                return ((SP_UserInvolvedTableRow)(this.NewRow()));
+            public SP_ReportFileReviewerRow NewSP_ReportFileReviewerRow() {
+                return ((SP_ReportFileReviewerRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new SP_UserInvolvedTableRow(builder);
+                return new SP_ReportFileReviewerRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(SP_UserInvolvedTableRow);
+                return typeof(SP_ReportFileReviewerRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.SP_UserInvolvedTableRowChanged != null)) {
-                    this.SP_UserInvolvedTableRowChanged(this, new SP_UserInvolvedTableRowChangeEvent(((SP_UserInvolvedTableRow)(e.Row)), e.Action));
+                if ((this.SP_ReportFileReviewerRowChanged != null)) {
+                    this.SP_ReportFileReviewerRowChanged(this, new SP_ReportFileReviewerRowChangeEvent(((SP_ReportFileReviewerRow)(e.Row)), e.Action));
                 }
             }
             
@@ -489,8 +683,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.SP_UserInvolvedTableRowChanging != null)) {
-                    this.SP_UserInvolvedTableRowChanging(this, new SP_UserInvolvedTableRowChangeEvent(((SP_UserInvolvedTableRow)(e.Row)), e.Action));
+                if ((this.SP_ReportFileReviewerRowChanging != null)) {
+                    this.SP_ReportFileReviewerRowChanging(this, new SP_ReportFileReviewerRowChangeEvent(((SP_ReportFileReviewerRow)(e.Row)), e.Action));
                 }
             }
             
@@ -498,8 +692,8 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.SP_UserInvolvedTableRowDeleted != null)) {
-                    this.SP_UserInvolvedTableRowDeleted(this, new SP_UserInvolvedTableRowChangeEvent(((SP_UserInvolvedTableRow)(e.Row)), e.Action));
+                if ((this.SP_ReportFileReviewerRowDeleted != null)) {
+                    this.SP_ReportFileReviewerRowDeleted(this, new SP_ReportFileReviewerRowChangeEvent(((SP_ReportFileReviewerRow)(e.Row)), e.Action));
                 }
             }
             
@@ -507,14 +701,14 @@ namespace B7_Deviation {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.SP_UserInvolvedTableRowDeleting != null)) {
-                    this.SP_UserInvolvedTableRowDeleting(this, new SP_UserInvolvedTableRowChangeEvent(((SP_UserInvolvedTableRow)(e.Row)), e.Action));
+                if ((this.SP_ReportFileReviewerRowDeleting != null)) {
+                    this.SP_ReportFileReviewerRowDeleting(this, new SP_ReportFileReviewerRowChangeEvent(((SP_ReportFileReviewerRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveSP_UserInvolvedTableRow(SP_UserInvolvedTableRow row) {
+            public void RemoveSP_ReportFileReviewerRow(SP_ReportFileReviewerRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -523,7 +717,7 @@ namespace B7_Deviation {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                B7_QUALITY_SYSTEMUserInvolved ds = new B7_QUALITY_SYSTEMUserInvolved();
+                ReportFileReviewerDataSource ds = new ReportFileReviewerDataSource();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -541,7 +735,7 @@ namespace B7_Deviation {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "SP_UserInvolvedTableDataTable";
+                attribute2.FixedValue = "SP_ReportFileReviewerDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -585,36 +779,41 @@ namespace B7_Deviation {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class SP_UserInvolvedTableRow : global::System.Data.DataRow {
+        public partial class SP_ReportFileReviewerRow : global::System.Data.DataRow {
             
-            private SP_UserInvolvedTableDataTable tableSP_UserInvolvedTable;
+            private SP_ReportFileReviewerDataTable tableSP_ReportFileReviewer;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal SP_UserInvolvedTableRow(global::System.Data.DataRowBuilder rb) : 
+            internal SP_ReportFileReviewerRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableSP_UserInvolvedTable = ((SP_UserInvolvedTableDataTable)(this.Table));
+                this.tableSP_ReportFileReviewer = ((SP_ReportFileReviewerDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string REQ_ID {
                 get {
-                    return ((string)(this[this.tableSP_UserInvolvedTable.REQ_IDColumn]));
+                    try {
+                        return ((string)(this[this.tableSP_ReportFileReviewer.REQ_IDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'REQ_ID\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableSP_UserInvolvedTable.REQ_IDColumn] = value;
+                    this[this.tableSP_ReportFileReviewer.REQ_IDColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public long RecordID {
+            public int RecordID {
                 get {
-                    return ((long)(this[this.tableSP_UserInvolvedTable.RecordIDColumn]));
+                    return ((int)(this[this.tableSP_ReportFileReviewer.RecordIDColumn]));
                 }
                 set {
-                    this[this.tableSP_UserInvolvedTable.RecordIDColumn] = value;
+                    this[this.tableSP_ReportFileReviewer.RecordIDColumn] = value;
                 }
             }
             
@@ -623,14 +822,46 @@ namespace B7_Deviation {
             public string USER_NAME {
                 get {
                     try {
-                        return ((string)(this[this.tableSP_UserInvolvedTable.USER_NAMEColumn]));
+                        return ((string)(this[this.tableSP_ReportFileReviewer.USER_NAMEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'USER_NAME\' in table \'SP_UserInvolvedTable\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'USER_NAME\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_UserInvolvedTable.USER_NAMEColumn] = value;
+                    this[this.tableSP_ReportFileReviewer.USER_NAMEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string USER_NIK {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportFileReviewer.USER_NIKColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'USER_NIK\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.USER_NIKColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string URL {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportFileReviewer.URLColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'URL\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.URLColumn] = value;
                 }
             }
             
@@ -639,67 +870,369 @@ namespace B7_Deviation {
             public System.DateTime CREATION_DATE {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableSP_UserInvolvedTable.CREATION_DATEColumn]));
+                        return ((global::System.DateTime)(this[this.tableSP_ReportFileReviewer.CREATION_DATEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CREATION_DATE\' in table \'SP_UserInvolvedTable\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CREATION_DATE\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_UserInvolvedTable.CREATION_DATEColumn] = value;
+                    this[this.tableSP_ReportFileReviewer.CREATION_DATEColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public long NO_URUT {
+            public string CREATED_BY {
                 get {
                     try {
-                        return ((long)(this[this.tableSP_UserInvolvedTable.NO_URUTColumn]));
+                        return ((string)(this[this.tableSP_ReportFileReviewer.CREATED_BYColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NO_URUT\' in table \'SP_UserInvolvedTable\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CREATED_BY\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSP_UserInvolvedTable.NO_URUTColumn] = value;
+                    this[this.tableSP_ReportFileReviewer.CREATED_BYColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime UPDATE_DATE {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableSP_ReportFileReviewer.UPDATE_DATEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UPDATE_DATE\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.UPDATE_DATEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string UPDATED_BY {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportFileReviewer.UPDATED_BYColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UPDATED_BY\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.UPDATED_BYColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string FLAG_REVIEW {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportFileReviewer.FLAG_REVIEWColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FLAG_REVIEW\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.FLAG_REVIEWColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string KETERANGAN_REVIEW {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportFileReviewer.KETERANGAN_REVIEWColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'KETERANGAN_REVIEW\' in table \'SP_ReportFileReviewer\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.KETERANGAN_REVIEWColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string KETERANGAN_REJECT {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportFileReviewer.KETERANGAN_REJECTColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'KETERANGAN_REJECT\' in table \'SP_ReportFileReviewer\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.KETERANGAN_REJECTColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string REQ_ID1 {
+                get {
+                    return ((string)(this[this.tableSP_ReportFileReviewer.REQ_ID1Column]));
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.REQ_ID1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int NO_FILE {
+                get {
+                    try {
+                        return ((int)(this[this.tableSP_ReportFileReviewer.NO_FILEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NO_FILE\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.NO_FILEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string FILE_NAME_UPLOAD {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportFileReviewer.FILE_NAME_UPLOADColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FILE_NAME_UPLOAD\' in table \'SP_ReportFileReviewer\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.FILE_NAME_UPLOADColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string PATH_FILE {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportFileReviewer.PATH_FILEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PATH_FILE\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.PATH_FILEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string REVIEWER_ID {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportFileReviewer.REVIEWER_IDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'REVIEWER_ID\' in table \'SP_ReportFileReviewer\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportFileReviewer.REVIEWER_IDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsREQ_IDNull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.REQ_IDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetREQ_IDNull() {
+                this[this.tableSP_ReportFileReviewer.REQ_IDColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsUSER_NAMENull() {
-                return this.IsNull(this.tableSP_UserInvolvedTable.USER_NAMEColumn);
+                return this.IsNull(this.tableSP_ReportFileReviewer.USER_NAMEColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetUSER_NAMENull() {
-                this[this.tableSP_UserInvolvedTable.USER_NAMEColumn] = global::System.Convert.DBNull;
+                this[this.tableSP_ReportFileReviewer.USER_NAMEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUSER_NIKNull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.USER_NIKColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUSER_NIKNull() {
+                this[this.tableSP_ReportFileReviewer.USER_NIKColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsURLNull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.URLColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetURLNull() {
+                this[this.tableSP_ReportFileReviewer.URLColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsCREATION_DATENull() {
-                return this.IsNull(this.tableSP_UserInvolvedTable.CREATION_DATEColumn);
+                return this.IsNull(this.tableSP_ReportFileReviewer.CREATION_DATEColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetCREATION_DATENull() {
-                this[this.tableSP_UserInvolvedTable.CREATION_DATEColumn] = global::System.Convert.DBNull;
+                this[this.tableSP_ReportFileReviewer.CREATION_DATEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsNO_URUTNull() {
-                return this.IsNull(this.tableSP_UserInvolvedTable.NO_URUTColumn);
+            public bool IsCREATED_BYNull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.CREATED_BYColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetNO_URUTNull() {
-                this[this.tableSP_UserInvolvedTable.NO_URUTColumn] = global::System.Convert.DBNull;
+            public void SetCREATED_BYNull() {
+                this[this.tableSP_ReportFileReviewer.CREATED_BYColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUPDATE_DATENull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.UPDATE_DATEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUPDATE_DATENull() {
+                this[this.tableSP_ReportFileReviewer.UPDATE_DATEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUPDATED_BYNull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.UPDATED_BYColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUPDATED_BYNull() {
+                this[this.tableSP_ReportFileReviewer.UPDATED_BYColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFLAG_REVIEWNull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.FLAG_REVIEWColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFLAG_REVIEWNull() {
+                this[this.tableSP_ReportFileReviewer.FLAG_REVIEWColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsKETERANGAN_REVIEWNull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.KETERANGAN_REVIEWColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetKETERANGAN_REVIEWNull() {
+                this[this.tableSP_ReportFileReviewer.KETERANGAN_REVIEWColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsKETERANGAN_REJECTNull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.KETERANGAN_REJECTColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetKETERANGAN_REJECTNull() {
+                this[this.tableSP_ReportFileReviewer.KETERANGAN_REJECTColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsNO_FILENull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.NO_FILEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetNO_FILENull() {
+                this[this.tableSP_ReportFileReviewer.NO_FILEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFILE_NAME_UPLOADNull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.FILE_NAME_UPLOADColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFILE_NAME_UPLOADNull() {
+                this[this.tableSP_ReportFileReviewer.FILE_NAME_UPLOADColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPATH_FILENull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.PATH_FILEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPATH_FILENull() {
+                this[this.tableSP_ReportFileReviewer.PATH_FILEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsREVIEWER_IDNull() {
+                return this.IsNull(this.tableSP_ReportFileReviewer.REVIEWER_IDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetREVIEWER_IDNull() {
+                this[this.tableSP_ReportFileReviewer.REVIEWER_IDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -707,22 +1240,22 @@ namespace B7_Deviation {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class SP_UserInvolvedTableRowChangeEvent : global::System.EventArgs {
+        public class SP_ReportFileReviewerRowChangeEvent : global::System.EventArgs {
             
-            private SP_UserInvolvedTableRow eventRow;
+            private SP_ReportFileReviewerRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_UserInvolvedTableRowChangeEvent(SP_UserInvolvedTableRow row, global::System.Data.DataRowAction action) {
+            public SP_ReportFileReviewerRowChangeEvent(SP_ReportFileReviewerRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_UserInvolvedTableRow Row {
+            public SP_ReportFileReviewerRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -738,7 +1271,7 @@ namespace B7_Deviation {
         }
     }
 }
-namespace B7_Deviation.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
+namespace B7_Deviation.DataSource.ReportFileReviewerDataSourceTableAdapters {
     
     
     /// <summary>
@@ -750,7 +1283,7 @@ namespace B7_Deviation.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class SP_UserInvolvedTableTableAdapter : global::System.ComponentModel.Component {
+    public partial class SP_ReportFileReviewerTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -764,7 +1297,7 @@ namespace B7_Deviation.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public SP_UserInvolvedTableTableAdapter() {
+        public SP_ReportFileReviewerTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -861,12 +1394,24 @@ namespace B7_Deviation.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "SP_UserInvolvedTable";
+            tableMapping.DataSetTable = "SP_ReportFileReviewer";
             tableMapping.ColumnMappings.Add("REQ_ID", "REQ_ID");
             tableMapping.ColumnMappings.Add("RecordID", "RecordID");
             tableMapping.ColumnMappings.Add("USER_NAME", "USER_NAME");
+            tableMapping.ColumnMappings.Add("USER_NIK", "USER_NIK");
+            tableMapping.ColumnMappings.Add("URL", "URL");
             tableMapping.ColumnMappings.Add("CREATION_DATE", "CREATION_DATE");
-            tableMapping.ColumnMappings.Add("NO_URUT", "NO_URUT");
+            tableMapping.ColumnMappings.Add("CREATED_BY", "CREATED_BY");
+            tableMapping.ColumnMappings.Add("UPDATE_DATE", "UPDATE_DATE");
+            tableMapping.ColumnMappings.Add("UPDATED_BY", "UPDATED_BY");
+            tableMapping.ColumnMappings.Add("FLAG_REVIEW", "FLAG_REVIEW");
+            tableMapping.ColumnMappings.Add("KETERANGAN_REVIEW", "KETERANGAN_REVIEW");
+            tableMapping.ColumnMappings.Add("KETERANGAN_REJECT", "KETERANGAN_REJECT");
+            tableMapping.ColumnMappings.Add("REQ_ID1", "REQ_ID1");
+            tableMapping.ColumnMappings.Add("NO_FILE", "NO_FILE");
+            tableMapping.ColumnMappings.Add("FILE_NAME_UPLOAD", "FILE_NAME_UPLOAD");
+            tableMapping.ColumnMappings.Add("PATH_FILE", "PATH_FILE");
+            tableMapping.ColumnMappings.Add("REVIEWER_ID", "REVIEWER_ID");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -883,17 +1428,17 @@ namespace B7_Deviation.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.SP_UserInvolvedTable";
+            this._commandCollection[0].CommandText = "dbo.SP_ReportFileReviewer";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(B7_QUALITY_SYSTEMUserInvolved.SP_UserInvolvedTableDataTable dataTable, string Nomor) {
+        public virtual int Fill(ReportFileReviewerDataSource.SP_ReportFileReviewerDataTable dataTable, string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -912,7 +1457,7 @@ namespace B7_Deviation.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual B7_QUALITY_SYSTEMUserInvolved.SP_UserInvolvedTableDataTable GetData(string Nomor) {
+        public virtual ReportFileReviewerDataSource.SP_ReportFileReviewerDataTable GetData(string Nomor) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -920,7 +1465,7 @@ namespace B7_Deviation.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nomor));
             }
-            B7_QUALITY_SYSTEMUserInvolved.SP_UserInvolvedTableDataTable dataTable = new B7_QUALITY_SYSTEMUserInvolved.SP_UserInvolvedTableDataTable();
+            ReportFileReviewerDataSource.SP_ReportFileReviewerDataTable dataTable = new ReportFileReviewerDataSource.SP_ReportFileReviewerDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -994,7 +1539,7 @@ namespace B7_Deviation.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(B7_QUALITY_SYSTEMUserInvolved dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(ReportFileReviewerDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1004,7 +1549,7 @@ namespace B7_Deviation.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(B7_QUALITY_SYSTEMUserInvolved dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(ReportFileReviewerDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1014,7 +1559,7 @@ namespace B7_Deviation.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(B7_QUALITY_SYSTEMUserInvolved dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(ReportFileReviewerDataSource dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -1048,7 +1593,7 @@ namespace B7_Deviation.B7_QUALITY_SYSTEMUserInvolvedTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(B7_QUALITY_SYSTEMUserInvolved dataSet) {
+        public virtual int UpdateAll(ReportFileReviewerDataSource dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }
