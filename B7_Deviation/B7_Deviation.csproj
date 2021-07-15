@@ -127,6 +127,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="AttachmentDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AttachmentDataSource.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="B7_QUALITY_SYSTEMData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>B7_QUALITY_SYSTEMData.xsd</DependentUpon>
+    </Compile>
     <Compile Include="B7_QUALITY_SYSTEMUserInvolved.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -144,6 +154,11 @@
     <Compile Include="Controllers\ReviewerController.cs" />
     <Compile Include="Controllers\SpvPelaporController.cs" />
     <Compile Include="Controllers\SpvPICController.cs" />
+    <Compile Include="FormDetailDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FormDetailDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -158,10 +173,60 @@
     <Compile Include="Models\SaveUser.cs" />
     <Compile Include="Models\UsulanRevisiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportBagianTerkaitDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportBagianTerkaitDataSource.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportBuktiTindakanRemedialDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportBuktiTindakanRemedialDataSource.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportCarParDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportCarParDataSource.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportFileReviewerDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportFileReviewerDataSource.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportKoordinatorDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportKoordinatorDataSource.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportLeadTimeDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportLeadTimeDataSource.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportMasterListDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportMasterListDataSource.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportNamaManagerDelegasiDataSource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportNamaManagerDelegasiDataSource.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportPICTableDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportPICTableDataSource.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportReviewerDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportReviewerDataSource.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportTindakanRemedialDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportTindakanRemedialDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Report\LeadTime.aspx.cs">
       <DependentUpon>LeadTime.aspx</DependentUpon>
@@ -190,6 +255,28 @@
     <Content Include="B7_QUALITY_SYSTEMUserInvolved.xsc">
       <DependentUpon>B7_QUALITY_SYSTEMUserInvolved.xsd</DependentUpon>
     </Content>
+    <Content Include="B7_QUALITY_SYSTEMData.xsc">
+      <DependentUpon>B7_QUALITY_SYSTEMData.xsd</DependentUpon>
+    </Content>
+    <Content Include="AttachmentDataSource.xsc">
+      <DependentUpon>AttachmentDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="AttachmentDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AttachmentDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AttachmentDataSource.xss">
+      <DependentUpon>AttachmentDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="B7_QUALITY_SYSTEMData.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>B7_QUALITY_SYSTEMData.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="B7_QUALITY_SYSTEMData.xss">
+      <DependentUpon>B7_QUALITY_SYSTEMData.xsd</DependentUpon>
+    </Content>
     <None Include="B7_QUALITY_SYSTEMUserInvolved.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>B7_QUALITY_SYSTEMUserInvolved.Designer.cs</LastGenOutput>
@@ -197,6 +284,17 @@
     </None>
     <Content Include="B7_QUALITY_SYSTEMUserInvolved.xss">
       <DependentUpon>B7_QUALITY_SYSTEMUserInvolved.xsd</DependentUpon>
+    </Content>
+    <Content Include="FormDetailDataSet.xsc">
+      <DependentUpon>FormDetailDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="FormDetailDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FormDetailDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="FormDetailDataSet.xss">
+      <DependentUpon>FormDetailDataSet.xsd</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -251,6 +349,83 @@
     <Content Include="ReportNamaManagerDelegasiDataSource.xsc">
       <DependentUpon>ReportNamaManagerDelegasiDataSource.xsd</DependentUpon>
     </Content>
+    <Content Include="ReportBagianTerkaitDataSource.xsc">
+      <DependentUpon>ReportBagianTerkaitDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportBagianTerkaitDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportBagianTerkaitDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportBagianTerkaitDataSource.xss">
+      <DependentUpon>ReportBagianTerkaitDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReportBuktiTindakanRemedialDataSource.xsc">
+      <DependentUpon>ReportBuktiTindakanRemedialDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportBuktiTindakanRemedialDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportBuktiTindakanRemedialDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportBuktiTindakanRemedialDataSource.xss">
+      <DependentUpon>ReportBuktiTindakanRemedialDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReportCarParDataSource.xsc">
+      <DependentUpon>ReportCarParDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportCarParDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportCarParDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportCarParDataSource.xss">
+      <DependentUpon>ReportCarParDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReportFileReviewerDataSource.xsc">
+      <DependentUpon>ReportFileReviewerDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportFileReviewerDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportFileReviewerDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportFileReviewerDataSource.xss">
+      <DependentUpon>ReportFileReviewerDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReportKoordinatorDataSource.xsc">
+      <DependentUpon>ReportKoordinatorDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportKoordinatorDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportKoordinatorDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportKoordinatorDataSource.xss">
+      <DependentUpon>ReportKoordinatorDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReportLeadTimeDataSource.xsc">
+      <DependentUpon>ReportLeadTimeDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportLeadTimeDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportLeadTimeDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportLeadTimeDataSource.xss">
+      <DependentUpon>ReportLeadTimeDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReportMasterListDataSource.xsc">
+      <DependentUpon>ReportMasterListDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportMasterListDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportMasterListDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportMasterListDataSource.xss">
+      <DependentUpon>ReportMasterListDataSource.xsd</DependentUpon>
+    </Content>
     <None Include="ReportNamaManagerDelegasiDataSource.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ReportNamaManagerDelegasiDataSource.Designer.cs</LastGenOutput>
@@ -258,6 +433,39 @@
     </None>
     <Content Include="ReportNamaManagerDelegasiDataSource.xss">
       <DependentUpon>ReportNamaManagerDelegasiDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReportPICTableDataSource.xsc">
+      <DependentUpon>ReportPICTableDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportPICTableDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportPICTableDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportPICTableDataSource.xss">
+      <DependentUpon>ReportPICTableDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReportReviewerDataSource.xsc">
+      <DependentUpon>ReportReviewerDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportReviewerDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportReviewerDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportReviewerDataSource.xss">
+      <DependentUpon>ReportReviewerDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReportTindakanRemedialDataSet.xsc">
+      <DependentUpon>ReportTindakanRemedialDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportTindakanRemedialDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportTindakanRemedialDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReportTindakanRemedialDataSet.xss">
+      <DependentUpon>ReportTindakanRemedialDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
