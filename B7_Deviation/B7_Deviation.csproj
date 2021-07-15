@@ -127,11 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="B7_QUALITY_SYSTEMData.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>B7_QUALITY_SYSTEMData.xsd</DependentUpon>
-    </Compile>
     <Compile Include="B7_QUALITY_SYSTEMUserInvolved.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -163,11 +158,6 @@
     <Compile Include="Models\SaveUser.cs" />
     <Compile Include="Models\UsulanRevisiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReportBagianTerkaitDataSource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportBagianTerkaitDataSource.xsd</DependentUpon>
-    </Compile>
     <Compile Include="ReportNamaManagerDelegasiDataSource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -199,17 +189,6 @@
     <Content Include="Views\web.config" />
     <Content Include="B7_QUALITY_SYSTEMUserInvolved.xsc">
       <DependentUpon>B7_QUALITY_SYSTEMUserInvolved.xsd</DependentUpon>
-    </Content>
-    <Content Include="B7_QUALITY_SYSTEMData.xsc">
-      <DependentUpon>B7_QUALITY_SYSTEMData.xsd</DependentUpon>
-    </Content>
-    <None Include="B7_QUALITY_SYSTEMData.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>B7_QUALITY_SYSTEMData.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="B7_QUALITY_SYSTEMData.xss">
-      <DependentUpon>B7_QUALITY_SYSTEMData.xsd</DependentUpon>
     </Content>
     <None Include="B7_QUALITY_SYSTEMUserInvolved.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -271,17 +250,6 @@
     <Content Include="Views\DataDeviasi\MasterList.cshtml" />
     <Content Include="ReportNamaManagerDelegasiDataSource.xsc">
       <DependentUpon>ReportNamaManagerDelegasiDataSource.xsd</DependentUpon>
-    </Content>
-    <Content Include="ReportBagianTerkaitDataSource.xsc">
-      <DependentUpon>ReportBagianTerkaitDataSource.xsd</DependentUpon>
-    </Content>
-    <None Include="ReportBagianTerkaitDataSource.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ReportBagianTerkaitDataSource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="ReportBagianTerkaitDataSource.xss">
-      <DependentUpon>ReportBagianTerkaitDataSource.xsd</DependentUpon>
     </Content>
     <None Include="ReportNamaManagerDelegasiDataSource.xsd">
       <Generator>MSDataSetGenerator</Generator>
