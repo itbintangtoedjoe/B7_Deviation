@@ -263,7 +263,7 @@
 							"showMethod": "fadeIn",
 							"hideMethod": "fadeOut"
 						});
-						GetFileAttachment(REQID);
+                        GetFileAttachmentReviewer();
 					}
 				}
 				, error: function (ex) {
@@ -275,7 +275,7 @@
 		}
 	}
 
-	function GetFileAttachment() {
+	function GetFileAttachmentReviewer() {
 
 		var ReqID = @ViewBag.nomor;
 		var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
@@ -308,17 +308,17 @@
 								'<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
 						}
 
-						$("#tbl_Attachment").show();
-						$("#tbody_Attachment").empty();
-						$("#tbody_Attachment").append(trHTML);
-						$("#tbody_Attachment").addBack();
+                        $("#tbl_AttachmentReviewer").show();
+                        $("#tbody_AttachmentReviewer").empty();
+                        $("#tbody_AttachmentReviewer").append(trHTML);
+                        $("#tbody_AttachmentReviewer").addBack();
 
 					} else {
-						$("#tbl_Attachment").hide();
+                        $("#tbl_AttachmentReviewer").hide();
 					}
 				} else {
-					$("#tbl_Attachment").hide();
-					$("#tbody_Attachment").addBack();
+                    $("#tbl_AttachmentReviewer").hide();
+                    $("#tbody_AttachmentReviewer").addBack();
 				}
 			},
 			error: function (ex) {
@@ -350,6 +350,8 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+
+
 				if (data == 'S') {
 					toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
 						"closeButton": false,
@@ -369,7 +371,7 @@
 						"hideMethod": "fadeOut"
 					});
 
-					GetFileAttachment();
+                    GetFileAttachmentReviewer();
 				}
 			},
 			error: function (ex) {

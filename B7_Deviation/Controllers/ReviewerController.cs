@@ -293,10 +293,10 @@ namespace B7_Deviation.Controllers
             {
                 var file = Request.Files[i];
                 var fileName = ReqID + '_' + DateTimeF + '_' + Path.GetFileName(file.FileName);
-                
 
-                URLAttachment = Path.Combine("\\10.100.18.54\\B7_Deviation\\Content\\Attachment\\Reviwer\\", fileName);
-                URLDownload = Path.Combine(@"/B7_Deviation/Content/Attachment/Reviwer/", fileName);
+                URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\Reviewer\", fileName);
+                URLDownload = Path.Combine(@"/B7_Deviation/Content/Attachment/Reviewer/", fileName);
+
                 //D:\TempURLFiles LOCAL DIRECTORY
                 //10.167.1.78\Intranetportal\Intranet Attachment\Deviation\
                 file.SaveAs(URLAttachment);
@@ -398,6 +398,8 @@ namespace B7_Deviation.Controllers
             int tempP = 0;
             string result;
             string PathFile = Model.PathFile;
+
+            List<string> ModelData = new List<string>();
             string ConString = mySetting.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
             try
@@ -427,7 +429,8 @@ namespace B7_Deviation.Controllers
             catch (Exception ex)
             {
                 result = ex.ToString();
-                return Json(result);
+                ModelData.Add(result);
+                throw ex;
             }
 
             /*Delete File*/
@@ -452,8 +455,10 @@ namespace B7_Deviation.Controllers
             {
                 result = "E";
             }
+            ModelData.Add(result);
 
-            return Json(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+
         }
 
 
