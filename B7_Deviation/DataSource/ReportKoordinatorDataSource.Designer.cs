@@ -281,6 +281,8 @@ namespace B7_Deviation.DataSource {
             
             private global::System.Data.DataColumn columnCoorName;
             
+            private global::System.Data.DataColumn columnAPKORDATE;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_ReportKoordinatorDataTable() {
@@ -324,6 +326,14 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn APKORDATEColumn {
+                get {
+                    return this.columnAPKORDATE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -359,10 +369,11 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportKoordinatorRow AddSP_ReportKoordinatorRow(string CoorName) {
+            public SP_ReportKoordinatorRow AddSP_ReportKoordinatorRow(string CoorName, System.DateTime APKORDATE) {
                 SP_ReportKoordinatorRow rowSP_ReportKoordinatorRow = ((SP_ReportKoordinatorRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        CoorName};
+                        CoorName,
+                        APKORDATE};
                 rowSP_ReportKoordinatorRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_ReportKoordinatorRow);
                 return rowSP_ReportKoordinatorRow;
@@ -386,6 +397,7 @@ namespace B7_Deviation.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
                 this.columnCoorName = base.Columns["CoorName"];
+                this.columnAPKORDATE = base.Columns["APKORDATE"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -393,6 +405,8 @@ namespace B7_Deviation.DataSource {
             private void InitClass() {
                 this.columnCoorName = new global::System.Data.DataColumn("CoorName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCoorName);
+                this.columnAPKORDATE = new global::System.Data.DataColumn("APKORDATE", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAPKORDATE);
                 this.columnCoorName.ReadOnly = true;
                 this.columnCoorName.MaxLength = 80;
             }
@@ -553,6 +567,22 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime APKORDATE {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableSP_ReportKoordinator.APKORDATEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'APKORDATE\' in table \'SP_ReportKoordinator\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportKoordinator.APKORDATEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsCoorNameNull() {
                 return this.IsNull(this.tableSP_ReportKoordinator.CoorNameColumn);
             }
@@ -561,6 +591,18 @@ namespace B7_Deviation.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetCoorNameNull() {
                 this[this.tableSP_ReportKoordinator.CoorNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsAPKORDATENull() {
+                return this.IsNull(this.tableSP_ReportKoordinator.APKORDATEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetAPKORDATENull() {
+                this[this.tableSP_ReportKoordinator.APKORDATEColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -724,6 +766,7 @@ namespace B7_Deviation.DataSource.ReportKoordinatorDataSourceTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "SP_ReportKoordinator";
             tableMapping.ColumnMappings.Add("CoorName", "CoorName");
+            tableMapping.ColumnMappings.Add("APKORDATE", "APKORDATE");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

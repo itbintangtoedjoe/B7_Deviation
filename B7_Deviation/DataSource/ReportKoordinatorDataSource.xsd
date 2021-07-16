@@ -9,7 +9,7 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="SP_ReportKoordinatorTableAdapter" GeneratorDataComponentClassName="SP_ReportKoordinatorTableAdapter" Name="SP_ReportKoordinator" UserDataComponentName="SP_ReportKoordinatorTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="DB_DEVIATION (Web.config)" DbObjectName="B7_QUALITY_SYSTEM.dbo.SP_ReportKoordinator" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DB_DEVIATION (Web.config)" DbObjectName="B7_QUALITY_SYSTEM.dbo.SP_ReportKoordinator" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.SP_ReportKoordinator</CommandText>
@@ -23,6 +23,7 @@
             </MainSource>
             <Mappings>
               <Mapping SourceColumn="CoorName" DataSetColumn="CoorName" />
+              <Mapping SourceColumn="APKORDATE" DataSetColumn="APKORDATE" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -34,7 +35,7 @@
   <xs:element name="ReportKoordinatorDataSource" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ReportKoordinatorDataSource" msprop:Generator_UserDSName="ReportKoordinatorDataSource">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="SP_ReportKoordinator" msprop:Generator_TableClassName="SP_ReportKoordinatorDataTable" msprop:Generator_TableVarName="tableSP_ReportKoordinator" msprop:Generator_TablePropName="SP_ReportKoordinator" msprop:Generator_RowDeletingName="SP_ReportKoordinatorRowDeleting" msprop:Generator_RowChangingName="SP_ReportKoordinatorRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportKoordinatorRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportKoordinatorRowDeleted" msprop:Generator_UserTableName="SP_ReportKoordinator" msprop:Generator_RowChangedName="SP_ReportKoordinatorRowChanged" msprop:Generator_RowEvArgName="SP_ReportKoordinatorRowChangeEvent" msprop:Generator_RowClassName="SP_ReportKoordinatorRow">
+        <xs:element name="SP_ReportKoordinator" msprop:Generator_TableClassName="SP_ReportKoordinatorDataTable" msprop:Generator_TableVarName="tableSP_ReportKoordinator" msprop:Generator_RowChangedName="SP_ReportKoordinatorRowChanged" msprop:Generator_TablePropName="SP_ReportKoordinator" msprop:Generator_RowDeletingName="SP_ReportKoordinatorRowDeleting" msprop:Generator_RowChangingName="SP_ReportKoordinatorRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportKoordinatorRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportKoordinatorRowDeleted" msprop:Generator_RowClassName="SP_ReportKoordinatorRow" msprop:Generator_UserTableName="SP_ReportKoordinator" msprop:Generator_RowEvArgName="SP_ReportKoordinatorRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CoorName" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCoorName" msprop:Generator_ColumnPropNameInRow="CoorName" msprop:Generator_ColumnPropNameInTable="CoorNameColumn" msprop:Generator_UserColumnName="CoorName" minOccurs="0">
@@ -44,6 +45,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="APKORDATE" msprop:Generator_ColumnVarNameInTable="columnAPKORDATE" msprop:Generator_ColumnPropNameInRow="APKORDATE" msprop:Generator_ColumnPropNameInTable="APKORDATEColumn" msprop:Generator_UserColumnName="APKORDATE" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

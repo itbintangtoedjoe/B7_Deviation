@@ -91,7 +91,7 @@ namespace B7_Deviation.Controllers
                  , t_namapenerima = ""
                  , t_emailpenerima = "" ;
 
-            //SettingAttribute Detail Email
+            //SettingAttribute Detail Data Email 
             try
             {
                 Conn.Open();
@@ -1433,8 +1433,8 @@ namespace B7_Deviation.Controllers
                 //URLAttachment = Path.Combine(@"\\KALBOX-B7.BINTANG7.com\Intranetportal\Intranet Attachment\Deviation\Form Usulan\", fileName);
                 //URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\FormUsulan\", fileName);
 
-                URLAttachment = Path.Combine(@"..\B7_Deviation\Content\Attachment\FormUsulan\", fileName);
-                URLDownload = Path.Combine(@"../B7_Deviation/Content/Attachment/FormUsulan/", fileName);
+                URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\FormUsulan\", fileName);
+                URLDownload = Path.Combine(@"//10.100.18.54/B7_Deviation/Content/Attachment/FormUsulan/", fileName);
 
                 //10.167.1.78\Intranetportal\Intranet Attachment\Deviation\
                 file.SaveAs(URLAttachment);

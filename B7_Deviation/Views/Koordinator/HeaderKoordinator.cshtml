@@ -118,7 +118,6 @@
 			Reject();
 		});
 
-
 		$("#btnCancel").click(function () {
 			Cancel();
 		});
@@ -155,7 +154,7 @@
 		});
 	}
 
-	function Approve() {
+	function ApproveHeaderKoordinator() {
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -559,7 +558,6 @@
 
 					$("#btnApprove").click(function () {
 
-
 						var tbl = document.getElementById('tblWho').rows.length;
 						var btnText = $("#btnApprove").text();
 
@@ -571,20 +569,21 @@
 							GetDDL();
 							return;
 						}
-						else if (tbl <= 1 && $.trim(btnText) == 'Send to Reviewer')
-						{
-
-							Swal.fire({
-									icon: 'error',
-									title: 'Oops...',
-									text: 'Please Insert Reviewer First',
-							});
-							return;
-						}
 						else
-						{
-							Approve();
-						}
+							if (tbl <= 1 && $.trim(btnText) == 'Send to Reviewer')
+							{
+
+								Swal.fire({
+										icon: 'error',
+										title: 'Oops...',
+										text: 'Please Insert Reviewer First',
+								});
+								return;
+							}
+							else
+							{
+                                ApproveHeaderKoordinator();
+							}
 					});
 				}
 
