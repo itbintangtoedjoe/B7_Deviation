@@ -24,8 +24,9 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
-        public ActionResult PendingApproval()
+        public ActionResult PendingApproval(String Nomor)
         {
+            ViewBag.nomor = Nomor;
             return View();
         }
 

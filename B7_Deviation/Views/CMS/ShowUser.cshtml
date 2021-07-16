@@ -35,6 +35,7 @@
                                 <th>Department</th>
                                 <th>Superior Email</th>
                                 <th>Role Deviation</th>
+                                <th>Kategori Penyimpangan</th>
                                 <th>Buttons</th>
 
                             </tr>
@@ -52,6 +53,7 @@
                                 <td>8</td>
                                 <td>9</td>
                                 <td>10</td>
+                                <td>11</td>
                                 <td><input type="button" id="Delete" value="Delete" /> <input type="button" value="Update" id="Update"> <input type="button" value="Edit" id="Edit"> <input type="button" value="Cancel" id="Cancel"></td>
                             </tr>
                         </tbody>
@@ -109,6 +111,7 @@
                                 '<td> <input type="text" class="form-control" value="' + data[trav].orggroupname + '"/> </td>' +
                                 '<td> <input type="text" class="form-control" value="' + data[trav].emailsuperior + '"/> </td>' +
                                 '<td> <select id="role" class="form-control"> </td>' +
+                                '<td> <select id="penyimpangan" class="form-control"> </td>' +
                                 '<td> <input type="button" id = "Cancel"  value="Cancel" onclick="Cancel(this)" class="btn btn-dark" style="width:40px"/><input type = "button" id = "Update" value = "Update" onclick="Update(this)" class="btn btn-primary" style="width:40px"/>' + '</td>';
                         }
                         else {
@@ -123,11 +126,13 @@
                                 '<td>' + data[trav].orggroupname + '</td>' +
                                 '<td>' + data[trav].emailsuperior + '</td>' +
                                 '<td>' + data[trav].role_deviation + '</td>' +
+                                '<td>' + data[trav].kategori_penyimpangan + '</td>' +
                                 '<td><input type="button" id="Edit" value="Edit" onclick=Edit(this) class="btn btn-success" style="width:40px"/><input type="button" id="Delete" value ="Delete" onclick=Delete(this) class="btn btn-danger" style="width:40px"/></td>';
                         }
                     }
                 }
                 GetRoleEdit(t_username);
+                GetKategoriPenyimpangan(t_username);
 
                 $('#datatableuser').DataTable().clear().destroy();
                 $('#usertable').empty();
@@ -153,6 +158,7 @@
         var orggroupname = $("TD", row).eq(8).find("input[type='text']").val();
         var emailsuperior = $("TD", row).eq(9).find("input[type='text']").val();
         var role = $("TD", row).eq(10).find("select").val();
+        var kategoripenyimpangan = $("TD", row).eq(11).find("select").val();
 
         var dto = {
             empid: empid,
@@ -164,7 +170,8 @@
             superiorname: superiorname,
             orggroupname: orggroupname,
             emailsuperior: emailsuperior,
-            role: role
+            role: role,
+            kategoripenyimpangan: kategoripenyimpangan
         }
 
         $.ajax({
@@ -250,12 +257,15 @@
                         '<td>' + data[trav].orggroupname + '</td>' +
                         '<td>' + data[trav].emailsuperior + '</td>' +
                         '<td>' + data[trav].role_deviation + '</td>' +
+                        '<td>' + data[trav].kategori_penyimpangan + '</td>' +
                         '<td> <input type="button" id="Edit" value="Edit" onclick=Edit(this) class="btn btn-success" style="width:40px;"/><input type="button" id="Delete" value="Delete" onclick=Delete(this) class="btn btn-danger" style="width:40px;"/></td>';
                 }
 
                 $('#usertable').empty();
                 $('#usertable').append(trHTML);
+                $("#usertable").addBack();
                 $('#datatableuser').DataTable();
+                
 
             },
             error: function (ex) {
@@ -287,6 +297,49 @@
                 $("#role").empty();
                 $("#role").append(trhtml);
                 $("#role").select();
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetKategoriPenyimpangan(t_username) {
+
+        var dto = {
+            Username: t_username
+        }
+
+        $.ajax({
+            url: "../CMS/CMS_GetKategoriPenyimpangan",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+
+                trhtml += '<option disabled class="dropdown-header">Select Kategori Penyimpangan</option>';
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        if (data[trav].role_deviation == 'Coordinator_QA' || data[trav].role_deviation == 'Coordinator_QS') {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                        } else {
+                            trhtml += '<Option class="dropdown-item" selected value = "" > - ';
+                            break;
+                        }
+
+
+                    }
+                }
+
+                $("#penyimpangan").empty();
+                $("#penyimpangan").append(trhtml);
+                $("#penyimpangan").select();
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
