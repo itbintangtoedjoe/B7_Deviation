@@ -107,7 +107,7 @@
 <script>
 
 	$(document).ready(function () {
-
+		
 		GetCurrStat();
 
 		$('#spanUser').click(function () {
@@ -394,7 +394,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data == 'S') {
-                    
+					
 					toastr.success("Data berhasil tersimpan !", "Tersimpan", {
 						"closeButton": false,
 						"debug": true,
@@ -438,7 +438,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data != '') {
-                    $('#tblWho_Rev').attr('hidden', false);
+					$('#tblWho_Rev').attr('hidden', false);
 
 					var trHTML = '';
 					var trav = 0;
@@ -452,13 +452,13 @@
 							'<td><button onclick="DeleteUserInvolved(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
 					}
 
-                    $("#tblBodyWho_Rev").empty();
-                    $("#tblBodyWho_Rev").append(trHTML);
-                    $("#tblBodyWho_Rev").addBack();
+					$("#tblBodyWho_Rev").empty();
+					$("#tblBodyWho_Rev").append(trHTML);
+					$("#tblBodyWho_Rev").addBack();
 				}
 				else {
-                    $('#tblWho_Rev').attr('hidden', true);
-                    $("#tblBodyWho_Rev").addBack();
+					$('#tblWho_Rev').attr('hidden', true);
+					$("#tblBodyWho_Rev").addBack();
 				}
 
 			}
@@ -530,8 +530,8 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
-				if (data == 'S') {
+				if (data[0].STAT == 'S') {
+					
 					$("#btnCancel").removeAttr('hidden');
 					$("#btnShowRev").removeAttr('hidden');
 
@@ -555,11 +555,22 @@
 					$("#btnReject").removeAttr("hidden");
 
 
+					Coor_LoadUserInvolved();
+
+					var btnText = $("#btnApprove").text();
+					var tbl = data[0].COUNTED
+
+					
+					if (tbl >= 1 && $.trim(btnText) == 'Approve') {
+						$("#btnApprove").text('Send to Reviewer');
+						$("#btnApprove").width("110px");
+						$("#xddlx").removeAttr('hidden');
+						$("#btnReject").attr("hidden", true);
+						GetDDL();
+						
+					}
 
 					$("#btnApprove").click(function () {
-
-                        var tbl = document.getElementById('tblWho_Rev').rows.length;
-						var btnText = $("#btnApprove").text();
 
 						if (tbl <= 1 && $.trim(btnText) == 'Approve') {
 							$("#btnReject").attr("hidden", true);
@@ -570,19 +581,18 @@
 							return;
 						}
 						else
-							if (tbl <= 1 && $.trim(btnText) == 'Send to Reviewer')
-							{
+
+							if (tbl <= 1 && $.trim(btnText) == 'Send to Reviewer') {
 
 								Swal.fire({
-										icon: 'error',
-										title: 'Oops...',
-										text: 'Please Insert Reviewer First',
+									icon: 'error',
+									title: 'Oops...',
+									text: 'Please Insert Reviewer First',
 								});
 								return;
 							}
-							else
-							{
-                                ApproveHeaderKoordinator();
+							else {
+								ApproveHeaderKoordinator();
 							}
 					});
 				}

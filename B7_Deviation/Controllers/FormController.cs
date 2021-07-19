@@ -837,7 +837,7 @@ namespace B7_Deviation.Controllers
                         else if (Model.WhoReceiver == "Reviewer after Appointed")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Reviwer after Appointed";
+                            Command.Parameters["@Option"].Value = "Reviewer after Appointed";
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;

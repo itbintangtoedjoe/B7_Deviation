@@ -289,19 +289,22 @@ namespace B7_Deviation.Controllers
 
         public ActionResult QM_Approve(ApprovalModel Model)
         {
-            string result;
-            List<string> ModelData = new List<string>();
 
-            string ConString = mySetting.ConnectionString;
-            SqlConnection Conn = new SqlConnection(ConString);
+            string conSQL = mySetting.ConnectionString;
+
+            SqlConnection conn = new SqlConnection(conSQL);
+            List<string> ModelData = new List<string>();
+            string result;
 
             try
             {
-                Conn.Open();
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_Approve]", Conn))
+                using (SqlCommand command = new SqlCommand("SP_Approve", conn))
                 {
-                    /* Header*/
+                    conn.Open();
                     command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@Option"].Value = "QM Assign PIC";
 
                     command.Parameters.Add("@Nomor", SqlDbType.VarChar);
                     command.Parameters["@Nomor"].Value = Model.REQID;
@@ -309,20 +312,18 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@IDUser", SqlDbType.VarChar);
                     command.Parameters["@IDUser"].Value = Model.IDUSER;
 
-                    command.Parameters.Add("@Option", SqlDbType.VarChar);
-                    command.Parameters["@Option"].Value = "QManager";
-
                     result = (string)command.ExecuteScalar();
+                    conn.Close();
+                    ModelData.Add(result);
                 }
-                Conn.Close();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+            return Json(ModelData);
 
-            ModelData.Add(result);
-            return Json(ModelData, JsonRequestBehavior.AllowGet);
+
         }
 
         public ActionResult QM_ApprovePerReviewer(ReviewerModel Model)
@@ -524,6 +525,42 @@ namespace B7_Deviation.Controllers
             ModelData.Add(result);
             return Json(ModelData);
         }
+
+        public ActionResult QM_GetCurrStatAssignPIC(ApprovalModel Model)
+        {
+            string result;
+            List<string> ModelData = new List<string>();
+
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadStatus]", Conn))
+                {
+
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Assign PIC?";
+
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult QM_GetCurrStat(ApprovalModel Model)
         {
             string result;

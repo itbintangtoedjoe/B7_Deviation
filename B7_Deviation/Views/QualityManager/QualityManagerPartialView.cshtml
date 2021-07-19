@@ -39,6 +39,41 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card" id="can" >
+					<div class="card-body">
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Keterangan Disposisi<span class="text-danger">*</span></label>
+							<div class="col-sm-7">
+								<div class="input-group">
+									<textarea id="txtDisposisi" placeholder="Keterangan Disposisi" style="width: 600px; "></textarea>
+									<span id="spanDisposisi" class="input-group-append" title="Tambah orang terlibat">
+										<span class="input-group-text btn-success">
+											<i class="fa fa-plus"></i>
+										</span>
+									</span>
+								</div>
+								<div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+									<table id="tblDis" class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<th style="width:20px">No</th>
+												<th>Keterangan Disposisi</th>
+												<th style="width:30px">Action</th>
+											</tr>
+										</thead>
+										<tbody id="tblDisKet">
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card">
@@ -48,7 +83,9 @@
 
 								<div class="form-group row" id="Reviewer">
 									<div class="container-fluid">
+
 										
+
 										<div class="card-body row">
 											<div class="col-md-7">
 
@@ -91,7 +128,7 @@
 													<label class="col-form-label label-trigger">Nama Reviewer</label>
 												</div>
 												<div class="row form-group">
-													<textarea id="txtHow" class="form-control" placeholder="Nama Reviewer" disabled="disabled" ></textarea>
+													<textarea id="txtHow" class="form-control" placeholder="Nama Reviewer" disabled="disabled"></textarea>
 												</div>
 
 												<div class="row form-group center">
@@ -111,32 +148,7 @@
 									</div>
 								</div>
 
-								<div class="form-group row" id="can" hidden="hidden">
-									<label class="col-sm-2 col-form-label">Keterangan Disposisi<span class="text-danger">*</span></label>
-									<div class="col-sm-7">
-										<div class="input-group">
-											<textarea id="txtDisposisi" placeholder="Keterangan Disposisi" style="width: 600px; "></textarea>
-											<span id="spanDisposisi" class="input-group-append" title="Tambah orang terlibat">
-												<span class="input-group-text btn-success">
-													<i class="fa fa-plus"></i>
-												</span>
-											</span>
-										</div>
-										<div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
-											<table id="tblDis" class="table table-striped table-bordered">
-												<thead>
-													<tr>
-														<th style="width:20px">No</th>
-														<th>Keterangan Disposisi</th>
-														<th style="width:30px">Action</th>
-													</tr>
-												</thead>
-												<tbody id="tblDisKet">
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
+								
 							</form>
 						</div>
 					</div>
@@ -151,18 +163,43 @@
 	$(document).ready(function () {
 		LoadHeader();
 		LoadReviewerData();
-
-
 		GetCurrStat();
-
-
 		$('#spanDisposisi').click(function () {
 			InsertDisposisi();
 		});
 
 	});
 
+	function SendEmail() {
+		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var tabletype = "More Than One";
+		var whoreceiver = "Koordinator after QM Approve";
+
+		var dtx = {
+			Receiver: receiver,
+			ReqID: REQID,
+			TableType: tabletype,
+			WhoReceiver: whoreceiver
+		};
+
+		$.ajax({
+			type: "post",
+			url: '../Form/SendEmailInputProposal',
+			data: JSON.stringify(dtx),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+			},
+			error: function (ex) {
+				alert("Error Email: " + JSON.stringify(ex));
+			}
+		});
+	}
+
 	function GetCurrStat() {
+		
+		$('#can').attr("hidden", true);
 		var REQID = @ViewBag.nomor;
 
 		var dto = {
@@ -179,33 +216,11 @@
 
 				if (data == "CAN") {
 
+					alert("satuduatiga");
+
+					
+					$("#can").attr("hidden", false);
 					LoadKeteranganDisposisi();
-					$("#can").removeAttr('hidden');
-
-					var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-					var tabletype = "More Than One";
-					var whoreceiver = "Koordinator after QM Approve";
-
-					var dtx = {
-						Receiver: receiver,
-						ReqID: REQID,
-						TableType: tabletype,
-						WhoReceiver: whoreceiver
-					};
-
-					$.ajax({
-						type: "post",
-						url: '../Form/SendEmailInputProposal',
-						data: JSON.stringify(dtx),
-						dataType: "json",
-						contentType: "application/json;charset=utf-8",
-							success: function (data) {
-						},
-						error: function (ex) {
-							alert("Error Email: " + JSON.stringify(ex));
-						}
-					});
 
 				} else {
 					$("#can").attr("hidden", true);
@@ -308,7 +323,7 @@
 
 
 					// FUNCTION FOR LOAD REVIEWER'S REVIEW
-					var usernik = data[trav].USER_NIK
+					var usernik = data[trav].USERNAME
 					var trap = 0;
 					var xto = {
 						ReqID: nomor,
@@ -399,6 +414,7 @@
 
 											if (result.isConfirmed) {
 												LoadReviewerData();
+												GetCurrStat();
 											}
 										})
 									},
@@ -461,6 +477,7 @@
 
 													if (result.isConfirmed) {
 														LoadReviewerData();
+														GetCurrStat();
 
 													}
 												})
@@ -478,7 +495,7 @@
 					}
 				});
 
-				GetCurrStat();
+				
 			}, error: function (ex) {
 				alert(JSON.stringify(ex));
 			}, async: false
@@ -501,7 +518,7 @@
 
 					document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
 					document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
-					document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
+					document.getElementById('TbPesul').value = data[0].NAME_PROPOSER;
 					document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
 
 				}, error: function (ex) {

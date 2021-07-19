@@ -55,6 +55,92 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
+        // Go To Manager + Update Table History
+        public ActionResult Coor_GoToManager(ApprovalModel Model)
+        {
+            string result;
+            List<string> ModelData = new List<string>();
+
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_Approve]", Conn))
+                {
+                    /* Header*/
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    command.Parameters.Add("@IDUser", SqlDbType.VarChar);
+                    command.Parameters["@IDUser"].Value = Model.IDUSER;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Koor Go To Manager";
+
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Coor_ShowReviewerBukti(ReviewerModel Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationData]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Load Bukti Reviewer Table";
+
+                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    command.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@UserID"].Value = Model.USER_NIK;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
+
         public ActionResult CheckRevApp(ApprovalModel Model)
         {
             string result;
@@ -456,18 +542,13 @@ namespace B7_Deviation.Controllers
 
         public ActionResult Coor_GetCurrStat(ApprovalModel Model)
         {
-            string result;
-            List<string> ModelData = new List<string>();
-
             string ConString = mySetting.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
-
             try
             {
                 Conn.Open();
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationData]", Conn))
+                using (SqlCommand command = new SqlCommand("SP_LoadDeviationData", Conn))
                 {
-                    /* Header*/
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Add("@Nomor", SqlDbType.VarChar);
@@ -476,7 +557,12 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@Option", SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "Can Cancel?";
 
-                    result = (string)command.ExecuteScalar();
+
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+
+
+                    dataAdap.Fill(DT);
                 }
                 Conn.Close();
             }
@@ -484,9 +570,18 @@ namespace B7_Deviation.Controllers
             {
                 throw ex;
             }
-
-            ModelData.Add(result);
-            return Json(ModelData, JsonRequestBehavior.AllowGet);
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
         }
 
         public ActionResult Coor_CheckDelegate(ApprovalModel Model)

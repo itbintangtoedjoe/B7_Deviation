@@ -1,162 +1,183 @@
 ﻿
 @{
-    ViewBag.Title = "QMHeader";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "QMHeader";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="content-body">
-    <div class="form-group">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
-                            </div>
+	<div class="form-group">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="form-group">
+								<h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+							</div>
 
-                            <div class="form-group row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control" hidden="hidden">
-                                            Approve
-                                            <span class="fa fa-check-square-o"></span>
-                                        </button>
-                                        <button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control" hidden="hidden">
-                                            Request for Revision
-                                            <span class="fa fa-ban"></span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Nama</label>
-                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtTanggal">Tanggal:</label>
-                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-    </div>
 
-    <div class="form-group">
-        @Html.Partial("QualityManagerPartialView", "ReviewerList")
+							<div class="form-group row">
+								<div class="col-md-8">
+									<div class="form-group">
+										<button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control">
+											Approve
+											<span class="fa fa-check-square-o"></span>
+										</button>
+										<button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control" hidden="hidden">
+											Request for Revision
+											<span class="fa fa-ban"></span>
+										</button>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Nama</label>
+										<input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
+									</div>
+									<div class="form-group">
+										<label for="txtTanggal">Tanggal:</label>
+										<input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    </div>
+	</div>
+
+	<div class="form-group">
+		@Html.Partial("QualityManagerPartialView", "ReviewerList")
+
+	</div>
 
 </div>
 
 <script>
 
-    $(document).ready(function () {
-        
+	$(document).ready(function () {
 
-        $('#spanUser').click(function () {
-            $.when($.ajax(InsertDisposisi())).then(function () {
+		ApproveStatusAssignPIC();
 
-            });
-        });
+		$("#btnApprove").click(function () {
+			Approve();
 
-        $("#btnApprove").click(function () {
-            Approve();
+		});
 
-        });
+		
 
-        $("#btnReject").click(function () {
-            Reject();
-        });
+	});
 
-    });
+	function ApproveStatusAssignPIC() {
+		$("#btnApprove").attr('hidden', true);
 
-    
+		var REQID = @ViewBag.nomor;
 
+		var dto = {
+			REQID: REQID
+		};
 
+		$.ajax({
+			url: "../QualityManager/QM_GetCurrStatAssignPIC",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
 
+				if (data == "CAN") {
+					$("#btnApprove").attr('hidden', false);
+				} else {
+					$("#btnApprove").attr('hidden', true);
+				}
 
-    @*function Approve() {
-        var REQID = @ViewBag.nomor;
-        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
 
-        var dto = {
+	}
 
-            REQID: REQID,
-            IDUSER: iduser
-        };
+	function Approve() {
+		var REQID = @ViewBag.nomor;
+		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-        $.ajax({
-            url: "../QualityManager/QM_Approve",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                alert('Form Approved');
-                alert($("#ddlKategori").val());
-            }
-            , error: function (ex) {
-                alert('Error Delete Attachment: ' + JSON.stringify(ex));
-            }
-        });
-    }
+		var dto = {
 
-    function Reject() {
+			REQID: REQID,
+			IDUSER: iduser
+		};
 
-        Swal.fire({
-            title: 'Reason???',
-            input: 'text',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Submit',
-            showLoaderOnConfirm: true,
+		$.ajax({
+			url: "../QualityManager/QM_Approve",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				alert(data);
+				alert('Form Approved');
+				window.location.href = "../DataDeviasi/PendingTask"
+			}
+			, error: function (ex) {
+				alert('Error Approve: ' + JSON.stringify(ex));
+			}
+		});
+	}
 
-            allowOutsideClick: () => Swal.isLoading()
-        }).then((result) => {
+	@*function Reject() {
 
-            if (result.value == null || result.value == '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please Insert Reason!'
-                });
-            } else if (result.isConfirmed) {
+		Swal.fire({
+			title: 'Reason???',
+			input: 'text',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			showCancelButton: true,
+			confirmButtonText: 'Submit',
+			showLoaderOnConfirm: true,
 
-                var REQID = @ViewBag.nomor;
-                var Keterangan = result.value;
-                var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+			allowOutsideClick: () => Swal.isLoading()
+		}).then((result) => {
 
-                var dto = {
-                    REQID: REQID,
-                    KETERANGAN: Keterangan,
-                    IDUSER: iduser
-                };
+			if (result.value == null || result.value == '') {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Please Insert Reason!'
+				});
+			} else if (result.isConfirmed) {
 
-                $.ajax({
-                    url: "../SpvPelapor/Spv_Reject",
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(dto),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
+				var REQID = @ViewBag.nomor;
+				var Keterangan = result.value;
+				var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-                        alert('Form Rejected');
+				var dto = {
+					REQID: REQID,
+					KETERANGAN: Keterangan,
+					IDUSER: iduser
+				};
 
-                    }
-                    , error: function (ex) {
-                        alert('Error Delete Attachment: ' + JSON.stringify(ex));
-                    }
-                });
-            }
-        });
-    }*@
+				$.ajax({
+					url: "../SpvPelapor/Spv_Reject",
+					type: "post",
+					dataType: "json",
+					data: JSON.stringify(dto),
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+
+						alert('Form Rejected');
+
+					}
+					, error: function (ex) {
+						alert('Error Delete Attachment: ' + JSON.stringify(ex));
+					}
+				});
+			}
+		});
+	}*@
 </script>
 

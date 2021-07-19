@@ -90,11 +90,18 @@
 
 <script>
 
-	$(window).bind('beforeunload', function () {
-		BeforeUnload();
+    var CheckDelete = 0;
 
-		return '';
+	$(document).ready(function () {
+        $(window).bind('beforeunload', function () {
+            if (CheckDelete = 0) {
+                BeforeUnload();
+            }
+
+            return '';
+        });
 	});
+    
 
 	$(document).ready(function () {
 
@@ -185,6 +192,7 @@
 				}).then((result) => {
 
 					if (result.isConfirmed) {
+						CheckDelete = 1;
 						window.location.href = "../DataDeviasi/PendingTask"
 					}
 				})

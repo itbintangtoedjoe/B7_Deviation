@@ -146,7 +146,7 @@
 		var tabletype = "One";
 		var whoreceiver = "Delegasi";
 
-		var dtX = {
+		var dtx = {
 			Receiver: receiver,
 			ReqID: REQID,
 			TableType: tabletype,
@@ -156,7 +156,7 @@
 		$.ajax({
 			type: "post",
 			url: '../Form/SendEmailInputProposal',
-			data: JSON.stringify(dto),
+			data: JSON.stringify(dtx),
 			dataType: "json",
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {

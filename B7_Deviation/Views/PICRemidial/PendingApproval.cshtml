@@ -75,19 +75,19 @@
                             // WHEN PIC DOESNT PROPOSE ANTHING TO REVISE YET (FLAG REVISE == NULL) AND NEVER SUBMIT ANYTHING
                             if (data[trav].FLAG_REVISI == '-' && data[trav].FLAG_PIC == '-') {
                                 trHTML +=
-                                    '<tr><td><a href="/B7_Deviation/PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + '"">' + data[trav].REQ_ID + '</td>' +
-                                    '<td>' + data[trav].STATUS_DESC + '</td>' +
+                                    '<tr><td><a href="../PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + '"">' + data[trav].REQ_ID + '</td>' +
+                                    '<td>' + data[trav].FLAG_PIC + '</td>' +
                                     '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                     '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                    '<td align="center"> <a href="/B7_Deviation/PICRemidial/UsulanRevisi?Nomor=' + data[trav].REQ_ID + '&Urutan=' + data[trav].NO_DISPOSISI + '" class="btn btn-success">Revisi</a> </td>';
+                                    '<td align="center"> <a href="../PICRemidial/UsulanRevisi?Nomor=' + data[trav].REQ_ID + '&Urutan=' + data[trav].NO_DISPOSISI + '" class="btn btn-success">Revisi</a> </td>';
 
                                 // WHEN PIC PROPOSAL GOT REJECTED (HAVE TO DO THE REMEDIAL RESULT INSERTION) BY MANAGER/SPV || WHEN APPROVED BY MANAGER
                             } else if (data[trav].FLAG_REVISI == 'REJECTED BY SPV' || data[trav].FLAG_REVISI == 'REJECTED BY MANAGER' || data[trav].FLAG_REVISI == 'APPROVED BY MANAGER') {
                                 trHTML +=
-                                    '<tr><td><a href="/B7_Deviation/PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>' +
-                                    '<td>' + data[trav].STATUS_DESC + '</td>' +
+                                    '<tr><td><a href="../PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>' +
+                                    '<td>' + data[trav].FLAG_PIC + '</td>' +
                                     '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                     '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
@@ -98,7 +98,7 @@
                             } else if (data[trav].FLAG_REVISI == 'PROPOSAL SUBMITTED' || data[trav].FLAG_PIC == 'SUBMITTED') {
                                 trHTML +=
                                     '<tr><td>' + data[trav].REQ_ID + '</td>' +
-                                    '<td>' + data[trav].STATUS_DESC + '</td>' +
+                                    '<td>' + data[trav].FLAG_PIC + '</td>' +
                                     '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                     '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
@@ -106,8 +106,8 @@
                                     '<td align="center">' + data[trav].FLAG_REVISI + '</td>';
 
                             } else if (data[trav].FLAG_REVISI == '-') {
-                                '<tr><td><a href="/B7_Deviation/PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>' +
-                                    '<td>' + data[trav].STATUS_DESC + '</td>' +
+                                '<tr><td><a href="../PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>' +
+                                    '<td>' + data[trav].FLAG_PIC + '</td>' +
                                     '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                     '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
@@ -119,7 +119,7 @@
                         } else {
                             trHTML +=
                                 '<tr><td>' + data[trav].REQ_ID + '</td>' +
-                                '<td>' + data[trav].STATUS_DESC + '</td>' +
+                                '<td>' + data[trav].FLAG_PIC + '</td>' +
                                 '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
