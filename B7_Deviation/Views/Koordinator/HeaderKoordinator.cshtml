@@ -63,7 +63,7 @@
 												</span>
 											</div>
 											<div class="col form-group">
-												<table id="tblWho" class="table table-striped table-bordered">
+												<table id="tblWho_Rev" class="table table-striped table-bordered">
 													<thead>
 														<tr>
 															<th style="width:20px">No</th>
@@ -72,7 +72,7 @@
 															<th style="width:30px">Action</th>
 														</tr>
 													</thead>
-													<tbody id="tblBodyWho">
+													<tbody id="tblBodyWho_Rev">
 													</tbody>
 												</table>
 											</div>
@@ -83,7 +83,7 @@
 								<div class="col-md-4">
 									<div class="form-group">
 										<label>Nama</label>
-										<input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+										<input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
 									</div>
 									<div class="form-group">
 										<label for="txtTanggal">Tanggal:</label>
@@ -356,7 +356,7 @@
 				var count = data.length;
 
 				trhtml += '<select id="ddlReviewer" class="form-control">';
-				trhtml += '<option disabled class="dropdown-header">* Select User *</option>';
+				trhtml += '<option disabled class="dropdown-header" selected>* Pilih Reviewer *</option>';
 
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
@@ -394,7 +394,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data == 'S') {
-
+                    
 					toastr.success("Data berhasil tersimpan !", "Tersimpan", {
 						"closeButton": false,
 						"debug": true,
@@ -413,7 +413,7 @@
 						"hideMethod": "fadeOut"
 					});
 
-					LoadUserInvolved();
+					Coor_LoadUserInvolved();
 				}
 			}
 			, error: function (ex) {
@@ -422,7 +422,7 @@
 		});
 	}
 
-	function LoadUserInvolved() {
+	function Coor_LoadUserInvolved() {
 
 		var REQID = @ViewBag.nomor;
 
@@ -438,7 +438,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data != '') {
-					$('#tblWho').attr('hidden', false);
+                    $('#tblWho_Rev').attr('hidden', false);
 
 					var trHTML = '';
 					var trav = 0;
@@ -452,13 +452,13 @@
 							'<td><button onclick="DeleteUserInvolved(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
 					}
 
-					$("#tblBodyWho").empty();
-					$("#tblBodyWho").append(trHTML);
-					$("#tblBodyWho").addBack();
+                    $("#tblBodyWho_Rev").empty();
+                    $("#tblBodyWho_Rev").append(trHTML);
+                    $("#tblBodyWho_Rev").addBack();
 				}
 				else {
-					$('#tblWho').attr('hidden', true);
-					$("#tblBodyWho").addBack();
+                    $('#tblWho_Rev').attr('hidden', true);
+                    $("#tblBodyWho_Rev").addBack();
 				}
 
 			}
@@ -506,7 +506,7 @@
 						"hideMethod": "fadeOut"
 					});
 
-					LoadUserInvolved();
+					Coor_LoadUserInvolved();
 				}
 			}
 			, error: function (ex) {
@@ -558,7 +558,7 @@
 
 					$("#btnApprove").click(function () {
 
-						var tbl = document.getElementById('tblWho').rows.length;
+                        var tbl = document.getElementById('tblWho_Rev').rows.length;
 						var btnText = $("#btnApprove").text();
 
 						if (tbl <= 1 && $.trim(btnText) == 'Approve') {

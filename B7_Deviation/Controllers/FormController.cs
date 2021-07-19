@@ -1042,7 +1042,7 @@ namespace B7_Deviation.Controllers
                             "</tr>" +
                             "<tr></tr>" +
                             "<tr>" +
-                                "<td><b>Need Your Review as Reviewer</b></td>" +
+                                "<td><b>Need Your Approval as Coordinator</b></td>" +
                             "</tr>" +
                             "<tr>" +
                                 "Access : " +

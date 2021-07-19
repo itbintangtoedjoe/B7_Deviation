@@ -3690,7 +3690,7 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.82149cm</Width>
+                  <Width>5.30404cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -3787,7 +3787,7 @@
             <Top>1.43933cm</Top>
             <Left>0.17638cm</Left>
             <Height>1.2cm</Height>
-            <Width>3.82149cm</Width>
+            <Width>5.30404cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -4164,7 +4164,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Nama Pengupload</Value>
+                                  <Value>Nama Reviewer</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -4198,7 +4198,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Nama File Upload</Value>
+                                  <Value>Nama File Reviewer</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -4371,7 +4371,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox63</rd:DefaultName>
             <Top>1.72183cm</Top>
-            <Left>7.72307cm</Left>
+            <Left>8.35807cm</Left>
             <Height>0.6cm</Height>
             <Width>4.34256cm</Width>
             <ZIndex>6</ZIndex>
@@ -4403,9 +4403,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox64</rd:DefaultName>
             <Top>1.72183cm</Top>
-            <Left>12.38038cm</Left>
+            <Left>13.17978cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.04923cm</Width>
+            <Width>5.24983cm</Width>
             <ZIndex>7</ZIndex>
             <Style>
               <Border>
@@ -4435,7 +4435,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
             <Top>1.72183cm</Top>
-            <Left>12.10091cm</Left>
+            <Left>12.73591cm</Left>
             <Height>0.6cm</Height>
             <Width>0.27947cm</Width>
             <ZIndex>8</ZIndex>
@@ -4467,7 +4467,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox63</rd:DefaultName>
             <Top>2.46294cm</Top>
-            <Left>7.72307cm</Left>
+            <Left>8.35807cm</Left>
             <Height>0.6cm</Height>
             <Width>4.34256cm</Width>
             <ZIndex>9</ZIndex>
@@ -4499,9 +4499,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox64</rd:DefaultName>
             <Top>2.46294cm</Top>
-            <Left>12.38038cm</Left>
+            <Left>13.17978cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.04923cm</Width>
+            <Width>5.24983cm</Width>
             <ZIndex>10</ZIndex>
             <Style>
               <Border>
@@ -4531,7 +4531,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
             <Top>2.46294cm</Top>
-            <Left>12.10091cm</Left>
+            <Left>12.73591cm</Left>
             <Height>0.6cm</Height>
             <Width>0.27947cm</Width>
             <ZIndex>11</ZIndex>
