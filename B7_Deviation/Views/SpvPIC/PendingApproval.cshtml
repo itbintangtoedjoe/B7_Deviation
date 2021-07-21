@@ -47,9 +47,10 @@
         });
 
         function LoadData() {
-
+            var reqid = @ViewBag.nomor;
             var userid = '@Request.RequestContext.HttpContext.Session["xUser"]';
             var dto = {
+                REQID: reqid,
                 IDUSER: userid
             }
 
@@ -84,9 +85,9 @@
                                 '<td>' + data[trav].STATUS + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
 
-                        } 
+                        }
 
-                        
+
                     }
 
                     $('#deviationtable').empty();

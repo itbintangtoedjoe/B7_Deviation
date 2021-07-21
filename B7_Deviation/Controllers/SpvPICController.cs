@@ -17,8 +17,9 @@ namespace B7_Deviation.Controllers
         readonly DataTable DT = new DataTable();
 
         // GET: SpvPIC
-        public ActionResult PendingApproval()
+        public ActionResult PendingApproval(string Nomor)
         {
+            ViewBag.nomor = Nomor;
             return View();
         }
 
@@ -57,6 +58,9 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar);
                     command.Parameters["@UserID"].Value = Model.IDUSER;
+
+                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
 
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;

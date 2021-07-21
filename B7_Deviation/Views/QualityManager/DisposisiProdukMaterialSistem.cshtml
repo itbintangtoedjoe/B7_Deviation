@@ -190,13 +190,13 @@
 						<label class="col-sm-2 col-form-label">Perlu Ditindaklanjuti CAR-PAR</label>
 						<div class="card-body">
 							<div class="form-group row">
-								<input type="checkbox" id="high" value="Tingkat Keparahan High/Very High" name="chkbx" />
+								<input type="radio" id="high" value="Tingkat Keparahan High/Very High" name="chkbx" />
 								<label class="col-md-2" for="high">Tingkat Keparahan High/Very High</label>
 
-								<input type="checkbox" id="medium" value="Tingkat Keparahan Medium dan Terjadi >= 3 Kasus dalam 30 Hari Terakhir" name="chkbx" />
+								<input type="radio" id="medium" value="Tingkat Keparahan Medium dan Terjadi >= 3 Kasus dalam 30 Hari Terakhir" name="chkbx" />
 								<label class="col-md-2" for="medium">Tingkat Keparahan Medium dan Terjadi >= 3 Kasus dalam 30 Hari Terakhir</label>
 
-								<input type="checkbox" id="low" value="Tingkat Keparahan Low dan terjadi >= 5 Kasus dalam 30 Hari Terakhir" name="chkbx" />
+								<input type="radio" id="low" value="Tingkat Keparahan Low dan terjadi >= 5 Kasus dalam 30 Hari Terakhir" name="chkbx" />
 								<label class="col-md-2" for="low">Tingkat Keparahan Low dan terjadi >= 5 Kasus dalam 30 Hari Terakhir</label>
 
 							</div>
@@ -266,8 +266,10 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 
+				alert(data);
+
 				if (data == 'READY') {
-					$("#carpar").removeAttr('hidden');
+					$("#carpar").attr('hidden', false);
 				} else {
 					$("#carpar").attr("hidden", true);
 				}
@@ -412,17 +414,21 @@
 	function Lanjut() {
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-		var justifikasi = $("#txtReason").val();
-		var tingkatkeparahan = $('input[name="chkbx"]:checked').val();
+		var tingkatkeparahan;
 		var disposisi = $("#disposisi").val();
-		var keterangan =  $("#keterangandisposisi").val();
+		var keterangan = $("#keterangandisposisi").val();
+
+		if ($('input[name="chkbx"]:checked').val() == null) {
+			tingkatkeparahan = $("#txtReason").val();
+		} else {
+            $('input[name="chkbx"]:checked').val();
+        }
 
 		var dto = {
 
 			REQID: REQID,
 			IDUSER: iduser,
 			TINGKAT_KEPARAHAN: tingkatkeparahan,
-			JUSTIFIKASI_LAIN: justifikasi,
 			DISPOSISI_PRODUK_SISTEM: disposisi,
 			KETERANGAN_DISPOSISI: keterangan
 
@@ -444,7 +450,7 @@
 				}).then((result) => {
 
 					if (result.isConfirmed) {
-                        window.location.href = "../DataDeviasi/PendingTask"
+						window.location.href = "../DataDeviasi/PendingTask"
 					}
 				});
 
@@ -534,7 +540,7 @@
 						}).then((result) => {
 
 							if (result.isConfirmed) {
-                                window.location.href = "../DataDeviasi/PendingTask"
+								window.location.href = "../DataDeviasi/PendingTask"
 							}
 						});
 
