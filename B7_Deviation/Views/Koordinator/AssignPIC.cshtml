@@ -13,31 +13,31 @@
 		<div class="container-fluid">
 			<div class="card">
 				
-                <div class="card-body">
-                    <div class="form-group">
-                        <h2 class="d-inline">Assigning PIC</h2>
-                    </div>
-                    <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" width="100%" id="datatablepic">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th width="300px">Keterangan Disposisi</th>
-                                <th width="300px">Pelaksana</th>
-                                <th wdith="100px">Due Date</th>
-                                <th width="150px">Actions</th>
-                                <th hidden="hidden">No Disposisi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="pictable" class="nowrap">
-                            <tr>
-                                <td align="center"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="form-group">
-                        <button id="goBack" class="btn btn-success" onclick="goBack()">Back</button>
-                    </div>
-                </div>
+				<div class="card-body">
+					<div class="form-group">
+						<h2 class="d-inline">Assigning PIC</h2>
+					</div>
+					<table class="table table-striped table-bordered zero-configuration nowrap table-responsive" width="100%" id="datatablepic">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th width="300px">Keterangan Disposisi</th>
+								<th width="300px">Pelaksana</th>
+								<th wdith="100px">Due Date</th>
+								<th width="150px">Actions</th>
+								<th hidden="hidden">No Disposisi</th>
+							</tr>
+						</thead>
+						<tbody id="pictable" class="nowrap">
+							<tr>
+								<td align="center"></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="form-group">
+						<button id="goBack" class="btn btn-success" onclick="goBack()">Back</button>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -51,9 +51,9 @@
 		LoadData();
 	});
 
-    function goBack() {
-        window.location.href = "../DataDeviasi/PendingTask"
-    }
+	function goBack() {
+		window.location.href = "../DataDeviasi/PendingTask"
+	}
 
 	function Cancel(button) {
 
@@ -91,7 +91,7 @@
 						Swal.fire({
 							icon: 'error',
 							title: 'Oops...',
-							text: 'PIC Name and Due Date cannot Be Left Blank'
+							text: 'Nama Pelaksana dan Tanggal Due Date Tidak Boleh Kosong'
 						});
 						return;
 					}
@@ -164,7 +164,14 @@
 					});
 
 				} else {
-					alert("please insert email first");
+
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'Nama Pelaksana Kosong/Email Pelaksana Tidak Tersedia'
+					});
+
+					
 				}
 			}
 			, error: function (ex) {

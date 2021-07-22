@@ -16,7 +16,7 @@
 								<h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
 
 							</div>
-							
+
 							<div class="form-group row">
 								<div class="col-md-8">
 									<div class="form-group">
@@ -107,7 +107,7 @@
 <script>
 
 	$(document).ready(function () {
-		
+
 		GetCurrStat();
 
 		$('#spanUser').click(function () {
@@ -301,7 +301,7 @@
 						}).then((result) => {
 
 							if (result.isConfirmed) {
-								window.location.href = "../Koordinator/PendingApproval"
+								window.location.href = "../DataDeviasi/PendingTask"
 							}
 						})
 
@@ -394,7 +394,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data == 'S') {
-					
+
 					toastr.success("Data berhasil tersimpan !", "Tersimpan", {
 						"closeButton": false,
 						"debug": true,
@@ -414,6 +414,7 @@
 					});
 
 					Coor_LoadUserInvolved();
+					GetCurrStat();
 				}
 			}
 			, error: function (ex) {
@@ -531,7 +532,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data[0].STAT == 'S') {
-					
+
 					$("#btnCancel").removeAttr('hidden');
 					$("#btnShowRev").removeAttr('hidden');
 
@@ -560,7 +561,7 @@
 					var btnText = $("#btnApprove").text();
 					var tbl = data[0].COUNTED
 
-					
+					// KALAU UDAH ADA ISINYA
 					if (tbl >= 1 && $.trim(btnText) == 'Approve') {
 						$("#btnApprove").text('Send to Reviewer');
 						$("#btnApprove").width("110px");
@@ -570,30 +571,33 @@
 						
 					}
 
-					$("#btnApprove").click(function () {
 
+					$("#btnApprove").click(function () {
+						
+
+						// KALAU BELUM ADA ISINYA
 						if (tbl <= 1 && $.trim(btnText) == 'Approve') {
-							$("#btnReject").attr("hidden", true);
+							
 							$("#xddlx").removeAttr('hidden');
 							$("#btnApprove").text('Send to Reviewer');
 							$("#btnApprove").width("110px");
 							GetDDL();
-							return;
+							$("#btnReject").attr("hidden", true);
 						}
-						else
+						else if (tbl <= 1 && $.trim(btnText) == 'Send to Reviewer') {
+							
+							Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Please Insert Reviewer First',
+							});
+						}
+						else {
+							ApproveHeaderKoordinator();
+						}
 
-							if (tbl <= 1 && $.trim(btnText) == 'Send to Reviewer') {
 
-								Swal.fire({
-									icon: 'error',
-									title: 'Oops...',
-									text: 'Please Insert Reviewer First',
-								});
-								return;
-							}
-							else {
-								ApproveHeaderKoordinator();
-							}
+
 					});
 				}
 
@@ -603,7 +607,7 @@
 		});
 	}
 
-	
+
 
 	function Cancel() {
 		Swal.fire({
@@ -671,7 +675,7 @@
 				var dtx = {
 					Receiver: receiver,
 					ReqID: REQID,
-					
+
 					TableType: tabletype,
 					WhoReceiver: whoreceiver
 				};
@@ -692,7 +696,7 @@
 		});
 	}
 
-	
+
 
 </script>
 

@@ -122,9 +122,14 @@
                             trHTML +=
                                 '<tr><td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>';
                         } else if (data[trav].SEND_TO == 'Supervisor PIC') {
-
-                            trHTML +=
-                                '<tr><td><a href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>';
+                            if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
+                                trHTML +=
+                                    '<tr><td><a href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>';
+                            } else if (data[trav].FLAG_SPVPIC == 'PIC') {
+                                trHTML +=
+                                    '<tr><td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>';
+                            }
+                            
 
                             //if (data[trav].STAT == 'URTRD1') {
                             //    trHTML +=
@@ -160,13 +165,14 @@
                                     '<td>' + data[trav].ALASAN_REJECT + '</td>';
                             }
                         } else if (data[trav].SEND_TO == 'Supervisor PIC') {
-                            if (data[trav].ALASAN_REJECT == 'Detail PIC') {
+                            if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
                                 trHTML +=
                                     '<td><a href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
-                            } else {
+                            } else if (data[trav].FLAG_SPVPIC == 'PIC') {
                                 trHTML +=
-                                    '<td>' + data[trav].ALASAN_REJECT + '</td>';
+                                    '<td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
                             }
+
                         } else {
                             trHTML +=
                                 '<td>' + data[trav].ALASAN_REJECT + '</td>';

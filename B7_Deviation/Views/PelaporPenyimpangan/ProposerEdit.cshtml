@@ -1753,12 +1753,21 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
+                
                 Swal.fire({
+                    title: 'Form Submitted',
+                    showDenyButton: false,
                     icon: 'success',
-                    title: 'Form Submitted'
-                });
+                    showCancelButton: false,
+                    confirmButtonText: `OK`
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        window.location.href = "../DataDeviasi/PendingTask"
+                    }
+                })
 
-                window.location.href = "../DataDeviasi/PendingTask"
+                
             }
             , error: function (ex) {
                 alert('Error Delete Attachment: ' + JSON.stringify(ex));

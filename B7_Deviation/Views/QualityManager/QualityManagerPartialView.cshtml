@@ -214,11 +214,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 
-				if (data == "CAN") {
-
-					alert("satuduatiga");
-
-					
+				if (data == "CAN") {					
 					$("#can").attr("hidden", false);
 					LoadKeteranganDisposisi();
 
@@ -415,6 +411,9 @@
 											if (result.isConfirmed) {
 												LoadReviewerData();
 												GetCurrStat();
+
+												// QM HEADER JQUERY FUNCTION
+												ApproveStatusAssignPIC();
 											}
 										})
 									},

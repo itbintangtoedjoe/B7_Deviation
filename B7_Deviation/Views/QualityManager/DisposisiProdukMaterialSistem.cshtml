@@ -36,7 +36,7 @@
 								<div class="col-md-4">
 									<div class="form-group">
 										<label>Nama</label>
-										<input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["xUser"]">
+										<input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
 									</div>
 									<div class="form-group">
 										<label for="txtTanggal">Tanggal:</label>
@@ -266,8 +266,6 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 
-				alert(data);
-
 				if (data == 'READY') {
 					$("#carpar").attr('hidden', false);
 				} else {
@@ -421,8 +419,8 @@
 		if ($('input[name="chkbx"]:checked').val() == null) {
 			tingkatkeparahan = $("#txtReason").val();
 		} else {
-            $('input[name="chkbx"]:checked').val();
-        }
+			$('input[name="chkbx"]:checked').val();
+		}
 
 		var dto = {
 

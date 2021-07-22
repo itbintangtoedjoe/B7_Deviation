@@ -137,7 +137,7 @@
 					}).then((result) => {
 
 						if (result.isConfirmed) {
-							window.location.href = "../Koordinator/PendingApproval"
+							window.location.href = "../DataDeviasi/PendingTask"
 						}
 					});
 
@@ -200,7 +200,6 @@
 
 			var dto = {
 				REQID: REQID
-
 			};
 
 			$.ajax({
@@ -302,8 +301,6 @@
 			var dtx = {
 				Receiver: receiver,
 				ReqID: REQID,
-				Body: body,
-				Subject: subject,
 				TableType: tabletype,
 				WhoReceiver: whoreceiver
 			};
@@ -320,7 +317,6 @@
 					alert("Error Email: " + JSON.stringify(ex));
 				}
 			});
-
 		}
 
 		function Reject(button) {
@@ -388,8 +384,6 @@
 					var REQID = $("#lblReq").text();
 					var receiver = $("TD", row).eq(1).html();
 
-
-
 					var tabletype = "One";
 					var whoreceiver = "Reviewer after Koordinator Reject";
 
@@ -447,6 +441,12 @@
 						$("#btnDelegate").removeAttr('hidden');
 						
 						$("#btnGotomanager").removeAttr('hidden');
+
+						$("#btnGotomanager").click(function () {
+
+							GoToManager();
+
+						});
 
 						$("#btnDelegate").click(function () {
 
@@ -508,7 +508,7 @@
 						});
 
 						LoadKeteranganDisposisi();
-                        $('#txtDisposisi').val('');
+						$('#txtDisposisi').val('');
 					}
 				}
 				, error: function (ex) {
