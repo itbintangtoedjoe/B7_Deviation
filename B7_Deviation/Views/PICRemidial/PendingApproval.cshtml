@@ -30,11 +30,6 @@
                             </tr>
                         </thead>
                         <tbody id="deviationtable" class="nowrap">
-                            <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -70,11 +65,12 @@
                     var Count = data.length;
                     for (trav = 0; trav < Count; trav++) {
 
+                        
                         if (data[trav].USER_ID == data[trav].PIC_REMEDIAL_NIK) {
 
 
                             // WHEN PIC DOESNT PROPOSE ANTHING TO REVISE YET (FLAG REVISE == NULL) AND NEVER SUBMIT ANYTHING
-                            if (data[trav].FLAG_REVISI == '-' && data[trav].FLAG_PIC == '-') {
+                            if (data[trav].FLAG_REVISI == '-' && data[trav].FLAG_PIC == 'ASSIGNED') {
                                 trHTML +=
                                     '<tr><td><a href="../PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + '"">' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].FLAG_PIC + '</td>' +
@@ -85,7 +81,7 @@
                                     '<td align="center"> <a href="../PICRemidial/UsulanRevisi?Nomor=' + data[trav].REQ_ID + '&Urutan=' + data[trav].NO_DISPOSISI + '" class="btn btn-success">Revisi</a> </td>';
 
                                 // WHEN PIC PROPOSAL GOT REJECTED (HAVE TO DO THE REMEDIAL RESULT INSERTION) BY MANAGER/SPV || WHEN APPROVED BY MANAGER
-                            } else if (data[trav].FLAG_REVISI == 'REJECTED BY SPV' || data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY SPV PIC' || data[trav].FLAG_REVISI == 'APPROVED BY MANAGER') {
+                            } else if (data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY COORDINATOR' || data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY SPV PIC' || data[trav].FLAG_REVISI == 'APPROVED BY MANAGER') {
                                 trHTML +=
                                     '<tr><td><a href="../PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].FLAG_PIC + '</td>' +

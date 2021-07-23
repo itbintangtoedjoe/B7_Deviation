@@ -571,12 +571,11 @@
 						
 					}
 
-
 					$("#btnApprove").click(function () {
 						
 
 						// KALAU BELUM ADA ISINYA
-						if (tbl <= 1 && $.trim(btnText) == 'Approve') {
+						if (tbl < 1 && $.trim(btnText) == 'Approve') {
 							
 							$("#xddlx").removeAttr('hidden');
 							$("#btnApprove").text('Send to Reviewer');
@@ -584,7 +583,7 @@
 							GetDDL();
 							$("#btnReject").attr("hidden", true);
 						}
-						else if (tbl <= 1 && $.trim(btnText) == 'Send to Reviewer') {
+						else if (tbl < 1 && $.trim(btnText) == 'Send to Reviewer') {
 							
 							Swal.fire({
 								icon: 'error',
