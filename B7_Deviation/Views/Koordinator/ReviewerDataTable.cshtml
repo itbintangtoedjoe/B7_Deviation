@@ -9,89 +9,94 @@
 
 <body>
 	<div class="content-body">
+		<div class="form-group">
+			<div class="container-fluid">
+				<div class="card">
 
-		<div class="container-fluid">
-			<div class="card">
+					<div class="card-body">
+						<div class="form-group">
+							<h2 class="d-inline">List Reviewer (Koordinator Data Table)</h2>
+						</div>
 
-				<div class="card-body">
-					<div class="form-group">
-						<h2 class="d-inline">List Reviewer (Koordinator Data Table)</h2>
-					</div>
+						<button type="button" id="btnDelegate" class="col-sm-2 btn mb-1 btn-warning form-control" hidden="hidden">
+							Delegate
+						</button>
 
-					<button type="button" id="btnDelegate" class="col-sm-2 btn mb-1 btn-warning form-control" hidden="hidden">
-						Delegate
-					</button>
+						<button type="button" class="col-sm-2 btn mb-1 form-control btn-info" id="btnGotomanager" hidden="hidden">
+							To QA/QS Manager
+						</button>
 
-					<button type="button" class="col-sm-2 btn mb-1 form-control btn-info" id="btnGotomanager" hidden="hidden">
-						To QA/QS Manager
-					</button>
+						<table class="table table-striped table-bordered zero-configuration table-responsive" id="deviationdatatable" width="100%">
+							<thead>
+								<tr>
+									<th width="100px">Name</th>
+									<th width="100px">NIK</th>
+									<th width="100px">Status</th>
+									<th width="300px">Hasil Review</th>
+									<th width="200px">Action</th>
+									<th width="150px">Bukti</th>
 
-					<table class="table table-striped table-bordered zero-configuration table-responsive" id="deviationdatatable" width="100%">
-						<thead>
-							<tr>
-								<th width="100px">Name</th>
-								<th width="75px">NIK</th>
-								<th width="100px">Status</th>
-								<th width="100px">Hasil Review</th>
-								<th width="150px">Action</th>
-								<th width="150px">Bukti</th>
-
-							</tr>
-						</thead>
-						<tbody id="deviationtable" class="nowrap">
-						</tbody>
-					</table>
-
-
-					<table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="reviewerbuktidatatable" width="100%" hidden="hidden">
-						<thead>
-							<tr>
-								<th width="75px">No</th>
-								<th width="100px">Nama Reviewer</th>
-								<th width="75px">Nama File</th>
-
-							</tr>
-						</thead>
-						<tbody id="reviewerbukti" class="nowrap">
-						</tbody>
-					</table>
+								</tr>
+							</thead>
+							<tbody id="deviationtable" class="nowrap">
+							</tbody>
+						</table>
 
 
-					<hr />
+						<table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="reviewerbuktidatatable" width="100%" hidden="hidden">
+							<thead>
+								<tr>
+									<th width="75px">No</th>
+									<th width="100px">Nama Reviewer</th>
+									<th width="75px">Nama File</th>
 
-					<div class="form-group" id="disposisi">
-						<label class="">Keterangan Disposisi<span class="text-danger">*</span></label>
-						<div class="">
-							<div class="input-group">
-								<textarea id="txtDisposisi" placeholder="Keterangan Disposisi" style="width: 600px; "></textarea>
-								<span id="spanDisposisi" class="input-group-append" title="Tambah orang terlibat">
-									<span class="input-group-text btn-success">
-										<i class="fa fa-plus"></i>
+								</tr>
+							</thead>
+							<tbody id="reviewerbukti" class="nowrap">
+							</tbody>
+						</table>
+
+
+						<hr />
+
+						<div class="form-group" id="disposisi">
+							<label class="">Keterangan Disposisi<span class="text-danger">*</span></label>
+							<div class="">
+								<div class="input-group">
+									<textarea id="txtDisposisi" placeholder="Keterangan Disposisi" style="width: 600px; "></textarea>
+									<span id="spanDisposisi" class="input-group-append" title="Tambah orang terlibat">
+										<span class="input-group-text btn-success">
+											<i class="fa fa-plus"></i>
+										</span>
 									</span>
-								</span>
-							</div>
-							<div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
-								<table id="tblDis" class="table table-striped table-bordered">
-									<thead>
-										<tr>
-											<th style="width:20px">No</th>
-											<th>Keterangan Disposisi</th>
-											<th style="width:30px">Action</th>
-										</tr>
-									</thead>
-									<tbody id="tblDisKet">
-									</tbody>
-								</table>
+								</div>
+								<div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+									<table id="tblDis" class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<th style="width:20px">No</th>
+												<th>Keterangan Disposisi</th>
+												<th style="width:30px">Action</th>
+											</tr>
+										</thead>
+										<tbody id="tblDisKet">
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
+
 					</div>
 
 				</div>
 
+
+
 			</div>
-
-
-
+		</div>
+		
+		<div class="form-group">
+			@Html.Partial("../SpvPelapor/Approval")
 		</div>
 	</div>
 

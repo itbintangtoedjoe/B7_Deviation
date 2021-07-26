@@ -99,7 +99,7 @@
 
 	</div>
 
-	<div class="form-group">
+	<div class="form-group" id="partialview">
 		@Html.Partial("../SpvPelapor/Approval")
 	</div>
 </div>
@@ -517,6 +517,9 @@
 	}
 
 	function GetCurrStat() {
+
+		$("#partialview").attr("hidden", true);
+
 		var REQID = @ViewBag.nomor;
 
 		var dto = {
@@ -549,6 +552,9 @@
 
 					});
 				} else {
+
+					$("#partialview").attr("hidden", false);
+
 					$("#btnShowRev").attr("hidden", true);
 					$("btnCancel").attr("hidden", true);
 

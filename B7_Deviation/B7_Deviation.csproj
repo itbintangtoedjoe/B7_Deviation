@@ -483,6 +483,7 @@
     <Content Include="ReportKoordinatorDataSource2.xss">
       <DependentUpon>ReportKoordinatorDataSource2.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\CMS\ShowUser2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

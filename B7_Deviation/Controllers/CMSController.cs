@@ -25,14 +25,13 @@ namespace B7_Deviation.Controllers
         {
             return View();
         }
+
+
         public ActionResult ShowUser2()
         {
             return View();
         }
-        public ActionResult ShowUser3()
-        {
-            return View();
-        }
+
         public ActionResult ShowDataTable()
         {
             return View();

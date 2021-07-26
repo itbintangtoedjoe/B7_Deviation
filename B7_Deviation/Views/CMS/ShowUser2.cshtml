@@ -69,69 +69,47 @@
     function Edit(button) {
 
         var row = $(button).closest("TR");
-        var t_username = $("TD", row).eq(2).html();
-        var no = $("TD", row).eq(0).html();
+        var name = $("TD", row).eq(4).html();
+        var email = $("TD", row).eq(3).html();
 
-        $.ajax({
-            url: "../CMS/CMS_LoadUser",
-            type: "post",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var trHTML = '';
-                var trav = 0;
-                var Count = data.length;
-                for (trav = 0; trav < Count; trav++) {
-                   
-                    var nom = trav + 1;
-                    if (Count > 0) {
-                        if (no == nom) {
+        const { value: formValues } = Swal.fire({
+            title: 'Edit User: ' + name,
+            html:
+                
+                '<div class="row form-group">' +
+                '<div class="col-lg-4 col-form-label" >' +
+                '<label for="empname" class="col-form-label">' +
+                'Employee Name' +
+                '</label>' +
+                '</div>' +
+                '<div class="col-lg-6">' +
+                '<input class="form-control" id="empid" type="text" placeholder="' + name + '" style="display:block;" name="empid" required />' +
+                '</div>' +
+                '</div>' +
 
-                            alert(data[trav].role_deviation);
+                '<div class="row form-group">' +
+                '<div class="col-lg-4 col-form-label" >' +
+                '<label for="empemail" class="col-form-label">' +
+                'Employee Email' +
+                '</label>' +
+                '</div>' +
+                '<div class="col-lg-6">' +
+                '<input class="form-control" id="empemail" type="text" placeholder="' + email + '" style="display:block;" name="empid" required />' +
+                '</div>' +
+                '</div>' ,
 
-                            trHTML += '<tr><td hidden="hidden">' + nom + '</td>' +
-                                '<td>' + data[trav].empid + '</td>' +
-                                '<td> <input type="text" value="' + data[trav].username + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].email + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].empname + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].jobttlname + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].superiorid + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].superiorname + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].orggroupname + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].emailsuperior + '"/> </td>' +
-                                '<td> <select id="role" class="form-control"> </td>' +
-                                '<td> <select id="penyimpangan" class="form-control"> </td>' +
-                                '<td> <input type="button" id = "Cancel"  value="Cancel" onclick="Cancel(this)" class="btn btn-dark" style="width:40px"/><input type = "button" id = "Update" value = "Update" onclick="Update(this)" class="btn btn-primary" style="width:40px"/>' + '</td>';
-                        }
-                        else {
-                            trHTML += '<tr><td hidden="hidden">' + nom + '</td>' +
-                                '<td>' + data[trav].empid + '</td >' +
-                                '<td>' + data[trav].username + '</td>' +
-                                '<td>' + data[trav].email + '</td>' +
-                                '<td>' + data[trav].empname + '</td>' +
-                                '<td>' + data[trav].jobttlname + '</td>' +
-                                '<td>' + data[trav].superiorid + '</td>' +
-                                '<td>' + data[trav].superiorname + '</td>' +
-                                '<td>' + data[trav].orggroupname + '</td>' +
-                                '<td>' + data[trav].emailsuperior + '</td>' +
-                                '<td>' + data[trav].role_deviation + '</td>' +
-                                '<td>' + data[trav].kategori_penyimpangan + '</td>' +
-                                '<td><input type="button" id="Edit" value="Edit" onclick=Edit(this) class="btn btn-success" style="width:40px"/><input type="button" id="Delete" value ="Delete" onclick=Delete(this) class="btn btn-danger" style="width:40px"/></td>';
-                        }
-                    }
-                }
-                GetRoleEdit(t_username);
-                GetKategoriPenyimpangan(t_username);
-
-                $('#datatableuser').DataTable().clear().destroy();
-                $('#usertable').empty();
-                $('#usertable').append(trHTML);
-                $('#datatableuser').DataTable();
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
+            focusConfirm: false,
+            preConfirm: () => {
+                return [
+                    document.getElementById('swal-input1').value,
+                    document.getElementById('swal-input2').value
+                ]
             }
-        });
+        })
+
+        if (formValues) {
+            Swal.fire(JSON.stringify(formValues))
+        }
     }
 
     function Update(button) {
@@ -253,7 +231,7 @@
                 $('#usertable').empty();
                 $('#usertable').append(trHTML);
                 $('#datatableuser').DataTable();
-                
+
 
             },
             error: function (ex) {

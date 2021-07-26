@@ -81,7 +81,7 @@
                                     '<td align="center"> <a href="../PICRemidial/UsulanRevisi?Nomor=' + data[trav].REQ_ID + '&Urutan=' + data[trav].NO_DISPOSISI + '" class="btn btn-success">Revisi</a> </td>';
 
                                 // WHEN PIC PROPOSAL GOT REJECTED (HAVE TO DO THE REMEDIAL RESULT INSERTION) BY MANAGER/SPV || WHEN APPROVED BY MANAGER
-                            } else if (data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY COORDINATOR' || data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY SPV PIC' || data[trav].FLAG_REVISI == 'APPROVED BY MANAGER') {
+                            } else if (data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY COORDINATOR' || data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY SPV PIC' || data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY SPV PIC') {
                                 trHTML +=
                                     '<tr><td><a href="../PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].FLAG_PIC + '</td>' +

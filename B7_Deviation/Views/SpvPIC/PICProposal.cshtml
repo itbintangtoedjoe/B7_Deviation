@@ -83,7 +83,7 @@
 							'<td>' + data[trav].REVISI_TINDAKAN_REMEDIAL + '</td>' +
 							'<td>' + data[trav].ALASAN_REVISI + '</td>' +
 							'<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
-							'<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" onclick=ApprovePIC(this) class="btn btn-success" style="width:120px;"/> <input type="button" id="Reject" value="Reject" onclick=RejectPIC(this) class="btn btn-danger" style="width:100px;"/></td>';
+							'<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" onclick=ApprovePIC(this) class="btn btn-success" style="width:120px;"/> <input type="button" id="RejectPIC" value="Reject" onclick=RejectPIC(this) class="btn btn-danger" style="width:100px;"/></td>';
 					}
 
 					$('#deviationtable').empty();
@@ -192,7 +192,7 @@
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
 
-					toastr.success("Assign PIC Berhasil!", "Tersimpan", {
+					toastr.success("Reject PIC Berhasil!", "Tersimpan", {
 						"closeButton": false,
 						"debug": true,
 						"newestOnTop": false,
@@ -222,7 +222,7 @@
 			var tabletype = "One";
 			var whoreceiver = "Reviewer Rejected Usulan Revisi";
 
-			var dto = {
+			var dtx = {
 				Receiver: receiver,
 				ReqID: REQID,
 				TableType: tabletype,
@@ -232,7 +232,7 @@
 			$.ajax({
 				type: "post",
 				url: '../Form/SendEmailInputProposal',
-				data: JSON.stringify(dto),
+				data: JSON.stringify(dtx),
 				dataType: "json",
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {

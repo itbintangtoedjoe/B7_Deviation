@@ -90,18 +90,18 @@
 
 <script>
 
-    var CheckDelete = 0;
+	var CheckDelete = 0;
 
 	$(document).ready(function () {
-        $(window).bind('beforeunload', function () {
-            if (CheckDelete = 0) {
-                BeforeUnload();
-            }
+		$(window).bind('beforeunload', function () {
+			if (CheckDelete = 0) {
+				BeforeUnload();
+			}
 
-            return '';
-        });
+			return '';
+		});
 	});
-    
+	
 
 	$(document).ready(function () {
 
@@ -271,7 +271,7 @@
 							"showMethod": "fadeIn",
 							"hideMethod": "fadeOut"
 						});
-                        GetFileAttachmentReviewer();
+						GetFileAttachmentReviewer();
 					}
 				}
 				, error: function (ex) {
@@ -316,17 +316,17 @@
 								'<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
 						}
 
-                        $("#tbl_AttachmentReviewer").show();
-                        $("#tbody_AttachmentReviewer").empty();
-                        $("#tbody_AttachmentReviewer").append(trHTML);
-                        $("#tbody_AttachmentReviewer").addBack();
+						$("#tbl_AttachmentReviewer").show();
+						$("#tbody_AttachmentReviewer").empty();
+						$("#tbody_AttachmentReviewer").append(trHTML);
+						$("#tbody_AttachmentReviewer").addBack();
 
 					} else {
-                        $("#tbl_AttachmentReviewer").hide();
+						$("#tbl_AttachmentReviewer").hide();
 					}
 				} else {
-                    $("#tbl_AttachmentReviewer").hide();
-                    $("#tbody_AttachmentReviewer").addBack();
+					$("#tbl_AttachmentReviewer").hide();
+					$("#tbody_AttachmentReviewer").addBack();
 				}
 			},
 			error: function (ex) {
@@ -379,7 +379,7 @@
 						"hideMethod": "fadeOut"
 					});
 
-                    GetFileAttachmentReviewer();
+					GetFileAttachmentReviewer();
 				}
 			},
 			error: function (ex) {
