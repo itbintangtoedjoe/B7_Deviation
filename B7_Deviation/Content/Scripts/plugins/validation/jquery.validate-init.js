@@ -105,9 +105,6 @@ jQuery(".form-valide").validate({
         "txtLokasi": {
             required: "Silahkan isi Lokasi Penyimpangan"
         },
-        "txtUsulanRemidial": {
-            required: "Silahkan isi Ususlan Remidial"
-        },
         "txtHow": {
             required: "Silahkan isi Urutan Kejadian Penyimpangan"
         },
@@ -125,30 +122,30 @@ jQuery(".form-valide").validate({
         },
         "txtTindakan": {
             required: "Silahkan isi kolom Tindakan"
-        },
-        "ddlKualProd" :"Silahkan pilih Kualitas Produk",
-        "ddlRiskFin": {
-            required: "Silahkan pilih Risiko Finansial"
-        },
-        "ddlKesehatanPer": {
-            required: "Silahkan pilih Risiko Kesehatan Personil"
-        },
-        "ddlCompliance": {
-            required: "Silahkan pilih Compliance"
-        },
-        "ddlRiskOrg": {
-            required: "Silahkan pilih Risiko Organisasi"
-        },
-        "ddlResLingk": {
-            required: "Silahkan pilih Resiko Lingkungan"
-        },
-        "ddlRiskOpr":  "Silahkan pilih Risiko Operasional",
-        "ddlKeamamananP": {
-            required: "Silahkan pilih Keamanan Personil"
-        },
-        "ddlRiskIntelek": {
-            required: "Silahkan pilih Intelektual"
-        },
+        }
+        //"ddlKualProd" :"Silahkan pilih Kualitas Produk",
+        //"ddlRiskFin": {
+        //    required: "Silahkan pilih Risiko Finansial"
+        //},
+        //"ddlKesehatanPer": {
+        //    required: "Silahkan pilih Risiko Kesehatan Personil"
+        //},
+        //"ddlCompliance": {
+        //    required: "Silahkan pilih Compliance"
+        //},
+        //"ddlRiskOrg": {
+        //    required: "Silahkan pilih Risiko Organisasi"
+        //},
+        //"ddlResLingk": {
+        //    required: "Silahkan pilih Resiko Lingkungan"
+        //},
+        //"ddlRiskOpr":  "Silahkan pilih Risiko Operasional",
+        //"ddlKeamamananP": {
+        //    required: "Silahkan pilih Keamanan Personil"
+        //},
+        //"ddlRiskIntelek": {
+        //    required: "Silahkan pilih Intelektual"
+        //},
        
     }
 }); 
@@ -169,6 +166,10 @@ jQuery(".form-valide2").validate({
     },
     rules: {
         // Deviation
+        
+        "txtUsulanRemidial": {
+            required: !0
+        },
         "ddlKualProd": {
             required: !0
         },
@@ -200,7 +201,9 @@ jQuery(".form-valide2").validate({
     },
     messages: {
         // Daftar Conim
-        
+        "txtUsulanRemidial": {
+            required: "Silahkan isi Usulan Remidial"
+        },
         "ddlKualProd": "Silahkan pilih Kualitas Produk",
         "ddlRiskFin": {
             required: "Silahkan pilih Risiko Finansial"
