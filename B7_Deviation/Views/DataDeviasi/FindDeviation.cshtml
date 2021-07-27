@@ -26,80 +26,83 @@
                     <div class="form-group">
                         <h2 class="d-inline">Find Deviaton</h2>
                     </div>
+                    <div class="row">
+                        
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label">Status Penyimpangan</label>
+                                <div class="col-md-6 col-form-label">
+                                    <div class="btn-group">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown ">
+                                                <select id="statuspenyimpangan">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div class="col-md-12">
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label">Status Penyimpangan</label>
-                            <div class="col-md-3 col-form-label">
-                                <div class="btn-group">
-                                    <div class="basic-dropdown">
-                                        <div class="dropdown ">
-                                            <select id="statuspenyimpangan">
-                                            </select>
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label">Departemen Pelapor</label>
+                                <div class="col-md-6 col-form-label">
+                                    <div class="btn-group">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown ">
+                                                <select id="departemenpelapor">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label">Kategori Penyimpangan</label>
+                                <div class="col-md-6 col-form-label">
+                                    <div class="btn-group">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown ">
+                                                <select id="kategoripenyimpangan">
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label">Jenis Penyimpangan</label>
+                                <div class="col-md-6 col-form-label">
+                                    <div class="btn-group">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown ">
+                                                <select id="jenispenyimpangan">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label">Departemen Pelapor</label>
-                            <div class="col-md-3 col-form-label">
-                                <div class="btn-group">
-                                    <div class="basic-dropdown">
-                                        <div class="dropdown ">
-                                            <select id="departemenpelapor">
-                                            </select>
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label">Tahun Pelaporan</label>
+                                <div class="col-md-6 col-form-label">
+                                    <div class="btn-group">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown ">
+                                                <select id="tahunpelaporan">
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label">Kategori Penyimpangan</label>
-                            <div class="col-md-3 col-form-label">
-                                <div class="btn-group">
-                                    <div class="basic-dropdown">
-                                        <div class="dropdown ">
-                                            <select id="kategoripenyimpangan">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label">Jenis Penyimpangan</label>
-                            <div class="col-md-3 col-form-label">
-                                <div class="btn-group">
-                                    <div class="basic-dropdown">
-                                        <div class="dropdown ">
-                                            <select id="jenispenyimpangan">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label">Tahun Pelaporan</label>
-                            <div class="col-md-3 col-form-label">
-                                <div class="btn-group">
-                                    <div class="basic-dropdown">
-                                        <div class="dropdown ">
-                                            <select id="tahunpelaporan">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        
                     </div>
-
+                    
                     <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" width="100%" id="deviationdatatable">
                         <thead>
                             <tr>
@@ -119,11 +122,9 @@
                             </tr>
                         </thead>
                         <tbody id="deviationtable" class="nowrap">
-                            <tr>
-                            </tr>
                         </tbody>
                     </table>
-                </div>
+                </div>  
             </div>
         </div>
     </div>

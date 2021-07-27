@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_Deviation {
+namespace B7_Deviation.DataSource {
     
     
     /// <summary>
@@ -599,7 +599,7 @@ namespace B7_Deviation {
         }
     }
 }
-namespace B7_Deviation.ReportKoordinatorDataSource2TableAdapters {
+namespace B7_Deviation.DataSource.ReportKoordinatorDataSource2TableAdapters {
     
     
     /// <summary>

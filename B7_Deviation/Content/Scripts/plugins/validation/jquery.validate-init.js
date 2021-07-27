@@ -30,10 +30,9 @@ jQuery(".form-valide").validate({
         "txtProblem": {
             required: !0            
         },
-        //"txtReq": {
-        //    required: !0,
-        //    minlength: 3
-        //},
+        "txtUsulanRemidial": {
+            required: !0
+        },
         "date-format": {
             required: !0
         },
@@ -105,7 +104,10 @@ jQuery(".form-valide").validate({
         "date-format": "Silahkan pilih Tanggal Penyimpangan",
         "txtLokasi": {
             required: "Silahkan isi Lokasi Penyimpangan"
-         },
+        },
+        "txtUsulanRemidial": {
+            required: "Silahkan isi Ususlan Remidial"
+        },
         "txtHow": {
             required: "Silahkan isi Urutan Kejadian Penyimpangan"
         },

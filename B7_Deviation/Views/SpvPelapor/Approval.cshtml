@@ -327,6 +327,16 @@
                                 <div class="form-group row">
                                     <h4 class="col-sm-6 col-form-label">Penilaian Potensi Dampak dari penyimpangan<span class="text-danger">*</span></h4>
                                 </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-2 col-form-label">
+                                        <label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial"></textarea>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col">
@@ -335,7 +345,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlKualProd" title="Kualitas Produk" ></select>
+                                                        <select id="ddlKualProd" title="Kualitas Produk"></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -346,7 +356,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlRiskFin" title="Risiko Finansial" ></select>
+                                                        <select id="ddlRiskFin" title="Risiko Finansial"></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -357,7 +367,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlKesehatanPer" title="Risiko Kesehatan Personil" ></select>
+                                                        <select id="ddlKesehatanPer" title="Risiko Kesehatan Personil"></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -373,7 +383,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlCompliance" title="Compliance" ></select>
+                                                        <select id="ddlCompliance" title="Compliance"></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -384,7 +394,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlRiskOrg" title="Risiko Organisasi" ></select>
+                                                        <select id="ddlRiskOrg" title="Risiko Organisasi"></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -395,7 +405,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlResLingk" title="Risiko Lingkungan" ></select>
+                                                        <select id="ddlResLingk" title="Risiko Lingkungan"></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -411,7 +421,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlRiskOpr" title="Risiko Operasional" ></select>
+                                                        <select id="ddlRiskOpr" title="Risiko Operasional"></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -422,7 +432,7 @@
                                             <div class="btn-group mb-2">
                                                 <div class="basic-dropdown">
                                                     <div class="dropdown">
-                                                        <select id="ddlKeamamananP" title="Risiko Keamanan Personil" ></select>
+                                                        <select id="ddlKeamamananP" title="Risiko Keamanan Personil"></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -446,7 +456,7 @@
                                             <label>Tingkat Keparahan Penyimpangan</label>
                                             <br />
                                             <div class="btn-group mb-2">
-                                                <input id="txtKeparahan" type="text" readonly class="form-control" >
+                                                <input id="txtKeparahan" type="text" readonly class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -531,6 +541,10 @@
                 document.getElementById('txtTindakan').value = data[0].ACTION_WHEN_DEV;
 
                 document.getElementById('txtReq').value = data[0].REQ;
+
+                // USULAN REMIDIAL
+                $('#txtUsulanRemidial').val(data[0].USULAN_REMIDIAL);
+
 
                 // 1st Card Radio Button
 

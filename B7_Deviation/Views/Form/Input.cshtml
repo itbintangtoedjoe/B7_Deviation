@@ -107,26 +107,24 @@
 											</div>*@
 									</div>
 									<div class="col-sm-7">
-										<textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan"></textarea>
+										<textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan"></textarea>
 									</div>
 								</div>
 								@*  Penyimpangan terencana *@
 
 								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Apakah penyimpangan ini terencana?<span class="text-danger">*</span></label>
+                                    <label class="col-sm-2 col-form-label">Jenis penyimpangan ini terencana?<span class="text-danger">*</span></label>
 									<div class="col-sm-10">
 										<div class="form-group">
 											<div class="form-check form-check-inline">
-												<label>
-													<input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes"> Ya
-
-												</label>
+                                                <label>
+                                                    <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Terencana"> Terencana
+                                                </label>
 											</div>
 											<div class="form-check form-check-inline">
-												<label>
-													<input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No" checked> Tidak
-
-												</label>
+                                                <label>
+                                                    <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="Tidak Terencana" checked> Tidak Terencana
+                                                </label>
 											</div>
 										</div>
 									</div>
@@ -340,166 +338,173 @@
 						</div>
 
 
-						<form class="form-valide2" onsubmit="return s();" action="#" method="post">
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label"></label>
+                        <form class="form-valide2" onsubmit="return s();" action="#" method="post">
 
-								<div class="col-sm-10">
-									<div class="table-responsive">
-										<table id="tbl_Attachment" class="table header-border">
-											<thead>
-												<tr>
-													<th>
-														<b>No</b>
-													</th>
-													<th>
-														<b>File Name</b>
-													</th>
-													<th>
-														<b>Action</b>
-													</th>
-												</tr>
-											</thead>
-											<tbody id="tbody_Attachment"></tbody>
-										</table>
-									</div>
-								</div>
-							</div>
+                            <div class="form-group row">
+                                <div class="col-sm-2 col-form-label">
+                                    <label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial"></textarea>
+                                </div>
+                            </div>
 
-							<div class="form-group row">
-								<div class="col">
-									<label for="ddlKualProd">Kualitas Produk</label>
-									<br />
-									<div class="btn-group mb-2">
-										<div class="basic-dropdown">
-											<div class="dropdown">
-												<select id="ddlKualProd" name="ddlKualProd" title="Kualitas Produk"></select>
-											</div>
-										</div>
-									</div>
-								</div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label"></label>
 
-								<div class="col">
-									<label for="ddlRiskFin">Risiko Finansial</label>
-									<br />
-									<div class="btn-group mb-2">
-										<div class="basic-dropdown">
-											<div class="dropdown">
-												<select id="ddlRiskFin" name="ddlRiskFin" title="Risiko Finansial"></select>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col">
-									<label for="ddlKesehatanPer">Risiko Kesehatan Personil</label>
-									<br />
-									<div class="btn-group mb-2">
-										<div class="basic-dropdown">
-											<div class="dropdown">
-												<select id="ddlKesehatanPer" name="ddlKesehatanPer" title="Risiko Kesehatan Personil"></select>
-											</div>
-										</div>
-									</div>
-								</div>
+                                <div class="col-sm-10">
+                                    <div class="table-responsive">
+                                        <table id="tbl_Attachment" class="table header-border">
+                                            <thead>
+                                                <tr>
+                                                    <th><b>No</b></th>
+                                                    <th><b>File Name</b></th>
+                                                    <th><b>Action</b></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_Attachment"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
 
-							</div>
-							<div class="form-group row">
-								@*Baris 2*@
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label for="ddlKualProd">Kualitas Produk</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlKualProd" name="ddlKualProd" title="Kualitas Produk"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-								<div class="col">
-									<label for="ddlCompliance">Compliance</label>
-									<br />
-									<div class="btn-group mb-2">
-										<div class="basic-dropdown">
-											<div class="dropdown">
-												<select id="ddlCompliance" name="ddlCompliance" title="Compliance"></select>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col">
-									<label for="ddlRiskOrg">Risiko Organisasi</label>
-									<br />
-									<div class="btn-group mb-2">
-										<div class="basic-dropdown">
-											<div class="dropdown">
-												<select id="ddlRiskOrg" name="ddlRiskOrg" title="Risiko Organisasi"></select>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col">
-									<label for="ddlResLingk">Resiko Lingkungan</label>
-									<br />
-									<div class="btn-group mb-2">
-										<div class="basic-dropdown">
-											<div class="dropdown">
-												<select id="ddlResLingk" name="ddlResLingk" title="Risiko Lingkungan"></select>
-											</div>
-										</div>
-									</div>
-								</div>
+                                <div class="col">
+                                    <label for="ddlRiskFin">Risiko Finansial</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlRiskFin" name="ddlRiskFin" title="Risiko Finansial"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="ddlKesehatanPer">Risiko Kesehatan Personil</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlKesehatanPer" name="ddlKesehatanPer" title="Risiko Kesehatan Personil"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-							</div>
-							<div class="form-group row">
-								@*Baris 3*@
+                            </div>
+                            <div class="form-group row">
+                                @*Baris 2*@
 
-								<div class="col">
-									<label for="ddlRiskOpr">Risiko Operasional</label>
-									<br />
-									<div class="btn-group mb-2">
-										<div class="basic-dropdown">
-											<div class="dropdown">
-												<select id="ddlRiskOpr" name="ddlRiskOpr" title="Risiko Operasional"></select>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col">
-									<label for="ddlKeamamananP">Risiko Keamanan Personil</label>
-									<br />
-									<div class="btn-group mb-2">
-										<div class="basic-dropdown">
-											<div class="dropdown">
-												<select id="ddlKeamamananP" name="ddlKeamamananP" title="Risiko Keamanan Personil"></select>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col">
-									<label for="ddlRiskIntelek">Risiko Intelektual</label>
-									<br />
-									<div class="btn-group mb-2">
-										<div class="basic-dropdown">
-											<div class="dropdown">
-												<select id="ddlRiskIntelek" name="ddlRiskIntelek" title="Risiko Intelektual"></select>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="row">
-									<div class="col">
-										<label for="txtKeparahan">Tingkat Keparahan Penyimpangan</label>
-										<br />
-										<div class="btn-group mb-2">
-											<input id="txtKeparahan" name="txtKeparahan" type="text" class="form-control" readonly="readonly">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-3">
-									<button id="btnSaveForm" class="btn mb-1 btn-success">
-										Submit Penyimpangan
-										<span class="btn-icon-right">
-											<i class="fa fa-paper-plane"></i>
-										</span>
-									</button>
-								</div>
-							</div>
-						</form>
+                                <div class="col">
+                                    <label for="ddlCompliance">Compliance</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlCompliance" name="ddlCompliance" title="Compliance"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="ddlRiskOrg">Risiko Organisasi</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlRiskOrg" name="ddlRiskOrg" title="Risiko Organisasi"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="ddlResLingk">Resiko Lingkungan</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlResLingk" name="ddlResLingk" title="Risiko Lingkungan"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                @*Baris 3*@
+
+                                <div class="col">
+                                    <label for="ddlRiskOpr">Risiko Operasional</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlRiskOpr" name="ddlRiskOpr" title="Risiko Operasional"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="ddlKeamamananP">Risiko Keamanan Personil</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlKeamamananP" name="ddlKeamamananP" title="Risiko Keamanan Personil"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="ddlRiskIntelek">Risiko Intelektual</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlRiskIntelek" name="ddlRiskIntelek" title="Risiko Intelektual"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="txtKeparahan">Tingkat Keparahan Penyimpangan</label>
+                                        <br />
+                                        <div class="btn-group mb-2">
+                                            <input id="txtKeparahan" name="txtKeparahan" type="text" class="form-control" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <button id="btnSaveForm" class="btn mb-1 btn-success">
+                                        Submit Penyimpangan
+                                        <span class="btn-icon-right">
+                                            <i class="fa fa-paper-plane"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </form>
 					</div>
 				</div>
 			</div>
@@ -1627,6 +1632,9 @@
 			FLAG_KOOR = 'Coordinator_QS';
 		}
 
+		var UsulanRemidial = $('#txtUsulanRemidial').val();
+
+
 		var dto = {
 			CrDateUser: CR_DATE_USER,
 			IdProposer: ID_PROPOSER,
@@ -1669,7 +1677,8 @@
 			PLAN_DEV: PLAN_DEV_FLAG,
 			THIRTY_FLAG: THIRTY_FLAG,
 			THIRTY: THIRTY,
-			REQ: REQ
+			REQ: REQ,
+            UsulanRemidial = UsulanRemidial
 		};
 
 		$.ajax({

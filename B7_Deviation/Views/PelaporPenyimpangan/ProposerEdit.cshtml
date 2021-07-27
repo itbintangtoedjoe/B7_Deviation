@@ -364,6 +364,15 @@
 
                         <form class="form-valide2" onsubmit="return s();" action="#" method="post">
                             <div class="form-group row">
+                                <div class="col-sm-2 col-form-label">
+                                    <label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
 
                                 <div class="col-sm-10">
@@ -1700,6 +1709,9 @@
         } else if (FLAG_KOOR == 'QNS' || FLAG_KOOR == 'HSE' ){
             FLAG_KOOR = 'Coordinator_QS';
         }        
+        var UsulanRemidial = $('#txtUsulanRemidial').val();
+
+
 
         var dto = {
             CrDateUser: CR_DATE_USER,
@@ -1742,8 +1754,8 @@
             THIRTY_FLAG: THIRTY_FLAG,
             THIRTY: THIRTY,
             REQ: REQ,
-            NO_WO_ORACLE: NO_WO_ORACLE
-
+            NO_WO_ORACLE: NO_WO_ORACLE,
+            UsulanRemidial = UsulanRemidial
         };
 
         $.ajax({
@@ -1967,6 +1979,9 @@
                 document.getElementById('txtTindakan').value = data[0].ACTION_WHEN_DEV;
 
                 document.getElementById('txtReq').value = data[0].REQ;
+
+                // USULAN REMIDIAL
+                $('#txtUsulanRemidial').val(data[0].USULAN_REMIDIAL);
 
                 // 1st Card Radio Button                
                 // Travel 1
