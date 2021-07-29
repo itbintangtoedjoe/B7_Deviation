@@ -54,6 +54,11 @@
                                     <input class="form-control" id="empid" type="text" placeholder="Enter Employee ID" style="display:block;" name="empid" required />
                                     <span hidden="hidden" id="confid" class="text-danger">Employee ID Already Exists, Please Insert a Different Employee ID</span>
                                 </div>
+
+                                <div class="col-lg-2 col-form-label">
+                                    <button class="btn btn-success" type="button" style="width:150px;" onclick="GetVendorID();">Generate VendorID</button>
+                                </div>
+
                             </div>
 
                             <div class="row form-group">
@@ -223,6 +228,7 @@
 
         GetRole();
 
+
         $('#new').click(function () {
 
         });
@@ -268,6 +274,24 @@
         });
 
     });
+
+    function GetVendorID() {
+        $.ajax({
+            url: "../CMS/CMS_GetVendorID",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                $("#empid").val(data);
+                $("#empid").attr("disabled", true);
+                
+               
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
 
     function CheckEmpID() {
         var empid = $('#empid').val();

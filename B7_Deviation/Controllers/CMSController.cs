@@ -595,5 +595,36 @@ namespace B7_Deviation.Controllers
             }
             return Json(ModelData);
         }
+
+        public ActionResult CMS_GetVendorID()
+        {
+            string conSQL = mySetting.ConnectionString;
+
+            SqlConnection conn = new SqlConnection(conSQL);
+            List<string> ModelData = new List<string>();
+            string result;
+
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_CheckInputCMS", conn))
+                {
+
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@option"].Value = "Get VendorID";
+                    result = (string)command.ExecuteScalar();
+                    
+                    ModelData.Add(result);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(ModelData);
+        }
     }
 }

@@ -59,51 +59,270 @@
         // Load User once the page is loaded
         LoadUser();
 
-    });
 
-    function Cancel(button) {
-        // Load user once the user cancel update table
-        LoadUser();
-    }
+    });
 
     function Edit(button) {
 
         var row = $(button).closest("TR");
-        var name = $("TD", row).eq(4).html();
+
+        var id = $("TD", row).eq(1).html();
+        var username = $("TD", row).eq(2).html();
         var email = $("TD", row).eq(3).html();
+        var name = $("TD", row).eq(4).html();
+        var job = $("TD", row).eq(5).html();
+        var spvid = $("TD", row).eq(6).html();
+        var spvname = $("TD", row).eq(7).html();
+        var dept = $("TD", row).eq(8).html();
+        var spvemail = $("TD", row).eq(9).html();
+
+
+        GetKategoriPenyimpangan(username);
+        GetRoleEdit(username);
 
         const { value: formValues } = Swal.fire({
-            title: 'Edit User: ' + name,
+            title: 'Update Credential : <i><b>' + name + '</b></i>',
             html:
-                
+
                 '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" >' +
-                '<label for="empname" class="col-form-label">' +
-                'Employee Name' +
+                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+                '<label for="username" class="col-form-label">' +
+                'Username :' +
                 '</label>' +
                 '</div>' +
                 '<div class="col-lg-6">' +
-                '<input class="form-control" id="empid" type="text" placeholder="' + name + '" style="display:block;" name="empid" required />' +
+                '<input class="form-control" id="username" type="text" placeholder="' + username + '" style="display:block;" name="username"/>' +
                 '</div>' +
                 '</div>' +
 
                 '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" >' +
-                '<label for="empemail" class="col-form-label">' +
-                'Employee Email' +
+                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+                '<label for="email" class="col-form-label">' +
+                'Email :' +
                 '</label>' +
                 '</div>' +
                 '<div class="col-lg-6">' +
-                '<input class="form-control" id="empemail" type="text" placeholder="' + email + '" style="display:block;" name="empid" required />' +
+                '<input class="form-control" id="email" type="text" placeholder="' + email + '" style="display:block;" name="email"/>' +
                 '</div>' +
-                '</div>' ,
+                '</div>' +
+
+                '<div class="row form-group">' +
+                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+                '<label for="name" class="col-form-label">' +
+                'Name :' +
+                '</label>' +
+                '</div>' +
+                '<div class="col-lg-6">' +
+                '<input class="form-control" id="name" type="text" placeholder="' + name + '" style="display:block;" name="name"/>' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="row form-group">' +
+                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+                '<label for="job" class="col-form-label">' +
+                'Job Name :' +
+                '</label>' +
+                '</div>' +
+                '<div class="col-lg-6">' +
+                '<input class="form-control" id="job" type="text" placeholder="' + job + '" style="display:block;" name="job"/>' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="row form-group">' +
+                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+                '<label for="spvid" class="col-form-label">' +
+                'Superior ID :' +
+                '</label>' +
+                '</div>' +
+                '<div class="col-lg-6">' +
+                '<input class="form-control" id="spvid" type="text" placeholder="' + spvid + '" style="display:block;" name="spvid"/>' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="row form-group">' +
+                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+                '<label for="spvname" class="col-form-label">' +
+                'Superior Name :' +
+                '</label>' +
+                '</div>' +
+                '<div class="col-lg-6">' +
+                '<input class="form-control" id="spvname" type="text" placeholder="' + spvname + '" style="display:block;" name="spvid"/>' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="row form-group">' +
+                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+                '<label for="dept" class="col-form-label">' +
+                'Department :' +
+                '</label>' +
+                '</div>' +
+                '<div class="col-lg-6">' +
+                '<input class="form-control" id="dept" type="text" placeholder="' + dept + '" style="display:block;" name="dept"/>' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="row form-group">' +
+                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+                '<label for="spvemail" class="col-form-label">' +
+                'Superior Email :' +
+                '</label>' +
+                '</div>' +
+                '<div class="col-lg-6">' +
+                '<input class="form-control" id="spvemail" type="text" placeholder="' + spvemail + '" style="display:block;" name="spvemail"/>' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="row form-group">' +
+                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+                '<label for="role" class="col-form-label">' +
+                'Deviation Role :' +
+                '</label>' +
+                '</div>' +
+                '<div class="col-lg-6">' +
+                '<select id="role" class="form-control">' +
+                '<option value="" class="dropdown-header" selected>Select Role</option>' +
+                '</select>' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="row form-group">' +
+                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+                '<label for="penyimpangan" class="col-form-label">' +
+                'Kategori Penyimpangan :' +
+                '</label>' +
+                '</div>' +
+                '<div class="col-lg-6">' +
+                '<select id="penyimpangan" class="form-control">' +
+                '<option value="" class="dropdown-header" selected>Kategori Penyimpangan</option>' +
+                '</select>' +
+                '</div>' +
+                '</div>',
+
 
             focusConfirm: false,
+            showCancelButton: true,
+            icon: 'warning',
+            width: 1000,
+            confirmButtonText: 'Yes, Update!',
+            footer: '<p style="color:red;">Data Kosong Tidak Akan Berubah!</p>',
             preConfirm: () => {
-                return [
-                    document.getElementById('swal-input1').value,
-                    document.getElementById('swal-input2').value
-                ]
+
+                // VALIDATION THEN UPDATE DATA
+
+                usernamex = document.getElementById('username').value;
+
+                // IF NULL, THEN USE PREVIOUS DATA
+                if (!document.getElementById('email').value) {
+                    email = email;
+                } else {
+                    email = document.getElementById('email').value;
+                }
+
+                if (!document.getElementById('name').value) {
+                    name = name;
+                } else {
+                    name = document.getElementById('name').value;
+                }
+
+                if (!document.getElementById('job').value) {
+                    job = job;
+                } else {
+                    job = document.getElementById('job').value;
+                }
+                
+                if (!document.getElementById('spvid').value) {
+                    spvid = spvid;
+                } else {
+                    spvid = document.getElementById('spvid').value;
+                }
+
+                if (!document.getElementById('spvname').value) {
+                    spvname = spvname;
+                } else {
+                    spvname = document.getElementById('spvname').value;
+                }
+
+                if (!document.getElementById('dept').value) {
+                    dept = dept;
+                } else {
+                    dept = document.getElementById('dept').value;
+                }
+
+                if (!document.getElementById('spvemail').value) {
+                    spvemail = spvemail;
+                } else {
+                    spvemail = document.getElementById('spvemail').value;
+                }
+
+                if (!document.getElementById('role').value) {
+                    role = role;
+                } else {
+                    role = document.getElementById('role').value;
+                }
+                
+                if (!document.getElementById('penyimpangan').value) {
+                    penyimpangan = "NULL";
+                } else {
+                    penyimpangan = document.getElementById('penyimpangan').value;
+                }
+                 
+                // CHECK WHETHER USERNAME IS NULL
+                if (!usernamex) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Username Kosong'
+
+                    })
+                    return;
+                // CHECK USERNAME AVAILABILITY
+                } else if (usernamex != username) {
+
+                    var retval = "retval";
+                    var dto = {
+                        Username: usernamex
+                    }
+
+                    $.when(
+                        $.ajax({
+                        url: '../CMS/CMS_CheckUsername',
+                        type: 'post',
+                        data: JSON.stringify(dto),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+
+                            if (data == "Username Exists") {
+                                
+                                retval = "ga ok";
+                                
+                            }
+                            
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify('Check Username: ' + ex));
+                        }
+
+                        })
+                    ).then(function () {
+                        alert(retval);
+                        if (retval = "retval") {
+                            return;
+                        } else if(retval = "ga ok"){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Username Sudah Ada'
+
+                            });
+                        }
+                    });
+
+                            
+                }
+
+                Update(id, usernamex, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan);
+
             }
         })
 
@@ -112,33 +331,21 @@
         }
     }
 
-    function Update(button) {
-        var row = $(button).closest("TR");
-
-        var empid = $("TD", row).eq(1).html();
-        var username = $("TD", row).eq(2).find("input[type='text']").val();
-        var email = $("TD", row).eq(3).find("input[type='text']").val();
-        var empname = $("TD", row).eq(4).find("input[type='text']").val();
-        var jobttlname = $("TD", row).eq(5).find("input[type='text']").val();
-        var superiorid = $("TD", row).eq(6).find("input[type='text']").val();
-        var superiorname = $("TD", row).eq(7).find("input[type='text']").val();
-        var orggroupname = $("TD", row).eq(8).find("input[type='text']").val();
-        var emailsuperior = $("TD", row).eq(9).find("input[type='text']").val();
-        var role = $("TD", row).eq(10).find("select").val();
-        var kategoripenyimpangan = $("TD", row).eq(11).find("select").val();
-
+    
+    function Update(id, usernamex, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan) {
+       
         var dto = {
-            empid: empid,
-            username: username,
+            empid: id,
+            username: usernamex,
             email: email,
-            empname: empname,
-            jobttlname: jobttlname,
-            superiorid: superiorid,
-            superiorname: superiorname,
-            orggroupname: orggroupname,
-            emailsuperior: emailsuperior,
+            empname: name,
+            jobttlname: job,
+            superiorid: spvid,
+            superiorname: spvname,
+            orggroupname: dept,
+            emailsuperior: spvemail,
             role: role,
-            kategoripenyimpangan: kategoripenyimpangan
+            kategori: penyimpangan
         }
 
         $.ajax({
@@ -148,8 +355,25 @@
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
+                
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Update user: ' + name + ', Success!'
+                });
+
                 LoadUser();
-                Swal.fire('Successfully Update User');
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -228,6 +452,8 @@
                         '<td> <input type="button" id="Edit" value="Edit" onclick=Edit(this) class="btn btn-success" style="width:40px;"/><input type="button" id="Delete" value="Delete" onclick=Delete(this) class="btn btn-danger" style="width:40px;"/></td>';
                 }
 
+
+                $('#datatableuser').DataTable().destroy();
                 $('#usertable').empty();
                 $('#usertable').append(trHTML);
                 $('#datatableuser').DataTable();
@@ -252,7 +478,7 @@
                 var trav = 0;
                 var count = data.length;
 
-                trhtml += '<option disabled class="dropdown-header">Select Role</option>';
+                trhtml += '<option selected class="dropdown-header">* Select Role *</option>';
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
                         trhtml +=
@@ -286,8 +512,7 @@
                 var trhtml = "";
                 var trav = 0;
                 var count = data.length;
-
-                trhtml += '<option disabled class="dropdown-header">Select Kategori Penyimpangan</option>';
+                trhtml += '<option disabled selected class="dropdown-header">* Select Kategori Penyimpangan *</option>';
 
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
@@ -295,7 +520,7 @@
                         if (data[trav].role_deviation == 'Coordinator_QA' || data[trav].role_deviation == 'Coordinator_QS') {
                             trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
                         } else {
-                            trhtml += '<Option class="dropdown-item" selected value = "" > - ';
+                            trhtml += '<Option class="dropdown-item" selected value = "-" > - ';
                             break;
                         }
 
