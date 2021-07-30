@@ -36,13 +36,151 @@
                                 <th>Superior Email</th>
                                 <th>Role Deviation</th>
                                 <th>Kategori Penyimpangan</th>
-                                <th>Buttons</th>
+                                <th>Actions</th>
+                                <th>Reset Password</th>
+                                <th hidden="hidden">Type</th>
 
                             </tr>
                         </thead>
                         <tbody id="usertable" class="nowrap">
                         </tbody>
                     </table>
+
+
+                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Edit User: <label id="nama"></label></h5>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="username" class="col-form-label">
+                                                Username :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" id="username" type="text" style="display:block;" name="username" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="email" class="col-form-label">
+                                                Email :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" id="email" type="text" style="display:block;" name="email" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="name" class="col-form-label">
+                                                Name :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" id="name" type="text" style="display:block;" name="name" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="job" class="col-form-label">
+                                                Job Name :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" id="job" type="text" style="display:block;" name="job" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="ddlsuperiorname" class="col-form-label">
+                                                Superior Name :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <select id="ddlsuperiorname" class="form-control">
+                                                <option value="" class="dropdown-header" selected>Select Superior Name</option>
+                                                <option id="vspv"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="spvid" class="col-form-label">
+                                                Superior ID :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" id="spvid" type="text" style="display:block;" name="spvid" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="dept" class="col-form-label">
+                                                Department :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" id="dept" type="text" style="display:block;" name="dept" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="spvemail" class="col-form-label">
+                                                Superior Email :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" id="spvemail" type="text" style="display:block;" name="spvemail" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="role" class="col-form-label">
+                                                Deviation Role :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <select id="role" class="form-control">
+                                                <option value="" class="dropdown-header" selected>Select Role</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="penyimpangan" class="col-form-label">
+                                                Kategori Penyimpangan :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <select id="penyimpangan" class="form-control">
+                                                <option value="" class="dropdown-header" selected>Kategori Penyimpangan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="Update">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -59,14 +197,141 @@
         // Load User once the page is loaded
         LoadUser();
 
+        $("#ddlsuperiorname").change(function () {
+
+            var spvid = $("#ddlsuperiorname").val();
+            GetSuperiorVendorDetail(spvid);
+        });
+
+
 
     });
 
+    function GetSuperiorVendorDetail(spvid) {
+
+        var dto = {
+            Empid: spvid
+        }
+
+        $.ajax({
+            url: "../CMS/CMS_LoadSuperiorVendorDetail",
+            type: "post",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                alert(data[0].orggroupname);
+
+                $("#spvid").val(spvid);
+                $("#dept").val(data[0].orggroupname);
+                $("#spvemail").val(data[0].email);
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+
+    function GetSuperiornameDDL(id) {
+        var dto = {
+            Empid: id
+        }
+
+        $.ajax({
+            url: "../CMS/CMS_LoadVendorSuperiornameDDL",
+            type: "post",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+                trhtml += '<option disabled selected class="dropdown-header">* Select Superior Name *</option>';
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        if (data[trav].O_SPVVENDOR_ID == data[trav].SPVVENDOR_ID) {
+                            trhtml +=
+                                '<Option class="dropdown-item" selected value = "' + data[trav].O_SPVVENDOR_ID + '" > ' + data[trav].O_SPVVENDOR_NAME;
+                        } else {
+                            trhtml +=
+                                '<Option class="dropdown-item" value = "' + data[trav].O_SPVVENDOR_ID + '" > ' + data[trav].O_SPVVENDOR_NAME;
+                        }
+
+
+                    }
+                }
+
+                $("#ddlsuperiorname").empty();
+                $("#ddlsuperiorname").append(trhtml);
+                $("#ddlsuperiorname").select();
+
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function Reset(button) {
+        var row = $(button).closest("TR");
+
+        var id = $("TD", row).eq(1).html();
+        var name = $("TD", row).eq(4).html();
+
+        var dto = {
+            Empid: id
+        }
+
+        $.ajax({
+            url: "../CMS/CMS_ResetPasswordVendor",
+            type: "post",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Reset Password: ' + name + ', Success!'
+                });
+
+                LoadUser();
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+
     function Edit(button) {
+
 
         var row = $(button).closest("TR");
 
         var id = $("TD", row).eq(1).html();
+
         var username = $("TD", row).eq(2).html();
         var email = $("TD", row).eq(3).html();
         var name = $("TD", row).eq(4).html();
@@ -75,268 +340,376 @@
         var spvname = $("TD", row).eq(7).html();
         var dept = $("TD", row).eq(8).html();
         var spvemail = $("TD", row).eq(9).html();
+        var type = $("TD", row).eq(14).html();
+
+        var text = "";
 
 
         GetKategoriPenyimpangan(username);
         GetRoleEdit(username);
 
-        const { value: formValues } = Swal.fire({
-            title: 'Update Credential : <i><b>' + name + '</b></i>',
-            html:
+        // JUDUL
+        $("#nama").text(name);
 
-                '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-                '<label for="username" class="col-form-label">' +
-                'Username :' +
-                '</label>' +
-                '</div>' +
-                '<div class="col-lg-6">' +
-                '<input class="form-control" id="username" type="text" placeholder="' + username + '" style="display:block;" name="username"/>' +
-                '</div>' +
-                '</div>' +
+        // ISI
+        $("#username").val(username);
+        $("#username").attr("disabled", true);
 
-                '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-                '<label for="email" class="col-form-label">' +
-                'Email :' +
-                '</label>' +
-                '</div>' +
-                '<div class="col-lg-6">' +
-                '<input class="form-control" id="email" type="text" placeholder="' + email + '" style="display:block;" name="email"/>' +
-                '</div>' +
-                '</div>' +
+        $("#email").attr("placeholder", email);
 
-                '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-                '<label for="name" class="col-form-label">' +
-                'Name :' +
-                '</label>' +
-                '</div>' +
-                '<div class="col-lg-6">' +
-                '<input class="form-control" id="name" type="text" placeholder="' + name + '" style="display:block;" name="name"/>' +
-                '</div>' +
-                '</div>' +
+        $("#name").attr("placeholder", name);
 
-                '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-                '<label for="job" class="col-form-label">' +
-                'Job Name :' +
-                '</label>' +
-                '</div>' +
-                '<div class="col-lg-6">' +
-                '<input class="form-control" id="job" type="text" placeholder="' + job + '" style="display:block;" name="job"/>' +
-                '</div>' +
-                '</div>' +
+        $("#job").val(job);
 
-                '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-                '<label for="spvid" class="col-form-label">' +
-                'Superior ID :' +
-                '</label>' +
-                '</div>' +
-                '<div class="col-lg-6">' +
-                '<input class="form-control" id="spvid" type="text" placeholder="' + spvid + '" style="display:block;" name="spvid"/>' +
-                '</div>' +
-                '</div>' +
+        $("#spvid").val(spvid);
+        $("#spvid").attr("disabled", true);
 
-                '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-                '<label for="spvname" class="col-form-label">' +
-                'Superior Name :' +
-                '</label>' +
-                '</div>' +
-                '<div class="col-lg-6">' +
-                '<input class="form-control" id="spvname" type="text" placeholder="' + spvname + '" style="display:block;" name="spvid"/>' +
-                '</div>' +
-                '</div>' +
+        $("#dept").val(dept);
+        $("#dept").attr("disabled", true);
 
-                '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-                '<label for="dept" class="col-form-label">' +
-                'Department :' +
-                '</label>' +
-                '</div>' +
-                '<div class="col-lg-6">' +
-                '<input class="form-control" id="dept" type="text" placeholder="' + dept + '" style="display:block;" name="dept"/>' +
-                '</div>' +
-                '</div>' +
+        $("#spvemail").attr("placeholder", spvemail);
 
-                '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-                '<label for="spvemail" class="col-form-label">' +
-                'Superior Email :' +
-                '</label>' +
-                '</div>' +
-                '<div class="col-lg-6">' +
-                '<input class="form-control" id="spvemail" type="text" placeholder="' + spvemail + '" style="display:block;" name="spvemail"/>' +
-                '</div>' +
-                '</div>' +
+        if (type == "Vendor") {
+            $("#ddlsuperiorname").attr("disabled", false);
+            $("#name").attr("disabled", false);
+            $("#job").attr("disabled", false);
+            GetSuperiornameDDL(id);
+        } else {
 
-                '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-                '<label for="role" class="col-form-label">' +
-                'Deviation Role :' +
-                '</label>' +
-                '</div>' +
-                '<div class="col-lg-6">' +
-                '<select id="role" class="form-control">' +
-                '<option value="" class="dropdown-header" selected>Select Role</option>' +
-                '</select>' +
-                '</div>' +
-                '</div>' +
+            text += '<Option class="dropdown-item" value = "' + spvname + '" selected >' + spvname;
 
-                '<div class="row form-group">' +
-                '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-                '<label for="penyimpangan" class="col-form-label">' +
-                'Kategori Penyimpangan :' +
-                '</label>' +
-                '</div>' +
-                '<div class="col-lg-6">' +
-                '<select id="penyimpangan" class="form-control">' +
-                '<option value="" class="dropdown-header" selected>Kategori Penyimpangan</option>' +
-                '</select>' +
-                '</div>' +
-                '</div>',
+            $("#ddlsuperiorname").empty();
+            $("#ddlsuperiorname").append(text);
+            $("#ddlsuperiorname").select();
 
 
-            focusConfirm: false,
-            showCancelButton: true,
-            icon: 'warning',
-            width: 1000,
-            confirmButtonText: 'Yes, Update!',
-            footer: '<p style="color:red;">Data Kosong Tidak Akan Berubah!</p>',
-            preConfirm: () => {
+            $("#ddlsuperiorname").attr("disabled", true);
+            $("#name").attr("disabled", true);
+            $("#spvemail").attr("disabled", true);
+            $("#job").attr("disabled", true);
 
-                // VALIDATION THEN UPDATE DATA
-
-                usernamex = document.getElementById('username').value;
-
-                // IF NULL, THEN USE PREVIOUS DATA
-                if (!document.getElementById('email').value) {
-                    email = email;
-                } else {
-                    email = document.getElementById('email').value;
-                }
-
-                if (!document.getElementById('name').value) {
-                    name = name;
-                } else {
-                    name = document.getElementById('name').value;
-                }
-
-                if (!document.getElementById('job').value) {
-                    job = job;
-                } else {
-                    job = document.getElementById('job').value;
-                }
-                
-                if (!document.getElementById('spvid').value) {
-                    spvid = spvid;
-                } else {
-                    spvid = document.getElementById('spvid').value;
-                }
-
-                if (!document.getElementById('spvname').value) {
-                    spvname = spvname;
-                } else {
-                    spvname = document.getElementById('spvname').value;
-                }
-
-                if (!document.getElementById('dept').value) {
-                    dept = dept;
-                } else {
-                    dept = document.getElementById('dept').value;
-                }
-
-                if (!document.getElementById('spvemail').value) {
-                    spvemail = spvemail;
-                } else {
-                    spvemail = document.getElementById('spvemail').value;
-                }
-
-                if (!document.getElementById('role').value) {
-                    role = role;
-                } else {
-                    role = document.getElementById('role').value;
-                }
-                
-                if (!document.getElementById('penyimpangan').value) {
-                    penyimpangan = "NULL";
-                } else {
-                    penyimpangan = document.getElementById('penyimpangan').value;
-                }
-                 
-                // CHECK WHETHER USERNAME IS NULL
-                if (!usernamex) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Username Kosong'
-
-                    })
-                    return;
-                // CHECK USERNAME AVAILABILITY
-                } else if (usernamex != username) {
-
-                    var retval = "retval";
-                    var dto = {
-                        Username: usernamex
-                    }
-
-                    $.when(
-                        $.ajax({
-                        url: '../CMS/CMS_CheckUsername',
-                        type: 'post',
-                        data: JSON.stringify(dto),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-
-                            if (data == "Username Exists") {
-                                
-                                retval = "ga ok";
-                                
-                            }
-                            
-                        },
-                        error: function (ex) {
-                            alert(JSON.stringify('Check Username: ' + ex));
-                        }
-
-                        })
-                    ).then(function () {
-                        alert(retval);
-                        if (retval = "retval") {
-                            return;
-                        } else if(retval = "ga ok"){
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Username Sudah Ada'
-
-                            });
-                        }
-                    });
-
-                            
-                }
-
-                Update(id, usernamex, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan);
-
-            }
-        })
-
-        if (formValues) {
-            Swal.fire(JSON.stringify(formValues))
         }
+
+        $("#Update").click(function () {
+
+
+
+            if (!document.getElementById('email').value) {
+                email = email;
+            } else {
+                email = document.getElementById('email').value;
+            }
+
+            if (!document.getElementById('name').value) {
+                name = name;
+            } else {
+                name = document.getElementById('name').value;
+            }
+
+            if (!document.getElementById('job').value) {
+                job = job;
+            } else {
+                job = document.getElementById('job').value;
+            }
+
+            if (!document.getElementById('spvid').value) {
+                spvid = spvid;
+            } else {
+                spvid = document.getElementById('spvid').value;
+            }
+
+            if (!document.getElementById('ddlsuperiorname').value) {
+                spvname = spvname;
+            } else {
+                spvname = document.getElementById('ddlsuperiorname').value;
+            }
+
+            if (!document.getElementById('dept').value) {
+                dept = dept;
+            } else {
+                dept = document.getElementById('dept').value;
+            }
+
+            if (!document.getElementById('spvemail').value) {
+                spvemail = spvemail;
+            } else {
+                spvemail = document.getElementById('spvemail').value;
+            }
+
+            if (!document.getElementById('role').value) {
+                role = role;
+            } else {
+                role = document.getElementById('role').value;
+            }
+
+            if (!document.getElementById('penyimpangan').value) {
+                penyimpangan = "NULL";
+            } else {
+                penyimpangan = document.getElementById('penyimpangan').value;
+            }
+
+
+            Update(id, username, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan);
+
+        
+        });
+
+        //    const { value: formValues } = Swal.fire({
+        //        title: 'Update Credential : <i><b>' + name + '</b></i>',
+        //        html:
+
+        //            '<div class="row form-group">' +
+        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+        //            '<label for="username" class="col-form-label">' +
+        //            'Username :' +
+        //            '</label>' +
+        //            '</div>' +
+        //            '<div class="col-lg-6">' +
+        //            '<input class="form-control" id="username" type="text" placeholder="' + username + '" style="display:block;" name="username"/>' +
+        //            '</div>' +
+        //            '</div>' +
+
+        //            '<div class="row form-group">' +
+        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+        //            '<label for="email" class="col-form-label">' +
+        //            'Email :' +
+        //            '</label>' +
+        //            '</div>' +
+        //            '<div class="col-lg-6">' +
+        //            '<input class="form-control" id="email" type="text" placeholder="' + email + '" style="display:block;" name="email"/>' +
+        //            '</div>' +
+        //            '</div>' +
+
+        //            '<div class="row form-group">' +
+        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+        //            '<label for="name" class="col-form-label">' +
+        //            'Name :' +
+        //            '</label>' +
+        //            '</div>' +
+        //            '<div class="col-lg-6">' +
+        //            '<input class="form-control" id="name" type="text" placeholder="' + name + '" style="display:block;" name="name"/>' +
+        //            '</div>' +
+        //            '</div>' +
+
+        //            '<div class="row form-group">' +
+        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+        //            '<label for="job" class="col-form-label">' +
+        //            'Job Name :' +
+        //            '</label>' +
+        //            '</div>' +
+        //            '<div class="col-lg-6">' +
+        //            '<input class="form-control" id="job" type="text" placeholder="' + job + '" style="display:block;" name="job"/>' +
+        //            '</div>' +
+        //            '</div>' +
+
+        //            '<div class="row form-group">' +
+        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+        //            '<label for="spvid" class="col-form-label">' +
+        //            'Superior ID :' +
+        //            '</label>' +
+        //            '</div>' +
+        //            '<div class="col-lg-6">' +
+        //            '<input class="form-control" id="spvid" type="text" placeholder="' + spvid + '" style="display:block;" name="spvid"/>' +
+        //            '</div>' +
+        //            '</div>' +
+
+        //            '<div class="row form-group">' +
+        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+        //            '<label for="spvname" class="col-form-label">' +
+        //            'Superior Name :' +
+        //            '</label>' +
+        //            '</div>' +
+        //            '<div class="col-lg-6">' +
+        //            '<input class="form-control" id="spvname" type="text" placeholder="' + spvname + '" style="display:block;" name="spvid"/>' +
+        //            '</div>' +
+        //            '</div>' +
+
+        //            '<div class="row form-group">' +
+        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+        //            '<label for="dept" class="col-form-label">' +
+        //            'Department :' +
+        //            '</label>' +
+        //            '</div>' +
+        //            '<div class="col-lg-6">' +
+        //            '<input class="form-control" id="dept" type="text" placeholder="' + dept + '" style="display:block;" name="dept"/>' +
+        //            '</div>' +
+        //            '</div>' +
+
+        //            '<div class="row form-group">' +
+        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+        //            '<label for="spvemail" class="col-form-label">' +
+        //            'Superior Email :' +
+        //            '</label>' +
+        //            '</div>' +
+        //            '<div class="col-lg-6">' +
+        //            '<input class="form-control" id="spvemail" type="text" placeholder="' + spvemail + '" style="display:block;" name="spvemail"/>' +
+        //            '</div>' +
+        //            '</div>' +
+
+        //            '<div class="row form-group">' +
+        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+        //            '<label for="role" class="col-form-label">' +
+        //            'Deviation Role :' +
+        //            '</label>' +
+        //            '</div>' +
+        //            '<div class="col-lg-6">' +
+        //            '<select id="role" class="form-control">' +
+        //            '<option value="" class="dropdown-header" selected>Select Role</option>' +
+        //            '</select>' +
+        //            '</div>' +
+        //            '</div>' +
+
+        //            '<div class="row form-group">' +
+        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+        //            '<label for="penyimpangan" class="col-form-label">' +
+        //            'Kategori Penyimpangan :' +
+        //            '</label>' +
+        //            '</div>' +
+        //            '<div class="col-lg-6">' +
+        //            '<select id="penyimpangan" class="form-control">' +
+        //            '<option value="" class="dropdown-header" selected>Kategori Penyimpangan</option>' +
+        //            '</select>' +
+        //            '</div>' +
+        //            '</div>' ,
+
+        //        focusConfirm: false,
+        //        showCancelButton: true,
+        //        icon: 'warning',
+        //        width: 1000,
+        //        confirmButtonText: 'Yes, Update!',
+        //        footer: '<p style="color:red;">Data Kosong Tidak Akan Berubah!</p>',
+        //        preConfirm: () => {
+
+        //            // VALIDATION THEN UPDATE DATA
+
+        //            usernamex = document.getElementById('username').value;
+
+        //            // IF NULL, THEN USE PREVIOUS DATA
+        //            if (!document.getElementById('email').value) {
+        //                email = email;
+        //            } else {
+        //                email = document.getElementById('email').value;
+        //            }
+
+        //            if (!document.getElementById('name').value) {
+        //                name = name;
+        //            } else {
+        //                name = document.getElementById('name').value;
+        //            }
+
+        //            if (!document.getElementById('job').value) {
+        //                job = job;
+        //            } else {
+        //                job = document.getElementById('job').value;
+        //            }
+
+        //            if (!document.getElementById('spvid').value) {
+        //                spvid = spvid;
+        //            } else {
+        //                spvid = document.getElementById('spvid').value;
+        //            }
+
+        //            if (!document.getElementById('spvname').value) {
+        //                spvname = spvname;
+        //            } else {
+        //                spvname = document.getElementById('spvname').value;
+        //            }
+
+        //            if (!document.getElementById('dept').value) {
+        //                dept = dept;
+        //            } else {
+        //                dept = document.getElementById('dept').value;
+        //            }
+
+        //            if (!document.getElementById('spvemail').value) {
+        //                spvemail = spvemail;
+        //            } else {
+        //                spvemail = document.getElementById('spvemail').value;
+        //            }
+
+        //            if (!document.getElementById('role').value) {
+        //                role = role;
+        //            } else {
+        //                role = document.getElementById('role').value;
+        //            }
+
+        //            if (!document.getElementById('penyimpangan').value) {
+        //                penyimpangan = "NULL";
+        //            } else {
+        //                penyimpangan = document.getElementById('penyimpangan').value;
+        //            }
+
+        //            // CHECK WHETHER USERNAME IS NULL
+        //            if (!usernamex) {
+        //                Swal.fire({
+        //                    icon: 'error',
+        //                    title: 'Oops...',
+        //                    text: 'Username Kosong'
+
+        //                })
+        //                return;
+        //            // CHECK USERNAME AVAILABILITY
+        //            } else if (usernamex != username) {
+
+        //                var retval = "retval";
+        //                var dto = {
+        //                    Username: usernamex
+        //                }
+
+        //                $.when(
+        //                    $.ajax({
+        //                    url: '../CMS/CMS_CheckUsername',
+        //                    type: 'post',
+        //                    data: JSON.stringify(dto),
+        //                    dataType: 'json',
+        //                    contentType: 'application/json; charset=utf-8',
+        //                    success: function (data) {
+
+        //                        if (data == "Username Exists") {
+
+        //                            retval = "ga ok";
+
+        //                        }
+
+        //                    },
+        //                    error: function (ex) {
+        //                        alert(JSON.stringify('Check Username: ' + ex));
+        //                    }
+
+        //                    })
+        //                ).then(function () {
+        //                    alert(retval);
+        //                    if (retval = "retval") {
+        //                        return;
+        //                    } else if(retval = "ga ok"){
+        //                        Swal.fire({
+        //                            icon: 'error',
+        //                            title: 'Oops...',
+        //                            text: 'Username Sudah Ada'
+
+        //                        });
+        //                    }
+        //                });
+
+
+        //            }
+
+        //            Update(id, usernamex, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan);
+
+        //        }
+        //    })
+
+        //    if (formValues) {
+        //        Swal.fire(JSON.stringify(formValues))
+        //    }
     }
 
-    
-    function Update(id, usernamex, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan) {
-       
+
+    function Update(id, username, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan) {
+
         var dto = {
             empid: id,
-            username: usernamex,
+            username: username,
             email: email,
             empname: name,
             jobttlname: job,
@@ -355,7 +728,7 @@
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                
+
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -380,6 +753,8 @@
             }
         });
     }
+
+
 
     function Delete(button) {
         Swal.fire({
@@ -449,7 +824,18 @@
                         '<td>' + data[trav].emailsuperior + '</td>' +
                         '<td>' + data[trav].role_deviation + '</td>' +
                         '<td>' + data[trav].kategori_penyimpangan + '</td>' +
-                        '<td> <input type="button" id="Edit" value="Edit" onclick=Edit(this) class="btn btn-success" style="width:40px;"/><input type="button" id="Delete" value="Delete" onclick=Delete(this) class="btn btn-danger" style="width:40px;"/></td>';
+                        '<td><input type="button" id="Edit" value="Edit" onclick="Edit(this)" class="btn btn-success" style="width:40px;" data-toggle="modal" data-target=".bd-example-modal-lg"/> <input type="button" id="Delete" value="Delete" onclick=Delete(this) class="btn btn-danger" style="width:40px;"/></td>';
+
+                    if (data[trav].FLAG_TYPE == 'HRIS') {
+                        trHTML +=
+                            '<td> - </td>';
+
+                    } else {
+                        trHTML +=
+                            '<td><input type="button" id="Reset" value="Reset" onclick=Reset(this) class="btn btn-info" style="width:40px;"/></td>';
+                    }
+
+                    trHTML += '<td hidden="hidden">' + data[trav].FLAG_TYPE + '</td>';
                 }
 
 

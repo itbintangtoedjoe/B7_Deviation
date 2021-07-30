@@ -3,230 +3,221 @@
     ViewBag.Title = "InputForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html lang="en">
-<body>
 
-    <div class="content-body">
 
-        <div class="container-fluid">
-            <div class="card">
-                <div class="card-body">
-                    <button class="btn btn-primary" id="new" style="width:125px">
-                        New
-                        <span class="btn-icon-right">
-                            <i class="fa fa-paperclip"></i>
-                        </span>
-                    </button>
-                    <button type="submit" class="btn btn-primary" id="submit" style="width:125px">
-                        Submit
-                        <span class="btn-icon-right">
-                            <i class="fa fa-paper-plane"></i>
-                        </span>
-                    </button>
-                    <button class="btn btn-primary" id="clearall" style="width:125px">
-                        Clear All
-                        <span class="btn-icon-right">
-                            <i class="fa fa-trash"></i>
-                        </span>
-                    </button>
-                </div>
+<div class="content-body">
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <button class="btn btn-primary" id="new" style="width:125px">
+                    New
+                    <span class="btn-icon-right">
+                        <i class="fa fa-paperclip"></i>
+                    </span>
+                </button>
+                <button type="submit" class="btn btn-primary" id="submit" style="width:125px">
+                    Submit
+                    <span class="btn-icon-right">
+                        <i class="fa fa-paper-plane"></i>
+                    </span>
+                </button>
+                <button class="btn btn-primary" id="clearall" style="width:125px">
+                    Clear All
+                    <span class="btn-icon-right">
+                        <i class="fa fa-trash"></i>
+                    </span>
+                </button>
             </div>
         </div>
+    </div>
 
-        <div class="container-fluid">
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="d-inline" style="">User Form</h1>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="d-inline" style="">User Form</h1>
 
-                    <hr />
+                <hr />
 
-                    <div class="form-validation">
-                        <form class="form-user" action="" method="post" id="form-user" onsubmit="return falsefunction(this);">
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="empid" class="col-form-label">
-                                        Employee ID
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="empid" type="text" placeholder="Enter Employee ID" style="display:block;" name="empid" required />
-                                    <span hidden="hidden" id="confid" class="text-danger">Employee ID Already Exists, Please Insert a Different Employee ID</span>
-                                </div>
-
-                                <div class="col-lg-2 col-form-label">
-                                    <button class="btn btn-success" type="button" style="width:150px;" onclick="GetVendorID();">Generate VendorID</button>
-                                </div>
-
+                <div class="form-validation">
+                    <form class="form-user" action="" method="post" id="form-user" onsubmit="return falsefunction(this);">
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="empid" class="col-form-label">
+                                    Employee ID
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="empid" type="text" placeholder="Enter Employee ID" style="display:block;" name="empid" required />
+                                <span hidden="hidden" id="confid" class="text-danger">Employee ID Already Exists, Please Insert a Different Employee ID</span>
                             </div>
 
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="username" class="col-form-label">
-                                        Username
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="username" type="text" placeholder="Enter Username" style="display:block;" name="username" required />
-                                    <span hidden="hidden" id="confusername" class="text-danger">Username Already Exists, Please Insert a Different Username</span>
-                                </div>
+                            <div class="col-lg-2 col-form-label" hidden="hidden">
+                                <button class="btn btn-success" type="button" style="width:150px;" onclick="GetVendorID();">Generate VendorID</button>
                             </div>
 
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="password" class="col-form-label">
-                                        Password
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="password" type="password" placeholder="Enter Password" style="display:block;" name="password" required />
-                                </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="username" class="col-form-label">
+                                    Username
+                                    <span class="text-danger">*</span>
+                                </label>
                             </div>
-
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="repassword" class="col-form-label">
-                                        Confirm Password
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="repassword" type="password" placeholder="Enter Password" style="display:block;" name="repassword" required />
-                                    <span hidden="hidden" class="text-danger" id="redconf">Confirmation Password Must be Same with Password</span>
-                                </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="username" type="text" placeholder="Enter Username" style="display:block;" name="username" required />
+                                <span hidden="hidden" id="confusername" class="text-danger">Username Already Exists, Please Insert a Different Username</span>
                             </div>
+                        </div>
 
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="email" class="col-form-label">
-                                        Email
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="email" type="email" placeholder="Enter Email" style="display:block;" name="email" required />
-                                </div>
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="password" class="col-form-label">
+                                    Password
+                                    <span class="text-danger">*</span>
+                                </label>
                             </div>
-
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="empname" class="col-form-label">
-                                        Name
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="empname" type="text" placeholder="Enter Name" style="display:block;" name="empname" required />
-                                </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="password" type="password" placeholder="Enter Password" style="display:block;" name="password" required />
                             </div>
+                        </div>
 
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="jobttlname" class="col-form-label">
-                                        Job
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="jobttlname" type="text" placeholder="Enter Job" style="display:block;" name="jobttlname" required />
-                                </div>
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="repassword" class="col-form-label">
+                                    Confirm Password
+                                    <span class="text-danger">*</span>
+                                </label>
                             </div>
-
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="superiorid" class="col-form-label">
-                                        Superior ID
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="superiorid" type="text" placeholder="Enter Superior ID" style="display:block;" name="superiorid" required />
-                                </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="repassword" type="password" placeholder="Enter Password" style="display:block;" name="repassword" required />
+                                <span hidden="hidden" class="text-danger" id="redconf">Confirmation Password Must be Same with Password</span>
                             </div>
+                        </div>
 
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="superiorname" class="col-form-label">
-                                        Superior Name
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="superiorname" type="text" placeholder="Enter Superior Name" style="display:block;" name="superiorname" required />
-                                </div>
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="email" class="col-form-label">
+                                    Email
+                                    <span class="text-danger">*</span>
+                                </label>
                             </div>
-
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="orggroupname" class="col-form-label">
-                                        Department
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="orggroupname" type="text" placeholder="Enter Department" style="display:block;" name="orggroupname" required />
-                                </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="email" type="email" placeholder="Enter Email" style="display:block;" name="email" required />
                             </div>
+                        </div>
 
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="emailsuperior" class="col-form-label">
-                                        Superior Email
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input class="form-control" id="emailsuperior" type="email" placeholder="Enter Superior Email" style="display:block;" name="emailsuperior" required />
-                                </div>
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="empname" class="col-form-label">
+                                    Name
+                                    <span class="text-danger">*</span>
+                                </label>
                             </div>
-
-                            <div class="row form-group">
-                                <div class="col-lg-4 col-form-label">
-                                    <label for="role" class="col-form-label">
-                                        Deviation Role
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-lg-6">
-                                    <select id="role" class="form-control">
-                                        <option value="" class="dropdown-header" selected>Select Role</option>
-                                    </select>
-                                </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="empname" type="text" placeholder="Enter Name" style="display:block;" name="empname" required />
                             </div>
+                        </div>
 
-                            <input type="text" hidden="hidden" id="reconfid" value="" />
-                            <input type="text" hidden="hidden" id="reconfusername" value="" />
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="jobttlname" class="col-form-label">
+                                    Job
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="jobttlname" type="text" placeholder="Enter Job" style="display:block;" name="jobttlname" required />
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="superiorid" class="col-form-label">
+                                    Superior ID
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="superiorid" type="text" placeholder="Enter Superior ID" style="display:block;" name="superiorid" required />
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="superiorname" class="col-form-label">
+                                    Superior Name
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="superiorname" type="text" placeholder="Enter Superior Name" style="display:block;" name="superiorname" required />
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="orggroupname" class="col-form-label">
+                                    Department
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="orggroupname" type="text" placeholder="Enter Department" style="display:block;" name="orggroupname" required />
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="emailsuperior" class="col-form-label">
+                                    Superior Email
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="emailsuperior" type="email" placeholder="Enter Superior Email" style="display:block;" name="emailsuperior" required />
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="role" class="col-form-label">
+                                    Deviation Role
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <select id="role" class="form-control">
+                                    <option value="" class="dropdown-header" selected>Select Role</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <input type="text" hidden="hidden" id="reconfid" value="" />
+                        <input type="text" hidden="hidden" id="reconfusername" value="" />
 
 
-                        </form>
-                    </div>
-
+                    </form>
                 </div>
 
             </div>
 
         </div>
-
 
     </div>
 
-    <script src="~/Content/common.min.js"></script>
-    <script src="~/Content/custom.min.js"></script>
-    <script src="~/Content/settings.js"></script>
-    <script src="~/Content/gleek.js"></script>
-    <script src="~/Content/styleSwitcher.js"></script>
-    <script src="~/Content/jquery.validate.min.js"></script>
-    <script src="~/Content/jquery.validate-init.js"></script>
-</body>
-</html>
+
+</div>
+
+
 
 <script>
     $(document).ready(function () {
 
         GetRole();
+        GetVendorID();
 
 
         $('#new').click(function () {
@@ -243,14 +234,14 @@
             if ($("#password").val() != $("#repassword").val()) {
                 $("#redconf").removeAttr("Hidden");
                 return
-            } 
+            }
 
             CheckEmpID();
             CheckUserName();
 
             if ($("#reconfid").val() != "ga ok" && $("#reconfusername").val() != "ga ok") {
                 return
-            } 
+            }
 
             SaveForm();
         });
@@ -283,10 +274,14 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
 
-                $("#empid").val(data);
+                $("#empid").val(data[0].VENDORID);
                 $("#empid").attr("disabled", true);
-                
-               
+
+                $("#superiorid").val(data[0].SPVVENDOR);
+                $("#superiorid").attr("disabled", true);
+
+
+
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
@@ -343,7 +338,7 @@
                     $("#confusername").removeAttr("Hidden");
                     $("#username").val(null);
                     $("#reconfusername").val("Username Ada");
-                    
+
 
                 } else {
                     $("#confusername").attr("Hidden", true);
@@ -376,7 +371,7 @@
             username: username,
             email: email,
             empname: empname,
-            password : password,
+            password: password,
             jobttlname: jobttlname,
             superiorid: superiorid,
             superiorname: superiorname,

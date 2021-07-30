@@ -26,6 +26,10 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
 
         public ActionResult ShowUser2()
         {
@@ -129,6 +133,39 @@ namespace B7_Deviation.Controllers
             return Json(ModelData);
         }
 
+        public ActionResult CMS_ResetPasswordVendor(SaveUser Model)
+        {
+            string conSQL = mySetting.ConnectionString;
+
+            SqlConnection conn = new SqlConnection(conSQL);
+            List<string> ModelData = new List<string>();
+            string result;
+
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_CheckInputCMS", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@empid", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@empid"].Value = Model.Empid;
+
+                    command.Parameters.Add("@option", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@option"].Value = "Reset Password";
+
+                    result = (string)command.ExecuteScalar();
+                    conn.Close();
+                    ModelData.Add(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(ModelData);
+        }
+
         public ActionResult CMS_CheckUsername(SaveUser Model)
         {
             string conSQL = mySetting.ConnectionString;
@@ -175,6 +212,50 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "Role";
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
+
+        public ActionResult CMS_LoadData(SaveUser Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_CheckInputCMS]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@option"].Value = "Load Data Change Password";
+
+                    command.Parameters.Add("@username", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@username"].Value = Model.Username;
 
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
@@ -287,6 +368,50 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+        public ActionResult CMS_LoadSuperiorVendorDetail(SaveUser Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_CheckInputCMS]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@empid", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@empid"].Value = Model.Empid;
+
+                    command.Parameters.Add("@option", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@option"].Value = "Get Vendor SPV Detail";
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
+
         public ActionResult CMS_LoadUser()
         {
             string conString = mySetting.ConnectionString;
@@ -326,6 +451,42 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+        public ActionResult CMS_SavePassword(SaveUser Model)
+        {
+            string conSQL = mySetting.ConnectionString;
+
+            SqlConnection conn = new SqlConnection(conSQL);
+            List<string> ModelData = new List<string>();
+            string result;
+
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_CheckInputCMS", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@username"].Value = Model.Username;
+
+                    command.Parameters.Add("@password", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@password"].Value = Model.Password;
+
+                    command.Parameters.Add("@option", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@option"].Value = "Save Password";
+
+
+                    result = (string)command.ExecuteScalar();
+                    conn.Close();
+                    ModelData.Add(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(ModelData);
+        }
         public ActionResult CMS_DeleteEntry(SaveUser Model)
         {
             string conSQL = mySetting.ConnectionString;
@@ -598,25 +759,20 @@ namespace B7_Deviation.Controllers
 
         public ActionResult CMS_GetVendorID()
         {
-            string conSQL = mySetting.ConnectionString;
-
-            SqlConnection conn = new SqlConnection(conSQL);
-            List<string> ModelData = new List<string>();
-            string result;
-
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
             try
             {
                 conn.Open();
-                using (SqlCommand command = new SqlCommand("SP_CheckInputCMS", conn))
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_CheckInputCMS]", conn))
                 {
-
                     command.CommandType = CommandType.StoredProcedure;
-
                     command.Parameters.Add("@option", System.Data.SqlDbType.VarChar);
                     command.Parameters["@option"].Value = "Get VendorID";
-                    result = (string)command.ExecuteScalar();
-                    
-                    ModelData.Add(result);
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
                 }
                 conn.Close();
             }
@@ -624,7 +780,63 @@ namespace B7_Deviation.Controllers
             {
                 throw ex;
             }
-            return Json(ModelData);
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
+
+        public ActionResult CMS_LoadVendorSuperiornameDDL(SaveUser Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_CheckInputCMS]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@option"].Value = "Get Vendor SPV";
+                    command.Parameters.Add("@empid", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@empid"].Value = Model.Empid;
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
         }
     }
 }
