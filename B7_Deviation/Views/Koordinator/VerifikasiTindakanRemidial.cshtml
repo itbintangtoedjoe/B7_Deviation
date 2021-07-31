@@ -67,11 +67,11 @@
 											<th width="100px">Usulan Tindakan Remedial</th>
 											<th width="200px">Action</th>
 											<th width="75px">Testing Jumlah Personel</th>
-											<th width="75px">Testing Durasi Pengerjaan</th>
+											<th width="75px">Testing Durasi Pengerjaan(Jam)</th>
 											<th width="75px">Testing Manhours Value</th>
 											<th width="75px">Testing Cost of Analysis</th>
 											<th width="75px">Process Durasi Pengerjaan</th>
-											<th width="75px">Process Jumlah Pelaksana</th>
+											<th width="75px">Process Jumlah Pelaksana(Jam)</th>
 											<th width="75px">Process Manhours Value</th>
 											<th width="75px">Reject Material</th>
 											<th width="75px">Reject Quantity</th>
@@ -369,7 +369,7 @@
 					success: function (data) {
 
 						alert('Form Canceled');
-                        window.location.href = "../DataDeviasi/PendingTask"
+						window.location.href = "../DataDeviasi/PendingTask"
 
 					}
 					, error: function (ex) {
@@ -442,7 +442,7 @@
 				}).then((result) => {
 
 					if (result.isConfirmed) {
-                        window.location.href = "../DataDeviasi/PendingTask"
+						window.location.href = "../DataDeviasi/PendingTask"
 					}
 				});
 
@@ -527,7 +527,7 @@
 						}).then((result) => {
 
 							if (result.isConfirmed) {
-                                window.location.href = "../DataDeviasi/PendingTask"
+								window.location.href = "../DataDeviasi/PendingTask"
 							}
 						});
 

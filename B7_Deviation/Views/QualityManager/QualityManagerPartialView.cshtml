@@ -39,10 +39,10 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card" id="can" >
+				<div class="card" id="can">
 					<div class="card-body">
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">Keterangan Disposisi<span class="text-danger">*</span></label>
@@ -84,7 +84,7 @@
 								<div class="form-group row" id="Reviewer">
 									<div class="container-fluid">
 
-										
+
 
 										<div class="card-body row">
 											<div class="col-md-7">
@@ -120,16 +120,6 @@
 														</table>
 													</div>
 												</div>
-											</div>
-
-											<div class="col-md-5">
-
-												<div class="row form-group">
-													<label class="col-form-label label-trigger">Nama Reviewer</label>
-												</div>
-												<div class="row form-group">
-													<textarea id="txtHow" class="form-control" placeholder="Nama Reviewer" disabled="disabled"></textarea>
-												</div>
 
 												<div class="row form-group center">
 													<button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control ">
@@ -144,11 +134,22 @@
 
 											</div>
 
+											<div class="col-md-5">
+
+												<div class="row form-group">
+													<label class="col-form-label label-trigger">Nama Reviewer</label>
+												</div>
+												<div class="row form-group">
+													<textarea id="txtHow" class="form-control" placeholder="Nama Reviewer" disabled="disabled"></textarea>
+												</div>
+
+											</div>
+
 										</div>
 									</div>
 								</div>
 
-								
+
 							</form>
 						</div>
 					</div>
@@ -198,7 +199,7 @@
 	}
 
 	function GetCurrStat() {
-		
+
 		$('#can').attr("hidden", true);
 		var REQID = @ViewBag.nomor;
 
@@ -214,7 +215,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 
-				if (data == "CAN") {					
+				if (data == "CAN") {
 					$("#can").attr("hidden", false);
 					LoadKeteranganDisposisi();
 
@@ -265,7 +266,7 @@
 						'</div>' +
 
 						'<div class="row form-group">' +
-						'<textarea placeholder="Keterangan Reviewer" class="form-control" style="width: 500px; height: 200px;" disabled>'  + data[trav].KETERANGAN_REVIEW +  '</textarea>'+
+						'<textarea placeholder="Keterangan Reviewer" class="form-control" style="width: 500px; height: 200px;" disabled>' + data[trav].KETERANGAN_REVIEW + '</textarea>' +
 						'</div>' +
 
 						'<div class="row form-group">' +
@@ -288,7 +289,18 @@
 						'<tbody id="tbody_Attachment' + trav + '"></tbody>' +
 						'</table>' +
 						'</div>' +
-						'</div>' +
+						'</div>';
+
+						if (data[trav].FLAG_REVIEW == "REVIEW APPROVED BY COORDINATOR" || data[trav].FLAG_REVIEW == "DONE REVISE FROM QUALITY MANAGER") {
+							text +=
+								'<div class="row form-group center">' +
+								'<div class="form-group">' + '<button type="button" id="Approve' + trav + '"class="btn mb-1 btn-success  form-group" style="width:100px;">Approve</button>' + '</div>' +
+								'<div class="form-group">' + '<button type="button" id="Reject' + trav + '"class="btn mb-1 btn-danger  form-group" style="width:100px;">Reject</button>' + '</div>' +
+								'</div>';
+						}
+
+						text+=
+
 						'</div>' +
 
 						'<div class="col-md-5" id="go">' +
@@ -302,13 +314,7 @@
 						'<input class="form-control" placeholder="Nama Reviewer" disabled="disabled" value="' + data[trav].USER_NAME + '">' +
 						'</div>';
 
-					if (data[trav].FLAG_REVIEW == "REVIEW APPROVED BY COORDINATOR" || data[trav].FLAG_REVIEW == "DONE REVISE FROM QUALITY MANAGER") {
-						text +=
-							'<div class="row form-group center">' +
-							'<div class="form-group">' + '<button type="button" id="Approve' + trav + '"class="btn mb-1 btn-success  form-group" style="width:100px;">Approve</button>' + '</div>' +
-							'<div class="form-group">' + '<button type="button" id="Reject' + trav + '"class="btn mb-1 btn-danger  form-group" style="width:100px;">Reject</button>' + '</div>' +
-							'</div>';
-					}
+
 
 					text +=
 						'</div>' +
@@ -494,7 +500,7 @@
 					}
 				});
 
-				
+
 			}, error: function (ex) {
 				alert(JSON.stringify(ex));
 			}, async: false
