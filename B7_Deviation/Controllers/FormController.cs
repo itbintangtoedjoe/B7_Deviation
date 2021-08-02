@@ -32,6 +32,56 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
+        public ActionResult LoadDepartment()
+        {
+            string ConString = MyDB.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            List<string> ModelData = new List<string>();
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("DEVIATION_FORM_INPUT", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", SqlDbType.Int);
+                    command.Parameters["@Option"].Value = 22;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                ModelData.Add(ex.ToString());
+                return Json(ModelData);
+            }
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            if (DT.Rows.Count > 0)
+            {
+
+                Dictionary<string, object> row;
+                foreach (DataRow dr in DT.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in DT.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                }
+                return Json(rows);
+            }
+            else
+            {
+                ModelData.Add("Data Kosong !!");
+                return Json(rows);
+            }
+        }
         public ActionResult CheckEmailAvailability(DeviationModel model)
         {
             string result; 
@@ -2277,6 +2327,9 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@LOCATION", SqlDbType.VarChar);
                     command.Parameters["@LOCATION"].Value = Model.Location;
 
+                    command.Parameters.Add("@LOC_DEPT", SqlDbType.VarChar);
+                    command.Parameters["@LOC_DEPT"].Value = Model.Loc_Dept;
+
                     command.Parameters.Add("@NO_WO_ORACLE", SqlDbType.VarChar);
                     command.Parameters["@NO_WO_ORACLE"].Value = Model.NO_WO_ORACLE;
                     /* END Header */
@@ -2353,6 +2406,9 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@REQ", SqlDbType.VarChar);
                     command.Parameters["@REQ"].Value = Model.REQ;
+
+                    command.Parameters.Add("@UsulanRemidial", SqlDbType.VarChar);
+                    command.Parameters["@UsulanRemidial"].Value = Model.UsulanRemidial;
 
                     /* End Details */
                     result = (string)command.ExecuteScalar();

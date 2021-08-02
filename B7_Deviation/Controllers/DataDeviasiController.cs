@@ -15,6 +15,8 @@ namespace B7_Deviation.Controllers
         readonly ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["DB_DEVIATION"];
         readonly DataTable DT = new DataTable();
 
+        
+
         // GET: DataDeviasi
         public ActionResult Index()
         {

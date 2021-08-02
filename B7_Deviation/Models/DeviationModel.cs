@@ -21,6 +21,7 @@ namespace B7_Deviation.Models
         public string DeviationType { get; set; }
         public string KetCategory { get; set; }
         public string Location { get; set; }
+        public string Loc_Dept { get; set; }
         public string UserInvolved { get; set; }
         public string OrderOfEvents { get; set; }
         public string SamePotenDevFlag { get; set; }
