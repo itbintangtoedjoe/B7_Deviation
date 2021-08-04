@@ -136,7 +136,7 @@
                                 @*  Penyimpangan terencana *@
 
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Apakah penyimpangan ini terencana?<span class="text-danger">*</span></label>
+                                    <label class="col-sm-2 col-form-label">Jenis Penyimpangan<span class="text-danger">*</span></label>
                                     <div class="col-sm-10">
                                         <div class="form-group">
                                             <div class="form-check form-check-inline">
@@ -208,7 +208,6 @@
                                     <div class="col-sm-6">
                                         <textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Lokasi (Where)"></textarea>
                                     </div>
-
                                 </div>
 
 
@@ -1181,6 +1180,17 @@
     // Set Picker disable text
     function SetupRbDtPicker() {
         $('#ddlSite selectpicker').selectpicker();
+
+        $('input[type=radio][name=travel5]').change(function () {
+            if ($('input[name="travel5"]:checked').val() == 'Yes') {
+
+                $("#txtTindakan").removeAttr("disabled");
+            } else {
+                $("#txtTindakan").attr("disabled", true);
+            }
+
+        });
+
         $('input[type=radio][name=travel1]').change(function () {
             if ($('input[name="travel1"]:checked').val() == 'Yes') {
 
@@ -1914,7 +1924,7 @@
             THIRTY: THIRTY,
             REQ: REQ,
             
-            UsulanRemidial = UsulanRemidial
+            UsulanRemidial : UsulanRemidial
         };
 
         $.ajax({
@@ -2124,20 +2134,24 @@
                     $("#TxtNoWO").attr("hidden", false);
                     $("#TxtNoWO").removeAttr("disabled");
                     GetJenisDeviation();
+                    $('#txtKetKategori').attr('disabled', true);
+                    $('#TxtNoWO').val(data[0].NO_WO_ORACLE);
                 }
                 else
                     if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
                     $("#divsimpang").show();
                     $("#TxtItemCode").attr("hidden", false);
                     $("#TxtItemCode").removeAttr("disabled");
-                    GetItemCodeOracle();
+                        GetItemCodeOracle();
+                        $('#txtKetKategori').attr('disabled', true);
                     }
                     else {
                         $("#divsimpang").hide();
                         $("#TxtNoWO").attr("disabled", true);
+                        $('#txtKetKategori').val('');
                     }
 
-                $('#TxtNoWO').val(data[0].NO_WO_ORACLE);
+               
 
                 document.getElementById('txtProblem').value = data[0].PROBLEM;
 

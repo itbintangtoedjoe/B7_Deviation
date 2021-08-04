@@ -56,6 +56,7 @@ namespace B7_Deviation.Models
         public string NO_WO_ORACLE { get; set; }
         public string UsulanRemidial { get; set; }
         public string Item_Code_Oracle { get; set; }
+        public string No_Batch_Oracle { get; set; }
     }
 
     public class LoginModel

@@ -1829,7 +1829,7 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
-        public ActionResult GetNoWOOracle(DeviationModel Model)
+        public ActionResult GetNoBatchOracle(DeviationModel Model)
         {
             try 
             {
@@ -2418,6 +2418,9 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@Item_Code_Oracle", SqlDbType.VarChar);
                     command.Parameters["@Item_Code_Oracle"].Value = Model.Item_Code_Oracle;
+
+                    command.Parameters.Add("@No_Batch_Oracle", SqlDbType.VarChar);
+                    command.Parameters["@No_Batch_Oracle"].Value = Model.No_Batch_Oracle;
                     /* END Header */
 
                     /* Strat Details */
