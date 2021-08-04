@@ -36,6 +36,12 @@ jQuery(".form-valide").validate({
         "date-format": {
             required: !0
         },
+        "ddlSiteLokasi": {
+            required: !0
+        },
+        "ddlDeptLokasi": {
+            required: !0
+        },
         "txtLokasi": {
             required: !0
         },
@@ -83,6 +89,9 @@ jQuery(".form-valide").validate({
         },
         "ddlRiskIntelek": {
             required: !0
+        },
+        "tblBodyWho": {
+            required: !0
         }
         
     },
@@ -98,12 +107,17 @@ jQuery(".form-valide").validate({
         "TxtNoWO": {
             required: "Silahkan isi No Work Order Oracle"
         },
+        "TxtItemCode": {
+            required: "Silahkan isi Item Code Oracle terkait Penyimpangan"
+        },
         "txtProblem": {
             required: "Silahkan isi Problem Penyimpagan"
         },
         "date-format": "Silahkan pilih Tanggal Penyimpangan",
+        "ddlSiteLokasi": "Silahkan pilih Site Lokasi Penyimpangan",
+        "ddlDeptLokasi": "Silahkan pilih Departemen Lokasi Penyimpangan",
         "txtLokasi": {
-            required: "Silahkan isi Lokasi Penyimpangan"
+            required: "Silahkan isi Detail Lokasi Penyimpangan"
         },
         "txtHow": {
             required: "Silahkan isi Urutan Kejadian Penyimpangan"
@@ -122,7 +136,10 @@ jQuery(".form-valide").validate({
         },
         "txtTindakan": {
             required: "Silahkan isi kolom Tindakan"
-        }
+        },
+        "txtWho": {  
+            required: "Silahkan isi User Terlibat"
+        },
         //"ddlKualProd" :"Silahkan pilih Kualitas Produk",
         //"ddlRiskFin": {
         //    required: "Silahkan pilih Risiko Finansial"

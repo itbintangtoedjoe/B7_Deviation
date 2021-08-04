@@ -21,7 +21,8 @@ namespace B7_Deviation.Models
         public string DeviationType { get; set; }
         public string KetCategory { get; set; }
         public string Location { get; set; }
-        public string Loc_Dept { get; set; }
+        public string LocationSiteIncident { get; set; }
+        public string LocationDeptIncident { get; set; }
         public string UserInvolved { get; set; }
         public string OrderOfEvents { get; set; }
         public string SamePotenDevFlag { get; set; }
@@ -54,6 +55,7 @@ namespace B7_Deviation.Models
         public string REQ { get; set; }
         public string NO_WO_ORACLE { get; set; }
         public string UsulanRemidial { get; set; }
+        public string Item_Code_Oracle { get; set; }
     }
 
     public class LoginModel

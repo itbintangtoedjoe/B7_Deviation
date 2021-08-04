@@ -1,4 +1,4 @@
-﻿
+﻿ 
 @{
     ViewBag.Title = "ProposerHeader";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -121,6 +121,7 @@
                                             <div class="basic-dropdown">
                                                 @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
                                                 <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
+                                                <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control" placeholder="Item Code Oracle">
                                             </div>
                                         </div>
                                         <br>
@@ -190,9 +191,24 @@
 
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Lokasi (Where)<span class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-3">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="txtSiteLokasi" name="txtSiteLokasi" style="width: 280px;"></select>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="txtDept" name="txtDept" style="width: 280px;"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
                                         <textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Lokasi (Where)"></textarea>
                                     </div>
+
                                 </div>
 
 
@@ -637,18 +653,45 @@
         $('#divproduk').hide();
 
 
+        //$("#ddlKategori").change(function () {
+        //    if ($("#ddlKategori").val() == 'QPR') {
+        //        $("#divsimpang").show();
+        //        $("#TxtNoWO").removeAttr("disabled");
+        //        GetJenisDeviation();
+        //    }
+        //    else {
+        //        $("#divsimpang").hide();
+        //        $("#TxtNoWO").attr("disabled", true);
+        //    }
+        //});
+
         $("#ddlKategori").change(function () {
+            $("#TxtNoWO").attr("hidden", true);
+            $("#TxtItemCode").attr("hidden", true);
+
             if ($("#ddlKategori").val() == 'QPR') {
                 $("#divsimpang").show();
+                $("#TxtNoWO").attr("hidden", false);
                 $("#TxtNoWO").removeAttr("disabled");
                 GetJenisDeviation();
             }
-            else {
-                $("#divsimpang").hide();
-                $("#TxtNoWO").attr("disabled", true);
-            }
+            else
+                if ($("#ddlKategori").val() == 'QMT') {
+                    $("#divsimpang").show();
+                    $("#TxtItemCode").attr("hidden", false);
+                    $("#TxtItemCode").removeAttr("disabled");
+                    GetItemCodeOracle();
+                }
+                else {
+                    $("#divsimpang").hide();
+                    $("#TxtNoWO").attr("disabled", true);
+                }
         });
 
+        $("#txtSiteLokasi").change(function () {
+            $('#txtDept').attr('hidden', false);
+            GetDepartementLokasiKejadian();
+        });
        
         $('#ddlKualProd').change(function () {
             var nilai = [];
@@ -913,6 +956,8 @@
     });
 
     // Load Dropdownlist
+
+
     function GetSiteName() {
         var REQID = @ViewBag.nomor;
 
@@ -1002,15 +1047,7 @@
                 var trav = 0;
                 var arr = new Array();
                 var jsonObj = [];
-                //trhtml += '<option disabled selected hidden class="dropdown-header" style="padding-left: 18px;">No WO Oracle</option>';
-                //if (count > 0) {
-                //    for (trav = 0; trav < count; trav++) {
-                //        trhtml += '<Option class="dropdown-item" value = "' + data[trav].WO_NUMBER + '" > ' + data[trav].WO_NUMBER;
-                //    }
-                //}
-                //$("#ddlJenSi").empty();
-                //$("#ddlJenSi").append(trhtml);
-                //$("#ddlJenSi").select2();
+                
                 for (trav = 0; trav < count; trav++) {
                     arr[trav] = data[trav].WO_NUMBER;
                     var item = {}
@@ -1033,6 +1070,113 @@
             }
         });
     }
+
+    function GetItemCodeOracle() {
+
+        var LocationSite = $("#ddlSite").val();
+        var dto = {
+            LocationSite: LocationSite
+        }
+        $.ajax({
+            url: "../Form/GetItemCodeOracle",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                var arr = new Array();
+                var jsonObj = [];
+
+                for (trav = 0; trav < count; trav++) {
+                    arr[trav] = data[trav].ITEM_CODE;
+                    var item = {}
+                    item["label"] = arr[trav];
+                    item["value"] = arr[trav];
+                    jsonObj.push(item);
+                }
+                console.log(jsonObj);
+
+                $("#TxtItemCode").autocomplete({
+                    source: function (request, response) {
+                        var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                        response(results.slice(0, 10));
+                    }
+                });
+
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetSiteLokasiKejadian() {
+        $.ajax({
+            url: "../Form/GetSiteLokasiKejadian",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+
+                trhtml += '<option disabled selected class="dropdown-header">Site Lokasi Kejadian</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                    }
+                }
+                $("#txtSiteLokasi").empty();
+                $("#txtSiteLokasi").append(trhtml);
+                $("#txtSiteLokasi").select2();
+            }
+            , error: function (ex) {
+
+            }
+        });
+    }
+
+    function GetDepartementLokasiKejadian() {
+        var LocationSiteIncident = $("#txtSiteLokasi").val();
+
+        var dto = {
+            LocationSiteIncident: LocationSiteIncident
+        }
+
+        $.ajax({
+            url: "../Form/GetDeptLokasiKejadian",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+
+                trhtml += '<option disabled class="dropdown-header">Department Lokasi Kejadian</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml += '<option class="dropdown-item" value = "' + data[trav].orggroupname + '" > ' + data[trav].orggroupname;
+                    }
+
+                }
+                $("#txtDept").empty();
+                $("#txtDept").append(trhtml);
+                $("#txtDept").select2();
+
+            }
+            , error: function (ex) {
+
+            }
+        });
+    }
+
 
     // Set Picker disable text
     function SetupRbDtPicker() {
@@ -1664,11 +1808,18 @@
         var PROBLEM = $("#txtProblem").val();
         var DATE_OF_INCIDENT = $("#date-format").val();
         var LOCATION_SITE = $("#ddlSite").val();
+
         var DEVIATION_CATEGORY = $("#ddlKategori").val();
-        var DEVIATION_TYPE = $("#ddlJenSi").val();
+        var NO_WO_ORACLE = $('#TxtNoWO').val();
+        var Item_Code_Oracle = $('#TxtItemCode').val();
+
+        //var DEVIATION_TYPE = $("#ddlJenSi").val();
         var KET_CATEGORY = $("#txtKetKategori").val();
         var CR_DATE_USER = $("#TbTglCreated").val();
+
         var LOCATION = $("#txtLokasi").val();
+        var LocationSiteIncident = $('#txtLokasi').val();
+        var LocationDeptIncident = $("#txtDept").val();
 
 
         var USER_INVOLVED = $("#txtWho").val();
@@ -1702,7 +1853,7 @@
         var THIRTY = $("#txt30hari").val();
 
         var FLAG_KOOR = document.getElementById('ddlKategori').value;
-        var NO_WO_ORACLE = $('#TxtNoWO').val();
+        
 
         if (FLAG_KOOR == 'QPR' || FLAG_KOOR == 'QNA' || FLAG_KOOR == 'QMT' || FLAG_KOOR == 'LLI') {
             FLAG_KOOR = 'Coordinator_QA';
@@ -1720,10 +1871,18 @@
             Problem: PROBLEM,
             Date_of_incident: DATE_OF_INCIDENT,
             LocationSite: LOCATION_SITE,
+            
+
             DeviationCategory: DEVIATION_CATEGORY,
-            DeviationType: DEVIATION_TYPE,
+            NO_WO_ORACLE: NO_WO_ORACLE,
+            Item_Code_Oracle: Item_Code_Oracle,
+
+            //DeviationType: DEVIATION_TYPE,
             KetCategory: KET_CATEGORY,
+
             Location: LOCATION,
+            LocationSiteIncident: LocationSiteIncident,
+            LocationDeptIncident: LocationDeptIncident,
 
             User_involved: USER_INVOLVED,
             OrderOfEvents: ORDER_OF_EVENTS,
@@ -1754,7 +1913,7 @@
             THIRTY_FLAG: THIRTY_FLAG,
             THIRTY: THIRTY,
             REQ: REQ,
-            NO_WO_ORACLE: NO_WO_ORACLE,
+            
             UsulanRemidial = UsulanRemidial
         };
 
@@ -1962,17 +2121,30 @@
 
                 if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
                     $("#divsimpang").show();
+                    $("#TxtNoWO").attr("hidden", false);
                     $("#TxtNoWO").removeAttr("disabled");
                     GetJenisDeviation();
                 }
-                else {
-                    $("#divsimpang").hide();
-                    $("#TxtNoWO").attr("disabled", true);
-                }
+                else
+                    if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
+                    $("#divsimpang").show();
+                    $("#TxtItemCode").attr("hidden", false);
+                    $("#TxtItemCode").removeAttr("disabled");
+                    GetItemCodeOracle();
+                    }
+                    else {
+                        $("#divsimpang").hide();
+                        $("#TxtNoWO").attr("disabled", true);
+                    }
+
                 $('#TxtNoWO').val(data[0].NO_WO_ORACLE);
 
                 document.getElementById('txtProblem').value = data[0].PROBLEM;
+
                 document.getElementById('txtLokasi').value = data[0].LOCATION;
+                $('#txtDept').val(data[0].DEPT_LOKASI_KEJADIAN);
+                $('#txtSiteLokasi').val(data[0].SITE_LOKASI_KEJADIAN);
+
                 document.getElementById('txtHow').value = data[0].ORDER_OF_EVENTS;
                 document.getElementById('date-format').value = data[0].DATE_OF_INCIDENT;
 

@@ -32,56 +32,7 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
-        public ActionResult LoadDepartment()
-        {
-            string ConString = MyDB.ConnectionString;
-            SqlConnection Conn = new SqlConnection(ConString);
-            List<string> ModelData = new List<string>();
-            try
-            {
-                Conn.Open();
-                using (SqlCommand command = new SqlCommand("DEVIATION_FORM_INPUT", Conn))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    command.Parameters.Add("@Option", SqlDbType.Int);
-                    command.Parameters["@Option"].Value = 22;
-
-                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                    dataAdapt.SelectCommand = command;
-
-                    dataAdapt.Fill(DT);
-                }
-                Conn.Close();
-            }
-            catch (Exception ex)
-            {
-                ModelData.Add(ex.ToString());
-                return Json(ModelData);
-            }
-
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-            if (DT.Rows.Count > 0)
-            {
-
-                Dictionary<string, object> row;
-                foreach (DataRow dr in DT.Rows)
-                {
-                    row = new Dictionary<string, object>();
-                    foreach (DataColumn col in DT.Columns)
-                    {
-                        row.Add(col.ColumnName, dr[col]);
-                    }
-                    rows.Add(row);
-                }
-                return Json(rows);
-            }
-            else
-            {
-                ModelData.Add("Data Kosong !!");
-                return Json(rows);
-            }
-        }
+        
         public ActionResult CheckEmailAvailability(DeviationModel model)
         {
             string result; 
@@ -1912,6 +1863,42 @@ namespace B7_Deviation.Controllers
             }
             
         }
+
+        public ActionResult GetItemCodeOracle(DeviationModel Model)
+        {
+            try
+            {
+                using (OracleCommand command = new OracleCommand("XXB7_DEVIATION.GET_ITEM_CODE", OraDBConn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("p_location_site", OracleDbType.Varchar2).Value = Model.LocationSite;
+                    command.Parameters.Add("p_deviation_category", OracleDbType.Varchar2).Value = Model.DeviationCategory;
+                    command.Parameters.Add("out_cursor", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+                    OraDBConn.Open();
+                    DataAdapt.SelectCommand = command;
+                    DataAdapt.Fill(DT);
+                    OraDBConn.Close();
+                }
+
+                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                Dictionary<string, object> row;
+                foreach (DataRow dr in DT.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in DT.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                }
+                return Json(rows);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
         //public ActionResult GetJenisDeviation()
         //{
         //    string ConString = MyDB.ConnectionString;
@@ -2274,6 +2261,99 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+        public ActionResult GetSiteLokasiKejadian()
+        {
+            string ConString = MyDB.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("DEVIATION_MASTER_DLL", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", SqlDbType.Int);
+                    command.Parameters["@Option"].Value = 13;
+                    SqlDataAdapter dataAdap = new SqlDataAdapter
+                    {
+                        SelectCommand = command
+                    };
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+        public ActionResult GetDeptLokasiKejadian(DeviationModel Model)
+        {
+            string ConString = MyDB.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            List<string> ModelData = new List<string>();
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("DEVIATION_MASTER_DLL", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", SqlDbType.Int);
+                    command.Parameters["@Option"].Value = 14;
+
+                    command.Parameters.Add("@LocationSiteIncident", SqlDbType.NVarChar);
+                    command.Parameters["@LocationSiteIncident"].Value = Model.LocationSiteIncident;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter
+                    {
+                        SelectCommand = command
+                    };
+
+                    dataAdapt.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                ModelData.Add(ex.ToString());
+                return Json(ModelData);
+            }
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            if (DT.Rows.Count > 0)
+            {
+
+                Dictionary<string, object> row;
+                foreach (DataRow dr in DT.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in DT.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                }
+                return Json(rows);
+            }
+            else
+            {
+                ModelData.Add("Data Kosong !!");
+                return Json(rows);
+            }
+        }
         #endregion
 
         #region Insert Data
@@ -2327,11 +2407,17 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@LOCATION", SqlDbType.VarChar);
                     command.Parameters["@LOCATION"].Value = Model.Location;
 
-                    command.Parameters.Add("@LOC_DEPT", SqlDbType.VarChar);
-                    command.Parameters["@LOC_DEPT"].Value = Model.Loc_Dept;
+                    command.Parameters.Add("@SITE_LOKASI_KEJADIAN", SqlDbType.VarChar);
+                    command.Parameters["@SITE_LOKASI_KEJADIAN"].Value = Model.LocationSiteIncident;
+
+                    command.Parameters.Add("@DEPT_LOKASI_KEJADIAN", SqlDbType.VarChar);
+                    command.Parameters["@DEPT_LOKASI_KEJADIAN"].Value = Model.LocationDeptIncident;
 
                     command.Parameters.Add("@NO_WO_ORACLE", SqlDbType.VarChar);
                     command.Parameters["@NO_WO_ORACLE"].Value = Model.NO_WO_ORACLE;
+
+                    command.Parameters.Add("@Item_Code_Oracle", SqlDbType.VarChar);
+                    command.Parameters["@Item_Code_Oracle"].Value = Model.Item_Code_Oracle;
                     /* END Header */
 
                     /* Strat Details */

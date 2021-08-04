@@ -112,7 +112,7 @@ namespace B7_Deviation.Controllers
                             }
                             catch (Exception ex)
                             {
-                                status = "Error Web silahkan hubungin IT";
+                                status = $"Error Web silahkan hubungin IT {ex}";
                                 //throw ex;
                             }
                             finally
