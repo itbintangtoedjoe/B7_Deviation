@@ -257,10 +257,10 @@
 
 
             var Nama = '@Request.RequestContext.HttpContext.Session["xUser"]';
-            var UrlMasterList = "../DataDeviasi/MasterList?Nama=" + Nama
+            var UrlMasterList = "../DataDeviasi/FindMasterList?Nama=" + Nama
             $("a[href='#LampiranBukti']").attr('href', UrlMasterList);
 
-            var UrlLeadTime = "../DataDeviasi/LeadTime?Nama=" + Nama
+            var UrlLeadTime = "../DataDeviasi/FindLeadTime?Nama=" + Nama
             $("a[href='#LeadTime']").attr('href', UrlLeadTime);
             
         });

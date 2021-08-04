@@ -639,7 +639,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!CREATION_DATE.Value</Value>
+                                  <Value>=FormatDateTime(Fields!CREATION_DATE.Value, DateFormat.ShortDate)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -669,7 +669,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!DISPOSISI_DATE.Value</Value>
+                                  <Value>=IIF(ISNOTHING(CStr(Fields!DISPOSISI_DATE.Value)) or CStr(Fields!DISPOSISI_DATE.Value) = "","-",CStr(FormatDateTime(Fields!DISPOSISI_DATE.Value, DateFormat.ShortDate)))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -688,6 +688,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -812,7 +813,7 @@
             <Top>4.66937cm</Top>
             <Left>0.2667cm</Left>
             <Height>1.2cm</Height>
-            <Width>24.873cm</Width>
+            <Width>24.87301cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
