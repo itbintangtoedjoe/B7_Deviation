@@ -158,7 +158,23 @@
 
         function ClearFilter() {
 
+            $("#statuspenyimpangan").val('default');
+            $("#statuspenyimpangan").selectpicker("refresh");
 
+            $("#departemenpelapor").val('default');
+            $("#departemenpelapor").selectpicker("refresh");
+
+            $("#kategoripenyimpangan").val('default');
+            $("#kategoripenyimpangan").selectpicker("refresh");
+
+            $("#jenispenyimpangan").val('default');
+            $("#jenispenyimpangan").selectpicker("refresh");
+
+            $("#tahunpelaporan").val('default');
+            $("#tahunpelaporan").selectpicker("refresh");
+
+            $('#deviationdatatable').DataTable().clear().destroy();
+            LoadData();
         }
 
         function PrintFindMasterList() {

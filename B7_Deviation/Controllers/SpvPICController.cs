@@ -42,6 +42,53 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
+        public ActionResult GetDisposisiTindakan(DisposisiModel Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationApproval]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "SPV PIC Disposisi Tindakan";
+
+                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQ_ID;
+
+                    command.Parameters.Add("@NomorDisposisi", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@NomorDisposisi"].Value = Model.NO_DISPOSISI;
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
+
         public ActionResult LoadDeviationData(ApprovalModel Model)
         {
             string conString = mySetting.ConnectionString;

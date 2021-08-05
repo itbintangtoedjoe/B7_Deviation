@@ -26,8 +26,13 @@
                     <div class="form-group">
                         <h2 class="d-inline">Find Deviaton</h2>
                     </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-danger" value="Clear" id="ClearFilter">Clear Filter</button>
+                    </div>
+
                     <div class="row">
-                        
+
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-md-5 col-form-label">Status Penyimpangan</label>
@@ -100,9 +105,9 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
-                    
+
                     <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" width="100%" id="deviationdatatable">
                         <thead>
                             <tr>
@@ -140,7 +145,31 @@
                 window.location.href = "/DataDeviasi/FindDeviation"
             });
 
+            $("#ClearFilter").click(function () {
+                ClearFilter();
+            });
+
         });
+
+        function ClearFilter(){
+            $("#statuspenyimpangan").val('default');
+            $("#statuspenyimpangan").selectpicker("refresh");
+
+            $("#departemenpelapor").val('default');
+            $("#departemenpelapor").selectpicker("refresh");
+
+            $("#kategoripenyimpangan").val('default');
+            $("#kategoripenyimpangan").selectpicker("refresh");
+
+            $("#jenispenyimpangan").val('default');
+            $("#jenispenyimpangan").selectpicker("refresh");
+
+            $("#tahunpelaporan").val('default');
+            $("#tahunpelaporan").selectpicker("refresh");
+
+            $('#deviationdatatable').DataTable().clear().destroy();
+            LoadData();
+        }
 
         //AUTO SEND PARAMETER
 
@@ -259,7 +288,7 @@
                             '<td> N/A </td>' +
                             '<td> N/A </td>' +
                             '<td align="center">-</td>' +
-                            '<td hidden>' + data[trav].REQ_ID + '</td>';
+                            '<td hidden> - </td>';
                     } else {
                         for (trav = 0; trav < Count; trav++) {
 

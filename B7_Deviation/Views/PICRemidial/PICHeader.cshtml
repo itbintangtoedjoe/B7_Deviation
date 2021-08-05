@@ -98,6 +98,36 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card">
+						<div class="card-body">
+							<div class="form-group row">
+								<div class="col-md-8">
+									<div class="form-group">
+										<label for="usulantindakan">
+											Usulan Tindakan Remedial
+										</label>
+										<textarea id="usulantindakan" class="form-control" disabled="disabled"></textarea>
+									</div>
+
+									<div class="form-group">
+										<label for="usulantindakan">
+											Disposisi Tindakan Remedial
+										</label>
+										<textarea id="disposisitindakan" class="form-control" disabled="disabled"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
 						
 						<div class="card-body">
 
@@ -305,6 +335,7 @@
 
 	$(document).ready(function () {
 		LoadBukti();
+		GetUsulanTindakan();
 
 		$("#btnSave").click(function () {
 			Save();
@@ -317,6 +348,51 @@
 		});
 
 	});
+
+	function GetUsulanTindakan() {
+		var REQID = @ViewBag.nomor;
+		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQID: REQID
+		};
+
+		$.ajax({
+			url: "../QualityManager/QM_GetUsulanTindakan",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				document.getElementById('usulantindakan').value = data[0].USULAN_REMIDIAL;
+
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+
+
+		var dtx = {
+			LOGIN_USER: iduser,
+			REQID: REQID
+		};
+
+		$.ajax({
+			url: "../QualityManager/QM_GetDisposisiTindakan",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dtx),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				document.getElementById('disposisitindakan').value = data[0].DISPOSISI_TINDAKAN;
+
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+	}
 
 	function BeforeUnload() {
 		var reqid = $("#lblReq").text();
@@ -459,7 +535,7 @@
 	}
 
 	function Save() {
-		
+
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 

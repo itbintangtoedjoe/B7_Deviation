@@ -15,8 +15,6 @@
 								<h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
 							</div>
 
-
-
 							<div class="form-group row">
 								<div class="col-md-8">
 									<div class="form-group">
@@ -54,6 +52,30 @@
 
 	</div>
 
+	<div class="form-group">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="form-group row">
+								<div class="col-md-8">
+									<div class="form-group">
+										<label for="usulantindakan">
+											Usulan Tindakan Remedial
+										</label>
+										<textarea id="usulantindakan" class="form-control" disabled="disabled"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </div>
 
 <script>
@@ -61,15 +83,41 @@
 	$(document).ready(function () {
 
 		ApproveStatusAssignPIC();
-
+		GetUsulanTindakan();
+		
 		$("#btnApprove").click(function () {
 			Approve();
 
 		});
 
-		
+
 
 	});
+
+	
+
+	function GetUsulanTindakan() {
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			REQID: REQID
+		};
+
+		$.ajax({
+			url: "../QualityManager/QM_GetUsulanTindakan",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				document.getElementById('usulantindakan').value = data[0].USULAN_REMIDIAL;
+
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+	}
 
 	function ApproveStatusAssignPIC() {
 		$("#btnApprove").attr('hidden', true);
@@ -118,7 +166,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				
+
 				Swal.fire({
 					title: 'Form Approved',
 					showDenyButton: false,

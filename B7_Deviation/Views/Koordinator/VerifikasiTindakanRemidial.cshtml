@@ -59,36 +59,36 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-body">
-							
-								<table class="table table-striped table-bordered table-responsive" id="deviationdatatable" width="100%">
-									<thead>
-										<tr>
-											<th width="75px">No</th>
-											<th width="100px">Usulan Tindakan Remedial</th>
-											<th width="200px">Action</th>
-											<th width="75px">Testing Jumlah Personel</th>
-											<th width="75px">Testing Durasi Pengerjaan(Jam)</th>
-											<th width="75px">Testing Manhours Value</th>
-											<th width="75px">Testing Cost of Analysis</th>
-											<th width="75px">Process Durasi Pengerjaan</th>
-											<th width="75px">Process Jumlah Pelaksana(Jam)</th>
-											<th width="75px">Process Manhours Value</th>
-											<th width="75px">Reject Material</th>
-											<th width="75px">Reject Quantity</th>
-											<th width="75px">Reject Cost Material</th>
-											<th width="75px">Nama Sparepart</th>
-											<th width="75px">Harga Sparepart</th>
-											<th width="75px">Nama PIC</th>
-											<th width="75px" hidden="hidden">NIK PIC</th>
-											<th width="200px">Action</th>
-										</tr>
 
-									</thead>
-									<tbody id="deviationtable" class="">
-									</tbody>
-								</table>
-							
-							
+							<table class="table table-striped table-bordered table-responsive" id="deviationdatatable" width="100%">
+								<thead>
+									<tr>
+										<th width="75px">No</th>
+										<th width="100px">Usulan Tindakan Remedial</th>
+										<th width="200px">Action</th>
+										<th width="75px">Testing Jumlah Personel</th>
+										<th width="75px">Testing Durasi Pengerjaan(Jam)</th>
+										<th width="75px">Testing Manhours Value</th>
+										<th width="75px">Testing Cost of Analysis</th>
+										<th width="75px">Process Durasi Pengerjaan</th>
+										<th width="75px">Process Jumlah Pelaksana(Jam)</th>
+										<th width="75px">Process Manhours Value</th>
+										<th width="75px">Reject Material</th>
+										<th width="75px">Reject Quantity</th>
+										<th width="75px">Reject Cost Material</th>
+										<th width="75px">Nama Sparepart</th>
+										<th width="75px">Harga Sparepart</th>
+										<th width="75px">Nama PIC</th>
+										<th width="75px" hidden="hidden">NIK PIC</th>
+										<th width="200px">Action</th>
+									</tr>
+
+								</thead>
+								<tbody id="deviationtable" class="">
+								</tbody>
+							</table>
+
+
 
 						</div>
 
@@ -112,6 +112,29 @@
 						</div>
 					</div>
 
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="form-group row">
+								<div class="col-md-8">
+									<div class="form-group">
+										<label for="usulantindakan">
+											Usulan Tindakan Remedial
+										</label>
+										<textarea id="usulantindakan" class="form-control" disabled="disabled"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -178,6 +201,7 @@
 	$(document).ready(function () {
 
 		CheckFormStatus();
+		GetUsulanTindakan();
 
 		LoadData();
 
@@ -194,6 +218,29 @@
 		});
 
 	});
+
+	function GetUsulanTindakan() {
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			REQID: REQID
+		};
+
+		$.ajax({
+			url: "../QualityManager/QM_GetUsulanTindakan",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				document.getElementById('usulantindakan').value = data[0].USULAN_REMIDIAL;
+
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+
+	}
 
 	function LoadData() {
 
@@ -537,7 +584,7 @@
 					}
 				});
 
-				
+
 				var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 				var tabletype = "More Than One";

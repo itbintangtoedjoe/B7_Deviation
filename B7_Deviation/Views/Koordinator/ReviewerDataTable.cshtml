@@ -405,7 +405,6 @@
 						Receiver: receiver,
 						ReqID: REQID,
 						Body: body,
-						Subject: subject,
 						TableType: tabletype,
 						WhoReceiver: whoreceiver
 					};
@@ -435,6 +434,7 @@
 		}
 
 		function CheckRevApp() {
+			
 			var REQID = @ViewBag.nomor;
 
 			var dto = {
@@ -449,6 +449,8 @@
 				data: JSON.stringify(dto),
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
+
+					
 					if (data == 'S') {
 						$("#disposisi").removeAttr("hidden");
 

@@ -118,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Pict\delegasi.png" />
     <Content Include="Content\Scripts\js\custom.min.js" />
     <Content Include="Content\Scripts\js\dashboard\dashboard-1.js" />
     <Content Include="Content\Scripts\js\gleek.js" />

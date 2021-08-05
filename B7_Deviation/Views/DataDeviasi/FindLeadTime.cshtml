@@ -137,9 +137,22 @@
     });
 
     function Clear() {
-        LoadFilter();
         
-       
+        $("#tahunpembuatan").val('default');
+        $("#tahunpembuatan").selectpicker("refresh");
+
+        $("#bulanpembuatan").val('default');
+        $("#bulanpembuatan").selectpicker("refresh");
+
+        $("#kategoripenyimpangan").val('default');
+        $("#kategoripenyimpangan").selectpicker("refresh");
+
+        $("#departement").val('default');
+        $("#departement").selectpicker("refresh");
+
+        $('#deviationdatatable').DataTable().clear().destroy();
+        LoadData();
+        
     }
 
     function PrintLeadTime() {

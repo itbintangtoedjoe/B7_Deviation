@@ -144,14 +144,21 @@
 								<div class="form-group row">
 									<label class="col-sm-2 col-form-label">Lokasi (Where)<span class="text-danger">*</span></label>
 									<div class="col-sm-4">
-										<input type="text" id="txtLokasi" disabled="disabled" class="form-control"/>
-										
+										<div class="basic-dropdown">
+											<div class="dropdown">
+												<select id="ddlSiteLokasi" name="ddlSiteLokasi" style="width: 280px;" disabled></select>
+											</div>
+										</div>
+										<br />
+										<div id="divDeptLokasi" class="basic-dropdown">
+											<div class="dropdown">
+												<select id="ddlDeptLokasi" name="ddlDeptLokasi" style="width: 280px;" disabled></select>
+											</div>
+										</div>
 									</div>
 
-									<label class="col-sm-2 col-form-label">Departemen<span class="text-danger">*</span></label>
-									<div class="col-sm-4">
-										
-										<input type="text" id="txtDept" disabled="disabled" class="form-control"/>
+									<div class="col-sm-6">
+										<textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Detail Lokasi Kejadian Penyimpangan" disabled></textarea>
 									</div>
 
 								</div>
@@ -341,7 +348,7 @@
 										<label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
 									</div>
 									<div class="col-sm-10">
-										<textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial"></textarea>
+										<textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial" disabled></textarea>
 									</div>
 								</div>
 
@@ -516,7 +523,20 @@
 				GetFileAttachment();
 				LoadUserInvolved();
 
-				document.getElementById('txtDept').value = data[0].LOC_DEPT;
+
+
+				text = '<Option class="dropdown-item" value = "' + data[0].SITE_LOKASI_KEJADIAN + '" selected >' + data[0].SITE_LOKASI_KEJADIAN;
+
+				$("#ddlSiteLokasi").empty();
+				$("#ddlSiteLokasi").append(text);
+				$("#ddlSiteLokasi").selectpicker();
+
+				text = '<Option class="dropdown-item" value = "' + data[0].DEPT_LOKASI_KEJADIAN + '" selected >' + data[0].DEPT_LOKASI_KEJADIAN;
+
+				$("#ddlDeptLokasi").empty();
+				$("#ddlDeptLokasi").append(text);
+				$("#ddlDeptLokasi").selectpicker();
+
 
 				document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
 				document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
@@ -545,6 +565,9 @@
 				document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
 
 				document.getElementById('txtProblem').value = data[0].PROBLEM;
+
+				
+
 				document.getElementById('txtLokasi').value = data[0].LOCATION;
 				document.getElementById('txtHow').value = data[0].ORDER_OF_EVENTS;
 				document.getElementById('date-format').value = data[0].DATE_OF_INCIDENT;

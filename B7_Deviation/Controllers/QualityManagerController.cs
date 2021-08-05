@@ -185,6 +185,96 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+        public ActionResult QM_GetUsulanTindakan(ReviewerModel Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationApproval]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "QM Usulan Tindakan";
+
+                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
+
+        public ActionResult QM_GetDisposisiTindakan(ReviewerModel Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationApproval]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "QM Disposisi Tindakan";
+
+                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    command.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@UserID"].Value = Model.LOGIN_USER;
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
         public ActionResult QM_LoadDeviationData(ApprovalModel Model)
         {
             string conString = mySetting.ConnectionString;
@@ -285,6 +375,45 @@ namespace B7_Deviation.Controllers
                 ModelData.Add("Data Kosong !!");
                 return Json(rows);
             }
+        }
+
+        public ActionResult QM_CheckDelegate(ApprovalModel Model)
+        {
+
+            string conSQL = mySetting.ConnectionString;
+
+            SqlConnection conn = new SqlConnection(conSQL);
+            List<string> ModelData = new List<string>();
+            string result;
+
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_LoadDeviationApproval", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@Option"].Value = "Check Delegate";
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                    command.Parameters["@UserID"].Value = Model.IDUSER;
+
+                    result = (string)command.ExecuteScalar();
+                    conn.Close();
+                    ModelData.Add(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(ModelData);
+
+
         }
 
         public ActionResult QM_Approve(ApprovalModel Model)

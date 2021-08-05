@@ -168,8 +168,7 @@
                                             </label>
                                         </div>
                                         <div class="col-lg-6">
-                                            <select id="penyimpangan" class="form-control">
-                                                <option value="" class="dropdown-header" selected>Kategori Penyimpangan</option>
+                                            <select id="penyimpangan" class="form-control js-example-basic-multiple"  style="width: 350px;">
                                             </select>
                                         </div>
                                     </div>
@@ -445,9 +444,12 @@
             if (!document.getElementById('penyimpangan').value) {
                 penyimpangan = "NULL";
             } else {
-                penyimpangan = document.getElementById('penyimpangan').value;
+                //penyimpangan = $('#penyimpangan').select2("val");
+                penyimpangan = $('#penyimpangan').val();
+                penyimpangan = penyimpangan.toString();
             }
 
+            
 
             Update(id, username, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan);
 
@@ -707,6 +709,7 @@
 
     function Update(id, username, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan) {
 
+
         var dto = {
             empid: id,
             username: username,
@@ -718,8 +721,10 @@
             orggroupname: dept,
             emailsuperior: spvemail,
             role: role,
-            kategori: penyimpangan
+            KategoriPenyimpangan: penyimpangan
         }
+
+        console.log(dto);
 
         $.ajax({
             url: "../CMS/CMS_UpdateEntry",
@@ -883,6 +888,8 @@
 
     function GetKategoriPenyimpangan(t_username) {
 
+        
+
         var dto = {
             Username: t_username
         }
@@ -898,13 +905,13 @@
                 var trhtml = "";
                 var trav = 0;
                 var count = data.length;
-                trhtml += '<option disabled selected class="dropdown-header">* Select Kategori Penyimpangan *</option>';
+                trhtml += '<option disabled class="dropdown-header">* Select Kategori Penyimpangan *</option>';
 
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
 
                         if (data[trav].role_deviation == 'Coordinator_QA' || data[trav].role_deviation == 'Coordinator_QS') {
-                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                            trhtml += '<Option value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
                         } else {
                             trhtml += '<Option class="dropdown-item" selected value = "-" > - ';
                             break;
@@ -916,7 +923,11 @@
 
                 $("#penyimpangan").empty();
                 $("#penyimpangan").append(trhtml);
-                $("#penyimpangan").select();
+                $("#penyimpangan").select2({
+                    placeholder: "Kategori Penyimpangan",
+                    multiple: true
+                    
+                });
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }

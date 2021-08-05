@@ -97,6 +97,9 @@
                             } else if (data[trav].STAT == "RMPIC1" || data[trav].STAT == "PICDD1" || data[trav].STAT == "AHROK1") {
                                 trHTML +=
                                     '<tr><td><a href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                            } else if (data[trav].STAT == "REVAL1" || data[trav].STAT == "RVREV1" || data[trav].STAT == "RVREV0") {
+                                trHTML +=
+                                    '<tr><td><a href="../Koordinator/ReviewerDataTable?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
                             } else {
                                 trHTML +=
                                     '<tr><td><a href="../Koordinator/HeaderKoordinator?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';

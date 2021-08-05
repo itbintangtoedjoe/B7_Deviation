@@ -44,7 +44,7 @@
 			<div class="col-md-12">
 				<div class="card" id="can">
 					<div class="card-body">
-						<div class="form-group row">
+						<div class="form-group row" id="checkdelegasi">
 							<label class="col-sm-2 col-form-label">Keterangan Disposisi<span class="text-danger">*</span></label>
 							<div class="col-sm-7">
 								<div class="input-group">
@@ -68,6 +68,10 @@
 										</tbody>
 									</table>
 								</div>
+							</div>
+
+							<div class="col-sm-3" id="gambardelegate" hidden="hidden">
+								<img id="tee" src="~/Content/Pict/delegasi.png" width="200px;" />
 							</div>
 						</div>
 					</div>
@@ -165,11 +169,39 @@
 		LoadHeader();
 		LoadReviewerData();
 		GetCurrStat();
+		CheckDelegate();
 		$('#spanDisposisi').click(function () {
 			InsertDisposisi();
 		});
 
 	});
+
+	function CheckDelegate() {
+		var REQID = @ViewBag.nomor;
+		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQID: REQID,
+			IDUSER: iduser
+		};
+
+		$.ajax({
+			url: "../QualityManager/QM_CheckDelegate",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				$("#gambardelegate").attr("hidden", false);
+
+
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+
+	}
 
 	function SendEmail() {
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
