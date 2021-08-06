@@ -26,10 +26,7 @@
 								<div class="col-md-8">
 									<div class="form-group">
 
-										<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-success form-control ">
-											Cancel
-											<span class="fa fa-check-square-o"></span>
-										</button>
+										
 
 									</div>
 								</div>
@@ -69,10 +66,10 @@
 										<th width="100px">Usulan Tindakan Remedial</th>
 										<th width="100px">Action</th>
 										<th width="75px">Testing Jumlah Personel</th>
-										<th width="75px">Testing Durasi Pengerjaan</th>
+										<th width="75px">Testing Durasi Pengerjaan (Jam)</th>
 										<th width="75px">Testing Manhours Value</th>
 										<th width="75px">Testing Cost of Analysis</th>
-										<th width="75px">Process Durasi Pengerjaan</th>
+										<th width="75px">Process Durasi Pengerjaan (Jam)</th>
 										<th width="75px">Process Jumlah Pelaksana</th>
 										<th width="75px">Process Manhours Value</th>
 										<th width="75px">Reject Material</th>
@@ -199,10 +196,12 @@
 								<input type="radio" id="low" value="Tingkat Keparahan Low dan terjadi >= 5 Kasus dalam 30 Hari Terakhir" name="chkbx" />
 								<label class="col-md-2" for="low">Tingkat Keparahan Low dan terjadi >= 5 Kasus dalam 30 Hari Terakhir</label>
 
+								<input type="radio" id="lain" value="Justifikasi Lain" name="chkbx" />
+								<label class="col-md-2" for="lain">Justifikasi Lain</label>
 							</div>
 							<div class="form-group row">
-								<label class="col-md-2" for="high">Justifikasi Lainnya</label>
-								<textarea style="width: 500px;" class="form-control" id="txtReason"></textarea>
+								<label class="col-md-2" for="txtReason">Justifikasi Lainnya</label>
+								<textarea style="width: 500px;" class="form-control" id="txtReason" disabled="disabled"></textarea>
 							</div>
 							<div class="form-group row">
 
@@ -246,6 +245,15 @@
 
 		$("#btnTidakLanjut").click(function () {
 			TidakLanjut();
+		});
+
+		$('input[type=radio][name=chkbx]').change(function () {
+			if (this.value == 'Justifikasi Lain') {
+				$("#txtReason").attr("disabled", false);
+			}
+			else {
+				$("#txtReason").attr("disabled", true);
+			}
 		});
 
 	});
@@ -295,6 +303,8 @@
 
 				$("#ITDP").val(data[0].IT_DURASI_PENGERJAAN);
 				$("#ITJP").val(data[0].IT_JUMLAH_PELAKSANA);
+				$("#MTDP").val(data[0].MT_DURASI_PENGERJAAN);
+
 				$("#MTJP").val(data[0].MT_JUMLAH_PELAKSANA);
 			},
 			error: function (ex) {
@@ -387,14 +397,21 @@
 				var trav = 0;
 				var Count = data.length;
 
-				for (trav = 0; trav < Count; trav++) {
-					var no = 1;
-					no = no + trav;
+				if (Count == '0') {
 					trHTML +=
-						'<tr><td>' + no + '</td>' +
-						'<td>' + data[trav].PIC_ID + '</td>' +
-						'<td><a href="../' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+						'<tr><td> N/A </td>' +
+						'<td> N/A </td>' +
+						'<td> N/A </td>';
+				} else {
+					for (trav = 0; trav < Count; trav++) {
+						var no = 1;
+						no = no + trav;
+						trHTML +=
+							'<tr><td>' + no + '</td>' +
+							'<td>' + data[trav].PIC_ID + '</td>' +
+							'<td><a href="../' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
 
+					}
 				}
 
 				$('#buktitable').empty();

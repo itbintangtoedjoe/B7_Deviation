@@ -323,15 +323,18 @@
 						'</div>' +
 						'</div>';
 
-						if (data[trav].FLAG_REVIEW == "REVIEW APPROVED BY COORDINATOR" || data[trav].FLAG_REVIEW == "DONE REVISE FROM QUALITY MANAGER") {
-							text +=
-								'<div class="row form-group center">' +
-								'<div class="form-group">' + '<button type="button" id="Approve' + trav + '"class="btn mb-1 btn-success  form-group" style="width:100px;">Approve</button>' + '</div>' +
-								'<div class="form-group">' + '<button type="button" id="Reject' + trav + '"class="btn mb-1 btn-danger  form-group" style="width:100px;">Reject</button>' + '</div>' +
-								'</div>';
-						}
+					
 
-						text+=
+					if (data[trav].FLAG_REVIEW == "REVIEW APPROVED BY COORDINATOR" || data[trav].FLAG_REVIEW == "DONE REVISE FROM QUALITY MANAGER") {
+						text +=
+							'<div class="row form-group center">' +
+							'<div class="form-group">' + '<button type="button" id="Approve' + trav + '"class="btn mb-1 btn-success  form-group" style="width:100px;">Approve</button>' + '</div>' +
+							'<div class="form-group">' + '<button type="button" id="Reject' + trav + '"class="btn mb-1 btn-danger  form-group" style="width:100px;">Reject</button>' + '</div>' +
+							'</div>';
+					}
+
+					
+					text +=
 
 						'</div>' +
 
@@ -346,7 +349,16 @@
 						'<input class="form-control" placeholder="Nama Reviewer" disabled="disabled" value="' + data[trav].USER_NAME + '">' +
 						'</div>';
 
+					// TANGGAL
 
+					text +=
+						'<div class="row form-group">' +
+						'<label class="col-form-label label-trigger">Tanggal Review</label>' +
+						'</div>' +
+
+						'<div class="row form-group">' +
+						'<input class="form-control" placeholder="Tanggal Review" disabled="disabled"  style="width: 500px;" value="' + data[trav].TANGGAL_REVIEW + '">' +
+						'</div>';
 
 					text +=
 						'</div>' +
@@ -387,12 +399,19 @@
 									// IF CLAUSE WHERE DOCUMENT AND REVIEWER HAS THE SAME ATTRIBUTES
 									if (datac[trap].REVIEWER_ID == data[flag].USER_NIK) {
 										var no = 1;
-										no = no + trap
+										no = no + trap;
 
-										trHTML +=
-											'<tr><td>' + no + '</td>' +
-											'<td><a href="../' + datac[trap].PATH_FILE + '" download="' + datac[trap].PATH_FILE + '">' + datac[trap].FILE_NAME_UPLOAD + '</a></td>' +
-											'<td hidden="hidden">' + datac[trap].REVIEWER_ID + '</td>';
+										if (hitung == '0') {
+											trHTML +=
+												'<tr><td> N/A </td>' +
+												'<td>> N/A </td>' +
+												'<td hidden="hidden"> - </td>';
+										} else {
+											trHTML +=
+												'<tr><td>' + no + '</td>' +
+												'<td><a href="../' + datac[trap].PATH_FILE + '" download="' + datac[trap].PATH_FILE + '">' + datac[trap].FILE_NAME_UPLOAD + '</a></td>' +
+												'<td hidden="hidden">' + datac[trap].REVIEWER_ID + '</td>';
+										}
 
 										$("#tbody_Attachment" + flag).empty();
 										$("#tbody_Attachment" + flag).append(trHTML);
