@@ -960,7 +960,7 @@ namespace B7_Deviation.Controllers
             return Json(ModelData);
         }
 
-        public ActionResult Coor_LoadDelegasiList()
+        public ActionResult Coor_LoadDelegasiList(ApprovalModel Model)
         {
             string conString = mySetting.ConnectionString;
             SqlConnection conn = new SqlConnection(conString);
@@ -973,6 +973,9 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "List Nama Delegasi";
+
+                    command.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@UserID"].Value = Model.IDUSER;
 
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;

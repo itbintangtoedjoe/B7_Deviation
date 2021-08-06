@@ -169,9 +169,17 @@
 	}
 
 	function LoadDelegasiList() {
+
+		var userid = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			IDUSER: userid
+		};
+
 		$.ajax({
-			url: "../Koordinator/Coor_LoadDelegasiList",
 			type: "post",
+			url: '../Koordinator/Coor_LoadDelegasiList',
+			data: JSON.stringify(dto),
 			dataType: "json",
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
@@ -196,6 +204,8 @@
 				alert(JSON.stringify(ex));
 			}
 		});
+
+		
 	}
 
 </script>
