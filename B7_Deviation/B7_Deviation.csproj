@@ -5074,12 +5074,12 @@
     <Compile Include="Models\ReviewerModel.cs" />
     <Compile Include="Models\SaveUser.cs" />
     <Compile Include="Models\UsulanRevisiModel.cs" />
-    <Compile Include="PrintFindLeadTimeDataSource.Designer.cs">
+    <Compile Include="DataSource\PrintFindLeadTimeDataSource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PrintFindLeadTimeDataSource.xsd</DependentUpon>
     </Compile>
-    <Compile Include="PrintFindMasterListDataSource.Designer.cs">
+    <Compile Include="DataSource\PrintFindMasterListDataSource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PrintFindMasterListDataSource.xsd</DependentUpon>
@@ -5686,26 +5686,26 @@
     <Content Include="Views\CMS\ShowUser2.cshtml" />
     <Content Include="Views\CMS\ChangePassword.cshtml" />
     <Content Include="Views\DataDeviasi\PrintFindMasterList.cshtml" />
-    <Content Include="PrintFindMasterListDataSource.xsc">
+    <Content Include="DataSource\PrintFindMasterListDataSource.xsc">
       <DependentUpon>PrintFindMasterListDataSource.xsd</DependentUpon>
     </Content>
-    <Content Include="PrintFindLeadTimeDataSource.xsc">
+    <Content Include="DataSource\PrintFindLeadTimeDataSource.xsc">
       <DependentUpon>PrintFindLeadTimeDataSource.xsd</DependentUpon>
     </Content>
-    <None Include="PrintFindLeadTimeDataSource.xsd">
+    <None Include="DataSource\PrintFindLeadTimeDataSource.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PrintFindLeadTimeDataSource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <Content Include="PrintFindLeadTimeDataSource.xss">
+    <Content Include="DataSource\PrintFindLeadTimeDataSource.xss">
       <DependentUpon>PrintFindLeadTimeDataSource.xsd</DependentUpon>
     </Content>
-    <None Include="PrintFindMasterListDataSource.xsd">
+    <None Include="DataSource\PrintFindMasterListDataSource.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PrintFindMasterListDataSource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <Content Include="PrintFindMasterListDataSource.xss">
+    <Content Include="DataSource\PrintFindMasterListDataSource.xss">
       <DependentUpon>PrintFindMasterListDataSource.xsd</DependentUpon>
     </Content>
     <Content Include="Views\DataDeviasi\PrintFindLeadTime.cshtml" />
