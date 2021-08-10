@@ -298,6 +298,120 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+        public ActionResult Rev_GetDeptLokasiKejadian(DeviationModel Model)
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            List<string> ModelData = new List<string>();
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_LoadDeviationData", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Rev Get Dept";
+
+                    command.Parameters.Add("@Nomor", SqlDbType.NVarChar);
+                    command.Parameters["@Nomor"].Value = Model.ReqID;
+
+                    command.Parameters.Add("@LocationSiteIncident", SqlDbType.NVarChar);
+                    command.Parameters["@LocationSiteIncident"].Value = Model.LocationSiteIncident;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter
+                    {
+                        SelectCommand = command
+                    };
+
+                    dataAdapt.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                ModelData.Add(ex.ToString());
+                return Json(ModelData);
+            }
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            if (DT.Rows.Count > 0)
+            {
+
+                Dictionary<string, object> row;
+                foreach (DataRow dr in DT.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in DT.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                }
+                return Json(rows);
+            }
+            else
+            {
+                ModelData.Add("Data Kosong !!");
+                return Json(rows);
+            }
+        }
+
+        public ActionResult Rev_GetSiteLokasiKejadian(DeviationModel Model)
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            List<string> ModelData = new List<string>();
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_LoadDeviationData", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Rev Get Site Lokasi";
+
+                    command.Parameters.Add("@Nomor", SqlDbType.NVarChar);
+                    command.Parameters["@Nomor"].Value = Model.ReqID;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter
+                    {
+                        SelectCommand = command
+                    };
+
+                    dataAdapt.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                ModelData.Add(ex.ToString());
+                return Json(ModelData);
+            }
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            if (DT.Rows.Count > 0)
+            {
+
+                Dictionary<string, object> row;
+                foreach (DataRow dr in DT.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in DT.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                }
+                return Json(rows);
+            }
+            else
+            {
+                ModelData.Add("Data Kosong !!");
+                return Json(rows);
+            }
+        }
         public ActionResult GetResikoFinansial(DeviationModel Model)
         {
             string conString = mySetting.ConnectionString;

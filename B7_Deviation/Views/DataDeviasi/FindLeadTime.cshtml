@@ -138,17 +138,18 @@
 
     function Clear() {
         
-        $("#tahunpembuatan").val('default');
+        $("#tahunpembuatan").val('Tahun Pembuatan');
         $("#tahunpembuatan").selectpicker("refresh");
 
-        $("#bulanpembuatan").val('default');
+        $("#bulanpembuatan").val('Bulan Pembuatan');
         $("#bulanpembuatan").selectpicker("refresh");
 
-        $("#kategoripenyimpangan").val('default');
+        $("#kategoripenyimpangan").val('Kategori Penyimpangan');
         $("#kategoripenyimpangan").selectpicker("refresh");
 
-        $("#departement").val('default');
+        $("#departement").val('Departement');
         $("#departement").selectpicker("refresh");
+
 
         $('#deviationdatatable').DataTable().clear().destroy();
         LoadData();

@@ -85,6 +85,9 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@role", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@role"].Value = Model.Role;
 
+                    command.Parameters.Add("@kategori", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@kategori"].Value = Model.KategoriPenyimpangan;
+
                     command.Parameters.Add("@password", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@password"].Value = Model.Password;
 

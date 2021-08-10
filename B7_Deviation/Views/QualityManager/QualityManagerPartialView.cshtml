@@ -27,7 +27,7 @@
 								<input id="TbNmrDev" type="text" class="form-control" disabled="disabled">
 							</div>
 							<div class="col">
-								<label>Pengusul</label>
+								<label>Pelapor</label>
 								<input id="TbPesul" type="text" class="form-control" disabled="disabled">
 							</div>
 							<div class="col">
@@ -193,7 +193,15 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 
-				$("#gambardelegate").attr("hidden", false);
+				if (data == 'YA, DELEGASI') {
+					$("#gambardelegate").attr("hidden", false);
+
+				} else {
+					$("#gambardelegate").attr("hidden", true);
+
+				}
+
+
 
 
 			}, error: function (ex) {

@@ -753,10 +753,9 @@
 					$('#txtKetKategori').attr('disabled', true);
 				}
 			}
-			else
+			else {
 				// Kualitas Materi Awal
-				if ($("#ddlKategori").val() == 'QMT')
-				{
+				if ($("#ddlKategori").val() == 'QMT') {
 					if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
 						swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
 
@@ -781,6 +780,8 @@
 					$("#TxtNoWO").attr("disabled", true);
 					$('#txtKetKategori').val('');
 				}
+			}
+				
 		});
 
 

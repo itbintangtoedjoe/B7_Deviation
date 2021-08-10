@@ -195,6 +195,20 @@
                             </div>
                         </div>
 
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="kategori" class="col-form-label">
+                                    Kategori Penyimpangan
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <select id="kategori" class="form-control">
+                                    <option value="" class="dropdown-header" selected>Kategori Penyimpangan</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <input type="text" hidden="hidden" id="reconfid" value="" />
                         <input type="text" hidden="hidden" id="reconfusername" value="" />
 
@@ -219,6 +233,10 @@
         GetRole();
         GetVendorID();
 
+        $("#role").change(function () {
+            GetKategoriPenyimpangan();
+
+        });
 
         $('#new').click(function () {
 
@@ -256,6 +274,7 @@
             $('#superiorname').val(null);
             $('#orggroupname').val(null);
             $('#emailsuperior').val(null);
+            $('kategori').val(null);
             GetRole();
             Swal.fire(
                 'Form Cleared!',
@@ -265,6 +284,54 @@
         });
 
     });
+
+    function GetKategoriPenyimpangan() {
+        
+        var t_username = "undefined";
+
+        var dto = {
+            Username: t_username
+        }
+
+        $.ajax({
+            url: "../CMS/CMS_GetKategoriPenyimpangan",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+                trhtml += '<option disabled class="dropdown-header">* Select Kategori Penyimpangan *</option>';
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        if ($("#role").val() == 'Coordinator_QA' || $("#role").val() == 'Coordinator_QS') {
+                            trhtml += '<Option value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                        } else {
+                            trhtml += '<Option class="dropdown-item" selected value = "-" > - ';
+                            break;
+                        }
+
+
+                    }
+                }
+
+                $("#kategori").empty();
+                $("#kategori").append(trhtml);
+                $("#kategori").select2({
+                    placeholder: "Kategori Penyimpangan",
+                    multiple: true
+
+                });
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
 
     function GetVendorID() {
         $.ajax({
@@ -365,6 +432,7 @@
         var orggroupname = $('#orggroupname').val();
         var emailsuperior = $('#emailsuperior').val();
         var role = $('#role').val();
+        var kategori = $('#kategori').val();
 
         var dto = {
             empid: empid,
@@ -377,7 +445,8 @@
             superiorname: superiorname,
             orggroupname: orggroupname,
             emailsuperior: emailsuperior,
-            role: role
+            role: role,
+            KategoriPenyimpangan: kategori
         }
 
         $.ajax({

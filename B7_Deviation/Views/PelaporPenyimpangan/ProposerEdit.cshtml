@@ -120,8 +120,11 @@
                                         <div id="divsimpang">
                                             <div class="basic-dropdown">
                                                 @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
-                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
-                                                <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control" placeholder="Item Code Oracle">
+                                                <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
+                                                <br />
+                                                <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle">
+                                                <br />
+                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle" disabled="disabled">
                                             </div>
                                         </div>
                                         <br>
@@ -648,50 +651,89 @@
     $(document).ready(function () {
         $("#divsimpang").hide();
         $("#TxtNoWO").attr("disabled", true);
+
+        $("#TxtNoWO").attr("disabled", true);
+        $("#TxtItemCode").attr("disabled", true);
+
         $('#divproduk').hide();
         $('#divproduk').hide();
 
 
-        //$("#ddlKategori").change(function () {
-        //    if ($("#ddlKategori").val() == 'QPR') {
-        //        $("#divsimpang").show();
-        //        $("#TxtNoWO").removeAttr("disabled");
-        //        GetJenisDeviation();
-        //    }
-        //    else {
-        //        $("#divsimpang").hide();
-        //        $("#TxtNoWO").attr("disabled", true);
-        //    }
-        //});
+
 
         $("#ddlKategori").change(function () {
             $("#TxtNoWO").attr("hidden", true);
             $("#TxtItemCode").attr("hidden", true);
 
+            $('#TxtBatchNo').attr('hidden', true);
+
+            $('#txtKetKategori').attr('disabled', false);
+
+            $('#TxtBatchNo').val('');
+            $("#TxtNoWO").val('');
+            $('#TxtItemCode').val('');
+            $('#txtKetKategori').val('');
+
             if ($("#ddlKategori").val() == 'QPR') {
-                $("#divsimpang").show();
-                $("#TxtNoWO").attr("hidden", false);
-                $("#TxtNoWO").removeAttr("disabled");
-                GetJenisDeviation();
-            }
-            else
-                if ($("#ddlKategori").val() == 'QMT') {
+                if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
+                    swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
+
+                    var id = $(this).find('option:selected').val();
+                    if (id != null) {
+                        $(this).val('0');
+                    }
+
+                    return;
+                } else {
                     $("#divsimpang").show();
+
+                    $("#TxtNoWO").attr("hidden", false);
+                    $('#TxtBatchNo').attr('hidden', false);
+
+                    $('#TxtItemCode').attr('disabled', true);
                     $("#TxtItemCode").attr("hidden", false);
-                    $("#TxtItemCode").removeAttr("disabled");
-                    GetItemCodeOracle();
+                    $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+
+                    GetNoBatchOracle();
+                    $('#txtKetKategori').attr('disabled', true);
+                }
+            }
+            else {
+                // Kualitas Materi Awal
+                if ($("#ddlKategori").val() == 'QMT') {
+                    if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
+                        swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
+
+                        var id = $(this).find('option:selected').val();
+                        if (id != null) {
+                            $(this).val('0');
+                        }
+
+                        return;
+                    } else {
+                        $("#divsimpang").show();
+                        $("#TxtItemCode").attr("hidden", false);
+                        $('#TxtItemCode').attr('disabled', false);
+                        $('#TxtItemCode').attr('placeholder', 'Material Code Oracle');
+                        GetItemCodeOracle();
+                        $('#txtKetKategori').attr('disabled', true);
+                    }
+
                 }
                 else {
                     $("#divsimpang").hide();
                     $("#TxtNoWO").attr("disabled", true);
+                    $('#txtKetKategori').val('');
                 }
+            }
+
         });
 
         $("#txtSiteLokasi").change(function () {
             $('#txtDept').attr('hidden', false);
             GetDepartementLokasiKejadian();
         });
-       
+
         $('#ddlKualProd').change(function () {
             var nilai = [];
 
@@ -954,6 +996,119 @@
         });
     });
 
+    function GetNoBatchOracle() {
+
+        var LocationSite = LOCATION_SITE = $("#ddlSite").val();
+        var dto = {
+            LocationSite: LocationSite
+        }
+        $.ajax({
+            url: "../Form/GetNoBatchOracle",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                var arr = new Array();
+                var jsonObj = [];
+
+                for (trav = 0; trav < count; trav++) {
+                    arr[trav] = data[trav].NO_BATCH;
+                    var item = {}
+                    item["label"] = arr[trav];
+                    item["value"] = arr[trav];
+                    jsonObj.push(item);
+                }
+                console.log(jsonObj);
+
+                $("#TxtBatchNo").autocomplete({
+                    source: function (request, response) {
+                        var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                        response(results.slice(0, 10));
+                    }
+                });
+
+                $("#TxtBatchNo").change(function () {
+                    var BatchNo = $("#TxtBatchNo").val();
+                    for (var i = 0; i < count; i++) {
+                        if (data[i].NO_BATCH == BatchNo) {
+                            $("#TxtNoWO").val(data[i].WO_NUMBER);
+                            $('#TxtItemCode').val(data[i].ITEM_CODE);
+                            $('#txtKetKategori').val(data[i].ITEM_DESCRIPTION);
+                            break;
+                        } else {
+                            $("#TxtNoWO").val("");
+                            $('#TxtItemCode').val("");
+                        }
+                    }
+                });
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetItemCodeOracle() {
+
+        var LocationSite = $("#ddlSite").val();
+        var DEVIATION_CATEGORY = $("#ddlKategori").val();
+
+        var dto = {
+            LocationSite: LocationSite,
+            DeviationCategory: DEVIATION_CATEGORY,
+        }
+        $.ajax({
+            url: "../Form/GetItemCodeOracle",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                var arr = new Array();
+                var jsonObj = [];
+
+                for (trav = 0; trav < count; trav++) {
+                    arr[trav] = data[trav].ITEM_CODE;
+                    var item = {}
+                    item["label"] = arr[trav];
+                    item["value"] = arr[trav];
+                    jsonObj.push(item);
+                }
+                console.log(jsonObj);
+
+                $("#TxtItemCode").autocomplete({
+                    source: function (request, response) {
+                        var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                        response(results.slice(0, 10));
+                    }
+                });
+
+                $("#TxtItemCode").change(function () {
+                    var itemCode = $("#TxtItemCode").val();
+                    for (var i = 0; i < count; i++) {
+                        if (data[i].ITEM_CODE == itemCode) {
+                            $("#txtKetKategori").val(data[i].ITEM_DESCRIPTION);
+                            break;
+                        } else {
+                            $("#txtKetKategori").val("");
+                        }
+                    }
+                });
+
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+
+
     // Load Dropdownlist
 
 
@@ -974,10 +1129,10 @@
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
-               
+
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        
+
                         if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
                             trhtml += '<option selected class="dropdown-item"  value = "' + data[trav].DDL_TRUE + ' ">' + data[trav].DDL_DESCRIPTION + '</option>';
                         } else {
@@ -1015,7 +1170,7 @@
                         else {
                             trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description + '</option>';
                         }
-                        
+
                     }
                 }
                 $("#ddlKategori").empty();
@@ -1028,47 +1183,7 @@
         });
     }
 
-    function GetJenisDeviation() {
-        //GetNoWOOracle
-        var LocationSite = LOCATION_SITE = $("#ddlSite").val();
-        var dto = {
-            LocationSite: LocationSite
-        }
 
-        $.ajax({
-            url: "../Form/GetNoWOOracle",
-            type: "post",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var count = data.length;
-                var trhtml = '';
-                var trav = 0;
-                var arr = new Array();
-                var jsonObj = [];
-                
-                for (trav = 0; trav < count; trav++) {
-                    arr[trav] = data[trav].WO_NUMBER;
-                    var item = {}
-                    item["label"] = arr[trav];
-                    item["value"] = arr[trav];
-                    jsonObj.push(item);
-                }
-                console.log(jsonObj);
-
-                $("#TxtNoWO").autocomplete({
-                    source: function (request, response) {
-                        var results = $.ui.autocomplete.filter(jsonObj, request.term);
-                        response(results.slice(0, 10));
-                    }
-                });
-
-            },
-            error: function (ex) {
-                alert('Error Get Jenis Deviation: ' + JSON.stringify(ex));
-            }
-        });
-    }
 
     function GetItemCodeOracle() {
 
@@ -1139,42 +1254,7 @@
         });
     }
 
-    function GetDepartementLokasiKejadian() {
-        var LocationSiteIncident = $("#txtSiteLokasi").val();
-
-        var dto = {
-            LocationSiteIncident: LocationSiteIncident
-        }
-
-        $.ajax({
-            url: "../Form/GetDeptLokasiKejadian",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-
-                var trhtml = "";
-                var trav = 0;
-                var count = data.length;
-
-                trhtml += '<option disabled class="dropdown-header">Department Lokasi Kejadian</option>';
-                if (count > 0) {
-                    for (trav = 0; trav < count; trav++) {
-                        trhtml += '<option class="dropdown-item" value = "' + data[trav].orggroupname + '" > ' + data[trav].orggroupname;
-                    }
-
-                }
-                $("#txtDept").empty();
-                $("#txtDept").append(trhtml);
-                $("#txtDept").select2();
-
-            }
-            , error: function (ex) {
-
-            }
-        });
-    }
+    
 
 
     // Set Picker disable text
@@ -1822,6 +1902,8 @@
         var DEVIATION_CATEGORY = $("#ddlKategori").val();
         var NO_WO_ORACLE = $('#TxtNoWO').val();
         var Item_Code_Oracle = $('#TxtItemCode').val();
+        var No_Batch_Oracle = $('#TxtBatchNo').val();
+
 
         //var DEVIATION_TYPE = $("#ddlJenSi").val();
         var KET_CATEGORY = $("#txtKetKategori").val();
@@ -1863,13 +1945,13 @@
         var THIRTY = $("#txt30hari").val();
 
         var FLAG_KOOR = document.getElementById('ddlKategori').value;
-        
+
 
         if (FLAG_KOOR == 'QPR' || FLAG_KOOR == 'QNA' || FLAG_KOOR == 'QMT' || FLAG_KOOR == 'LLI') {
             FLAG_KOOR = 'Coordinator_QA';
         } else if (FLAG_KOOR == 'QNS' || FLAG_KOOR == 'HSE' ){
             FLAG_KOOR = 'Coordinator_QS';
-        }        
+        }
         var UsulanRemidial = $('#txtUsulanRemidial').val();
 
 
@@ -1881,11 +1963,12 @@
             Problem: PROBLEM,
             Date_of_incident: DATE_OF_INCIDENT,
             LocationSite: LOCATION_SITE,
-            
+
 
             DeviationCategory: DEVIATION_CATEGORY,
             NO_WO_ORACLE: NO_WO_ORACLE,
             Item_Code_Oracle: Item_Code_Oracle,
+            NO_WO_ORACLE: NO_WO_ORACLE,
 
             //DeviationType: DEVIATION_TYPE,
             KetCategory: KET_CATEGORY,
@@ -1923,7 +2006,7 @@
             THIRTY_FLAG: THIRTY_FLAG,
             THIRTY: THIRTY,
             REQ: REQ,
-            
+
             UsulanRemidial : UsulanRemidial
         };
 
@@ -1934,7 +2017,7 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                
+
                 Swal.fire({
                     title: 'Form Submitted',
                     showDenyButton: false,
@@ -1948,7 +2031,7 @@
                     }
                 })
 
-                
+
             }
             , error: function (ex) {
                 alert('Error Delete Attachment: ' + JSON.stringify(ex));
@@ -2132,10 +2215,9 @@
                 if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
                     $("#divsimpang").show();
                     $("#TxtNoWO").attr("hidden", false);
-                    $("#TxtNoWO").removeAttr("disabled");
-                    GetJenisDeviation();
+                    
+                    GetNoBatchOracle();
                     $('#txtKetKategori').attr('disabled', true);
-                    $('#TxtNoWO').val(data[0].NO_WO_ORACLE);
                 }
                 else
                     if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
@@ -2151,13 +2233,21 @@
                         $('#txtKetKategori').val('');
                     }
 
-               
+                document.getElementById('TxtNoWO').value = data[0].NO_WO_ORACLE;
+                document.getElementById('TxtBatchNo').value = data[0].NO_BATCH_ORACLE;
+                document.getElementById('TxtItemCode').value = data[0].ITEM_CODE_ORACLE;
+
 
                 document.getElementById('txtProblem').value = data[0].PROBLEM;
 
                 document.getElementById('txtLokasi').value = data[0].LOCATION;
-                $('#txtDept').val(data[0].DEPT_LOKASI_KEJADIAN);
-                $('#txtSiteLokasi').val(data[0].SITE_LOKASI_KEJADIAN);
+
+
+                // GET DEPT
+                GetSiteLokasiKejadian();
+                
+                
+
 
                 document.getElementById('txtHow').value = data[0].ORDER_OF_EVENTS;
                 document.getElementById('date-format').value = data[0].DATE_OF_INCIDENT;
@@ -2169,7 +2259,7 @@
                 // USULAN REMIDIAL
                 $('#txtUsulanRemidial').val(data[0].USULAN_REMIDIAL);
 
-                // 1st Card Radio Button                
+                // 1st Card Radio Button
                 // Travel 1
                 $("input[name=travel1][value=" + data[0].SAME_POTEN_DEV_FLAG + "]").prop('checked', true);
                 if (data[0].SAME_POTEN_DEV_FLAG == 'Yes') {
@@ -2245,6 +2335,150 @@
 
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetSiteLokasiKejadian() {
+       var ReqID =  @ViewBag.nomor;
+
+        var dto = {
+            ReqID: ReqID
+        }
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/Rev_GetSiteLokasiKejadian",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+
+                trhtml += '<option disabled class="dropdown-header">Site Lokasi Kejadian</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        if (data[trav].ddl_code == data[trav].DDL_TRUE) {
+                            trhtml += '<option class="dropdown-item" selected value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                        } else {
+                            trhtml += '<option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                        }
+                    }
+                }
+                $("#txtSiteLokasi").empty();
+                $("#txtSiteLokasi").append(trhtml);
+                $("#txtSiteLokasi").select2();
+
+                GetDepartementLokasiKejadian();
+            }
+            , error: function (ex) {
+
+            }
+        });
+    }
+
+    function GetDepartementLokasiKejadian() {
+        var LocationSiteIncident = $("#txtSiteLokasi").val();
+        var ReqID =  @ViewBag.nomor;
+
+        var dto = {
+            ReqID: ReqID,
+            LocationSiteIncident: LocationSiteIncident
+        }
+
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/Rev_GetDeptLokasiKejadian",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+
+                trhtml += '<option disabled class="dropdown-header">Department Lokasi Kejadian</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        if (data[trav].orggroupname == data[trav].DDL_TRUE) {
+                            trhtml += '<option class="dropdown-item" selected value = "' + data[trav].orggroupname + '" > ' + data[trav].orggroupname;
+
+                        } else {
+                            trhtml += '<option class="dropdown-item" value = "' + data[trav].orggroupname + '" > ' + data[trav].orggroupname;
+
+                        }
+                    }
+
+                }
+                $("#txtDept").empty();
+                $("#txtDept").append(trhtml);
+                $("#txtDept").select2();
+
+            }
+            , error: function (ex) {
+
+            }
+        });
+    }
+
+    function GetNoBatchOracle() {
+
+        var LocationSite = LOCATION_SITE = $("#ddlSite").val();
+        var dto = {
+            LocationSite: LocationSite
+        }
+        $.ajax({
+            url: "../Form/GetNoBatchOracle",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                var arr = new Array();
+                var jsonObj = [];
+
+                for (trav = 0; trav < count; trav++) {
+                    arr[trav] = data[trav].NO_BATCH;
+                    var item = {}
+                    item["label"] = arr[trav];
+                    item["value"] = arr[trav];
+                    jsonObj.push(item);
+                }
+                console.log(jsonObj);
+
+                $("#TxtBatchNo").autocomplete({
+                    source: function (request, response) {
+                        var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                        response(results.slice(0, 10));
+                    }
+                });
+
+                $("#TxtBatchNo").change(function () {
+                    var BatchNo = $("#TxtBatchNo").val();
+                    for (var i = 0; i < count; i++) {
+                        if (data[i].NO_BATCH == BatchNo) {
+                            $("#TxtNoWO").val(data[i].WO_NUMBER);
+                            $('#TxtItemCode').val(data[i].ITEM_CODE);
+                            $('#txtKetKategori').val(data[i].ITEM_DESCRIPTION);
+                            break;
+                        } else {
+                            $("#TxtNoWO").val("");
+                            $('#TxtItemCode').val("");
+                        }
+                    }
+                });
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
             }
         });
     }
