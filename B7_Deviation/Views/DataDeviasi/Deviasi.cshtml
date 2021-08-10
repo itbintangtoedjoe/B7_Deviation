@@ -83,14 +83,17 @@
                                             <div id="divsimpang">
                                                 <div class="basic-dropdown">
                                                     @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
-                                                    <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
-                                                    <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control" placeholder="Item Code Oracle">
+                                                    <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control" disabled="disabled">
+                                                    <br />
+                                                    <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle" disabled="disabled">
+                                                    <br />
+                                                    <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle" disabled="disabled">
                                                 </div>
                                             </div>
                                             <br>
                                         </div>
                                         <div class="col-sm-6">
-                                            <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan"></textarea>
+                                            <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan" disabled="disabled"></textarea>
                                         </div>
                                     </div>
                                     @*  Penyimpangan terencana *@
@@ -164,7 +167,7 @@
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Detail Lokasi Kejadian Penyimpangan"></textarea>
+                                            <textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Detail Lokasi Kejadian Penyimpangan" disabled="disabled"></textarea>
                                         </div>
 
                                     </div>
@@ -777,23 +780,25 @@
                 $("#TxtItemCode").attr("disabled", true);
 
                 if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
-                    $("#divsimpang").show();
-                    $("#TxtNoWO").attr("hidden", false);                    
-                    $('#txtKetKategori').attr('disabled', true);
-                    $('#TxtNoWO').val(data[0].NO_WO_ORACLE);
+
+                    $("#TxtNoWO").attr("hidden", false);
+                    $('#TxtBatchNo').attr('hidden', false);
+                    $("#TxtItemCode").attr("hidden", false);
+
+
+                    // MATERIAL AWAL (MASIH ADA LAGI)
+                } else if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
+
+                    $("#TxtItemCode").attr("hidden", false);
+
+                } else {
+                    $("#divsimpang").attr("hidden", true);
                 }
-                else
-                    if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
-                        $("#divsimpang").show();
-                        $("#TxtItemCode").attr("hidden", false);                        
-                        $('#txtKetKategori').attr('disabled', true);
-                        $("#TxtItemCode").val(data[0].ITEM_CODE_ORACLE);
-                    }
-                    else {
-                        $("#divsimpang").hide();
-                        $("#TxtNoWO").attr("disabled", true);
-                        $('#txtKetKategori').val('');
-                    }
+
+                // INPUTS
+                document.getElementById('TxtNoWO').value = data[0].NO_WO_ORACLE;
+                document.getElementById('TxtBatchNo').value = data[0].NO_BATCH_ORACLE;
+                document.getElementById('TxtItemCode').value = data[0].ITEM_CODE_ORACLE;
 
 
 
@@ -801,6 +806,7 @@
                 document.getElementById('txtProblem').value = data[0].PROBLEM;
 
                 document.getElementById('txtLokasi').value = data[0].LOCATION;
+
                 text = '<Option class="dropdown-item" value = "' + data[0].SITE_LOKASI_KEJADIAN + '" selected >' + data[0].SITE_LOKASI_KEJADIAN;
 
                 $("#ddlSiteLokasi").empty();
@@ -1453,7 +1459,7 @@
                 if (data[0].IT_DURASI_PENGERJAAN == '-' && data[0].IT_JUMLAH_PELAKSANA == '-' && data[0].MT_JUMLAH_PELAKSANA == '-' && data[0].MT_DURASI_PENGERJAAN == '-') {
                     $("#koorsubmission").attr("Hidden", true);
                 } else {
-                    alert("ga ok");
+                    
                     $("#ITDP").val(data[0].IT_DURASI_PENGERJAAN);
                     $("#ITJP").val(data[0].IT_JUMLAH_PELAKSANA);
                     $("#MTJP").val(data[0].MT_JUMLAH_PELAKSANA);
