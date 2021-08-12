@@ -289,6 +289,10 @@ namespace B7_Deviation.DataSource {
             
             private global::System.Data.DataColumn columnDUE_DATE;
             
+            private global::System.Data.DataColumn columnTANGGAL_ISI;
+            
+            private global::System.Data.DataColumn columnSTATUS_VERIFIED;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_ReportPICTableDataTable() {
@@ -364,6 +368,22 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TANGGAL_ISIColumn {
+                get {
+                    return this.columnTANGGAL_ISI;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn STATUS_VERIFIEDColumn {
+                get {
+                    return this.columnSTATUS_VERIFIED;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -399,14 +419,16 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportPICTableRow AddSP_ReportPICTableRow(int NO_DISPOSISI, string KETERANGAN_DISPOSISI, string PIC_REMEDIAL_NIK, string PIC_REMEDIAL_NAME, string DUE_DATE) {
+            public SP_ReportPICTableRow AddSP_ReportPICTableRow(int NO_DISPOSISI, string KETERANGAN_DISPOSISI, string PIC_REMEDIAL_NIK, string PIC_REMEDIAL_NAME, string DUE_DATE, string TANGGAL_ISI, string STATUS_VERIFIED) {
                 SP_ReportPICTableRow rowSP_ReportPICTableRow = ((SP_ReportPICTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         NO_DISPOSISI,
                         KETERANGAN_DISPOSISI,
                         PIC_REMEDIAL_NIK,
                         PIC_REMEDIAL_NAME,
-                        DUE_DATE};
+                        DUE_DATE,
+                        TANGGAL_ISI,
+                        STATUS_VERIFIED};
                 rowSP_ReportPICTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_ReportPICTableRow);
                 return rowSP_ReportPICTableRow;
@@ -434,6 +456,8 @@ namespace B7_Deviation.DataSource {
                 this.columnPIC_REMEDIAL_NIK = base.Columns["PIC_REMEDIAL_NIK"];
                 this.columnPIC_REMEDIAL_NAME = base.Columns["PIC_REMEDIAL_NAME"];
                 this.columnDUE_DATE = base.Columns["DUE_DATE"];
+                this.columnTANGGAL_ISI = base.Columns["TANGGAL_ISI"];
+                this.columnSTATUS_VERIFIED = base.Columns["STATUS_VERIFIED"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -449,11 +473,19 @@ namespace B7_Deviation.DataSource {
                 base.Columns.Add(this.columnPIC_REMEDIAL_NAME);
                 this.columnDUE_DATE = new global::System.Data.DataColumn("DUE_DATE", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDUE_DATE);
+                this.columnTANGGAL_ISI = new global::System.Data.DataColumn("TANGGAL_ISI", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTANGGAL_ISI);
+                this.columnSTATUS_VERIFIED = new global::System.Data.DataColumn("STATUS_VERIFIED", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSTATUS_VERIFIED);
                 this.columnKETERANGAN_DISPOSISI.MaxLength = 8000;
                 this.columnPIC_REMEDIAL_NIK.MaxLength = 100;
                 this.columnPIC_REMEDIAL_NAME.MaxLength = 100;
                 this.columnDUE_DATE.ReadOnly = true;
                 this.columnDUE_DATE.MaxLength = 50;
+                this.columnTANGGAL_ISI.ReadOnly = true;
+                this.columnTANGGAL_ISI.MaxLength = 50;
+                this.columnSTATUS_VERIFIED.ReadOnly = true;
+                this.columnSTATUS_VERIFIED.MaxLength = 10;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -677,6 +709,38 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TANGGAL_ISI {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportPICTable.TANGGAL_ISIColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TANGGAL_ISI\' in table \'SP_ReportPICTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportPICTable.TANGGAL_ISIColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string STATUS_VERIFIED {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportPICTable.STATUS_VERIFIEDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'STATUS_VERIFIED\' in table \'SP_ReportPICTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportPICTable.STATUS_VERIFIEDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsNO_DISPOSISINull() {
                 return this.IsNull(this.tableSP_ReportPICTable.NO_DISPOSISIColumn);
             }
@@ -733,6 +797,30 @@ namespace B7_Deviation.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetDUE_DATENull() {
                 this[this.tableSP_ReportPICTable.DUE_DATEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTANGGAL_ISINull() {
+                return this.IsNull(this.tableSP_ReportPICTable.TANGGAL_ISIColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTANGGAL_ISINull() {
+                this[this.tableSP_ReportPICTable.TANGGAL_ISIColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsSTATUS_VERIFIEDNull() {
+                return this.IsNull(this.tableSP_ReportPICTable.STATUS_VERIFIEDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetSTATUS_VERIFIEDNull() {
+                this[this.tableSP_ReportPICTable.STATUS_VERIFIEDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -900,6 +988,8 @@ namespace B7_Deviation.DataSource.ReportPICTableDataSourceTableAdapters {
             tableMapping.ColumnMappings.Add("PIC_REMEDIAL_NIK", "PIC_REMEDIAL_NIK");
             tableMapping.ColumnMappings.Add("PIC_REMEDIAL_NAME", "PIC_REMEDIAL_NAME");
             tableMapping.ColumnMappings.Add("DUE_DATE", "DUE_DATE");
+            tableMapping.ColumnMappings.Add("TANGGAL_ISI", "TANGGAL_ISI");
+            tableMapping.ColumnMappings.Add("STATUS_VERIFIED", "STATUS_VERIFIED");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

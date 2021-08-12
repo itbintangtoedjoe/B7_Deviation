@@ -441,6 +441,9 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@IDUser", SqlDbType.VarChar);
                     command.Parameters["@IDUser"].Value = Model.IDUSER;
 
+                    command.Parameters.Add("@EvaluasiResiko", SqlDbType.VarChar);
+                    command.Parameters["@EvaluasiResiko"].Value = Model.EvaluasiResiko;
+
                     result = (string)command.ExecuteScalar();
                     conn.Close();
                     ModelData.Add(result);

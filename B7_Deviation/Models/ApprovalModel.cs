@@ -15,6 +15,7 @@ namespace B7_Deviation.Models
         public string ITJP { get; set; }
         public string MTDP { get; set; }
         public string MTJP { get; set; }
+        public string EvaluasiResiko { get; set; }
 
     }
 }

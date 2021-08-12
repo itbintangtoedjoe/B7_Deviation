@@ -26,7 +26,7 @@
 								<div class="col-md-8">
 									<div class="form-group">
 
-										
+
 
 									</div>
 								</div>
@@ -59,32 +59,51 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-body">
-							<table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="deviationdatatable" width="100%">
+							<table class="table table-striped table-bordered table-responsive" id="deviationdatatable" width="100%">
 								<thead>
 									<tr>
-										<th width="75px">No</th>
-										<th width="100px">Usulan Tindakan Remedial</th>
-										<th width="100px">Action</th>
-										<th width="75px">Testing Jumlah Personel</th>
-										<th width="75px">Testing Durasi Pengerjaan (Jam)</th>
-										<th width="75px">Testing Manhours Value</th>
-										<th width="75px">Testing Cost of Analysis</th>
-										<th width="75px">Process Durasi Pengerjaan (Jam)</th>
-										<th width="75px">Process Jumlah Pelaksana</th>
-										<th width="75px">Process Manhours Value</th>
-										<th width="75px">Reject Material</th>
-										<th width="75px">Reject Quantity</th>
-										<th width="75px">Reject Cost Material</th>
+										<th rowspan="2">No</th>
+										<th rowspan="2">Usulan Tindakan Remedial</th>
+										<th rowspan="2">Hasil Tindakan Remedial</th>
+										<th colspan="4" style="text-align:center">Testing Cost</th>
+										<th colspan="3" style="text-align:center">Processing Cost</th>
+										<th colspan="3" style="text-align:center">Reject Cost</th>
+										<th colspan="2" style="text-align:center">Machine Cost</th>
+										<th rowspan="2" style="text-align:center">PIC</th>
+										<th rowspan="2" style="text-align:center">Action</th>
+									</tr>
+									<tr>
+										<th width="75px">Jumlah Personel</th>
+										<th width="75px">Durasi Pengerjaan (Jam)</th>
+										<th width="75px">Manhours Value</th>
+										<th width="150px">Cost of Analysis</th>
+										<th width="75px">Durasi Pengerjaan</th>
+										<th width="75px">Jumlah Pelaksana (Jam)</th>
+										<th width="75px">Manhours Value</th>
+										<th width="75px">Material</th>
+										<th width="75px">Quantity</th>
+										<th width="75px">Cost Material</th>
 										<th width="75px">Nama Sparepart</th>
 										<th width="75px">Harga Sparepart</th>
-										<th width="75px">Nama PIC</th>
 										<th width="75px" hidden="hidden">NIK PIC</th>
-										<th width="200px">Action</th>
 									</tr>
 
 								</thead>
-								<tbody id="deviationtable" class="nowrap">
+								<tbody id="deviationtable" class="">
 								</tbody>
+								<tfoot id="picfooter">
+									<tr>
+										<th colspan="3" rowspan="2" style="text-align:center">Total</th>
+										<th colspan="3" style="text-align:center">Total Testing Manhours</th>
+										<th>Total Testing Cost</th>
+										<th colspan="3" style="text-align:center">Total Processing Manhours</th>
+										<th colspan="3" style="text-align:center">Total Rejected Cost</th>
+										<th colspan="2" style="text-align:center">Total Machine Cost</th>
+									</tr>
+
+								</tfoot>
+
+
 							</table>
 
 						</div>
@@ -148,6 +167,23 @@
 								</div>
 							</div>
 						</div>
+
+						<label class="col-sm-2 col-form-label">Evaluasi Risiko</label>
+						<div class="card-body">
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault1" value="Yes" disabled="disabled">
+								<label class="form-check-label" for="flexRadioDefault1">
+									Perlu Ditindaklanjuti dengan Pengkajian Risiko
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault2" value="No" disabled="disabled">
+								<label class="form-check-label" for="flexRadioDefault2">
+									Tidak Perlu Ditindaklanjuti dengan Pengkajian
+								</label>
+							</div>
+						</div>
+					   
 
 					</div>
 				</div>
@@ -284,6 +320,21 @@
 				alert(JSON.stringify(ex));
 			}
 		});
+
+        $.ajax({
+            url: "../Koordinator/LoadEvaluasiResiko",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
 	}
 
 	function LoadKoorSub() {
@@ -322,6 +373,45 @@
 		}
 
 		$.ajax({
+			url: "../Koordinator/Coor_LoadPICDataFooter",
+			type: "post",
+			data: JSON.stringify(dto),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				var trHTML = '';
+				var trav = 0;
+				var Count = data.length;
+				for (trav = 0; trav < Count; trav++) {
+
+					trHTML +=
+						'<tr><td colspan="3" style="text-align:center">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
+						'<td colspan="1" style="text-align:center">' + data[0].TOTAL_TESTING_COA + '</td>' +
+						'<td colspan="3" style="text-align:center">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
+						'<td colspan="3" style="text-align:center">' + data[0].TOTAL_REJ_COST + '</td>' +
+						'<td colspan="2" style="text-align:center">' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
+
+
+						'<tr><th colspan="13" style="text-align:center">Total Times</th>' +
+						'<td colspan="2"  style="text-align:center">' + data[trav].TOTAL_TIMES + '</td></tr>' +
+
+						'<tr><th colspan="13" style="text-align:center">Total Cost</th>' +
+						'<td colspan="2"  style="text-align:center">' + data[trav].TOTAL_COST +'</td></tr>';
+
+
+				}
+
+				// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
+				$('#picfooter').append(trHTML);
+
+
+			},
+			error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+
+		$.ajax({
 			url: "../Koordinator/Coor_LoadPICData",
 			type: "post",
 			data: JSON.stringify(dto),
@@ -340,11 +430,11 @@
 						'<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
 						'<td>' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
 						'<td>' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
-						'<td>' + data[trav].TESTING_MANHOURS_VALUE + '</td>' +
-						'<td>' + data[trav].TESTING_MANHOURS_VALUE + '</td>' +
+						'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
+						'<td>' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
 						'<td>' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
 						'<td>' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
-						'<td>' + data[trav].PROC_MANHOURS_VALUE + '</td>' +
+						'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
 						'<td>' + data[trav].REJ_MATERIAL + '</td>' +
 						'<td>' + data[trav].REJ_QUANTITY + '</td>' +
 						'<td>' + data[trav].REJ_COST_MATERIAL + '</td>' +
@@ -355,11 +445,12 @@
 
 					if (data[trav].FLAG_PIC == 'REJECTED' || data[trav].FLAG_PIC == null) {
 						trHTML +=
-							'<td> - </td ></tr > ';
+							'<td> - </td></tr>';
 
 					} else {
 						trHTML +=
 							'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td ></tr > ';
+
 					}
 				}
 
@@ -369,10 +460,10 @@
 
 			},
 			error: function (ex) {
-
 				alert(JSON.stringify(ex));
 			}
 		});
+
 	};
 
 	function ShowBukti(button) {

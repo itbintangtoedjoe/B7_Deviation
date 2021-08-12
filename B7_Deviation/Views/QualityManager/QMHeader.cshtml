@@ -27,6 +27,21 @@
 											<span class="fa fa-ban"></span>
 										</button>
 									</div>
+									<div class="form-group" id="evaluasiresiko">
+										<label>Evaluasi Risiko</label>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Perlu Ditindaklanjuti dengan Pengkajian Risiko">
+											<label class="form-check-label" for="flexRadioDefault1">
+												Perlu Ditindaklanjuti dengan Pengkajian Risiko
+											</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked value="Tidak Perlu Ditindaklanjuti dengan Pengkajian">
+											<label class="form-check-label" for="flexRadioDefault2">
+												Tidak Perlu Ditindaklanjuti dengan Pengkajian
+											</label>
+										</div>
+									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
@@ -48,6 +63,7 @@
 	</div>
 
 	<div class="form-group">
+
 		@Html.Partial("QualityManagerPartialView", "ReviewerList")
 
 	</div>
@@ -66,7 +82,9 @@
 										</label>
 										<textarea id="usulantindakan" class="form-control" disabled="disabled"></textarea>
 									</div>
+									
 								</div>
+
 							</div>
 						</div>
 					</div>
@@ -84,7 +102,7 @@
 
 		ApproveStatusAssignPIC();
 		GetUsulanTindakan();
-		
+
 		$("#btnApprove").click(function () {
 			Approve();
 
@@ -94,7 +112,7 @@
 
 	});
 
-	
+
 
 	function GetUsulanTindakan() {
 		var REQID = @ViewBag.nomor;
@@ -138,8 +156,10 @@
 
 				if (data == "CAN") {
 					$("#btnApprove").attr('hidden', false);
+					$("#evaluasiresiko").attr('hidden', false);
 				} else {
 					$("#btnApprove").attr('hidden', true);
+					$("#evaluasiresiko").attr('hidden', true);
 				}
 
 			}, error: function (ex) {
@@ -150,13 +170,17 @@
 	}
 
 	function Approve() {
+
+		var evaluasi_resiko = $('input[name="flexRadioDefault"]:checked').val();
+
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 		var dto = {
 
 			REQID: REQID,
-			IDUSER: iduser
+			IDUSER: iduser,
+			EvaluasiResiko: evaluasi_resiko
 		};
 
 		$.ajax({
