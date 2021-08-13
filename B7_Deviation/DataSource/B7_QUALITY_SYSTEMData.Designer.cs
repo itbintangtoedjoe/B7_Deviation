@@ -381,6 +381,10 @@ namespace B7_Deviation.DataSource {
             
             private global::System.Data.DataColumn columnAPPDATE;
             
+            private global::System.Data.DataColumn columnUSULAN_REMIDIAL;
+            
+            private global::System.Data.DataColumn columnEVALUASI_RESIKO;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_ReportDataTable() {
@@ -824,6 +828,22 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn USULAN_REMIDIALColumn {
+                get {
+                    return this.columnUSULAN_REMIDIAL;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn EVALUASI_RESIKOColumn {
+                get {
+                    return this.columnEVALUASI_RESIKO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -910,7 +930,9 @@ namespace B7_Deviation.DataSource {
                         string THIRTY, 
                         string REQ, 
                         string SUPERIORNAME, 
-                        System.DateTime APPDATE) {
+                        System.DateTime APPDATE, 
+                        string USULAN_REMIDIAL, 
+                        string EVALUASI_RESIKO) {
                 SP_ReportRow rowSP_ReportRow = ((SP_ReportRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         REQ_ID,
@@ -963,7 +985,9 @@ namespace B7_Deviation.DataSource {
                         THIRTY,
                         REQ,
                         SUPERIORNAME,
-                        APPDATE};
+                        APPDATE,
+                        USULAN_REMIDIAL,
+                        EVALUASI_RESIKO};
                 rowSP_ReportRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_ReportRow);
                 return rowSP_ReportRow;
@@ -1037,6 +1061,8 @@ namespace B7_Deviation.DataSource {
                 this.columnREQ = base.Columns["REQ"];
                 this.columnSUPERIORNAME = base.Columns["SUPERIORNAME"];
                 this.columnAPPDATE = base.Columns["APPDATE"];
+                this.columnUSULAN_REMIDIAL = base.Columns["USULAN_REMIDIAL"];
+                this.columnEVALUASI_RESIKO = base.Columns["EVALUASI_RESIKO"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1144,6 +1170,10 @@ namespace B7_Deviation.DataSource {
                 base.Columns.Add(this.columnSUPERIORNAME);
                 this.columnAPPDATE = new global::System.Data.DataColumn("APPDATE", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAPPDATE);
+                this.columnUSULAN_REMIDIAL = new global::System.Data.DataColumn("USULAN_REMIDIAL", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUSULAN_REMIDIAL);
+                this.columnEVALUASI_RESIKO = new global::System.Data.DataColumn("EVALUASI_RESIKO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEVALUASI_RESIKO);
                 this.columnREQ_ID.AllowDBNull = false;
                 this.columnREQ_ID.MaxLength = 50;
                 this.columnDEVIATION_ID.MaxLength = 50;
@@ -1198,6 +1228,9 @@ namespace B7_Deviation.DataSource {
                 this.columnSUPERIORNAME.ReadOnly = true;
                 this.columnSUPERIORNAME.MaxLength = 80;
                 this.columnAPPDATE.ReadOnly = true;
+                this.columnUSULAN_REMIDIAL.MaxLength = 2000;
+                this.columnEVALUASI_RESIKO.ReadOnly = true;
+                this.columnEVALUASI_RESIKO.MaxLength = 3;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2141,6 +2174,38 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string USULAN_REMIDIAL {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_Report.USULAN_REMIDIALColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'USULAN_REMIDIAL\' in table \'SP_Report\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_Report.USULAN_REMIDIALColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string EVALUASI_RESIKO {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_Report.EVALUASI_RESIKOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EVALUASI_RESIKO\' in table \'SP_Report\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_Report.EVALUASI_RESIKOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDEVIATION_IDNull() {
                 return this.IsNull(this.tableSP_Report.DEVIATION_IDColumn);
             }
@@ -2714,6 +2779,30 @@ namespace B7_Deviation.DataSource {
             public void SetAPPDATENull() {
                 this[this.tableSP_Report.APPDATEColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUSULAN_REMIDIALNull() {
+                return this.IsNull(this.tableSP_Report.USULAN_REMIDIALColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUSULAN_REMIDIALNull() {
+                this[this.tableSP_Report.USULAN_REMIDIALColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsEVALUASI_RESIKONull() {
+                return this.IsNull(this.tableSP_Report.EVALUASI_RESIKOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetEVALUASI_RESIKONull() {
+                this[this.tableSP_Report.EVALUASI_RESIKOColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -2926,6 +3015,8 @@ namespace B7_Deviation.DataSource.B7_QUALITY_SYSTEMDataTableAdapters {
             tableMapping.ColumnMappings.Add("REQ", "REQ");
             tableMapping.ColumnMappings.Add("SUPERIORNAME", "SUPERIORNAME");
             tableMapping.ColumnMappings.Add("APPDATE", "APPDATE");
+            tableMapping.ColumnMappings.Add("USULAN_REMIDIAL", "USULAN_REMIDIAL");
+            tableMapping.ColumnMappings.Add("EVALUASI_RESIKO", "EVALUASI_RESIKO");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

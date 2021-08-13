@@ -73,6 +73,8 @@
               <Mapping SourceColumn="REQ" DataSetColumn="REQ" />
               <Mapping SourceColumn="SUPERIORNAME" DataSetColumn="SUPERIORNAME" />
               <Mapping SourceColumn="APPDATE" DataSetColumn="APPDATE" />
+              <Mapping SourceColumn="USULAN_REMIDIAL" DataSetColumn="USULAN_REMIDIAL" />
+              <Mapping SourceColumn="EVALUASI_RESIKO" DataSetColumn="EVALUASI_RESIKO" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -426,6 +428,20 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="APPDATE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnAPPDATE" msprop:Generator_ColumnPropNameInRow="APPDATE" msprop:Generator_ColumnPropNameInTable="APPDATEColumn" msprop:Generator_UserColumnName="APPDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="USULAN_REMIDIAL" msprop:Generator_ColumnVarNameInTable="columnUSULAN_REMIDIAL" msprop:Generator_ColumnPropNameInRow="USULAN_REMIDIAL" msprop:Generator_ColumnPropNameInTable="USULAN_REMIDIALColumn" msprop:Generator_UserColumnName="USULAN_REMIDIAL" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EVALUASI_RESIKO" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnEVALUASI_RESIKO" msprop:Generator_ColumnPropNameInRow="EVALUASI_RESIKO" msprop:Generator_ColumnPropNameInTable="EVALUASI_RESIKOColumn" msprop:Generator_UserColumnName="EVALUASI_RESIKO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
