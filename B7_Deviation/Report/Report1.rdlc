@@ -7402,15 +7402,32 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>= "Rp. " &amp; (
+                                  <Value>= "Rp. " &amp; 
 	(
-		SUM(Fields!TESTING_JUMLAH_PELAKSANA.Value * Fields!TESTING_DURASI_PENGERJAAN.Value) + 
-		SUM(Fields!PROC_JUMLAH_PELAKSANA.Value * Fields!PROC_DURASI_PENGERJAAN.Value) 
-	)
+		(
+			SUM(Fields!TESTING_JUMLAH_PELAKSANA.Value * Fields!TESTING_DURASI_PENGERJAAN.Value)
+		) 
+		
+		* MAX(Fields!TESTING_MANHOURS_VALUE.Value)
+    ) 
 
-	* MAX(Fields!TESTING_MANHOURS_VALUE.Value)
+    +
 
- ) + SUM(Fields!REJ_COST_MATERIAL.Value) + SUM(Fields!MC_TOTAL_HARGA_SPAREPART.Value)</Value>
+    (
+		(
+			SUM(Fields!PROC_JUMLAH_PELAKSANA.Value * Fields!PROC_DURASI_PENGERJAAN.Value) 
+		)
+
+		* MAX(Fields!PROC_MANHOURS_VALUE.Value)
+    )
+   
+    +
+
+    SUM(Fields!REJ_COST_MATERIAL.Value) 
+	
+	+ 
+	
+	SUM(Fields!MC_TOTAL_HARGA_SPAREPART.Value)</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
                                   </Style>
@@ -7434,6 +7451,7 @@
                           </Style>
                         </Textbox>
                         <ColSpan>5</ColSpan>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />

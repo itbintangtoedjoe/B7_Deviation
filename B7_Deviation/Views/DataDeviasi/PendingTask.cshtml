@@ -119,7 +119,7 @@
                                 trHTML +=
                                     '<tr><td><a href="../QualityManager/QMHeader?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
 
-                            } else if (data[trav].STAT == 'URABS1') {
+                            } else if (data[trav].STAT == 'URABS1' || data[trav].STAT == 'PICDD1') {
                                 trHTML +=
                                     '<tr><td><a href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
                             } else {
@@ -130,8 +130,14 @@
                         } else if (data[trav].SEND_TO == 'PICRemidial') {
 
                             if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
-                                trHTML +=
-                                    '<tr><td><a href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>';
+                                if (data[trav].FLAG_QMPIC == 'QM') {
+                                    trHTML +=
+                                        '<tr><td><a href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                } else {
+                                    trHTML +=
+                                        '<tr><td><a href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>';
+                                }
+                               
                             } else if (data[trav].FLAG_SPVPIC == 'PIC') {
                                 trHTML +=
                                     '<tr><td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>';
@@ -163,7 +169,7 @@
                             '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +
                             '<td>' + data[trav].PLAN_DEV + '</td>' +
                             '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
-                            '<td>' + data[trav].STATUS + '</td>';
+                            '<td>' + data[trav].USER_DESC + '</td>';
 
                         if (data[trav].SEND_TO == 'Reviewer') {
                             if (data[trav].ALASAN_REJECT == 'Detail Reviewer') {

@@ -633,6 +633,7 @@
 					});
 
 					LoadKeteranganDisposisi();
+					
 				}
 			}
 			, error: function (ex) {
@@ -642,6 +643,8 @@
 	}
 
 	function LoadKeteranganDisposisi() {
+
+		ApproveStatusAssignPIC();
 
 		var REQID = @ViewBag.nomor;
 

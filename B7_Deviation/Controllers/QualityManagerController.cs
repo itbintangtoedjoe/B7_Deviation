@@ -957,7 +957,7 @@ namespace B7_Deviation.Controllers
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Option"].Value = "Proposal Approved by SPV";
+                    command.Parameters["@Option"].Value = "Proposed Revision";
 
                     command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
                     command.Parameters["@Nomor"].Value = Model.REQID;

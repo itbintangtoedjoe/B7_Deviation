@@ -81,7 +81,13 @@
                                     '<td align="center"> <a href="../PICRemidial/UsulanRevisi?Nomor=' + data[trav].REQ_ID + '&Urutan=' + data[trav].NO_DISPOSISI + '" class="btn btn-success">Revisi</a> </td>';
 
                                 // WHEN PIC PROPOSAL GOT REJECTED (HAVE TO DO THE REMEDIAL RESULT INSERTION) BY MANAGER/SPV || WHEN APPROVED BY MANAGER
-                            } else if (data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY COORDINATOR' || data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY SPV PIC' || data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY SPV PIC') {
+                            } else if (
+                                data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY COORDINATOR' ||
+                                data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY SPV PIC' ||
+                                data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY SPV PIC' ||
+                                data[trav].FLAG_PIC == 'PROPOSAL APPROVED BY MANAGER' ||
+                                data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY MANAGER'
+                            ) {
                                 trHTML +=
                                     '<tr><td><a href="../PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].FLAG_PIC + '</td>' +
@@ -89,7 +95,7 @@
                                     '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                    '<td align="center">' + data[trav].FLAG_REVISI + ', PROCEED WITH REMIDIAL RESULT INSERTION </td>';
+                                '<td align="center">' + data[trav].ALASAN_REJECT_SPV + '</td>';
 
                                 // WHEN PIC PROPOSE A REVISION, THEN PIC CANT DO ANYTHING FOR A WHILE UNTIL IT GOT REJECTED/APPROVED
                             } else if (data[trav].FLAG_REVISI == 'PROPOSAL SUBMITTED' || data[trav].FLAG_PIC == 'SUBMITTED') {

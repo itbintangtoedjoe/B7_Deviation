@@ -87,14 +87,27 @@
                             }
                            
                         // USULAN REVISI
-                        }else if (data[trav].STATUSCODE == 'PICDD1') {
-                            trHTML +=
-                                '<tr><td><a href="../SpvPIC/PICProposal?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>' +
-                                '<td>' + data[trav].DEVIATION_NO + '</td>' +
-                                '<td>' + data[trav].ID_PROPOSER + '</td>' +
-                                '<td>' + data[trav].PROPOSER_NAME + '</td>' +
-                                '<td>' + data[trav].STATUS + '</td>' +
-                                '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
+                        } else if (data[trav].STATUSCODE == 'PICDD1') {
+
+                            if (data[trav].FLAG_PIC == 'REVISI DUE DATE') {
+                                trHTML +=
+                                    '<tr><td><a href="../SpvPIC/PICProposal?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>' +
+                                    '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                    '<td>' + data[trav].ID_PROPOSER + '</td>' +
+                                    '<td>' + data[trav].PROPOSER_NAME + '</td>' +
+                                    '<td>' + data[trav].STATUS + '</td>' +
+                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
+                            } else {
+                                trHTML +=
+                                    '<tr><td><a href="../SpvPIC/HasilRemedial?Nomor=' + data[trav].REQ_ID + '&Dis=' + data[trav].NO_DISPOSISI + '">' + data[trav].REQ_ID + '</td>' +
+                                    '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                    '<td>' + data[trav].ID_PROPOSER + '</td>' +
+                                    '<td>' + data[trav].PROPOSER_NAME + '</td>' +
+                                    '<td>' + data[trav].STATUS + '</td>' +
+                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
+                            }
+
+                            
 
                         }
 
