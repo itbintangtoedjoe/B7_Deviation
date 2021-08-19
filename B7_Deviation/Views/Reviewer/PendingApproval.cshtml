@@ -20,13 +20,14 @@
                     <table class="table table-striped table-bordered zero-configuration table-responsive" id="deviationdatatable" width="100%">
                         <thead>
                             <tr>
+                                <th width="100px">Action</th>
                                 <th width="100px">Request ID</th>
-                                <th width="75px">ID Proposer</th>
-                                <th width="100px">Reviewer Name</th>
+                                <th width="100px">ID Proposer</th>
+                                <th width="150px">Reviewer Name</th>
                                 <th width="100px">ID Reviewer</th>
                                 <th width="100px">Status</th>
                                 <th width="100px">Review Text</th>
-                                <th width="100px">Reason for being Rejected</th>
+                                <th width="200px">Reason for being Rejected</th>
                             </tr>
                         </thead>
                         <tbody id="deviationtable" class="nowrap">
@@ -67,23 +68,34 @@
 
                         if (data[trav].USER_ID == data[trav].USER_NIK) {
                             trHTML +=
-                                '<tr><td>' + data[trav].REQ_ID + '</td>' +
-                                '<td>' + data[trav].ID_PROPOSER + '</td>' +
-                                '<td><a href="../Reviewer/ReviewerHeader?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].USER_NAME + '</td>' +
-                                '<td>' + data[trav].USER_NIK + '</td>' +
-                                '<td>' + data[trav].FLAG_REVIEW + '</td>' +
-                                '<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
-                                '<td>' + data[trav].KETERANGAN_REJECT + '</td>';
+                                '<tr><td><input type="button" class="btn btn-success" value="Open" onclick="Open(this)"></td>';
+
                         } else {
                             trHTML +=
-                                '<tr><td>' + data[trav].REQ_ID + '</td>' +
-                                '<td>' + data[trav].ID_PROPOSER + '</td>' +
-                                '<td>' + data[trav].USER_NAME + '</td>' +
-                                '<td>' + data[trav].USER_NIK + '</td>' +
-                                '<td>' + data[trav].FLAG_REVIEW + '</td>' +
-                                '<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
-                                '<td>' + data[trav].KETERANGAN_REJECT + '</td>';
+                                '<tr><td> N/A </td>';
                         }
+
+                        trHTML +=
+                            '<td>' + data[trav].REQ_ID + '</td>' +
+                            '<td>' + data[trav].ID_PROPOSER + '</td>' +
+                            '<td>' + data[trav].USER_NAME + '</td>' +
+                            '<td>' + data[trav].USER_NIK + '</td>';
+
+                        if (data[trav].FLAG_REVIEW == 'NOT YET' || data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY COORDINATOR' || data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY QUALITY MANAGER') {
+                            trHTML +=
+                                '<td> Pending Review </td>';
+                        } else if (data[trav].FLAG_REVIEW == 'REVIEW APPROVED BY COORDINATOR' || data[trav].FLAG_REVIEW == 'REVIEW APPROVED BY QUALITY MANAGER') {
+                            trHTML +=
+                                '<td> Approved </td>';
+                        } else if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR' || data[trav].FLAG_REVIEW == 'DONE REVISE FROM COORDINATOR' || data[trav].FLAG_REVIEW == 'DONE REVISE FROM QUALITY MANAGER') {
+                            trHTML +=
+                                '<td> Pending Approval </td>';
+                        }
+
+                        trHTML+=
+                            '<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
+                            '<td>' + data[trav].KETERANGAN_REJECT + '</td></tr>';
+
                     }
 
                     $('#deviationtable').empty();
@@ -95,6 +107,13 @@
                     alert(JSON.stringify(ex));
                 }
             });
+        }
+
+        function Open(button) {
+            var row = $(button).closest("TR");
+
+            var Nomor = $("TD", row).eq(1).html();
+            window.open("../Reviewer/ReviewerHeader?Nomor=" + Nomor);
         }
 
     </script>

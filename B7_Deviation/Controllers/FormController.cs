@@ -233,6 +233,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
+                        
 
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
                         dataAdap.SelectCommand = Command;
@@ -808,7 +809,7 @@ namespace B7_Deviation.Controllers
                         "</table>" +
                         "</body></html>";
                 }
-              
+                
                 // Start Setting Send Notification
                 Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
                 Msg.Subject = "Deviation Notification";

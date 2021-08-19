@@ -151,6 +151,28 @@
 					alert(JSON.stringify(ex));
 				}
 			});
+
+			var tabletype = "More Than One";
+			var whoreceiver = "QM after Koordinator Approve Reviewer";
+
+			var dtx = {
+				ReqID: reqid,
+				TableType: tabletype,
+				WhoReceiver: whoreceiver
+			};
+
+			$.ajax({
+				type: "post",
+				url: '../Form/SendEmailInputProposal',
+				data: JSON.stringify(dtx),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+
+				}, error: function (ex) {
+					alert("Error Email: " + JSON.stringify(ex));
+				}
+			});
 		}
 
 		function ShowBukti(button) {
@@ -177,7 +199,7 @@
 					var trHTML = '';
 					var trav = 0;
 					var Count = data.length;
-					
+
 					if (Count == '0') {
 						trHTML +=
 							'<tr><td> - </td>' +
@@ -195,7 +217,7 @@
 						}
 					}
 
-					
+
 
 					$('#reviewerbukti').empty();
 					$('#reviewerbukti').append(trHTML);
@@ -229,26 +251,27 @@
 					var Count = data.length;
 					for (trav = 0; trav < Count; trav++) {
 
-						// WHEN REVIEWER FINISHED REVIEW / REVISE
-						if (data[trav].FLAG_REVIEW == "DONE REVIEW FROM COORDINATOR" || data[trav].FLAG_REVIEW == "DONE REVISE FROM COORDINATOR") {
+						trHTML +=
+							'<tr><td>' + data[trav].USER_NAME + '</td>' +
+							'<td>' + data[trav].USER_NIK + '</td>';
+
+						if (data[trav].FLAG_REVIEW == 'NOT YET' || data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY COORDINATOR') {
 							trHTML +=
-								'<tr><td>' + data[trav].USER_NAME + '</td>' +
-								'<td>' + data[trav].USER_NIK + '</td>' +
-								'<td>' + data[trav].FLAG_REVIEW + '</td>' +
+								'<td> Pending Review </td>' +
+								'<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
+								'<td> N/A </td>';
+
+						} else if (data[trav].FLAG_REVIEW == 'REVIEW APPROVED BY COORDINATOR') {
+							trHTML +=
+								'<td> Approved </td>' +
+								'<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
+								'<td> N/A </td>';
+						} else if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR' || 'DONE REVISE FROM COORDINATOR') {
+							trHTML +=
+								'<td> Pending Approval </td>' +
 								'<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
 								'<td> <input type="button" id = "Approve"  value="Approve" onclick="Approve(this)" class="btn btn-success" style="width:50px"/> <input type = "button" id = "Reject" value = "Reject" onclick="Reject(this)" class="btn btn-danger" style="width:50px"/>' + '</td>';
-								;
-
-
-						   // OTHER THAN THAT
-						} else {
-							trHTML +=
-								'<tr><td>' + data[trav].USER_NAME + '</td>' +
-								'<td>' + data[trav].USER_NIK + '</td>' +
-								'<td>' + data[trav].FLAG_REVIEW + '</td>' +
-								'<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
-								'<td> * NO ACTION NEEDED * </td>'
-								;
+							;
 						}
 
 						trHTML += '<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info">View</button ></td ></tr > ';
@@ -434,7 +457,7 @@
 		}
 
 		function CheckRevApp() {
-			
+
 			var REQID = @ViewBag.nomor;
 
 			var dto = {
@@ -450,12 +473,12 @@
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
 
-					
+
 					if (data == 'S') {
 						$("#disposisi").removeAttr("hidden");
 
 						$("#btnDelegate").removeAttr('hidden');
-						
+
 						$("#btnGotomanager").removeAttr('hidden');
 
 						$("#btnGotomanager").click(function () {

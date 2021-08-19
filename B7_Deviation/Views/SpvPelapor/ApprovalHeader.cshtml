@@ -204,8 +204,7 @@
 	function SendEmailApprove() {
 		var REQID = $("#lblReq").text();
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-		//var body = '<html><body>Dear {Model.Receiver}, Proposal with No: <b>' + REQID + ' </b> Is Approved by Superior</body></html>';
-		//var subject = 'B7 - Deviation';
+		
 
 		var tabletype = "More Than One";
 		var whoreceiver = "Koordinator after Superior Approved";
@@ -213,8 +212,7 @@
 		var dto = {
 			Receiver: receiver,
 			ReqID: REQID,
-			//Body: body,
-			//Subject: subject,
+			
 			TableType: tabletype,
 			WhoReceiver: whoreceiver
 		};

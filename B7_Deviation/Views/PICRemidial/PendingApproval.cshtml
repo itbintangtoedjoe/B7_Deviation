@@ -20,13 +20,15 @@
                     <table class="table table-striped table-bordered zero-configuration table-responsive" id="deviationdatatable" width="100%">
                         <thead>
                             <tr>
+                                <th width="100px">Action</th>
                                 <th width="100px">Request ID</th>
-                                <th width="75px">Status</th>
+                                <th width="100px">Status</th>
                                 <th width="100px">Keterangan Disposisi</th>
                                 <th width="100px">Keterangan PIC</th>
                                 <th width="100px">NIK PIC</th>
                                 <th width="100px">Nama PIC</th>
-                                <th width="100px">Keterangan</th>
+                                <th width="100px">Keterangan Reject</th>
+                                <th width="100px">Revisi Due Date</th>
                             </tr>
                         </thead>
                         <tbody id="deviationtable" class="nowrap">
@@ -68,19 +70,20 @@
                         
                         if (data[trav].USER_ID == data[trav].PIC_REMEDIAL_NIK) {
 
-
-                            // WHEN PIC DOESNT PROPOSE ANTHING TO REVISE YET (FLAG REVISE == NULL) AND NEVER SUBMIT ANYTHING
-                            if (data[trav].FLAG_REVISI == '-' && data[trav].FLAG_PIC == 'ASSIGNED') {
+                            // KALAU ASSIGNED, BRARTI BISA ISI / MINTA REVISI
+                            if (data[trav].FLAG_PIC == 'ASSIGNED') {
                                 trHTML +=
-                                    '<tr><td><a href="../PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + '"">' + data[trav].REQ_ID + '</td>' +
-                                    '<td>' + data[trav].FLAG_PIC + '</td>' +
+                                    '<tr><td style="text-align:center"><input value="Select" onclick="Open(this)" type="button" class="btn btn-success"/>' +
+                                    '<td>' + data[trav].REQ_ID + '</td>' +
+                                    '<td> Pending Submission </td>' +
                                     '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                     '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                    '<td align="center"> <a href="../PICRemidial/UsulanRevisi?Nomor=' + data[trav].REQ_ID + '&Urutan=' + data[trav].NO_DISPOSISI + '" class="btn btn-success">Revisi</a> </td>';
+                                    '<td>' + data[trav].ALASAN_REJECT_SPV + '</td>' +
+                                    '<td style="text-align:center;"><input value="Revisi Due Date" onclick="Revisi(this, ' + data[trav].NO_DISPOSISI+')" type="button" class="btn btn-danger"/>';
 
-                                // WHEN PIC PROPOSAL GOT REJECTED (HAVE TO DO THE REMEDIAL RESULT INSERTION) BY MANAGER/SPV || WHEN APPROVED BY MANAGER
+                                // BISANYA ISI DOANG
                             } else if (
                                 data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY COORDINATOR' ||
                                 data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY SPV PIC' ||
@@ -89,45 +92,76 @@
                                 data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY MANAGER'
                             ) {
                                 trHTML +=
-                                    '<tr><td><a href="../PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>' +
-                                    '<td>' + data[trav].FLAG_PIC + '</td>' +
+                                    '<tr><td style="text-align:center"><input value="Select" onclick="Open(this)" type="button" class="btn btn-success"/>' +
+                                    '<td>' + data[trav].REQ_ID + '</td>' +
+                                    '<td> Pending Submission </td>' +
                                     '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                     '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td align="center">' + data[trav].ALASAN_REJECT_SPV + '</td>';
+                                    '<td>' + data[trav].ALASAN_REJECT_SPV + '</td>' +
+                                    '<td> N/A </td>'
 
-                                // WHEN PIC PROPOSE A REVISION, THEN PIC CANT DO ANYTHING FOR A WHILE UNTIL IT GOT REJECTED/APPROVED
-                            } else if (data[trav].FLAG_REVISI == 'PROPOSAL SUBMITTED' || data[trav].FLAG_PIC == 'SUBMITTED') {
+                                // KALAU UDAH ISI / MINTA REVISI, STATUSNYA PENDING DAN GABISA NGAPA2IN
+                            } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE') {
                                 trHTML +=
-                                    '<tr><td>' + data[trav].REQ_ID + '</td>' +
-                                    '<td>' + data[trav].FLAG_PIC + '</td>' +
+                                    '<tr><td> N/A </td>' +
+                                    '<td>' + data[trav].REQ_ID + '</td>' +
+                                    '<td> Pending Approval </td>' +
                                     '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                     '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                    '<td align="center">' + data[trav].FLAG_REVISI + '</td>';
-
-                            } else if (data[trav].FLAG_REVISI == '-') {
-                                '<tr><td><a href="../PICRemidial/PICHeader?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>' +
-                                    '<td>' + data[trav].FLAG_PIC + '</td>' +
-                                    '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                                    '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-                                    '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
-                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                    '<td align="center">' + data[trav].FLAG_REVISI + '</td>';
+                                    '<td>' + data[trav].ALASAN_REJECT_SPV + '</td>' +
+                                    '<td> N/A </td>'
                             }
 
                             // LIST OF OTHER'S PIC
                         } else {
-                            trHTML +=
-                                '<tr><td>' + data[trav].REQ_ID + '</td>' +
-                                '<td>' + data[trav].FLAG_PIC + '</td>' +
-                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                                '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-                                '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
-                                '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td align="center">' + data[trav].FLAG_REVISI + '</td>';
+                            if (data[trav].FLAG_PIC == 'ASSIGNED') {
+                                trHTML +=
+                                    '<tr><td> N/A </td>' +
+                                    '<td>' + data[trav].REQ_ID + '</td>' +
+                                    '<td> Pending Submission </td>' +
+                                    '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                    '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+                                    '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+                                    '<td>' + data[trav].ALASAN_REJECT_SPV + '</td>' +
+                                    '<td> N/A </td>';
+
+                                // BISANYA ISI DOANG
+                            } else if (
+                                data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY COORDINATOR' ||
+                                data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY SPV PIC' ||
+                                data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY SPV PIC' ||
+                                data[trav].FLAG_PIC == 'PROPOSAL APPROVED BY MANAGER' ||
+                                data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY MANAGER'
+                            ) {
+                                trHTML +=
+                                    '<tr><td> N/A </td>' +
+                                    '<td>' + data[trav].REQ_ID + '</td>' +
+                                    '<td> Pending Submission </td>' +
+                                    '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                    '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+                                    '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+                                    '<td>' + data[trav].ALASAN_REJECT_SPV + '</td>' +
+                                    '<td> N/A </td>'
+
+                                // KALAU UDAH ISI / MINTA REVISI, STATUSNYA PENDING DAN GABISA NGAPA2IN
+                            } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE') {
+                                trHTML +=
+                                    '<tr><td> N/A </td>' +
+                                    '<td>' + data[trav].REQ_ID + '</td>' +
+                                    '<td> Pending Approval </td>' +
+                                    '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                    '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+                                    '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+                                    '<td>' + data[trav].ALASAN_REJECT_SPV + '</td>' +
+                                    '<td> N/A </td>'
+                            }
 
                         }
                     }
@@ -141,6 +175,21 @@
                     alert(JSON.stringify(ex));
                 }
             });
+        }
+
+        function Open(button) {
+            var row = $(button).closest("TR");
+
+            var Nomor = $("TD", row).eq(1).html();
+            window.open("../PICRemidial/PICHeader?Nomor=" + Nomor);
+        }
+
+        function Revisi(button, no_disposisi) {
+            
+            var row = $(button).closest("TR");
+
+            var Nomor = $("TD", row).eq(1).html();
+            window.open("../PICRemidial/UsulanRevisi?Nomor=" + Nomor + "&Urutan=" + no_disposisi);
         }
 
     </script>

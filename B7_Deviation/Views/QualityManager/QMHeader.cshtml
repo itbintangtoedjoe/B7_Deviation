@@ -209,6 +209,31 @@
 				alert('Error Approve: ' + JSON.stringify(ex));
 			}
 		});
+
+		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+		var tabletype = "More Than One";
+		var whoreceiver = "Koordinator after Superior Approved";
+
+		var dtx = {
+			Receiver: receiver,
+			ReqID: REQID,
+
+			TableType: tabletype,
+			WhoReceiver: whoreceiver
+		};
+
+		$.ajax({
+			type: "post",
+			url: '../Form/SendEmailInputProposal',
+			data: JSON.stringify(dtx),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+			}, error: function (ex) {
+				alert("Error Email: " + JSON.stringify(ex));
+			}
+		});
 	}
 
 	@*function Reject() {
