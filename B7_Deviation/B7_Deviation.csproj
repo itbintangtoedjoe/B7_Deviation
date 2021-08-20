@@ -4960,6 +4960,7 @@
     <Content Include="Content\Styles\images\l-dark.png" />
     <Content Include="Content\Styles\images\l-white.png" />
     <Content Include="Content\Styles\images\loader.gif" />
+    <Content Include="Content\Styles\images\loading.gif" />
     <Content Include="Content\Styles\images\logo-compact.png" />
     <Content Include="Content\Styles\images\logo-text.png" />
     <Content Include="Content\Styles\images\logo-white.png" />
@@ -4982,6 +4983,7 @@
     <Content Include="Content\Styles\images\member\7.jpg" />
     <Content Include="Content\Styles\images\member\8.jpg" />
     <Content Include="Content\Styles\images\member\profile.png" />
+    <Content Include="Content\Styles\images\output-onlinegiftools.gif" />
     <Content Include="Content\Styles\images\paypal.png" />
     <Content Include="Content\Styles\images\profile\1.jpg" />
     <Content Include="Content\Styles\images\profile\1.png" />
@@ -5006,6 +5008,7 @@
     <Content Include="Content\Styles\images\users\6.jpg" />
     <Content Include="Content\Styles\images\users\7.jpg" />
     <Content Include="Content\Styles\images\users\8.jpg" />
+    <Content Include="Content\Styles\images\loading2.gif" />
     <Content Include="Content\Styles\images\users\profile.jpg" />
     <Content Include="Content\Styles\images\user\1.jpg" />
     <Content Include="Content\Styles\images\user\1.png" />
@@ -5724,11 +5727,11 @@
     <Folder Include="Content\Scripts\plugins\summernote\css\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Report\LeadTime.rdlc" />
-    <EmbeddedResource Include="Report\MasterList.rdlc" />
-    <EmbeddedResource Include="Report\PrintFindLeadTime.rdlc" />
+    <Content Include="Report\LeadTime.rdlc" />
+    <Content Include="Report\MasterList.rdlc" />
+    <Content Include="Report\PrintFindLeadTime.rdlc" />
     <EmbeddedResource Include="Report\PrintFindMasterList.rdlc" />
-    <EmbeddedResource Include="Report\Report1.rdlc" />
+    <Content Include="Report\Report1.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -95,16 +95,34 @@
 											</div>
 										</div>
 										<br>
-										<div id="divsimpang">
-											<div class="basic-dropdown">
-												@*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
-												<input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
-												<br />
-												<input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle">
-												<br />
-												<input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
-											</div>
-										</div>
+                                        <div id="divsimpang">
+                                            <div class="basic-dropdown">
+                                                <div id="divreceipt" class="form-group">
+                                                    <div class="form-check form-check-inline">
+                                                        <label>
+                                                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receipt_y" value="Yes" checked> Receipt
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label>
+                                                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receip_n" value="No"> Vendor
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control">
+                                                <br />
+                                                <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
+                                                <br />
+                                                <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle">
+                                                <br />
+                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
+                                            </div>
+                                            <div class="modal fade" tabindex="-1" role="dialog" id="ModalLoading">
+                                                <div class="modal-dialog modal-dialog-centered text-center" role="document">
+                                                    <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                                                </div>
+                                            </div>
+                                        </div>
 										<br>
 									</div>
 									<div class="col-sm-6">
@@ -711,7 +729,8 @@
 		$("#TxtItemCode").attr("disabled", true);
 
 		$('#divproduk').hide();
-		$('#divproduk').hide();
+        $('#divreceipt').hide();
+
 
 
 		$("#ddlKategori").change(function () {
@@ -723,10 +742,16 @@
 
 			$('#txtKetKategori').attr('disabled', false);
 
+			$('#TxtQCMaterialNo').attr('hidden',true);
+
 			$('#TxtBatchNo').val('');
 			$("#TxtNoWO").val('');
 			$('#TxtItemCode').val('');
 			$('#txtKetKategori').val('');
+			$('#TxtQCMaterialNo').val('');
+
+
+            $('#divreceipt').hide();
 
 			// Kualitas Produk
 			if ($("#ddlKategori").val() == 'QPR') {
@@ -745,7 +770,6 @@
 					$("#TxtNoWO").attr("hidden", false);
 					$('#TxtBatchNo').attr('hidden', false);
 
-					$('#TxtItemCode').attr('disabled', true);
 					$("#TxtItemCode").attr("hidden", false);
 					$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
 
@@ -767,11 +791,13 @@
 						return;
 					} else {
 						$("#divsimpang").show();
+						$('#divreceipt').show();
+                        $('#TxtQCMaterialNo').attr("hidden", false);
 						$("#TxtItemCode").attr("hidden", false);
-						$('#TxtItemCode').attr('disabled', false);
-						$('#TxtItemCode').attr('placeholder', 'Material Code Oracle');
-						GetItemCodeOracle();
 						$('#txtKetKategori').attr('disabled', true);
+						$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+						$("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
+						GetQCMaterialNoOracle();
 					}
 
 				}
@@ -784,6 +810,23 @@
 				
 		});
 
+		$('input[type=radio][name=r_receipt]').change(function () {
+
+			$('#TxtItemCode').val('');
+            $('#txtKetKategori').val('');
+			$('#TxtQCMaterialNo').val('');
+
+            //Y -> Receipt; N-> Vendor
+            if ($('input[name="r_receipt"]:checked').val() == 'Yes') {
+                $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
+                GetQCMaterialNoOracle();
+			}
+			else
+			{
+                $("#TxtQCMaterialNo").attr('placeholder', 'Manufacturing Number');
+                GetQCMaterialNoOracle();
+            }
+        });
 
 		$('#divDeptLokasi').attr('hidden', true);
 
@@ -1110,7 +1153,7 @@
 				trhtml += '<option disabled class="dropdown-header">Department Lokasi Kejadian</option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
-						trhtml += '<option class="dropdown-item" value = "' + data[trav].orggroupname + '" > ' + data[trav].orggroupname;
+                        trhtml += '<option class="dropdown-item" value = "' + data[trav].SubDept + '" > ' + data[trav].SubDeptCode;
 					}
 
 				}
@@ -1204,7 +1247,7 @@
 				var count = data.length;
 				var trhtml = '';
 				var trav = 0;
-				trhtml += '<option disabled selected hidden class="dropdown-header"  value = " ">   Site Pelapor   </option>';
+				trhtml += '<option disabled selected hidden class="dropdown-header"  value = " ">   Site Koordinator   </option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
 						trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
@@ -1300,55 +1343,69 @@
 		});
 	}
 
-	function GetItemCodeOracle() {
+    function GetQCMaterialNoOracle() {
 
 		var LocationSite = $("#ddlSite").val();
 		var DEVIATION_CATEGORY = $("#ddlKategori").val();
+        var FlagReceipt = $('input[name="r_receipt"]:checked').val();
 
 		var dto = {
 			LocationSite: LocationSite,
 			DeviationCategory: DEVIATION_CATEGORY,
+            FlagReceipt: FlagReceipt
 		}
+
+        $('#ModalLoading').modal('toggle');
+		$('#ModalLoading').modal('show');
+
+
 		$.ajax({
-			url: "../Form/GetItemCodeOracle",
+            url: "../Form/GetQCMaterialNoOracle",
 			type: "post",
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+                
 				var count = data.length;
-				var trhtml = '';
-				var trav = 0;
-				var arr = new Array();
-				var jsonObj = [];
+				if (count > 0) {
+                    
+                    var trhtml = '';
+                    var trav = 0;
+                    var arr = new Array();
+                    var jsonObj = [];
 
-				for (trav = 0; trav < count; trav++) {
-					arr[trav] = data[trav].ITEM_CODE;
-					var item = {}
-					item["label"] = arr[trav];
-					item["value"] = arr[trav];
-					jsonObj.push(item);
+                    for (trav = 0; trav < count; trav++) {
+                        arr[trav] = data[trav].QC_MATERIAL;
+                        var item = {}
+                        item["label"] = arr[trav];
+                        item["value"] = arr[trav];
+                        jsonObj.push(item);
+                    }
+                    console.log(jsonObj);
+                    
+                    $("#TxtQCMaterialNo").autocomplete({
+                        source: function (request, response) {
+                            var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                            response(results.slice(0, 10));
+                        }
+                    });
+
+                    $("#TxtQCMaterialNo").change(function () {
+                        var QCMaterialNo = $("#TxtQCMaterialNo").val();
+                        for (var i = 0; i < count; i++) {
+                            if (data[i].QC_MATERIAL == QCMaterialNo) {
+                                $("#TxtItemCode").val(data[i].ITEM_CODE);
+                                $("#txtKetKategori").val(data[i].ITEM_DESC);
+                                break;
+                            } else {
+                                $("#txtKetKategori").val("");
+                            }
+                        }
+                    });
 				}
-				console.log(jsonObj);
-
-				$("#TxtItemCode").autocomplete({
-					source: function (request, response) {
-						var results = $.ui.autocomplete.filter(jsonObj, request.term);
-						response(results.slice(0, 10));
-					}
-				});
-
-				$("#TxtItemCode").change(function () {
-					var itemCode = $("#TxtItemCode").val();
-					for (var i = 0; i < count; i++) {
-						if (data[i].ITEM_CODE == itemCode) {
-							$("#txtKetKategori").val(data[i].ITEM_DESCRIPTION);
-							break;
-						} else {
-							$("#txtKetKategori").val("");
-						}
-					}
-				});
-
+                $("#ModalLoading").removeClass("in");
+                $(".modal-backdrop").remove();
+                $("#ModalLoading").hide();
 			},
 			error: function (ex) {
 				alert('Error : ' + JSON.stringify(ex));
@@ -1425,6 +1482,7 @@
 
 		});
 
+       
 
 	}
 
@@ -1941,6 +1999,9 @@
 			FLAG_KOOR = 'Coordinator_QS';
 		}
 
+        var FlagReceipt = $('input[name="r_receipt"]:checked').val();
+        var QCMaterialManufacturerNo = $('#TxtQCMaterialNo').val();
+
 		var dto = {
 			CrDateUser: CR_DATE_USER,
 			IdProposer: ID_PROPOSER,
@@ -1992,7 +2053,9 @@
 			THIRTY_FLAG: THIRTY_FLAG,
 			THIRTY: THIRTY,
 			REQ: REQ,
-			UsulanRemidial: UsulanRemidial
+			UsulanRemidial: UsulanRemidial,
+            FlagReceipt: FlagReceipt,
+			QCMaterialManufacturerNo: QCMaterialManufacturerNo
 		};
 
 

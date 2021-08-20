@@ -1900,6 +1900,43 @@ namespace B7_Deviation.Controllers
             }
 
         }
+
+        public ActionResult GetQCMaterialNoOracle(DeviationModel Model)
+        {
+            try
+            {
+                using (OracleCommand command = new OracleCommand("XXB7_DEVIATION.GET_QC_MATERIAL_NO", OraDBConn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("p_location_site", OracleDbType.Varchar2).Value = Model.LocationSite;
+                    command.Parameters.Add("p_deviation_category", OracleDbType.Varchar2).Value = Model.DeviationCategory;
+                    command.Parameters.Add("p_receipt", OracleDbType.Varchar2).Value = Model.FlagReceipt;
+                    command.Parameters.Add("out_cursor", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+                    OraDBConn.Open();
+                    DataAdapt.SelectCommand = command;
+                    DataAdapt.Fill(DT);
+                    OraDBConn.Close();
+                }
+
+                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                Dictionary<string, object> row;
+                foreach (DataRow dr in DT.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in DT.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                }
+                return Json(rows);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
         //public ActionResult GetJenisDeviation()
         //{
         //    string ConString = MyDB.ConnectionString;
@@ -2422,6 +2459,12 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@No_Batch_Oracle", SqlDbType.VarChar);
                     command.Parameters["@No_Batch_Oracle"].Value = Model.No_Batch_Oracle;
+
+                    command.Parameters.Add("@FlagReceipt", SqlDbType.VarChar);
+                    command.Parameters["@FlagReceipt"].Value = Model.FlagReceipt;
+
+                    command.Parameters.Add("@QCMaterialManufacturerNo", SqlDbType.VarChar);
+                    command.Parameters["@QCMaterialManufacturerNo"].Value = Model.QCMaterialManufacturerNo;
                     /* END Header */
 
                     /* Strat Details */
