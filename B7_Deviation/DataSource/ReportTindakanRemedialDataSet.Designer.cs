@@ -331,6 +331,10 @@ namespace B7_Deviation.DataSource {
             
             private global::System.Data.DataColumn columnMC_TOTAL_HARGA_SPAREPART1;
             
+            private global::System.Data.DataColumn columnTESTING_COST_OF_ANALYSIS1;
+            
+            private global::System.Data.DataColumn columnFLAG_VERIFIKASI;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_ReportTindakanRemedialDataTable() {
@@ -574,6 +578,22 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TESTING_COST_OF_ANALYSIS1Column {
+                get {
+                    return this.columnTESTING_COST_OF_ANALYSIS1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FLAG_VERIFIKASIColumn {
+                get {
+                    return this.columnFLAG_VERIFIKASI;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -635,7 +655,9 @@ namespace B7_Deviation.DataSource {
                         int REJ_QTY1, 
                         int REJ_COST_MATERIAL1, 
                         int MC_SPAREPART1, 
-                        int MC_TOTAL_HARGA_SPAREPART1) {
+                        int MC_TOTAL_HARGA_SPAREPART1, 
+                        int TESTING_COST_OF_ANALYSIS1, 
+                        string FLAG_VERIFIKASI) {
                 SP_ReportTindakanRemedialRow rowSP_ReportTindakanRemedialRow = ((SP_ReportTindakanRemedialRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         KETERANGAN_DISPOSISI,
@@ -663,7 +685,9 @@ namespace B7_Deviation.DataSource {
                         REJ_QTY1,
                         REJ_COST_MATERIAL1,
                         MC_SPAREPART1,
-                        MC_TOTAL_HARGA_SPAREPART1};
+                        MC_TOTAL_HARGA_SPAREPART1,
+                        TESTING_COST_OF_ANALYSIS1,
+                        FLAG_VERIFIKASI};
                 rowSP_ReportTindakanRemedialRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_ReportTindakanRemedialRow);
                 return rowSP_ReportTindakanRemedialRow;
@@ -712,6 +736,8 @@ namespace B7_Deviation.DataSource {
                 this.columnREJ_COST_MATERIAL1 = base.Columns["REJ_COST_MATERIAL1"];
                 this.columnMC_SPAREPART1 = base.Columns["MC_SPAREPART1"];
                 this.columnMC_TOTAL_HARGA_SPAREPART1 = base.Columns["MC_TOTAL_HARGA_SPAREPART1"];
+                this.columnTESTING_COST_OF_ANALYSIS1 = base.Columns["TESTING_COST_OF_ANALYSIS1"];
+                this.columnFLAG_VERIFIKASI = base.Columns["FLAG_VERIFIKASI"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -769,6 +795,10 @@ namespace B7_Deviation.DataSource {
                 base.Columns.Add(this.columnMC_SPAREPART1);
                 this.columnMC_TOTAL_HARGA_SPAREPART1 = new global::System.Data.DataColumn("MC_TOTAL_HARGA_SPAREPART1", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMC_TOTAL_HARGA_SPAREPART1);
+                this.columnTESTING_COST_OF_ANALYSIS1 = new global::System.Data.DataColumn("TESTING_COST_OF_ANALYSIS1", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTESTING_COST_OF_ANALYSIS1);
+                this.columnFLAG_VERIFIKASI = new global::System.Data.DataColumn("FLAG_VERIFIKASI", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFLAG_VERIFIKASI);
                 this.columnKETERANGAN_DISPOSISI.MaxLength = 8000;
                 this.columnPIC_REMEDIAL_NAME.MaxLength = 100;
                 this.columnPIC_REMEDIAL_NIK.MaxLength = 100;
@@ -817,6 +847,10 @@ namespace B7_Deviation.DataSource {
                 this.columnMC_SPAREPART1.Caption = "MC_SPAREPART";
                 this.columnMC_TOTAL_HARGA_SPAREPART1.ReadOnly = true;
                 this.columnMC_TOTAL_HARGA_SPAREPART1.Caption = "MC_TOTAL_HARGA_SPAREPART";
+                this.columnTESTING_COST_OF_ANALYSIS1.ReadOnly = true;
+                this.columnTESTING_COST_OF_ANALYSIS1.Caption = "TESTING_COST_OF_ANALYSIS";
+                this.columnFLAG_VERIFIKASI.ReadOnly = true;
+                this.columnFLAG_VERIFIKASI.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1399,6 +1433,40 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int TESTING_COST_OF_ANALYSIS1 {
+                get {
+                    try {
+                        return ((int)(this[this.tableSP_ReportTindakanRemedial.TESTING_COST_OF_ANALYSIS1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TESTING_COST_OF_ANALYSIS1\' in table \'SP_ReportTindakanRemed" +
+                                "ial\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportTindakanRemedial.TESTING_COST_OF_ANALYSIS1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string FLAG_VERIFIKASI {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportTindakanRemedial.FLAG_VERIFIKASIColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FLAG_VERIFIKASI\' in table \'SP_ReportTindakanRemedial\' is DB" +
+                                "Null.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportTindakanRemedial.FLAG_VERIFIKASIColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsKETERANGAN_DISPOSISINull() {
                 return this.IsNull(this.tableSP_ReportTindakanRemedial.KETERANGAN_DISPOSISIColumn);
             }
@@ -1708,6 +1776,30 @@ namespace B7_Deviation.DataSource {
             public void SetMC_TOTAL_HARGA_SPAREPART1Null() {
                 this[this.tableSP_ReportTindakanRemedial.MC_TOTAL_HARGA_SPAREPART1Column] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTESTING_COST_OF_ANALYSIS1Null() {
+                return this.IsNull(this.tableSP_ReportTindakanRemedial.TESTING_COST_OF_ANALYSIS1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTESTING_COST_OF_ANALYSIS1Null() {
+                this[this.tableSP_ReportTindakanRemedial.TESTING_COST_OF_ANALYSIS1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFLAG_VERIFIKASINull() {
+                return this.IsNull(this.tableSP_ReportTindakanRemedial.FLAG_VERIFIKASIColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFLAG_VERIFIKASINull() {
+                this[this.tableSP_ReportTindakanRemedial.FLAG_VERIFIKASIColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -1872,7 +1964,6 @@ namespace B7_Deviation.DataSource.ReportTindakanRemedialDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("KETERANGAN_DISPOSISI", "KETERANGAN_DISPOSISI");
             tableMapping.ColumnMappings.Add("PIC_REMEDIAL_NAME", "PIC_REMEDIAL_NAME");
             tableMapping.ColumnMappings.Add("PIC_REMEDIAL_NIK", "PIC_REMEDIAL_NIK");
-            tableMapping.ColumnMappings.Add("TESTING_COST_OF_ANALYSIS", "TESTING_COST_OF_ANALYSIS");
             tableMapping.ColumnMappings.Add("REJ_MATERIAL", "REJ_MATERIAL");
             tableMapping.ColumnMappings.Add("HASIL_TINDAKAN", "HASIL_TINDAKAN");
             tableMapping.ColumnMappings.Add("TESTING_JUMLAH_PELAKSANA", "TESTING_JUMLAH_PELAKSANA1");
@@ -1885,6 +1976,8 @@ namespace B7_Deviation.DataSource.ReportTindakanRemedialDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("REJ_COST_MATERIAL", "REJ_COST_MATERIAL1");
             tableMapping.ColumnMappings.Add("MC_SPAREPART", "MC_SPAREPART1");
             tableMapping.ColumnMappings.Add("MC_TOTAL_HARGA_SPAREPART", "MC_TOTAL_HARGA_SPAREPART1");
+            tableMapping.ColumnMappings.Add("TESTING_COST_OF_ANALYSIS", "TESTING_COST_OF_ANALYSIS1");
+            tableMapping.ColumnMappings.Add("FLAG_VERIFIKASI", "FLAG_VERIFIKASI");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

@@ -24,7 +24,7 @@
 											Save
 											<span class="fa fa-check-square-o"></span>
 										</button>
-										
+
 									</div>
 
 									<div class="form-group" id="xddlx" hidden="hidden">
@@ -126,7 +126,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card">
-						
+
 						<div class="card-body">
 
 							<div class="form-group row">
@@ -140,7 +140,7 @@
 								<label class="col-sm-2 col-form-label">Upload Bukti Tindakan Remidial<span class="text-danger">*</span></label>
 								<div class="col-sm-7">
 									<div class="input-group">
-										
+
 										@using (Html.BeginForm("Index", "PICRemidial", FormMethod.Post, new { enctype = "multipart/form-data" }))
 										{
 											<input type="file" name="NamaFileUpload" id="idFileUploadAttach" style="padding-top:10px; width:400px;" />
@@ -163,151 +163,172 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								<div class="row form-group">
-									<h4 class="d-inline">Testing Cost</h4>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="testingDurasiPengerjaan" />
+                            <div class="form-group">
+                                <div class="row form-group">
+                                    <h4 class="d-inline col-sm-2">Hidden Cost Type</h4>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="checkhiddencost" id="flexRadioDefault1" value="Nol" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Nol
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="checkhiddencost" id="flexRadioDefault2" value="Isi">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Isi
+                                    </label>
+                                </div>
+                            </div>
+
+							<hr />
+							<div id="picsubmission" hidden="hidden">
+								<div class="form-group">
+									<div class="row form-group">
+										<h4 class="d-inline">Testing Cost</h4>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="testingDurasiPengerjaan" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="testingJumlahPelaksana" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Manhours Value (Rp)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="testingManhoursValue" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Cost of Analysis (Rp)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="testingCostAnalysis" />
+										</div>
 									</div>
 								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="testingJumlahPelaksana" />
+
+								<div class="form-group">
+									<div class="row form-group">
+										<h4 class="d-inline">Processing</h4>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="procDurasiPengerjaan" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="procJumlahPelaksana" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Manhours Value (Rp)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="procManhoursValue" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Material/Product<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="procMaterial" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Quantity<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="procQty" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Cost Material (Rp)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="procCostMaterial" />
+										</div>
 									</div>
 								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Manhours Value (Rp)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="testingManhoursValue" />
+
+								<div class="form-group">
+									<div class="row form-group">
+										<h4 class="d-inline">Rejected</h4>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Material/Product<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="rejMaterial" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Quantity<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="rejQty" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Cost Material (Rp)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="rejCostMaterial" />
+										</div>
 									</div>
 								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Cost of Analysis (Rp)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="testingCostAnalysis" />
+
+								<div class="form-group">
+									<div class="row form-group">
+										<h4 class="d-inline">Machine Cost</h4>
 									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="mcDurasiPengerjaan" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Jumlah Teknisi (Orang)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="mcJumlahTeknisi" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Manhours Value (Rp)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="mcManhoursValue" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Nama Mesin<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="mcNamaMesin" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Total Machine Hours Value (Rp)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="mcTotalMachineHours" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Sparepart<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="mcSparepart" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Harga Sparepart (Rp)<span class="text-danger">*</span></label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="mcHargaSparepart" />
+										</div>
+									</div>
+
 								</div>
+
 							</div>
-
-							<div class="form-group">
-								<div class="row form-group">
-									<h4 class="d-inline">Processing</h4>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="procDurasiPengerjaan" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="procJumlahPelaksana" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Manhours Value (Rp)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="procManhoursValue" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Material/Product<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="procMaterial" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Quantity<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="procQty" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Cost Material (Rp)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="procCostMaterial" />
-									</div>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<div class="row form-group">
-									<h4 class="d-inline">Rejected</h4>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Material/Product<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="rejMaterial" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Quantity<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="rejQty" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Cost Material (Rp)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="rejCostMaterial" />
-									</div>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<div class="row form-group">
-									<h4 class="d-inline">Machine Cost</h4>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="mcDurasiPengerjaan" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Jumlah Teknisi (Orang)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="mcJumlahTeknisi" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Manhours Value (Rp)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="mcManhoursValue" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Nama Mesin<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="mcNamaMesin" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Total Machine Hours Value (Rp)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="mcTotalMachineHours" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Sparepart<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="mcSparepart" />
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Harga Sparepart (Rp)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<input type="number" class="form-control" id="mcHargaSparepart" />
-									</div>
-								</div>
-
-							</div>
-
 
 						</div>
 					</div>
@@ -335,6 +356,11 @@
 		LoadBukti();
 		GetUsulanTindakan();
 
+        $("input[name=checkhiddencost]").change(function () {
+            CheckHiddenCostType();
+		});
+		
+
 		$("#btnSave").click(function () {
 			Save();
 		});
@@ -346,6 +372,15 @@
 		});
 
 	});
+
+	function CheckHiddenCostType() {
+        var x = $('input[name="checkhiddencost"]:checked').val();
+		if (x == 'Isi') {
+			$("#picsubmission").removeAttr("hidden");
+		} else {
+			$("#picsubmission").attr("hidden", true);
+        }
+	}
 
 	function GetUsulanTindakan() {
 		var REQID = @ViewBag.nomor;
@@ -536,9 +571,10 @@
 
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+		var hctype = $('input[name="checkhiddencost"]:checked').val();
 
 		// Detailed Section
-
+		var HiddenCostType = hctype;
 		var HasilTindakan = $("#txtHasilTindakan").val();
 
 		// Testing Section
@@ -575,6 +611,7 @@
 			IDUSER: iduser,
 
 			HasilTindakan: HasilTindakan,
+			HiddenCostType: HiddenCostType,
 			testDP: testDP,
 			testJP: testJP,
 			testMV: testMV,

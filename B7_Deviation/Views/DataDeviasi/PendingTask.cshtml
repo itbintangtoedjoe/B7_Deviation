@@ -28,6 +28,7 @@
                     <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" width="100%" id="deviationdatatable">
                         <thead>
                             <tr>
+                                <th width="100px">Action</th>
                                 <th width="100px">Request ID</th>
                                 <th width="100px">Nomor Penyimpangan</th>
                                 <th width="100px">Nama Pelapor</th>
@@ -80,77 +81,94 @@
                         if (data[trav].SEND_TO == 'Pelapor') {
                             if (data[trav].STAT == 'OPEN') {
                                 trHTML +=
-                                    '<tr><td><a href="../PelaporPenyimpangan/ProposerHeader?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../PelaporPenyimpangan/ProposerHeader?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             } else {
                                 trHTML +=
-                                    '<tr><td><a href="../PelaporPenyimpangan/ProposerEdit?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../PelaporPenyimpangan/ProposerEdit?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             }
 
                         } else if (data[trav].SEND_TO == 'Supervisor') {
                             trHTML +=
-                                '<tr><td><a href="../SpvPelapor/ApprovalHeader?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                '<tr><td><a class="btn btn-success" href="../SpvPelapor/ApprovalHeader?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
 
                         } else if (data[trav].SEND_TO == 'Koordinator') {
                             if (data[trav].STAT == "DTRQM1") {
                                 trHTML +=
-                                    '<tr><td><a href="../Koordinator/AssignPIC?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../Koordinator/AssignPIC?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             } else if (data[trav].STAT == "RMPIC1" || data[trav].STAT == "PICDD1" || data[trav].STAT == "AHROK1") {
                                 trHTML +=
-                                    '<tr><td><a href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             } else if (data[trav].STAT == "REVAL1" || data[trav].STAT == "RVREV1" || data[trav].STAT == "RVREV0") {
                                 trHTML +=
-                                    '<tr><td><a href="../Koordinator/ReviewerDataTable?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../Koordinator/ReviewerDataTable?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             } else {
                                 trHTML +=
-                                    '<tr><td><a href="../Koordinator/HeaderKoordinator?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../Koordinator/HeaderKoordinator?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             }
 
                         } else if (data[trav].SEND_TO == 'Reviewer') {
                             if (data[trav].CURRUSER == 'Coordinator_QA' || data[trav].CURRUSER == 'Coordinator_QS') {
                                 trHTML +=
-                                    '<tr><td><a href="../Koordinator/ReviewerDataTable?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../Koordinator/ReviewerDataTable?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             } else {
                                 trHTML +=
-                                    '<tr><td><a href="../Reviewer/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../Reviewer/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             }
                             
                         } else if (data[trav].SEND_TO == 'QManager') {
                             if (data[trav].STAT == 'ADKOR1' || data[trav].STAT == 'OKKOR1' || data[trav].STAT == 'RTDQM1') {
                                 trHTML +=
-                                    '<tr><td><a href="../QualityManager/QMHeader?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../QualityManager/QMHeader?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
 
                             } else if (data[trav].STAT == 'URABS1' || data[trav].STAT == 'PICDD1') {
                                 trHTML +=
-                                    '<tr><td><a href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             } else {
                                 trHTML +=
-                                    '<tr><td><a href="../QualityManager/DisposisiProdukMaterialSistem?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../QualityManager/DisposisiProdukMaterialSistem?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             }
 
                         } else if (data[trav].SEND_TO == 'PICRemidial') {
 
+                            // ni yang lagi login
                             if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
                                 if (data[trav].FLAG_QMPIC == 'QM') {
-                                    trHTML +=
-                                        '<tr><td><a href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' ">' + data[trav].REQ_ID + '</td>';
-                                } else {
-                                    trHTML +=
-                                        '<tr><td><a href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>';
+                                    if (data[trav].FLAG_COORVTR == 'COORVTR') {
+                                        trHTML +=
+                                            '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                    } else {
+                                        trHTML +=
+                                            '<tr><td><a class="btn btn-success" href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                    }
+                                    
+                                } else if (data[trav].FLAG_QMPIC = 'No') {
+
+                                    if (data[trav].FLAG_COORVTR == 'COORVTR') {
+                                        trHTML +=
+                                            '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                    } else {
+                                        trHTML +=
+                                            '<tr><td><a class="btn btn-success" href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
+                                    }
+
+                                   
                                 }
+
+                                
                                
                             } else if (data[trav].FLAG_SPVPIC == 'PIC') {
                                 trHTML +=
-                                    '<tr><td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
                             }
 
                             
                         } else if (data[trav].SEND_TO == 'Supervisor PIC') {
                             if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
                                 trHTML +=
-                                    '<tr><td><a href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
                             } else if (data[trav].FLAG_SPVPIC == 'PIC') {
                                 trHTML +=
-                                    '<tr><td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "">' + data[trav].REQ_ID + '</td>';
+                                    '<tr><td><a class="btn btn-success" href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
                             }
                             
 
@@ -164,6 +182,7 @@
                         }
 
                         trHTML +=
+                            '<td>' + data[trav].REQ_ID + '</td>' +
                             '<td>' + data[trav].DEVIATION_NO + '</td>' +
                             '<td>' + data[trav].EMPNAME + '</td>' +
                             '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +

@@ -39,7 +39,7 @@
 						<div class="row">
 							<div class="col-8">
 								<div class="form-group">
-									<button id="goBack" class="btn btn-success" onclick="goBack()">Back</button>
+									<button id="goBack" class="btn btn-success" onclick="goBack()">Save Progress</button>
 								</div>
 							</div>
 							<div class="col-4" style="float:right;">
@@ -120,6 +120,7 @@
 
 		LoadData();
 		LoadData2();
+		CheckStatus();
 	});
 
 	function goBack() {
@@ -130,6 +131,30 @@
 
 		LoadData();
 	}
+
+	function CheckStatus() {
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			REQID: REQID
+		};
+
+		$.ajax({
+			url: "../Koordinator/Koor_LoadAssignStatus",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				if (data == 'OK') {
+                    window.location.href = "../DataDeviasi/PendingTask"
+				} 
+
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+    }
 
 	function ShowBukti(button) {
 			event.preventDefault();
@@ -413,7 +438,7 @@
 			REQID: nomor
 		}
 
-		// GET EVALUASI RESIKO 
+		// GET EVALUASI RESIKO
 		$.ajax({
 			url: "../Koordinator/LoadEvaluasiResiko",
 			type: "post",

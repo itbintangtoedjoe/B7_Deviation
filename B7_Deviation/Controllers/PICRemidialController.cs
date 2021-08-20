@@ -346,6 +346,9 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@McTotalHargaSparepart", SqlDbType.VarChar);
                     command.Parameters["@McTotalHargaSparepart"].Value = Model.McHS;
 
+                    command.Parameters.Add("@HiddenCostType", SqlDbType.VarChar);
+                    command.Parameters["@HiddenCostType"].Value = Model.HiddenCostType;
+
                     result = (string)command.ExecuteScalar();
                 }
                 Conn.Close();

@@ -1227,6 +1227,152 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+        public ActionResult VerifikasiPerPIC(DisposisiModel Model)
+        {
+            string result;
+            List<string> ModelData = new List<string>();
+
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_Approve]", Conn))
+                {
+                    /* Header*/
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQ_ID;
+
+                    command.Parameters.Add("@NoDisposisi", SqlDbType.VarChar);
+                    command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Verifikasi PIC";
+
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RejectVerifikasiPerPIC(DisposisiModel Model)
+        {
+            string result;
+            List<string> ModelData = new List<string>();
+
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_Approve]", Conn))
+                {
+                    /* Header*/
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQ_ID;
+
+                    command.Parameters.Add("@NoDisposisi", SqlDbType.VarChar);
+                    command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Reject Verifikasi PIC";
+
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Koor_LoadVerifStatus(ApprovalModel Model)
+        {
+            string result;
+            List<string> ModelData = new List<string>();
+
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationData]", Conn))
+                {
+                    /* Header*/
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Verifikasi?";
+
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Koor_LoadAssignStatus(ApprovalModel Model)
+        {
+            string result;
+            List<string> ModelData = new List<string>();
+
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationData]", Conn))
+                {
+                    /* Header*/
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Semua Assigned?";
+
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Coor_CheckFormStatus(ApprovalModel Model)
         {
             string result;

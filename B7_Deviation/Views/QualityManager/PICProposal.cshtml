@@ -21,7 +21,6 @@
                         <thead>
                             <tr>
                                 <th>Request ID</th>
-                                <th>Status</th>
                                 <th>NIK PIC</th>
                                 <th>PIC Name</th>
                                 <th>Due Date</th>
@@ -73,7 +72,6 @@
 
                         trHTML +=
                             '<tr><td>' + data[trav].REQ_ID + '</td>' +
-                            '<td>' + data[trav].STATUS + '</td>' +
                             '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                             '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                             '<td>' + data[trav].DUE_DATE + '</td>' +
@@ -100,7 +98,7 @@
 
             var row = $(button).closest("TR");
 
-            var no_disposisi = $("TD", row).eq(9).html();
+            var no_disposisi = $("TD", row).eq(8).html();
             var req_id = @ViewBag.nomor;
             var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -143,7 +141,7 @@
                 }
             });
 
-            var receiver = $("TD", row).eq(9).html();
+            var receiver = $("TD", row).eq(8).html();
 
             var tabletype = "One";
             var whoreceiver = "Reviewer Approved Usulan Revisi by QM";
@@ -173,7 +171,7 @@
 
             var row = $(button).closest("TR");
 
-            var no_disposisi = $("TD", row).eq(9).html();
+            var no_disposisi = $("TD", row).eq(8).html();
             var req_id = @ViewBag.nomor;
             var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -216,7 +214,7 @@
                 }
             });
 
-            var receiver = $("TD", row).eq(9).html();
+            var receiver = $("TD", row).eq(8).html();
 
             var tabletype = "One";
             var whoreceiver = "Reviewer Rejected Usulan Revisi";

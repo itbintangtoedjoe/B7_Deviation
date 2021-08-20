@@ -31,5 +31,6 @@ namespace B7_Deviation.Models
         public string McMH { get; set; }
         public string McS { get; set; }
         public string McHS { get; set; }
+        public string HiddenCostType { get; set; }
     }
 }

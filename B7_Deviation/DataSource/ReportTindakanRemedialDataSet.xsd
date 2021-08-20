@@ -25,7 +25,6 @@
               <Mapping SourceColumn="KETERANGAN_DISPOSISI" DataSetColumn="KETERANGAN_DISPOSISI" />
               <Mapping SourceColumn="PIC_REMEDIAL_NAME" DataSetColumn="PIC_REMEDIAL_NAME" />
               <Mapping SourceColumn="PIC_REMEDIAL_NIK" DataSetColumn="PIC_REMEDIAL_NIK" />
-              <Mapping SourceColumn="TESTING_COST_OF_ANALYSIS" DataSetColumn="TESTING_COST_OF_ANALYSIS" />
               <Mapping SourceColumn="REJ_MATERIAL" DataSetColumn="REJ_MATERIAL" />
               <Mapping SourceColumn="HASIL_TINDAKAN" DataSetColumn="HASIL_TINDAKAN" />
               <Mapping SourceColumn="TESTING_JUMLAH_PELAKSANA" DataSetColumn="TESTING_JUMLAH_PELAKSANA1" />
@@ -38,6 +37,8 @@
               <Mapping SourceColumn="REJ_COST_MATERIAL" DataSetColumn="REJ_COST_MATERIAL1" />
               <Mapping SourceColumn="MC_SPAREPART" DataSetColumn="MC_SPAREPART1" />
               <Mapping SourceColumn="MC_TOTAL_HARGA_SPAREPART" DataSetColumn="MC_TOTAL_HARGA_SPAREPART1" />
+              <Mapping SourceColumn="TESTING_COST_OF_ANALYSIS" DataSetColumn="TESTING_COST_OF_ANALYSIS1" />
+              <Mapping SourceColumn="FLAG_VERIFIKASI" DataSetColumn="FLAG_VERIFIKASI" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -49,7 +50,7 @@
   <xs:element name="ReportTindakanRemedialDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ReportTindakanRemedialDataSet" msprop:Generator_UserDSName="ReportTindakanRemedialDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="SP_ReportTindakanRemedial" msprop:Generator_TableClassName="SP_ReportTindakanRemedialDataTable" msprop:Generator_TableVarName="tableSP_ReportTindakanRemedial" msprop:Generator_RowChangedName="SP_ReportTindakanRemedialRowChanged" msprop:Generator_TablePropName="SP_ReportTindakanRemedial" msprop:Generator_RowDeletingName="SP_ReportTindakanRemedialRowDeleting" msprop:Generator_RowChangingName="SP_ReportTindakanRemedialRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportTindakanRemedialRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportTindakanRemedialRowDeleted" msprop:Generator_RowClassName="SP_ReportTindakanRemedialRow" msprop:Generator_UserTableName="SP_ReportTindakanRemedial" msprop:Generator_RowEvArgName="SP_ReportTindakanRemedialRowChangeEvent">
+        <xs:element name="SP_ReportTindakanRemedial" msprop:Generator_TableClassName="SP_ReportTindakanRemedialDataTable" msprop:Generator_TableVarName="tableSP_ReportTindakanRemedial" msprop:Generator_TablePropName="SP_ReportTindakanRemedial" msprop:Generator_RowDeletingName="SP_ReportTindakanRemedialRowDeleting" msprop:Generator_RowChangingName="SP_ReportTindakanRemedialRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportTindakanRemedialRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportTindakanRemedialRowDeleted" msprop:Generator_UserTableName="SP_ReportTindakanRemedial" msprop:Generator_RowChangedName="SP_ReportTindakanRemedialRowChanged" msprop:Generator_RowEvArgName="SP_ReportTindakanRemedialRowChangeEvent" msprop:Generator_RowClassName="SP_ReportTindakanRemedialRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="KETERANGAN_DISPOSISI" msprop:Generator_ColumnVarNameInTable="columnKETERANGAN_DISPOSISI" msprop:Generator_ColumnPropNameInRow="KETERANGAN_DISPOSISI" msprop:Generator_ColumnPropNameInTable="KETERANGAN_DISPOSISIColumn" msprop:Generator_UserColumnName="KETERANGAN_DISPOSISI" minOccurs="0">
@@ -174,6 +175,14 @@
               <xs:element name="REJ_COST_MATERIAL1" msdata:ReadOnly="true" msdata:Caption="REJ_COST_MATERIAL" msprop:Generator_ColumnVarNameInTable="columnREJ_COST_MATERIAL1" msprop:Generator_ColumnPropNameInRow="REJ_COST_MATERIAL1" msprop:Generator_ColumnPropNameInTable="REJ_COST_MATERIAL1Column" msprop:Generator_UserColumnName="REJ_COST_MATERIAL1" type="xs:int" minOccurs="0" />
               <xs:element name="MC_SPAREPART1" msdata:ReadOnly="true" msdata:Caption="MC_SPAREPART" msprop:Generator_ColumnVarNameInTable="columnMC_SPAREPART1" msprop:Generator_ColumnPropNameInRow="MC_SPAREPART1" msprop:Generator_ColumnPropNameInTable="MC_SPAREPART1Column" msprop:Generator_UserColumnName="MC_SPAREPART1" type="xs:int" minOccurs="0" />
               <xs:element name="MC_TOTAL_HARGA_SPAREPART1" msdata:ReadOnly="true" msdata:Caption="MC_TOTAL_HARGA_SPAREPART" msprop:Generator_ColumnVarNameInTable="columnMC_TOTAL_HARGA_SPAREPART1" msprop:Generator_ColumnPropNameInRow="MC_TOTAL_HARGA_SPAREPART1" msprop:Generator_ColumnPropNameInTable="MC_TOTAL_HARGA_SPAREPART1Column" msprop:Generator_UserColumnName="MC_TOTAL_HARGA_SPAREPART1" type="xs:int" minOccurs="0" />
+              <xs:element name="TESTING_COST_OF_ANALYSIS1" msdata:ReadOnly="true" msdata:Caption="TESTING_COST_OF_ANALYSIS" msprop:Generator_ColumnVarNameInTable="columnTESTING_COST_OF_ANALYSIS1" msprop:Generator_ColumnPropNameInRow="TESTING_COST_OF_ANALYSIS1" msprop:Generator_ColumnPropNameInTable="TESTING_COST_OF_ANALYSIS1Column" msprop:Generator_UserColumnName="TESTING_COST_OF_ANALYSIS1" type="xs:int" minOccurs="0" />
+              <xs:element name="FLAG_VERIFIKASI" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFLAG_VERIFIKASI" msprop:Generator_ColumnPropNameInRow="FLAG_VERIFIKASI" msprop:Generator_ColumnPropNameInTable="FLAG_VERIFIKASIColumn" msprop:Generator_UserColumnName="FLAG_VERIFIKASI" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

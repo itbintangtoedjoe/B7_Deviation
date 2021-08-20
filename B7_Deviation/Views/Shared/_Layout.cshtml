@@ -129,15 +129,15 @@
 
 
                     @*List Task Deviation*@
-                    <li><a href="../Form/Input">Create Laporan Penyimpangan</a></li>
-                    <li><a href="../DataDeviasi/PendingTask">Outstanding Approval</a></li>
-                    <li><a href="../DataDeviasi/DataTableList">User Deviation List</a></li>
-                    <li><a href="../DataDeviasi/FindDeviation">Find Deviation</a></li>
-                    <li><a href="#LampiranBukti">Report Masterlist</a></li>
-                    <li><a href="#LeadTime">Report Leadtime</a></li>
+                    <li id="create"><a href="../Form/Input">Create Laporan Penyimpangan</a></li>
+                    <li id="outstanding"><a href="../DataDeviasi/PendingTask">Outstanding Approval</a></li>
+                    <li id="userlist"><a href="../DataDeviasi/DataTableList">User Deviation List</a></li>
+                    <li id="find"><a href="../DataDeviasi/FindDeviation">Find Deviation</a></li>
+                    <li id="masterlist"><a href="#LampiranBukti">Report Masterlist</a></li>
+                    <li id="leadtime"><a href="#LeadTime">Report Leadtime</a></li>
                     
 
-                    <li>
+                    <li id="cms">
                         <a class="has-arrow" aria-expanded="false">
                             <i class="icon-direction menu-icon"></i><!--speedometer-->
                             <span class="nav-text">
@@ -368,6 +368,21 @@
                 }, 2000);
             }
             $('#UserLoginXd').text(IsLogin);
+
+            // ENABLE / DISABLE MENU
+
+            if (IsRole == 'Supervisor') {
+                $("#userlist").attr("hidden", true);
+                $("#cms").attr("hidden", true);
+                $("#create").attr("hidden", true);
+            } else if (IsRole == 'Pelapor') {
+                $("#masterlist").attr("hidden", true);
+                $("#leadtime").attr("hidden", true);
+                $("#find").attr("hidden", true);
+                $("#userlist").attr("hidden", true);
+                $("#cms").attr("hidden", true);
+            }
+
         }
     </script>
 

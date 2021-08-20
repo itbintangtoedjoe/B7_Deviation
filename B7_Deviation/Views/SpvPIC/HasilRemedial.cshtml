@@ -769,27 +769,27 @@
 		<div class="form-group">
 			<div class="container-fluid">
 				<div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="form-group" id="evaluasiresiko">
-                                    <label>Evaluasi Risiko</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault1" value="Yes" disabled="disabled">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Perlu Ditindaklanjuti dengan Pengkajian Risiko
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault2" value="No" disabled="disabled">
-                                        <label class="form-check-label" for="flexRadioDefault2">
-                                            Tidak Perlu Ditindaklanjuti dengan Pengkajian
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="form-group" id="evaluasiresiko">
+									<label>Evaluasi Risiko</label>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault1" value="Yes" disabled="disabled">
+										<label class="form-check-label" for="flexRadioDefault1">
+											Perlu Ditindaklanjuti dengan Pengkajian Risiko
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault2" value="No" disabled="disabled">
+										<label class="form-check-label" for="flexRadioDefault2">
+											Tidak Perlu Ditindaklanjuti dengan Pengkajian
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					
 				</div>
 			</div>
@@ -1011,24 +1011,24 @@
 			}
 		});
 
-        var dtx = {
-            REQID: nomor
-        }
+		var dtx = {
+			REQID: nomor
+		}
 
-        // GET EVALUASI RESIKO 
-        $.ajax({
-            url: "../Koordinator/LoadEvaluasiResiko",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dtx),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                $("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
+		// GET EVALUASI RESIKO 
+		$.ajax({
+			url: "../Koordinator/LoadEvaluasiResiko",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dtx),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				$("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
+			},
+			error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
 	}
 
 	function GetAllSite() {

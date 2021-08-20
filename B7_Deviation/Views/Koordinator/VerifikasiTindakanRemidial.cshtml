@@ -71,7 +71,8 @@
 										<th colspan="3" style="text-align:center">Reject Cost</th>
 										<th colspan="2" style="text-align:center">Machine Cost</th>
 										<th rowspan="2" style="text-align:center">PIC</th>
-										<th rowspan="2" style="text-align:center">Action</th>
+										<th rowspan="2" style="text-align:center">Dokumen Pendukung</th>
+										<th rowspan="2" style="text-align:center">Verifikasi Tindakan Remedial</th>
 									</tr>
 									<tr>
 										<th width="75px">Jumlah Personel</th>
@@ -216,13 +217,10 @@
 
 
 							<button type="button" id="btnApprove" class="col-sm-2 btn btn-success">
-								Verifikasi
+								Save
 								<span class="fa fa-check-square-o"></span>
 							</button>
-							<button type="button" id="btnReject" class="col-sm-2 btn btn-danger">
-								Reject
-								<span class="fa fa-check-square-o"></span>
-							</button>
+							
 
 						</div>
 					</div>
@@ -238,6 +236,7 @@
 
 		CheckFormStatus();
 		GetUsulanTindakan();
+		LoadStatus();
 
 		LoadData();
 
@@ -278,6 +277,34 @@
 
 	}
 
+	function LoadStatus() {
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			REQID: REQID
+		};
+
+		$.ajax({
+			url: "../Koordinator/Koor_LoadVerifStatus",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				if (data == 'VERIFIED') {
+					
+					$("#koorsubmission").removeAttr("hidden");
+				} else {
+					$("#koorsubmission").attr("hidden", true);
+				}
+
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+
+	}
+
 	function LoadData() {
 
 		var nomor = @ViewBag.nomor;
@@ -296,7 +323,7 @@
 				var trav = 0;
 				var Count = data.length;
 				for (trav = 0; trav < Count; trav++) {
-					
+
 					trHTML +=
 						'<tr><td colspan="3" style="text-align:center">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
 						'<td colspan="1" style="text-align:center"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
@@ -306,17 +333,17 @@
 
 
 						'<tr><th colspan="13" style="text-align:center">Total Times</th>' +
-						'<td colspan="2"  style="text-align:center">' + data[trav].TOTAL_TIMES + '</td></tr>' + 
+						'<td colspan="2"  style="text-align:center">' + data[trav].TOTAL_TIMES + '</td></tr>' +
 
 						'<tr><th colspan="13" style="text-align:center">Total Cost</th>' +
 						'<td colspan="2"  style="text-align:center"> Rp. ' + data[trav].TOTAL_COST +'</td></tr>';
-						
+
 
 				}
 
 				// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
 				$('#picfooter').append(trHTML);
-				
+
 
 			},
 			error: function (ex) {
@@ -358,12 +385,18 @@
 
 					if (data[trav].FLAG_PIC == 'REJECTED' || data[trav].FLAG_PIC == null) {
 						trHTML +=
-							'<td> - </td></tr>';
+							'<td> - </td>';
 
 					} else {
 						trHTML +=
-							'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td ></tr > ';
+							'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+					}
 
+					if (data[trav].FLAG_VERIFIKASI == '-' || data[trav].FLAG_VERIFIKASI == 'REJECTED') {
+						trHTML +=
+							'<td align="center"><button onclick="Verifikasi(this)" class="btn btn-success">Verifikasi</button> <button onclick="RejectVerifikasi" class="btn btn-danger">Reject</td>';
+					} else {
+						trHTML += '<td> N/A </td>';
 					}
 				}
 
@@ -377,22 +410,76 @@
 			}
 		});
 
-        // GET EVALUASI RESIKO 
-        $.ajax({
-            url: "../Koordinator/LoadEvaluasiResiko",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                $("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
+		// GET EVALUASI RESIKO
+		$.ajax({
+			url: "../Koordinator/LoadEvaluasiResiko",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				$("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
+			},
+			error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
 
 	};
+
+	function Verifikasi(button) {
+		var row = $(button).closest("TR");
+		var ReqID = @ViewBag.nomor;
+		var no_disposisi = $("TD", row).eq(0).html();
+
+		var dto = {
+			REQ_ID: ReqID,
+			NO_DISPOSISI: no_disposisi
+		}
+
+		$.ajax({
+			url: "../Koordinator/VerifikasiPerPIC",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				alert("Verified");
+				LoadStatus();
+				LoadData();
+			}
+			, error: function (ex) {
+				alert('Error Delete User Involved : ' + JSON.stringify(ex));
+			}
+		});
+	}
+
+	function RejectVerifikasi(button) {
+		var row = $(button).closest("TR");
+		var ReqID = @ViewBag.nomor;
+		var no_disposisi = $("TD", row).eq(0).html();
+
+		var dto = {
+			REQ_ID: ReqID,
+			NO_DISPOSISI: no_disposisi
+		}
+
+		$.ajax({
+			url: "../Koordinator/RejectVerifikasiPerPIC",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				alert("Not Verified");
+				LoadData();
+			}
+			, error: function (ex) {
+				alert('Error Delete User Involved : ' + JSON.stringify(ex));
+			}
+		});
+	}
+
 
 	function ShowBukti(button) {
 		event.preventDefault();
@@ -434,7 +521,7 @@
 					}
 				}
 
-				
+
 
 				$('#buktitable').empty();
 				$('#buktitable').append(trHTML);
@@ -464,11 +551,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 
-				if (data == 'PIC Submitted') {
-					$("#koorsubmission").removeAttr("hidden");
-				} else {
-					$("#koorsubmission").attr("hidden", true);
-				}
+				
 
 			}, error: function (ex) {
 				alert(JSON.stringify(ex));
