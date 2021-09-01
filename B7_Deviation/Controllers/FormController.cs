@@ -1413,9 +1413,9 @@ namespace B7_Deviation.Controllers
         
         public ActionResult UploadAttachment(FormCollection formCollection)
         {
-            string FileNameForDB = ""
-                , URLDownload = ""
-                , URLAttachment = ""
+           string FileNameForDB 
+                , URLDownload
+                , URLAttachment
                 , result = ""
                 , ReqID = formCollection["ReqID"];
 
@@ -1690,7 +1690,7 @@ namespace B7_Deviation.Controllers
                 throw ex;
             }
 
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            //List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             Dictionary<string, object> row;
 
             string PathFile;

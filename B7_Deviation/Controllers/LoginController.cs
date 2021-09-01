@@ -23,6 +23,7 @@ namespace B7_Deviation.Controllers
         public static extern bool CloseHandle(IntPtr handle);
 
         readonly private DataTable DT = new DataTable();
+        readonly private DataTable DT2 = new DataTable();
 
         public ActionResult Index()
         {
@@ -34,8 +35,9 @@ namespace B7_Deviation.Controllers
         {
             List<string> List = new List<string>();
             
-            string status = null;
+            string status;
             string result = "";
+            string t_LVL = "";
             int check_login = 0;
             _ = new IntPtr(0);
 
@@ -121,7 +123,6 @@ namespace B7_Deviation.Controllers
                                 {
                                     status = "kosong";
                                 }
-                                List.Add(status);
                             }
                         }
                     }
@@ -173,8 +174,7 @@ namespace B7_Deviation.Controllers
                                         if (result == "kosong")
                                         {
                                             status = "kosong";
-                                        }
-                                        List.Add(status);
+                                        }                                     
                                     }
                                 }
                             }
@@ -187,6 +187,7 @@ namespace B7_Deviation.Controllers
                 }
                 else 
                 {
+
                     status = "True";
                     Session["xUser"] = Model.Username;
 
@@ -203,10 +204,15 @@ namespace B7_Deviation.Controllers
                             cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
                             cmd.Parameters["@Username"].Value = Model.Username;
 
-                            result = (string)cmd.ExecuteScalar();
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            dataAdapt.SelectCommand = cmd;
+                            dataAdapt.Fill(DT);
+
+                            result = DT.Rows[0]["EMPID"].ToString();
+                            t_LVL = DT.Rows[0]["LVL"].ToString();
                         }
                         conn.Close();
-                        
+
                     }
                     catch (Exception ex)
                     {
@@ -218,7 +224,6 @@ namespace B7_Deviation.Controllers
                         {
                             status = "kosong";
                         }
-                        List.Add(status);
                     }
                 }
             }
@@ -229,43 +234,50 @@ namespace B7_Deviation.Controllers
 
             if (status != "kosong")
             {
-                // Get Role Login
-                SqlConnection conn2 = new SqlConnection(constr);
-                try
+                if (t_LVL == "Pelaksana" || t_LVL == "Staff")
                 {
-                    conn2.Open();
-                    using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn2))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                        cmd.Parameters["@pilih"].Value = 2;
-
-                        cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                        cmd.Parameters["@Username"].Value = Model.Username;
-                        
-                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                        //result = (string)cmd.ExecuteScalar();
-                        dataAdapt.SelectCommand = cmd;
-
-                        dataAdapt.Fill(DT);
-                    }
-                    conn2.Close();
-                    Session["role"] = DT.Rows[0]["role_deviation"];
-                    Session["fullname"] = DT.Rows[0]["empname"];
+                    status = "staff";
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    if (result == "kosong")
+                else 
+                { 
+                    // Get Role Login
+                    SqlConnection conn2 = new SqlConnection(constr);
+                    try
                     {
-                        status = "kosong";
+                        conn2.Open();
+                        using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn2))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+                            cmd.Parameters["@pilih"].Value = 2;
+
+                            cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+                            cmd.Parameters["@Username"].Value = Model.Username;
+
+                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                            //result = (string)cmd.ExecuteScalar();
+                            dataAdapt.SelectCommand = cmd;
+
+                            dataAdapt.Fill(DT2);
+                        }
+                        conn2.Close();
+                        Session["role"] = DT2.Rows[0]["role_deviation"].ToString();
+                        Session["fullname"] = DT2.Rows[0]["empname"].ToString();
+                        Session["jobttlname"] = DT2.Rows[0]["jobttlname"].ToString();
                     }
-                    List.Add(status);
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+
+                    }
                 }
             }
+
+            List.Add(status);
+
             return Json(List);
         }
     }

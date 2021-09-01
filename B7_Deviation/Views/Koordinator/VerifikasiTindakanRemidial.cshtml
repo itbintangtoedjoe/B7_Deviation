@@ -60,7 +60,7 @@
 					<div class="card">
 						<div class="card-body">
 
-							<table class="table table-striped table-bordered table-responsive" id="deviationdatatable" width="100%">
+							<table class="table table-bordered table-hover verticle-middle table-responsive" id="deviationdatatable" width="100%">
 								<thead>
 									<tr>
 										<th rowspan="2">No</th>
@@ -91,25 +91,20 @@
 									</tr>
 
 								</thead>
-								<tbody id="deviationtable" class="">
+								<tbody id="deviationtable">
 								</tbody>
 								<tfoot id="picfooter">
 									<tr>
-										<th colspan="3" rowspan="2" style="text-align:center">Total</th>
-										<th colspan="3" style="text-align:center">Total Testing Manhours</th>
-										<th>Total Testing Cost</th>
-										<th colspan="3" style="text-align:center">Total Processing Manhours</th>
-										<th colspan="3" style="text-align:center">Total Rejected Cost</th>
-										<th colspan="2" style="text-align:center">Total Machine Cost</th>
+										<th colspan="3" style="text-align: center; text ; background-color: #f3f3f3">Total</th>
+										<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Testing Manhours</th>
+										<th style="text-align: center; background-color: #f3f3f3">Total Testing Cost</th>
+										<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Processing Manhours</th>
+										<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Rejected Cost</th>
+										<th colspan="2" style="text-align: center; background-color: #f3f3f3">Total Machine Cost</th>
 									</tr>
 									
 								</tfoot>
-
-
 							</table>
-
-
-
 						</div>
 
 
@@ -144,7 +139,7 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="form-group row">
-								<div class="col-md-8">
+								<div class="col-md-12">
 									<div class="form-group">
 										<label for="usulantindakan">
 											Usulan Tindakan Remedial
@@ -182,37 +177,37 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card">
-						<label class="col-sm-2 col-form-label">Investigation Time</label>
-						<div class="card-body">
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
-								<div class="col-sm-10">
-									<input type="number" id="ITDP" class="form-control" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)<span class="text-danger">*</span></label>
-								<div class="col-sm-10">
-									<input type="number" id="ITJP" class="form-control" />
-								</div>
-							</div>
+                        <div class="card-body">
+                            <h4>Investigation Time</h4>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="ITDP" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="ITJP" class="form-control" />
+                                </div>
+                            </div>
 
-						</div>
-						<label class="col-sm-2 col-form-label">Meeting Time</label>
-						<div class="card-body">
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
-								<div class="col-sm-10">
-									<input type="number" id="MTDP" class="form-control" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)<span class="text-danger">*</span></label>
-								<div class="col-sm-10">
-									<input type="number" id="MTJP" class="form-control" />
-								</div>
-							</div>
-						</div>
+                        </div>
+                        <div class="card-body">
+                            <h4>Meeting Time</h4>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="MTDP" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="MTJP" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
 						<div class="card-body">
 
 
@@ -233,13 +228,11 @@
 
 <script>
 	$(document).ready(function () {
-
 		CheckFormStatus();
 		GetUsulanTindakan();
 		LoadStatus();
 
-		LoadData();
-
+		
 		$("#btnCancel").click(function () {
 			Cancel();
 		});
@@ -292,9 +285,10 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data == 'VERIFIED') {
-					
+                    LoadData();
 					$("#koorsubmission").removeAttr("hidden");
 				} else {
+                    LoadData();
 					$("#koorsubmission").attr("hidden", true);
 				}
 
@@ -311,104 +305,124 @@
 		var dto = {
 			REQID: nomor
 		}
+		$.when(
+			$.ajax({
+				url: "../Koordinator/Coor_LoadPICData",
+				type: "post",
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
 
-		$.ajax({
-			url: "../Koordinator/Coor_LoadPICDataFooter",
-			type: "post",
-			data: JSON.stringify(dto),
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				var trHTML = '';
-				var trav = 0;
-				var Count = data.length;
-				for (trav = 0; trav < Count; trav++) {
-
-					trHTML +=
-						'<tr><td colspan="3" style="text-align:center">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
-						'<td colspan="1" style="text-align:center"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
-						'<td colspan="3" style="text-align:center">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
-						'<td colspan="3" style="text-align:center"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
-						'<td colspan="2" style="text-align:center"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
-
-
-						'<tr><th colspan="13" style="text-align:center">Total Times</th>' +
-						'<td colspan="2"  style="text-align:center">' + data[trav].TOTAL_TIMES + '</td></tr>' +
-
-						'<tr><th colspan="13" style="text-align:center">Total Cost</th>' +
-						'<td colspan="2"  style="text-align:center"> Rp. ' + data[trav].TOTAL_COST +'</td></tr>';
-
-
-				}
-
-				// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
-				$('#picfooter').append(trHTML);
-
-
-			},
-			error: function (ex) {
-				alert(JSON.stringify(ex));
-			}
-		});
-
-		$.ajax({
-			url: "../Koordinator/Coor_LoadPICData",
-			type: "post",
-			data: JSON.stringify(dto),
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				var trHTML = '';
-				var trav = 0;
-				var Count = data.length;
-				for (trav = 0; trav < Count; trav++) {
-					var counter = 1;
-					counter += trav;
-					trHTML +=
-						'<tr><td align="center">' + counter + '</td>' +
-						'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-						'<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-						'<td>' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
-						'<td>' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
-						'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
-						'<td>' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
-						'<td>' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
-						'<td>' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
-						'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
-						'<td>' + data[trav].REJ_MATERIAL + '</td>' +
-						'<td>' + data[trav].REJ_QUANTITY + '</td>' +
-						'<td>' + data[trav].REJ_COST_MATERIAL + '</td>' +
-						'<td>' + data[trav].MC_SPAREPART + '</td>' +
-						'<td>' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
-						'<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-						'<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
-
-					if (data[trav].FLAG_PIC == 'REJECTED' || data[trav].FLAG_PIC == null) {
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+					for (trav = 0; trav < Count; trav++) {
+						var counter = 1;
+						counter += trav;
 						trHTML +=
-							'<td> - </td>';
+							'<tr><td align="center">' + counter + '</td>' +
+							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+							'<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+							'<td>' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
+							'<td>' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
+							//'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
+							'<td>' + data[trav].MANHOURS_VALUE_TESTING + '</td>' +
+							'<td>' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
+							'<td>' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
+							'<td>' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+							//'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+							'<td>' + data[trav].MANHOURS_VALUE_PROCESSING + '</td>' +
+							'<td>' + data[trav].REJ_MATERIAL + '</td>' +
+							'<td>' + data[trav].REJ_QUANTITY + '</td>' +
+							'<td>' + data[trav].REJ_COST_MATERIAL + '</td>' +
+							'<td>' + data[trav].MC_SPAREPART + '</td>' +
+							'<td>' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
+							'<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+							'<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
 
-					} else {
-						trHTML +=
-							'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+						if (data[trav].FLAG_PIC == 'REJECTED' || data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
+							trHTML +=
+								'<td> - </td>';
+
+						} else {
+							trHTML +=
+								'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+						}
+
+						if ((data[trav].FLAG_VERIFIKASI == '-' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC') ||
+							(data[trav].FLAG_VERIFIKASI == 'REJECTED' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC')) {
+							trHTML +=
+								'<td align="center">' +
+								'<button style="width:50px" onclick = "Verifikasi(this)" class="btn btn-success">Verifikasi</button>' +
+								'<button style="width:50px" onclick = "RejectVerifikasi" class="btn btn-danger" >Reject</button>' +
+								'</td > ';
+                        } else if ((data[trav].FLAG_VERIFIKASI == 'VERIFIED' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC'))
+						{
+							trHTML += '<td><img src="../Content/Pict/verified2.png" /></td>';
+						} else {
+							trHTML += '<td> N/A </td>';
+						}
 					}
 
-					if (data[trav].FLAG_VERIFIKASI == '-' || data[trav].FLAG_VERIFIKASI == 'REJECTED') {
-						trHTML +=
-							'<td align="center"><button onclick="Verifikasi(this)" class="btn btn-success">Verifikasi</button> <button onclick="RejectVerifikasi" class="btn btn-danger">Reject</td>';
-					} else {
-						trHTML += '<td> N/A </td>';
-					}
+					$('#deviationdatatable').DataTable().clear().destroy();
+					$('#deviationtable').empty();
+					$('#deviationtable').append(trHTML);
+					$('#deviationdatatable').DataTable({
+						"searching": false,
+						"paging": false,
+						"info": false,
+						"ordering": false
+					});
+
+				},
+				error: function (ex) {
+					alert(JSON.stringify(ex));
 				}
+			})
+        ).done(
+				$.ajax({
+					url: "../Koordinator/Coor_LoadPICDataFooter",
+					type: "post",
+					data: JSON.stringify(dto),
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+						var trHTML = '';
+						var trav = 0;
+						var Count = data.length;
+						for (trav = 0; trav < Count; trav++) {
 
-				$('#deviationtable').empty();
-				$('#deviationtable').append(trHTML);
-				$('#deviationdatatable').DataTable();
+							trHTML +=
+								'<tr>' +
+								'<td style="background-color: #f3f3f3" colspan="3"></td><td colspan="3" style="text-align:center">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
+								'<td colspan="1" style="text-align:center"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
+								'<td colspan="3" style="text-align:center">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
+								'<td colspan="3" style="text-align:center"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
+								'<td colspan="2" style="text-align:center"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
 
-			},
-			error: function (ex) {
-				alert(JSON.stringify(ex));
-			}
-		});
+
+								'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Times</th>' +
+								'<td colspan="2" style="text-align:center">' + data[trav].TOTAL_TIMES + '</td></tr>' +
+
+								'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Cost</th>' +
+								'<td colspan="2" style="text-align:center"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
+
+
+						}
+
+						// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
+						$('#picfooter').append(trHTML);
+
+
+					},
+					error: function (ex) {
+						alert(JSON.stringify(ex));
+					}
+				})
+		);
+
+		
 
 		// GET EVALUASI RESIKO
 		$.ajax({
@@ -445,8 +459,8 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				alert("Verified");
-				LoadStatus();
-				LoadData();
+                LoadStatus();
+				
 			}
 			, error: function (ex) {
 				alert('Error Delete User Involved : ' + JSON.stringify(ex));
@@ -472,7 +486,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				alert("Not Verified");
-				LoadData();
+                LoadStatus();
 			}
 			, error: function (ex) {
 				alert('Error Delete User Involved : ' + JSON.stringify(ex));
@@ -521,11 +535,16 @@
 					}
 				}
 
-
+                $('#buktidatatable').DataTable().clear().destroy();
 
 				$('#buktitable').empty();
 				$('#buktitable').append(trHTML);
-				$('#buktidatatable').DataTable();
+				$('#buktidatatable').DataTable({
+                    "searching": false,
+                    "paging": false,
+                    "info": false,
+                    "ordering": false
+				});
 
 				$("#tabel2").removeAttr("hidden");
 			}

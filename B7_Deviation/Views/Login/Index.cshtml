@@ -56,7 +56,7 @@
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
                         if (data[0] == "True") {
-                            
+
                             var url = "../HomePage/Index";
                             $(location).attr('href', url);
                         }
@@ -69,24 +69,38 @@
                                     $(location).attr('href', url);
                                 }, 2000);
 
-                                
+
                             }
-                            else {
-                                var url = "../Login/Index";
-                            
-                                swal("UnVerified!", data[0], "error");
-                                setTimeout(function () {
-                                    $(location).attr('href', url);
-                                }, 2000);
-                                
-                            }
-                    },
-                    error: function (ex) {
-                        alert('Error Aplikasi, Silahkan Hubungi Adminitrator !');
-                    }
+                            else
+                                if (data[0] == "staff") {
+                                    var url = "../Login/Index";
+                                    swal({
+                                        title: "UnVerified!",
+                                        text: "User tidak memiliki akses !",
+                                        type: "error",
+                                        showConfirmButton: !1
+                                    });
+
+                                    setTimeout(function () {
+                                        $(location).attr('href', url);
+                                    }, 3000);
+                                }
+                                else
+                                {
+                                    var url = "../Login/Index";
+
+                                    swal("UnVerified!", data[0], "error");
+                                    setTimeout(function () {
+                                        $(location).attr('href', url);
+                                    }, 2000);
+
+                                 }
+                    }, error: function (ex) {
+                            alert('Error Aplikasi, Silahkan Hubungi Adminitrator !');
+                        }
+                    });
                 });
             });
-        });
     </script>
 
 </head>

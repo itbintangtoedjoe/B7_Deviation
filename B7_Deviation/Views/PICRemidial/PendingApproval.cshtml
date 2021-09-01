@@ -167,9 +167,15 @@
                         }
                     }
 
+                    $('#deviationdatatable').DataTable().clear().destroy();
                     $('#deviationtable').empty();
                     $('#deviationtable').append(trHTML);
-                    $('#deviationdatatable').DataTable();
+                    $('#deviationdatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false
+                    });
 
                 },
                 error: function (ex) {

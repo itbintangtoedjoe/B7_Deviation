@@ -117,8 +117,8 @@
                                                 <br />
                                                 <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
                                             </div>
-                                            <div class="modal fade" tabindex="-1" role="dialog" id="ModalLoading">
-                                                <div class="modal-dialog modal-dialog-centered text-center" role="document">
+                                            <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered text-center" >
                                                     <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
                                                 </div>
                                             </div>
@@ -342,7 +342,7 @@
 										</label>
 									</div>
 									<div class="col-sm-10">
-										<textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
+										<textarea style="height:150px" id="txtTindakan" name="txtTindakan" disabled class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
 
 									</div>
 								</div>
@@ -1153,7 +1153,7 @@
 				trhtml += '<option disabled class="dropdown-header">Department Lokasi Kejadian</option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
-                        trhtml += '<option class="dropdown-item" value = "' + data[trav].SubDept + '" > ' + data[trav].SubDeptCode;
+                        trhtml += '<option class="dropdown-item" value = "' + data[trav].SubDeptCode + '" > ' + data[trav].SubDept;
 					}
 
 				}
@@ -1355,9 +1355,11 @@
             FlagReceipt: FlagReceipt
 		}
 
-        $('#ModalLoading').modal('toggle');
-		$('#ModalLoading').modal('show');
 
+        $('#ModalLoading').modal('show');
+        setTimeout(function () {
+            $('#ModalLoading').modal('hide');
+        }, 3000);
 
 		$.ajax({
             url: "../Form/GetQCMaterialNoOracle",
@@ -1365,11 +1367,11 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-                
+				
 				var count = data.length;
 				if (count > 0) {
-                    
-                    var trhtml = '';
+
+					var trhtml = '';
                     var trav = 0;
                     var arr = new Array();
                     var jsonObj = [];
@@ -1379,7 +1381,7 @@
                         var item = {}
                         item["label"] = arr[trav];
                         item["value"] = arr[trav];
-                        jsonObj.push(item);
+						jsonObj.push(item);
                     }
                     console.log(jsonObj);
                     
@@ -1401,11 +1403,9 @@
                                 $("#txtKetKategori").val("");
                             }
                         }
-                    });
+					});
 				}
-                $("#ModalLoading").removeClass("in");
-                $(".modal-backdrop").remove();
-                $("#ModalLoading").hide();
+               
 			},
 			error: function (ex) {
 				alert('Error : ' + JSON.stringify(ex));

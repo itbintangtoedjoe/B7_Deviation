@@ -98,7 +98,7 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="form-group row">
-								<div class="col-md-8">
+								<div class="col-md-12">
 									<div class="form-group">
 										<label for="usulantindakan">
 											Usulan Tindakan Remedial
@@ -165,18 +165,18 @@
 
                             <div class="form-group">
                                 <div class="row form-group">
-                                    <h4 class="d-inline col-sm-2">Hidden Cost Type</h4>
+                                    <h5 class="d-inline">Adakah biaya dalam tindakan Remidial?</h5>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="checkhiddencost" id="flexRadioDefault1" value="Nol" checked>
                                     <label class="form-check-label" for="flexRadioDefault1">
-                                        Nol
+                                        Tidak Ada
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="checkhiddencost" id="flexRadioDefault2" value="Isi">
                                     <label class="form-check-label" for="flexRadioDefault2">
-                                        Isi
+                                        Ada
                                     </label>
                                 </div>
                             </div>
@@ -359,7 +359,7 @@
         $("input[name=checkhiddencost]").change(function () {
             CheckHiddenCostType();
 		});
-		
+
 
 		$("#btnSave").click(function () {
 			Save();
@@ -419,8 +419,9 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 
-				document.getElementById('disposisitindakan').value = data[0].DISPOSISI_TINDAKAN;
-
+				$('#disposisitindakan').val(data[0].DISPOSISI_TINDAKAN);
+                $('#txtHasilTindakan').val(data[0].HASIL_TINDAKAN);
+                $('input[name="checkhiddencost"]:checked').val(data[0].HIDDEN_COST_TYPE);
 			}, error: function (ex) {
 				alert(JSON.stringify(ex));
 			}
@@ -605,7 +606,26 @@
 		var mcS = $("#mcSparepart").val();
 		var mcHS = $("#mcHargaSparepart").val();
 
-
+		if (HiddenCostType == 'Isi') {
+			if (HasilTindakan == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Hasil Tindakan Remidial harus diisi !',
+				})
+				return;
+			}
+		}
+		else {
+            if (HasilTindakan == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Hasil Tindakan Remidial harus diisi !',
+                })
+                return;
+            }
+		}
 		var dto = {
 			REQID: REQID,
 			IDUSER: iduser,
@@ -739,5 +759,34 @@
 
 	}
 
+	function LoadDataRemidial() {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			ReqId: REQID,
+			USERNIK: USERNIK
+		}
+
+		$.ajax({
+            url: "../PICRemidial/PIC_LoadDataRemidial",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data != '') {
+
+                }
+                else {
+                   
+                }
+
+            }
+            , error: function (ex) {
+                alert('Error Load User Involved : ' + JSON.stringify(ex));
+            }
+		});
+	}
 </script>
 

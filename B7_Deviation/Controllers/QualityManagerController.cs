@@ -333,7 +333,7 @@ namespace B7_Deviation.Controllers
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Add("@Option", SqlDbType.Int);
-                    command.Parameters["@Option"].Value = 12;
+                    command.Parameters["@Option"].Value = 22;
 
                     command.Parameters.Add("@USERNIK", SqlDbType.VarChar);
                     command.Parameters["@USERNIK"].Value = Model.USERNIK;

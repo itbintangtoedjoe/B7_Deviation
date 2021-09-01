@@ -278,7 +278,7 @@
 
                 setTimeout(function () {
                     $(location).attr('href', url);
-                }, 2000);
+                }, 1000);
             });
         });
 
@@ -352,6 +352,8 @@
         function CheckIsLogin() {
             var IsLogin = '@Request.RequestContext.HttpContext.Session["fullname"]';
             var IsRole = '@Request.RequestContext.HttpContext.Session["role"]';
+            var IsJobTitle = '@Request.RequestContext.HttpContext.Session["jobttlname"]';
+            
             var url = "../Login/Index";
 
             if (IsLogin === '' || IsLogin === null) {
@@ -365,20 +367,32 @@
 
                 setTimeout(function () {
                     $(location).attr('href', url);
-                }, 2000);
+                }, 1000);
             }
             $('#UserLoginXd').text(IsLogin);
 
             // ENABLE / DISABLE MENU
 
             if (IsRole == 'Supervisor') {
-                $("#userlist").attr("hidden", true);
-                $("#cms").attr("hidden", true);
-                $("#create").attr("hidden", true);
-            } else if (IsRole == 'Pelapor') {
+                if (IsJobTitle == 'Quality Assurance Manager' || IsJobTitle == 'Quality System Manager') {
+                    $("#userlist").attr("hidden", true);
+                    $("#cms").attr("hidden", true);
+                    $("#create").attr("hidden", true);
+                } else {
+                    $("#userlist").attr("hidden", true);
+                    $("#cms").attr("hidden", true);
+                    $("#create").attr("hidden", true);
+
+                    //untuk Manager Quality
+                    $("#masterlist").attr("hidden", true);
+                    $("#leadtime").attr("hidden", true);
+                }
+               
+            } else
+                if (IsRole == 'Pelapor') {
                 $("#masterlist").attr("hidden", true);
                 $("#leadtime").attr("hidden", true);
-                $("#find").attr("hidden", true);
+                $("#find").attr("hidden", false);
                 $("#userlist").attr("hidden", true);
                 $("#cms").attr("hidden", true);
             }

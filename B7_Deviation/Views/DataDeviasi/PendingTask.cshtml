@@ -234,8 +234,11 @@
                     $('#deviationtable').empty();
                     $('#deviationtable').append(trHTML);
                     $('#deviationdatatable').DataTable({
-                        order: [[0, "desc"]]
+                        order: [[0, "desc"]],
+                        "searching": false,
                     });
+
+                   
                 },
                 error: function (ex) {
                 }
