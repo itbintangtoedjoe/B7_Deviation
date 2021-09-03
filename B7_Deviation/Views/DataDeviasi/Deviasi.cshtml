@@ -12,6 +12,7 @@
     <div class="form-group" id="spvapproval">
 
         <div class="container-fluid">
+            @*Header View*@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -48,6 +49,8 @@
                     </div>
                 </div>
             </div>
+
+            @*Detail View*@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -80,16 +83,47 @@
                                                 </div>
                                             </div>
                                             <br>
-                                            <div id="divsimpang">
-                                                <div class="basic-dropdown">
+
+                                            <!--<div id="divsimpang">
+                                                <div class="basic-dropdown">-->
                                                     @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
-                                                    <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control" disabled="disabled">
+                                                    <!--<input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control" disabled="disabled">
                                                     <br />
                                                     <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle" disabled="disabled">
                                                     <br />
                                                     <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle" disabled="disabled">
                                                 </div>
+                                            </div>-->
+
+                                            <div id="divsimpang">
+                                                <div class="basic-dropdown">
+                                                    <div id="divreceipt" class="form-group">
+                                                        <div class="form-check form-check-inline">
+                                                            <label>
+                                                                <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receipt_y" value="Yes" checked disabled> Receipt
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <label>
+                                                                <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receip_n" value="No" disabled> Vendor
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control">
+                                                    <br />
+                                                    <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
+                                                    <br />
+                                                    <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle">
+                                                    <br />
+                                                    <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
+                                                </div>
+                                                <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered text-center">
+                                                        <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                                                    </div>
+                                                </div>
                                             </div>
+
                                             <br>
                                         </div>
                                         <div class="col-sm-6">
@@ -185,7 +219,7 @@
                                                         <tr>
                                                             <th style="width:20px">No</th>
                                                             <th>Nama</th>
-                                                            <th style="width:30px">Action</th>
+                                                            @*<th style="width:30px">Action</th>*@
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tblBodyWho">
@@ -323,8 +357,8 @@
                                                             <th>
                                                                 <b>File Name</b>
                                                             </th>
-                                                            <th>
-                                                                <b>Action</b>
+                                                            <th style="text-align:center">
+                                                                <b>Download</b>
                                                             </th>
                                                         </tr>
                                                     </thead>
@@ -793,32 +827,33 @@
 
                 $("#TxtNoWO").attr("hidden", true);
                 $("#TxtItemCode").attr("hidden", true);
+                $('#TxtQCMaterialNo').attr('hidden', true);
+                $('#TxtBatchNo').attr('hidden', true);
 
                 $("#TxtNoWO").attr("disabled", true);
                 $("#TxtItemCode").attr("disabled", true);
+                $('#TxtQCMaterialNo').attr('disabled', true);
 
                 if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
 
                     $("#TxtNoWO").attr("hidden", false);
-                    $('#TxtBatchNo').attr('hidden', false);
                     $("#TxtItemCode").attr("hidden", false);
-
-
+                    $('#TxtQCMaterialNo').attr('hidden', false);
                     // MATERIAL AWAL (MASIH ADA LAGI)
-                } else if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
-
-                    $("#TxtItemCode").attr("hidden", false);
-
-                } else {
-                    $("#divsimpang").attr("hidden", true);
-                }
+                } else
+                    if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
+                        $("#TxtItemCode").attr("hidden", false);
+                        $('#TxtQCMaterialNo').attr('hidden', false);
+                    } else {
+                        $("#divsimpang").attr("hidden", true);
+                    }
+                $('input[name=r_receipt][value=' + data[0].FLAG_RECEIPT + ']').prop('checked', true);
 
                 // INPUTS
                 document.getElementById('TxtNoWO').value = data[0].NO_WO_ORACLE;
                 document.getElementById('TxtBatchNo').value = data[0].NO_BATCH_ORACLE;
                 document.getElementById('TxtItemCode').value = data[0].ITEM_CODE_ORACLE;
-
-
+                document.getElementById('TxtQCMaterialNo').value = data[0].QC_MATERIAL_NO;
 
                 document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
                 document.getElementById('txtProblem').value = data[0].PROBLEM;
@@ -850,54 +885,31 @@
 
                 // Travel 1
                 $("input[name=travel1][value=" + data[0].SAME_POTEN_DEV_FLAG + "]").prop('checked', true);
-                if (data[0].SAME_POTEN_DEV_FLAG == 'Yes') {
-
-                    $("#txtsama").removeAttr("disabled");
-                } else {
-                    $("#txtsama").attr("disabled", true);
-                }
+                $("#txtsama").attr("disabled", true);
                 $('#txtsama').val(data[0].SAME_POTEN_DEV);
 
                 // Travel 2 (Txt2 HTML5 missing)
 
                 $("input[name=travel2][value=" + data[0].POTEN_DEV_RLS_FLG + "]").prop('checked', true);
-                if (data[0].POTEN_DEV_RLS_FLG == 'Yes') {
-
-                    $("#txtrilis").removeAttr("disabled");
-                } else {
-                    $("#txtrilis").attr("disabled", true);
-                }
+                $("#txtrilis").attr("disabled", true);
                 $('#txtrilis').val(data[0].POTEN_DEV_RLS);
 
                 // Travel 3 (Txt3 HTML5 missing)
                 $("input[name=travel3][value=" + data[0].POTEN_DEV_OTH_FLG + "]").prop('checked', true);
-                if (data[0].POTEN_DEV_OTH_FLG == 'Yes') {
-
-                    $("#txtlain").removeAttr("disabled");
-                } else {
-                    $("#txtlain").attr("disabled", true);
-                }
+                $("#txtlain").attr("disabled", true);
                 $('#txtlain').val(data[0].POTEN_DEV_OTH);
 
                 // Travel 4 -> missing
                 $("input[name=travel4][value=" + data[0].THIRTY_FLAG + "]").prop('checked', true);
-                if (data[0].THIRTY_FLAG == 'Yes') {
-
-                    $("#txt30hari").removeAttr("disabled");
-                } else {
-                    $("#txt30hari").attr("disabled", true);
-                }
+                $("#txt30hari").attr("disabled", true);
                 $('#txt30hari').val(data[0].THIRTY);
 
                 // Travel 5 -> missing
                 $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
-                if (data[0].PLAN_DEV == 'Yes') {
-
-                    $("#txtUsulanRemidial").removeAttr("disabled");
-                } else {
-                    $("#txtUsulanRemidial").attr("disabled", true);
-                }
+                $("#txtUsulanRemidial").attr("disabled", true);
                 $('#txtUsulanRemidial').val(data[0].USULAN_REMIDIAL);
+
+
                 // 2nd Card FINISHED!
 
                 // 2nd Card Quality Product
@@ -1071,8 +1083,7 @@
                         trHTML += '<tr><td>' + data[trav].NO + '</td>' +
                             '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
                             '<td style="display:none">' + data[trav].RecordID + '</td>' +
-                            '<td>' + data[trav].USER_NAME + '</td>' +
-                            '<td align = "center"> - </td ></tr > ';
+                            '<td>' + data[trav].USER_NAME + '</td></tr > ';
                     }
 
                     $("#tblBodyWho").empty();

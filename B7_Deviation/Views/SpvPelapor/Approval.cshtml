@@ -63,30 +63,59 @@
 								</div>
 								<div class="form-group row">
 									<label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
-									<div class="col-sm-3">
-										<div>
-											<div class="basic-dropdown">
-												<div class="dropdown">
-													<select id="ddlKategori" name="ddlKategori"></select>
-												</div>
-											</div>
-										</div>
-										<br>
-										<div id="divsimpang">
-											<div class="basic-dropdown">
-												@*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
-												<input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control" disabled="disabled">
+                                    <div class="col-sm-3">
+                                        <div>
+                                            <div class="basic-dropdown">
+                                                <div class="dropdown">
+                                                    <select id="ddlKategori" name="ddlKategori"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <!--<div id="divsimpang">
+											<div class="basic-dropdown">-->
+																			@*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
+																			<!--<input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control" disabled="disabled">
 												<br />
 												<input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle" disabled="disabled">
 												<br />
 												<input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle" disabled="disabled">
 											</div>
-										</div>
-										<br>
-										@*<div id="divproduk">
-												<input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
-											</div>*@
-									</div>
+										</div>-->
+
+                                        <div id="divsimpang">
+                                            <div class="basic-dropdown">
+                                                <div id="divreceipt" class="form-group">
+                                                    <div class="form-check form-check-inline">
+                                                        <label>
+                                                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receipt_y" value="Yes" checked disabled> Receipt
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label>
+                                                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receip_n" value="No" disabled> Vendor
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control">
+                                                <br />
+                                                <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
+                                                <br />
+                                                <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle">
+                                                <br />
+                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
+                                            </div>
+                                            <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered text-center">
+                                                    <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        @*<div id="divproduk">
+            <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
+        </div>*@
+                                    </div>
 									<div class="col-sm-7">
 										<textarea id="txtKetKategori" name="txtKetKategori" class="form-control" readonly placeholder="Keterangan lebih terkait penyimpangan"></textarea>
 									</div>
@@ -182,7 +211,7 @@
 													<tr>
 														<th style="width:20px">No</th>
 														<th>Nama</th>
-														<th style="width:30px">Action</th>
+														@*<th style="width:30px">Action</th>*@
 													</tr>
 												</thead>
 												<tbody id="tblBodyWho">
@@ -320,8 +349,8 @@
 														<th>
 															<b>File Name</b>
 														</th>
-														<th>
-															<b>Action</b>
+														<th style="text-align:center">
+															<b>Download</b>
 														</th>
 													</tr>
 												</thead>
@@ -524,26 +553,54 @@
 
 				// SHOW / HIDE
 				// KUALITAS PRODUK
-				if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
+				//if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
 
-					$("#TxtNoWO").attr("hidden", false);
-					$('#TxtBatchNo').attr('hidden', false);
-					$("#TxtItemCode").attr("hidden", false);
+				//	$("#TxtNoWO").attr("hidden", false);
+				//	$('#TxtBatchNo').attr('hidden', false);
+				//	$("#TxtItemCode").attr("hidden", false);
 
 
-					// MATERIAL AWAL (MASIH ADA LAGI)
-				} else if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
+				//	// MATERIAL AWAL (MASIH ADA LAGI)
+				//} else if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
 
-					$("#TxtItemCode").attr("hidden", false);
+				//	$("#TxtItemCode").attr("hidden", false);
 
-				} else {
-					$("#divsimpang").attr("hidden", true);
-				}
+				//} else {
+				//	$("#divsimpang").attr("hidden", true);
+				//}
+
+
+                $("#TxtNoWO").attr("hidden", true);
+                $("#TxtItemCode").attr("hidden", true);
+                $('#TxtQCMaterialNo').attr('hidden', true);
+                $('#TxtBatchNo').attr('hidden', true);
+
+                $("#TxtNoWO").attr("disabled", true);
+                $("#TxtItemCode").attr("disabled", true);
+                $('#TxtQCMaterialNo').attr('disabled', true);
+
+                if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
+
+                    $("#TxtNoWO").attr("hidden", false);
+                    $("#TxtItemCode").attr("hidden", false);
+                    $('#TxtQCMaterialNo').attr('hidden', false);
+                    // MATERIAL AWAL (MASIH ADA LAGI)
+                } else
+                    if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
+                        $("#TxtItemCode").attr("hidden", false);
+                        $('#TxtQCMaterialNo').attr('hidden', false);
+                    } else {
+                        $("#divsimpang").attr("hidden", true);
+                    }
+                $('input[name=r_receipt][value=' + data[0].FLAG_RECEIPT + ']').prop('checked', true);
+
+
 
 				// INPUTS
 				document.getElementById('TxtNoWO').value = data[0].NO_WO_ORACLE;
 				document.getElementById('TxtBatchNo').value = data[0].NO_BATCH_ORACLE;
 				document.getElementById('TxtItemCode').value = data[0].ITEM_CODE_ORACLE;
+				document.getElementById('TxtQCMaterialNo').value = data[0].QC_MATERIAL_NO;
 
 				//BUGGY
 				GetFileAttachment();
@@ -557,7 +614,7 @@
 				$("#ddlSiteLokasi").append(text);
 				$("#ddlSiteLokasi").selectpicker();
 
-				text = '<Option class="dropdown-item" value = "' + data[0].DEPT_LOKASI_KEJADIAN + '" selected >' + data[0].DEPT_LOKASI_KEJADIAN;
+                text = '<Option class="dropdown-item" value = "' + data[0].SUPDEPTCODE + '" selected >' + data[0].DEPT_LOKASI_KEJADIAN;
 
 				$("#ddlDeptLokasi").empty();
 				$("#ddlDeptLokasi").append(text);
@@ -805,8 +862,7 @@
 						trHTML += '<tr><td>' + data[trav].NO + '</td>' +
 							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 							'<td style="display:none">' + data[trav].RecordID + '</td>' +
-							'<td>' + data[trav].USER_NAME + '</td>' +
-							'<td align="center"> - </td></tr>';
+							'<td>' + data[trav].USER_NAME + '</td>></tr>';
 
 					}
 

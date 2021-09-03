@@ -122,6 +122,10 @@
 			Cancel();
 		});
 
+		$('#ddlReviewer').change(function () {
+
+		});
+
 		// BUTTON APPROVE(S) ARE SPECIFIED IN GETCURRSTAT FUNCTION TO SPECIFY WHICH APPROVAL IS WHICH
 
 	});
@@ -147,6 +151,7 @@
 				} else {
 					alert("please insert email first");
 				}
+
 			}
 			, error: function (ex) {
 				alert('Check Email Availability: ' + JSON.stringify(ex));
@@ -368,9 +373,7 @@
 
 				$(".user-dropdown").empty();
 				$(".user-dropdown").append(trhtml);
-				$("#ddlReviewer").select2({
-					placeholder: "* Please Select User *"
-				});
+				$("#ddlReviewer").select2();
 			}, error: function (ex) {
 				alert(JSON.stringify(ex));
 			}
@@ -415,6 +418,8 @@
 
 					Coor_LoadUserInvolved();
 					GetCurrStat();
+
+                    
 				}
 			}
 			, error: function (ex) {
@@ -554,10 +559,8 @@
 				} else {
 
 					$("#partialview").attr("hidden", false);
-
 					$("#btnShowRev").attr("hidden", true);
 					$("btnCancel").attr("hidden", true);
-
 					$("#btnApprove").removeAttr("hidden");
 					$("#btnReject").removeAttr("hidden");
 
@@ -578,28 +581,27 @@
 					}
 
 					$("#btnApprove").click(function () {
-						
-
 						// KALAU BELUM ADA ISINYA
 						if (tbl < 1 && $.trim(btnText) == 'Approve') {
 							
 							$("#xddlx").removeAttr('hidden');
 							$("#btnApprove").text('Send to Reviewer');
-							$("#btnApprove").width("110px");
-							GetDDL();
+							$("#btnApprove").width("110px");							
 							$("#btnReject").attr("hidden", true);
+                            GetDDL();
 						}
-						else if (tbl < 1 && $.trim(btnText) == 'Send to Reviewer') {
+						else
+							if (tbl < 1 && $.trim(btnText) == 'Send to Reviewer') {
 							
-							Swal.fire({
-								icon: 'error',
-								title: 'Oops...',
-								text: 'Please Insert Reviewer First',
-							});
-						}
-						else {
-							ApproveHeaderKoordinator();
-						}
+								Swal.fire({
+									icon: 'error',
+									title: 'Oops...',
+									text: 'Please Insert Reviewer First',
+								});
+							}
+							else {
+								ApproveHeaderKoordinator();
+							}
 
 
 

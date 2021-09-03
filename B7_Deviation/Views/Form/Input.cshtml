@@ -1319,22 +1319,38 @@
 					source: function (request, response) {
 						var results = $.ui.autocomplete.filter(jsonObj, request.term);
 						response(results.slice(0, 10));
+
+                        add($.map(results, function (el) {
+                            return {
+                                label: el.label,
+                                value: el.value
+                            };
+                        }));
+                    },
+
+					select: function (e, ui) {
+                        $("#TxtNoWO").val('');
+                        $('#TxtItemCode').val('');
+                        $('#txtKetKategori').val('');
+                        $('#TxtQCMaterialNo').val('');
+
+                        for (var i = 0; i < count; i++) {
+                            if (data[i].NO_BATCH == ui.item.value) {
+                                $("#TxtNoWO").val(data[i].WO_NUMBER);
+                                $('#TxtItemCode').val(data[i].ITEM_CODE);
+                                $('#txtKetKategori').val(data[i].ITEM_DESCRIPTION);
+                                break;
+                            } else {
+                                $("#TxtNoWO").val("");
+                                $('#TxtItemCode').val("");
+                            }
+                        }
 					}
 				});
 
 				$("#TxtBatchNo").change(function () {
-					var BatchNo = $("#TxtBatchNo").val();
-					for (var i = 0; i < count; i++) {
-						if (data[i].NO_BATCH == BatchNo) {
-							$("#TxtNoWO").val(data[i].WO_NUMBER);
-							$('#TxtItemCode').val(data[i].ITEM_CODE);
-							$('#txtKetKategori').val(data[i].ITEM_DESCRIPTION);
-							break;
-						} else {
-							$("#TxtNoWO").val("");
-							$('#TxtItemCode').val("");
-						}
-					}
+
+                    
 				});
 			},
 			error: function (ex) {
@@ -1388,22 +1404,54 @@
                     $("#TxtQCMaterialNo").autocomplete({
                         source: function (request, response) {
                             var results = $.ui.autocomplete.filter(jsonObj, request.term);
-                            response(results.slice(0, 10));
+							response(results.slice(0, 20));
+
+                            add($.map(results, function (el) {
+                                return {
+                                    label: el.label,
+                                    value: el.value
+                                };
+							}));
+
+						},
+
+						select: function (e, ui) {
+
+                            $('#TxtBatchNo').val('');
+                            $("#TxtNoWO").val('');
+                            $('#TxtItemCode').val('');
+                            $('#txtKetKategori').val('');
+
+                            for (var i = 0; i < count; i++) {
+                                if (data[i].QC_MATERIAL == ui.item.value) {
+                                    $("#TxtItemCode").val(data[i].ITEM_CODE);
+                                    $("#txtKetKategori").val(data[i].ITEM_DESC);
+                                    break;
+                                } else {
+                                    $("#txtKetKategori").val("");
+                                }
+                            }
                         }
                     });
 
-                    $("#TxtQCMaterialNo").change(function () {
-                        var QCMaterialNo = $("#TxtQCMaterialNo").val();
-                        for (var i = 0; i < count; i++) {
-                            if (data[i].QC_MATERIAL == QCMaterialNo) {
-                                $("#TxtItemCode").val(data[i].ITEM_CODE);
-                                $("#txtKetKategori").val(data[i].ITEM_DESC);
-                                break;
-                            } else {
-                                $("#txtKetKategori").val("");
-                            }
-                        }
-					});
+					//$("#TxtQCMaterialNo").change(function () {
+
+     //                   $('#TxtBatchNo').val('');
+     //                   $("#TxtNoWO").val('');
+     //                   $('#TxtItemCode').val('');
+     //                   $('#txtKetKategori').val('');
+
+					//	var QCMaterialNo = $("#TxtQCMaterialNo").val();
+     //                   for (var i = 0; i < count; i++) {
+     //                       if (data[i].QC_MATERIAL == QCMaterialNo) {
+     //                           $("#TxtItemCode").val(data[i].ITEM_CODE);
+     //                           $("#txtKetKategori").val(data[i].ITEM_DESC);
+     //                           break;
+     //                       } else {
+     //                           $("#txtKetKategori").val("");
+     //                       }
+     //                   }
+					//});
 				}
                
 			},
@@ -2000,7 +2048,9 @@
 		}
 
         var FlagReceipt = $('input[name="r_receipt"]:checked').val();
-        var QCMaterialManufacturerNo = $('#TxtQCMaterialNo').val();
+		var QCMaterialManufacturerNo = $('#TxtQCMaterialNo').val();
+
+        alert(FlagReceipt)
 
 		var dto = {
 			CrDateUser: CR_DATE_USER,
