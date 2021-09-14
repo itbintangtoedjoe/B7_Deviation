@@ -56,7 +56,7 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-body">
-							<table class="table table-bordered table-hover verticle-middle table-responsive" id="deviationdatatable">
+							<table class="table table-bordered table-hover nowrap table-responsive" id="deviationdatatable" width="100%">
 								<thead>
 									<tr>
 										<th rowspan="2">No</th>
@@ -133,53 +133,54 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card">
-						<label class="col-sm-2 col-form-label">Investigation Time</label>
-						<div class="card-body">
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
-								<div class="col-sm-10">
-									<input type="number" id="ITDP" class="form-control" disabled="disabled" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
-								<div class="col-sm-10">
-									<input type="number" id="ITJP" class="form-control" disabled="disabled" />
-								</div>
-							</div>
-
-						</div>
-						<label class="col-sm-2 col-form-label">Meeting Time</label>
-						<div class="card-body">
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
-								<div class="col-sm-10">
-									<input type="number" id="MTDP" class="form-control" disabled="disabled" />
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
-								<div class="col-sm-10">
-									<input type="number" id="MTJP" class="form-control" disabled="disabled" />
-								</div>
-							</div>
-						</div>
-
-						<label class="col-sm-2 col-form-label">Evaluasi Risiko</label>
-						<div class="card-body">
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault1" value="Yes" disabled="disabled">
-								<label class="form-check-label" for="flexRadioDefault1">
-									Perlu Ditindaklanjuti dengan Pengkajian Risiko
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault2" value="No" disabled="disabled">
-								<label class="form-check-label" for="flexRadioDefault2">
-									Tidak Perlu Ditindaklanjuti dengan Pengkajian
-								</label>
-							</div>
-						</div>
+						
+                        <div class="card-body">
+                            <h4>Investigation Time</h4>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="ITDP" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="ITJP" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                        </div>
+						
+                        <div class="card-body">
+                            <h4>Meeting Time</h4>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="MTDP" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="MTJP" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                        </div>
+						
+                        <div class="card-body">
+                            <h4>Evaluasi Risiko</h4>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault1" value="Yes" disabled="disabled">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Perlu Ditindaklanjuti dengan Pengkajian Risiko
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault2" value="No" disabled="disabled">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Tidak Perlu Ditindaklanjuti dengan Pengkajian
+                                </label>
+                            </div>
+                        </div>
 					   
 
 					</div>
@@ -211,7 +212,7 @@
 								<label class="col-sm-2 col-form-label"></label>
 
 								<div class="col-sm-10">
-									<textarea id="keterangandisposisi" class="form-control"></textarea>
+									<textarea id="keterangandisposisi" class="form-control" placeholder="Keterangan Disposisi"></textarea>
 
 								</div>
 							</div>
@@ -287,7 +288,9 @@
 
 		$('#btnPilihLanjut').click(function () {
 			$('#divLanjut').attr('hidden', false);
+
 			$('#btnPilihLanjut').attr('hidden', true);
+			$('#btnTidakLanjut').attr('hidden', true);
 		});
 
 		$('input[type=radio][name=chkbx]').change(function () {
@@ -469,12 +472,15 @@
 					}
 				}
 
+                $('#deviationdatatable').DataTable().clear().destroy();
 				$('#deviationtable').empty();
 				$('#deviationtable').append(trHTML);
 				$('#deviationdatatable').DataTable({
-                    "scrollX": true
+                    "searching": false,
+                    "paging": false,
+                    "info": false,
+                    "ordering": false
 				});
-                $('.dataTables_length').addClass('bs-select');
 			},
 			error: function (ex) {
 				alert(JSON.stringify(ex));

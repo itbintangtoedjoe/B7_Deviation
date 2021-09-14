@@ -1419,7 +1419,12 @@
 
                     $('#deviationtable').empty();
                     $('#deviationtable').append(trHTML);
-                    $('#deviationdatatable').DataTable();
+                    $('#deviationdatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false
+                    });
                 }
 
             },
@@ -1465,7 +1470,12 @@
 
                 $('#buktitable').empty();
                 $('#buktitable').append(trHTML);
-                $('#buktidatatable').DataTable();
+                $('#buktidatatable').DataTable({
+                    "searching": false,
+                    "paging": false,
+                    "info": false,
+                    "ordering": false
+                });
 
                 $("#tabel2").removeAttr("hidden");
             }

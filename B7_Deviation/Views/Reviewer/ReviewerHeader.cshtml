@@ -167,7 +167,6 @@
 
 	}
 
-
 	function Submit() {
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
@@ -258,9 +257,11 @@
 					formData.append("ReqID", REQID);
 					if (data == 'S') {
 
+						
+
 						toastr.success("File Attachment " + file.name + " Berhasil diupload", "Berhasil", {
 							"closeButton": false,
-							"debug": true,
+							"debug": false,
 							"newestOnTop": false,
 							"progressBar": false,
 							"positionClass": "toast-top-right",
@@ -275,6 +276,8 @@
 							"showMethod": "fadeIn",
 							"hideMethod": "fadeOut"
 						});
+
+                        $('#idFileUploadAttach').val('');
 						GetFileAttachmentReviewer();
 					}
 				}
@@ -330,7 +333,6 @@
 					}
 				} else {
 					$("#tbl_AttachmentReviewer").hide();
-					$("#tbody_AttachmentReviewer").addBack();
 				}
 			},
 			error: function (ex) {
@@ -340,13 +342,13 @@
 	}
 
 	function DeleteFileAttachment(button) {
-		 var Row = $(button).closest("TR");
-		 var ReqID = $("TD", Row).eq(1).html();
-		 var RecordID = $("TD", Row).eq(2).html();
-		 var FileName = $("TD", Row).eq(3).html();
-		 var PathFile = $("TD", Row).eq(4).html();
+		var Row = $(button).closest("TR");
+		var ReqID = $("TD", Row).eq(1).html();
+		var RecordID = $("TD", Row).eq(2).html();
+		var FileName = $("TD", Row).eq(3).html();
+		var PathFile = $("TD", Row).eq(4).html();
 
-		 var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
+		var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 		var dto = {
 			ReqID: ReqID,
@@ -362,15 +364,14 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
-
+				
 				if (data == 'S') {
 					toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
 						"closeButton": false,
-						"debug": true,
+						"debug": false,
 						"newestOnTop": false,
 						"progressBar": false,
-						"positionClass": "toast-top-left",
+						"positionClass": "toast-top-right",
 						"preventDuplicates": false,
 						"onclick": null,
 						"showDuration": "100",
@@ -382,6 +383,8 @@
 						"showMethod": "fadeIn",
 						"hideMethod": "fadeOut"
 					});
+
+                   
 
 					GetFileAttachmentReviewer();
 				}

@@ -218,10 +218,14 @@
 					}
 
 
-
+                    $('#reviewerbuktidatatable').DataTable().clear().destroy();
 					$('#reviewerbukti').empty();
 					$('#reviewerbukti').append(trHTML);
-					$('#reviewerbuktidatatable').DataTable();
+					$('#reviewerbuktidatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false});
 
 				}
 				, error: function (ex) {
@@ -275,10 +279,15 @@
 						}
 
 						trHTML += '<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info">View</button ></td ></tr > ';
-
+                        $('#deviationdatatable').DataTable().clear().destroy();
 						$('#deviationtable').empty();
 						$('#deviationtable').append(trHTML);
-						$('#deviationdatatable').DataTable();
+						$('#deviationdatatable').DataTable({
+                            "searching": false,
+                            "paging": false,
+                            "info": false,
+                            "ordering": false
+						});
 					}
 
 

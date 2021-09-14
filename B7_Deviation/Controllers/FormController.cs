@@ -1565,26 +1565,21 @@ namespace B7_Deviation.Controllers
 
             if (!System.IO.File.Exists(PathFile))
             {
-                return Json(tempP);
-            }
-
-            try
-            {
-                System.IO.File.Delete(PathFile);
-                tempP = 1;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            if (tempP < 1)
-            {
                 result = "E";
             }
-            
-            return Json(result);
+            else
+            {
+                try
+                {
+                    System.IO.File.Delete(PathFile);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
 

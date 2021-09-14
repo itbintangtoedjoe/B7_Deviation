@@ -614,6 +614,7 @@
 			success: function (data) {
 				if (data == 'S') {
 
+					$('#txtDisposisi').val('');
 					toastr.success("Data berhasil tersimpan !", "Tersimpan", {
 						"closeButton": false,
 						"debug": true,

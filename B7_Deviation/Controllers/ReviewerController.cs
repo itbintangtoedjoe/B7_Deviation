@@ -297,6 +297,7 @@ namespace B7_Deviation.Controllers
                 URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\Reviewer\", fileName);
                 URLDownload = Path.Combine(@"/B7_Deviation/Content/Attachment/Reviewer/", fileName);
 
+
                 //D:\TempURLFiles LOCAL DIRECTORY
                 //10.167.1.78\Intranetportal\Intranet Attachment\Deviation\
                 file.SaveAs(URLAttachment);
@@ -395,7 +396,6 @@ namespace B7_Deviation.Controllers
 
         public ActionResult Rev_DeleteAttachment(DeviationModel Model)
         {
-            int tempP = 0;
             string result;
             string PathFile = Model.PathFile;
 
@@ -429,35 +429,28 @@ namespace B7_Deviation.Controllers
             catch (Exception ex)
             {
                 result = ex.ToString();
-                ModelData.Add(result);
-                throw ex;
+                return Json(result);
             }
 
             /*Delete File*/
 
             if (!System.IO.File.Exists(PathFile))
             {
-                return Json(tempP);
-            }
-
-            try
-            {
-                System.IO.File.Delete(PathFile);
-                tempP = 1;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            if (tempP < 1)
-            {
                 result = "E";
             }
-            ModelData.Add(result);
-
-            return Json(ModelData, JsonRequestBehavior.AllowGet);
+            else
+            {
+                try
+                {
+                    System.IO.File.Delete(PathFile);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+      
+            return Json(result, JsonRequestBehavior.AllowGet);
 
         }
 

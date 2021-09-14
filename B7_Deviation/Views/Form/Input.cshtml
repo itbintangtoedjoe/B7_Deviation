@@ -677,7 +677,7 @@
 
 			if (!$(".form-valide").valid() || !$(".form-valide2").valid()) {
 				/* Checking Input not null */
-
+                alert(SAME_POTEN_DEV_FLAG)
 				if (DEPARTEMENT == ' ' || DEPARTEMENT == null ||
 					PROBLEM == ' ' || PROBLEM == null ||
 					DATE_OF_INCIDENT == ' ' || DATE_OF_INCIDENT == null ||
@@ -2050,7 +2050,7 @@
         var FlagReceipt = $('input[name="r_receipt"]:checked').val();
 		var QCMaterialManufacturerNo = $('#TxtQCMaterialNo').val();
 
-        alert(FlagReceipt)
+        
 
 		var dto = {
 			CrDateUser: CR_DATE_USER,
@@ -2104,7 +2104,8 @@
 			THIRTY: THIRTY,
 			REQ: REQ,
 			UsulanRemidial: UsulanRemidial,
-            FlagReceipt: FlagReceipt,
+			FlagReceipt: FlagReceipt,
+            DeviationType: FlagReceipt,
 			QCMaterialManufacturerNo: QCMaterialManufacturerNo
 		};
 

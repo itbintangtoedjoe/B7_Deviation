@@ -60,7 +60,7 @@
 					<div class="card">
 						<div class="card-body">
 
-							<table class="table table-bordered table-hover verticle-middle table-responsive" id="deviationdatatable" width="100%">
+							<table class="table table-bordered table-hover nowrap table-responsive" id="deviationdatatable" width="100%">
 								<thead>
 									<tr>
 										<th rowspan="2">No</th>
@@ -72,7 +72,7 @@
 										<th colspan="2" style="text-align:center">Machine Cost</th>
 										<th rowspan="2" style="text-align:center">PIC</th>
 										<th rowspan="2" style="text-align:center">Dokumen Pendukung</th>
-										<th rowspan="2" style="text-align:center">Verifikasi Tindakan Remedial</th>
+										<th id="headVerify" rowspan="2" style="text-align:center">Verifikasi Tindakan Remedial</th>
 									</tr>
 									<tr>
 										<th width="75px">Jumlah Personel</th>
@@ -286,7 +286,7 @@
 			success: function (data) {
 				if (data == 'VERIFIED') {
                     LoadData();
-					$("#koorsubmission").removeAttr("hidden");
+					$("#koorsubmission").removeAttr("hidden");                   
 				} else {
                     LoadData();
 					$("#koorsubmission").attr("hidden", true);
@@ -313,7 +313,7 @@
 				dataType: "json",
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
-
+					var checkVerify = 0;
 					var trHTML = '';
 					var trav = 0;
 					var Count = data.length;
@@ -328,7 +328,7 @@
 							'<td>' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
 							//'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
 							'<td>' + data[trav].MANHOURS_VALUE_TESTING + '</td>' +
-							'<td>' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
+							'<td align="right">' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
 							'<td>' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
 							'<td>' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
 							//'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
@@ -359,9 +359,13 @@
 								'</td > ';
                         } else if ((data[trav].FLAG_VERIFIKASI == 'VERIFIED' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC'))
 						{
-							trHTML += '<td><img src="../Content/Pict/verified2.png" /></td>';
+                            trHTML += '<td align="center"><img src="../Content/Pict/verified4.png" /></td>';
 						} else {
 							trHTML += '<td> N/A </td>';
+						}
+
+                        if (data[trav].FLAG_VERIFIKASI == 'VERIFIED') {
+							checkVerify = checkVerify + 1;							
 						}
 					}
 
@@ -374,6 +378,11 @@
 						"info": false,
 						"ordering": false
 					});
+
+					if (checkVerify > 0) {
+                        $('#headVerify').focus();
+					}
+                    
 
 				},
 				error: function (ex) {
@@ -412,6 +421,7 @@
 						}
 
 						// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
+                        $('#picfooter').empty();
 						$('#picfooter').append(trHTML);
 
 
@@ -458,7 +468,6 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				alert("Verified");
                 LoadStatus();
 				
 			}
@@ -664,6 +673,15 @@
 		var itjp = $("#ITJP").val();
 		var mtdp = $("#MTDP").val();
 		var mtjp = $("#MTJP").val();
+
+		if (itdp == '' || itjp == '' || mtdp == '' || mtjp == '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Investigation Time atau Meeting Time tidak boleh kosong !',
+            })
+            return;
+		}
 
 		var dto = {
 

@@ -581,6 +581,9 @@
 					}
 
 					$("#btnApprove").click(function () {
+                        btnText = $("#btnApprove").text();
+						
+                        
 						// KALAU BELUM ADA ISINYA
 						if (tbl < 1 && $.trim(btnText) == 'Approve') {
 							
@@ -596,7 +599,7 @@
 								Swal.fire({
 									icon: 'error',
 									title: 'Oops...',
-									text: 'Please Insert Reviewer First',
+									text: 'Mohon pilih Reviewer terlebih dahulu!',
 								});
 							}
 							else {

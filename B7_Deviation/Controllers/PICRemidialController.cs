@@ -161,10 +161,9 @@ namespace B7_Deviation.Controllers
                 var fileName = ReqID + '_' + DateTimeF + '_' + Path.GetFileName(file.FileName);
 
 
-                URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\PICRemidial\", fileName);
+                URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\PICRemidial\", fileName);               
                 URLDownload = Path.Combine(@"/B7_Deviation/Content/Attachment/PICRemidial/", fileName);
-                //D:\TempURLFiles LOCAL DIRECTORY
-                //10.167.1.78\Intranetportal\Intranet Attachment\Deviation\
+
                 file.SaveAs(URLAttachment);
                 FileNameForDB = fileName;
 
@@ -410,6 +409,66 @@ namespace B7_Deviation.Controllers
 
             ModelData.Add(result);
             return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PIC_DeleteAttachment(DeviationModel Model)
+        {
+            string result;
+            string PathFile = Model.PathFile;
+
+            List<string> ModelData = new List<string>();
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("DEVIATION_FORM_INPUT", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", SqlDbType.Int);
+                    command.Parameters["@Option"].Value = 23;
+
+                    command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                    command.Parameters["@REQID"].Value = Model.ReqID;
+
+                    command.Parameters.Add("@USERNIK", SqlDbType.VarChar);
+                    command.Parameters["@USERNIK"].Value = Model.USERNIK;
+
+                    command.Parameters.Add("@RecordID", SqlDbType.VarChar);
+                    command.Parameters["@RecordID"].Value = Model.RecordID;
+
+                    result = (string)command.ExecuteScalar();
+
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                result = ex.ToString();
+                return Json(result);
+            }
+
+            /*Delete File*/
+
+            if (!System.IO.File.Exists(PathFile))
+            {
+                result = "E";
+            }
+            else
+            {
+                try
+                {
+                    System.IO.File.Delete(PathFile);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+
         }
     }
 }
