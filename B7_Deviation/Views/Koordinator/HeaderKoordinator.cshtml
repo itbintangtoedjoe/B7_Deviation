@@ -381,12 +381,14 @@
 	}
 
 	function InsertNamaTerlibat() {
-		var UserInvolved = document.getElementById('ddlReviewer').value;
+		var UserInvolved = $('#ddlReviewer').val();
 		var REQID = @ViewBag.nomor;
+		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 		var dto = {
 			REQID: REQID,
-			UserInvolved: UserInvolved
+			UserInvolved: UserInvolved,
+            IdProposer: iduser
 		}
 
 		$.ajax({
@@ -397,6 +399,8 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data == 'S') {
+
+					
 
 					toastr.success("Data berhasil tersimpan !", "Tersimpan", {
 						"closeButton": false,
@@ -419,7 +423,6 @@
 					Coor_LoadUserInvolved();
 					GetCurrStat();
 
-                    
 				}
 			}
 			, error: function (ex) {
@@ -557,7 +560,7 @@
 
 					});
 				} else {
-
+                    GetDDL();
 					$("#partialview").attr("hidden", false);
 					$("#btnShowRev").attr("hidden", true);
 					$("btnCancel").attr("hidden", true);
@@ -576,26 +579,26 @@
 						$("#btnApprove").width("110px");
 						$("#xddlx").removeAttr('hidden');
 						$("#btnReject").attr("hidden", true);
-						GetDDL();
 						
+
 					}
 
 					$("#btnApprove").click(function () {
                         btnText = $("#btnApprove").text();
-						
-                        
+
+
 						// KALAU BELUM ADA ISINYA
 						if (tbl < 1 && $.trim(btnText) == 'Approve') {
-							
+
 							$("#xddlx").removeAttr('hidden');
 							$("#btnApprove").text('Send to Reviewer');
-							$("#btnApprove").width("110px");							
+							$("#btnApprove").width("110px");
 							$("#btnReject").attr("hidden", true);
                             GetDDL();
 						}
 						else
 							if (tbl < 1 && $.trim(btnText) == 'Send to Reviewer') {
-							
+
 								Swal.fire({
 									icon: 'error',
 									title: 'Oops...',

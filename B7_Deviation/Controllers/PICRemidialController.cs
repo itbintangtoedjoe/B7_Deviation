@@ -414,7 +414,7 @@ namespace B7_Deviation.Controllers
         public ActionResult PIC_DeleteAttachment(DeviationModel Model)
         {
             string result;
-            string PathFile = Model.PathFile;
+            string PathFile = "//10.100.18.54" + Model.PathFile;
 
             List<string> ModelData = new List<string>();
             string ConString = mySetting.ConnectionString;

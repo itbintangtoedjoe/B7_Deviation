@@ -26,7 +26,7 @@
 							To Evaluator
 						</button>
 
-						<table class="table table-striped table-bordered zero-configuration table-responsive" id="deviationdatatable" width="100%">
+						<table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="deviationdatatable" width="100%">
 							<thead>
 								<tr>
 									<th width="100px">Nama</th>
@@ -212,7 +212,7 @@
 							trHTML +=
 								'<tr><td>' + no + '</td>' +
 								'<td>' + data[trav].REVIEWER_NIK + '</td>' +
-								'<td><a href="../' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+                                '<td><a href="../' + data[trav].PATH_FILE_DOWNLOAD + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
 
 						}
 					}

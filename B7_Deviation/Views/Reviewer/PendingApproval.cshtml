@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <h2 class="d-inline">Pending Approval</h2>
                     </div>
-                    <table class="table table-striped table-bordered zero-configuration table-responsive" id="deviationdatatable" width="100%">
+                    <table class="table table-bordered table-hover nowrap table-responsive" id="deviationdatatable" width="100%">
                         <thead>
                             <tr>
                                 <th width="100px">Action</th>
@@ -26,8 +26,8 @@
                                 <th width="150px">Reviewer Name</th>
                                 <th width="100px">ID Reviewer</th>
                                 <th width="100px">Status</th>
-                                <th width="100px">Review Text</th>
-                                <th width="200px">Reason for being Rejected</th>
+                                <th width="100px">Review</th>
+                                <th width="200px">Alasan Reject</th>
                             </tr>
                         </thead>
                         <tbody id="deviationtable" class="nowrap">
@@ -100,7 +100,11 @@
 
                     $('#deviationtable').empty();
                     $('#deviationtable').append(trHTML);
-                    $('#deviationdatatable').DataTable();
+                    $('#deviationdatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false
+                    });
                     LoadData = function () { };
                 },
                 error: function (ex) {

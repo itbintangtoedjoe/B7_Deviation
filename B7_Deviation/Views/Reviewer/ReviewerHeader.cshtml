@@ -25,7 +25,7 @@
 										</button>
 									</div>
                                     <div class="form-group">
-                                        <label for="txtReason" class="form-text">Keterangan: <span style="color:red;">*</span></label>
+                                        <label for="txtReason" class="form-text">Review: <span style="color:red;">*</span></label>
                                         <textarea id="txtReason" class="form-control" style="background-color:lightyellow; width: 675px; height: 100px;"></textarea>
                                     </div>
 									<div class="form-group">
@@ -111,7 +111,7 @@
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: 'Please Insert Reason First',
+					text: 'Kolom Reviewer tidak boleh kosong !',
 				});
 				return;
 			} else {
@@ -256,9 +256,6 @@
 				success: function (data) {
 					formData.append("ReqID", REQID);
 					if (data == 'S') {
-
-						
-
 						toastr.success("File Attachment " + file.name + " Berhasil diupload", "Berhasil", {
 							"closeButton": false,
 							"debug": false,

@@ -5199,15 +5199,6 @@
     <Content Include="DataSource\AttachmentDataSource.xsc">
       <DependentUpon>AttachmentDataSource.xsd</DependentUpon>
     </Content>
-    <Content Include="Content\Attachment\Reviewer\21071301_240674_MasterList %284%29.pdf" />
-    <Content Include="Content\Attachment\Reviewer\21071301_281909_Report1 %2810%29.pdf" />
-    <Content Include="Content\Attachment\Reviewer\21071301_282823_Report1 %2810%29.pdf" />
-    <Content Include="Content\Attachment\Reviewer\21071301_284774_Report1 %2810%29.pdf" />
-    <Content Include="Content\Attachment\Reviewer\21071301_310316_2021_06_15 - 2021-07-14 Timesheet - Billy.pdf" />
-    <Content Include="Content\Attachment\Reviewer\21071513_092255_MasterList %284%29.pdf" />
-    <Content Include="Content\Attachment\Reviewer\21071513_135732_Report1 %288%29.pdf" />
-    <Content Include="Content\Attachment\Reviewer\21071901_110204_MasterList %284%29.pdf" />
-    <Content Include="Content\Attachment\Reviewer\21071901_113024_Report1 %289%29.pdf" />
     <Content Include="Content\Scripts\plugins\block-ui\blockUI.jquery.json" />
     <Content Include="Content\Scripts\plugins\block-ui\bower.json" />
     <Content Include="Content\Scripts\plugins\block-ui\composer.json" />
@@ -5725,6 +5716,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Attachment\FormUsulan\" />
+    <Folder Include="Content\Attachment\PICRemidial\" />
+    <Folder Include="Content\Attachment\Reviewer\" />
     <Folder Include="Content\Scripts\plugins\jqvmap\js\maps\" />
     <Folder Include="Content\Scripts\plugins\summernote\css\" />
   </ItemGroup>

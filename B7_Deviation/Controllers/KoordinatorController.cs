@@ -492,6 +492,9 @@ namespace B7_Deviation.Controllers
                     Command.Parameters.Add("@USER_INVOLVED", SqlDbType.NVarChar);
                     Command.Parameters["@USER_INVOLVED"].Value = Model.UserInvolved;
 
+                    Command.Parameters.Add("@ID_PROPOSER", SqlDbType.VarChar);
+                    Command.Parameters["@ID_PROPOSER"].Value = Model.IdProposer;
+
                     result = (string)Command.ExecuteScalar();
                 }
                 Conn.Close();
