@@ -36,7 +36,7 @@
                                 <th width="100px">Jenis Penyimpangan</th>
                                 <th width="100px">Deskripsi Singkat</th>
                                 <th width="100px">Status</th>
-                                <th width="100px">Detail</th>
+                                <th width="100px">Alasan Reject</th>
                                 <th width="100px">Assign To</th>
                                 <th width="100px" hidden>SENDTO</th>
                                 <th width="100px">Nomor CAPA</th>
@@ -129,38 +129,36 @@
                             }
 
                         } else if (data[trav].SEND_TO == 'PICRemidial') {
+                            if (data[trav].CURRUSER == 'Supervisor') {
 
-                            // ni yang lagi login
-                            if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
-                                if (data[trav].FLAG_QMPIC == 'QM') {
-                                    if (data[trav].FLAG_COORVTR == 'COORVTR') {
-                                        trHTML +=
-                                            '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
-                                    } else {
-                                        trHTML +=
-                                            '<tr><td><a class="btn btn-success" href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
-                                    }
-                                    
-                                } else if (data[trav].FLAG_QMPIC = 'No') {
 
-                                    if (data[trav].FLAG_COORVTR == 'COORVTR') {
-                                        trHTML +=
-                                            '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
-                                    } else {
-                                        trHTML +=
-                                            '<tr><td><a class="btn btn-success" href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
-                                    }
+                                if (data[trav].FLAG_SPVPIC == 'SPV PIC')
+                                {
+                                    if (data[trav].FLAG_QMPIC == 'QM')
+                                    {
+                                        if (data[trav].FLAG_COORVTR == 'COORVTR')
+                                        {
+                                            trHTML += '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                        } else {
+                                            trHTML +=  '<tr><td><a class="btn btn-success" href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                        }
 
-                                   
-                                }
-
-                                
-                               
-                            } else if (data[trav].FLAG_SPVPIC == 'PIC') {
-                                trHTML +=
-                                    '<tr><td><a class="btn btn-success" href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
+                                    } else
+                                        if (data[trav].FLAG_QMPIC = 'No')
+                                        {
+                                            trHTML += '<tr><td><a class="btn btn-success" href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
+                                        }
+                                } 
                             }
-
+                            else {
+                                if (data[trav].FLAG_SPVPIC == 'PIC') {
+                                    trHTML += '<tr><td><a class="btn btn-success" href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
+                                }
+                                else
+                                {
+                                    trHTML += '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                }                               
+                            }
                             
                         } else if (data[trav].SEND_TO == 'Supervisor PIC') {
                             if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
@@ -193,7 +191,8 @@
                         if (data[trav].SEND_TO == 'Reviewer') {
                             if (data[trav].ALASAN_REJECT == 'Detail Reviewer') {
                                 trHTML +=
-                                    '<td><a href="../Reviewer/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
+                                    //'<td><a href="../Reviewer/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
+                                    '<td>N/A</td>';
                             } else {
                                 trHTML +=
                                     '<td>' + data[trav].ALASAN_REJECT + '</td>';
@@ -201,7 +200,8 @@
                         } else if (data[trav].SEND_TO == 'PICRemidial') {
                             if (data[trav].ALASAN_REJECT == 'Detail PIC') {
                                 trHTML +=
-                                    '<td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
+                                    //'<td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
+                                    '<td>N/A</td>';
                             } else {
                                 trHTML +=
                                     '<td>' + data[trav].ALASAN_REJECT + '</td>';
@@ -209,15 +209,17 @@
                         } else if (data[trav].SEND_TO == 'Supervisor PIC') {
                             if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
                                 trHTML +=
-                                    '<td><a href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
+                                    //'<td><a href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
+                                    '<td>N/A</td>';
                             } else if (data[trav].FLAG_SPVPIC == 'PIC') {
                                 trHTML +=
-                                    '<td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
+                                    //'<td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
+                                    '<td>N/A</td>';
                             }
 
                         } else {
                             trHTML +=
-                                '<td>' + data[trav].ALASAN_REJECT + '</td>';
+                                '<td " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
                         }
 
                         trHTML+=

@@ -40,6 +40,7 @@ namespace B7_Deviation.Report
                 DataTable dt12 = new DataTable();
                 DataTable dt13 = new DataTable();
                 DataTable dt14 = new DataTable();
+                DataTable dt15 = new DataTable();
 
                 conn.Open();
 
@@ -147,19 +148,6 @@ namespace B7_Deviation.Report
                     dataAdapt.Fill(dt8);
                 }
 
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_ReportKoordinator2]", conn))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
-                    command.Parameters["@Nomor"].Value = Nomor;
-
-
-                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                    dataAdapt.SelectCommand = command;
-                    dataAdapt.Fill(dt14);
-                }
-
                 using (SqlCommand command = new SqlCommand("[dbo].[SP_ReportPICTable]", conn))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -225,6 +213,34 @@ namespace B7_Deviation.Report
                     dataAdapt.Fill(dt13);
                 }
 
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_ReportKoordinator2]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Nomor;
+
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+                    dataAdapt.Fill(dt14);
+                }
+
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_CountTotalPICTable]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Footer1";
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Nomor;
+
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+                    dataAdapt.Fill(dt15);
+                }
                 conn.Close();
 
                 ReportDataSource DataSource = new ReportDataSource("B7_QUALITY_SYSTEMData", dt);
@@ -283,6 +299,10 @@ namespace B7_Deviation.Report
                 ReportDataSource DataSource14 = new ReportDataSource("ReportKoordinatorDataSource2", dt14);
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource14);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("ReportKoordinatorDataSet2", dt14));
+
+                ReportDataSource DataSource15 = new ReportDataSource("DataSourceFooterTotal", dt15);
+                this.ReportViewer1.LocalReport.DataSources.Add(DataSource15);
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetFooterTotal", dt15));
 
             }
         }

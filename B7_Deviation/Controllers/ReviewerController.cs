@@ -105,7 +105,7 @@ namespace B7_Deviation.Controllers
                 throw ex;
             }
 
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            //List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             Dictionary<string, object> row;
 
             string PathFile;

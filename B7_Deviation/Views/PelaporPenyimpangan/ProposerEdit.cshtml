@@ -1910,7 +1910,7 @@
         var CR_DATE_USER = $("#TbTglCreated").val();
 
         var LOCATION = $("#txtLokasi").val();
-        var LocationSiteIncident = $('#txtLokasi').val();
+        var LocationSiteIncident = $('#txtSiteLokasi').val();
         var LocationDeptIncident = $("#txtDept").val();
 
 
@@ -2208,9 +2208,13 @@
                 document.getElementById('TbPesul').value = data[0].NAME_PROPOSER;
                 document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
 
+
+                //$("#txtrilis").attr("disabled", true);
+
+
                 LoadKategori();
 
-                document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
+                $('#txtKetKategori').val(data[0].KET_CATEGORY);
 
                 if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
                     $("#divsimpang").show();
@@ -2230,7 +2234,6 @@
                     else {
                         $("#divsimpang").hide();
                         $("#TxtNoWO").attr("disabled", true);
-                        $('#txtKetKategori').val('');
                     }
 
                 document.getElementById('TxtNoWO').value = data[0].NO_WO_ORACLE;
@@ -2245,9 +2248,6 @@
 
                 // GET DEPT
                 GetSiteLokasiKejadian();
-                
-                
-
 
                 document.getElementById('txtHow').value = data[0].ORDER_OF_EVENTS;
                 document.getElementById('date-format').value = data[0].DATE_OF_INCIDENT;
@@ -2303,7 +2303,12 @@
 
                 // Travel 5 -> missing
                 $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
+                if (data[0].PLAN_DEV == 'Yes') {
 
+                    $("#txtTindakan").attr("disabled", false);
+                } else {
+                    $("#txtTindakan").attr("disabled", true);
+                }
                 // 2nd Card FINISHED!
 
                 // 2nd Card Quality Product

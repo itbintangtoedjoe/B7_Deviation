@@ -137,12 +137,12 @@
 										<div class="form-group">
 											<div class="form-check form-check-inline">
 												<label>
-													<input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes"> Terencana
+													<input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes" checked> Terencana
 												</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<label>
-													<input type="radio" name="travel5" data-travelNumber="1" id="terencana_no_2" value="No" checked> Tidak Terencana
+													<input type="radio" name="travel5" data-travelNumber="1" id="terencana_no_2" value="No"> Tidak Terencana
 												</label>
 											</div>
 										</div>
@@ -1483,9 +1483,9 @@
 		$('input[type=radio][name=travel5]').change(function () {
 			if ($('input[name="travel5"]:checked').val() == 'Yes') {
 
-				$("#txtTindakan").removeAttr("disabled");
+                $("#txtTindakan").attr("disabled", true);
 			} else {
-				$("#txtTindakan").attr("disabled", true);
+                $("#txtTindakan").removeAttr("disabled");
 			}
 
 		});
@@ -2041,7 +2041,7 @@
 
 		var FLAG_KOOR = $('#ddlKategori').val();
 
-		if (FLAG_KOOR == 'QPR' || FLAG_KOOR == 'QNA' || FLAG_KOOR == 'QMT' || FLAG_KOOR == 'LLI') {
+        if (FLAG_KOOR == 'QPR' || FLAG_KOOR == 'QNA' || FLAG_KOOR == 'QMT' || FLAG_KOOR == 'SJH') {
 			FLAG_KOOR = 'Coordinator_QA';
 		} else if (FLAG_KOOR == 'QNS' || FLAG_KOOR == 'HSE' ){
 			FLAG_KOOR = 'Coordinator_QS';

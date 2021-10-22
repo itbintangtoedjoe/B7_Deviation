@@ -28,7 +28,7 @@
                                 <th width="100px">NIK PIC</th>
                                 <th width="100px">Nama PIC</th>
                                 <th width="100px">Keterangan Reject</th>
-                                <th width="100px">Revisi Due Date</th>
+                                <th width="100px">Revisi Due Date/Tindakan</th>
                             </tr>
                         </thead>
                         <tbody id="deviationtable" class="nowrap">
@@ -81,7 +81,7 @@
                                     '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                                     '<td>' + data[trav].ALASAN_REJECT_SPV + '</td>' +
-                                    '<td style="text-align:center;"><input value="Revisi Due Date" onclick="Revisi(this, ' + data[trav].NO_DISPOSISI+')" type="button" class="btn btn-danger"/>';
+                                    '<td style="text-align:center;"><input value="Revisi" onclick="Revisi(this, ' + data[trav].NO_DISPOSISI+')" type="button" class="btn btn-danger"/>';
 
                                 // BISANYA ISI DOANG
                             } else if (

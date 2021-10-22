@@ -293,12 +293,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>"
                             "<td><b>Need Your Approval</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -339,12 +340,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Is Rejected by Superior</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Is Rejected by Superior</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -385,12 +387,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Is Approved by Koordinator</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Is Approved by Koordinator</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -431,12 +434,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                             "<td><b>Is Rejected by Koordinator</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +                        
-                        "<tr>" +
-                            "<td><b>Is Rejected by Koordinator</b></td>" +
-                        "</tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Is Rejected by Koordinator</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -477,12 +481,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +                        
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Need Your Review as PIC</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +                        
+                        //"<tr>" +
+                        //    "<td><b>Need Your Review as PIC</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -524,12 +529,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Has been Approved and Proceeded to CAPA</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Has been Approved and Proceeded to CAPA</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -571,12 +577,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Has been Approved and Not Proceeded to CAPA</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Has been Approved and Not Proceeded to CAPA</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -618,12 +625,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Has been Canceled</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Has been Canceled</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -665,12 +673,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Has been Delegated to you</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Has been Delegated to you</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -712,12 +721,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Proposed Revision</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Proposed Revision</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -759,12 +769,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Proposed revision has been Rejected</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Proposed revision has been Rejected</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -805,12 +816,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
+                             //"<td><b>" + t_status + "</b></td>" +
+                             "<td><b>Proposed Revision has been Approved</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        "<tr>" +
-                            "<td><b>Proposed Revision has been Approved</b></td>" +
-                        "</tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Proposed Revision has been Approved</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -923,8 +935,8 @@ namespace B7_Deviation.Controllers
                 }              
                 foreach (DataRow dr in DT.Rows)
                 {
-                    t_namapenerima = dr[1].ToString(); 
-                    t_emailpenerima = dr[2].ToString();
+                    t_namapenerima = dr[0].ToString(); 
+                    t_emailpenerima = dr[1].ToString();
                     Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
                 }
 
@@ -961,12 +973,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Need Your Approval as Coordinator</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval as Coordinator</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -1008,12 +1021,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Need Your Review as Reviewer</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Review as Reviewer</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -1054,12 +1068,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Need Your Approval as Coordinator</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval as Coordinator</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -1101,12 +1116,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Need Your Approval as Quality Manager</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval as Quality Manager</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -1149,12 +1165,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Need Assign PIC</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Assign PIC</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -1197,12 +1214,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Need Verifikasi Tindakan Remedial</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Verifikasi Tindakan Remedial</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -1245,12 +1263,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
+                             //"<td><b>" + t_status + "</b></td>" +
+                             "<td><b>Need Your Approval as Quality Manager</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        "<tr>" +
-                            "<td><b>Need Your Approval as Quality Manager</b></td>" +
-                        "</tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval as Quality Manager</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -1293,12 +1312,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Has been Rejected by Quality Manager, Need Your Review as Reviewer</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Has been Rejected by Quality Manager, Need Your Review as Reviewer</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -1340,12 +1360,13 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                             "<td>Status</td>" +
                             "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
+                            //"<td><b>" + t_status + "</b></td>" +
                             "<td><b>Proposed Revision</b></td>" +
                         "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Proposed Revision</b></td>" +
+                        //"</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
@@ -1541,7 +1562,7 @@ namespace B7_Deviation.Controllers
 
         public ActionResult DeleteAttachment(DeviationModel Model)
         {
-            int tempP = 0;
+            //int tempP = 0;
             string result;
             string PathFile = Model.PathFile;
             string ConString = MyDB.ConnectionString;

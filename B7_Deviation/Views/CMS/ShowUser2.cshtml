@@ -128,6 +128,17 @@
 
                                     <div class="row form-group">
                                         <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="spvid" class="col-form-label">
+                                                Superior Name :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" id="spvname" type="text" style="display:block;" name="spvname" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
                                             <label for="dept" class="col-form-label">
                                                 Department :
                                             </label>
@@ -168,7 +179,7 @@
                                             </label>
                                         </div>
                                         <div class="col-lg-6">
-                                            <select id="penyimpangan" class="form-control js-example-basic-multiple"  style="width: 350px;">
+                                            <select id="penyimpangan" class="form-control js-example-basic-multiple" style="width: 350px;">
                                             </select>
                                         </div>
                                     </div>
@@ -196,13 +207,7 @@
         // Load User once the page is loaded
         LoadUser();
 
-        $("#ddlsuperiorname").change(function () {
-
-            var spvid = $("#ddlsuperiorname").val();
-            GetSuperiorVendorDetail(spvid);
-        });
-
-
+        GetSuperiorSU();
 
     });
 
@@ -219,9 +224,6 @@
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-
-                alert(data[0].orggroupname);
-
                 $("#spvid").val(spvid);
                 $("#dept").val(data[0].orggroupname);
                 $("#spvemail").val(data[0].email);
@@ -363,6 +365,10 @@
         $("#spvid").val(spvid);
         $("#spvid").attr("disabled", true);
 
+        $("#spvname").val(spvname);
+        $("#spvname").attr("disabled", true);
+        
+
         $("#dept").val(dept);
         $("#dept").attr("disabled", true);
 
@@ -372,7 +378,8 @@
             $("#ddlsuperiorname").attr("disabled", false);
             $("#name").attr("disabled", false);
             $("#job").attr("disabled", false);
-            GetSuperiornameDDL(id);
+            //GetSuperiornameDDL(id);
+            GetSuperiorSU();
         } else {
 
             text += '<Option class="dropdown-item" value = "' + spvname + '" selected >' + spvname;
@@ -979,5 +986,41 @@
         });
     }
 
+    function GetSuperiorSU() {
+        $.ajax({
+            url: "../CMS/CMS_GetSuperior",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+
+                trhtml += '<option disabled selected class="dropdown-header">Select Role</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml +=
+                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].empname;
+                    }
+                }
+
+                $("#ddlsuperiorname").empty();
+                $("#ddlsuperiorname").append(trhtml);
+                $("#ddlsuperiorname").select2();
+
+                $("#ddlSuperior").change(function () {
+                    var IDLL = $("#ddlSuperior").val();
+                    $('#spvid').val(data[IDLL].empid);
+                    $('#spvid').val(data[IDLL].empname);
+                    $('#dept').val(data[IDLL].orggroupname);
+                    $('#spvemail').val(data[IDLL].emailsuperior);
+                });
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
 </script>
 

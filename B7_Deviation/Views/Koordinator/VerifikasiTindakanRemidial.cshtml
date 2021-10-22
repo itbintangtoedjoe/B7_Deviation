@@ -95,7 +95,7 @@
 								</tbody>
 								<tfoot id="picfooter">
 									<tr>
-										<th colspan="3" style="text-align: center; text ; background-color: #f3f3f3">Total</th>
+										<th colspan="3" style="text-align: center;  background-color: #f3f3f3">Total</th>
 										<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Testing Manhours</th>
 										<th style="text-align: center; background-color: #f3f3f3">Total Testing Cost</th>
 										<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Processing Manhours</th>
@@ -182,13 +182,13 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="number" id="ITDP" class="form-control" />
+                                    <input  type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"  id="ITDP" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)<span class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="number" id="ITJP" class="form-control" />
+                                    <input  type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"  id="ITJP" class="form-control" />
                                 </div>
                             </div>
 
@@ -198,13 +198,13 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)<span class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="number" id="MTDP" class="form-control" />
+                                    <input  type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"  id="MTDP" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)<span class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="number" id="MTJP" class="form-control" />
+                                    <input  type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"  id="MTJP" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -244,6 +244,16 @@
 		$("#btnReject").click(function () {
 			Reject();
 		});
+
+        $("input[data-type='currency']").on({
+            keyup: function () {
+
+                formatCurrency($(this));
+            },
+            blur: function () {
+                formatCurrency($(this), "blur");
+            }
+        });
 
 	});
 
@@ -325,21 +335,21 @@
 							'<tr><td align="center">' + counter + '</td>' +
 							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
 							'<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-							'<td>' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
-							'<td>' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
+							'<td align="right">' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
+							'<td align="right">' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
 							//'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
-							'<td>' + data[trav].MANHOURS_VALUE_TESTING + '</td>' +
+							'<td align="right">' + data[trav].MANHOURS_VALUE_TESTING + '</td>' +
 							'<td align="right">' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
-							'<td>' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
-							'<td>' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+							'<td align="right">' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
+							'<td align="right">' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
 							//'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
-							'<td>' + data[trav].MANHOURS_VALUE_PROCESSING + '</td>' +
-							'<td>' + data[trav].REJ_MATERIAL + '</td>' +
-							'<td>' + data[trav].REJ_QUANTITY + '</td>' +
-							'<td>' + data[trav].REJ_COST_MATERIAL + '</td>' +
-							'<td>' + data[trav].MC_SPAREPART + '</td>' +
-							'<td>' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
-							'<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+							'<td align="right">' + data[trav].MANHOURS_VALUE_PROCESSING + '</td>' +
+							'<td align="right">' + data[trav].REJ_MATERIAL + '</td>' +
+							'<td align="right">' + data[trav].REJ_QUANTITY + '</td>' +
+							'<td align="right">' + data[trav].REJ_COST_MATERIAL + '</td>' +
+							'<td align="right">' + data[trav].MC_SPAREPART + '</td>' +
+							'<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
+							'<td align="left">' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
 							'<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
 
 						if (data[trav].FLAG_PIC == 'REJECTED' || data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
@@ -405,18 +415,18 @@
 
 							trHTML +=
 								'<tr>' +
-								'<td style="background-color: #f3f3f3" colspan="3"></td><td colspan="3" style="text-align:center">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
-								'<td colspan="1" style="text-align:center"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
-								'<td colspan="3" style="text-align:center">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
-								'<td colspan="3" style="text-align:center"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
-								'<td colspan="2" style="text-align:center"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
+								'<td style="background-color: #f3f3f3" colspan="3"></td><td colspan="3" align="right" style="padding:10px 8px">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
+								'<td align="right" colspan="1" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
+								'<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
+								'<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
+								'<td align="right" colspan="2" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
 
 
 								'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Times</th>' +
-								'<td colspan="2" style="text-align:center">' + data[trav].TOTAL_TIMES + '</td></tr>' +
+								'<td colspan="2" align="right" style="padding:10px 8px">' + data[trav].TOTAL_TIMES + '</td></tr>' +
 
 								'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Cost</th>' +
-								'<td colspan="2" style="text-align:center"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
+								'<td colspan="2" align="right" style="padding:10px 8px"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
 
 
 						}
@@ -670,10 +680,10 @@
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		var itdp = $("#ITDP").val();
-		var itjp = $("#ITJP").val();
-		var mtdp = $("#MTDP").val();
-		var mtjp = $("#MTJP").val();
+        var itdp = $("#ITDP").val().replaceAll(',', '');
+        var itjp = $("#ITJP").val().replaceAll(',', '');
+        var mtdp = $("#MTDP").val().replaceAll(',', '');
+        var mtjp = $("#MTJP").val().replaceAll(',', '');
 
 		if (itdp == '' || itjp == '' || mtdp == '' || mtjp == '') {
             Swal.fire({
