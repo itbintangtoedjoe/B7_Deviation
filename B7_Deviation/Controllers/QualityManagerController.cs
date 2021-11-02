@@ -201,6 +201,8 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
                     command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
 
@@ -248,6 +250,10 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar);
                     command.Parameters["@UserID"].Value = Model.LOGIN_USER;
+
+                    command.Parameters.Add("@NoDisposisi", SqlDbType.VarChar);
+                    command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
+
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
 

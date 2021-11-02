@@ -35,9 +35,10 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
-        public ActionResult PICHeader(String Nomor)
+        public ActionResult PICHeader(String Nomor, String Urutan)
         {
             ViewBag.nomor = Nomor;
+            ViewBag.urutan = Urutan;
             return View();
         } 
         
@@ -469,6 +470,66 @@ namespace B7_Deviation.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
 
+        }
+
+        public ActionResult GetDueDateDisposisi(UsulanRevisiModel Model) 
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            List<string> ModelData = new List<string>();
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_PIC_REMIDIAL]", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", SqlDbType.Int);
+                    command.Parameters["@Option"].Value = 1 ;
+
+                    command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                    command.Parameters["@UserID"].Value = Model.IDUSER;
+
+                    command.Parameters.Add("@RegID", SqlDbType.VarChar);
+                    command.Parameters["@RegID"].Value = Model.REQID;
+
+                    command.Parameters.Add("@NoDisposisi", SqlDbType.VarChar);
+                    command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                ModelData.Add(ex.ToString());
+                return Json(ModelData);
+            }
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            if (DT.Rows.Count > 0)
+            {
+
+                Dictionary<string, object> row;
+                foreach (DataRow dr in DT.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in DT.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                }
+                return Json(rows);
+            }
+            else
+            {
+                ModelData.Add("Data Kosong !!");
+                return Json(rows);
+            }
         }
     }
 }

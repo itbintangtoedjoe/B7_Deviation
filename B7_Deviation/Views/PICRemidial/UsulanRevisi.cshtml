@@ -25,7 +25,7 @@
 											<span class="fa fa-check-square-o"></span>
 										</button>
 
-										<a href="/PICRemidial/DataTableList" class="col-sm-2 mb-1 btn btn-info form-control">Back</a>
+										@*<a href="/PICRemidial/DataTableList" class="col-sm-2 mb-1 btn btn-info form-control">Back</a>*@
 
 									</div>
 								</div>
@@ -59,19 +59,25 @@
 				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-body">
-
-							<div class="form-group row">
-								
-								<div class="col">
-									<div class="form-group">
-										<label>Revisi Due Date:</label>
-										<input id="duedate" type="date" class="form-control">
-									</div>
-									<div class="form-group">
-										<label for="txtTanggal">Revisi Tindakan Remedial:</label>
-										<textarea id="tindakan" class="form-control"></textarea>
-									</div>
-								</div>
+							<div class="form-group row">								
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Due Date:</label>
+                                        <input id="txtDudate" type="text" class="form-control" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>New Due Date:</label>
+                                        <input id="duedate" type="date" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tindakan Remedial:</label>
+                                        <input id="txtRemidial" type="text" class="form-control" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Revisi Tindakan Remedial:</label>
+                                        <textarea id="tindakan" class="form-control"></textarea>
+                                    </div>
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -84,12 +90,43 @@
 </div>
 <script>
 	$(document).ready(function () {
-
+		GetDueDateDisposisi();
 		$("#usulanrevisi").click(function () {
 			SubmitUsulanRevisi();
 		});
 
+
 	});
+
+	function GetDueDateDisposisi() {
+		var REQID = @ViewBag.nomor;
+		var urutan = @ViewBag.urutan;
+		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+
+		var dto = {
+
+			REQID: REQID,
+			NO_DISPOSISI: urutan,
+			IDUSER: iduser
+		}
+
+		$.ajax({
+			url: "../PICRemidial/GetDueDateDisposisi",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				$('#txtDudate').val(data[0].DUE_DATE);
+                $('#txtRemidial').val(data[0].KETERANGAN_DISPOSISI);
+
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
 
 	function SubmitUsulanRevisi() {
 

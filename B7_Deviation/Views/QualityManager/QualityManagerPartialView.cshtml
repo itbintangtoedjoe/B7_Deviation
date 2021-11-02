@@ -273,9 +273,10 @@
 
 	function LoadReviewerData() {
 		var nomor = @ViewBag.nomor;
-
+		var urutan = @ViewBag.urutan;
 		var dto = {
-			ReqID: nomor
+			ReqID: nomor,
+            NO_DISPOSISI: urutan
 		}
 
 		$.ajax({
@@ -331,7 +332,7 @@
 						'</div>' +
 						'</div>';
 
-					
+
 
 					if (data[trav].FLAG_REVIEW == "REVIEW APPROVED BY COORDINATOR" || data[trav].FLAG_REVIEW == "DONE REVISE FROM QUALITY MANAGER") {
 						text +=
@@ -341,7 +342,7 @@
 							'</div>';
 					}
 
-					
+
 					text +=
 
 						'</div>' +
@@ -634,7 +635,7 @@
 					});
 
 					LoadKeteranganDisposisi();
-					
+
 				}
 			}
 			, error: function (ex) {

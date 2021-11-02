@@ -78,6 +78,9 @@
                     var Count = data.length;
                     for (trav = 0; trav < Count; trav++) {
 
+
+                        // Set Button
+
                         if (data[trav].SEND_TO == 'Pelapor') {
                             if (data[trav].STAT == 'OPEN') {
                                 trHTML +=
@@ -129,19 +132,21 @@
                             }
 
                         } else if (data[trav].SEND_TO == 'PICRemidial') {
+                            // Kurang disini
                             if (data[trav].CURRUSER == 'Supervisor') {
-
-
                                 if (data[trav].FLAG_SPVPIC == 'SPV PIC')
                                 {
                                     if (data[trav].FLAG_QMPIC == 'QM')
                                     {
-                                        if (data[trav].FLAG_COORVTR == 'COORVTR')
-                                        {
-                                            trHTML += '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
-                                        } else {
-                                            trHTML +=  '<tr><td><a class="btn btn-success" href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
-                                        }
+                                        // pak wempie salah disini
+                                        //if (data[trav].FLAG_COORVTR == 'COORVTR')
+                                        //{
+                                        //    trHTML += '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                        //} else {
+                                        //    trHTML +=  '<tr><td><a class="btn btn-success" href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                        //}
+
+                                        trHTML += '<tr><td><a class="btn btn-success" href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
 
                                     } else
                                         if (data[trav].FLAG_QMPIC = 'No')
@@ -179,6 +184,24 @@
                             //}
                         }
 
+                        // End Set button
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         trHTML +=
                             '<td>' + data[trav].REQ_ID + '</td>' +
                             '<td>' + data[trav].DEVIATION_NO + '</td>' +
@@ -199,9 +222,22 @@
                             }
                         } else if (data[trav].SEND_TO == 'PICRemidial') {
                             if (data[trav].ALASAN_REJECT == 'Detail PIC') {
+
+                                //if (data[trav].FLAG_QMPIC == 'QM') {
+                                //    if (data[trav].FLAG_COORVTR == 'COORVTR') {
+                                //        trHTML += '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                //    } else {
+                                //        trHTML += '<tr><td><a class="btn btn-success" href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                //    }
+
+                                //} else
+                                //    if (data[trav].FLAG_QMPIC = 'No') {
+                                //        trHTML += '<tr><td><a class="btn btn-success" href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
+                                //    }
+
                                 trHTML +=
-                                    //'<td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
-                                    '<td>N/A</td>';
+                                //    '<td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
+                                    '<td>WAWAWAWAWAW</td>';
                             } else {
                                 trHTML +=
                                     '<td>' + data[trav].ALASAN_REJECT + '</td>';

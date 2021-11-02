@@ -368,7 +368,7 @@
 
         $("input[data-type='currency']").on({
 			keyup: function () {
-				
+
                 formatCurrency($(this));
             },
             blur: function () {
@@ -379,7 +379,7 @@
 	});
 
 
-   
+
 	function CheckHiddenCostType() {
         var x = $('input[name="checkhiddencost"]:checked').val();
 		if (x == 'Yes') {
@@ -391,10 +391,14 @@
 
 	function GetUsulanTindakan() {
 		var REQID = @ViewBag.nomor;
+		var urutan = @ViewBag.urutan;
+
+
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 		var dto = {
 			REQID: REQID
+            
 		};
 
 		$.ajax({
@@ -415,7 +419,8 @@
 
 		var dtx = {
 			LOGIN_USER: iduser,
-			REQID: REQID
+			REQID: REQID,
+            NO_DISPOSISI: urutan
 		};
 
 		$.ajax({
@@ -425,7 +430,7 @@
 			data: JSON.stringify(dtx),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-                                
+
 				$('#disposisitindakan').val(data[0].DISPOSISI_TINDAKAN);
                 $('#txtHasilTindakan').val(data[0].HASIL_TINDAKAN);
                 $('input[name="checkhiddencost"]:checked').val(data[0].HIDDEN_COST_TYPE);
@@ -529,11 +534,14 @@
 	function LoadBukti() {
 
 		var REQID = @ViewBag.nomor;
+        var urutan = @ViewBag.urutan;
+
 		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 		var dto = {
 			ReqId: REQID,
-			USERNIK: USERNIK
+			USERNIK: USERNIK,
+            NO_DISPOSISI: urutan
 		}
 
 		$.ajax({
@@ -543,13 +551,13 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				
+
 				if (data != '') {
 
 					var trHTML = '';
 					var trav = 0;
 					var Count = data.length;
-                    
+
                     if (Count > 0) {
 						for (trav = 0; trav < Count; trav++) {
 							var no = 1
@@ -591,7 +599,7 @@
 		// Detailed Section
         var HiddenCostType = $('input[name="checkhiddencost"]:checked').val();
 		var HasilTindakan = $("#txtHasilTindakan").val();
-        
+
 		// Testing Section
         var testDP = $("#testingDurasiPengerjaan").val().replaceAll(',', '');
         var testJP = $("#testingJumlahPelaksana").val().replaceAll(',', '');
@@ -620,7 +628,7 @@
         var mcS = $("#mcSparepart").val().replaceAll(',', '');
         var mcHS = $("#mcHargaSparepart").val().replaceAll(',', '');
 
-		
+
 		if (HiddenCostType == 'Yes') {
 			if (HasilTindakan == '') {
                 Swal.fire({
@@ -642,7 +650,7 @@
             }
 		}
 
-       
+
 		var dto = {
 			REQID: REQID,
 			IDUSER: iduser,
@@ -776,6 +784,6 @@
 
 	}
 
-	
+
 </script>
 

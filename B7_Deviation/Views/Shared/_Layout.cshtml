@@ -359,8 +359,45 @@
             var IsLogin = '@Request.RequestContext.HttpContext.Session["fullname"]';
             var IsRole = '@Request.RequestContext.HttpContext.Session["role"]';
             var IsJobTitle = '@Request.RequestContext.HttpContext.Session["jobttlname"]';
-            
+            var IsHead = IsJobTitle.includes("head");
             var url = "../Login/Index";
+            alert(IsRole)
+            alert(IsJobTitle)
+            alert(IsHead)
+            $('#UserLoginXd').text(IsLogin);
+
+            // ENABLE / DISABLE MENU
+
+            if (IsRole == 'Supervisor') {
+                if (IsJobTitle == 'Quality Assurance Manager' || IsJobTitle == 'Quality System Manager') {
+                    $("#userlist").attr("hidden", true);
+                    $("#cms").attr("hidden", true);
+                    $("#create").attr("hidden", false);
+                } else {
+                    $("#userlist").attr("hidden", true);
+                    $("#cms").attr("hidden", true);
+                    
+
+                    //untuk Manager Quality
+                    $("#masterlist").attr("hidden", true);
+                    $("#leadtime").attr("hidden", true);
+
+                    if (IsHead) {
+                        $("#create").attr("hidden", true);
+                    }
+                    else {
+                        $("#create").attr("hidden", false);
+                    }
+                }
+               
+            } else
+                if (IsRole == 'Pelapor') {
+                $("#masterlist").attr("hidden", true);
+                $("#leadtime").attr("hidden", true);
+                $("#find").attr("hidden", false);
+                $("#userlist").attr("hidden", true);
+                $("#cms").attr("hidden", true);
+            }
 
             if (IsLogin === '' || IsLogin === null) {
 
@@ -374,33 +411,6 @@
                 setTimeout(function () {
                     $(location).attr('href', url);
                 }, 1000);
-            }
-            $('#UserLoginXd').text(IsLogin);
-
-            // ENABLE / DISABLE MENU
-
-            if (IsRole == 'Supervisor') {
-                if (IsJobTitle == 'Quality Assurance Manager' || IsJobTitle == 'Quality System Manager') {
-                    $("#userlist").attr("hidden", true);
-                    $("#cms").attr("hidden", true);
-                    $("#create").attr("hidden", true);
-                } else {
-                    $("#userlist").attr("hidden", true);
-                    $("#cms").attr("hidden", true);
-                    $("#create").attr("hidden", true);
-
-                    //untuk Manager Quality
-                    $("#masterlist").attr("hidden", true);
-                    $("#leadtime").attr("hidden", true);
-                }
-               
-            } else
-                if (IsRole == 'Pelapor') {
-                $("#masterlist").attr("hidden", true);
-                $("#leadtime").attr("hidden", true);
-                $("#find").attr("hidden", false);
-                $("#userlist").attr("hidden", true);
-                $("#cms").attr("hidden", true);
             }
 
         }

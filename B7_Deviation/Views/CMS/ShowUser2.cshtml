@@ -348,6 +348,7 @@
 
         GetKategoriPenyimpangan(username);
         GetRoleEdit(username);
+        GetSuperiorSU();
 
         // JUDUL
         $("#nama").text(name);
@@ -379,7 +380,7 @@
             $("#name").attr("disabled", false);
             $("#job").attr("disabled", false);
             //GetSuperiornameDDL(id);
-            GetSuperiorSU();
+            //GetSuperiorSU();
         } else {
 
             text += '<Option class="dropdown-item" value = "' + spvname + '" selected >' + spvname;
@@ -424,10 +425,10 @@
                 spvid = document.getElementById('spvid').value;
             }
 
-            if (!document.getElementById('ddlsuperiorname').value) {
+            if (!document.getElementById('spvname').value) {
                 spvname = spvname;
             } else {
-                spvname = document.getElementById('ddlsuperiorname').value;
+                spvname = document.getElementById('spvname').value;
             }
 
             if (!document.getElementById('dept').value) {
@@ -1010,10 +1011,10 @@
                 $("#ddlsuperiorname").append(trhtml);
                 $("#ddlsuperiorname").select2();
 
-                $("#ddlSuperior").change(function () {
-                    var IDLL = $("#ddlSuperior").val();
+                $("#ddlsuperiorname").change(function () {
+                    var IDLL = $("#ddlsuperiorname").val();
                     $('#spvid').val(data[IDLL].empid);
-                    $('#spvid').val(data[IDLL].empname);
+                    $('#spvname').val(data[IDLL].empname);
                     $('#dept').val(data[IDLL].orggroupname);
                     $('#spvemail').val(data[IDLL].emailsuperior);
                 });

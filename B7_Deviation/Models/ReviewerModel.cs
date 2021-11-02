@@ -14,5 +14,6 @@ namespace B7_Deviation.Models
         public string KETERANGAN_REJECT { get; set; }
         public string Option { get; set; }
         public string LOGIN_USER { get; set; }
+        public string NO_DISPOSISI { get; set; }
     }
 }
