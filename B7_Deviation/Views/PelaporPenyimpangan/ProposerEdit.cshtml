@@ -68,7 +68,7 @@
                                 <input id="TbTglCreated" class="form-control" readonly="readonly">
                             </div>
                             <div class="col">
-                                <label>Nomer Deviation</label>
+                                <label>Nomor Deviation</label>
                                 <input id="TbNmrDev" type="text" class="form-control" readonly="readonly">
                             </div>
                             <div class="col">
@@ -144,13 +144,13 @@
                                         <div class="form-group">
                                             <div class="form-check form-check-inline">
                                                 <label>
-                                                    <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes"> Ya
+                                                    <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes"> Terencana
 
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <label>
-                                                    <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No" checked> Tidak
+                                                    <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No" checked> Tidak Terencana
 
                                                 </label>
                                             </div>
@@ -353,7 +353,7 @@
                                         </label>
                                     </div>
                                     <div class="col-sm-10">
-                                        <textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
+                                        <textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi" disabled></textarea>
 
                                     </div>
                                 </div>
@@ -1264,9 +1264,9 @@
         $('input[type=radio][name=travel5]').change(function () {
             if ($('input[name="travel5"]:checked').val() == 'Yes') {
 
-                $("#txtTindakan").removeAttr("disabled");
-            } else {
                 $("#txtTindakan").attr("disabled", true);
+            } else {
+                $("#txtTindakan").removeAttr("disabled");
             }
 
         });
@@ -2305,9 +2305,9 @@
                 $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
                 if (data[0].PLAN_DEV == 'Yes') {
 
-                    $("#txtTindakan").attr("disabled", false);
-                } else {
                     $("#txtTindakan").attr("disabled", true);
+                } else {
+                    $("#txtTindakan").attr("disabled", false);
                 }
                 // 2nd Card FINISHED!
 

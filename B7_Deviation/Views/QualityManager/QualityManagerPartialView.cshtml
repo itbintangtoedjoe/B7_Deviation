@@ -278,7 +278,7 @@
 			ReqID: nomor,
             NO_DISPOSISI: urutan
 		}
-
+		console.log(dto);
 		$.ajax({
 			url: "../QualityManager/QM_LoadDeviationApproval",
 			type: "post",
@@ -286,8 +286,6 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
-
 				var flag = 0;
 				var text = '';
 				var trav = 0;

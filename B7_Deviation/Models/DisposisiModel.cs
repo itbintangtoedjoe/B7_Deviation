@@ -16,5 +16,6 @@ namespace B7_Deviation.Models
         public DateTime DUE_DATE { get; set; }
         public string NO_DISPOSISI { get; set; }
         public string CURR_USER { get; set; }
+        public string KETERANGAN_REJECT { get; set; }
     }
 }

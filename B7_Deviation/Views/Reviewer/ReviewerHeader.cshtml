@@ -169,7 +169,7 @@
 
 	function Submit() {
 		var REQID = @ViewBag.nomor;
-		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+		var iduser = '@Request.RequestContext.HttpContext.Session["nik"]';
 		var keterangan = $("#txtReason").val();
 
 		var dto = {

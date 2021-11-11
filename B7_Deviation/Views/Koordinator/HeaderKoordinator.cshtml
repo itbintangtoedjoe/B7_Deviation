@@ -447,6 +447,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data != '') {
+					console.log(data);
 					$('#tblWho_Rev').attr('hidden', false);
 
 					var trHTML = '';

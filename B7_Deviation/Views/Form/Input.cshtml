@@ -46,7 +46,7 @@
 								<input id="TbTglCreated" class="form-control" readonly="readonly">
 							</div>
 							<div class="col">
-								<label>Nomer Deviation</label>
+								<label>Nomor Deviation</label>
 								<input id="TbNmrDev" type="text" class="form-control" readonly="readonly">
 							</div>
 							<div class="col">
@@ -685,7 +685,7 @@
 					DEVIATION_CATEGORY == ' ' || DEVIATION_CATEGORY == null ||
 					CR_DATE_USER == ' ' || CR_DATE_USER == null ||
 					LOCATION == ' ' || LOCATION == null ||
-					LocationSiteIncident == ' ' || LocationSiteIncident == null ||
+                    LocationSiteIncident == ' ' || LocationDeptIncident == null ||
 
 					ORDER_OF_EVENTS == ' ' || ORDER_OF_EVENTS == null ||
 					ACTION_WHEN_DEV == ' ' || ACTION_WHEN_DEV == null ||
@@ -2040,12 +2040,14 @@
 		var THIRTY = $("#txt30hari").val();
 
 		var FLAG_KOOR = $('#ddlKategori').val();
+		console.log(FLAG_KOOR);
 
-        if (FLAG_KOOR == 'QPR' || FLAG_KOOR == 'QNA' || FLAG_KOOR == 'QMT' || FLAG_KOOR == 'SJH') {
+		if (FLAG_KOOR == 'QPR' || FLAG_KOOR == 'QNA' || FLAG_KOOR == 'QMT' || FLAG_KOOR == 'SJH') {
 			FLAG_KOOR = 'Coordinator_QA';
 		} else if (FLAG_KOOR == 'QNS' || FLAG_KOOR == 'HSE' ){
 			FLAG_KOOR = 'Coordinator_QS';
 		}
+		console.log(FLAG_KOOR);
 
         var FlagReceipt = $('input[name="r_receipt"]:checked').val();
 		var QCMaterialManufacturerNo = $('#TxtQCMaterialNo').val();
@@ -2109,7 +2111,6 @@
 			QCMaterialManufacturerNo: QCMaterialManufacturerNo
 		};
 
-
 		$.ajax({
 			url: "../Form/InsertFormDeviation",
 			type: "post",
@@ -2123,7 +2124,7 @@
 				});
 				CheckDelete = 1;
 				SendEmail();
-				window.location.href = "../DataDeviasi/DataTableList";
+				window.location.href = "../DataDeviasi/PendingTask";
 
 			}
 			, error: function (ex) {

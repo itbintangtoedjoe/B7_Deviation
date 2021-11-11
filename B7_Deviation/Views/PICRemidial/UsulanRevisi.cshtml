@@ -66,7 +66,7 @@
                                         <input id="txtDudate" type="text" class="form-control" disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label>New Due Date:</label>
+                                        <label>New Due Date:<span class="text-danger">*</span></label>
                                         <input id="duedate" type="date" class="form-control">
                                     </div>
                                     <div class="form-group">
@@ -74,7 +74,7 @@
                                         <input id="txtRemidial" type="text" class="form-control" disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label>Revisi Tindakan Remedial:</label>
+                                        <label>Revisi Tindakan Remedial:<span class="text-danger">*</span></label>
                                         <textarea id="tindakan" class="form-control"></textarea>
                                     </div>
                                 </div>
@@ -129,7 +129,16 @@
 	}
 
 	function SubmitUsulanRevisi() {
-
+        var revisiduedate = $("#duedate").val();
+		var tindakan = $("#tindakan").val();
+		if (revisiduedate == null || revisiduedate == '' || tindakan == '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Revisi tindakan dan due date wajib dimasukkan!'
+			});
+			return;
+        }
 		Swal.fire({
 			title: 'Reason???',
 			input: 'text',
@@ -153,8 +162,6 @@
 
 				var REQID = @ViewBag.nomor;
 				var urutan = @ViewBag.urutan;
-				var revisiduedate = $("#duedate").val();
-				var tindakan = $("#tindakan").val();
 				var alasan = result.value;
 				var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 

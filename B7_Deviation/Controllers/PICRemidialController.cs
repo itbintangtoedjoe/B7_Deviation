@@ -314,7 +314,7 @@ namespace B7_Deviation.Controllers
                     command.Parameters["@ProcQty"].Value = Model.ProcQ;
 
                     command.Parameters.Add("@ProcCostMaterial", SqlDbType.VarChar);
-                    command.Parameters["@ProcCostMaterial"].Value = Model.ProcQ;
+                    command.Parameters["@ProcCostMaterial"].Value = Model.ProcCM;
 
                     command.Parameters.Add("@RejMaterial", SqlDbType.VarChar);
                     command.Parameters["@RejMaterial"].Value = Model.RejM;

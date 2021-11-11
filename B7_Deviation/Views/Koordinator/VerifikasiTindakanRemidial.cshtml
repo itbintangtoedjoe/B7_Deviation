@@ -62,18 +62,19 @@
 
 							<table class="table table-bordered table-hover nowrap table-responsive" id="deviationdatatable" width="100%">
 								<thead>
-									<tr>
-										<th rowspan="2">No</th>
-										<th rowspan="2">Usulan Tindakan Remedial</th>
-										<th rowspan="2">Hasil Tindakan Remedial</th>
-										<th colspan="4" style="text-align:center">Testing Cost</th>
-										<th colspan="3" style="text-align:center">Processing Cost</th>
-										<th colspan="3" style="text-align:center">Reject Cost</th>
-										<th colspan="2" style="text-align:center">Machine Cost</th>
-										<th rowspan="2" style="text-align:center">PIC</th>
-										<th rowspan="2" style="text-align:center">Dokumen Pendukung</th>
-										<th id="headVerify" rowspan="2" style="text-align:center">Verifikasi Tindakan Remedial</th>
-									</tr>
+                                    <tr>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">Usulan Tindakan Remedial</th>
+                                        <th rowspan="2">Hasil Tindakan Remedial</th>
+                                        <th colspan="4" style="text-align:center">Testing Cost</th>
+                                        <th colspan="3" style="text-align:center">Processing Cost</th>
+                                        <th colspan="3" style="text-align:center">Reject Cost</th>
+                                        <th colspan="2" style="text-align:center">Machine Cost</th>
+                                        <th rowspan="2" style="text-align:center">PIC</th>
+                                        <th rowspan="2" style="text-align:center">Status</th>
+                                        <th rowspan="2" style="text-align:center">Dokumen Pendukung</th>
+                                        <th id="headVerify" rowspan="2" style="text-align:center">Verifikasi Tindakan Remedial</th>
+                                    </tr>
 									<tr>
 										<th width="75px">Jumlah Personel</th>
 										<th width="75px">Durasi Pengerjaan (Jam)</th>
@@ -232,7 +233,7 @@
 		GetUsulanTindakan();
 		LoadStatus();
 
-		
+
 		$("#btnCancel").click(function () {
 			Cancel();
 		});
@@ -294,9 +295,10 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+				console.log(data);
 				if (data == 'VERIFIED') {
                     LoadData();
-					$("#koorsubmission").removeAttr("hidden");                   
+					$("#koorsubmission").removeAttr("hidden");
 				} else {
                     LoadData();
 					$("#koorsubmission").attr("hidden", true);
@@ -350,11 +352,13 @@
 							'<td align="right">' + data[trav].MC_SPAREPART + '</td>' +
 							'<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
 							'<td align="left">' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-							'<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
+                            '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>'+
+							'<td align="left">' + data[trav].FLAG_PIC + '</td>';
 
-						if (data[trav].FLAG_PIC == 'REJECTED' || data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
+                        @*data[trav].FLAG_PIC == 'REJECTED' ||*@
+						if (data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
 							trHTML +=
-								'<td> - </td>';
+								'<td align="center"> - </td>';
 
 						} else {
 							trHTML +=
@@ -366,7 +370,7 @@
 							trHTML +=
 								'<td align="center">' +
 								'<button style="width:50px" onclick = "Verifikasi(this)" class="btn btn-success">Verifikasi</button>' +
-								'<button style="width:50px" onclick = "RejectVerifikasi" class="btn btn-danger" >Reject</button>' +
+								'<button style="width:50px" onclick = "RejectVerifikasi(this)" class="btn btn-danger" >Reject</button>' +
 								'</td > ';
                         } else if ((data[trav].FLAG_VERIFIKASI == 'VERIFIED' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC'))
 						{
@@ -376,7 +380,7 @@
 						}
 
                         if (data[trav].FLAG_VERIFIKASI == 'VERIFIED') {
-							checkVerify = checkVerify + 1;							
+							checkVerify = checkVerify + 1;
 						}
 					}
 
@@ -393,7 +397,7 @@
 					if (checkVerify > 0) {
                         $('#headVerify').focus();
 					}
-                    
+
 
 				},
 				error: function (ex) {
@@ -443,7 +447,7 @@
 				})
 		);
 
-		
+
 
 		// GET EVALUASI RESIKO
 		$.ajax({
@@ -466,10 +470,12 @@
 		var row = $(button).closest("TR");
 		var ReqID = @ViewBag.nomor;
 		var no_disposisi = $("TD", row).eq(0).html();
+		var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 		var dto = {
 			REQ_ID: ReqID,
-			NO_DISPOSISI: no_disposisi
+			NO_DISPOSISI: no_disposisi,
+			CURR_USER:username
 		}
 
 		$.ajax({
@@ -480,7 +486,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
                 LoadStatus();
-				
+
 			}
 			, error: function (ex) {
 				alert('Error Delete User Involved : ' + JSON.stringify(ex));
@@ -489,29 +495,62 @@
 	}
 
 	function RejectVerifikasi(button) {
+		var empid = '@Request.RequestContext.HttpContext.Session["nik"]';
+		var empUsername = '@Request.RequestContext.HttpContext.Session["xUser"]';
 		var row = $(button).closest("TR");
 		var ReqID = @ViewBag.nomor;
 		var no_disposisi = $("TD", row).eq(0).html();
 
-		var dto = {
-			REQ_ID: ReqID,
-			NO_DISPOSISI: no_disposisi
-		}
+        Swal.fire({
+            title: 'Masukkan alasan reject',
+            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Submit',
+            showLoaderOnConfirm: true,
 
-		$.ajax({
-			url: "../Koordinator/RejectVerifikasiPerPIC",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				alert("Not Verified");
-                LoadStatus();
-			}
-			, error: function (ex) {
-				alert('Error Delete User Involved : ' + JSON.stringify(ex));
-			}
-		});
+            allowOutsideClick: () => Swal.isLoading()
+        }).then((result) => {
+            if (result.value == null || result.value == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Alasan reject wajib diisi'
+                });
+            } else if (result.isConfirmed) {
+                var keteranganReject = result.value;
+                var dto = {
+                    REQ_ID: ReqID,
+                    NO_DISPOSISI: no_disposisi,
+					KETERANGAN_REJECT: keteranganReject,
+                    USER_NIK: empid,
+                    CURR_USER: empUsername
+				}
+
+                $.ajax({
+                    url: "../Koordinator/RejectVerifikasiPerPIC",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+
+                        Swal.fire({
+                            title: 'Berhasil direject',
+                            icon: 'success',
+                            buttons: false,
+                        }).then((result) => {
+                            LoadStatus();
+                        });
+                    }
+                    , error: function (ex) {
+                        alert('Error Delete User Involved : ' + JSON.stringify(ex));
+                    }
+                });
+            }
+        });
 	}
 
 
@@ -590,7 +629,7 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 
-				
+
 
 			}, error: function (ex) {
 				alert(JSON.stringify(ex));

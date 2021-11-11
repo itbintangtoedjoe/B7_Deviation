@@ -499,7 +499,9 @@
 			dataType: "json",
 			data: JSON.stringify(dtx),
 			contentType: "application/json;charset=utf-8",
-			success: function (data) {
+            success: function (data) {
+                console.log('data');
+				console.log(data);
 				$("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
 			},
 			error: function (ex) {

@@ -103,7 +103,7 @@
                             <div class="drop-down dropdown-profile   dropdown-menu">
                                 <div class="dropdown-content-body my-2">
                                     <ul>
-                                        <li> 
+                                        <li style="cursor:pointer"> 
                                             <a id="spanLogout"><i class="icon-key"></i> <span>Logout</span></a>
                                         </li>
                                     </ul>
@@ -361,9 +361,6 @@
             var IsJobTitle = '@Request.RequestContext.HttpContext.Session["jobttlname"]';
             var IsHead = IsJobTitle.includes("head");
             var url = "../Login/Index";
-            alert(IsRole)
-            alert(IsJobTitle)
-            alert(IsHead)
             $('#UserLoginXd').text(IsLogin);
 
             // ENABLE / DISABLE MENU
@@ -402,8 +399,8 @@
             if (IsLogin === '' || IsLogin === null) {
 
                 swal({
-                    title: "UnVerified!",
-                    text: "Session Login berakhir, silahkan login kembali!",
+                    title: "Unverified!",
+                    text: "Session login berakhir, silahkan login kembali!",
                     type: "error",
                     showConfirmButton: !1
                 });

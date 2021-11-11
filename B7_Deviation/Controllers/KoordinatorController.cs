@@ -41,6 +41,7 @@ namespace B7_Deviation.Controllers
         public ActionResult VerifikasiTindakanRemidial(String Nomor)
         {
             ViewBag.nomor = Nomor;
+            ViewBag.urutan = 0;
             return View();
         }
 
@@ -1252,6 +1253,9 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@NoDisposisi", SqlDbType.VarChar);
                     command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
 
+                    command.Parameters.Add("@IDUser", SqlDbType.VarChar);
+                    command.Parameters["@IDUser"].Value = Model.CURR_USER;
+
                     command.Parameters.Add("@Option", SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "Verifikasi PIC";
 
@@ -1279,7 +1283,7 @@ namespace B7_Deviation.Controllers
             try
             {
                 Conn.Open();
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_Approve]", Conn))
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_Reject]", Conn))
                 {
                     /* Header*/
                     command.CommandType = CommandType.StoredProcedure;
@@ -1289,6 +1293,15 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@NoDisposisi", SqlDbType.VarChar);
                     command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
+
+                    command.Parameters.Add("@Keterangan", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@Keterangan"].Value = Model.KETERANGAN_REJECT;
+
+                    command.Parameters.Add("@IDUser", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@IDUser"].Value = Model.USER_NIK;
+
+                    command.Parameters.Add("@LoginUser", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@LoginUser"].Value = Model.CURR_USER;
 
                     command.Parameters.Add("@Option", SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "Reject Verifikasi PIC";

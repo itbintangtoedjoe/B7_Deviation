@@ -182,6 +182,12 @@
 
 							<hr />
 							<div id="picsubmission" hidden="hidden">
+								
+                                <div class="form-group">
+									<div class="row form-group">
+										<label class="d-inline" style="color:red;font-weight:bold">Note: Minimal satu group cost wajib diisi</label>
+									</div>
+                                </div>
 								<div class="form-group">
 									<div class="row form-group">
 										<h4 class="d-inline">Testing Cost</h4>
@@ -351,6 +357,7 @@
 	$(document).ready(function () {
 		LoadBukti();
 		GetUsulanTindakan();
+		LoadCost();
 
         $("input[name=checkhiddencost]").change(function () {
             CheckHiddenCostType();
@@ -398,7 +405,7 @@
 
 		var dto = {
 			REQID: REQID
-            
+
 		};
 
 		$.ajax({
@@ -422,7 +429,6 @@
 			REQID: REQID,
             NO_DISPOSISI: urutan
 		};
-
 		$.ajax({
 			url: "../QualityManager/QM_GetDisposisiTindakan",
 			type: "post",
@@ -430,10 +436,63 @@
 			data: JSON.stringify(dtx),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
 				$('#disposisitindakan').val(data[0].DISPOSISI_TINDAKAN);
-                $('#txtHasilTindakan').val(data[0].HASIL_TINDAKAN);
-                $('input[name="checkhiddencost"]:checked').val(data[0].HIDDEN_COST_TYPE);
+				$('#txtHasilTindakan').val(data[0].HASIL_TINDAKAN);
+                var adaCost = data[0].HIDDEN_COST_TYPE;
+				$("input[name=checkhiddencost][value=" + adaCost + "]").prop('checked', true);
+				if (adaCost == 'Yes') {
+                    $("#picsubmission").prop('hidden', false);
+                }
+			}, error: function (ex) {
+				alert(JSON.stringify(ex));
+			}
+		});
+	}
+
+	function LoadCost() {
+		var REQID = @ViewBag.nomor;
+		var urutan = @ViewBag.urutan;
+		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQID: REQID,
+			NO_DISPOSISI:urutan
+		};
+
+		$.ajax({
+            url: "../QualityManager/LoadCostDisposisi",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                // Testing Section
+				$("#testingDurasiPengerjaan").val(data[0].TESTING_DURASI_PENGERJAAN);
+				$("#testingJumlahPelaksana").val(data[0].TESTING_JUMLAH_PELAKSANA);
+				$("#testingManhoursValue").val(data[0].TESTING_MANHOURS_VALUE);
+				$("#testingCostAnalysis").val(data[0].TESTING_COST_OF_ANALYSIS);
+
+				// Processing Section
+				$("#procDurasiPengerjaan").val(data[0].PROC_DURASI_PENGERJAAN);
+				$("#procJumlahPelaksana").val(data[0].PROC_JUMLAH_PELAKSANA);
+				$("#procManhoursValue").val(data[0].PROC_MANHOURS_VALUE);
+                $("#procMaterial").val(data[0].PROC_MATERIAL);
+				$("#procQty").val(data[0].PROC_QUANTITY);
+				$("#procCostMaterial").val(data[0].PROC_COST_MATERIAL);
+
+				// Rejection Section
+                $("#rejMaterial").val(data[0].REJ_MATERIAL);
+				$("#rejQty").val(data[0].REJ_QUANTITY);
+				$("#rejCostMaterial").val(data[0].REJ_COST_MATERIAL);
+
+				// Machine Cost
+				$("#mcDurasiPengerjaan").val(data[0].MC_DURASI_PENGERJAAN);
+				$("#mcJumlahTeknisi").val(data[0].MC_JUMLAH_TEKNISI);
+				$("#mcManhoursValue").val(data[0].MC_MANHOURS_VALUE);
+                $("#mcNamaMesin").val(data[0].MC_NAMA_MESIN);
+				$("#mcTotalMachineHours").val(data[0].MC_TOTAL_MACHINE_HOURS_VALUE);
+				$("#mcSparepart").val(data[0].MC_SPAREPART);
+				$("#mcHargaSparepart").val(data[0].MC_TOTAL_HARGA_SPAREPART);
 			}, error: function (ex) {
 				alert(JSON.stringify(ex));
 			}
@@ -631,20 +690,28 @@
 
 		if (HiddenCostType == 'Yes') {
 			if (HasilTindakan == '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Hasil Tindakan Remidial harus diisi !',
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Hasil Tindakan Remidial harus diisi!',
 				})
 				return;
 			}
+            else if (testMV == '' && testCA == '' && procMV == '' && procCM == '' && rejCM == '' && mcMV == '' && mcS == '' && mcHS == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Salah satu group cost wajib diisi!',
+                })
+                return;
+            }
 		}
 		else {
             if (HasilTindakan == '') {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Hasil Tindakan Remidial harus diisi !',
+                    text: 'Hasil Tindakan Remidial harus diisi!',
                 })
                 return;
             }

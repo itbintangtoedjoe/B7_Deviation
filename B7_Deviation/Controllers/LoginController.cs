@@ -88,7 +88,7 @@ namespace B7_Deviation.Controllers
                     {
                         if (Model.Username == "")
                         {
-                            status = "Useername Kosong !";
+                            status = "Username wajib diisi!";
                         }
                         else
                         {
@@ -180,7 +180,7 @@ namespace B7_Deviation.Controllers
                             }
                             else
                             {
-                                status = "Username atau Password yang dimasukan tidak benar !";
+                                status = "Username atau password yang dimasukkan tidak sesuai!";
                             }
                         }
                     }
@@ -264,6 +264,7 @@ namespace B7_Deviation.Controllers
                         Session["role"] = DT2.Rows[0]["role_deviation"].ToString();
                         Session["fullname"] = DT2.Rows[0]["empname"].ToString();
                         Session["jobttlname"] = DT2.Rows[0]["jobttlname"].ToString();
+                        Session["nik"] = DT2.Rows[0]["empid"].ToString();
                     }
                     catch (Exception ex)
                     {

@@ -81,7 +81,16 @@
                             '<td>' + data[trav].USER_NAME + '</td>' +
                             '<td>' + data[trav].USER_NIK + '</td>';
 
-                        if (data[trav].FLAG_REVIEW == 'NOT YET' || data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY COORDINATOR' || data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY QUALITY MANAGER') {
+                        if (data[trav].FLAG_REVIEW == 'NOT YET') {
+                            trHTML +=
+                                '<td>PENDING REVIEW</td>';
+                        }
+                        else {
+                            trHTML +=
+                                '<td>' + data[trav].FLAG_REVIEW + '</td>';
+                        }
+
+                        @*if (data[trav].FLAG_REVIEW == 'NOT YET' || data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY COORDINATOR' || data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY QUALITY MANAGER') {
                             trHTML +=
                                 '<td> Pending Review </td>';
                         } else if (data[trav].FLAG_REVIEW == 'REVIEW APPROVED BY COORDINATOR' || data[trav].FLAG_REVIEW == 'REVIEW APPROVED BY QUALITY MANAGER') {
@@ -90,7 +99,7 @@
                         } else if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR' || data[trav].FLAG_REVIEW == 'DONE REVISE FROM COORDINATOR' || data[trav].FLAG_REVIEW == 'DONE REVISE FROM QUALITY MANAGER') {
                             trHTML +=
                                 '<td> Pending Approval </td>';
-                        }
+                        }*@
 
                         trHTML+=
                             '<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +

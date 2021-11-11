@@ -115,8 +115,9 @@
 
 <script>
 	$(document).ready(function () {
-        
+        //load desposisi
 		LoadData();
+		//load reviewer
 		LoadData2();
 		CheckStatus();
 	});
@@ -264,7 +265,16 @@
 	function AssignPIC(button) {
 
 		var row = $(button).closest("TR");
-		var pic_nik = $("TD", row).eq(2).find("select").val();
+        var pic_nik = $("TD", row).eq(2).find("select").val();
+		var due_date = $("TD", row).eq(3).find("input[type='date']").val();
+        if (pic_nik == null || pic_nik == '' || due_date == null || due_date == '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Pelaksana dan due date wajib diisi!'
+            });
+            return;
+        }
 
 		var REQID = @ViewBag.nomor;
 
@@ -282,7 +292,6 @@
 			success: function (data) {
 				if (data == 'ADA') {
 
-					var due_date = $("TD", row).eq(3).find("input[type='date']").val();
 					var no_disposisi = $("TD", row).eq(5).find("input[type='text']").val();
 
 					var req_id = @ViewBag.nomor;
@@ -387,8 +396,6 @@
 				alert('Check Email Availability: ' + JSON.stringify(ex));
 			}
 		});
-
-
 	}
 
 	function LoadData() {

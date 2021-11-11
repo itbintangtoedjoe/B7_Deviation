@@ -45,7 +45,7 @@
 		</div>
 	</div>
 
-	<script>
+    <script>
 		$(document).ready(function () {
 			// Load User once the page is loaded
 			LoadData();
@@ -53,7 +53,7 @@
 		});
 
 		function LoadData() {
-
+			var nikUserLogin = '@Request.RequestContext.HttpContext.Session["nik"]';
 			var REQID = @ViewBag.nomor;
 
 			var dto = {
@@ -67,11 +67,11 @@
 				dataType: "json",
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
+					console.log(data);
 					var trHTML = '';
 					var trav = 0;
 					var Count = data.length;
 					for (trav = 0; trav < Count; trav++) {
-
 						trHTML +=
 							'<tr><td>' + data[trav].REQ_ID + '</td>' +
 							'<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
@@ -81,8 +81,16 @@
 							'<td>' + data[trav].REVISI_DUE_DATE + '</td>' +
 							'<td>' + data[trav].REVISI_TINDAKAN_REMEDIAL + '</td>' +
 							'<td>' + data[trav].ALASAN_REVISI + '</td>' +
-							'<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
-							'<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" onclick=ApprovePIC(this) class="btn btn-success" style="width:120px;"/> <input type="button" id="RejectPIC" value="Reject" onclick=RejectPIC(this) class="btn btn-danger" style="width:100px;"/></td>';
+							'<td hidden>' + data[trav].NO_DISPOSISI + '</td>';
+
+						var nikSuperior = data[trav].PIC_REMEDIAL_SUPERIOR_NIK;
+						if (nikSuperior == nikUserLogin) {
+							trHTML +=
+								'<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" onclick=ApprovePIC(this) class="btn btn-success" style="width:120px;"/> <input type="button" id="RejectPIC" value="Reject" onclick=RejectPIC(this) class="btn btn-danger" style="width:100px;"/></td>'
+						}
+						else {
+                            trHTML += '<td align="center">N/A</td>';
+                        }
 					}
 
 					$('#deviationtable').empty();
@@ -244,7 +252,7 @@
 			});
 
 		}
-	</script>
+    </script>
 
 
 </body>

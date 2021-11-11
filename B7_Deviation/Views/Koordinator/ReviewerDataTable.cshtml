@@ -28,15 +28,16 @@
 
 						<table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="deviationdatatable" width="100%">
 							<thead>
-								<tr>
-									<th width="100px">Nama</th>
-									<th width="100px">NIK</th>
-									<th width="100px">Status</th>
-									<th width="300px">Hasil Review</th>
-									<th width="200px">Action</th>
-									<th width="150px">Dokumen Pendukung</th>
+                                <tr>
+                                    <th width="100px">Nama</th>
+                                    <th width="100px">NIK</th>
+                                    <th width="300px">Hasil Review</th>
+                                    <th width="100px">Status</th>
+                                    <th width="100px">Alasan Reject</th>
+                                    <th width="200px">Action</th>
+                                    <th width="100px">Dokumen Pendukung</th>
 
-								</tr>
+                                </tr>
 							</thead>
 							<tbody id="deviationtable" class="nowrap">
 							</tbody>
@@ -249,7 +250,6 @@
 				data: JSON.stringify(dto),
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
-
 					var trHTML = '';
 					var trav = 0;
 					var Count = data.length;
@@ -257,23 +257,24 @@
 
 						trHTML +=
 							'<tr><td>' + data[trav].USER_NAME + '</td>' +
-							'<td>' + data[trav].USER_NIK + '</td>';
+                        '<td>' + data[trav].USER_NIK + '</td>' +
+                        '<td>' + data[trav].KETERANGAN_REVIEW + '</td>';
 
-						if (data[trav].FLAG_REVIEW == 'NOT YET' || data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY COORDINATOR') {
+						if (data[trav].FLAG_REVIEW == 'NOT YET') {
 							trHTML +=
-								'<td> Pending Review </td>' +
-								'<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
+								'<td> PENDING REVIEW </td>'+
+                            '<td>N/A</td>' +
 								'<td> N/A </td>';
 
-						} else if (data[trav].FLAG_REVIEW == 'REVIEW APPROVED BY COORDINATOR') {
+                        } else if (data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY COORDINATOR' || data[trav].FLAG_REVIEW == 'REVIEW APPROVED BY COORDINATOR') {
 							trHTML +=
-								'<td> Approved </td>' +
-								'<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
+                                '<td>' + data[trav].FLAG_REVIEW+'</td>' +
+                            '<td>' + data[trav].KETERANGAN_REJECT + '</td>' +
 								'<td> N/A </td>';
 						} else if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR' || 'DONE REVISE FROM COORDINATOR') {
 							trHTML +=
-								'<td> Pending Approval </td>' +
-								'<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
+                                '<td>' + data[trav].FLAG_REVIEW+'</td>' +
+                            '<td>' + data[trav].KETERANGAN_REJECT + '</td>' +
 								'<td> <input type="button" id = "Approve"  value="Approve" onclick="Approve(this)" class="btn btn-success" style="width:50px"/> <input type = "button" id = "Reject" value = "Reject" onclick="Reject(this)" class="btn btn-danger" style="width:50px"/>' + '</td>';
 							;
 						}
@@ -483,7 +484,7 @@
 				success: function (data) {
 
 
-					if (data == 'S') {
+					if (data == 'Completed') {
 						$("#disposisi").removeAttr("hidden");
 
 						$("#btnDelegate").removeAttr('hidden');
