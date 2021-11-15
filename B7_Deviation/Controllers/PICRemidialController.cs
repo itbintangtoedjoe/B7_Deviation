@@ -39,6 +39,7 @@ namespace B7_Deviation.Controllers
         {
             ViewBag.nomor = Nomor;
             ViewBag.urutan = Urutan;
+            ViewBag.DisplayTambahanDisposisi = 0;
             return View();
         } 
         
@@ -370,6 +371,17 @@ namespace B7_Deviation.Controllers
             string ConString = mySetting.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
 
+            object tindakan = Model.REVISI_TINDAKAN_REMEDIAL;
+            object dueDate = Model.REVISI_DUE_DATE;
+            if (dueDate==null)
+            {
+                dueDate = "";
+            }
+            else if (tindakan == null)
+            {
+                tindakan = "";
+            }
+
             try
             {
                 Conn.Open();
@@ -391,13 +403,13 @@ namespace B7_Deviation.Controllers
                     command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
 
                     command.Parameters.Add("@RevisiDueDate", SqlDbType.VarChar);
-                    command.Parameters["@RevisiDueDate"].Value = Model.REVISI_DUE_DATE;
+                    command.Parameters["@RevisiDueDate"].Value = dueDate;
 
                     command.Parameters.Add("@AlasanRevisi", SqlDbType.VarChar);
                     command.Parameters["@AlasanRevisi"].Value = Model.ALASAN_REVISI;
 
                     command.Parameters.Add("@RevisiTindakanRemedial", SqlDbType.VarChar);
-                    command.Parameters["@RevisiTindakanRemedial"].Value = Model.REVISI_TINDAKAN_REMEDIAL;
+                    command.Parameters["@RevisiTindakanRemedial"].Value = tindakan;
 
                     result = (string)command.ExecuteScalar();
                 }

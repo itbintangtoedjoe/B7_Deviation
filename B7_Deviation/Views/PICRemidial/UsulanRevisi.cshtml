@@ -131,11 +131,11 @@
 	function SubmitUsulanRevisi() {
         var revisiduedate = $("#duedate").val();
 		var tindakan = $("#tindakan").val();
-		if (revisiduedate == null || revisiduedate == '' || tindakan == '') {
+		if ((revisiduedate == null || revisiduedate == '') && tindakan == '') {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Revisi tindakan dan due date wajib dimasukkan!'
+                text: 'Revisi tindakan atau due date wajib diisi!'
 			});
 			return;
         }
@@ -159,7 +159,6 @@
 					text: 'Please Insert Reason!'
 				});
 			} else if (result.isConfirmed) {
-
 				var REQID = @ViewBag.nomor;
 				var urutan = @ViewBag.urutan;
 				var alasan = result.value;
@@ -175,7 +174,6 @@
 					ALASAN_REVISI: alasan,
 					IDUSER: iduser
 				}
-
 				$.ajax({
 					url: "../PICRemidial/PIC_SubmitUsulanRevisi",
 					type: "post",

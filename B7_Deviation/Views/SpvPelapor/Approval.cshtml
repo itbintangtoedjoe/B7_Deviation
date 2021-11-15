@@ -539,7 +539,6 @@
 		var dto = {
 			ReqID: nomor
 		}
-		console.log(nomor);
 		$.ajax({
 			url: "../SpvPelapor/App_LoadDeviationApproval",
 			type: "post",
@@ -547,7 +546,6 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				console.log(data);
 				var text = '';
 
 				// SHOW / HIDE

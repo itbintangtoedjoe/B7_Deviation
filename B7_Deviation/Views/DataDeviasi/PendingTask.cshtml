@@ -61,7 +61,7 @@
 
         function LoadData() {
             var loginuser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
+            console.log(loginuser);
             var dto = {
                 IDUSER: loginuser
             }
@@ -79,6 +79,7 @@
                     var Count = data.length;
                     for (trav = 0; trav < Count; trav++) {
 
+                        console.log(data[trav]);
 
                         // Set Button
 
@@ -100,8 +101,16 @@
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../Koordinator/AssignPIC?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             } else if (data[trav].STAT == "RMPIC1" || data[trav].STAT == "PICDD1" || data[trav].STAT == "AHROK1") {
-                                trHTML +=
-                                    '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                //12 Nov 21 (handle agar pic mengarah ke halaman insert disposisi ketika revisi diapprove manager(evaluator))
+                                //data[trav].APPROVERID.indexOf(data[trav].USERID) >= 0)
+                                if ((data[trav].STAT == 'AHROK1' || data[trav].STAT == 'RMPIC1') && (data[trav].FLAG_SPVPIC=='PIC')) {
+                                    trHTML += '<tr><td><a class="btn btn-success" href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
+                                }
+                                else {
+                                    trHTML +=
+                                        '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                }
+                                //12 Nov 21
                             } else if (data[trav].STAT == "REVAL1" || data[trav].STAT == "RVREV1" || data[trav].STAT == "RVREV0") {
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../Koordinator/ReviewerDataTable?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
@@ -122,7 +131,7 @@
                         } else if (data[trav].SEND_TO == 'QManager') {
                             if (data[trav].STAT == 'ADKOR1' || data[trav].STAT == 'OKKOR1' || data[trav].STAT == 'RTDQM1') {
                                 trHTML +=
-                                    '<tr><td><a class="btn btn-success" href="../QualityManager/QMHeader?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                        '<tr><td><a class="btn btn-success" href="../QualityManager/QMHeader?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
 
                             } else if (data[trav].STAT == 'URABS1' || data[trav].STAT == 'PICDD1') {
                                 trHTML +=
@@ -251,7 +260,7 @@
                             } else if (data[trav].FLAG_SPVPIC == 'PIC') {
                                 trHTML +=
                                     //'<td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
-                                    '<td>N/A</td>';
+                                    '<td>'+data[trav].ALASAN_REJECT+'</td>';
                             }
 
                         } else {

@@ -116,7 +116,7 @@
 								<thead>
 									<tr>
 										<th width="75px">No</th>
-										<th width="100px">NIK PIC</th>
+										<th width="100px">Nama PIC</th>
 										<th width="75px">Nama File</th>
 
 									</tr>
@@ -295,8 +295,8 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				console.log(data);
 				if (data == 'VERIFIED') {
+					console.log(data);
                     LoadData();
 					$("#koorsubmission").removeAttr("hidden");
 				} else {
@@ -372,7 +372,8 @@
 								'<button style="width:50px" onclick = "Verifikasi(this)" class="btn btn-success">Verifikasi</button>' +
 								'<button style="width:50px" onclick = "RejectVerifikasi(this)" class="btn btn-danger" >Reject</button>' +
 								'</td > ';
-                        } else if ((data[trav].FLAG_VERIFIKASI == 'VERIFIED' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC'))
+							//15 Nov 21, tampilkan cap verified
+                        } else if ((data[trav].FLAG_VERIFIKASI == 'VERIFIED' && data[trav].FLAG_PIC == 'REMEDIAL APPROVED BY COORDINATOR'))
 						{
                             trHTML += '<td align="center"><img src="../Content/Pict/verified4.png" /></td>';
 						} else {

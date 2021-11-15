@@ -42,6 +42,7 @@ namespace B7_Deviation.Controllers
         {
             ViewBag.nomor = Nomor;
             ViewBag.urutan = 0;
+            ViewBag.DisplayTambahanDisposisi = 1;
             return View();
         }
 
@@ -49,6 +50,7 @@ namespace B7_Deviation.Controllers
         {
             ViewBag.nomor = Nomor;
             ViewBag.urutan = 0;
+            ViewBag.DisplayTambahanDisposisi = 0;
             return View();
         }
 

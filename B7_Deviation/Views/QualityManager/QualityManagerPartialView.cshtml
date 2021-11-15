@@ -240,8 +240,9 @@
 
 	function GetCurrStat() {
 
-		$('#can').attr("hidden", true);
+		@*$('#can').attr("hidden", true);*@
 		var REQID = @ViewBag.nomor;
+		var showDisposisi = "@ViewBag.DisplayTambahanDisposisi";
 
 		var dto = {
 			REQID: REQID
@@ -254,15 +255,25 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
-				if (data == "CAN") {
+				console.log(data);
+				@*if (data == "CAN") {
 					$("#can").attr("hidden", false);
 					LoadKeteranganDisposisi();
 
 				} else {
-					$("#can").attr("hidden", true);
+					//15 Nov 21
+                    $("#can").attr("hidden", true);
 
-				}
+				}*@
+                //15 Nov 21
+                if (showDisposisi =="0") {
+                    $("#can").attr("hidden", true);
+
+                } else {
+                    $("#can").attr("hidden", false);
+                    LoadKeteranganDisposisi();
+                }
+                //15 Nov 21
 
 			}, error: function (ex) {
 				alert(JSON.stringify(ex));
