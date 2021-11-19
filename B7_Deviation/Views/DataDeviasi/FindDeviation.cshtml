@@ -648,9 +648,10 @@
             var row = $(button).closest("TR");
 
             //var Nomor = $("TD", row).eq(0).html();
-            var Nomor = $("TD", row).eq(1).html();
+            var Nomor = $("TD", row).eq(1).html() + $("TD", row).eq(2).html();
+            
 
-            window.location.href = "../DataDeviasi/Report?Nomor=" + Nomor
+            window.location.href = "../DataDeviasi/Report?Nomor=" + Nomor;
         }
 
         function View(button) {

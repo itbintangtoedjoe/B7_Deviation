@@ -129,8 +129,8 @@
 
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label">Hasil Tindakan Remedial<span class="text-danger">*</span></label>
-								<div class="col-sm-10">
-									<textarea id="txtHasilTindakan" style="width: 960px;"></textarea>
+								<div class="col-sm-10 input-group">
+									<textarea id="txtHasilTindakan" class="form-control" style="width: 960px;"></textarea>
 								</div>
 							</div>
 
@@ -697,13 +697,33 @@
 				})
 				return;
 			}
-            else if (testMV == '' && testCA == '' && procMV == '' && procCM == '' && rejCM == '' && mcMV == '' && mcS == '' && mcHS == '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Salah satu group cost wajib diisi!',
-                })
-                return;
+			else if (testMV == '' && testCA == '' && procMV == '' && procCM == '' && rejCM == '' && mcMV == '' && mcS == '' && mcHS == '') {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Salah satu group cost wajib diisi!',
+				})
+				return;
+			}
+			else if (procDP != '' || procJP != '' || procMV != '') {
+				if (procDP == '' || procJP == '' || procMV == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Processing Cost wajib diisi semua!',
+                    })
+                    return;
+				}
+			}
+            else if (testDP != '' || testJP != '' || testMV != '') {
+                if (testDP == '' || testJP == '' || testMV == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Testing Cost wajib diisi semua!',
+                    })
+                    return;
+                }
             }
 		}
 		else {
@@ -755,7 +775,7 @@
 			success: function (data) {
                 CheckDelete = 1;
 				Swal.fire({
-					title: 'Form Saved',
+					title: 'Form Submit',
 					showDenyButton: false,
 					showCancelButton: false,
 					confirmButtonText: `OK`

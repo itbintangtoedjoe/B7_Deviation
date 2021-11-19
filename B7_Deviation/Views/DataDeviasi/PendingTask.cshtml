@@ -25,7 +25,7 @@
                         <h2 class="d-inline">B7 Deviation Pending List</h2>
                     </div>
 
-                    <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" width="100%" id="deviationdatatable">
+                    <table class="table table-striped table-bordered table-hover zero-configuration nowrap table-responsive" width="100%" id="deviationdatatable" style="color:black">
                         <thead>
                             <tr>
                                 <th width="100px">Action</th>
@@ -100,7 +100,10 @@
                             if (data[trav].STAT == "DTRQM1") {
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../Koordinator/AssignPIC?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
-                            } else if (data[trav].STAT == "RMPIC1" || data[trav].STAT == "PICDD1" || data[trav].STAT == "AHROK1") {
+                            } else if (data[trav].STAT == 'CAPAYS') {
+
+                            }
+                            else if (data[trav].STAT == "RMPIC1" || data[trav].STAT == "PICDD1" || data[trav].STAT == "AHROK1") {
                                 //12 Nov 21 (handle agar pic mengarah ke halaman insert disposisi ketika revisi diapprove manager(evaluator))
                                 //data[trav].APPROVERID.indexOf(data[trav].USERID) >= 0)
                                 if ((data[trav].STAT == 'AHROK1' || data[trav].STAT == 'RMPIC1') && (data[trav].FLAG_SPVPIC=='PIC')) {

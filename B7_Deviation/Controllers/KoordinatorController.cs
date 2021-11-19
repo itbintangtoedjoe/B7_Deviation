@@ -1476,5 +1476,13 @@ namespace B7_Deviation.Controllers
             return Json(ModelData, JsonRequestBehavior.AllowGet);
         }
 
+
+        public ActionResult CloseWithCAPA(String Nomor)
+        {
+            ViewBag.nomor = Nomor;
+            ViewBag.urutan = 0;
+            ViewBag.DisplayTambahanDisposisi = 0;
+            return View();
+        }
     }
 }

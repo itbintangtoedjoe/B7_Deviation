@@ -17,12 +17,18 @@ namespace B7_Deviation.Report
         {
             if (!IsPostBack && !IsCallback)
             {
-                string Nomor = Request.QueryString["Nomor"].ToString();
+                string ReqNumber = Request.QueryString["Nomor"].ToString();
+
+
+                string Nomor = ReqNumber.Substring(0, 8);
+                string NoCAPA = ReqNumber.Substring(8, 23);
 
                 ReportViewer1.Reset();
                 ReportViewer1.LocalReport.EnableExternalImages = true;
 
                 ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Report/Report1.rdlc");
+                ReportViewer1.LocalReport.DisplayName = "Deviation_"+ NoCAPA;
+
                 ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["DB_DEVIATION"];
                 string conString = mySetting.ConnectionString;
                 SqlConnection conn = new SqlConnection(conString);

@@ -1,0 +1,439 @@
+﻿
+@{
+    ViewBag.Title = "CloseWithCAPA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
+
+<div class="content-body">
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nama</label>
+                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTanggal">Tanggal:</label>
+                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.Partial("~/Views/QualityManager/QualityManagerPartialView.cshtml")
+    </div>
+
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover nowrap table-responsive" id="deviationdatatable" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">Usulan Tindakan Remedial</th>
+                                        <th rowspan="2">Hasil Tindakan Remedial</th>
+                                        <th colspan="4" style="text-align:center">Testing Cost</th>
+                                        <th colspan="3" style="text-align:center">Processing Cost</th>
+                                        <th colspan="3" style="text-align:center">Reject Cost</th>
+                                        <th colspan="2" style="text-align:center">Machine Cost</th>
+                                        <th rowspan="2" style="text-align:center">PIC</th>
+                                        <th rowspan="2" style="text-align:center">Action</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Jumlah Personel</th>
+                                        <th>Durasi Pengerjaan (Jam)</th>
+                                        <th>Manhours Value</th>
+                                        <th>Cost of Analysis</th>
+                                        <th>Durasi Pengerjaan</th>
+                                        <th>Jumlah Pelaksana (Jam)</th>
+                                        <th>Manhours Value</th>
+                                        <th>Material</th>
+                                        <th>Quantity</th>
+                                        <th>Cost Material</th>
+                                        <th>Nama Sparepart</th>
+                                        <th>Harga Sparepart</th>
+                                        <th hidden="hidden">NIK PIC</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody id="deviationtable" class="">
+                                </tbody>
+                                <tfoot id="picfooter">
+                                    <tr>
+                                        <th colspan="3" rowspan="2" style="text-align: center; background-color: #f3f3f3; vertical-align: middle">Total</th>
+                                        <th colspan="3" style="text-align: center ; background-color: #f3f3f3">Total Testing Manhours</th>
+                                        <th style="text-align: center ; background-color: #f3f3f3">Total Testing Cost</th>
+                                        <th colspan="3" style="text-align: center ; background-color: #f3f3f3">Total Processing Manhours</th>
+                                        <th colspan="3" style="text-align: center ; background-color: #f3f3f3">Total Rejected Cost</th>
+                                        <th colspan="2" style="text-align: center ; background-color: #f3f3f3">Total Machine Cost</th>
+                                    </tr>
+
+                                </tfoot>
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="card" id="tabel2" hidden="hidden">
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover verticle-middle table-responsive" id="buktidatatable" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="75px">No</th>
+                                        <th width="100px">NIK PIC</th>
+                                        <th width="75px">Nama File</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="buktitable" class="nowrap">
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" id="koorsubmission">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h4>Investigation Time</h4>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="ITDP" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="ITJP" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h4>Meeting Time</h4>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="MTDP" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" id="MTJP" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h4>Evaluasi Risiko</h4>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault1" value="Yes" disabled="disabled">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Perlu Ditindaklanjuti dengan Pengkajian Risiko
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault2" value="No" disabled="disabled">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Tidak Perlu Ditindaklanjuti dengan Pengkajian
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" id="carpar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Disposisi Produk atau Sistem<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="disposisi">                                       
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label"></label>
+
+                                <div class="col-sm-10">
+                                    <textarea id="keterangandisposisi" class="form-control" placeholder="Keterangan Disposisi"></textarea>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <h4 class="col-sm-4">Perlu Ditindaklanjuti CAR-PAR</h4>
+                            </div>
+                           
+                            <div id="divLanjut" >
+                                <div class="form-group row">
+                                    <label class="col-sm-2" for="txtJustifikasiLain">Tingkat Keparahan</label>
+                                    <textarea class="col-sm-10 form-control" id="txtTingkatKeparahan" disabled="disabled"></textarea>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2" for="txtJustifikasiLain">Justifikasi Lainnya</label>
+                                    <textarea class="col-sm-10 form-control" id="txtJustifikasiLain" disabled="disabled"></textarea>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+
+        // Load Body Data
+        LoadData();
+
+        // Load Investigation and Meeting Time
+        LoadKoorSub();
+
+    });
+
+    function LoadData() {
+
+		var nomor = @ViewBag.nomor;
+		var dto = {
+			REQID: nomor
+		}
+
+		$.when(
+            $.ajax({
+                url: "../Koordinator/Coor_LoadPICData",
+                type: "post",
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+                    for (trav = 0; trav < Count; trav++) {
+                        var counter = 1;
+                        counter += trav;
+                        trHTML +=
+                            '<tr><td align="center">' + counter + '</td>' +
+                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                            '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+                            '<td>' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
+                            '<td>' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
+                            //'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
+                            '<td>' + data[trav].MANHOURS_VALUE_TESTING + '</td>' +
+                            '<td>' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
+                            '<td>' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
+                            '<td>' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+                            //'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+                            '<td>' + data[trav].MANHOURS_VALUE_PROCESSING + '</td>' +
+                            '<td>' + data[trav].REJ_MATERIAL + '</td>' +
+                            '<td>' + data[trav].REJ_QUANTITY + '</td>' +
+                            '<td>' + data[trav].REJ_COST_MATERIAL + '</td>' +
+                            '<td>' + data[trav].MC_SPAREPART + '</td>' +
+                            '<td>' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
+                            '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+                            '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
+
+                        if (data[trav].FLAG_PIC == 'REJECTED' || data[trav].FLAG_PIC == null) {
+                            trHTML +=
+                                '<td> - </td></tr>';
+
+                        } else {
+                            trHTML +=
+                                '<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td ></tr > ';
+
+                        }
+                    }
+
+                    $('#deviationdatatable').DataTable().clear().destroy();
+                    $('#deviationtable').empty();
+                    $('#deviationtable').append(trHTML);
+                    $('#deviationdatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false
+                    });
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            })
+		).done(
+            $.ajax({
+                url: "../Koordinator/Coor_LoadPICDataFooter",
+                type: "post",
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+                    for (trav = 0; trav < Count; trav++) {
+
+                        trHTML +=
+                            '<tr><td colspan="3" style="text-align:center">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
+                            '<td colspan="1" style="text-align:center">Rp ' + data[0].TOTAL_TESTING_COA + '</td>' +
+                            '<td colspan="3" style="text-align:center">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
+                            '<td colspan="3" style="text-align:center">Rp ' + data[0].TOTAL_REJ_COST + '</td>' +
+                            '<td colspan="2" style="text-align:center">Rp ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
+
+
+                            '<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Times</th>' +
+                            '<td colspan="2" style="text-align:center">' + data[trav].TOTAL_TIMES + '</td></tr>' +
+
+                            '<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Cost</th>' +
+                            '<td colspan="2" style="text-align:center"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
+
+
+                    }
+
+                    // NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
+                    $('#picfooter').append(trHTML);
+
+
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            })
+		);
+    };
+
+    function ShowBukti(button) {
+		event.preventDefault();
+		var row = $(button).closest("TR");
+		var ReqID = @ViewBag.nomor;
+		var picnik = $("TD", row).eq(16).html();
+
+		var dto = {
+			REQID: ReqID,
+			IDUSER: picnik
+		}
+
+		$.ajax({
+			url: "../QualityManager/QM_ShowBuktiTable",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				var trHTML = '';
+				var trav = 0;
+				var Count = data.length;
+
+				if (Count == '0') {
+					trHTML +=
+						'<tr><td> N/A </td>' +
+						'<td> N/A </td>' +
+						'<td> N/A </td>';
+				} else {
+					for (trav = 0; trav < Count; trav++) {
+						var no = 1;
+						no = no + trav;
+						trHTML +=
+							'<tr><td>' + no + '</td>' +
+							'<td>' + data[trav].PIC_ID + '</td>' +
+							'<td><a href="../' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+
+					}
+				}
+
+				$('#buktitable').empty();
+				$('#buktitable').append(trHTML);
+				$('#buktidatatable').DataTable();
+
+				$("#tabel2").removeAttr("hidden");
+			}
+			, error: function (ex) {
+				alert('Error Delete User Involved : ' + JSON.stringify(ex));
+			}
+		});
+	}
+
+    function LoadKoorSub() {
+
+		var nomor = @ViewBag.nomor;
+		var dto = {
+			REQID: nomor
+		}
+
+		$.ajax({
+			url: "../QualityManager/QM_LoadKoorSub",
+			type: "post",
+			data: JSON.stringify(dto),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				$("#ITDP").val(data[0].IT_DURASI_PENGERJAAN);
+				$("#ITJP").val(data[0].IT_JUMLAH_PELAKSANA);
+				$("#MTDP").val(data[0].MT_DURASI_PENGERJAAN);
+
+				$("#MTJP").val(data[0].MT_JUMLAH_PELAKSANA);
+			},
+			error: function (ex) {
+
+				alert(JSON.stringify(ex));
+			}
+		});
+	};
+</script>

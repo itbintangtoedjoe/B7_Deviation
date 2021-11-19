@@ -246,8 +246,8 @@
                                     <label class="col-md-2" for="lain">Justifikasi Lain</label>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2" for="txtReason">Justifikasi Lainnya</label>
-                                    <textarea class="col-sm-10 form-control" id="txtReason" disabled="disabled"></textarea>
+                                    <label class="col-sm-2" for="txtJustifikasiLain">Justifikasi Lainnya</label>
+                                    <textarea class="col-sm-10 form-control" id="txtJustifikasiLain" disabled="disabled"></textarea>
                                 </div>
                                 <div class="form-group row col-sm-12">
                                     <button type="button" id="btnLanjut" class="col-sm-2 btn mb-1 btn-success form-control" style="left: 5px;">
@@ -295,10 +295,10 @@
 
 		$('input[type=radio][name=chkbx]').change(function () {
 			if (this.value == 'Justifikasi Lain') {
-				$("#txtReason").attr("disabled", false);
+                $("#txtJustifikasiLain").attr("disabled", false);
 			}
 			else {
-				$("#txtReason").attr("disabled", true);
+                $("#txtJustifikasiLain").attr("disabled", true);
 			}
 		});
 
@@ -551,18 +551,21 @@
 		var tingkatkeparahan;
 		var disposisi = $("#disposisi").val();
 		var keterangan = $("#keterangandisposisi").val();
+        var justifikasiLain = $("#txtJustifikasiLain").val();
 
 		if ($('input[name="chkbx"]:checked').val() == null) {
-			tingkatkeparahan = $("#txtReason").val();
-		} else {
-			$('input[name="chkbx"]:checked').val();
+
+		}
+		else
+		{
+			tingkatkeparahan = $('input[name="chkbx"]:checked').val();
 		}
 
         if (keterangan == '' || disposisi =='* SELECT *') {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Disposisi Produk atau Sistem tidak boleh kosong !',
+                text: 'Disposisi Produk atau Sistem dan Keterangannya tidak boleh kosong !',
             })
             return;
 		}
@@ -572,6 +575,7 @@
 			REQID: REQID,
 			IDUSER: iduser,
 			TINGKAT_KEPARAHAN: tingkatkeparahan,
+            JUSTIFIKASI_LAIN: justifikasiLain,
 			DISPOSISI_PRODUK_SISTEM: disposisi,
 			KETERANGAN_DISPOSISI: keterangan
 
@@ -635,8 +639,6 @@
 	}
 
 	function TidakLanjut() {
-
-
 		var REQID = @ViewBag.nomor;
 		var Keterangan = "";
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
@@ -677,7 +679,6 @@
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 		var subject = 'B7 - Deviation';
-
 		var tabletype = "One";
 		var whoreceiver = "Pelapor after Tidak Lanjut CAPA";
 

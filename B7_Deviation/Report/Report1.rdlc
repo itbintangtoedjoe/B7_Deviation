@@ -8518,7 +8518,7 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
                       </Paragraph>
                     </Paragraphs>
                     <rd:DefaultName>Textbox26</rd:DefaultName>
-                    <Top>1.65556cm</Top>
+                    <Top>1.62028cm</Top>
                     <Left>3.59952cm</Left>
                     <Height>0.6cm</Height>
                     <Width>6.12112cm</Width>

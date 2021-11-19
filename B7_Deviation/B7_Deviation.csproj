@@ -551,6 +551,7 @@
       <DependentUpon>PrintFindMasterListDataSource.xsd</DependentUpon>
     </Content>
     <Content Include="Views\DataDeviasi\PrintFindLeadTime.cshtml" />
+    <Content Include="Views\Koordinator\CloseWithCAPA.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

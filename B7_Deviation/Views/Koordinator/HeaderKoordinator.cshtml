@@ -105,6 +105,7 @@
 </div>
 
 <script>
+	let checkEvaluator = '';
 
 	$(document).ready(function () {
 
@@ -453,6 +454,8 @@
 					var trHTML = '';
 					var trav = 0;
 					var Count = data.length;
+
+					checkEvaluator = Count;
 					for (trav = 0; trav < Count; trav++) {
 						trHTML += '<tr><td>' + data[trav].NO + '</td>' +
 							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
@@ -586,7 +589,7 @@
 
 					$("#btnApprove").click(function () {
                         btnText = $("#btnApprove").text();
-
+                        alert(checkEvaluator);
 
 						// KALAU BELUM ADA ISINYA
 						if (tbl < 1 && $.trim(btnText) == 'Approve') {
@@ -598,7 +601,7 @@
                             GetDDL();
 						}
 						else
-							if (tbl < 1 && $.trim(btnText) == 'Send to Reviewer') {
+                            if (checkEvaluator < 1 && $.trim(btnText) == 'Send to Reviewer') {
 
 								Swal.fire({
 									icon: 'error',
