@@ -50,83 +50,9 @@
 		@Html.Partial("~/Views/QualityManager/QualityManagerPartialView.cshtml")
 	</div>
 
-	<div class="form-group">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="card">
-						<div class="card-body">
-							<table class="table table-bordered table-hover nowrap table-responsive" id="deviationdatatable" width="100%">
-								<thead>
-									<tr>
-										<th rowspan="2">No</th>
-										<th rowspan="2">Usulan Tindakan Remedial</th>
-										<th rowspan="2">Hasil Tindakan Remedial</th>
-										<th colspan="4" style="text-align:center">Testing Cost</th>
-										<th colspan="3" style="text-align:center">Processing Cost</th>
-										<th colspan="3" style="text-align:center">Reject Cost</th>
-										<th colspan="2" style="text-align:center">Machine Cost</th>
-										<th rowspan="2" style="text-align:center">PIC</th>
-										<th rowspan="2" style="text-align:center">Action</th>
-									</tr>
-									<tr>
-										<th>Jumlah Personel</th>
-										<th>Durasi Pengerjaan (Jam)</th>
-										<th>Manhours Value</th>
-										<th>Cost of Analysis</th>
-										<th>Durasi Pengerjaan</th>
-										<th>Jumlah Pelaksana (Jam)</th>
-										<th>Manhours Value</th>
-										<th>Material</th>
-										<th>Quantity</th>
-										<th>Cost Material</th>
-										<th>Nama Sparepart</th>
-										<th>Harga Sparepart</th>
-										<th hidden="hidden">NIK PIC</th>
-									</tr>
-
-								</thead>
-								<tbody id="deviationtable" class="">
-								</tbody>
-								<tfoot id="picfooter">
-									<tr>
-										<th colspan="3" rowspan="2" style="text-align: center; background-color: #f3f3f3; vertical-align: middle">Total</th>
-										<th colspan="3" style="text-align: center ; background-color: #f3f3f3">Total Testing Manhours</th>
-										<th style="text-align: center ; background-color: #f3f3f3">Total Testing Cost</th>
-										<th colspan="3" style="text-align: center ; background-color: #f3f3f3">Total Processing Manhours</th>
-										<th colspan="3" style="text-align: center ; background-color: #f3f3f3">Total Rejected Cost</th>
-										<th colspan="2" style="text-align: center ; background-color: #f3f3f3">Total Machine Cost</th>
-									</tr>
-
-								</tfoot>
-
-
-							</table>
-
-						</div>
-					</div>
-					<div class="card" id="tabel2" hidden="hidden">
-						<div class="card-body">
-							<table class="table table-bordered table-hover verticle-middle table-responsive" id="buktidatatable" width="100%">
-								<thead>
-									<tr>
-										<th width="75px">No</th>
-										<th width="100px">NIK PIC</th>
-										<th width="75px">Nama File</th>
-
-									</tr>
-								</thead>
-								<tbody id="buktitable" class="nowrap">
-								</tbody>
-							</table>
-
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="form-group">
+        @Html.Partial("~/Views/QualityManager/ApprovedDisposisiPartialView.cshtml")
+    </div>
 
 	<div class="form-group" id="koorsubmission">
 		<div class="container-fluid">
@@ -352,6 +278,33 @@
 		var nomor = @ViewBag.nomor;
 		var dto = {
 			REQID: nomor
+        }
+		$.ajax({
+			url: "../QualityManager/QM_LoadKoorSub",
+			type: "post",
+			data: JSON.stringify(dto),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				$("#ITDP").val(data[0].IT_DURASI_PENGERJAAN);
+				$("#ITJP").val(data[0].IT_JUMLAH_PELAKSANA);
+				$("#MTDP").val(data[0].MT_DURASI_PENGERJAAN);
+
+				$("#MTJP").val(data[0].MT_JUMLAH_PELAKSANA);
+			},
+			error: function (ex) {
+
+				alert(JSON.stringify(ex));
+			}
+		});
+	};
+
+	@*function LoadKoorSub() {
+
+		var nomor = @ViewBag.nomor;
+		var dto = {
+			REQID: nomor
 		}
 
 		$.ajax({
@@ -488,11 +441,11 @@
                 }
             })
 		);
-		
 
-		
 
-	};
+
+
+	};*@
 
 	function ShowBukti(button) {
 		event.preventDefault();

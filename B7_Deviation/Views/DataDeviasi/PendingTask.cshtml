@@ -61,7 +61,6 @@
 
         function LoadData() {
             var loginuser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-            console.log(loginuser);
             var dto = {
                 IDUSER: loginuser
             }
@@ -73,13 +72,10 @@
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    console.log(data);
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
                     for (trav = 0; trav < Count; trav++) {
-
-                        console.log(data[trav]);
 
                         // Set Button
 
@@ -101,7 +97,8 @@
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../Koordinator/AssignPIC?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             } else if (data[trav].STAT == 'CAPAYS') {
-
+                                trHTML +=
+                                    '<tr><td><a class="btn btn-success" href="../Koordinator/CloseWithCAPA?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             }
                             else if (data[trav].STAT == "RMPIC1" || data[trav].STAT == "PICDD1" || data[trav].STAT == "AHROK1") {
                                 //12 Nov 21 (handle agar pic mengarah ke halaman insert disposisi ketika revisi diapprove manager(evaluator))
@@ -278,7 +275,7 @@
                             '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
                             '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
                             '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
-                            '<td hidden>' + data[trav].REQ_ID + '</td>';
+                            '<td hidden>' + data[trav].REQ_ID + '</td></tr>';
 
                     }
 

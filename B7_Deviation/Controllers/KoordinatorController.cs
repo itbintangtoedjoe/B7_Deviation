@@ -1484,5 +1484,91 @@ namespace B7_Deviation.Controllers
             ViewBag.DisplayTambahanDisposisi = 0;
             return View();
         }
+
+        public ActionResult LoadDataAwalCAPA(ApprovalModel Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationData]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Load Data Awal CAPA";
+
+                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
+
+        public ActionResult CloseDeviationWithCAPA(ApprovalModel Model)
+        {
+            string result;
+            List<string> ModelData = new List<string>();
+
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_Approve]", Conn))
+                {
+                    /* Header*/
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    command.Parameters.Add("@NoCAPA", SqlDbType.VarChar);
+                    command.Parameters["@NoCAPA"].Value = Model.KETERANGAN;
+
+                    command.Parameters.Add("@IDUSER", SqlDbType.VarChar);
+                    command.Parameters["@IDUSER"].Value = Model.IDUSER;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Close with CAPA";
+
+
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -22,6 +22,10 @@
                             <div class="form-group row">
                                 <div class="col-md-8">
                                     <div class="form-group">
+                                        <button type="button" id="btnSave" class="col-sm-2 btn mb-1 btn-success form-control">
+                                            Save
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -196,7 +200,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Disposisi Produk atau Sistem<span class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                    <select class="form-control" id="disposisi">                                       
+                                    <select class="form-control" id="disposisi" disabled>
                                     </select>
                                 </div>
                             </div>
@@ -204,8 +208,7 @@
                                 <label class="col-sm-2 col-form-label"></label>
 
                                 <div class="col-sm-10">
-                                    <textarea id="keterangandisposisi" class="form-control" placeholder="Keterangan Disposisi"></textarea>
-
+                                    <textarea id="keterangandisposisi" class="form-control" placeholder="Keterangan Disposisi" disabled></textarea>
                                 </div>
                             </div>
 
@@ -215,8 +218,8 @@
                             <div class="form-group row">
                                 <h4 class="col-sm-4">Perlu Ditindaklanjuti CAR-PAR</h4>
                             </div>
-                           
-                            <div id="divLanjut" >
+
+                            <div id="divLanjut">
                                 <div class="form-group row">
                                     <label class="col-sm-2" for="txtJustifikasiLain">Tingkat Keparahan</label>
                                     <textarea class="col-sm-10 form-control" id="txtTingkatKeparahan" disabled="disabled"></textarea>
@@ -225,9 +228,32 @@
                                     <label class="col-sm-2" for="txtJustifikasiLain">Justifikasi Lainnya</label>
                                     <textarea class="col-sm-10 form-control" id="txtJustifikasiLain" disabled="disabled"></textarea>
                                 </div>
-                                
+
                             </div>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" id="divAddCAPA">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <h4 class="col-sm-4">Pemilihan Nomor CAPA</h4>
+                            </div>
+
+                            <div id="divLanjut">
+                                <div class="form-group row">
+                                    <label class="col-sm-2" for="txtJustifikasiLain">Nomor CAPA<span class="text-danger">*</span></label>
+                                    <input type="text" id="txtNoCAPA" class="form-control col-sm-10">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -247,6 +273,12 @@
         // Load Investigation and Meeting Time
         LoadKoorSub();
 
+        //load bagian CAPA yg diinput evaluator
+        LoadDataAwalCAPA();
+    });
+
+    $("#btnSave").click(function () {
+        CloseWithCAPA();
     });
 
     function LoadData() {
@@ -264,6 +296,7 @@
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
+                    console.log(data);
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
@@ -297,7 +330,7 @@
 
                         } else {
                             trHTML +=
-                                '<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td ></tr > ';
+                                '<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td ></tr> ';
 
                         }
                     }
@@ -355,7 +388,21 @@
                     alert(JSON.stringify(ex));
                 }
             })
-		);
+        );
+
+        $.ajax({
+            url: "../Koordinator/LoadEvaluasiResiko",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
     };
 
     function ShowBukti(button) {
@@ -429,6 +476,82 @@
 				$("#MTDP").val(data[0].MT_DURASI_PENGERJAAN);
 
 				$("#MTJP").val(data[0].MT_JUMLAH_PELAKSANA);
+			},
+			error: function (ex) {
+
+				alert(JSON.stringify(ex));
+			}
+		});
+	};
+
+    function LoadDataAwalCAPA() {
+
+		var nomor = @ViewBag.nomor;
+		var dto = {
+			REQID: nomor
+		}
+
+		$.ajax({
+            url: "../Koordinator/LoadDataAwalCAPA",
+			type: "post",
+			data: JSON.stringify(dto),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                console.log(data);
+                $('#disposisi').append('<option selected>'+data[0].DISPOSISI_PRODUK_SISTEM+'</option>');
+                $("#keterangandisposisi").val(data[0].KETERANGAN_DISPOSISI);
+                $("#txtTingkatKeparahan").val(data[0].TINGKAT_KEPARAHAN);
+                $("#txtJustifikasiLain").val(data[0].JUSTIFIKASI_LAIN);
+                @*disposisi, keterangandisposisi, txtTingkatKeparahan, txtJustifikasiLain*@
+			},
+			error: function (ex) {
+
+				alert(JSON.stringify(ex));
+			}
+		});
+	};
+
+    function CloseWithCAPA() {
+        var nomor = @ViewBag.nomor;
+        var noCAPA = $("#txtNoCAPA").val();
+		var empid = '@Request.RequestContext.HttpContext.Session["nik"]';
+
+        if (noCAPA.trim() == '' || noCAPA == null) {
+            Swal.fire({
+                title: 'Nomor CAPA harus diisi!',
+                icon:'error',
+                showDenyButton: false,
+                showCancelButton: false,
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
+		var dto = {
+            REQID: nomor,
+            KETERANGAN: noCAPA,
+            IDUSER: empid
+		}
+
+		$.ajax({
+            url: "../Koordinator/CloseDeviationWithCAPA",
+			type: "post",
+			data: JSON.stringify(dto),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                Swal.fire({
+                    title: 'CAPA successfully closed with entered CAPA number!',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: `OK`
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        window.location.href = "../DataDeviasi/PendingTask"
+                    }
+                })
 			},
 			error: function (ex) {
 
