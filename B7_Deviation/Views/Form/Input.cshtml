@@ -605,7 +605,16 @@
 
 			GetResikoKesehatanPersonil();
 			GetResikokLingkungan();
-			GetResikoIntelektual();
+            GetResikoIntelektual();
+            $("#ddlKualProd").val(0);
+            $("#ddlRiskFin").val(0);
+            $("#ddlKesehatanPer").val(0);
+            $("#ddlCompliance").val(0);
+            $("#ddlRiskOrg").val(0);
+            $("#ddlResLingk").val(0);
+            $("#ddlRiskOpr").val(0);
+            $("#ddlKeamamananP").val(0);
+            $("#ddlRiskIntelek").val(0);
 		});
 
 	});
@@ -633,8 +642,8 @@
 
 			var DEVIATION_CATEGORY = $("#ddlKategori").val();
 			var NO_WO_ORACLE = $('#TxtNoWO').val();
-			var Item_Code_Oracle = $('#TxtItemCode').val();
-
+            var Item_Code_Oracle = $('#TxtItemCode').val();
+            var No_Batch_Oracle = $('#TxtBatchNo').val();
 
 			var KET_CATEGORY = $("#txtKetKategori").val();
 			var CR_DATE_USER = $("#TbTglCreated").val();
@@ -647,6 +656,8 @@
 			var ORDER_OF_EVENTS = $("#txtHow").val();
 
 			var PLAN_DEV_FLAG = $('input[name="travel5"]:checked').val();
+
+            var JENIS_PENYIMPANGAN = $('input[name="travel5"]:checked').val();
 
 			var SAME_POTEN_DEV_FLAG = $('input[name="travel1"]:checked').val();
 			var SAME_POTEN_DEV = $("#txtsama").val();
@@ -677,7 +688,11 @@
 
 			if (!$(".form-valide").valid() || !$(".form-valide2").valid()) {
 				/* Checking Input not null */
-                alert(SAME_POTEN_DEV_FLAG)
+                Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+                    text: 'Data yang diisikan kurang lengkap!',
+				});
 				if (DEPARTEMENT == ' ' || DEPARTEMENT == null ||
 					PROBLEM == ' ' || PROBLEM == null ||
 					DATE_OF_INCIDENT == ' ' || DATE_OF_INCIDENT == null ||
@@ -700,12 +715,27 @@
 					RISK_ENVIRONTMENT == ' ' || RISK_ENVIRONTMENT == null ||
 					RISK_INTELLECTUAL == ' ' || RISK_INTELLECTUAL == null) {
 
-					Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: 'Data yang diisikan kurang lengkap!',
-					});
-					return;
+					if (JENIS_PENYIMPANGAN == 'Yes') {
+                        console.log('item code: ' + Item_Code_Oracle);
+                        console.log('No_Batch_Oracle: ' + No_Batch_Oracle);
+                        console.log('NO_WO_ORACLE: ' + NO_WO_ORACLE);
+                        console.log('KET_CATEGORY: ' + KET_CATEGORY);
+
+						if (Item_Code_Oracle.trim() == '' || No_Batch_Oracle.trim() == '' || NO_WO_ORACLE.trim() == '' || KET_CATEGORY.trim()=='') {
+							Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Keterangan produk belum lengkap!',
+							});
+						}
+					}
+					else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Data yang diisikan kurang lengkap!',
+                        });
+                    }
 				}
 				return;
 			}
@@ -725,8 +755,6 @@
 	// Drop Down List Click
 	$(document).ready(function () {
 		$("#divsimpang").hide();
-		$("#TxtNoWO").attr("disabled", true);
-		$("#TxtItemCode").attr("disabled", true);
 
 		$('#divproduk').hide();
         $('#divreceipt').hide();
@@ -751,7 +779,9 @@
 			$('#TxtQCMaterialNo').val('');
 
 
-            $('#divreceipt').hide();
+			$('#divreceipt').hide();
+
+            var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
 
 			// Kualitas Produk
 			if ($("#ddlKategori").val() == 'QPR') {
@@ -765,16 +795,13 @@
 
 					return;
 				} else {
-					$("#divsimpang").show();
+                    $("#divsimpang").show();
 
-					$("#TxtNoWO").attr("hidden", false);
-					$('#TxtBatchNo').attr('hidden', false);
-
-					$("#TxtItemCode").attr("hidden", false);
-					$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
-
-					GetNoBatchOracle();
-					$('#txtKetKategori').attr('disabled', true);
+                    $("#TxtNoWO").attr("hidden", false);
+                    $('#TxtBatchNo').attr('hidden', false);
+                    $('#txtKetKategori').attr('disabled', true);
+					@*menentukan field input yg dienable sesuai jenis penyimpangan*@
+					ToggleShowKualitasProdukFields(jenisPenyimpangan);
 				}
 			}
 			else {
@@ -1103,6 +1130,35 @@
 
 	});
 
+    function ToggleShowKualitasProdukFields(jenisPenyimpangan) {
+        $('#txtKetKategori').attr('disabled', true);
+        $("#txtKetKategori").val('');
+        $("#TxtItemCode").val('');
+		$("#TxtBatchNo").val('');
+        $("#TxtNoWO").val('');
+        if (jenisPenyimpangan == 'Yes') {
+            $("#TxtItemCode").attr("hidden", false);
+            $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+            GetItemKualitasProduk();
+
+            $("#TxtNoWO").attr("disabled", false);
+            $("#TxtItemCode").attr("disabled", false);
+        }
+        else {
+            $("#TxtItemCode").attr("hidden", false);
+            $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+
+            GetNoBatchOracle();
+            $("#TxtNoWO").attr("disabled", true);
+            $("#TxtItemCode").attr("disabled", true);
+        }
+    }
+
+	$('input[type=radio][name=travel5]').change(function () {
+        var jenisPenyimpangan = this.value;
+		ToggleShowKualitasProdukFields(jenisPenyimpangan);
+    });
+
 	function GetSiteLokasiKejadian() {
 		$.ajax({
 			url: "../Form/GetSiteLokasiKejadian",
@@ -1313,7 +1369,6 @@
 					item["value"] = arr[trav];
 					jsonObj.push(item);
 				}
-				console.log(jsonObj);
 
 				$("#TxtBatchNo").autocomplete({
 					source: function (request, response) {
@@ -1371,11 +1426,10 @@
             FlagReceipt: FlagReceipt
 		}
 
-
         $('#ModalLoading').modal('show');
         setTimeout(function () {
             $('#ModalLoading').modal('hide');
-        }, 3000);
+        }, 500);
 
 		$.ajax({
             url: "../Form/GetQCMaterialNoOracle",
@@ -1399,7 +1453,6 @@
                         item["value"] = arr[trav];
 						jsonObj.push(item);
                     }
-                    console.log(jsonObj);
                     
                     $("#TxtQCMaterialNo").autocomplete({
                         source: function (request, response) {
@@ -1459,7 +1512,84 @@
 				alert('Error : ' + JSON.stringify(ex));
 			}
 		});
-	}
+    }
+
+    function GetItemKualitasProduk() {
+        var LocationSite = $("#ddlSite").val();
+        @*var ItemCode = $("#TxtItemCode").val();*@
+
+        var dto = {
+            LocationSite: LocationSite
+		}
+
+        $('#ModalLoading').modal('show');
+        setTimeout(function () {
+            $('#ModalLoading').modal('hide');
+        }, 500);
+
+        $.ajax({
+            url: "../Form/GetItemKualitasProduk",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				console.log(data);
+                var count = data.length;
+                if (count > 0) {
+
+                    var trhtml = '';
+                    var trav = 0;
+                    var arrLabel = new Array();
+                    var arrValue = new Array();
+                    var jsonObj = [];
+
+					for (trav = 0; trav < count; trav++) {
+						arrLabel[trav] = data[trav].ITEM_CODE;
+                        //arrValue[trav] = data[trav].ITEM_CODE;
+                        var item = {}
+                        item["label"] = arrLabel[trav];
+                        item["value"] = arrLabel[trav];
+                        jsonObj.push(item);
+					}
+					console.log(jsonObj);
+
+                    $("#TxtItemCode").autocomplete({
+                        source: function (request, response) {
+                            var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                            response(results.slice(0, 20));
+
+                            $.map(results, function (el) {
+                                return {
+									label: el.label,
+									value: el.value
+                                };
+                            });
+
+                        },
+
+                        select: function (e, ui) {
+                            $('#txtKetKategori').val('');
+
+							for (var i = 0; i < count; i++) {
+                                if (data[i].ITEM_CODE == ui.item.label) {
+                                     //$("#TxtItemCode").val(data[i].ITEM_CODE);
+									
+                                    $("#txtKetKategori").val(data[i].ITEM_DESCRIPTION);
+                                    break;
+                                } else {
+                                     $("#txtKetKategori").val("");
+                                }
+                            }
+                        }
+                    });
+                }
+
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
 
 
 	// Set Picker disable text
@@ -1480,15 +1610,16 @@
 		//$("textarea[name = 'travelDetails']").attr("disabled", true);
 		$('#ddlSite selectpicker').selectpicker();
 
-		$('input[type=radio][name=travel5]').change(function () {
+		@*$('input[type=radio][name=travel5]').change(function () {
 			if ($('input[name="travel5"]:checked').val() == 'Yes') {
-
                 $("#txtTindakan").attr("disabled", true);
-			} else {
+            } else {
+                $("#TxtItemCode").val('');
+                $("#txtKetKategori").val('');
                 $("#txtTindakan").removeAttr("disabled");
 			}
 
-		});
+		});*@
 
 		$('input[type=radio][name=travel1]').change(function () {
 			if ($('input[name="travel1"]:checked').val() == 'Yes') {
@@ -2040,14 +2171,12 @@
 		var THIRTY = $("#txt30hari").val();
 
 		var FLAG_KOOR = $('#ddlKategori').val();
-		console.log(FLAG_KOOR);
 
 		if (FLAG_KOOR == 'QPR' || FLAG_KOOR == 'QNA' || FLAG_KOOR == 'QMT' || FLAG_KOOR == 'SJH') {
 			FLAG_KOOR = 'Coordinator_QA';
 		} else if (FLAG_KOOR == 'QNS' || FLAG_KOOR == 'HSE' ){
 			FLAG_KOOR = 'Coordinator_QS';
 		}
-		console.log(FLAG_KOOR);
 
         var FlagReceipt = $('input[name="r_receipt"]:checked').val();
 		var QCMaterialManufacturerNo = $('#TxtQCMaterialNo').val();

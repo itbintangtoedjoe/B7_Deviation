@@ -15,7 +15,7 @@
                 
                 <div class="card-body">
                     <div class="form-group">
-                        <h2 class="d-inline">Pending Approval Revisi Due Date</h2>
+                        <h2 class="d-inline">Pending Approval Revisi Tindakan/Due Date</h2>
                     </div>
                     <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="deviationdatatable" width="100%">
                         <thead>
@@ -69,15 +69,22 @@
                     var trav = 0;
                     var Count = data.length;
                     for (trav = 0; trav < Count; trav++) {
-
+                        var revisiDueDate = data[trav].REVISI_DUE_DATE;
+                        var revisiTindakan = data[trav].REVISI_TINDAKAN_REMEDIAL;
+                        if (revisiDueDate == null) {
+                            revisiDueDate = '-';
+                        }
+                        if (revisiTindakan == null) {
+                            revisiTindakan = '-';
+                        }
                         trHTML +=
                             '<tr><td>' + data[trav].REQ_ID + '</td>' +
                             '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                             '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                             '<td>' + data[trav].DUE_DATE + '</td>' +
                             '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                            '<td>' + data[trav].REVISI_DUE_DATE + '</td>' +
-                            '<td>' + data[trav].REVISI_TINDAKAN_REMEDIAL + '</td>' +
+                            '<td>' + revisiDueDate + '</td>' +
+                            '<td>' + revisiTindakan + '</td>' +
                             '<td>' + data[trav].ALASAN_REVISI + '</td>' +
                             '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                             '<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" onclick=ApprovePIC(this) class="btn btn-success" style="width:120px;"/> <input type="button" id="Reject" value="Reject" onclick=RejectPIC(this) class="btn btn-danger" style="width:100px;"/></td>';
@@ -193,11 +200,13 @@
                 var no_disposisi = $("TD", row).eq(8).html();
                 var req_id = @ViewBag.nomor;
                 var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+                var alasanReject = result.value;
 
                 var dto = {
                     REQID: req_id,
                     NO_DISPOSISI: no_disposisi,
-                    IDUSER: curr_user
+                    IDUSER: curr_user,
+                    ALASAN_REJECT=alasanReject
                 }
 
                 $.ajax({

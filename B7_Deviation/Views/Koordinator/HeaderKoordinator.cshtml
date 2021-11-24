@@ -448,7 +448,6 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data != '') {
-					console.log(data);
 					$('#tblWho_Rev').attr('hidden', false);
 
 					var trHTML = '';
@@ -589,7 +588,6 @@
 
 					$("#btnApprove").click(function () {
                         btnText = $("#btnApprove").text();
-                        alert(checkEvaluator);
 
 						// KALAU BELUM ADA ISINYA
 						if (tbl < 1 && $.trim(btnText) == 'Approve') {

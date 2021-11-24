@@ -75,6 +75,7 @@ namespace B7_Deviation.Controllers
 
             Msg.From = new MailAddress("notification@bintang7.com", "Deviation Notification");
             Msg.Bcc.Add(new MailAddress("shinvin10@gmail.com"));
+            Msg.Bcc.Add(new MailAddress("musicdoesmagicinlife@gmail.com"));
             Msg.Priority = MailPriority.High;
             Msg.IsBodyHtml = true;
             Msg.Subject = "Deviation Notification";
@@ -126,8 +127,7 @@ namespace B7_Deviation.Controllers
                 t_status = dr[5].ToString();
             }
 
-            DT.Reset();
-
+            //DT.Reset();
             if (Model.TableType == "One")
             {
                 //SettingAttribute Email and Name
@@ -255,14 +255,14 @@ namespace B7_Deviation.Controllers
                 }
                 foreach (DataRow dr in DT.Rows)
                 {
-                    t_emailpenerima = dr[1].ToString();
                     t_namapenerima = dr[0].ToString();
+                    t_emailpenerima = dr[1].ToString();
                     Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
                 }
 
                 if (Model.WhoReceiver == "Superior after Form Input")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Proposal with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -309,7 +309,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Proposer after Superior Reject")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Proposal with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -356,7 +356,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Reviewer after Koordinator Approved")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Your Review with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -403,7 +403,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Reviewer after Koordinator Reject")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Your Review with, </br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -450,7 +450,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "PIC after Appointed")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Proposal with, </br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -498,7 +498,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Proposal with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -546,7 +546,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Proposal with, </br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -594,7 +594,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Canceled")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Proposal with, </br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -642,7 +642,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Delegasi")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Proposal with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -690,7 +690,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "SPV PIC Usulan Revisi")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Proposal with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -738,7 +738,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Proposal with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -785,7 +785,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + t_namapenerima + ",</br>" +
                         "Proposal with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -839,6 +839,8 @@ namespace B7_Deviation.Controllers
             }
             else if (Model.TableType == "More Than One")
             {
+
+                DT.Reset();
                 // MORE THAN 1 RECEIVER
 
                 try
@@ -932,9 +934,12 @@ namespace B7_Deviation.Controllers
                 catch (Exception ex)
                 {
                     throw ex;
-                }              
+                }
+
+                string daftarNamaPenerima = "";
                 foreach (DataRow dr in DT.Rows)
                 {
+                    daftarNamaPenerima+= dr[0].ToString()+", ";
                     t_namapenerima = dr[0].ToString(); 
                     t_emailpenerima = dr[1].ToString();
                     Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
@@ -942,7 +947,7 @@ namespace B7_Deviation.Controllers
 
                 if (Model.WhoReceiver == "Koordinator after Superior Approved")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + daftarNamaPenerima + "</br>" +
                         "Proposal with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -990,7 +995,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Reviewer after Appointed")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + daftarNamaPenerima+ ",</br>" +
                         "Proposal with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -1037,7 +1042,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Koordinator after Reviewer Submit")
                 {
-                    EmailBody = "<html><body>Dear Reviewer: " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + daftarNamaPenerima + ",</br>" +
                         "Proposal with</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -1085,7 +1090,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer")
                 {
-                    EmailBody = "<html><body>Dear Reviewer: " + t_namapenerima + ", </br>" +
+                    EmailBody = "<html><body></br>Dear " + daftarNamaPenerima + ", </br>" +
                         "Proposal with, </br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -1134,7 +1139,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Koordinator after QM Approve")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + daftarNamaPenerima + ",</br>" +
                         "Proposal with ,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -1183,7 +1188,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "Koordinator after PIC Submit")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + daftarNamaPenerima + ",</br>" +
                         "Proposal with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -1232,7 +1237,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + daftarNamaPenerima + ",</br>" +
                         "Proposal with, </br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -1281,7 +1286,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + daftarNamaPenerima + ",</br>" +
                         "Proposal with, </br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -1329,7 +1334,7 @@ namespace B7_Deviation.Controllers
                 }
                 else if (Model.WhoReceiver == "QM PIC Usulan Revisi")
                 {
-                    EmailBody = "<html><body>Dear " + t_namapenerima + ",</br>" +
+                    EmailBody = "<html><body></br>Dear " + daftarNamaPenerima + ",</br>" +
                         "Proposal with,</br></br>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -1890,7 +1895,6 @@ namespace B7_Deviation.Controllers
             {
                 throw ex;
             }
-            
         }
 
         public ActionResult GetItemCodeOracle(DeviationModel Model)
@@ -1964,6 +1968,40 @@ namespace B7_Deviation.Controllers
                 throw ex;
             }
 
+        }
+
+        public ActionResult GetItemKualitasProduk(DeviationModel Model)
+        {
+            try
+            {
+                using (OracleCommand command = new OracleCommand("XXB7_DEVIATION.get_item_kualitas_produk", OraDBConn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("p_location_site", OracleDbType.Varchar2).Value = Model.LocationSite;
+                    command.Parameters.Add("out_cursor", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+                    OraDBConn.Open();
+                    DataAdapt.SelectCommand = command;
+                    DataAdapt.Fill(DT);
+                    OraDBConn.Close();
+                }
+
+                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                Dictionary<string, object> row;
+                foreach (DataRow dr in DT.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in DT.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                }
+                return Json(rows);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         //public ActionResult GetJenisDeviation()
         //{
