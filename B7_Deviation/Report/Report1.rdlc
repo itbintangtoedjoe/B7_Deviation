@@ -102,7 +102,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!ID_PROPOSER.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!ID_PROPOSER.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -134,7 +134,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!DEVIATION_NO.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!DEVIATION_NO.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -194,7 +194,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!DEPARTEMENT.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!DEPARTEMENT.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -262,10 +262,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox226</rd:DefaultName>
-            <Top>2.378cm</Top>
-            <Left>0.16933cm</Left>
+            <Top>2.23661cm</Top>
+            <Left>0.19581cm</Left>
             <Height>0.6cm</Height>
-            <Width>4.89393cm</Width>
+            <Width>4.85441cm</Width>
             <ZIndex>8</ZIndex>
             <Style>
               <Border>
@@ -284,7 +284,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!DEVIATION_CATEGORY.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!DEVIATION_CATEGORY.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -292,8 +292,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox227</rd:DefaultName>
-            <Top>2.378cm</Top>
-            <Left>5.49394cm</Left>
+            <Top>2.23661cm</Top>
+            <Left>5.46738cm</Left>
             <Height>0.6cm</Height>
             <Width>5.47423cm</Width>
             <ZIndex>9</ZIndex>
@@ -314,7 +314,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!KET_CATEGORY.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!KET_CATEGORY.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -322,8 +322,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox228</rd:DefaultName>
-            <Top>2.378cm</Top>
-            <Left>11.12721cm</Left>
+            <Top>2.23661cm</Top>
+            <Left>11.10065cm</Left>
             <Height>0.6cm</Height>
             <Width>7.3024cm</Width>
             <ZIndex>10</ZIndex>
@@ -352,7 +352,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox229</rd:DefaultName>
-            <Top>3.15439cm</Top>
+            <Top>3.78939cm</Top>
             <Left>0.17638cm</Left>
             <Height>0.6cm</Height>
             <Width>4.89393cm</Width>
@@ -374,7 +374,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!PLAN_DEV.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!PLAN_DEV.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -382,7 +382,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox230</rd:DefaultName>
-            <Top>3.15439cm</Top>
+            <Top>3.78939cm</Top>
             <Left>5.49394cm</Left>
             <Height>0.6cm</Height>
             <Width>7.62343cm</Width>
@@ -412,7 +412,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox231</rd:DefaultName>
-            <Top>3.93078cm</Top>
+            <Top>4.56578cm</Top>
             <Left>0.16933cm</Left>
             <Height>0.6cm</Height>
             <Width>4.89393cm</Width>
@@ -434,7 +434,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!PROBLEM.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!PROBLEM.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -442,7 +442,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox232</rd:DefaultName>
-            <Top>3.93078cm</Top>
+            <Top>4.56578cm</Top>
             <Left>5.49394cm</Left>
             <Height>0.6cm</Height>
             <Width>12.93567cm</Width>
@@ -464,7 +464,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Requirement (Jika ada)</Value>
+                    <Value>Requirement (jika ada)</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -472,7 +472,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox233</rd:DefaultName>
-            <Top>4.70717cm</Top>
+            <Top>5.34217cm</Top>
             <Left>0.16933cm</Left>
             <Height>0.6cm</Height>
             <Width>4.89393cm</Width>
@@ -494,7 +494,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!REQ.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!REQ.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -502,7 +502,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox234</rd:DefaultName>
-            <Top>4.70717cm</Top>
+            <Top>5.34217cm</Top>
             <Left>5.49394cm</Left>
             <Height>0.6cm</Height>
             <Width>12.93567cm</Width>
@@ -532,7 +532,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox235</rd:DefaultName>
-            <Top>5.48356cm</Top>
+            <Top>6.11856cm</Top>
             <Left>0.16933cm</Left>
             <Height>0.6cm</Height>
             <Width>4.89393cm</Width>
@@ -554,7 +554,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!DATE_OF_INCIDENT.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!DATE_OF_INCIDENT.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -562,7 +562,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox236</rd:DefaultName>
-            <Top>5.48356cm</Top>
+            <Top>6.11856cm</Top>
             <Left>5.49394cm</Left>
             <Height>0.6cm</Height>
             <Width>12.93567cm</Width>
@@ -592,7 +592,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox237</rd:DefaultName>
-            <Top>6.25994cm</Top>
+            <Top>6.89494cm</Top>
             <Left>0.16933cm</Left>
             <Height>0.6cm</Height>
             <Width>4.89393cm</Width>
@@ -614,7 +614,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!LOCATION.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!LOCATION.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -622,7 +622,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox238</rd:DefaultName>
-            <Top>6.25994cm</Top>
+            <Top>6.89494cm</Top>
             <Left>5.49394cm</Left>
             <Height>0.6cm</Height>
             <Width>5.21299cm</Width>
@@ -652,8 +652,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox239</rd:DefaultName>
-            <Top>7.03633cm</Top>
-            <Left>0.16933cm</Left>
+            <Top>8.43539cm</Top>
+            <Left>0.19581cm</Left>
             <Height>0.6cm</Height>
             <Width>4.89393cm</Width>
             <ZIndex>21</ZIndex>
@@ -674,7 +674,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!ORDER_OF_EVENTS.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!ORDER_OF_EVENTS.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -682,7 +682,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox244</rd:DefaultName>
-            <Top>8.44447cm</Top>
+            <Top>9.87648cm</Top>
             <Left>5.49394cm</Left>
             <Height>0.6cm</Height>
             <Width>12.93567cm</Width>
@@ -712,7 +712,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox245</rd:DefaultName>
-            <Top>8.44447cm</Top>
+            <Top>9.87648cm</Top>
             <Left>0.16933cm</Left>
             <Height>0.6cm</Height>
             <Width>4.89393cm</Width>
@@ -1294,9 +1294,9 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>DataSet1</DataSetName>
-            <Top>9.11958cm</Top>
-            <Left>0.18488cm</Left>
+            <DataSetName>UpdatedReportData</DataSetName>
+            <Top>10.77886cm</Top>
+            <Left>0.15832cm</Left>
             <Height>5.86936cm</Height>
             <Width>18.27129cm</Width>
             <ZIndex>24</ZIndex>
@@ -1513,8 +1513,8 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>UserInvolvedDataSet</DataSetName>
-            <Top>7.03633cm</Top>
-            <Left>5.49394cm</Left>
+            <Top>8.43539cm</Top>
+            <Left>5.52042cm</Left>
             <Height>1.2cm</Height>
             <Width>12.93567cm</Width>
             <ZIndex>25</ZIndex>
@@ -1551,7 +1551,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox273</rd:DefaultName>
-            <Top>16.91736cm</Top>
+            <Top>18.7687cm</Top>
             <Left>0.16933cm</Left>
             <Height>0.6cm</Height>
             <Width>4.89393cm</Width>
@@ -1756,7 +1756,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AttachmentDataSet</DataSetName>
-            <Top>16.91736cm</Top>
+            <Top>18.7687cm</Top>
             <Left>5.52893cm</Left>
             <Height>1.16667cm</Height>
             <Width>12.90068cm</Width>
@@ -1782,45 +1782,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox237</rd:DefaultName>
-            <Top>6.25994cm</Top>
+            <Top>6.89494cm</Top>
             <Left>11.08567cm</Left>
             <Height>0.6cm</Height>
             <Width>1.61454cm</Width>
             <ZIndex>28</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox241">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value xml:space="preserve"> </Value>
-                    <Style />
-                  </TextRun>
-                  <TextRun>
-                    <Value>=First(Fields!LOCATION_SITE.Value, "DataSet1")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox237</rd:DefaultName>
-            <Top>6.25994cm</Top>
-            <Left>13.11737cm</Left>
-            <Height>0.6cm</Height>
-            <Width>5.31224cm</Width>
-            <ZIndex>29</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1848,11 +1814,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>2.378cm</Top>
-            <Left>5.07678cm</Left>
+            <Top>2.23661cm</Top>
+            <Left>5.05022cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>30</ZIndex>
+            <ZIndex>29</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1880,11 +1846,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>3.15439cm</Top>
+            <Top>3.78939cm</Top>
             <Left>5.07031cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>31</ZIndex>
+            <ZIndex>30</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1912,11 +1878,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>3.93078cm</Top>
+            <Top>4.56578cm</Top>
             <Left>5.07678cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>32</ZIndex>
+            <ZIndex>31</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1944,11 +1910,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>4.70717cm</Top>
+            <Top>5.34217cm</Top>
             <Left>5.07031cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>33</ZIndex>
+            <ZIndex>32</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1976,11 +1942,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>5.48356cm</Top>
+            <Top>6.11856cm</Top>
             <Left>5.07678cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>34</ZIndex>
+            <ZIndex>33</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2008,11 +1974,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>6.25994cm</Top>
+            <Top>6.89494cm</Top>
             <Left>5.07678cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>35</ZIndex>
+            <ZIndex>34</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2040,11 +2006,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>6.25995cm</Top>
+            <Top>6.89495cm</Top>
             <Left>12.70021cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>36</ZIndex>
+            <ZIndex>35</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2072,11 +2038,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>8.44447cm</Top>
+            <Top>9.87648cm</Top>
             <Left>5.06326cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>37</ZIndex>
+            <ZIndex>36</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2108,7 +2074,7 @@
             <Left>12.58623cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>38</ZIndex>
+            <ZIndex>37</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2140,7 +2106,7 @@
             <Left>12.58623cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>39</ZIndex>
+            <ZIndex>38</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2172,7 +2138,7 @@
             <Left>2.5cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>40</ZIndex>
+            <ZIndex>39</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2204,7 +2170,7 @@
             <Left>2.5cm</Left>
             <Height>0.6cm</Height>
             <Width>0.41716cm</Width>
-            <ZIndex>41</ZIndex>
+            <ZIndex>40</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2230,11 +2196,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox262</rd:DefaultName>
-            <Top>14.99093cm</Top>
-            <Left>0.19221cm</Left>
+            <Top>16.69848cm</Top>
+            <Left>0.16933cm</Left>
             <Height>1.75004cm</Height>
             <Width>4.89393cm</Width>
-            <ZIndex>42</ZIndex>
+            <ZIndex>41</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2252,7 +2218,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!ACTION_WHEN_DEV.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!ACTION_WHEN_DEV.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -2260,11 +2226,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox263</rd:DefaultName>
-            <Top>14.99093cm</Top>
-            <Left>5.51682cm</Left>
+            <Top>16.69848cm</Top>
+            <Left>5.49394cm</Left>
             <Height>1.75004cm</Height>
             <Width>12.9238cm</Width>
-            <ZIndex>43</ZIndex>
+            <ZIndex>42</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2292,11 +2258,225 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>14.99093cm</Top>
-            <Left>5.09319cm</Left>
+            <Top>16.69848cm</Top>
+            <Left>5.07031cm</Left>
             <Height>1.75004cm</Height>
             <Width>0.41716cm</Width>
+            <ZIndex>43</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox242">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Departemen</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox237</rd:DefaultName>
+            <Top>7.65901cm</Top>
+            <Left>0.17638cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.89393cm</Width>
             <ZIndex>44</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox107">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox21</rd:DefaultName>
+            <Top>7.65901cm</Top>
+            <Left>5.05791cm</Left>
+            <Height>0.6cm</Height>
+            <Width>0.41716cm</Width>
+            <ZIndex>45</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox243">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!DEPT_LOKASI_KEJADIAN.Value, "UpdatedReportData")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox238</rd:DefaultName>
+            <Top>7.65901cm</Top>
+            <Left>5.51035cm</Left>
+            <Height>0.6cm</Height>
+            <Width>5.21299cm</Width>
+            <ZIndex>46</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox110">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!SITE_LOKASI_KEJADIAN.Value, "UpdatedReportData")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox110</rd:DefaultName>
+            <Top>6.89495cm</Top>
+            <Left>13.11737cm</Left>
+            <Height>0.6cm</Height>
+            <Width>5.32557cm</Width>
+            <ZIndex>47</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox241">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>No Batch/No QC Material</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox226</rd:DefaultName>
+            <Top>3.013cm</Top>
+            <Left>0.17639cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.89393cm</Width>
+            <ZIndex>48</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox108">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox21</rd:DefaultName>
+            <Top>3.013cm</Top>
+            <Left>5.1056cm</Left>
+            <Height>0.6cm</Height>
+            <Width>0.37482cm</Width>
+            <ZIndex>49</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox246">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!DEVIATION_CATEGORY.Value, "UpdatedReportData")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox227</rd:DefaultName>
+            <Top>3.013cm</Top>
+            <Left>5.48042cm</Left>
+            <Height>0.6cm</Height>
+            <Width>5.47423cm</Width>
+            <ZIndex>50</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2314,7 +2494,7 @@
         <KeepTogether>true</KeepTogether>
         <Top>0.17311cm</Top>
         <Left>0.14182cm</Left>
-        <Height>18.1772cm</Height>
+        <Height>20.11698cm</Height>
         <Width>18.81909cm</Width>
         <Style>
           <Border>
@@ -2992,7 +3172,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!ID_PROPOSER.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!ID_PROPOSER.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -3052,7 +3232,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Format(Fields!CREATION_DATE.Value,"dd/MM/yyyy"), "DataSet1")</Value>
+                    <Value>=First(Format(Fields!CREATION_DATE.Value,"dd/MM/yyyy"), "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -3496,7 +3676,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!SUPERIORNAME.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!SUPERIORNAME.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -3556,7 +3736,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Format(Fields!APPDATE.Value,"dd/MM/yyyy"), "DataSet1")</Value>
+                    <Value>=First(Format(Fields!APPDATE.Value,"dd/MM/yyyy"), "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -3712,7 +3892,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!USULAN_REMIDIAL.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!USULAN_REMIDIAL.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -3745,7 +3925,7 @@
             <Width>2.15617cm</Width>
             <ZIndex>46</ZIndex>
             <Visibility>
-              <Hidden>=IIF(First(Fields!SUPERIORNAME.Value, "DataSet1") = "", true, false)</Hidden>
+              <Hidden>=IIF(First(Fields!SUPERIORNAME.Value, "UpdatedReportData") = "", true, false)</Hidden>
             </Visibility>
             <Style>
               <Border>
@@ -3758,7 +3938,7 @@
           <BreakLocation>End</BreakLocation>
         </PageBreak>
         <KeepTogether>true</KeepTogether>
-        <Top>18.45967cm</Top>
+        <Top>20.68217cm</Top>
         <Left>0.14182cm</Left>
         <Height>9.61199cm</Height>
         <Width>18.80215cm</Width>
@@ -4746,7 +4926,7 @@
           <BreakLocation>End</BreakLocation>
         </PageBreak>
         <KeepTogether>true</KeepTogether>
-        <Top>28.22812cm</Top>
+        <Top>30.45062cm</Top>
         <Left>0.14181cm</Left>
         <Height>8.947cm</Height>
         <Width>18.88683cm</Width>
@@ -5399,7 +5579,7 @@
             <Width>8.09149cm</Width>
             <ZIndex>4</ZIndex>
             <Visibility>
-              <Hidden>=IIF(First(Fields!EVALUASI_RESIKO.Value, "DataSet1") = "Yes", false, true)</Hidden>
+              <Hidden>=IIF(First(Fields!EVALUASI_RESIKO.Value, "UpdatedReportData") = "Yes", false, true)</Hidden>
             </Visibility>
             <Style>
               <Border>
@@ -5417,7 +5597,7 @@
             <Width>8.09149cm</Width>
             <ZIndex>5</ZIndex>
             <Visibility>
-              <Hidden>=IIF(First(Fields!EVALUASI_RESIKO.Value, "DataSet1") = "No", false, true)</Hidden>
+              <Hidden>=IIF(First(Fields!EVALUASI_RESIKO.Value, "UpdatedReportData") = "No", false, true)</Hidden>
             </Visibility>
             <Style>
               <Border>
@@ -5430,7 +5610,7 @@
           <BreakLocation>End</BreakLocation>
         </PageBreak>
         <KeepTogether>true</KeepTogether>
-        <Top>37.32978cm</Top>
+        <Top>39.86978cm</Top>
         <Left>0.14181cm</Left>
         <Height>6.28651cm</Height>
         <Width>18.89952cm</Width>
@@ -5850,7 +6030,7 @@
                     </TablixMember>
                   </TablixMembers>
                 </TablixRowHierarchy>
-                <DataSetName>DataSet1</DataSetName>
+                <DataSetName>UpdatedReportData</DataSetName>
                 <Top>0.14307cm</Top>
                 <Left>0.04866cm</Left>
                 <Height>1.8cm</Height>
@@ -5932,7 +6112,7 @@
             <Height>3.88324cm</Height>
             <Width>18.67443cm</Width>
             <Visibility>
-              <Hidden>=IIF(First(Fields!STATUS.Value, "DataSet1") = "AHROK1" or First(Fields!STATUS.Value, "DataSet1") = "CLOSE", False, True)</Hidden>
+              <Hidden>=IIF(First(Fields!STATUS.Value, "UpdatedReportData") = "AHROK1" or First(Fields!STATUS.Value, "UpdatedReportData") = "CLOSE", False, True)</Hidden>
             </Visibility>
             <Style>
               <Border>
@@ -8356,7 +8536,7 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
           <BreakLocation>End</BreakLocation>
         </PageBreak>
         <KeepTogether>true</KeepTogether>
-        <Top>43.79065cm</Top>
+        <Top>46.64815cm</Top>
         <Left>0.14181cm</Left>
         <Height>13.05187cm</Height>
         <Width>18.89953cm</Width>
@@ -8620,7 +8800,7 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
             <Height>4.19361cm</Height>
             <Width>17.86458cm</Width>
             <Visibility>
-              <Hidden>=IIF(First(Fields!STATUS.Value, "DataSet1")="CLOSE", False, True)</Hidden>
+              <Hidden>=IIF(First(Fields!STATUS.Value, "UpdatedReportData")="CLOSE", False, True)</Hidden>
             </Visibility>
             <Style>
               <Border>
@@ -8722,7 +8902,7 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>56.99905cm</Top>
+        <Top>60.17405cm</Top>
         <Left>0.14181cm</Left>
         <Height>7.54277cm</Height>
         <Width>18.91645cm</Width>
@@ -8734,7 +8914,7 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
         </Style>
       </Rectangle>
     </ReportItems>
-    <Height>64.54182cm</Height>
+    <Height>67.71682cm</Height>
     <Style>
       <Border>
         <Style>None</Style>
@@ -9035,7 +9215,7 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet1">
+    <DataSet Name="UpdatedReportData">
       <Query>
         <DataSourceName>B7_QUALITY_SYSTEMData</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -9097,6 +9277,18 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
           <DataField>LOCATION</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="DEPT_LOKASI_KEJADIAN">
+          <DataField>DEPT_LOKASI_KEJADIAN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SUPDEPTCODE">
+          <DataField>SUPDEPTCODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SITE_LOKASI_KEJADIAN">
+          <DataField>SITE_LOKASI_KEJADIAN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="STATUS">
           <DataField>STATUS</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -9127,6 +9319,22 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
         </Field>
         <Field Name="MT_JUMLAH_PELAKSANA">
           <DataField>MT_JUMLAH_PELAKSANA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SUPERIORNAME">
+          <DataField>SUPERIORNAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="APPDATE">
+          <DataField>APPDATE</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="EVALUASI_RESIKO">
+          <DataField>EVALUASI_RESIKO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USULAN_REMIDIAL">
+          <DataField>USULAN_REMIDIAL</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="REQ_ID1">
@@ -9237,26 +9445,10 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
           <DataField>REQ</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="SUPERIORNAME">
-          <DataField>SUPERIORNAME</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="APPDATE">
-          <DataField>APPDATE</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="USULAN_REMIDIAL">
-          <DataField>USULAN_REMIDIAL</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="EVALUASI_RESIKO">
-          <DataField>EVALUASI_RESIKO</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>B7_QUALITY_SYSTEMData</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\ignatius.kurniawan\source\repos\ignatiusipin\B7_Deviation\B7_Deviation\DataSource\B7_QUALITY_SYSTEMData.xsd</rd:SchemaPath>
+        <rd:DataSetName>UpdatedReportDataSet</rd:DataSetName>
+        <rd:SchemaPath>D:\FELI\Projects\21\Deviation Online 21\projek\B7_Deviation\B7_Deviation\UpdatedReportDataSet.xsd</rd:SchemaPath>
         <rd:TableName>SP_Report</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

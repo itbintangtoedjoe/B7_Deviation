@@ -272,9 +272,15 @@
                             '<td>' + data[trav].KETERANGAN_REJECT + '</td>' +
 								'<td> N/A </td>';
 						} else if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR' || 'DONE REVISE FROM COORDINATOR') {
-							trHTML +=
-                                '<td>' + data[trav].FLAG_REVIEW+'</td>' +
-                            '<td>' + data[trav].KETERANGAN_REJECT + '</td>' +
+							if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR') {
+								trHTML +=
+									'<td>DONE REVIEW</td>';
+							}
+							else {
+								trHTML +=
+									'<td>' + data[trav].FLAG_REVIEW + '</td>';
+                            }
+							trHTML += '<td>' + data[trav].KETERANGAN_REJECT + '</td>' +
 								'<td> <input type="button" id = "Approve"  value="Approve" onclick="Approve(this)" class="btn btn-success" style="width:50px"/> <input type = "button" id = "Reject" value = "Reject" onclick="Reject(this)" class="btn btn-danger" style="width:50px"/>' + '</td>';
 							;
 						}

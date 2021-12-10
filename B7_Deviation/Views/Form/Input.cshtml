@@ -68,33 +68,52 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="form-validation">
-							<form class="form-valide" onsubmit="return s();" action="#" method="post">
-								<!-- Site -->
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label" for="ddlSite">Site Koordinator<span class="text-danger">*</span></label>
+                            <form class="form-valide" onsubmit="return s();" action="#" method="post">
+                                <!-- Site -->
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="ddlSite">Site Koordinator<span class="text-danger">*</span></label>
 
-									<div class="col-sm-3">
-										<div class="btn-group mb-2">
-											<div class="basic-dropdown">
-												<div class="dropdown">
-													<select id="ddlSite" name="ddlSite"></select>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+                                    <div class="col-sm-3">
+                                        <div class="btn-group mb-2">
+                                            <div class="basic-dropdown">
+                                                <div class="dropdown">
+                                                    <select id="ddlSite" name="ddlSite"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*  Penyimpangan terencana *@
 
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
-									<div class="col-sm-4">
-										<div>
-											<div class="basic-dropdown">
-												<div class="dropdown">
-													<select id="ddlKategori" name="ddlKategori"></select>
-												</div>
-											</div>
-										</div>
-										<br>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Jenis Penyimpangan<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes" checked> Terencana
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel5" data-travelNumber="1" id="terencana_no_2" value="No"> Tidak Terencana
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <div class="basic-dropdown">
+                                                <div class="dropdown">
+                                                    <select id="ddlKategori" name="ddlKategori"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
                                         <div id="divsimpang">
                                             <div class="basic-dropdown">
                                                 <div id="divreceipt" class="form-group">
@@ -118,235 +137,216 @@
                                                 <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
                                             </div>
                                             <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered text-center" >
+                                                <div class="modal-dialog modal-dialog-centered text-center">
                                                     <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
                                                 </div>
                                             </div>
                                         </div>
-										<br>
-									</div>
-									<div class="col-sm-6">
-										<textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan"></textarea>
-									</div>
-								</div>
-								@*  Penyimpangan terencana *@
+                                        <br>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan"></textarea>
+                                    </div>
+                                </div>
 
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Jenis Penyimpangan<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<div class="form-group">
-											<div class="form-check form-check-inline">
-												<label>
-													<input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes" checked> Terencana
-												</label>
-											</div>
-											<div class="form-check form-check-inline">
-												<label>
-													<input type="radio" name="travel5" data-travelNumber="1" id="terencana_no_2" value="No"> Tidak Terencana
-												</label>
-											</div>
-										</div>
-									</div>
-								</div>
+                                <!-- Problem (What) -->
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Problem (What)<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtProblem" name="txtProblem" class="form-control" placeholder="Problem (What)"></textarea>
+                                    </div>
+                                </div>
 
-								<!-- Problem (What) -->
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Problem (What)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<textarea id="txtProblem" name="txtProblem" class="form-control" placeholder="Problem (What)"></textarea>
-									</div>
-								</div>
+                                <!-- Requirement (Jika Ada) -->
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Requirement (Jika Ada)</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtReq" name="txtReq" class="form-control" placeholder="Requirement (Jika Ada)"></textarea>
+                                    </div>
+                                </div>
 
-								<!-- Requirement (Jika Ada) -->
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Requirement (Jika Ada)</label>
-									<div class="col-sm-10">
-										<textarea id="txtReq" name="txtReq" class="form-control" placeholder="Requirement (Jika Ada)"></textarea>
-									</div>
-								</div>
+                                @* Tanggal Kejadian *@
 
-								@* Tanggal Kejadian *@
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Tanggal dan Waktu Kejadian (When)</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input id="date-format" name="date-format" type="text" class="form-control">
+                                            <span class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="mdi mdi-calendar-check"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
 
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Tanggal dan Waktu Kejadian (When)</label>
-									<div class="col-sm-4">
-										<div class="input-group">
-											<input id="date-format" name="date-format" type="text" class="form-control">
-											<span class="input-group-append">
-												<span class="input-group-text">
-													<i class="mdi mdi-calendar-check"></i>
-												</span>
-											</span>
-										</div>
-									</div>
-								</div>
+                                @* Lokasi *@
 
-								@* Lokasi *@
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Lokasi (Where)<span class="text-danger">*</span></label>
+                                    <div class="col-sm-4">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlSiteLokasi" name="ddlSiteLokasi" style="width: 280px;"></select>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div id="divDeptLokasi" class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlDeptLokasi" name="ddlDeptLokasi" style="width: 280px;"></select>
+                                            </div>
+                                        </div>
+                                    </div>
 
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Lokasi (Where)<span class="text-danger">*</span></label>
-									<div class="col-sm-4">
-										<div class="basic-dropdown">
-											<div class="dropdown">
-												<select id="ddlSiteLokasi" name="ddlSiteLokasi" style="width: 280px;"></select>
-											</div>
-										</div>
-										<br />
-										<div id="divDeptLokasi" class="basic-dropdown">
-											<div class="dropdown">
-												<select id="ddlDeptLokasi" name="ddlDeptLokasi" style="width: 280px;"></select>
-											</div>
-										</div>
-									</div>
+                                    <div class="col-sm-6">
+                                        <textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Detail Lokasi Kejadian Penyimpangan"></textarea>
+                                    </div>
 
-									<div class="col-sm-6">
-										<textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Detail Lokasi Kejadian Penyimpangan"></textarea>
-									</div>
-
-								</div>
+                                </div>
 
 
-								@* Siapa Saja *@
+                                @* Siapa Saja *@
 
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
-									<div class="col-sm-7">
-										<div class="input-group">
-											<input id="txtWho" class="form-control" placeholder="Siapa saja yang terlibat (Who)">
-											<span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
-												<span class="input-group-text btn-success">
-													<i class="fa fa-user-plus"></i>
-												</span>
-											</span>
-										</div>
-										<div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
-											<table id="tblWho" class="table table-striped table-bordered">
-												<thead>
-													<tr>
-														<th style="width:20px">No</th>
-														<th>Nama</th>
-														<th style="width:30px">Action</th>
-													</tr>
-												</thead>
-												<tbody id="tblBodyWho">
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group">
+                                            <input id="txtWho" class="form-control" placeholder="Siapa saja yang terlibat (Who)">
+                                            <span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
+                                                <span class="input-group-text btn-success">
+                                                    <i class="fa fa-user-plus"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+                                            <table id="tblWho" class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:20px">No</th>
+                                                        <th>Nama</th>
+                                                        <th style="width:30px">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tblBodyWho">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
 
-								@*Bagaimana Urutan Kejadian*@
+                                @*Bagaimana Urutan Kejadian*@
 
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Bagaimana Urutan Kejadian (How)<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<textarea id="txtHow" name="txtHow" class="form-control" placeholder="Bagaimana Urutan Kejadian (How)"></textarea>
-									</div>
-								</div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Bagaimana Urutan Kejadian (How)<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtHow" name="txtHow" class="form-control" placeholder="Bagaimana Urutan Kejadian (How)"></textarea>
+                                    </div>
+                                </div>
 
 
-								@*Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?*@
+                                @*Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?*@
 
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<div class="form-group">
-											<div class="form-check form-check-inline">
-												<label>
-													<input type="radio" name="travel4" data-travelNumber="1" id="pernah_yes_1" value="Yes"> Ya
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel4" data-travelNumber="1" id="pernah_yes_1" value="Yes"> Ya
 
-												</label>
-											</div>
-											<div class="form-check form-check-inline">
-												<label>
-													<input name="travel4" type="radio" data-travelNumber="1" id="pernah_no_1" value="No" checked> Tidak
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel4" type="radio" data-travelNumber="1" id="pernah_no_1" value="No" checked> Tidak
 
-												</label>
-											</div>
-										</div>
-										<textarea name="txt30hari" id="txt30hari" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" disabled></textarea>
-									</div>
-								</div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <textarea name="txt30hari" id="txt30hari" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" disabled></textarea>
+                                    </div>
+                                </div>
 
-								@*Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?*@
+                                @*Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?*@
 
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<div class="form-group">
-											<div class="form-check form-check-inline">
-												<label>
-													<input type="radio" name="travel1" data-travelNumber="1" id="sama_yes_1" value="Yes"> Ya
-												</label>
-											</div>
-											<div class="form-check form-check-inline">
-												<label>
-													<input name="travel1" type="radio" data-travelNumber="1" id="sama_no_1" value="No" checked> Tidak
-												</label>
-											</div>
-										</div>
-										<textarea name="txtsama" id="txtsama" class="form-control" placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" disabled></textarea>
-									</div>
-								</div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel1" data-travelNumber="1" id="sama_yes_1" value="Yes"> Ya
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel1" type="radio" data-travelNumber="1" id="sama_no_1" value="No" checked> Tidak
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <textarea name="txtsama" id="txtsama" class="form-control" placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" disabled></textarea>
+                                    </div>
+                                </div>
 
-								@*Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?*@
+                                @*Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?*@
 
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<div class="form-group">
-											<div class="form-check form-check-inline">
-												<div class="form-check form-check-inline">
-													<label>
-														<input type="radio" name="travel2" data-travelNumber="1" id="rilis_yes_2" value="Yes"> Ya
-													</label>
-												</div>
-												<div class="form-check form-check-inline">
-													<label>
-														<input name="travel2" type="radio" data-travelNumber="1" id="rilis_no_2" value="No" checked> Tidak
-													</label>
-												</div>
-											</div>
-										</div>
-										<textarea id="txtrilis" name="txtrilis" class="form-control" placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" disabled></textarea>
-									</div>
-								</div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input type="radio" name="travel2" data-travelNumber="1" id="rilis_yes_2" value="Yes"> Ya
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input name="travel2" type="radio" data-travelNumber="1" id="rilis_no_2" value="No" checked> Tidak
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <textarea id="txtrilis" name="txtrilis" class="form-control" placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" disabled></textarea>
+                                    </div>
+                                </div>
 
-								@*Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?*@
+                                @*Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?*@
 
-								<div class="form-group row">
-									<label class="col-sm-2 col-form-label">Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?<span class="text-danger">*</span></label>
-									<div class="col-sm-10">
-										<div class="form-group">
-											<div class="form-check form-check-inline">
-												<label>
-													<input type="radio" name="travel3" data-travelNumber="1" id="lain_yes_3" value="Yes"> Ya
-												</label>
-											</div>
-											<div class="form-check form-check-inline">
-												<label>
-													<input name="travel3" type="radio" data-travelNumber="1" id="lain_no_3" value="No" checked> Tidak
-												</label>
-											</div>
-										</div>
-										<textarea id="txtlain" name="txtlain" class="form-control" placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" disabled></textarea>
-									</div>
-								</div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel3" data-travelNumber="1" id="lain_yes_3" value="Yes"> Ya
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel3" type="radio" data-travelNumber="1" id="lain_no_3" value="No" checked> Tidak
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <textarea id="txtlain" name="txtlain" class="form-control" placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" disabled></textarea>
+                                    </div>
+                                </div>
 
-								@*Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi*@
+                                @*Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi*@
 
-								<div class="form-group row">
-									<div class="col-sm-2 col-form-label">
-										<label>
-											Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi
-										</label>
-									</div>
-									<div class="col-sm-10">
-										<textarea style="height:150px" id="txtTindakan" name="txtTindakan" disabled class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 col-form-label">
+                                        <label>
+                                            Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea style="height:150px" id="txtTindakan" name="txtTindakan" disabled class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
 
-									</div>
-								</div>
-							</form>
+                                    </div>
+                                </div>
+                            </form>
 
 							<div class="form-group row">
 								<div class="col-sm-2 col-form-label">
@@ -691,7 +691,7 @@
                 Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-                    text: 'Data yang diisikan kurang lengkap!',
+                    text: 'Data yang diisikan kurang lengkap VALIDKE!',
 				});
 				if (DEPARTEMENT == ' ' || DEPARTEMENT == null ||
 					PROBLEM == ' ' || PROBLEM == null ||
@@ -714,12 +714,8 @@
 					RISK_HEALTY == ' ' || RISK_HEALTY == null ||
 					RISK_ENVIRONTMENT == ' ' || RISK_ENVIRONTMENT == null ||
 					RISK_INTELLECTUAL == ' ' || RISK_INTELLECTUAL == null) {
-
-					if (JENIS_PENYIMPANGAN == 'Yes') {
-                        console.log('item code: ' + Item_Code_Oracle);
-                        console.log('No_Batch_Oracle: ' + No_Batch_Oracle);
-                        console.log('NO_WO_ORACLE: ' + NO_WO_ORACLE);
-                        console.log('KET_CATEGORY: ' + KET_CATEGORY);
+					//im here bro
+                    if (JENIS_PENYIMPANGAN == 'Yes' && DEVIATION_CATEGORY == 'QPR') {
 
 						if (Item_Code_Oracle.trim() == '' || No_Batch_Oracle.trim() == '' || NO_WO_ORACLE.trim() == '' || KET_CATEGORY.trim()=='') {
 							Swal.fire({
@@ -762,7 +758,8 @@
 
 
 		$("#ddlKategori").change(function () {
-			$("#TxtNoWO").attr("hidden", true);
+            $("#TxtNoWO").attr("hidden", true);
+            $("#TxtNoWO").attr("disabled", true);
 
 			$("#TxtItemCode").attr("hidden", true);
 
@@ -1132,31 +1129,40 @@
 
     function ToggleShowKualitasProdukFields(jenisPenyimpangan) {
         $('#txtKetKategori').attr('disabled', true);
+        $("#TxtNoWO").attr("disabled", true);
         $("#txtKetKategori").val('');
         $("#TxtItemCode").val('');
 		$("#TxtBatchNo").val('');
-        $("#TxtNoWO").val('');
-        if (jenisPenyimpangan == 'Yes') {
-            $("#TxtItemCode").attr("hidden", false);
-            $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
-            GetItemKualitasProduk();
+		$("#TxtNoWO").val('');
+        if ($("#ddlKategori").val() == 'QPR') {
+            if (jenisPenyimpangan == 'Yes') {
+                $("#TxtItemCode").attr("hidden", false);
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                GetItemKualitasProduk();
 
-            $("#TxtNoWO").attr("disabled", false);
-            $("#TxtItemCode").attr("disabled", false);
-        }
-        else {
-            $("#TxtItemCode").attr("hidden", false);
-            $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                $("#TxtNoWO").attr("disabled", false);
+                $("#TxtItemCode").attr("disabled", false);
+            }
+            else {
+                $("#TxtItemCode").attr("hidden", false);
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
 
-            GetNoBatchOracle();
-            $("#TxtNoWO").attr("disabled", true);
-            $("#TxtItemCode").attr("disabled", true);
+                GetNoBatchOracle();
+                $("#TxtNoWO").attr("disabled", true);
+                $("#TxtItemCode").attr("disabled", true);
+            }
         }
     }
 
 	$('input[type=radio][name=travel5]').change(function () {
         var jenisPenyimpangan = this.value;
 		ToggleShowKualitasProdukFields(jenisPenyimpangan);
+
+		if (jenisPenyimpangan == 'Yes') {
+			$("#txtTindakan").attr("disabled", true);
+        } else {
+            $("#txtTindakan").attr("disabled", false);
+        }
     });
 
 	function GetSiteLokasiKejadian() {
@@ -1677,10 +1683,10 @@
 				var count = data.length;
 				var trhtml = '';
 				var trav = 0;
-				trhtml += '<option disabled selected hidden class="dropdown-header">Kategori Penyimpangan</option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header">Kategori Penyimpangan</option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
-						trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                        trhtml += '<option class="dropdown-item" value = "' + data[trav].ddl_code + '"> ' + data[trav].ddl_description;
 					}
 				}
 				$("#ddlKualProd").empty();
@@ -1703,10 +1709,10 @@
 				var count = data.length;
 				var trhtml = '';
 				var trav = 0;
-				trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
-						trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '"> ' + data[trav].ddl_description;
 					}
 				}
 				$("#ddlCompliance").empty();
@@ -1729,10 +1735,10 @@
 				var count = data.length;
 				var trhtml = '';
 				var trav = 0;
-				trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
-						trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '"> ' + data[trav].ddl_description;
 					}
 				}
 				$("#ddlRiskOpr").empty();
@@ -1756,10 +1762,10 @@
 				var count = data.length;
 				var trhtml = '';
 				var trav = 0;
-				trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
-						trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '"> ' + data[trav].ddl_description;
 					}
 				}
 				$("#ddlRiskFin").empty();
@@ -1782,10 +1788,10 @@
 				var count = data.length;
 				var trhtml = '';
 				var trav = 0;
-				trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
-						trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '"> ' + data[trav].ddl_description;
 					}
 				}
 				$("#ddlRiskOrg").empty();
@@ -1808,10 +1814,10 @@
 				var count = data.length;
 				var trhtml = '';
 				var trav = 0;
-				trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
-						trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '"> ' + data[trav].ddl_description;
 					}
 				}
 				$("#ddlKeamamananP").empty();
@@ -1835,10 +1841,10 @@
 				var count = data.length;
 				var trhtml = '';
 				var trav = 0;
-				trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
-						trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '"> ' + data[trav].ddl_description;
 					}
 				}
 				$("#ddlKesehatanPer").empty();
@@ -1861,10 +1867,10 @@
 				var count = data.length;
 				var trhtml = '';
 				var trav = 0;
-				trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
-						trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '"> ' + data[trav].ddl_description;
 					}
 				}
 				$("#ddlResLingk").empty();
@@ -1887,10 +1893,10 @@
 				var count = data.length;
 				var trhtml = '';
 				var trav = 0;
-				trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
-						trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '"> ' + data[trav].ddl_description;
 					}
 				}
 				$("#ddlRiskIntelek").empty();

@@ -83,73 +83,74 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="basic-form">
-							<form id="ReviewerList">
+                            <form id="ReviewerList">
+                                <h4>REVIEWER</h4>
+                                <div class="form-group row" id="Reviewer">
+                                    <div class="container-fluid">
+                                        <div class="card-body row">
+                                            <div class="col-md-7">
 
-								<div class="form-group row" id="Reviewer">
-									<div class="container-fluid">
-										<div class="card-body row">
-											<div class="col-md-7">
+                                                <h4>REVIEWER</h4>
+                                                <div class="row form-group">
+                                                    <label class="col-form-label label-trigger">Keterangan Review</label>
+                                                </div>
 
-												<div class="row form-group">
-													<label class="col-form-label label-trigger">Keterangan Review</label>
-												</div>
+                                                <div class="row form-group">
+                                                    <textarea placeholder="Keterangan Reviewer" style="width: 500px; height: auto;"></textarea>
+                                                </div>
 
-												<div class="row form-group">
-													<textarea placeholder="Keterangan Reviewer" style="width: 500px; height: auto;"></textarea>
-												</div>
+                                                <div class="row form-group">
+                                                    <label class="col-form-label label-trigger">File Pendukung</label>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="table table-striped table-bordered">
+                                                        <table id="tbl_Attachment" class="table header-border">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        <b>No</b>
+                                                                    </th>
+                                                                    <th>
+                                                                        <b>File Name</b>
+                                                                    </th>
+                                                                    <th hidden="hidden">
+                                                                        <b></b>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tbody_Attachment"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
 
-												<div class="row form-group">
-													<label class="col-form-label label-trigger">File Pendukung</label>
-												</div>
-												<div class="row form-group">
-													<div class="table table-striped table-bordered">
-														<table id="tbl_Attachment" class="table header-border">
-															<thead>
-																<tr>
-																	<th>
-																		<b>No</b>
-																	</th>
-																	<th>
-																		<b>File Name</b>
-																	</th>
-																	<th hidden="hidden">
-																		<b></b>
-																	</th>
-																</tr>
-															</thead>
-															<tbody id="tbody_Attachment"></tbody>
-														</table>
-													</div>
-												</div>
+                                                <div class="row form-group center">
+                                                    <button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control ">
+                                                        Approve
+                                                        <span class="fa fa-check-square-o"></span>
+                                                    </button>
+                                                    <button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
+                                                        Reject
+                                                        <span class="fa fa-ban"></span>
+                                                    </button>
+                                                </div>
 
-												<div class="row form-group center">
-													<button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control ">
-														Approve
-														<span class="fa fa-check-square-o"></span>
-													</button>
-													<button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
-														Reject
-														<span class="fa fa-ban"></span>
-													</button>
-												</div>
+                                            </div>
 
-											</div>
+                                            <div class="col-md-5">
 
-											<div class="col-md-5">
+                                                <div class="row form-group">
+                                                    <label class="col-form-label label-trigger">Nama Reviewer</label>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <textarea id="txtHow" class="form-control" placeholder="Nama Reviewer" disabled="disabled"></textarea>
+                                                </div>
 
-												<div class="row form-group">
-													<label class="col-form-label label-trigger">Nama Reviewer</label>
-												</div>
-												<div class="row form-group">
-													<textarea id="txtHow" class="form-control" placeholder="Nama Reviewer" disabled="disabled"></textarea>
-												</div>
+                                            </div>
 
-											</div>
-
-										</div>
-									</div>
-								</div>
-							</form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
 						</div>
 					</div>
 				</div>

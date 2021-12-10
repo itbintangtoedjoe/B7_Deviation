@@ -359,7 +359,7 @@
             var IsLogin = '@Request.RequestContext.HttpContext.Session["fullname"]';
             var IsRole = '@Request.RequestContext.HttpContext.Session["role"]';
             var IsJobTitle = '@Request.RequestContext.HttpContext.Session["jobttlname"]';
-            var IsHead = IsJobTitle.includes("head");
+            var IsHead = IsJobTitle.includes("Head");
             var url = "../Login/Index";
             $('#UserLoginXd').text(IsLogin);
 

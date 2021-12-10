@@ -252,7 +252,7 @@ namespace B7_Deviation.Report
                 ReportDataSource DataSource = new ReportDataSource("B7_QUALITY_SYSTEMData", dt);
                 this.ReportViewer1.LocalReport.DataSources.Clear();
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource);
-                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSet1", dt));
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("UpdatedReportData", dt));
 
                 ReportDataSource DataSource2 = new ReportDataSource("B7_QUALITY_SYSTEMUserInvolved", dt2);
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource2);

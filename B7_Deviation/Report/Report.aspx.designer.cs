@@ -33,7 +33,7 @@ namespace B7_Deviation.Report
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// MasterListViewer1 control.
+        /// ReportViewer1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

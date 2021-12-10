@@ -82,8 +82,10 @@
                             '<td>' + data[trav].USER_NIK + '</td>';
 
                         if (data[trav].FLAG_REVIEW == 'NOT YET') {
-                            trHTML +=
-                                '<td>PENDING REVIEW</td>';
+                            trHTML += '<td>PENDING REVIEW</td>';
+                        }
+                        else if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR') {
+                            trHTML += '<td>DONE REVIEW</td>';
                         }
                         else {
                             trHTML +=
