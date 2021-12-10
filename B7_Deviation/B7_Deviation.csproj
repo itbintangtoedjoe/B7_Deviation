@@ -285,7 +285,7 @@
     <Compile Include="Report\Report.aspx.designer.cs">
       <DependentUpon>Report.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UpdatedReportDataSet.Designer.cs">
+    <Compile Include="DataSource\UpdatedReportDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UpdatedReportDataSet.xsd</DependentUpon>
@@ -558,15 +558,15 @@
     <Content Include="Views\DataDeviasi\PrintFindLeadTime.cshtml" />
     <Content Include="Views\Koordinator\CloseWithCAPA.cshtml" />
     <Content Include="Views\QualityManager\ApprovedDisposisiPartialView.cshtml" />
-    <Content Include="UpdatedReportDataSet.xsc">
+    <Content Include="DataSource\UpdatedReportDataSet.xsc">
       <DependentUpon>UpdatedReportDataSet.xsd</DependentUpon>
     </Content>
-    <None Include="UpdatedReportDataSet.xsd">
+    <None Include="DataSource\UpdatedReportDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>UpdatedReportDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <Content Include="UpdatedReportDataSet.xss">
+    <Content Include="DataSource\UpdatedReportDataSet.xss">
       <DependentUpon>UpdatedReportDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">

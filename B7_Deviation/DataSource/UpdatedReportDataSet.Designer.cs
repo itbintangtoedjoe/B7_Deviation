@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace B7_Deviation {
+namespace B7_Deviation.DataSource {
     
     
     /// <summary>
@@ -390,6 +390,8 @@ namespace B7_Deviation {
             private global::System.Data.DataColumn columnTHIRTY;
             
             private global::System.Data.DataColumn columnREQ;
+            
+            private global::System.Data.DataColumn columnNOMOR_BATCH;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -874,6 +876,14 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn NOMOR_BATCHColumn {
+                get {
+                    return this.columnNOMOR_BATCH;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -965,7 +975,8 @@ namespace B7_Deviation {
                         string PLAN_DEV, 
                         string THIRTY_FLAG, 
                         string THIRTY, 
-                        string REQ) {
+                        string REQ, 
+                        string NOMOR_BATCH) {
                 SP_ReportRow rowSP_ReportRow = ((SP_ReportRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         REQ_ID,
@@ -1023,7 +1034,8 @@ namespace B7_Deviation {
                         PLAN_DEV,
                         THIRTY_FLAG,
                         THIRTY,
-                        REQ};
+                        REQ,
+                        NOMOR_BATCH};
                 rowSP_ReportRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_ReportRow);
                 return rowSP_ReportRow;
@@ -1102,6 +1114,7 @@ namespace B7_Deviation {
                 this.columnTHIRTY_FLAG = base.Columns["THIRTY_FLAG"];
                 this.columnTHIRTY = base.Columns["THIRTY"];
                 this.columnREQ = base.Columns["REQ"];
+                this.columnNOMOR_BATCH = base.Columns["NOMOR_BATCH"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1219,6 +1232,8 @@ namespace B7_Deviation {
                 base.Columns.Add(this.columnTHIRTY);
                 this.columnREQ = new global::System.Data.DataColumn("REQ", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnREQ);
+                this.columnNOMOR_BATCH = new global::System.Data.DataColumn("NOMOR_BATCH", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNOMOR_BATCH);
                 this.columnREQ_ID.AllowDBNull = false;
                 this.columnREQ_ID.MaxLength = 50;
                 this.columnDEVIATION_ID.MaxLength = 50;
@@ -1285,6 +1300,8 @@ namespace B7_Deviation {
                 this.columnTHIRTY_FLAG.MaxLength = 10;
                 this.columnTHIRTY.MaxLength = 2000;
                 this.columnREQ.MaxLength = 2000;
+                this.columnNOMOR_BATCH.ReadOnly = true;
+                this.columnNOMOR_BATCH.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2308,6 +2325,22 @@ namespace B7_Deviation {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string NOMOR_BATCH {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_Report.NOMOR_BATCHColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NOMOR_BATCH\' in table \'SP_Report\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_Report.NOMOR_BATCHColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDEVIATION_IDNull() {
                 return this.IsNull(this.tableSP_Report.DEVIATION_IDColumn);
             }
@@ -2941,6 +2974,18 @@ namespace B7_Deviation {
             public void SetREQNull() {
                 this[this.tableSP_Report.REQColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsNOMOR_BATCHNull() {
+                return this.IsNull(this.tableSP_Report.NOMOR_BATCHColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetNOMOR_BATCHNull() {
+                this[this.tableSP_Report.NOMOR_BATCHColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -2978,7 +3023,7 @@ namespace B7_Deviation {
         }
     }
 }
-namespace B7_Deviation.UpdatedReportDataSetTableAdapters {
+namespace B7_Deviation.DataSource.UpdatedReportDataSetTableAdapters {
     
     
     /// <summary>
@@ -3158,6 +3203,7 @@ namespace B7_Deviation.UpdatedReportDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("THIRTY_FLAG", "THIRTY_FLAG");
             tableMapping.ColumnMappings.Add("THIRTY", "THIRTY");
             tableMapping.ColumnMappings.Add("REQ", "REQ");
+            tableMapping.ColumnMappings.Add("NOMOR_BATCH", "NOMOR_BATCH");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

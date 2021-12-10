@@ -2464,7 +2464,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!DEVIATION_CATEGORY.Value, "UpdatedReportData")</Value>
+                    <Value>=First(Fields!NOMOR_BATCH.Value, "UpdatedReportData")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -9445,10 +9445,14 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
           <DataField>REQ</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="NOMOR_BATCH">
+          <DataField>NOMOR_BATCH</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>UpdatedReportDataSet</rd:DataSetName>
-        <rd:SchemaPath>D:\FELI\Projects\21\Deviation Online 21\projek\B7_Deviation\B7_Deviation\UpdatedReportDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\ignatius.kurniawan\source\repos\ignatiusipin\B7_Deviation\B7_Deviation\DataSource\UpdatedReportDataSet.xsd</rd:SchemaPath>
         <rd:TableName>SP_Report</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -10096,7 +10100,7 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DataSourceFooterTotal</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\ignatius.kurniawan\source\repos\ignatiusipin\B7_Deviation\B7_Deviation\DataSourceFooterTotal.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\ignatius.kurniawan\source\repos\ignatiusipin\B7_Deviation\B7_Deviation\DataSource\DataSourceFooterTotal.xsd</rd:SchemaPath>
         <rd:TableName>SP_CountTotalPICTable</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

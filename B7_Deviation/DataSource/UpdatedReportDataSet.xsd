@@ -9,7 +9,7 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="SP_ReportTableAdapter" GeneratorDataComponentClassName="SP_ReportTableAdapter" Name="SP_Report" UserDataComponentName="SP_ReportTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="DB_DEVIATION (Web.config)" DbObjectName="B7_QUALITY_SYSTEM.dbo.SP_Report" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DB_DEVIATION (Web.config)" DbObjectName="B7_QUALITY_SYSTEM.dbo.SP_Report" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.SP_Report</CommandText>
@@ -78,6 +78,7 @@
               <Mapping SourceColumn="THIRTY_FLAG" DataSetColumn="THIRTY_FLAG" />
               <Mapping SourceColumn="THIRTY" DataSetColumn="THIRTY" />
               <Mapping SourceColumn="REQ" DataSetColumn="REQ" />
+              <Mapping SourceColumn="NOMOR_BATCH" DataSetColumn="NOMOR_BATCH" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -89,7 +90,7 @@
   <xs:element name="UpdatedReportDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="UpdatedReportDataSet" msprop:Generator_UserDSName="UpdatedReportDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="SP_Report" msprop:Generator_TableClassName="SP_ReportDataTable" msprop:Generator_TableVarName="tableSP_Report" msprop:Generator_TablePropName="SP_Report" msprop:Generator_RowDeletingName="SP_ReportRowDeleting" msprop:Generator_RowChangingName="SP_ReportRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportRowDeleted" msprop:Generator_UserTableName="SP_Report" msprop:Generator_RowChangedName="SP_ReportRowChanged" msprop:Generator_RowEvArgName="SP_ReportRowChangeEvent" msprop:Generator_RowClassName="SP_ReportRow">
+        <xs:element name="SP_Report" msprop:Generator_TableClassName="SP_ReportDataTable" msprop:Generator_TableVarName="tableSP_Report" msprop:Generator_RowChangedName="SP_ReportRowChanged" msprop:Generator_TablePropName="SP_Report" msprop:Generator_RowDeletingName="SP_ReportRowDeleting" msprop:Generator_RowChangingName="SP_ReportRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportRowDeleted" msprop:Generator_RowClassName="SP_ReportRow" msprop:Generator_UserTableName="SP_Report" msprop:Generator_RowEvArgName="SP_ReportRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="REQ_ID" msprop:Generator_ColumnVarNameInTable="columnREQ_ID" msprop:Generator_ColumnPropNameInRow="REQ_ID" msprop:Generator_ColumnPropNameInTable="REQ_IDColumn" msprop:Generator_UserColumnName="REQ_ID">
@@ -463,6 +464,13 @@
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="2000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NOMOR_BATCH" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNOMOR_BATCH" msprop:Generator_ColumnPropNameInRow="NOMOR_BATCH" msprop:Generator_ColumnPropNameInTable="NOMOR_BATCHColumn" msprop:Generator_UserColumnName="NOMOR_BATCH" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
