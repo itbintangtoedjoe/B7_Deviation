@@ -177,7 +177,14 @@ namespace B7_Deviation.Controllers
 
                             Command.Parameters.Add("@UserID", SqlDbType.VarChar);
                             Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }
+                        else if (Model.WhoReceiver == "Superior PIC after PIC Submit Cost")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Form Input";
 
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
                         }
                         else if(Model.WhoReceiver == "Pelapor after Lanjut CAPA")
                         {
@@ -495,6 +502,53 @@ namespace B7_Deviation.Controllers
                         "</table>" +
                         "</body></html>";
 
+                }
+                else if (Model.WhoReceiver == "Superior PIC after PIC Submit Cost")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>"
+                            "<td><b>Need Your Approval for the Cost</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://b7-b2b.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
                 }
                 else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA")
                 {

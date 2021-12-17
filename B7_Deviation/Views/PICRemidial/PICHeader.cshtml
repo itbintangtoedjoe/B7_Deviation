@@ -792,31 +792,62 @@
 			}
 		});
 
+		//jika pakai cost kirim email ke superior
+		if (HiddenCostType == 'Yes') {
 
-		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+			var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		var tabletype = "More Than One";
-		var whoreceiver = "Koordinator after PIC Submit";
+			var tabletype = "One";
+			var whoreceiver = "Superior PIC after PIC Submit Cost";
 
-		var dtx = {
-			Receiver: receiver,
-			ReqID: REQID,
-			TableType: tabletype,
-			WhoReceiver: whoreceiver
-		};
+			var dtx = {
+				Receiver: receiver,
+				ReqID: REQID,
+				TableType: tabletype,
+				WhoReceiver: whoreceiver
+			};
 
-		$.ajax({
-			type: "post",
-			url: '../Form/SendEmailInputProposal',
-			data: JSON.stringify(dtx),
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
+			$.ajax({
+				type: "post",
+				url: '../Form/SendEmailInputProposal',
+				data: JSON.stringify(dtx),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
 
-			}, error: function (ex) {
-				alert("Error Email: " + JSON.stringify(ex));
-			}
-		});
+				}, error: function (ex) {
+					alert("Error Email: " + JSON.stringify(ex));
+				}
+			});
+		}
+
+		//tanpa cost kirim email ke koordinator
+		else {
+			var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+			var tabletype = "More Than One";
+			var whoreceiver = "Koordinator after PIC Submit";
+
+			var dtx = {
+				Receiver: receiver,
+				ReqID: REQID,
+				TableType: tabletype,
+				WhoReceiver: whoreceiver
+			};
+
+			$.ajax({
+				type: "post",
+				url: '../Form/SendEmailInputProposal',
+				data: JSON.stringify(dtx),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+
+				}, error: function (ex) {
+					alert("Error Email: " + JSON.stringify(ex));
+				}
+			});
+        }
 	}
 
 	function DeleteFileAttachment(button) {
