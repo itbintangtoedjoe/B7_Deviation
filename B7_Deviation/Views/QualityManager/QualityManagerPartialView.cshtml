@@ -48,7 +48,7 @@
 							<label class="col-sm-2 col-form-label">Disposisi Tindakan Remedial<span class="text-danger">*</span></label>
 							<div class="col-sm-7">
 								<div class="input-group">
-									<textarea id="txtDisposisi" placeholder="Disposisi Tindakan Remedial" style="width: 600px; "></textarea>
+									<textarea id="txtDisposisi" placeholder="Disposisi Tindakan Remedial" class="form-control"></textarea>
 									<span id="spanDisposisi" class="input-group-append" title="Tambah orang terlibat">
 										<span class="input-group-text btn-success">
 											<i class="fa fa-plus"></i>
@@ -71,7 +71,7 @@
 							</div>
 
 							<div class="col-sm-3" id="gambardelegate" hidden="hidden">
-								<img id="tee" src="~/Content/Pict/delegasi.png" width="200px;" />
+								<img id="tee" src="~/Content/Pict/delegasi.png" style="width:200px;" />
 							</div>
 						</div>
 					</div>
@@ -306,14 +306,16 @@
 
 						'<div class="card-body bg-gallery row">' +
 						'<div class="col-md-7">' +
+						'<div class="col-md-12" style="margin-left:-15px">' +
 
 						'<div class="row form-group">' +
 						'<label class="col-form-label label-trigger">Keterangan Review</label>' +
 						'</div>' +
 
 						'<div class="row form-group">' +
-						'<textarea placeholder="Keterangan Reviewer" class="form-control" style="width: 500px; height: 200px;" disabled>' + data[trav].KETERANGAN_REVIEW + '</textarea>' +
+						'<textarea class="form-control" placeholder="Keterangan Reviewer" style="width: 500px; height: 200px;" disabled>' + data[trav].KETERANGAN_REVIEW + '</textarea>' +
 						'</div>' +
+					    '</div>' +
 
 						'<div class="row form-group">' +
 						'<label class="col-form-label label-trigger">File Pendukung</label>' +
@@ -371,7 +373,7 @@
 						'</div>' +
 
 						'<div class="row form-group">' +
-						'<input class="form-control" placeholder="Tanggal Review" disabled="disabled"  style="width: 500px;" value="' + data[trav].TANGGAL_REVIEW + '">' +
+						'<input class="form-control" placeholder="Tanggal Review" disabled="disabled" value="' + data[trav].TANGGAL_REVIEW + '">' +
 						'</div>';
 
 					text +=

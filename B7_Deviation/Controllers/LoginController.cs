@@ -137,7 +137,7 @@ namespace B7_Deviation.Controllers
                         }
                         else
                         {
-                            if (Model.Password == "BintangToedjoePortal")
+                            if (Model.Password == "B7Portal")
                             {
                                 if (Model.Username == "")
                                 {

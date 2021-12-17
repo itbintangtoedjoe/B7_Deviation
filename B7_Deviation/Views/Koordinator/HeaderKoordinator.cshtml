@@ -178,19 +178,6 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				GetDevNum();
-
-				Swal.fire({
-					title: 'Form Approved',
-					showDenyButton: false,
-					showCancelButton: false,
-					confirmButtonText: `OK`
-				}).then((result) => {
-
-					if (result.isConfirmed) {
-						window.location.href = "../DataDeviasi/PendingTask"
-					}
-				})
-
 			}
 			, error: function (ex) {
 				alert('Error Approve : ' + JSON.stringify(ex));
@@ -342,7 +329,17 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+                Swal.fire({
+                    title: 'Form Approved',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: `OK`
+                }).then((result) => {
 
+                    if (result.isConfirmed) {
+                        window.location.href = "../DataDeviasi/PendingTask"
+                    }
+                })
 			}
 			, error: function (ex) {
 				alert('Error Get Dev Num: ' + JSON.stringify(ex));
