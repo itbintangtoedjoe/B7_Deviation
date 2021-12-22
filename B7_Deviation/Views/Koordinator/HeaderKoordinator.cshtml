@@ -177,7 +177,17 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				GetDevNum();
+                Swal.fire({
+                    title: 'Sent to Reviewer',
+                    showDenyButton: false,
+					showCancelButton: false,
+					timer: 2000
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        window.location.href = "../DataDeviasi/PendingTask"
+                    }
+                })
 			}
 			, error: function (ex) {
 				alert('Error Approve : ' + JSON.stringify(ex));
@@ -234,7 +244,7 @@
 				}).then((result) => {
 
 					if (result.isConfirmed) {
-						window.location.href = "../Koordinator/PendingApproval"
+                        window.location.href = "../DataDeviasi/PendingTask"
 					}
 				})
 
@@ -329,17 +339,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-                Swal.fire({
-                    title: 'Form Approved',
-                    showDenyButton: false,
-                    showCancelButton: false,
-                    confirmButtonText: `OK`
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        window.location.href = "../DataDeviasi/PendingTask"
-                    }
-                })
+                $('#TbNmrDev').val(data[0]);
 			}
 			, error: function (ex) {
 				alert('Error Get Dev Num: ' + JSON.stringify(ex));
@@ -542,10 +542,15 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+				console.log(data);
+				if (data == '' || data == null) {
+
+				}
+				else
 				if (data[0].STAT == 'S') {
 
 					$("#btnCancel").removeAttr('hidden');
-					$("#btnShowRev").removeAttr('hidden');
+					$("#btnShowRev").removeAttr('hid\en');
 
 					$("#btnShowRev").click(function () {
 						window.location.href = "../Koordinator/ReviewerDataTable?Nomor=@ViewBag.nomor";
@@ -563,7 +568,7 @@
                     GetDDL();
 					$("#partialview").attr("hidden", false);
 					$("#btnShowRev").attr("hidden", true);
-					$("btnCancel").attr("hidden", true);
+					$("#btnCancel").attr("hidden", true);
 					$("#btnApprove").removeAttr("hidden");
 					$("#btnReject").removeAttr("hidden");
 
@@ -572,9 +577,12 @@
 
 					var btnText = $("#btnApprove").text();
 					var tbl = data[0].COUNTED
+					var cNoDev = $('#TbNmrDev').val();
 
+					
 					// KALAU UDAH ADA ISINYA
-					if (tbl >= 1 && $.trim(btnText) == 'Approve') {
+					if (cNoDev != '')
+					{
 						$("#btnApprove").text('Send to Reviewer');
 						$("#btnApprove").width("110px");
 						$("#xddlx").removeAttr('hidden');
@@ -583,17 +591,19 @@
 
 					}
 
+
 					$("#btnApprove").click(function () {
                         btnText = $("#btnApprove").text();
-
+						
 						// KALAU BELUM ADA ISINYA
-						if (tbl < 1 && $.trim(btnText) == 'Approve') {
+                        if (((tbl < 1) && ($.trim(btnText) == 'Approve')) || (checkEvaluator > 0 && ($.trim(btnText) == 'Approve'))  ) {
 
 							$("#xddlx").removeAttr('hidden');
 							$("#btnApprove").text('Send to Reviewer');
 							$("#btnApprove").width("110px");
 							$("#btnReject").attr("hidden", true);
-                            GetDDL();
+							GetDDL();
+							GetDevNum();
 						}
 						else
                             if (checkEvaluator < 1 && $.trim(btnText) == 'Send to Reviewer') {
@@ -604,9 +614,11 @@
 									text: 'Mohon pilih Reviewer terlebih dahulu!',
 								});
 							}
-							else {
-								ApproveHeaderKoordinator();
-							}
+							else
+                                if ((checkEvaluator > 0 && $.trim(btnText) == 'Send to Reviewer'))
+								{
+									ApproveHeaderKoordinator();
+								}
 
 
 

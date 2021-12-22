@@ -251,7 +251,6 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				console.log(data);
 				@*if (data == "CAN") {
 					$("#can").attr("hidden", false);
 					LoadKeteranganDisposisi();
@@ -285,7 +284,7 @@
 			ReqID: nomor,
             NO_DISPOSISI: urutan
 		}
-		console.log(dto);
+
 		$.ajax({
 			url: "../QualityManager/QM_LoadDeviationApproval",
 			type: "post",

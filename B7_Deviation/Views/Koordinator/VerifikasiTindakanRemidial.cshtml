@@ -95,14 +95,7 @@
 								<tbody id="deviationtable">
 								</tbody>
 								<tfoot id="picfooter">
-									<tr>
-										<th colspan="3" style="text-align: center;  background-color: #f3f3f3">Total</th>
-										<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Testing Manhours</th>
-										<th style="text-align: center; background-color: #f3f3f3">Total Testing Cost</th>
-										<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Processing Manhours</th>
-										<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Rejected Cost</th>
-										<th colspan="2" style="text-align: center; background-color: #f3f3f3">Total Machine Cost</th>
-									</tr>
+									
 									
 								</tfoot>
 							</table>
@@ -296,7 +289,6 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data == 'VERIFIED') {
-					console.log(data);
                     LoadData();
 					$("#koorsubmission").removeAttr("hidden");
 				} else {
@@ -386,6 +378,7 @@
 					}
 
 					$('#deviationdatatable').DataTable().clear().destroy();
+					$('#picfooter').empty();
 					$('#deviationtable').empty();
 					$('#deviationtable').append(trHTML);
 					$('#deviationdatatable').DataTable({
@@ -406,48 +399,53 @@
 				}
 			})
 		).done(
-				$.ajax({
-					url: "../Koordinator/Coor_LoadPICDataFooter",
-					type: "post",
-					data: JSON.stringify(dto),
-					dataType: "json",
-					contentType: "application/json;charset=utf-8",
-					success: function (data) {
-						console.log(data);
+			$.ajax({
+				url: "../Koordinator/Coor_LoadPICDataFooter",
+				type: "post",
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
 				
-						var trHTML = '';
-						var trav = 0;
-						var Count = data.length;
-						for (trav = 0; trav < Count; trav++) {
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+					for (trav = 0; trav < Count; trav++) {
 
-							trHTML +=
-								'<tr>' +
-								'<td style="background-color: #f3f3f3" colspan="3"></td><td colspan="3" align="right" style="padding:10px 8px">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
-								'<td align="right" colspan="1" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
-								'<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
-								'<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
-								'<td align="right" colspan="2" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
-
-
-								'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Times</th>' +
-								'<td colspan="2" align="right" style="padding:10px 8px">' + data[trav].TOTAL_TIMES + '</td></tr>' +
-
-								'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Cost</th>' +
-								'<td colspan="2" align="right" style="padding:10px 8px"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
-
-
-						}
-
-						// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
-						$('#picfooter').empty();
-						$('#picfooter').append(trHTML);
+						trHTML +=
+                            '<tr>'+
+                            '<th colspan = "3" style = "text-align: center;  background-color: #f3f3f3" > Total</th >'+
+							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Testing Manhours</th>'+
+							'<th style="text-align: center; background-color: #f3f3f3">Total Testing Cost</th>'+
+							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Processing Manhours</th>'+
+							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Rejected Cost</th>'+
+							'<th colspan="2" style="text-align: center; background-color: #f3f3f3">Total Machine Cost</th>'+
+							'</tr >'+
+							'<tr>' +
+							'<td style="background-color: #f3f3f3" colspan="3"></td><td colspan="3" align="right" style="padding:10px 8px">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
+							'<td align="right" colspan="1" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
+							'<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
+							'<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
+							'<td align="right" colspan="2" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
 
 
-					},
-					error: function (ex) {
-						alert(JSON.stringify(ex));
+							'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Times</th>' +
+							'<td colspan="2" align="right" style="padding:10px 8px">' + data[trav].TOTAL_TIMES + '</td></tr>' +
+
+							'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Cost</th>' +
+							'<td colspan="2" align="right" style="padding:10px 8px"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
+
 					}
-				})
+
+					// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
+					
+
+					$('#picfooter').append(trHTML);
+				},
+				error: function (ex) {
+					alert(JSON.stringify(ex));
+				}
+			})
 		);
 
 

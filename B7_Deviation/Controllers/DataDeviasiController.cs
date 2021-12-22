@@ -980,5 +980,11 @@ namespace B7_Deviation.Controllers
             }
             return Json(rows);
         }
+
+        public ActionResult ReportHiddenCost(String Period)
+        {
+            ViewBag.Period = Period;
+            return View();
+        }
     }
 }

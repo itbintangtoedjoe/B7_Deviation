@@ -5299,6 +5299,7 @@
     <Content Include="Global.asax" />
     <Content Include="Report\PrintFindLeadTime.aspx" />
     <Content Include="Report\PrintFindMasterList.aspx" />
+    <Content Include="Report\ReportHiddenCost.aspx" />
     <Content Include="Report\ReportViewerWebForm.aspx" />
     <Content Include="Report\LeadTime.aspx" />
     <Content Include="Report\MasterList.aspx" />
@@ -5428,6 +5429,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportKoordinatorDataSource2.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSource\ReportHiddenCostDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportHiddenCostDataSource.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Report\LeadTime.aspx.cs">
       <DependentUpon>LeadTime.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5467,6 +5473,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UpdatedReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Report\ReportHiddenCost.aspx.cs">
+      <DependentUpon>ReportHiddenCost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\ReportHiddenCost.aspx.designer.cs">
+      <DependentUpon>ReportHiddenCost.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -5747,6 +5760,18 @@
     <Content Include="DataSource\UpdatedReportDataSet.xss">
       <DependentUpon>UpdatedReportDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="DataSource\ReportHiddenCostDataSource.xsc">
+      <DependentUpon>ReportHiddenCostDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSource\ReportHiddenCostDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportHiddenCostDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSource\ReportHiddenCostDataSource.xss">
+      <DependentUpon>ReportHiddenCostDataSource.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\DataDeviasi\ReportHiddenCost.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -5766,6 +5791,7 @@
     <Content Include="Report\PrintFindLeadTime.rdlc" />
     <EmbeddedResource Include="Report\PrintFindMasterList.rdlc" />
     <Content Include="Report\Report1.rdlc" />
+    <EmbeddedResource Include="Report\ReportHiddenCost.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

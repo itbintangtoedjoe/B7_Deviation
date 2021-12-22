@@ -15,40 +15,33 @@
                                     <th colspan="3" style="text-align:center">Reject Cost</th>
                                     <th colspan="2" style="text-align:center">Machine Cost</th>
                                     <th rowspan="2" style="text-align:center">PIC</th>
-                                    <th rowspan="2" style="text-align:center">Action</th>
+                                    <th rowspan="2" style="text-align:center">Status</th>
+                                    <th rowspan="2" style="text-align:center">Dokumen Pendukung</th>
+                                    <th id="headVerify" rowspan="2" style="text-align:center">Verifikasi Tindakan Remedial</th>
                                 </tr>
                                 <tr>
-                                    <th>Jumlah Personel</th>
-                                    <th>Durasi Pengerjaan (Jam)</th>
-                                    <th>Manhours Value</th>
-                                    <th>Cost of Analysis</th>
-                                    <th>Durasi Pengerjaan</th>
-                                    <th>Jumlah Pelaksana (Jam)</th>
-                                    <th>Manhours Value</th>
-                                    <th>Material</th>
-                                    <th>Quantity</th>
-                                    <th>Cost Material</th>
-                                    <th>Nama Sparepart</th>
-                                    <th>Harga Sparepart</th>
-                                    <th hidden="hidden">NIK PIC</th>
+                                    <th width="75px">Jumlah Personel</th>
+                                    <th width="75px">Durasi Pengerjaan (Jam)</th>
+                                    <th width="75px">Manhours Value</th>
+                                    <th width="150px">Cost of Analysis</th>
+                                    <th width="75px">Durasi Pengerjaan</th>
+                                    <th width="75px">Jumlah Pelaksana (Jam)</th>
+                                    <th width="75px">Manhours Value</th>
+                                    <th width="75px">Material</th>
+                                    <th width="75px">Quantity</th>
+                                    <th width="75px">Cost Material</th>
+                                    <th width="75px">Nama Sparepart</th>
+                                    <th width="75px">Harga Sparepart</th>
+                                    <th width="75px" hidden="hidden">NIK PIC</th>
                                 </tr>
 
                             </thead>
-                            <tbody id="deviationtable" class="">
+                            <tbody id="deviationtable">
                             </tbody>
                             <tfoot id="picfooter">
-                                <tr>
-                                    <th colspan="3" rowspan="2" style="text-align: center; background-color: #f3f3f3; vertical-align: middle">Total</th>
-                                    <th colspan="3" style="text-align: center ; background-color: #f3f3f3">Total Testing Manhours</th>
-                                    <th style="text-align: center ; background-color: #f3f3f3">Total Testing Cost</th>
-                                    <th colspan="3" style="text-align: center ; background-color: #f3f3f3">Total Processing Manhours</th>
-                                    <th colspan="3" style="text-align: center ; background-color: #f3f3f3">Total Rejected Cost</th>
-                                    <th colspan="2" style="text-align: center ; background-color: #f3f3f3">Total Machine Cost</th>
-                                </tr>
+
 
                             </tfoot>
-
-
                         </table>
 
                     </div>
@@ -83,114 +76,148 @@
 		var nomor = @ViewBag.nomor;
 		var dto = {
 			REQID: nomor
-        }
-        console.log('halo');
-        console.log(dto);
+		}
+
+
 		$.when(
-            $.ajax({
-                url: "../Koordinator/Coor_LoadPICData",
-                type: "post",
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    console.log(data);
-                    var trHTML = '';
-                    var trav = 0;
-                    var Count = data.length;
-                    for (trav = 0; trav < Count; trav++) {
-                        var counter = 1;
-                        counter += trav;
-                        trHTML +=
-                            '<tr><td align="center">' + counter + '</td>' +
-                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                            '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-                            '<td>' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
-                            '<td>' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
-                            //'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
-                            '<td>' + data[trav].MANHOURS_VALUE_TESTING + '</td>' +
-                            '<td>' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
-                            '<td>' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
-                            '<td>' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
-                            //'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
-                            '<td>' + data[trav].MANHOURS_VALUE_PROCESSING + '</td>' +
-                            '<td>' + data[trav].REJ_MATERIAL + '</td>' +
-                            '<td>' + data[trav].REJ_QUANTITY + '</td>' +
-                            '<td>' + data[trav].REJ_COST_MATERIAL + '</td>' +
-                            '<td>' + data[trav].MC_SPAREPART + '</td>' +
-                            '<td>' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
-                            '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                            '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
+			$.ajax({
+				url: "../Koordinator/Coor_LoadPICData",
+				type: "post",
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					var checkVerify = 0;
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+					for (trav = 0; trav < Count; trav++) {
+						var counter = 1;
+						counter += trav;
+						trHTML +=
+							'<tr><td align="center">' + counter + '</td>' +
+							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+							'<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+							'<td align="right">' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
+							'<td align="right">' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
+							//'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
+							'<td align="right">' + data[trav].MANHOURS_VALUE_TESTING + '</td>' +
+							'<td align="right">' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
+							'<td align="right">' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
+							'<td align="right">' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+							//'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+							'<td align="right">' + data[trav].MANHOURS_VALUE_PROCESSING + '</td>' +
+							'<td align="right">' + data[trav].REJ_MATERIAL + '</td>' +
+							'<td align="right">' + data[trav].REJ_QUANTITY + '</td>' +
+							'<td align="right">' + data[trav].REJ_COST_MATERIAL + '</td>' +
+							'<td align="right">' + data[trav].MC_SPAREPART + '</td>' +
+							'<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
+							'<td align="left">' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+							'<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+							'<td align="left">' + data[trav].FLAG_PIC + '</td>';
 
-                        if (data[trav].FLAG_PIC == 'REJECTED' || data[trav].FLAG_PIC == null) {
-                            trHTML +=
-                                '<td> - </td></tr>';
+                        @*data[trav].FLAG_PIC == 'REJECTED' ||*@
+						if (data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
+							trHTML +=
+								'<td align="center"> - </td>';
 
-                        } else {
-                            trHTML +=
-                                '<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td ></tr>';
+						} else {
+							trHTML +=
+								'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+						}
 
-                        }
-                    }
+						if ((data[trav].FLAG_VERIFIKASI == '-' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC') ||
+							(data[trav].FLAG_VERIFIKASI == 'REJECTED' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC')) {
+							trHTML +=
+								'<td align="center">' +
+								'<button style="width:50px" onclick = "Verifikasi(this)" class="btn btn-success">Verifikasi</button>' +
+								'<button style="width:50px" onclick = "RejectVerifikasi(this)" class="btn btn-danger" >Reject</button>' +
+								'</td > ';
+							//15 Nov 21, tampilkan cap verified
+						} else if ((data[trav].FLAG_VERIFIKASI == 'VERIFIED' && data[trav].FLAG_PIC == 'REMEDIAL APPROVED BY COORDINATOR')) {
+							trHTML += '<td align="center"><img src="../Content/Pict/verified4.png" /></td>';
+						} else {
+							trHTML += '<td> N/A </td>';
+						}
 
-                    $('#deviationdatatable').DataTable().clear().destroy();
-                    $('#deviationtable').empty();
-                    $('#deviationtable').append(trHTML);
+						if (data[trav].FLAG_VERIFIKASI == 'VERIFIED') {
+							checkVerify = checkVerify + 1;
+						}
+					}
+
+					$('#deviationdatatable').DataTable().clear().destroy();
+					$('#deviationtable').empty();
+					$('#deviationtable').append(trHTML);
+
                     $('#deviationdatatable').DataTable({
                         "searching": false,
                         "paging": false,
                         "info": false,
-                        "ordering": false
+						"ordering": false,
+                        "columnsDefs": [{
+                            type: 'html-num', targets: '_all'
+                        }]
                     });
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            })
+
+					if (checkVerify > 0) {
+						$('#headVerify').focus();
+					}
+
+
+				},
+				error: function (ex) {
+					alert(JSON.stringify(ex));
+				}
+			})
 		).done(
-            $.ajax({
-                url: "../Koordinator/Coor_LoadPICDataFooter",
-                type: "post",
-                data: JSON.stringify(dto),
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    var trHTML = '';
-                    var trav = 0;
-                    var Count = data.length;
-                    for (trav = 0; trav < Count; trav++) {
+			$.ajax({
+				url: "../Koordinator/Coor_LoadPICDataFooter",
+				type: "post",
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
 
-                        trHTML +=
-                            '<tr><td colspan="3" style="text-align:center">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
-                            '<td colspan="1" style="text-align:center">Rp ' + data[0].TOTAL_TESTING_COA + '</td>' +
-                            '<td colspan="3" style="text-align:center">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
-                            '<td colspan="3" style="text-align:center">Rp ' + data[0].TOTAL_REJ_COST + '</td>' +
-                            '<td colspan="2" style="text-align:center">Rp ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+					for (trav = 0; trav < Count; trav++) {
 
-
-                            //'<tr><th colspan="13" style="text-align:center; background-color: #f3f3f3">Total Times</th>' +
-                            //'<td colspan="2"  style="text-align:center">' + data[trav].TOTAL_TIMES + '</td></tr>' +
-
-                            //'<tr><th colspan="13" style="text-align:center; background-color: #f3f3f3">Total Cost</th>' +
-                            //'<td colspan="2"  style="text-align:center">' + data[trav].TOTAL_COST +'</td></tr>';
-
-                            '<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Times</th>' +
-                            '<td colspan="2" style="text-align:center">' + data[trav].TOTAL_TIMES + '</td></tr>' +
-
-                            '<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Cost</th>' +
-                            '<td colspan="2" style="text-align:center"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
+						trHTML +=
+							'<tr>' +
+							'<th colspan = "3" style = "text-align: center;  background-color: #f3f3f3" > Total</th >' +
+							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Testing Manhours</th>' +
+							'<th style="text-align: center; background-color: #f3f3f3">Total Testing Cost</th>' +
+							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Processing Manhours</th>' +
+							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Rejected Cost</th>' +
+							'<th colspan="2" style="text-align: center; background-color: #f3f3f3">Total Machine Cost</th>' +
+							'</tr >' +
+							'<tr>' +
+							'<td style="background-color: #f3f3f3" colspan="3"></td><td colspan="3" align="right" style="padding:10px 8px">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
+							'<td align="right" colspan="1" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
+							'<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
+							'<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
+							'<td align="right" colspan="2" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
 
 
-                    }
+							'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Times</th>' +
+							'<td colspan="2" align="right" style="padding:10px 8px">' + data[trav].TOTAL_TIMES + '</td></tr>' +
 
-                    // NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
-                    $('#picfooter').append(trHTML);
+							'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Cost</th>' +
+							'<td colspan="2" align="right" style="padding:10px 8px"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
+
+					}
+
+					// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
 
 
-                },
-                error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            })
+					$('#picfooter').append(trHTML);
+				},
+				error: function (ex) {
+					alert(JSON.stringify(ex));
+				}
+			})
 		);
-	};
+
+	}
 </script>
