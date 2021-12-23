@@ -5,34 +5,61 @@
 }
 
 <div class="content-body">
-    <div class="form-group">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <iframe id="ifrmReportViewer" style="height:1000px; width:100%;" frameborder="0" scrolling="yes"></iframe>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="col-form-label">Parameter (Bulan Tahun) </label>
+                            <div class="col-form-label">
+                                <div class="btn-group">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown ">
+                                            <select id="ddlPeriod">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <iframe id="ifrmReportViewer" style="height:1000px; width:100%;" frameborder="0" scrolling="yes"></iframe>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div hidden="hidden">
-        <input type="text" id="txtPeriod" value="@ViewBag.nomor">
     </div>
 </div>
 
 
 
 <script>
+    let cek = 0
     $(document).ready(function () {
-        ReportValidationCheck();
+
+        if (cek == 0) {
+            ReportValidationCheck();
+            cek = cek + 1;
+        }
+
+        DDLPeriode();
+
+        $('#ddlPeriod').change(function () {
+            ReportValidationCheck();
+        });
     });
 
+
+
+
     function ReportValidationCheck() {
-        var Period = $("#txtPeriod").val();
+        var Period = $("#ddlPeriod").val();
+        
         url = "../Report/ReportHiddenCost.aspx?Period=" + Period;
 
         var myframe = document.getElementById("ifrmReportViewer");
@@ -48,5 +75,34 @@
             }
         }
         return false;
+    }
+
+    function DDLPeriode() {
+        $.ajax({
+            url: "../DataDeviasi/DdlPeriodHiddenCoat",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Period   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        trhtml += '<Option class="dropdown-item" value = "' + data[trav].PERIOD + '" > ' + data[trav].PERIOD;
+                    }
+                }
+                $("#ddlPeriod").empty();
+                $("#ddlPeriod").append(trhtml);
+                $("#ddlPeriod").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+
+        
     }
 </script>

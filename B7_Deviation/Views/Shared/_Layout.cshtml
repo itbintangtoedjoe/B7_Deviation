@@ -135,7 +135,7 @@
                     <li id="find"><a href="../DataDeviasi/FindDeviation">Find Deviation</a></li>
                     <li id="masterlist"><a href="#LampiranBukti">Report Masterlist</a></li>
                     <li id="leadtime"><a href="#LeadTime">Report Leadtime</a></li>
-                    
+                    <li id="hiddenCost"><a href="#HiddenCost">Report Hidden Cost</a></li>
 
                     <li id="cms">
                         <a class="has-arrow" aria-expanded="false">
@@ -268,6 +268,9 @@
 
             var UrlLeadTime = "../DataDeviasi/FindLeadTime?Nama=" + Nama
             $("a[href='#LeadTime']").attr('href', UrlLeadTime);
+
+            var UrlHiddenCost = "../DataDeviasi/ReportHiddenCost"
+            $("a[href='#HiddenCost']").attr('href', UrlHiddenCost);
             
         });
 
@@ -379,6 +382,8 @@
                     $("#masterlist").attr("hidden", true);
                     $("#leadtime").attr("hidden", true);
 
+                    $("#hiddenCost").attr("hidden", true);
+                    
                     if (IsHead) {
                         $("#create").attr("hidden", true);
                     }
@@ -389,11 +394,14 @@
                
             } else
                 if (IsRole == 'Pelapor') {
-                $("#masterlist").attr("hidden", true);
-                $("#leadtime").attr("hidden", true);
-                $("#find").attr("hidden", false);
-                $("#userlist").attr("hidden", true);
-                $("#cms").attr("hidden", true);
+                    $("#masterlist").attr("hidden", true);
+                    $("#leadtime").attr("hidden", true);
+                    $("#hiddenCost").attr("hidden", true);
+
+
+                    $("#find").attr("hidden", false);
+                    $("#userlist").attr("hidden", true);
+                    $("#cms").attr("hidden", true);
             }
 
             if (IsLogin === '' || IsLogin === null) {

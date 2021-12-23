@@ -291,7 +291,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!BULAN.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -321,7 +323,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!DEVIATION_NO.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -351,7 +355,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!NO_BATCH_ORACLE.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -381,7 +387,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!PRODUCT_CODE.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -411,7 +419,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!TOTAL_COST.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -441,7 +451,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!TOTAL_TIMES.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -471,7 +483,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!TOT_INVSTGN_TIME.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -501,7 +515,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!TOT_MEETING_TIME.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -548,8 +564,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>ReportHiddenCostDataSet</DataSetName>
-            <Top>0.65617cm</Top>
-            <Left>0.33867cm</Left>
+            <Top>2.31987cm</Top>
             <Height>1.2cm</Height>
             <Width>25.10116cm</Width>
             <Style>
@@ -558,12 +573,45 @@
               </Border>
             </Style>
           </Tablix>
+          <Textbox Name="Textbox2">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Report Hidden Cost</Value>
+                    <Style>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>0.5842cm</Top>
+            <Left>7.90787cm</Left>
+            <Height>0.6cm</Height>
+            <Width>10.16233cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>0.3302cm</Top>
-        <Left>0.35137cm</Left>
-        <Height>11.6205cm</Height>
-        <Width>26.11717cm</Width>
+        <Height>12.55184cm</Height>
+        <Width>27.14587cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -576,12 +624,12 @@
   </Body>
   <Width>10.68735in</Width>
   <Page>
-    <PageHeight>29.7cm</PageHeight>
-    <PageWidth>21cm</PageWidth>
-    <LeftMargin>2cm</LeftMargin>
-    <RightMargin>2cm</RightMargin>
-    <TopMargin>2cm</TopMargin>
-    <BottomMargin>2cm</BottomMargin>
+    <PageHeight>21cm</PageHeight>
+    <PageWidth>29.7cm</PageWidth>
+    <LeftMargin>0.5cm</LeftMargin>
+    <RightMargin>0.5cm</RightMargin>
+    <TopMargin>1cm</TopMargin>
+    <BottomMargin>1cm</BottomMargin>
     <ColumnSpacing>0.13cm</ColumnSpacing>
     <Style />
   </Page>
