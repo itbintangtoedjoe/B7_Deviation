@@ -23,7 +23,7 @@
 								<input id="TbTglCreated" class="form-control" disabled="disabled">
 							</div>
 							<div class="col">
-								<label>Nomer Deviation</label>
+								<label>Nomor Deviation</label>
 								<input id="TbNmrDev" type="text" class="form-control" disabled="disabled">
 							</div>
 							<div class="col">
@@ -780,15 +780,15 @@
 
 					if (no == data[trav].NO_DISPOSISI) {
 						trHTML += '<tr><td hidden="hidden">' + data[trav].NO_DISPOSISI + '</td>' +
-							'<td>' + no + '</td>' +
+							'<td>' + nom + '</td>' +
 							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
-							'<td><input type="text" class="form-control" value="' + data[trav].KETERANGAN_DISPOSISI + '"/></td>' +
+                            '<td><textarea class="form-control">' + data[trav].KETERANGAN_DISPOSISI+'</textarea></td>' +
 							'<td><button onclick="Cancel(this)" class="btn btn-danger"><span class="fa fa-ban"><strong></strong></span></button> <button onclick="Update(this)" class="btn btn-success"><span class="fa fa-floppy-o"><strong></strong></span></button ></td ></tr > ';
 
 
 					} else {
 						trHTML += '<tr><td hidden="hidden">' + data[trav].NO_DISPOSISI + '</td>' +
-							'<td>' + no + '</td>' +
+							'<td>' + nom + '</td>' +
 							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
 							'<td><button onclick="DeleteKeteranganDisposisi(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button> <button onclick="EditDisposisi(this)" class="btn btn-success"><span class="fa fa-pencil"><strong></strong></span></button ></td ></tr > ';
@@ -817,7 +817,7 @@
 		event.preventDefault();
 		var row = $(button).closest("TR");
 
-		var keterangan = $("TD", row).eq(3).find("input[type='text']").val();
+		var keterangan = $("TD", row).eq(3).find("textarea").val();
 		var nomordisposisi = $("TD", row).eq(0).html();
 		var reqid = @ViewBag.nomor;
 

@@ -65,6 +65,7 @@
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
+                    console.log(data);
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
@@ -186,94 +187,94 @@
 			showLoaderOnConfirm: true,
 
 			allowOutsideClick: () => Swal.isLoading()
-		}).then((result) => {
-            if (result.value == null || result.value == '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please Insert Reason!'
-                });
-            } else if (result.isConfirmed) {
+		    }).then((result) => {
+                if (result.value == null || result.value == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please Insert Reason!'
+                    });
+                } else if (result.isConfirmed) {
 
-                var row = $(button).closest("TR");
+                    var row = $(button).closest("TR");
 
-                var no_disposisi = $("TD", row).eq(8).html();
-                var req_id = @ViewBag.nomor;
-                var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                var alasanReject = result.value;
+                    var no_disposisi = $("TD", row).eq(8).html();
+                    var req_id = @ViewBag.nomor;
+                    var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+                    var alasanReject = result.value;
 
-                var dto = {
-                    REQID: req_id,
-                    NO_DISPOSISI: no_disposisi,
-                    IDUSER: curr_user,
-                    ALASAN_REJECT=alasanReject
+                    var dto = {
+                        REQID: req_id,
+                        NO_DISPOSISI: no_disposisi,
+                        IDUSER: curr_user,
+                        ALASAN_REJECT:alasanReject
+                    }
+
+                    $.ajax({
+                        url: "../QualityManager/QM_RejectPIC",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            Swal.fire({
+                                title: 'Revisi Disposisi Rejected',
+                                showDenyButton: false,
+                                showCancelButton: false,
+                                confirmButtonText: `OK`
+                            });
+
+                            @*toastr.success("Assign PIC Berhasil!", "Tersimpan", {
+                                "closeButton": false,
+                                "debug": true,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "100",
+                                "hideDuration": "1000",
+                                "timeOut": "1000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            });*@
+
+                            LoadData();
+                        }
+                        , error: function (ex) {
+
+                        }
+                    });
+
+                    var receiver = $("TD", row).eq(8).html();
+
+                    var tabletype = "One";
+                    var whoreceiver = "Reviewer Rejected Usulan Revisi";
+
+                    var dto = {
+                        Receiver: receiver,
+                        ReqID: REQID,
+                        TableType: tabletype,
+                        WhoReceiver: whoreceiver
+                    };
+
+                    $.ajax({
+                        type: "post",
+                        url: '../Form/SendEmailInputProposal',
+                        data: JSON.stringify(dto),
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+
+                        }, error: function (ex) {
+                            alert("Error Email: " + JSON.stringify(ex));
+                        }
+                    });
                 }
-
-                $.ajax({
-                    url: "../QualityManager/QM_RejectPIC",
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(dto),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-                        Swal.fire({
-                            title: 'Revisi Disposisi Rejected',
-                            showDenyButton: false,
-                            showCancelButton: false,
-                            confirmButtonText: `OK`
-                        });
-
-                        @*toastr.success("Assign PIC Berhasil!", "Tersimpan", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "100",
-                            "hideDuration": "1000",
-                            "timeOut": "1000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });*@
-
-                        LoadData();
-                    }
-                    , error: function (ex) {
-
-                    }
-                });
-
-                var receiver = $("TD", row).eq(8).html();
-
-                var tabletype = "One";
-                var whoreceiver = "Reviewer Rejected Usulan Revisi";
-
-                var dto = {
-                    Receiver: receiver,
-                    ReqID: REQID,
-                    TableType: tabletype,
-                    WhoReceiver: whoreceiver
-                };
-
-                $.ajax({
-                    type: "post",
-                    url: '../Form/SendEmailInputProposal',
-                    data: JSON.stringify(dto),
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-
-                    }, error: function (ex) {
-                        alert("Error Email: " + JSON.stringify(ex));
-                    }
-                });
-            }
-		});
+		    });
         }
     </script>
 

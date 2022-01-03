@@ -418,7 +418,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TOTAL_COST.Value</Value>
+                                  <Value>=IIF(Fields!TOTAL_COST.Value,Fields!TOTAL_COST.Value,"N/A")</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -450,7 +450,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TOTAL_TIMES.Value</Value>
+                                  <Value>=IIF(Fields!TOTAL_TIMES.Value,Fields!TOTAL_TIMES.Value,"N/A")</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -471,6 +471,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

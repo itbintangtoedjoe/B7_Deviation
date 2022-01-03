@@ -294,7 +294,9 @@ namespace B7_Deviation.Controllers
                 var file = Request.Files[i];
                 var fileName = ReqID + '_' + DateTimeF + '_' + Path.GetFileName(file.FileName);
 
-                URLAttachment = Path.Combine(@"\\10.100.18.54\B7_Deviation\Content\Attachment\Reviewer\", fileName);
+                string subPath = "~/Content/Attachment/Reviewer/";
+                URLAttachment = Path.Combine(Server.MapPath(subPath), fileName);
+                //URLAttachment = Path.Combine(@"\\10.100.18.138\B7_Deviation\Content\Attachment\Reviewer\", fileName);
                 URLDownload = Path.Combine(@"/B7_Deviation/Content/Attachment/Reviewer/", fileName);
 
 
