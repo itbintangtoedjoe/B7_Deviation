@@ -18,7 +18,7 @@
 							<h2 class="d-inline">Assign PIC</h2>
 						</div>
 
-						<table class="table table-bordered table-hover verticle-middle table-responsive" id="datatablepic">
+						<table class="table table-bordered table-hover verticle-middle table-responsive" id="datatablepic" style="color:black" width="1150px">
 							<thead>
 								<tr>
 									<th style="text-align:center">No</th>
@@ -41,7 +41,7 @@
 								</div>*@
 							</div>
 							<div class="col-4" style="float:right;">
-								<div class="form-group" id="evaluasiresiko">
+								<div class="form-group" id="evaluasiresiko" style="color:black">
 									<label>Evaluasi Risiko</label>
 									<div class="form-check">
 										<input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault1" value="Yes" disabled="disabled">
@@ -73,21 +73,24 @@
 						<h4>REVIEWER</h4>
 
 						<div class="form-group">
-							<table class="table table-bordered table-hover verticle-middle table-responsive" id="deviationdatatable"  style="white-space: nowrap">
-								<thead>
-									<tr>
-										<th width="100px" style="text-align:center">Nama</th>
-										<th width="100px" style="text-align:center">NIK</th>
-										<th width="200px" style="text-align:center">Status</th>
-										<th width="200px" style="text-align:center">Tanggal Review</th>
-										<th width="350px" style="text-align:center">Hasil Review</th>
-										<th width="250px" style="text-align:center">Dokumen Pendukung</th>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover verticle-middle" id="deviationdatatable" width="1150px" style="color:black">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" style="text-align:center">Nama</th>
+                                            <th width="50px" style="text-align:center">NIK</th>
+                                            <th width="40px" style="text-align:center">Status</th>
+                                            <th width="60px" style="text-align:center">Tanggal Review</th>
+                                            <th style="text-align:center">Hasil Review</th>
+                                            <th width="50px" style="text-align:center">Dokumen Pendukung</th>
 
-									</tr>
-								</thead>
-								<tbody id="deviationtable" class="nowrap">
-								</tbody>
-							</table>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="deviationtable" class="nowrap">
+                                    </tbody>
+                                </table>
+                            </div>
+							
 
 							<br />
 							<table class="table table-bordered table-hover verticle-middle table-responsive" id="reviewerbuktidatatable" hidden="hidden" style="white-space: nowrap">

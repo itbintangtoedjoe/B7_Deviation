@@ -154,6 +154,15 @@ namespace B7_Deviation.Controllers
                                         conn.Open();
                                         using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
                                         {
+                                            //cmd.CommandType = CommandType.StoredProcedure;
+                                            //cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+                                            //cmd.Parameters["@pilih"].Value = 1;
+
+                                            //cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+                                            //cmd.Parameters["@Username"].Value = Model.Username;
+
+                                            //result = (string)cmd.ExecuteScalar();
+
                                             cmd.CommandType = CommandType.StoredProcedure;
                                             cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
                                             cmd.Parameters["@pilih"].Value = 1;
@@ -161,7 +170,12 @@ namespace B7_Deviation.Controllers
                                             cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
                                             cmd.Parameters["@Username"].Value = Model.Username;
 
-                                            result = (string)cmd.ExecuteScalar();
+                                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                                            dataAdapt.SelectCommand = cmd;
+                                            dataAdapt.Fill(DT);
+
+                                            result = DT.Rows[0]["EMPID"].ToString();
+                                            t_LVL = DT.Rows[0]["LVL"].ToString();
                                         }
                                         conn.Close();
                                     }
@@ -234,7 +248,7 @@ namespace B7_Deviation.Controllers
 
             if (status != "kosong")
             {
-                if (t_LVL == "Pelaksana" || t_LVL == "Staff")
+                if (t_LVL == "STAFF")
                 {
                     status = "staff";
                 }

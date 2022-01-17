@@ -566,6 +566,12 @@
 					}
 				});
 
+                $('textarea').each(function () {
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                }).on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+				});
 
 			}, error: function (ex) {
 				alert(JSON.stringify(ex));
@@ -689,6 +695,8 @@
 					$("#tblDisKet").empty();
 					$("#tblDisKet").append(trHTML);
 					$("#tblDisKet").addBack();
+
+                    
 				}
 				else {
 					$('#tblDis').attr('hidden', true);
@@ -801,6 +809,12 @@
 				$("#tblDisKet").append(trHTML);
 				$("#tblDisKet").addBack();
 
+                $('textarea').each(function () {
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                }).on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
 			},
 			error: function (ex) {
 				alert("Edit Disposisi: " + JSON.stringify(ex));

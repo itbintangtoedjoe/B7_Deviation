@@ -9,7 +9,6 @@
 
 <body>
     <div class="content-body">
-
         <div class="container-fluid">
             <div class="card">
                 
@@ -17,23 +16,25 @@
                     <div class="form-group">
                         <h2 class="d-inline">Pending Approval</h2>
                     </div>
-                    <table class="table table-bordered table-hover nowrap table-responsive" id="deviationdatatable" width="100%">
-                        <thead>
-                            <tr>
-                                <th width="100px">Action</th>
-                                <th width="100px">Request ID</th>
-                                <th width="100px">ID Proposer</th>
-                                <th width="150px">Reviewer Name</th>
-                                <th width="100px">ID Reviewer</th>
-                                <th width="100px">Status</th>
-                                <th width="100px">Review</th>
-                                <th width="200px">Alasan Reject</th>
-                            </tr>
-                        </thead>
-                        <tbody id="deviationtable" class="nowrap">
-                            
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered" cellspacing="0" id="deviationdatatable" width="1500px" style="color:black">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Request ID</th>
+                                    <th>ID Proposer</th>
+                                    <th>Reviewer Name</th>
+                                    <th>ID Reviewer</th>
+                                    <th>Status</th>
+                                    <th>Review</th>
+                                    <th>Alasan Reject</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deviationtable" class="nowrap">
+                            </tbody>
+                        </table>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -114,7 +115,8 @@
                     $('#deviationdatatable').DataTable({
                         "searching": false,
                         "paging": false,
-                        "info": false
+                        "info": false,
+                        "ordering": false
                     });
                     LoadData = function () { };
                 },

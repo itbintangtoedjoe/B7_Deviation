@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
+@*<link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>*@
 
 
 <div class="content-body">
@@ -15,25 +15,27 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="d-inline">Pending Approval</h2>
+                        <div class="table-responsive">
+                            <table class="table-hover table-borderless" id="deviationdatatable" width="2000px" style="color:black">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center" width="100px">Action</th>
+                                        <th style="text-align:center"width="100px">Request ID</th>
+                                        <th style="text-align:center"width="100px">Status</th>
+                                        <th style="text-align:center"width="150px">Disposisi</th>
+                                        <th style="text-align:center"width="100px">Due Date</th>
+                                        <th style="text-align:center"width="500px">Action PIC</th>
+                                        <th style="text-align:center"width="100px">NIK PIC</th>
+                                        <th style="text-align:center"width="100px">Nama PIC</th>
+                                        <th style="text-align:center"width="200px">Keterangan Reject</th>
+                                        <th style="text-align:center"width="100px">Revisi Due Date/Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="deviationtable" >
+                                </tbody>
+                            </table>
+                        </div>
                         
-                        <table class="table table-bordered table-hover nowrap table-responsive" id="deviationdatatable" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>Request ID</th>
-                                    <th>Status</th>
-                                    <th>Disposisi</th>
-                                    <th>Due Date</th>
-                                    <th>Action PIC</th>
-                                    <th>NIK PIC</th>
-                                    <th>Nama PIC</th>
-                                    <th>Keterangan Reject</th>
-                                    <th>Revisi Due Date/Tindakan</th>
-                                </tr>
-                            </thead>
-                            <tbody id="deviationtable" class="nowrap">
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -76,15 +78,15 @@
                         if (data[trav].FLAG_PIC == 'ASSIGNED') {
                             trHTML +=
                                 '<tr><td style="text-align:center"><input value="Select" onclick="Open(this, ' + data[trav].NO_DISPOSISI +')" type="button" class="btn btn-success"/>' +
-                                '<td>' + data[trav].REQ_ID + '</td>' +
+                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
-                                '<td>' + data[trav].FLAG_PIC + '</td>' +
+                                '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
                                 '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                                '<td>' + data[trav].DUE_DATE + '</td>'+
+                                '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>'+
                                 '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-                                '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+                                '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td>' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
                                 '<td style="text-align:center;"><input value="Revisi" onclick="Revisi(this, ' + data[trav].NO_DISPOSISI+')" type="button" class="btn btn-danger"/>';
 
                             // BISANYA ISI DOANG
@@ -100,48 +102,48 @@
                             console.log(data[trav].STATUS);
                             trHTML +=
                                 '<tr><td style="text-align:center"><input value="Select" onclick="Open(this, ' + data[trav].NO_DISPOSISI +')" type="button" class="btn btn-success"/>' +
-                                '<td>' + data[trav].REQ_ID + '</td>' +
+                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
-                            '<td>' + data[trav].FLAG_PIC + '</td>' +
-                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                            '<td>' + data[trav].DUE_DATE + '</td>' +
+                                '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
                                 '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-                                '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+                                '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td>' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td> N/A </td>'
+                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td style="text-align:center"> N/A </td>'
 
                             // KALAU UDAH ISI / MINTA REVISI, STATUSNYA PENDING DAN GABISA NGAPA2IN
                         } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE') {
                             trHTML +=
-                                '<tr><td> N/A </td>' +
-                                '<td>' + data[trav].REQ_ID + '</td>' +
+                                '<tr><td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Approval </td>' +
-                            '<td>' + data[trav].FLAG_PIC + '</td>' +
-                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                            '<td>' + data[trav].DUE_DATE + '</td>' +
+                                '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
                                 '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-                                '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+                                '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td>' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td> N/A </td>'
+                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td style="text-align:center"> N/A </td>'
                         }
 
                         // LIST OF OTHER'S PIC
                     } else {
                         if (data[trav].FLAG_PIC == 'ASSIGNED') {
                             trHTML +=
-                                '<tr><td> N/A </td>' +
-                                '<td>' + data[trav].REQ_ID + '</td>' +
+                                '<tr><td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
-                            '<td>' + data[trav].FLAG_PIC + '</td>' +
-                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                            '<td>' + data[trav].DUE_DATE + '</td>' +
+                                '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
                                 '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-                                '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+                                '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td>' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td> N/A </td>';
+                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td style="text-align:center"> N/A </td>';
 
                         } else if (
                             data[trav].FLAG_PIC == 'REMEDIAL APPROVED BY COORDINATOR' ||
@@ -154,46 +156,46 @@
                             data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY MANAGER'
                         ) {
                             trHTML +=
-                                '<tr><td> N/A </td>' +
-                                '<td>' + data[trav].REQ_ID + '</td>' +
+                                '<tr><td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
-                            '<td>' + data[trav].FLAG_PIC + '</td>' +
-                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                            '<td>' + data[trav].DUE_DATE + '</td>' +
+                                '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
                                 '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-                                '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+                                '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td>' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td> N/A </td>'
+                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td style="text-align:center"> N/A </td>'
 
                             // KALAU UDAH ISI / MINTA REVISI, STATUSNYA PENDING DAN GABISA NGAPA2IN
                         } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE') {
                             trHTML +=
-                                '<tr><td> N/A </td>' +
-                                '<td>' + data[trav].REQ_ID + '</td>' +
+                                '<tr><td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Approval </td>' +
-                            '<td>' + data[trav].FLAG_PIC + '</td>' +
-                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                            '<td>' + data[trav].DUE_DATE + '</td>' +
+                                '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
                                 '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-                                '<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+                                '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td>' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td> N/A </td>'
+                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td style="text-align:center"> N/A </td>'
                         }
 
                     }
                 }
 
-                $('#deviationdatatable').DataTable().clear().destroy();
+                //$('#deviationdatatable').DataTable().clear().destroy();
                 $('#deviationtable').empty();
                 $('#deviationtable').append(trHTML);
-                $('#deviationdatatable').DataTable({
-                    "searching": false,
-                    "paging": false,
-                    "info": false,
-                    "ordering": false
-                });
+                //$('#deviationdatatable').DataTable({
+                //    "searching": false,
+                //    "paging": false,
+                //    "info": false,
+                //    "ordering": false
+                //});
 
             },
             error: function (ex) {

@@ -244,6 +244,7 @@
 
 
 <script>
+    let CekAja = true;
     $(document).ready(function () {
 
         GetRole();
@@ -259,25 +260,41 @@
         });
 
         $('#submit').click(function () {
-            if (!$(".form-user").valid()) {
-                return
-            };
+            $.when(
+                //function () {
+                //    if (!$(".form-user").valid()) {
+                //            return
+                //    };
 
-            // Check Confirmation Password
+                //    alert('habis if');
+                //    // Check Confirmation Password
 
-            if ($("#password").val() != $("#repassword").val()) {
-                $("#redconf").removeAttr("Hidden");
-                return
-            }
-
-            CheckEmpID();
-            CheckUserName();
-
-            if ($("#reconfid").val() != "ga ok" && $("#reconfusername").val() != "ga ok") {
-                return
-            }
-
-            SaveForm();
+                //    if ($("#password").val() != $("#repassword").val()) {
+                //        $("#redconf").removeAttr("Hidden");
+                //        return
+                //    }
+                //    alert('habis if 2');
+                    CheckEmpID(),
+                    //alert('CheckEmpID');
+                    CheckUserName()
+                    //alert('CheckUserName');
+                    //if ($("#reconfid").val() != "ga ok" && $("#reconfusername").val() != "ga ok") {
+                    //    return
+                    //}
+                //}
+            ).done(
+                
+                function () {
+                    alert(CekAja)
+                    if (CekAja == false) {
+                        alert('Sebelum Save')
+                        SaveForm();
+                    }
+                    
+                }
+            );
+            
+           
         });
 
         $('#clearall').click(function () {
@@ -421,11 +438,12 @@
                     $("#confusername").removeAttr("Hidden");
                     $("#username").val(null);
                     $("#reconfusername").val("Username Ada");
-
+                   
 
                 } else {
                     $("#confusername").attr("Hidden", true);
                     $("#reconfusername").val("ga ok");
+                    CekAja = false;
                 }
             },
             error: function (ex) {

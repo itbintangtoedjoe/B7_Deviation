@@ -106,6 +106,10 @@
 
 <script>
 	let checkEvaluator = '';
+	let countBtn = 0;
+	let btnText = '';;
+	let tbl = '';
+    let cNoDev = '';
 
 	$(document).ready(function () {
 
@@ -127,7 +131,34 @@
 
 		});
 
-		// BUTTON APPROVE(S) ARE SPECIFIED IN GETCURRSTAT FUNCTION TO SPECIFY WHICH APPROVAL IS WHICH
+        $("#btnApprove").click(function () {
+            btnText = $("#btnApprove").text();
+
+            // KALAU BELUM ADA ISINYA
+            if (((tbl < 1) && ($.trim(btnText) == 'Approve')) || (checkEvaluator > 0 && ($.trim(btnText) == 'Approve'))) {
+
+                $("#xddlx").removeAttr('hidden');
+                $("#btnApprove").text('Send to Reviewer');
+                $("#btnApprove").width("110px");
+                $("#btnReject").attr("hidden", true);
+                GetDDL();
+                GetDevNum();
+            }
+            else
+                if (checkEvaluator < 1 && $.trim(btnText) == 'Send to Reviewer') {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Mohon pilih Reviewer terlebih dahulu!',
+                    });
+                }
+                else
+                    if (checkEvaluator > 0 && $.trim(btnText) == 'Send to Reviewer') {
+
+                        ApproveHeaderKoordinator();
+                    }
+        });
 
 	});
 
@@ -184,7 +215,30 @@
 					timer: 2000
                 }).then((result) => {
 
-                    if (result.isConfirmed) {
+					if (result.isConfirmed) {
+						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+						var tabletype = "More Than One";
+						var whoreceiver = "Reviewer after Appointed";
+
+						var dtx = {
+							Receiver: receiver,
+							ReqID: REQID,
+							TableType: tabletype,
+							WhoReceiver: whoreceiver
+						};
+
+						$.ajax({
+							type: "post",
+							url: '../Form/SendEmailInputProposal',
+							data: JSON.stringify(dtx),
+							dataType: "json",
+							contentType: "application/json;charset=utf-8",
+							success: function (data) {
+
+							}, error: function (ex) {
+								alert("Error Email: " + JSON.stringify(ex));
+							}
+						});
                         window.location.href = "../DataDeviasi/PendingTask"
                     }
                 })
@@ -194,29 +248,7 @@
 			}
 		});
 
-		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-		var tabletype = "More Than One";
-		var whoreceiver = "Reviewer after Appointed";
 
-		var dtx = {
-			Receiver: receiver,
-			ReqID: REQID,
-			TableType: tabletype,
-			WhoReceiver: whoreceiver
-		};
-
-		$.ajax({
-			type: "post",
-			url: '../Form/SendEmailInputProposal',
-			data: JSON.stringify(dtx),
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-
-			}, error: function (ex) {
-				alert("Error Email: " + JSON.stringify(ex));
-			}
-		});
 	}
 
 	function ApproveReviewer() {
@@ -398,7 +430,7 @@
 			success: function (data) {
 				if (data == 'S') {
 
-					
+
 
 					toastr.success("Data berhasil tersimpan !", "Tersimpan", {
 						"closeButton": false,
@@ -575,11 +607,11 @@
 
 					Coor_LoadUserInvolved();
 
-					var btnText = $("#btnApprove").text();
-					var tbl = data[0].COUNTED
-					var cNoDev = $('#TbNmrDev').val();
+					btnText = $("#btnApprove").text();
+					tbl = data[0].COUNTED
+					cNoDev = $('#TbNmrDev').val();
 
-					
+
 					// KALAU UDAH ADA ISINYA
 					if (cNoDev != '')
 					{
@@ -587,42 +619,17 @@
 						$("#btnApprove").width("110px");
 						$("#xddlx").removeAttr('hidden');
 						$("#btnReject").attr("hidden", true);
-						
-
 					}
 
+                    if (((tbl < 1) && ($.trim(btnText) == 'Approve')) || (checkEvaluator > 0 && ($.trim(btnText) == 'Approve'))) {
 
-					$("#btnApprove").click(function () {
-                        btnText = $("#btnApprove").text();
-						
-						// KALAU BELUM ADA ISINYA
-                        if (((tbl < 1) && ($.trim(btnText) == 'Approve')) || (checkEvaluator > 0 && ($.trim(btnText) == 'Approve'))  ) {
-
-							$("#xddlx").removeAttr('hidden');
-							$("#btnApprove").text('Send to Reviewer');
-							$("#btnApprove").width("110px");
-							$("#btnReject").attr("hidden", true);
-							GetDDL();
-							GetDevNum();
-						}
-						else
-                            if (checkEvaluator < 1 && $.trim(btnText) == 'Send to Reviewer') {
-
-								Swal.fire({
-									icon: 'error',
-									title: 'Oops...',
-									text: 'Mohon pilih Reviewer terlebih dahulu!',
-								});
-							}
-							else
-                                if ((checkEvaluator > 0 && $.trim(btnText) == 'Send to Reviewer'))
-								{
-									ApproveHeaderKoordinator();
-								}
-
-
-
-					});
+                        $("#xddlx").removeAttr('hidden');
+                        $("#btnApprove").text('Send to Reviewer');
+                        $("#btnApprove").width("110px");
+                        $("#btnReject").attr("hidden", true);
+                        GetDDL();
+                        GetDevNum();
+                    }
 				}
 
 			}, error: function (ex) {
@@ -630,8 +637,6 @@
 			}
 		});
 	}
-
-
 
 	function Cancel() {
 		Swal.fire({
@@ -719,8 +724,6 @@
 			}
 		});
 	}
-
-
 
 </script>
 

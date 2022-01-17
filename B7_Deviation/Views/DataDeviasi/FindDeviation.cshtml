@@ -107,7 +107,15 @@
                         </div>
 
                     </div>
+                    <div id="divLoading" class="row">
+                        <div class="col-md-12" style="text-align:center">
+                            <img src="~/Content/Styles/images/loading2.gif" width="400" height="300" />
+                        </div>
 
+                    </div>
+                </div>
+
+                <div class="card-body" id="cardTable">
                     <table class="table table-striped table-bordered table-hover nowrap table-responsive" width="100%" id="deviationdatatable">
                         <thead>
                             <tr>
@@ -135,12 +143,14 @@
     </div>
 
     <script>
+        let checkLoading = 0;
         $(document).ready(function () {
             // Load User once the page is loaded
-            LoadData();
-            LoadFilter();
-            CheckFilter();
+            //LoadData();
+            //LoadFilter();
+            //CheckFilter();
 
+            $.when.apply($, ajaxCalls()).then($.ajax(LoadData()));
             $("#Find").click(function () {
                 window.location.href = "/DataDeviasi/FindDeviation"
             });
@@ -149,8 +159,22 @@
                 ClearFilter();
             });
 
+            if (checkLoading == 0) {
+                $('#divLoading').prop('hidden', false);
+                $('#cardTable').prop('hidden', true);
+                
+            }
         });
 
+        function ajaxCalls() {
+            return [
+                $.ajax(LoadFilter()),
+                $.ajax(CheckFilter())
+            ];
+        }
+
+
+       
         function ClearFilter() {
             $("#statuspenyimpangan").val('Status Penyimpangan');
             $("#statuspenyimpangan").selectpicker("refresh");
@@ -394,8 +418,7 @@
                 }
             });
         };
-
-        function LoadFilter() {
+        function StatusPenyimpangan() {
             //Status Penyimpangan
             $.ajax({
                 url: "../DataDeviasi/StatusPenyimpangan",
@@ -420,7 +443,9 @@
                     alert('Error : ' + JSON.stringify(ex));
                 }
             });
+        }
 
+        function DepartementPelapor() {
             //Departemen Pelapor
             $.ajax({
                 url: "../DataDeviasi/DepartemenPelapor",
@@ -445,7 +470,9 @@
                     alert('Error : ' + JSON.stringify(ex));
                 }
             });
+        }
 
+        function KategoriPenyimpangan() {
             //KategoriPenyimpangan
             $.ajax({
                 url: "../DataDeviasi/KategoriPenyimpangan",
@@ -470,7 +497,9 @@
                     alert('Error : ' + JSON.stringify(ex));
                 }
             });
+        }
 
+        function JenisPenyimpangan() {
             //JenisPenyimpangan
             $.ajax({
                 url: "../DataDeviasi/JenisPenyimpangan",
@@ -500,7 +529,9 @@
                     alert('Error : ' + JSON.stringify(ex));
                 }
             });
+        }
 
+        function TahunPelaporan(){
             //Tahun Pelaporan
             $.ajax({
                 url: "../DataDeviasi/TahunLaporan",
@@ -524,6 +555,19 @@
                     alert('Error : ' + JSON.stringify(ex));
                 }
             });
+        }
+
+        function LoadFilter() {
+            
+            StatusPenyimpangan();
+            
+            DepartementPelapor();
+            
+            KategoriPenyimpangan();
+
+            JenisPenyimpangan();
+
+            TahunPelaporan();
 
         }
 
@@ -534,10 +578,10 @@
                 type: "post",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    console.log(data);
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
+                    checkLoading = Count;
                     for (trav = 0; trav < Count; trav++) {
 
                         // IF STATUS = OPEN, USER ONLY ABLE TO SEE PROGRESS (SUS)
@@ -624,16 +668,23 @@
                                 //'<td align="center"><input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
                                 '<td hidden>' + data[trav].REQ_ID + '</td>';
                         }
+                        
+                        
+                    }
 
-
+                    if (checkLoading > 0) {
+                        $('#divLoading').prop('hidden', true);
+                        $('#cardTable').prop('hidden', false);
                     }
 
                     $('#deviationtable').empty();
                     $('#deviationtable').append(trHTML);
                     $('#deviationdatatable').DataTable({
-                        aaSorting: [[1, 'desc']]
+                        aaSorting: [[1, 'desc']]                  
                     });
 
+
+                    objDeviation = data;
 
                 },
                 error: function (ex) {
