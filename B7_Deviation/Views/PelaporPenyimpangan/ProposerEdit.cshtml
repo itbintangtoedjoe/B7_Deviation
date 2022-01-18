@@ -107,38 +107,6 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
-                                    <div class="col-sm-3">
-                                        <div>
-                                            <div class="basic-dropdown">
-                                                <div class="dropdown">
-                                                    <select id="ddlKategori" name="ddlKategori"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div id="divsimpang">
-                                            <div class="basic-dropdown">
-                                                @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
-                                                <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
-                                                <br />
-                                                <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle">
-                                                <br />
-                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle" disabled="disabled">
-                                            </div>
-                                        </div>
-                                        <br>
-                                        @*<div id="divproduk">
-                                                <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
-                                            </div>*@
-                                    </div>
-                                    <div class="col-sm-7">
-                                        <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Keterangan lebih terkait penyimpangan"></textarea>
-                                    </div>
-                                </div>
-                                @*  Penyimpangan terencana *@
-
-                                <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Jenis Penyimpangan<span class="text-danger">*</span></label>
                                     <div class="col-sm-10">
                                         <div class="form-group">
@@ -155,6 +123,57 @@
                                                 </label>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
+                                    <div class="col-sm-3">
+                                        <div>
+                                            <div class="basic-dropdown">
+                                                <div class="dropdown">
+                                                    <select id="ddlKategori" name="ddlKategori"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div id="divsimpang">
+                                            <div class="basic-dropdown">
+
+                                                @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
+                                                <div id="divreceipt" class="form-group">
+                                                    <div class="form-check form-check-inline">
+                                                        <label>
+                                                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receipt_y" value="Yes" checked> Receipt
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label>
+                                                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receip_n" value="No"> Vendor
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control">
+                                                <br />
+                                                <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
+                                                <br />
+                                                <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle">
+                                                <br />
+                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle" disabled="disabled">
+                                            </div>
+                                            <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered text-center">
+                                                    <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        @*<div id="divproduk">
+                    <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
+                </div>*@
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan"></textarea>
                                     </div>
                                 </div>
 
@@ -555,6 +574,41 @@
 
         LoadAll();
 
+        $('input[type=radio][name=travel5]').change(function () {
+            var jenisPenyimpangan = this.value;
+            ToggleShowKualitasProdukFields(jenisPenyimpangan);
+            ToggleShowKualitasMaterialFields(jenisPenyimpangan);
+
+            if (jenisPenyimpangan == 'Yes') {
+                $("#txtTindakan").attr("disabled", true);
+                $('#txtKetKategori').attr("disabled", true);
+            } else {
+                $("#txtTindakan").attr("disabled", false);
+                $('#txtKetKategori').attr("disabled", false);
+            }
+        });
+
+        $('input[type=radio][name=r_receipt]').change(function () {
+
+            $('#TxtItemCode').val('');
+            $('#txtKetKategori').val('');
+            $('#TxtQCMaterialNo').val('');
+
+            //Y -> Receipt; N-> Vendor
+            if ($('input[name="r_receipt"]:checked').val() == 'Yes') {
+                $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
+                GetQCMaterialNoOracle();
+            }
+            else {
+                $("#TxtQCMaterialNo").attr('placeholder', 'Manufacturing Number');
+                GetQCMaterialNoOracle();
+            }
+        });
+
+        var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
+        ToggleShowKualitasProdukFields(jenisPenyimpangan);
+        ToggleShowKualitasMaterialFields(jenisPenyimpangan);
+
         $("#btnSubmit").click(function () {
             if (!$(".form-valide").valid()) {
                 return;
@@ -663,16 +717,23 @@
 
         $("#ddlKategori").change(function () {
             $("#TxtNoWO").attr("hidden", true);
+            $("#TxtNoWO").attr("disabled", true);
+
             $("#TxtItemCode").attr("hidden", true);
 
             $('#TxtBatchNo').attr('hidden', true);
 
             $('#txtKetKategori').attr('disabled', false);
 
+            $('#TxtQCMaterialNo').attr('hidden', true);
+
             $('#TxtBatchNo').val('');
             $("#TxtNoWO").val('');
             $('#TxtItemCode').val('');
             $('#txtKetKategori').val('');
+            $('#TxtQCMaterialNo').val('');
+
+            var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
 
             if ($("#ddlKategori").val() == 'QPR') {
                 if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
@@ -686,16 +747,14 @@
                     return;
                 } else {
                     $("#divsimpang").show();
+                    $('#divreceipt').hide();
 
+                    $('#TxtQCMaterialNo').attr("hidden", true);
                     $("#TxtNoWO").attr("hidden", false);
                     $('#TxtBatchNo').attr('hidden', false);
-
-                    $('#TxtItemCode').attr('disabled', true);
-                    $("#TxtItemCode").attr("hidden", false);
-                    $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
-
-                    GetNoBatchOracle();
                     $('#txtKetKategori').attr('disabled', true);
+                    @* menentukan field input yg dienable sesuai jenis penyimpangan *@
+                    ToggleShowKualitasProdukFields(jenisPenyimpangan);
                 }
             }
             else {
@@ -712,16 +771,24 @@
                         return;
                     } else {
                         $("#divsimpang").show();
+                        $('#divreceipt').show();
+
+                        $("#TxtNoWO").attr("hidden", true);
+                        $('#TxtBatchNo').attr('hidden', true);
+
+                        $('#TxtQCMaterialNo').attr("hidden", false);
                         $("#TxtItemCode").attr("hidden", false);
-                        $('#TxtItemCode').attr('disabled', false);
-                        $('#TxtItemCode').attr('placeholder', 'Material Code Oracle');
-                        GetItemCodeOracle();
                         $('#txtKetKategori').attr('disabled', true);
+                        $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                        $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
+                        GetQCMaterialNoOracle();
+                        ToggleShowKualitasMaterialFields(jenisPenyimpangan);
                     }
 
                 }
                 else {
                     $("#divsimpang").hide();
+                    $('#TxtQCMaterialNo').attr("hidden", true);
                     $("#TxtNoWO").attr("disabled", true);
                     $('#txtKetKategori').val('');
                 }
@@ -996,6 +1063,223 @@
         });
     });
 
+    function GetQCMaterialNoOracle() {
+
+        var LocationSite = $("#ddlSite").val();
+        var DEVIATION_CATEGORY = $("#ddlKategori").val();
+        var FlagReceipt = $('input[name="r_receipt"]:checked').val();
+
+        var dto = {
+            LocationSite: LocationSite,
+            DeviationCategory: DEVIATION_CATEGORY,
+            FlagReceipt: FlagReceipt
+        }
+
+        $('#ModalLoading').modal('show');
+        setTimeout(function () {
+            $('#ModalLoading').modal('hide');
+        }, 500);
+
+        $.ajax({
+            url: "../Form/GetQCMaterialNoOracle",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var count = data.length;
+                if (count > 0) {
+
+                    var trhtml = '';
+                    var trav = 0;
+                    var arr = new Array();
+                    var jsonObj = [];
+
+                    for (trav = 0; trav < count; trav++) {
+                        arr[trav] = data[trav].QC_MATERIAL;
+                        var item = {}
+                        item["label"] = arr[trav];
+                        item["value"] = arr[trav];
+                        jsonObj.push(item);
+                    }
+
+                    $("#TxtQCMaterialNo").autocomplete({
+                        source: function (request, response) {
+                            var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                            response(results.slice(0, 20));
+
+                            add($.map(results, function (el) {
+                                return {
+                                    label: el.label,
+                                    value: el.value
+                                };
+                            }));
+
+                        },
+
+                        select: function (e, ui) {
+
+                            $('#TxtBatchNo').val('');
+                            $("#TxtNoWO").val('');
+                            $('#TxtItemCode').val('');
+                            $('#txtKetKategori').val('');
+
+                            for (var i = 0; i < count; i++) {
+                                if (data[i].QC_MATERIAL == ui.item.value) {
+                                    $("#TxtItemCode").val(data[i].ITEM_CODE);
+                                    $("#txtKetKategori").val(data[i].ITEM_DESC);
+                                    break;
+                                } else {
+                                    $("#txtKetKategori").val("");
+                                }
+                            }
+                        }
+                    });
+
+                    //$("#TxtQCMaterialNo").change(function () {
+
+                    //                   $('#TxtBatchNo').val('');
+                    //                   $("#TxtNoWO").val('');
+                    //                   $('#TxtItemCode').val('');
+                    //                   $('#txtKetKategori').val('');
+
+                    //	var QCMaterialNo = $("#TxtQCMaterialNo").val();
+                    //                   for (var i = 0; i < count; i++) {
+                    //                       if (data[i].QC_MATERIAL == QCMaterialNo) {
+                    //                           $("#TxtItemCode").val(data[i].ITEM_CODE);
+                    //                           $("#txtKetKategori").val(data[i].ITEM_DESC);
+                    //                           break;
+                    //                       } else {
+                    //                           $("#txtKetKategori").val("");
+                    //                       }
+                    //                   }
+                    //});
+                }
+
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetItemKualitasProduk() {
+        var LocationSite = $("#ddlSite").val();
+        @*var ItemCode = $("#TxtItemCode").val();*@
+
+        var dto = {
+            LocationSite: LocationSite
+        }
+
+        $('#ModalLoading').modal('show');
+        setTimeout(function () {
+            $('#ModalLoading').modal('hide');
+        }, 500);
+
+        $.ajax({
+            url: "../Form/GetItemKualitasProduk",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                console.log(data);
+                var count = data.length;
+                if (count > 0) {
+
+                    var trhtml = '';
+                    var trav = 0;
+                    var arrLabel = new Array();
+                    var arrValue = new Array();
+                    var jsonObj = [];
+
+                    for (trav = 0; trav < count; trav++) {
+                        arrLabel[trav] = data[trav].ITEM_CODE;
+                        //arrValue[trav] = data[trav].ITEM_CODE;
+                        var item = {}
+                        item["label"] = arrLabel[trav];
+                        item["value"] = arrLabel[trav];
+                        jsonObj.push(item);
+                    }
+                    console.log(jsonObj);
+
+                    $("#TxtItemCode").autocomplete({
+                        source: function (request, response) {
+                            var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                            response(results.slice(0, 20));
+
+                            $.map(results, function (el) {
+                                return {
+                                    label: el.label,
+                                    value: el.value
+                                };
+                            });
+
+                        },
+
+                        select: function (e, ui) {
+                            $('#txtKetKategori').val('');
+
+                            for (var i = 0; i < count; i++) {
+                                if (data[i].ITEM_CODE == ui.item.label) {
+                                    //$("#TxtItemCode").val(data[i].ITEM_CODE);
+
+                                    $("#txtKetKategori").val(data[i].ITEM_DESCRIPTION);
+                                    break;
+                                } else {
+                                    $("#txtKetKategori").val("");
+                                }
+                            }
+                        }
+                    });
+                }
+
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function ToggleShowKualitasProdukFields(jenisPenyimpangan) {
+        $('#txtKetKategori').attr('disabled', true);
+        $("#TxtNoWO").attr("disabled", true);
+        $("#txtKetKategori").val('');
+        $("#TxtItemCode").val('');
+        $("#TxtBatchNo").val('');
+        $("#TxtNoWO").val('');
+        if ($("#ddlKategori").val() == 'QPR') {
+            if (jenisPenyimpangan == 'Yes') {
+                $("#TxtItemCode").attr("hidden", false);
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                GetItemKualitasProduk();
+
+                $("#TxtNoWO").attr("disabled", false);
+                $("#TxtItemCode").attr("disabled", false);
+            }
+            else {
+                $("#TxtItemCode").attr("hidden", false);
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+
+                GetNoBatchOracle();
+                $("#TxtNoWO").attr("disabled", true);
+                $("#TxtItemCode").attr("disabled", true);
+            }
+        }
+    }
+
+    function ToggleShowKualitasMaterialFields(jenisPenyimpangan) {
+        if ($("#ddlKategori").val() == 'QMT') {
+            if (jenisPenyimpangan == 'Yes') {
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                $("#TxtItemCode").attr("disabled", false);
+            }
+            else {
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                $("#TxtItemCode").attr("disabled", true);
+            }
+        }
+    }
+
     function GetNoBatchOracle() {
 
         var LocationSite = LOCATION_SITE = $("#ddlSite").val();
@@ -1021,16 +1305,41 @@
                     item["value"] = arr[trav];
                     jsonObj.push(item);
                 }
-                console.log(jsonObj);
+                @*console.log(jsonObj);*@
 
                 $("#TxtBatchNo").autocomplete({
                     source: function (request, response) {
                         var results = $.ui.autocomplete.filter(jsonObj, request.term);
                         response(results.slice(0, 10));
+
+                        add($.map(results, function (el) {
+                            return {
+                                label: el.label,
+                                value: el.value
+                            };
+                        }));
+                    },
+                    select: function (e, ui) {
+                        $("#TxtNoWO").val('');
+                        $('#TxtItemCode').val('');
+                        $('#txtKetKategori').val('');
+                        $('#TxtQCMaterialNo').val('');
+
+                        for (var i = 0; i < count; i++) {
+                            if (data[i].NO_BATCH == ui.item.value) {
+                                $("#TxtNoWO").val(data[i].WO_NUMBER);
+                                $('#TxtItemCode').val(data[i].ITEM_CODE);
+                                $('#txtKetKategori').val(data[i].ITEM_DESCRIPTION);
+                                break;
+                            } else {
+                                $("#TxtNoWO").val("");
+                                $('#TxtItemCode').val("");
+                            }
+                        }
                     }
                 });
 
-                $("#TxtBatchNo").change(function () {
+                @*$("#TxtBatchNo").change(function () {
                     var BatchNo = $("#TxtBatchNo").val();
                     for (var i = 0; i < count; i++) {
                         if (data[i].NO_BATCH == BatchNo) {
@@ -1043,7 +1352,7 @@
                             $('#TxtItemCode').val("");
                         }
                     }
-                });
+                });*@
             },
             error: function (ex) {
                 alert('Error : ' + JSON.stringify(ex));
@@ -1079,7 +1388,7 @@
                     item["value"] = arr[trav];
                     jsonObj.push(item);
                 }
-                console.log(jsonObj);
+                @*console.log(jsonObj);*@
 
                 $("#TxtItemCode").autocomplete({
                     source: function (request, response) {
@@ -1210,7 +1519,7 @@
                     item["value"] = arr[trav];
                     jsonObj.push(item);
                 }
-                console.log(jsonObj);
+                @*console.log(jsonObj);*@
 
                 $("#TxtItemCode").autocomplete({
                     source: function (request, response) {
@@ -1261,7 +1570,7 @@
     function SetupRbDtPicker() {
         $('#ddlSite selectpicker').selectpicker();
 
-        $('input[type=radio][name=travel5]').change(function () {
+        @*$('input[type=radio][name=travel5]').change(function () {
             if ($('input[name="travel5"]:checked').val() == 'Yes') {
 
                 $("#txtTindakan").attr("disabled", true);
@@ -1269,7 +1578,7 @@
                 $("#txtTindakan").removeAttr("disabled");
             }
 
-        });
+        });*@
 
         $('input[type=radio][name=travel1]').change(function () {
             if ($('input[name="travel1"]:checked').val() == 'Yes') {
@@ -2182,7 +2491,6 @@
     }
 
     function LoadAll() {
-
         var nomor = @ViewBag.nomor;
         var dto = {
             ReqID: nomor
@@ -2195,7 +2503,6 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-
                 var text = '';
 
                 //BUGGY
@@ -2218,27 +2525,40 @@
 
                 if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
                     $("#divsimpang").show();
+                    $('#divreceipt').hide();
                     $("#TxtNoWO").attr("hidden", false);
-                    
+                    $('#TxtQCMaterialNo').attr("hidden", true);
+
                     GetNoBatchOracle();
                     $('#txtKetKategori').attr('disabled', true);
                 }
-                else
+                else {
                     if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
-                    $("#divsimpang").show();
-                    $("#TxtItemCode").attr("hidden", false);
-                    $("#TxtItemCode").removeAttr("disabled");
-                        GetItemCodeOracle();
+                        $("#divsimpang").show();
+                        $('#divreceipt').show();
+
+                        $("#TxtNoWO").attr("hidden", true);
+                        $('#TxtBatchNo').attr('hidden', true);
+
+                        $('#TxtQCMaterialNo').attr("hidden", false);
+                        $("#TxtItemCode").attr("hidden", false);
                         $('#txtKetKategori').attr('disabled', true);
+                        $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                        $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
+                        GetQCMaterialNoOracle();
                     }
                     else {
                         $("#divsimpang").hide();
+                        $('#TxtQCMaterialNo').attr("hidden", true);
                         $("#TxtNoWO").attr("disabled", true);
+                        $('#txtKetKategori').val('');
                     }
+                }
 
                 document.getElementById('TxtNoWO').value = data[0].NO_WO_ORACLE;
                 document.getElementById('TxtBatchNo').value = data[0].NO_BATCH_ORACLE;
                 document.getElementById('TxtItemCode').value = data[0].ITEM_CODE_ORACLE;
+                document.getElementById('TxtQCMaterialNo').value = data[0].QC_MATERIAL_NO;
 
 
                 document.getElementById('txtProblem').value = data[0].PROBLEM;
@@ -2404,7 +2724,6 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-
                 var trhtml = "";
                 var trav = 0;
                 var count = data.length;
@@ -2412,11 +2731,11 @@
                 trhtml += '<option disabled class="dropdown-header">Department Lokasi Kejadian</option>';
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        if (data[trav].orggroupname == data[trav].DDL_TRUE) {
-                            trhtml += '<option class="dropdown-item" selected value = "' + data[trav].orggroupname + '" > ' + data[trav].orggroupname;
+                        if (data[trav].SubDeptCode == data[trav].DDL_TRUE) {
+                            trhtml += '<option class="dropdown-item" selected value = "' + data[trav].SubDeptCode + '" > ' + data[trav].orggroupname;
 
                         } else {
-                            trhtml += '<option class="dropdown-item" value = "' + data[trav].orggroupname + '" > ' + data[trav].orggroupname;
+                            trhtml += '<option class="dropdown-item" value = "' + data[trav].SubDeptCode + '" > ' + data[trav].orggroupname;
 
                         }
                     }
@@ -2433,7 +2752,7 @@
         });
     }
 
-    function GetNoBatchOracle() {
+    @*function GetNoBatchOracle() {
 
         var LocationSite = LOCATION_SITE = $("#ddlSite").val();
         var dto = {
@@ -2458,7 +2777,6 @@
                     item["value"] = arr[trav];
                     jsonObj.push(item);
                 }
-                console.log(jsonObj);
 
                 $("#TxtBatchNo").autocomplete({
                     source: function (request, response) {
@@ -2486,7 +2804,7 @@
                 alert('Error : ' + JSON.stringify(ex));
             }
         });
-    }
+    }*@
 
      function LoadKategori() {
 
