@@ -758,30 +758,27 @@
 
 
 		$("#ddlKategori").change(function () {
-            $("#TxtNoWO").attr("hidden", true);
-            $("#TxtNoWO").attr("disabled", true);
+			$('#divreceipt').hide();
 
+            $("#TxtNoWO").attr("hidden", true);            
 			$("#TxtItemCode").attr("hidden", true);
-
 			$('#TxtBatchNo').attr('hidden', true);
+			$('#TxtQCMaterialNo').attr('hidden', true);
 
+            $("#TxtNoWO").attr("disabled", true);
 			$('#txtKetKategori').attr('disabled', false);
-
-			$('#TxtQCMaterialNo').attr('hidden',true);
-
+			
 			$('#TxtBatchNo').val('');
 			$("#TxtNoWO").val('');
 			$('#TxtItemCode').val('');
 			$('#txtKetKategori').val('');
 			$('#TxtQCMaterialNo').val('');
 
-
-			$('#divreceipt').hide();
-
             var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
 
 			// Kualitas Produk
 			if ($("#ddlKategori").val() == 'QPR') {
+
 				if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
 					swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
 
@@ -796,7 +793,8 @@
 
                     $("#TxtNoWO").attr("hidden", false);
                     $('#TxtBatchNo').attr('hidden', false);
-                    $('#txtKetKategori').attr('disabled', true);
+					$('#txtKetKategori').attr('disabled', true);
+
 					@*menentukan field input yg dienable sesuai jenis penyimpangan*@
 					ToggleShowKualitasProdukFields(jenisPenyimpangan);
 				}
@@ -816,12 +814,17 @@
 					} else {
 						$("#divsimpang").show();
 						$('#divreceipt').show();
+
                         $('#TxtQCMaterialNo').attr("hidden", false);
 						$("#TxtItemCode").attr("hidden", false);
+
 						$('#txtKetKategori').attr('disabled', true);
+						$("#TxtItemCode").attr("disable", true);
+
 						$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
 						$("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
-						GetQCMaterialNoOracle();
+						
+                        ToggleShowKualitasProdukFields(jenisPenyimpangan);
 					}
 
 				}
@@ -1134,37 +1137,64 @@
         $("#TxtItemCode").val('');
 		$("#TxtBatchNo").val('');
 		$("#TxtNoWO").val('');
-        if ($("#ddlKategori").val() == 'QPR') {
-            if (jenisPenyimpangan == 'Yes') {
-                $("#TxtItemCode").attr("hidden", false);
-                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
-                GetItemKualitasProduk();
 
-                $("#TxtNoWO").attr("disabled", false);
-                $("#TxtItemCode").attr("disabled", false);
-            }
-            else {
-                $("#TxtItemCode").attr("hidden", false);
-                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
 
-                GetNoBatchOracle();
-                $("#TxtNoWO").attr("disabled", true);
-                $("#TxtItemCode").attr("disabled", true);
-            }
-        }
+		if ($("#ddlKategori").val() == 'QPR') {
+			if (jenisPenyimpangan == 'Yes') {
+				$("#TxtItemCode").attr("hidden", false);
+				$("#TxtItemCode").attr("disabled", false);
+				$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                $('#txtKetKategori').attr('disabled', false);
+				GetItemKualitasProduk();
+
+				$("#TxtNoWO").attr("disabled", false);
+			}
+			else {
+				$("#TxtItemCode").attr("hidden", false);
+				$("#TxtItemCode").attr("disabled", true);
+				$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+
+				GetNoBatchOracle();
+				$("#TxtNoWO").attr("disabled", true);
+			}
+		} else
+			if ($("#ddlKategori").val() == 'QMT') {
+				if (jenisPenyimpangan == 'Yes') {
+					$("#divsimpang").show();
+					$('#divreceipt').show();
+
+					
+					$('#TxtQCMaterialNo').attr("hidden", false);
+					$("#TxtItemCode").attr("hidden", false);
+					$("#TxtItemCode").attr("disabled", false);
+
+					$('#txtKetKategori').attr('disabled', false);
+					$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+					$("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
+				}
+				else {
+
+					GetQCMaterialNoOracle();
+					$('#TxtQCMaterialNo').attr("hidden", false);
+					$("#TxtItemCode").attr("hidden", false);
+
+                    $("#TxtItemCode").attr("disabled", true);
+					$('#txtKetKategori').attr('disabled', true);
+
+					$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+					$("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
+				}
+			}
+			else {
+				    $('#txtKetKategori').attr('disabled', false);
+                
+			}
     }
 
 	$('input[type=radio][name=travel5]').change(function () {
         var jenisPenyimpangan = this.value;
 		ToggleShowKualitasProdukFields(jenisPenyimpangan);
 
-		if (jenisPenyimpangan == 'Yes') {
-			$("#txtTindakan").attr("disabled", true);
-            $('#txtKetKategori').attr("disabled", true);
-        } else {
-			$("#txtTindakan").attr("disabled", false);
-            $('#txtKetKategori').attr("disabled", false);
-        }
     });
 
 	function GetSiteLokasiKejadian() {
@@ -1541,7 +1571,6 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				console.log(data);
                 var count = data.length;
                 if (count > 0) {
 
@@ -1559,7 +1588,6 @@
                         item["value"] = arrLabel[trav];
                         jsonObj.push(item);
 					}
-					console.log(jsonObj);
 
                     $("#TxtItemCode").autocomplete({
                         source: function (request, response) {
