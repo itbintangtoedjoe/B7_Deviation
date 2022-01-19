@@ -571,21 +571,14 @@
 <script>
 
     $(document).ready(function () {
-
+        @*$.when(LoadAll()).done(ToggleByCategory());*@
         LoadAll();
 
-        $('input[type=radio][name=travel5]').change(function () {
-            var jenisPenyimpangan = this.value;
-            ToggleShowKualitasProdukFields(jenisPenyimpangan);
-            ToggleShowKualitasMaterialFields(jenisPenyimpangan);
+        setTimeout(ToggleByCategory, 2000);
 
-            if (jenisPenyimpangan == 'Yes') {
-                $("#txtTindakan").attr("disabled", true);
-                $('#txtKetKategori').attr("disabled", true);
-            } else {
-                $("#txtTindakan").attr("disabled", false);
-                $('#txtKetKategori').attr("disabled", false);
-            }
+        $('input[type=radio][name=travel5]').change(function () {
+            EmptyFields();
+            ToggleByCategory();
         });
 
         $('input[type=radio][name=r_receipt]').change(function () {
@@ -605,10 +598,6 @@
             }
         });
 
-        var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
-        ToggleShowKualitasProdukFields(jenisPenyimpangan);
-        ToggleShowKualitasMaterialFields(jenisPenyimpangan);
-
         $("#btnSubmit").click(function () {
             if (!$(".form-valide").valid()) {
                 return;
@@ -623,6 +612,21 @@
         });
 
     });
+
+    function ToggleByCategory() {
+        var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
+        console.log(jenisPenyimpangan);
+        ToggleShowKualitasProdukFields(jenisPenyimpangan);
+        @*ToggleShowKualitasMaterialFields(jenisPenyimpangan);*@
+
+        if (jenisPenyimpangan == 'Yes') {
+            $("#txtTindakan").attr("disabled", true);
+            $('#txtKetKategori').attr("disabled", false);
+        } else {
+            $("#txtTindakan").attr("disabled", false);
+            $('#txtKetKategori').attr("disabled", true);
+        }
+    }
 
     @*function Submit() {
         var REQID = @ViewBag.nomor;
@@ -754,6 +758,7 @@
                     $('#TxtBatchNo').attr('hidden', false);
                     $('#txtKetKategori').attr('disabled', true);
                     @* menentukan field input yg dienable sesuai jenis penyimpangan *@
+                    EmptyFields();
                     ToggleShowKualitasProdukFields(jenisPenyimpangan);
                 }
             }
@@ -782,7 +787,8 @@
                         $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                         $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
                         GetQCMaterialNoOracle();
-                        ToggleShowKualitasMaterialFields(jenisPenyimpangan);
+                        EmptyFields();
+                        ToggleShowKualitasProdukFields(jenisPenyimpangan);
                     }
 
                 }
@@ -1078,7 +1084,7 @@
         $('#ModalLoading').modal('show');
         setTimeout(function () {
             $('#ModalLoading').modal('hide');
-        }, 500);
+        }, 2000);
 
         $.ajax({
             url: "../Form/GetQCMaterialNoOracle",
@@ -1102,7 +1108,7 @@
                         item["value"] = arr[trav];
                         jsonObj.push(item);
                     }
-
+                    console.log(jsonObj);
                     $("#TxtQCMaterialNo").autocomplete({
                         source: function (request, response) {
                             var results = $.ui.autocomplete.filter(jsonObj, request.term);
@@ -1174,7 +1180,7 @@
         $('#ModalLoading').modal('show');
         setTimeout(function () {
             $('#ModalLoading').modal('hide');
-        }, 500);
+        }, 2000);
 
         $.ajax({
             url: "../Form/GetItemKualitasProduk",
@@ -1240,13 +1246,17 @@
         });
     }
 
-    function ToggleShowKualitasProdukFields(jenisPenyimpangan) {
-        $('#txtKetKategori').attr('disabled', true);
-        $("#TxtNoWO").attr("disabled", true);
+    function EmptyFields() {
         $("#txtKetKategori").val('');
         $("#TxtItemCode").val('');
         $("#TxtBatchNo").val('');
         $("#TxtNoWO").val('');
+        $("#TxtQCMaterialNo").val('');
+    }
+
+    function ToggleShowKualitasProdukFields(jenisPenyimpangan) {
+        $('#txtKetKategori').attr('disabled', true);
+        $("#TxtNoWO").attr("disabled", true);
         if ($("#ddlKategori").val() == 'QPR') {
             if (jenisPenyimpangan == 'Yes') {
                 $("#TxtItemCode").attr("hidden", false);
@@ -1254,7 +1264,6 @@
                 GetItemKualitasProduk();
 
                 $("#TxtNoWO").attr("disabled", false);
-                $("#TxtItemCode").attr("disabled", false);
             }
             else {
                 $("#TxtItemCode").attr("hidden", false);
@@ -1262,25 +1271,46 @@
 
                 GetNoBatchOracle();
                 $("#TxtNoWO").attr("disabled", true);
-                $("#TxtItemCode").attr("disabled", true);
             }
+        }
+        else if ($("#ddlKategori").val() == 'QMT') {
+            if (jenisPenyimpangan == 'Yes') {
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+            }
+            else {
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+            }
+        }
+        if (jenisPenyimpangan == 'Yes') {
+            $("#txtTindakan").attr("disabled", false);
+            $("#TxtItemCode").attr("disabled", false);
+        }
+        else {
+            $("#txtTindakan").attr("disabled", true);
+            $("#TxtItemCode").attr("disabled", true);
         }
     }
 
-    function ToggleShowKualitasMaterialFields(jenisPenyimpangan) {
+    @*function ToggleShowKualitasMaterialFields(jenisPenyimpangan) {
         if ($("#ddlKategori").val() == 'QMT') {
-            if (jenisPenyimpangan == 'Yes') {
+            if (jenisPenyimpangan == 'Yes') {-
+                $("#txtTindakan").attr("disabled", false);
                 $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                 $("#TxtItemCode").attr("disabled", false);
             }
             else {
+                $("#txtTindakan").attr("disabled", true);
                 $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                 $("#TxtItemCode").attr("disabled", true);
             }
         }
-    }
+    }*@
 
     function GetNoBatchOracle() {
+        $('#ModalLoading').modal('show');
+        setTimeout(function () {
+            $('#ModalLoading').modal('hide');
+        }, 2000);
 
         var LocationSite = LOCATION_SITE = $("#ddlSite").val();
         var dto = {
@@ -2263,6 +2293,9 @@
         }
         var UsulanRemidial = $('#txtUsulanRemidial').val();
 
+        var FlagReceipt = $('input[name="r_receipt"]:checked').val();
+        var QCMaterialManufacturerNo = $('#TxtQCMaterialNo').val();
+
 
 
         var dto = {
@@ -2277,7 +2310,7 @@
             DeviationCategory: DEVIATION_CATEGORY,
             NO_WO_ORACLE: NO_WO_ORACLE,
             Item_Code_Oracle: Item_Code_Oracle,
-            NO_WO_ORACLE: NO_WO_ORACLE,
+            No_Batch_Oracle: No_Batch_Oracle,
 
             //DeviationType: DEVIATION_TYPE,
             KetCategory: KET_CATEGORY,
@@ -2316,7 +2349,9 @@
             THIRTY: THIRTY,
             REQ: REQ,
 
-            UsulanRemidial : UsulanRemidial
+            UsulanRemidial: UsulanRemidial,
+			FlagReceipt: FlagReceipt,
+            QCMaterialManufacturerNo: QCMaterialManufacturerNo
         };
 
         $.ajax({
@@ -2711,6 +2746,7 @@
                 alert(JSON.stringify(ex));
             }
         });
+        @*ToggleByCategory();*@
     }
 
     function GetSiteLokasiKejadian() {
