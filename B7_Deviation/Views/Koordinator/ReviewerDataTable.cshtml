@@ -139,14 +139,10 @@
 					Swal.fire({
 						title: 'Approved, Send To Manager',
 						icon: 'success',
-						showDenyButton: false,
-						showCancelButton: false,
-						confirmButtonText: `OK`
-					}).then((result) => {
-
-						if (result.isConfirmed) {
-							window.location.href = "../DataDeviasi/PendingTask"
-						}
+                        showConfirmButton: false,
+                        timer: 2000
+					}).then(() => {
+						window.location.href = "../DataDeviasi/PendingTask"
 					});
 
 				},
@@ -326,17 +322,13 @@
 				success: function (data) {
 
 					Swal.fire({
-						title: 'Reviewer Approved',
+						title: 'Review Approved',
 						icon: 'success',
-						showDenyButton: false,
-						showCancelButton: false,
-						confirmButtonText: `OK`
-					}).then((result) => {
-
-						if (result.isConfirmed) {
-							LoadData();
-							CheckRevApp();
-						}
+                        showConfirmButton: false,
+                        timer: 2000
+					}).then(() => {
+						LoadData();
+						CheckRevApp();						
 					});
 
 				},
@@ -375,6 +367,7 @@
 		function Reject(button) {
 
 			Swal.fire({
+                icon: 'question',
 				title: 'Alasan Reject',
 				input: 'textarea',
 				inputAttributes: {
@@ -391,7 +384,9 @@
 					Swal.fire({
 						icon: 'error',
 						title: 'Oops...',
-						text: 'Please Insert Reason!'
+						text: 'Please Insert Reason!',
+                        showConfirmButton: false,
+                        timer: 2000
 					});
 				} else if (result.isConfirmed) {
 
@@ -416,17 +411,13 @@
 						success: function (data) {
 
 							Swal.fire({
-								title: 'Reviewer Rejected',
-								icon: 'success',
-								showDenyButton: false,
-								showCancelButton: false,
-								confirmButtonText: `OK`
-							}).then((result) => {
-
-								if (result.isConfirmed) {
-									LoadData();
-									CheckRevApp();
-								}
+                                icon: 'success',
+								title: 'Review Rejected',
+                                showConfirmButton: false,
+                                timer: 2000
+							}).then(() => {								
+								LoadData();
+								CheckRevApp();								
 							});
 						},
 						error: function (ex) {
@@ -492,27 +483,27 @@
 
 					if (data == 'Completed') {
 						$("#disposisi").removeAttr("hidden");
-
 						$("#btnDelegate").removeAttr('hidden');
-
 						$("#btnGotomanager").removeAttr('hidden');
 
 						$("#btnGotomanager").click(function () {
-
 							GoToManager();
-
 						});
 
 						$("#btnDelegate").click(function () {
-
 							Delegate();
-
 						});
 
 					} else {
-						$("#disposisi").attr("hidden", true);
-						$("#btnDelegate").attr("hidden", true);
-						$("#btnGotomanager").attr("hidden", true);
+						if (data == 'RejectAll') {
+                            window.location.href = "../DataDeviasi/PendingTask"
+						}
+						else {
+                            $("#disposisi").attr("hidden", true);
+                            $("#btnDelegate").attr("hidden", true);
+                            $("#btnGotomanager").attr("hidden", true);
+						}
+						
 					}
 
 				}, error: function (ex) {

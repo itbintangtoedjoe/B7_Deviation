@@ -1132,12 +1132,14 @@
 
     function ToggleShowKualitasProdukFields(jenisPenyimpangan) {
         $('#txtKetKategori').attr('disabled', true);
-        $("#TxtNoWO").attr("disabled", true);
+		$("#TxtNoWO").attr("disabled", true);
+
         $("#txtKetKategori").val('');
         $("#TxtItemCode").val('');
 		$("#TxtBatchNo").val('');
 		$("#TxtNoWO").val('');
-
+		$('#TxtQCMaterialNo').val('');
+		$("#TxtItemCode").val('');
 
 		if ($("#ddlKategori").val() == 'QPR') {
 			if (jenisPenyimpangan == 'Yes') {
@@ -1145,6 +1147,7 @@
 				$("#TxtItemCode").attr("disabled", false);
 				$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                 $('#txtKetKategori').attr('disabled', false);
+				
 				GetItemKualitasProduk();
 
 				$("#TxtNoWO").attr("disabled", false);
@@ -1166,6 +1169,7 @@
 
 					
 					$('#TxtQCMaterialNo').attr("hidden", false);
+					$('#TxtQCMaterialNo').val('');
 					$("#TxtItemCode").attr("hidden", false);
 					$("#TxtItemCode").attr("disabled", false);
 

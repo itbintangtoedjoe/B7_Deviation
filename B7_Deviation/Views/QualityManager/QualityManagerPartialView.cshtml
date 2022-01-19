@@ -474,19 +474,17 @@
 									success: function (data) {
 
 										Swal.fire({
-											title: 'Reviewer Approved',
-											showDenyButton: false,
-											showCancelButton: false,
-											confirmButtonText: `OK`
-										}).then((result) => {
+											title: 'Review Approved',
+                                            showConfirmButton: false,
+                                            timer: 2000
+										}).then(() => {
 
-											if (result.isConfirmed) {
-												LoadReviewerData();
-												GetCurrStat();
+											LoadReviewerData();
+											GetCurrStat();
 
-												// QM HEADER JQUERY FUNCTION
-												ApproveStatusAssignPIC();
-											}
+											// QM HEADER JQUERY FUNCTION
+											ApproveStatusAssignPIC();
+											
 										})
 									},
 									error: function (ex) {
@@ -501,6 +499,7 @@
 							$("#Reject" + i).click(function () {
 
 								Swal.fire({
+                                    icon: 'question',
 									title: 'Reason???',
 									input: 'text',
 									inputAttributes: {
@@ -540,17 +539,13 @@
 											success: function (data) {
 
 												Swal.fire({
-													title: 'Reviewer Rejected',
-													showDenyButton: false,
-													showCancelButton: false,
-													confirmButtonText: `OK`
-												}).then((result) => {
-
-													if (result.isConfirmed) {
+                                                    icon: 'success',
+													title: 'Review Rejected',
+                                                    showConfirmButton: false,
+                                                    timer: 2000
+												}).then(() => {													
 														LoadReviewerData();
 														GetCurrStat();
-
-													}
 												})
 											}
 											, error: function (ex) {

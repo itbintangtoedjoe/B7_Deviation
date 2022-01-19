@@ -188,16 +188,13 @@
 			success: function (data) {
 
 				Swal.fire({
+                    icon: 'success',
 					title: 'Review Submitted',
-					showDenyButton: false,
-					showCancelButton: false,
-					confirmButtonText: `OK`
-				}).then((result) => {
-
-					if (result.isConfirmed) {
-						CheckDelete = 1;
-						window.location.href = "../DataDeviasi/PendingTask"
-					}
+                    showConfirmButton: false,
+                    timer: 2000
+				}).then(() => {
+					CheckDelete = 1;
+					window.location.href = "../DataDeviasi/PendingTask"
 				})
 
 			}
@@ -256,6 +253,7 @@
 				success: function (data) {
 					formData.append("ReqID", REQID);
 					if (data == 'S') {
+
 						toastr.success("File Attachment " + file.name + " Berhasil diupload", "Berhasil", {
 							"closeButton": false,
 							"debug": false,
@@ -421,6 +419,13 @@
 			success: function (data) {
 				$('#txtReason').val(data[0].KETERANGAN_REVIEW);
 				GetFileAttachmentReviewer();
+                $('textarea').each(function () {
+                    //this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;width:500px;overflow-y:hidden;');
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                }).on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
             }
             , error: function (ex) {
                 alert('Error Load Data Review: ' + JSON.stringify(ex));
