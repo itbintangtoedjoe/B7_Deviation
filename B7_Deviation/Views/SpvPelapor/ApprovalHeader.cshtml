@@ -87,16 +87,16 @@
 			success: function (data) {
 
 				Swal.fire({
+                    icon: 'success',
 					title: 'Form Approved',
-					showDenyButton: false,
-					showCancelButton: false,
-					confirmButtonText: `OK`
-				}).then((result) => {
-
-					if (result.isConfirmed) {
-						SendEmailApprove();
+                    showConfirmButton: false,
+                    timer: 2000
+				}).then(() => {
+					$.when(
+						SendEmailApproveSpvApv()
+					).then(
 						window.location.href = "../DataDeviasi/PendingTask"
-					}
+					);
 				})
 
 			}
@@ -109,6 +109,7 @@
 	function Reject() {
 
 		Swal.fire({
+            icon: 'question',
 			title: 'Reason???',
 			input: 'text',
 			inputAttributes: {
@@ -148,16 +149,16 @@
 					success: function (data) {
 
 						Swal.fire({
+                            icon: 'success',
 							title: 'Form Rejected',
-							showDenyButton: false,
-							showCancelButton: false,
-							confirmButtonText: `OK`
-						}).then((result) => {
-
-							if (result.isConfirmed) {
-								SendEmailReject();
+                            showConfirmButton: false,
+                            timer: 2000
+						}).then(() => {
+							$.when(
+								SendEmailRejectSpvRjt()
+							).then(
 								window.location.href = "../DataDeviasi/PendingTask"
-							}
+							);
 						})
 
 					}
@@ -169,7 +170,7 @@
 		});
 	}
 
-	function SendEmailReject() {
+	function SendEmailRejectSpvRjt() {
 		var REQID = $("#lblReq").text();
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 		//var body = '<html><body>Dear {Model.Receiver}, Proposal with No: <b>' + REQID + ' </b> Is Rejected by Superior</body></html>';
@@ -194,14 +195,30 @@
 			dataType: "json",
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
+                toastr.success("Email Sent Successfully !", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "100",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+				});                
 			}, error: function (ex) {
 				alert("Error Email: " + JSON.stringify(ex));
 			}
 		});
 	}
 
-	function SendEmailApprove() {
+	function SendEmailApproveSpvApv() {
 		var REQID = $("#lblReq").text();
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 		
@@ -224,7 +241,23 @@
 			dataType: "json",
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
+                toastr.success("Email Sent Successfully !", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "100",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+				});                
 			}, error: function (ex) {
 				alert("Error Email: " + JSON.stringify(ex));
 			}

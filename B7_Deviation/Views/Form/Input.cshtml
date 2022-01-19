@@ -1153,6 +1153,7 @@
 				$("#TxtItemCode").attr("hidden", false);
 				$("#TxtItemCode").attr("disabled", true);
 				$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+				$("#txtTindakan").attr("disabled", false);
 
 				GetNoBatchOracle();
 				$("#TxtNoWO").attr("disabled", true);
@@ -1175,6 +1176,8 @@
 				else {
 
 					GetQCMaterialNoOracle();
+					$("#txtTindakan").attr("disabled", false);
+
 					$('#TxtQCMaterialNo').attr("hidden", false);
 					$("#TxtItemCode").attr("hidden", false);
 
@@ -1186,8 +1189,13 @@
 				}
 			}
 			else {
-				    $('#txtKetKategori').attr('disabled', false);
-                
+				$('#txtKetKategori').attr('disabled', false);
+				if (jenisPenyimpangan == 'Yes') {
+					$("#txtTindakan").attr("disabled", true);
+				}
+				else {
+                    $("#txtTindakan").attr("disabled", false);
+				}
 			}
     }
 
@@ -2283,13 +2291,22 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+				
 				Swal.fire({
 					icon: 'success',
-					title: 'Form Submitted'
-				});
-				CheckDelete = 1;
-				SendEmail();
-				window.location.href = "../DataDeviasi/PendingTask";
+					title: 'Form Submitted',
+					showConfirmButton: false,
+                    timer: 2000
+                }).then(() => {
+
+					CheckDelete = 1;
+					$.when(
+                        SendEmail()
+					).then(
+						window.location.href = "../DataDeviasi/PendingTask"
+					);                    
+                });
+				
 
 			}
 			, error: function (ex) {
@@ -2320,6 +2337,7 @@
 			dataType: "json",
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+
 				toastr.success("Email Sent Successfully !", "Notification", {
 					"closeButton": false,
 					"debug": true,
@@ -2328,7 +2346,7 @@
 					"positionClass": "toast-bottom-right",
 					"preventDuplicates": false,
 					"onclick": null,
-					"showDuration": "100",
+					"showDuration": "200",
 					"hideDuration": "1000",
 					"timeOut": "1000",
 					"extendedTimeOut": "1000",
@@ -2337,6 +2355,8 @@
 					"showMethod": "fadeIn",
 					"hideMethod": "fadeOut"
 				});
+
+                
 			}, error: function (ex) {
 				alert("Error Email: " + JSON.stringify(ex));
 			}

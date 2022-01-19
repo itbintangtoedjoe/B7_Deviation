@@ -109,7 +109,8 @@
 	let countBtn = 0;
 	let btnText = '';;
 	let tbl = '';
-    let cNoDev = '';
+	let cNoDev = '';
+	let NoDevOl = '';
 
 	$(document).ready(function () {
 
@@ -133,16 +134,12 @@
 
         $("#btnApprove").click(function () {
             btnText = $("#btnApprove").text();
+			NoDevOl = $('#TbNmrDev').val();
 
             // KALAU BELUM ADA ISINYA
-            if (((tbl < 1) && ($.trim(btnText) == 'Approve')) || (checkEvaluator > 0 && ($.trim(btnText) == 'Approve'))) {
-
-                $("#xddlx").removeAttr('hidden');
-                $("#btnApprove").text('Send to Reviewer');
-                $("#btnApprove").width("110px");
-                $("#btnReject").attr("hidden", true);
-                GetDDL();
-                GetDevNum();
+            if (((NoDevOl == '') && ($.trim(btnText) == 'Approve'))
+			  && (checkEvaluator < 1 && ($.trim(btnText) == 'Approve'))) {
+				    GetDevNum();
             }
             else
                 if (checkEvaluator < 1 && $.trim(btnText) == 'Send to Reviewer') {
@@ -158,7 +155,8 @@
 
                         ApproveHeaderKoordinator();
                     }
-        });
+		});
+
 
 	});
 
@@ -208,14 +206,14 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-                Swal.fire({
+				Swal.fire({
+                    icon: 'success',
                     title: 'Sent to Reviewer',
-                    showDenyButton: false,
-					showCancelButton: false,
+                    showConfirmButton: false,
 					timer: 2000
-                }).then((result) => {
+				}).then(() => {
 
-					if (result.isConfirmed) {
+					function SendEmailToReviewer() {
 						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 						var tabletype = "More Than One";
 						var whoreceiver = "Reviewer after Appointed";
@@ -234,13 +232,34 @@
 							dataType: "json",
 							contentType: "application/json;charset=utf-8",
 							success: function (data) {
-
+                                toastr.success("Email Sent Successfully !", "Notification", {
+                                    "closeButton": false,
+                                    "debug": true,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-bottom-right",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "100",
+                                    "hideDuration": "1000",
+                                    "timeOut": "1000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                });
 							}, error: function (ex) {
 								alert("Error Email: " + JSON.stringify(ex));
 							}
 						});
-                        window.location.href = "../DataDeviasi/PendingTask"
-                    }
+					}
+
+					$.when(
+						SendEmailToReviewer
+					).then(
+						window.location.href = "../DataDeviasi/PendingTask"
+					);
                 })
 			}
 			, error: function (ex) {
@@ -269,15 +288,14 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				Swal.fire({
+                    icon: 'success',
 					title: 'Form Approved',
-					showDenyButton: false,
-					showCancelButton: false,
-					confirmButtonText: `OK`
-				}).then((result) => {
+                    showConfirmButton: false,
+                    timer: 1500
+				}).then(() => {
 
-					if (result.isConfirmed) {
-                        window.location.href = "../DataDeviasi/PendingTask"
-					}
+					window.location.href = "../DataDeviasi/PendingTask"
+					
 				})
 
 			}
@@ -290,6 +308,7 @@
 	function Reject() {
 
 		Swal.fire({
+            icon: 'question',
 			title: 'Reason???',
 			input: 'text',
 			inputAttributes: {
@@ -329,15 +348,14 @@
 					success: function (data) {
 
 						Swal.fire({
+                            icon: 'success',
 							title: 'Form Rejected',
-							showDenyButton: false,
-							showCancelButton: false,
-							confirmButtonText: `OK`
-						}).then((result) => {
+                            showConfirmButton: false,
+                            timer: 1500
+						}).then(() => {
 
-							if (result.isConfirmed) {
-								window.location.href = "../DataDeviasi/PendingTask"
-							}
+							window.location.href = "../DataDeviasi/PendingTask"
+
 						})
 
 					}
@@ -371,7 +389,24 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-                $('#TbNmrDev').val(data[0]);
+				NoDevOl = data[0];
+
+                Swal.fire({
+                    icon: 'success',
+					title: 'Approve',
+					text: "No CAPA : " + NoDevOl,
+                    showConfirmButton: false,
+                    timer: 1500
+				}).then(() => {
+                        $("#xddlx").removeAttr('hidden');
+                        $("#btnApprove").text('Send to Reviewer');
+                        $("#btnApprove").width("110px");
+                        $("#btnReject").attr("hidden", true);
+                        GetDDL();
+                        $('#TbNmrDev').val(data[0]);
+
+                })
+
 			}
 			, error: function (ex) {
 				alert('Error Get Dev Num: ' + JSON.stringify(ex));
@@ -429,9 +464,6 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				if (data == 'S') {
-
-
-
 					toastr.success("Data berhasil tersimpan !", "Tersimpan", {
 						"closeButton": false,
 						"debug": true,
@@ -464,7 +496,6 @@
 	function Coor_LoadUserInvolved() {
 
 		var REQID = @ViewBag.nomor;
-
 		var dto = {
 			REQID: REQID
 		}
@@ -590,11 +621,8 @@
 
 					$("#btnApprove").attr("hidden", true);
 					$("#btnReject").attr("hidden", true);
-
 					$("#btnApprove").click(function () {
-
 						ApproveReviewer();
-
 					});
 				} else {
                     GetDDL();
@@ -611,7 +639,6 @@
 					tbl = data[0].COUNTED
 					cNoDev = $('#TbNmrDev').val();
 
-
 					// KALAU UDAH ADA ISINYA
 					if (cNoDev != '')
 					{
@@ -621,14 +648,13 @@
 						$("#btnReject").attr("hidden", true);
 					}
 
-                    if (((tbl < 1) && ($.trim(btnText) == 'Approve')) || (checkEvaluator > 0 && ($.trim(btnText) == 'Approve'))) {
+					if (((tbl < 1) && ($.trim(btnText) == 'Approve'))
+					  && (checkEvaluator > 0 && ($.trim(btnText) == 'Approve'))) {
 
                         $("#xddlx").removeAttr('hidden');
                         $("#btnApprove").text('Send to Reviewer');
                         $("#btnApprove").width("110px");
                         $("#btnReject").attr("hidden", true);
-                        GetDDL();
-                        GetDevNum();
                     }
 				}
 
@@ -640,6 +666,7 @@
 
 	function Cancel() {
 		Swal.fire({
+            icon: 'question',
 			title: 'Cancel Reason ...',
 			input: 'text',
 			inputAttributes: {
@@ -679,15 +706,12 @@
 					success: function (data) {
 
 						Swal.fire({
+                            icon: 'success',
 							title: 'Form Cancelled',
 							showDenyButton: false,
-							showCancelButton: false,
-							confirmButtonText: `OK`
-						}).then((result) => {
-
-							if (result.isConfirmed) {
-								window.location.href = "../DataDeviasi/PendingTask"
-							}
+							showCancelButton: false
+						}).then(() => {
+							window.location.href = "../DataDeviasi/PendingTask"
 						})
 
 					}
@@ -726,7 +750,3 @@
 	}
 
 </script>
-
-
-
-

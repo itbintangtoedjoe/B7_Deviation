@@ -101,9 +101,9 @@
                                                 <br />
                                                 <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
                                                 <br />
-                                                <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle">
+                                                <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" >
                                                 <br />
-                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
+                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" >
                                             </div>
                                             <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered text-center">
@@ -117,7 +117,7 @@
                 </div>*@
                                     </div>
                                     <div class="col-sm-7">
-                                        <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" readonly placeholder="Keterangan lebih terkait penyimpangan"></textarea>
+                                        <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" readonly rows ="3"></textarea>
                                     </div>
                                 </div>
                                 @*  Penyimpangan terencana *@
@@ -145,14 +145,14 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Problem (What)<span class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <textarea id="txtProblem" class="form-control" placeholder="Problem (What)" disabled="disabled"></textarea>
+                                        <textarea id="txtProblem" class="form-control" disabled="disabled" rows ="3" ></textarea>
                                     </div>
                                 </div>
                                 <!-- Requirement (Jika Ada) -->
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Requirement (Jika Ada)</label>
                                     <div class="col-sm-10">
-                                        <textarea id="txtReq" class="form-control" placeholder="Requirement (Jika Ada)" disabled></textarea>
+                                        <textarea id="txtReq" class="form-control" disabled rows ="3"></textarea>
                                     </div>
                                 </div>
 
@@ -191,7 +191,7 @@
                                     </div>
 
                                     <div class="col-sm-6">
-                                        <textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Detail Lokasi Kejadian Penyimpangan" disabled></textarea>
+                                        <textarea id="txtLokasi" name="txtLokasi" class="form-control" disabled rows ="3"></textarea>
                                     </div>
 
                                 </div>
@@ -226,7 +226,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Bagaimana Urutan Kejadian (How)<span class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <textarea id="txtHow" class="form-control" placeholder="Bagaimana Urutan Kejadian (How)" disabled="disabled"></textarea>
+                                        <textarea id="txtHow" class="form-control" disabled="disabled" rows ="5"></textarea>
                                     </div>
                                 </div>
 
@@ -250,7 +250,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <textarea name="travelDetails" id="txt1" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" disabled="disabled"></textarea>
+                                        <textarea name="travelDetails" id="txt1" class="form-control" disabled="disabled" rows ="3"></textarea>
                                     </div>
                                 </div>
 
@@ -271,7 +271,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <textarea name="travelDetails" id="txtsama" class="form-control" placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" disabled="disabled"></textarea>
+                                        <textarea name="travelDetails" id="txtsama" class="form-control" disabled="disabled" rows ="3"></textarea>
                                     </div>
                                 </div>
 
@@ -294,7 +294,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <textarea id="txtrilis" name="travelDetails" class="form-control" placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" disabled="disabled"></textarea>
+                                        <textarea id="txtrilis" name="travelDetails" class="form-control" disabled="disabled" rows ="3"></textarea>
                                     </div>
                                 </div>
 
@@ -315,7 +315,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <textarea id="txtlain" name="travelDetails" class="form-control" placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" disabled="disabled"></textarea>
+                                        <textarea id="txtlain" name="travelDetails" class="form-control" disabled="disabled" rows ="3"></textarea>
                                     </div>
                                 </div>
 
@@ -330,7 +330,7 @@
                                         </label>
                                     </div>
                                     <div class="col-sm-10">
-                                        <textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" readonly="readonly" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi"></textarea>
+                                        <textarea  id="txtTindakan" name="txtTindakan" class="form-control" readonly="readonly" rows ="3"></textarea>
 
                                     </div>
                                 </div>
@@ -365,7 +365,7 @@
                                         <label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-sm-10">
-                                        <textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial" disabled></textarea>
+                                        <textarea id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" rows ="3" disabled></textarea>
                                     </div>
                                 </div>
                             </form>
@@ -529,9 +529,7 @@
 	$(document).ready(function () {
 
 		// LOAD ALL DETAILED FORM
-		LoadAll();
-
-
+        LoadAll()
 	});
 
 	function LoadAll() {
@@ -546,6 +544,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+
 				var text = '';
 
 				// SHOW / HIDE
@@ -763,12 +762,7 @@
 
 				document.getElementById('txtKeparahan').value = data[0].SEVERTY_DEVIATION;
 
-				$('textarea').each(function () {
-					this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-				}).on('input', function () {
-					this.style.height = 'auto';
-					this.style.height = (this.scrollHeight) + 'px';
-				});
+                
 
 			}, error: function (ex) {
 				alert(JSON.stringify(ex));

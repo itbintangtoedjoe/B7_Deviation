@@ -169,8 +169,8 @@
                                         </div>
                                         <br>
                                         @*<div id="divproduk">
-                    <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
-                </div>*@
+                        <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
+                    </div>*@
                                     </div>
                                     <div class="col-sm-6">
                                         <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan"></textarea>
@@ -396,19 +396,7 @@
                                     @*<button type="button" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>*@
                                 </div>
                             </div>
-                        </div>
 
-
-                        <form class="form-valide2" onsubmit="return s();" action="#" method="post">
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
-                                    <label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial"></textarea>
-                                </div>
-                            </div>
-                            
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
 
@@ -433,6 +421,18 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+
+                        <form class="form-valide2" onsubmit="return s();" action="#" method="post">
+                            <div class="form-group row">
+                                <div class="col-sm-2 col-form-label">
+                                    <label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial"></textarea>
+                                </div>
+                            </div>                                                      
 
                             <div class="form-group row">
                                 <div class="col">
@@ -624,7 +624,7 @@
 
     });
 
-    function Submit() {
+    @*function Submit() {
         var REQID = @ViewBag.nomor;
         var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -658,7 +658,7 @@
                 alert('Error Submit: ' + JSON.stringify(ex));
             }
         });
-    }
+    }*@
 
 
     $(document).ready(function () {
@@ -1535,35 +1535,35 @@
         });
     }
 
-    function GetSiteLokasiKejadian() {
-        $.ajax({
-            url: "../Form/GetSiteLokasiKejadian",
-            type: "post",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
+    //function GetSiteLokasiKejadian() {
+    //    $.ajax({
+    //        url: "../Form/GetSiteLokasiKejadian",
+    //        type: "post",
+    //        dataType: "json",
+    //        contentType: "application/json;charset=utf-8",
+    //        success: function (data) {
 
-                var trhtml = "";
-                var trav = 0;
-                var count = data.length;
+    //            var trhtml = "";
+    //            var trav = 0;
+    //            var count = data.length;
 
-                trhtml += '<option disabled selected class="dropdown-header">Site Lokasi Kejadian</option>';
-                if (count > 0) {
-                    for (trav = 0; trav < count; trav++) {
-                        trhtml += '<option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
-                    }
-                }
-                $("#txtSiteLokasi").empty();
-                $("#txtSiteLokasi").append(trhtml);
-                $("#txtSiteLokasi").select2();
-            }
-            , error: function (ex) {
+    //            trhtml += '<option disabled selected class="dropdown-header">Site Lokasi Kejadian</option>';
+    //            if (count > 0) {
+    //                for (trav = 0; trav < count; trav++) {
+    //                    trhtml += '<option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+    //                }
+    //            }
+    //            $("#txtSiteLokasi").empty();
+    //            $("#txtSiteLokasi").append(trhtml);
+    //            $("#txtSiteLokasi").select2();
+    //        }
+    //        , error: function (ex) {
 
-            }
-        });
-    }
+    //        }
+    //    });
+    //}
 
-    
+
 
 
     // Set Picker disable text
@@ -2328,24 +2328,73 @@
             success: function (data) {
 
                 Swal.fire({
-                    title: 'Form Submitted',
-                    showDenyButton: false,
                     icon: 'success',
-                    showCancelButton: false,
-                    confirmButtonText: `OK`
-                }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
-                    if (result.isConfirmed) {
-                        window.location.href = "../DataDeviasi/PendingTask"
-                    }
-                })
+                    title: 'Form Submitted',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(() => {
 
+                    CheckDelete = 1;
+                    $.when(
+                        SendEmailRev()
+                    ).then(
+                        window.location.href = "../DataDeviasi/PendingTask"
+                    );
+
+                });
 
             }
             , error: function (ex) {
                 alert('Error Delete Attachment: ' + JSON.stringify(ex));
             }
         });
+    }
+
+    function SendEmailRev() {
+
+		var REQID = $("#lblReq").text();
+		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var tabletype = "One";
+		var whoreceiver = "Superior after Form Input";
+
+		var dto = {
+			Receiver: receiver,
+			ReqID: REQID,
+			TableType: tabletype,
+			WhoReceiver: whoreceiver
+		};
+
+		$.ajax({
+			type: "post",
+			url: '../Form/SendEmailInputProposal',
+			data: JSON.stringify(dto),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				toastr.success("Email Sent Successfully !", "Notification", {
+					"closeButton": false,
+					"debug": true,
+					"newestOnTop": false,
+					"progressBar": false,
+					"positionClass": "toast-bottom-right",
+					"preventDuplicates": false,
+					"onclick": null,
+					"showDuration": "100",
+					"hideDuration": "1000",
+					"timeOut": "1000",
+					"extendedTimeOut": "1000",
+					"showEasing": "swing",
+					"hideEasing": "linear",
+					"showMethod": "fadeIn",
+					"hideMethod": "fadeOut"
+				});
+
+                
+			}, error: function (ex) {
+				alert("Error Email: " + JSON.stringify(ex));
+			}
+		});
     }
 
     // Save Orang terlibat
