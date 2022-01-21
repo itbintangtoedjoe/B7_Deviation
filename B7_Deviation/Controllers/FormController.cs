@@ -21,7 +21,6 @@ namespace B7_Deviation.Controllers
         readonly OracleConnection OraDBConn = new OracleConnection(OraDB.ConnectionString);
         readonly OracleDataAdapter DataAdapt = new OracleDataAdapter();
         private readonly DataTable DT = new DataTable();
-
         
         public ActionResult Index()
         {
@@ -72,20 +71,9 @@ namespace B7_Deviation.Controllers
         public ActionResult SendEmailInputProposal(EmailModel Model)
         {
             MailMessage Msg = new MailMessage();
-            //SmtpClient MailObject = new SmtpClient("10.100.18.216");
-            
-            var MailObject = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                EnableSsl = true,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("shinvin10@gmail.com", "kurniawan1")
-            };
+            SmtpClient MailObject = new SmtpClient("10.100.18.216");
 
-
-            Msg.From = new MailAddress("shinvin10@gmail.com", "Deviation Notification");
+            Msg.From = new MailAddress("notification@bintang7.com", "Deviation Notification");
             Msg.Bcc.Add(new MailAddress("shinvin10@gmail.com"));
             Msg.Priority = MailPriority.High;
             Msg.IsBodyHtml = true;
@@ -275,7 +263,7 @@ namespace B7_Deviation.Controllers
                 {
                     t_namapenerima = dr[0].ToString();
                     t_emailpenerima = dr[1].ToString();
-                    Msg.To.Add(new MailAddress("shinvin10@gmail.com", t_namapenerima));
+                    Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
                 }
 
                 if (Model.WhoReceiver == "Superior after Form Input")
@@ -1007,7 +995,7 @@ namespace B7_Deviation.Controllers
                     daftarNamaPenerima+= dr[0].ToString()+", ";
                     t_namapenerima = dr[0].ToString(); 
                     t_emailpenerima = dr[1].ToString();
-                    Msg.To.Add(new MailAddress("shinvin10@gmail.com", t_namapenerima));
+                    Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
                 }
 
                 if (Model.WhoReceiver == "Koordinator after Superior Approved")
