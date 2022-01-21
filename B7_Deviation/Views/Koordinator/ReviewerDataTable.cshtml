@@ -103,7 +103,7 @@
 		</div>
 	</div>
 
-	<script>
+    <script>
 		$(document).ready(function () {
 
 			LoadData();
@@ -115,63 +115,102 @@
 				InsertDisposisi();
 			});
 
+            $("#btnDelegate").click(function () {
+                Delegate();
+            });
+
+            $("#btnGotomanager").click(function () {               
+				GoToManager();                
+            });
 		});
 
 		function GoToManager() {
-
 			var reqid = @ViewBag.nomor;
 			var curruser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-			var dto = {
-				IDUSER: curruser,
-				REQID: reqid,
+			function ApproveOKKOR() {
+				var dto = {
+					IDUSER: curruser,
+					REQID: reqid
+				};
 
-			};
+				$.ajax({
+					url: "../Koordinator/Coor_GoToManager",
+					type: "post",
+					data: JSON.stringify(dto),
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+						Swal.fire({
+							title: 'Approved, Send To Manager',
+							icon: 'success',
+							showConfirmButton: false,
+							timer: 2000
+						});
+					},
+					error: function (ex) {
+						alert(JSON.stringify(ex));
+					}
+				});
+			}
 
-			$.ajax({
-				url: "../Koordinator/Coor_GoToManager",
-				type: "post",
-				data: JSON.stringify(dto),
-				dataType: "json",
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
+			function EmailEvalutor() {
+                var tabletype = "More Than One";
+                var whoreceiver = "QM after Koordinator Approve Reviewer";
 
-					Swal.fire({
-						title: 'Approved, Send To Manager',
-						icon: 'success',
-                        showConfirmButton: false,
-                        timer: 2000
-					}).then(() => {
-						window.location.href = "../DataDeviasi/PendingTask"
-					});
+                var dtx = {
+                    ReqID: reqid,
+                    TableType: tabletype,
+                    WhoReceiver: whoreceiver
+                };
 
-				},
-				error: function (ex) {
-					alert(JSON.stringify(ex));
-				}
-			});
+                $.ajax({
+                    type: "post",
+                    url: '../Form/SendEmailInputProposal',
+                    data: JSON.stringify(dtx),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        toastr.success("Email Sent Successfully !", "Notification", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-bottom-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "200",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+                    }, error: function (ex) {
+                        toastr.warning("Email Delivery Failure ! : " + JSON.stringify(ex), "Notification", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-bottom-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "200",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+                    }
+                });
+			}
 
-			var tabletype = "More Than One";
-			var whoreceiver = "QM after Koordinator Approve Reviewer";
-
-			var dtx = {
-				ReqID: reqid,
-				TableType: tabletype,
-				WhoReceiver: whoreceiver
-			};
-
-			$.ajax({
-				type: "post",
-				url: '../Form/SendEmailInputProposal',
-				data: JSON.stringify(dtx),
-				dataType: "json",
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
-
-				}, error: function (ex) {
-					alert("Error Email: " + JSON.stringify(ex));
-				}
-			});
+            $.when(EmailEvalutor(), ApproveOKKOR()).done(window.location.href = "../DataDeviasi/PendingTask");
 		}
 
 		function ShowBukti(button) {
@@ -224,7 +263,8 @@
                         "searching": false,
                         "paging": false,
                         "info": false,
-                        "ordering": false});
+						"ordering": false
+					});
 
 				}
 				, error: function (ex) {
@@ -304,64 +344,98 @@
 		function Approve(button) {
 
 			var row = $(button).closest("TR");
-
 			var empid = $("TD", row).eq(1).html();
 			var reqid = @ViewBag.nomor;
 
-			var dto = {
-				REQID: reqid,
-				USER_NIK: empid
-			};
+            var tabletype = "One";
+            var whoreceiver = "Reviewer after Koordinator Approved";
 
-			$.ajax({
-				url: "../Koordinator/Coor_ApprovePerReviewer",
-				type: "post",
-				data: JSON.stringify(dto),
-				dataType: "json",
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
+			function ApproveKoorReviewer() {
+                var dto = {
+                    REQID: reqid,
+                    USER_NIK: empid
+                };
 
-					Swal.fire({
-						title: 'Review Approved',
-						icon: 'success',
-                        showConfirmButton: false,
-                        timer: 2000
-					}).then(() => {
-						LoadData();
-						CheckRevApp();						
-					});
+                $.ajax({
+                    url: "../Koordinator/Coor_ApprovePerReviewer",
+                    type: "post",
+                    data: JSON.stringify(dto),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
 
-				},
-				error: function (ex) {
-					alert(JSON.stringify(ex));
-				}
-			});
+                        Swal.fire({
+                            title: 'Review Approved',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            $.when(CheckRevApp()).then(LoadData());
+                        });
 
-			var REQID = $("#lblReq").text();
-			var receiver = $("TD", row).eq(1).html();
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+			}
 
-			var tabletype = "One";
-			var whoreceiver = "Reviewer after Koordinator Approved";
+			function NotifyReviwerApprove() {
+                var dtx = {
+                    Receiver: empid,
+                    ReqID: reqid,
+                    TableType: tabletype,
+                    WhoReceiver: whoreceiver
+                };
 
-			var dtx = {
-				Receiver: receiver,
-				ReqID: REQID,
-				TableType: tabletype,
-				WhoReceiver: whoreceiver
-			};
+                $.ajax({
+                    type: "post",
+                    url: '../Form/SendEmailInputProposal',
+                    data: JSON.stringify(dtx),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        toastr.success("Email Sent Successfully !", "Notification", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-bottom-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "200",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+					}, error: function (ex) {
 
-			$.ajax({
-				type: "post",
-				url: '../Form/SendEmailInputProposal',
-				data: JSON.stringify(dtx),
-				dataType: "json",
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
+						toastr.warning("Email Delivery Failure ! : " + JSON.stringify(ex), "Notification", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-bottom-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "200",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+                    }
+                });
+			}
 
-				}, error: function (ex) {
-					alert("Error Email: " + JSON.stringify(ex));
-				}
-			});
+            $.when(NotifyReviwerApprove()).then(ApproveKoorReviewer());
 		}
 
 		function Reject(button) {
@@ -391,72 +465,102 @@
 				} else if (result.isConfirmed) {
 
 					var row = $(button).closest("TR");
-
 					var empid = $("TD", row).eq(1).html();
 					var reqid = @ViewBag.nomor;
 					var keteranganReject = result.value;
 
-					var dto = {
-						REQID: reqid,
-						USER_NIK: empid,
-						KETERANGAN_REJECT: keteranganReject
-					};
-
-					$.ajax({
-						url: "../Koordinator/Coor_RejectPerReviewer",
-						type: "post",
-						data: JSON.stringify(dto),
-						dataType: "json",
-						contentType: "application/json;charset=utf-8",
-						success: function (data) {
-
-							Swal.fire({
-                                icon: 'success',
-								title: 'Review Rejected',
-                                showConfirmButton: false,
-                                timer: 2000
-							}).then(() => {								
-								LoadData();
-								CheckRevApp();								
-							});
-						},
-						error: function (ex) {
-							alert(JSON.stringify(ex));
-						}
-					});
-
-					var REQID = $("#lblReq").text();
-					var receiver = $("TD", row).eq(1).html();
-
-					var tabletype = "One";
+                    var tabletype = "One";
 					var whoreceiver = "Reviewer after Koordinator Reject";
 
-					var dtx = {
-						Receiver: receiver,
-						ReqID: REQID,
-						Body: body,
-						TableType: tabletype,
-						WhoReceiver: whoreceiver
-					};
+					function RejectReviewer() {
+                        var dto = {
+                            REQID: reqid,
+                            USER_NIK: empid,
+                            KETERANGAN_REJECT: keteranganReject
+                        };
 
-					$.ajax({
-						type: "post",
-						url: '../Form/SendEmailInputProposal',
-						data: JSON.stringify(dtx),
-						dataType: "json",
-						contentType: "application/json;charset=utf-8",
-						success: function (data) {
+                        $.ajax({
+                            url: "../Koordinator/Coor_RejectPerReviewer",
+                            type: "post",
+                            data: JSON.stringify(dto),
+                            dataType: "json",
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
 
-						}, error: function (ex) {
-							alert("Error Email: " + JSON.stringify(ex));
-						}
-					});
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Review Rejected',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    LoadData();
+                                    CheckRevApp();
+                                });
+                            },
+                            error: function (ex) {
+                                alert(JSON.stringify(ex));
+                            }
+                        });
+					}
+					
+					function NotifyReviewerReject() {
+                        var dtx = {
+                            Receiver: empid,
+                            ReqID: reqid,
+                            Body: body,
+                            TableType: tabletype,
+                            WhoReceiver: whoreceiver
+                        };
 
+                        $.ajax({
+                            type: "post",
+                            url: '../Form/SendEmailInputProposal',
+                            data: JSON.stringify(dtx),
+                            dataType: "json",
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+                                toastr.success("Email Sent Successfully !", "Notification", {
+                                    "closeButton": false,
+                                    "debug": true,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-bottom-right",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "200",
+                                    "hideDuration": "1000",
+                                    "timeOut": "1000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                });
+                            }, error: function (ex) {
+                                toastr.warning("Email Delivery Failure ! : " + JSON.stringify(ex), "Notification", {
+                                    "closeButton": false,
+                                    "debug": true,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-bottom-right",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "200",
+                                    "hideDuration": "1000",
+                                    "timeOut": "1000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                });
+                            }
+                        });
+					}
+
+                    $.when(NotifyReviewerReject()).then(RejectReviewer());
 				}
-
 			});
-
-
 		}
 
 		function goBack() {
@@ -486,14 +590,6 @@
 						$("#btnDelegate").removeAttr('hidden');
 						$("#btnGotomanager").removeAttr('hidden');
 
-						$("#btnGotomanager").click(function () {
-							GoToManager();
-						});
-
-						$("#btnDelegate").click(function () {
-							Delegate();
-						});
-
 					} else {
 						if (data == 'RejectAll') {
                             window.location.href = "../DataDeviasi/PendingTask"
@@ -503,7 +599,7 @@
                             $("#btnDelegate").attr("hidden", true);
                             $("#btnGotomanager").attr("hidden", true);
 						}
-						
+
 					}
 
 				}, error: function (ex) {
@@ -545,7 +641,7 @@
 							"onclick": null,
 							"showDuration": "100",
 							"hideDuration": "1000",
-							"timeOut": "1000",
+							"timeOut": "2000",
 							"extendedTimeOut": "1000",
 							"showEasing": "swing",
 							"hideEasing": "linear",
@@ -664,7 +760,7 @@
 			window.location.href = "../Koordinator/Delegasi?Nomor=@ViewBag.nomor";
 		}
 
-	</script>
+    </script>
 
 </body>
 
