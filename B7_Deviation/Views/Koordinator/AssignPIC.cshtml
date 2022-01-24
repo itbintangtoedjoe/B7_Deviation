@@ -17,22 +17,23 @@
 						<div class="form-group">
 							<h2 class="d-inline">Assign PIC</h2>
 						</div>
-
-						<table class="table table-bordered table-hover verticle-middle table-responsive" id="datatablepic" style="color:black" width="1150px">
-							<thead>
-								<tr>
-									<th style="text-align:center">No</th>
-									<th width="300px" style="text-align:center">Keterangan Disposisi</th>
-									<th width="300px" style="text-align:center">Pelaksana</th>
-									<th wdith="100px" style="text-align:center">Due Date</th>
-									<th width="150px" style="text-align:center">Actions</th>
-									<th hidden="hidden">No Disposisi</th>
-								</tr>
-							</thead>
-							<tbody id="pictable">
-								
-							</tbody>
-						</table>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover verticle-middle table-responsive" id="datatablepic" style="color:black" width="1250px">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center">No</th>
+                                        <th width="700px" style="text-align:center">Keterangan Disposisi</th>
+                                        <th width="200px" style="text-align:center">Pelaksana</th>
+                                        <th wdith="100px" style="text-align:center">Due Date</th>
+                                        <th width="150px" style="text-align:center">Actions</th>
+                                        <th hidden="hidden">No Disposisi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pictable">
+                                </tbody>
+                            </table>
+                        </div>
+						
 						<br />
 						<div class="row">
 							<div class="col-8">
@@ -69,9 +70,7 @@
 			<div class="container-fluid">
 				<div class="card">
 					<div class="card-body">
-						
 						<h4>REVIEWER</h4>
-
 						<div class="form-group">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover verticle-middle" id="deviationdatatable" width="1150px" style="color:black">
@@ -99,7 +98,6 @@
 										<th width="75px">No</th>
 										<th width="100px">Nama Reviewer</th>
 										<th>Nama File</th>
-
 									</tr>
 								</thead>
 								<tbody id="reviewerbukti" class="nowrap">
@@ -117,6 +115,7 @@
 </body>
 
 <script>
+
 	$(document).ready(function () {
         //load desposisi
 		LoadData();
@@ -150,10 +149,10 @@
 			success: function (data) {
 				if (data == 'OK') {
                     window.location.href = "../DataDeviasi/PendingTask"
-				} 
+				}
 
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                GetError("Koor_LoadAssignStatus", JSON.stringify(ex));
 			}
 		});
     }
@@ -162,7 +161,7 @@
 		event.preventDefault();
 
 		$("#reviewerbuktidatatable").removeAttr("hidden");
-		
+
 
 		var row = $(button).closest("TR");
 		var ReqID = @ViewBag.nomor;
@@ -213,7 +212,7 @@
 
 			}
 			, error: function (ex) {
-				alert('Error Delete User Involved : ' + JSON.stringify(ex));
+                GetError('Coor_ShowReviewerBukti', JSON.stringify(ex));
 			}
 		});
 	}
@@ -221,7 +220,7 @@
 	// Check Status to Determine which Row Has Action
 	function LoadData2() {
 		var REQID = @ViewBag.nomor;
-        
+
 		var dto = {
 			REQID: REQID
 		};
@@ -260,7 +259,7 @@
                     });
 				}
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                GetError("LoadData2", JSON.stringify(ex));
 			}
 		});
 	}
@@ -296,7 +295,6 @@
 				if (data == 'ADA') {
 
 					var no_disposisi = $("TD", row).eq(5).find("input[type='text']").val();
-
 					var req_id = @ViewBag.nomor;
 					var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -309,80 +307,104 @@
 						return;
 					}
 
-					var dto = {
-						REQ_ID: req_id,
-						PIC_REMEDIAL_NIK: pic_nik,
-						DUE_DATE: due_date,
-						NO_DISPOSISI: no_disposisi,
-						CURR_USER: curr_user
+					function AssignPIC() {
+						var dto = {
+                            REQ_ID: req_id,
+                            PIC_REMEDIAL_NIK: pic_nik,
+                            DUE_DATE: due_date,
+                            NO_DISPOSISI: no_disposisi,
+                            CURR_USER: curr_user
+						}
+
+                        $.ajax({
+                            url: "../Koordinator/Coor_AssignPIC",
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(dto),
+                            contentType: "application/json;charset=utf-8",
+							success: function (data) {
+								function NotifyAssignT() {
+                                    toastr.success("Assign PIC Berhasil!", "Tersimpan", {
+                                        "closeButton": false,
+                                        "debug": true,
+                                        "newestOnTop": false,
+                                        "progressBar": false,
+                                        "positionClass": "toast-top-right",
+                                        "preventDuplicates": false,
+                                        "onclick": null,
+                                        "showDuration": "100",
+                                        "hideDuration": "1000",
+                                        "timeOut": "1000",
+                                        "extendedTimeOut": "1000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    });
+								}
+								
+								function ConditionLoad() {
+                                    if (data == 'COMPLETE') {
+                                        var url = "../DataDeviasi/PendingTask";
+                                        $(location).attr('href', url);
+                                    }
+                                    else {
+                                        LoadData();
+                                    }
+								}
+
+								$.when(NotifyAssignT()).then(ConditionLoad());
+                            }
+                            , error: function (ex) {
+                                GetError('Coor_AssignPIC',  JSON.stringify(ex));
+                            }
+                        });
 					}
 
-					$.ajax({
-						url: "../Koordinator/Coor_AssignPIC",
-						type: "post",
-						dataType: "json",
-						data: JSON.stringify(dto),
-						contentType: "application/json;charset=utf-8",
-						success: function (data) {
+					function SendMailAssign() {
+						var receiver = $("TD", row).eq(2).find("select").val();
+						var tabletype = "One";
+						var whoreceiver = "PIC after Appointed";
 
-							toastr.success("Assign PIC Berhasil!", "Tersimpan", {
-								"closeButton": false,
-								"debug": true,
-								"newestOnTop": false,
-								"progressBar": false,
-								"positionClass": "toast-top-right",
-								"preventDuplicates": false,
-								"onclick": null,
-								"showDuration": "100",
-								"hideDuration": "1000",
-								"timeOut": "1000",
-								"extendedTimeOut": "1000",
-								"showEasing": "swing",
-								"hideEasing": "linear",
-								"showMethod": "fadeIn",
-								"hideMethod": "fadeOut"
-							});
+						var dtx = {
+							Receiver: receiver,
+							ReqID: REQID,
+							TableType: tabletype,
+							WhoReceiver: whoreceiver
+						};
 
-							
+						$.ajax({
+							type: "post",
+							url: '../Form/SendEmailInputProposal',
+							data: JSON.stringify(dtx),
+							dataType: "json",
+							contentType: "application/json;charset=utf-8",
+							success: function (data) {
 
-							if (data == 'COMPLETE') {
-								var url = "../DataDeviasi/PendingTask";
-								$(location).attr('href', url);
+								toastr.success("Email Sent Successfully !", "Notification", {
+									"closeButton": false,
+									"debug": true,
+									"newestOnTop": false,
+									"progressBar": false,
+									"positionClass": "toast-bottom-right",
+									"preventDuplicates": false,
+									"onclick": null,
+									"showDuration": "200",
+									"hideDuration": "1000",
+									"timeOut": "1000",
+									"extendedTimeOut": "1000",
+									"showEasing": "swing",
+									"hideEasing": "linear",
+									"showMethod": "fadeIn",
+									"hideMethod": "fadeOut"
+								});
+							}, error: function (ex) {
+								GetError("Error Email Assign", JSON.stringify(ex));
 							}
-							else {
-                                LoadData();
-							}
-						}
-						, error: function (ex) {
-							alert('Error Delete Attachment: ' + JSON.stringify(ex));
-						}
-					});
+						});
+					}
 
-
-					var receiver = $("TD", row).eq(2).find("select").val();
-
-					var tabletype = "One";
-					var whoreceiver = "PIC after Appointed";
-
-					var dtx = {
-						Receiver: receiver,
-						ReqID: REQID,
-						TableType: tabletype,
-						WhoReceiver: whoreceiver
-					};
-
-					$.ajax({
-						type: "post",
-						url: '../Form/SendEmailInputProposal',
-						data: JSON.stringify(dtx),
-						dataType: "json",
-						contentType: "application/json;charset=utf-8",
-						success: function (data) {
-
-						}, error: function (ex) {
-							alert("Error Email: " + JSON.stringify(ex));
-						}
-					});
+                    $.when(AssignPIC()).then(SendMailAssign());
 
 				} else {
 
@@ -391,94 +413,97 @@
 						title: 'Oops...',
 						text: 'Nama Pelaksana Kosong/Email Pelaksana Tidak Tersedia'
 					});
-
-
 				}
 			}
 			, error: function (ex) {
-				alert('Check Email Availability: ' + JSON.stringify(ex));
+				GetError('Check Email Availability', JSON.stringify(ex));
 			}
 		});
 	}
 
 	function LoadData() {
-        
+
 		var nomor = @ViewBag.nomor;
 
-		var dto = {
-			REQ_ID: nomor
+		function GetDisposisi() {
+            var dto = {
+                REQ_ID: nomor
+            }
+
+            // GET DISPOSISI TABLE FOR ASSIGNING PIC
+            $.ajax({
+                url: "../Koordinator/Coor_LoadDisposisiData",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+                    for (trav = 0; trav < Count; trav++) {
+                        var no = trav + 1;
+
+                        if (data[trav].PIC_REMEDIAL_NIK == '-' && data[trav].PIC_REMEDIAL_NAME == 'NOT YET ASSIGNED') {
+                            trHTML += '<tr><td align="center">' + no + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td> <select id="pic' + trav + '"></td>' +
+                                '<td> <input type="date" id="duedate' + trav + '"></td>' +
+                                '<td align="center"> <input type="button" id="AssignPIC" value="Assign PIC" onclick=AssignPIC(this) class="btn btn-primary" /></td>' +
+                                '<td hidden="hidden"><input type="text" value="' + data[trav].NO_DISPOSISI + '"</td>';
+
+                        } else {
+                            trHTML += '<tr><td align="center">' + no + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+                                '<td>' + data[trav].DUE_DATE + '</td>' +
+                                '<td align="center">* NO ACTIONS *</td>' +
+                                '<td hidden="hidden"><input type="text" value="' + data[trav].NO_DISPOSISI + '"</td>';
+                        }
+
+
+                    }
+                    $('#datatablepic').DataTable().clear().destroy();
+                    $('#pictable').empty();
+                    $('#pictable').append(trHTML);
+                    $('#datatablepic').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": true
+                    });
+
+                    var jumlahdisposisi = trav;
+
+                    LoadPICList(jumlahdisposisi);
+                },
+                error: function (ex) {
+                    GetError("Coor_LoadDisposisiData", JSON.stringify(ex));
+                }
+            });
 		}
 
-		// GET DISPOSISI TABLE FOR ASSIGNING PIC
-		$.ajax({
-			url: "../Koordinator/Coor_LoadDisposisiData",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				var trHTML = '';
-				var trav = 0;
-				var Count = data.length;
-				for (trav = 0; trav < Count; trav++) {
-					var no = trav + 1;
-
-					if (data[trav].PIC_REMEDIAL_NIK == '-' && data[trav].PIC_REMEDIAL_NAME == 'NOT YET ASSIGNED') {
-						trHTML += '<tr><td align="center">' + no + '</td>' +
-							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-							'<td> <select id="pic' + trav + '"></td>' +
-							'<td> <input type="date" id="duedate' + trav + '"></td>' +
-							'<td align="center"> <input type="button" id="AssignPIC" value="Assign PIC" onclick=AssignPIC(this) class="btn btn-primary" style="width:100px;"/></td>' +
-							'<td hidden="hidden"><input type="text" value="' + data[trav].NO_DISPOSISI + '"</td>';
-
-					} else {
-						trHTML += '<tr><td align="center">' + no + '</td>' +
-							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-							'<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-							'<td>' + data[trav].DUE_DATE + '</td>' +
-							'<td align="center">* NO ACTIONS *</td>' +
-							'<td hidden="hidden"><input type="text" value="' + data[trav].NO_DISPOSISI + '"</td>';
-					}
-
-
-				}
-                $('#datatablepic').DataTable().clear().destroy();
-				$('#pictable').empty();
-				$('#pictable').append(trHTML);
-                $('#datatablepic').DataTable({
-                    "searching": false,
-                    "paging": false,
-					"info": false,
-                    "ordering": true
-                });
-
-				var jumlahdisposisi = trav;
-
-				LoadPICList(jumlahdisposisi);
-			},
-			error: function (ex) {
-				alert(JSON.stringify(ex));
-			}
-		});
-
-		var dtx = {
-			REQID: nomor
+		function GetEvalusiResiko() {
+            var dtx = {
+                REQID: nomor
+            }
+            // GET EVALUASI RESIKO
+            $.ajax({
+                url: "../Koordinator/LoadEvaluasiResiko",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dtx),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    $("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
+                },
+                error: function (ex) {
+                    GetError("LoadEvaluasiResiko", JSON.stringify(ex));
+                }
+            });
 		}
 
-		// GET EVALUASI RESIKO
-		$.ajax({
-			url: "../Koordinator/LoadEvaluasiResiko",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dtx),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				$("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
-			},
-			error: function (ex) {
-				alert(JSON.stringify(ex));
-			}
-		});
+        $.when(GetDisposisi()).then(GetEvalusiResiko());
 	}
 
 	function LoadPICList(jumlahdisposisi) {
@@ -500,7 +525,6 @@
 							'<option class="dropdown-item" value = "' + data[trav].EmpId + '">' + data[trav].EmpName + '</option>';
 					}
 				}
-
 				var i = 0;
 
 				// Populate PIC Dropdown Lists
@@ -510,9 +534,50 @@
 					$("#pic" + i).select2();
 				}
 
-
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                GetError("Load PIC List", JSON.stringify(ex));
+			}
+		});
+	}
+
+	function GetError(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
 			}
 		});
 	}

@@ -16,15 +16,15 @@
                     <div class="card-body">
                         <h2 class="d-inline">Pending Approval</h2>
                         <div class="table-responsive">
-                            <table class="table-hover table-borderless" id="deviationdatatable" width="2000px" style="color:black">
+                            <table class="table-hover table-bordered" id="deviationdatatable" width="2000px" style="color:black">
                                 <thead>
                                     <tr>
                                         <th style="text-align:center" width="100px">Action</th>
                                         <th style="text-align:center"width="100px">Request ID</th>
                                         <th style="text-align:center"width="100px">Status</th>
-                                        <th style="text-align:center"width="150px">Disposisi</th>
+                                        <th style="text-align:center"width="350px">Disposisi</th>
                                         <th style="text-align:center"width="100px">Due Date</th>
-                                        <th style="text-align:center"width="500px">Action PIC</th>
+                                        <th style="text-align:center"width="300px">Action PIC</th>
                                         <th style="text-align:center"width="100px">NIK PIC</th>
                                         <th style="text-align:center"width="100px">Nama PIC</th>
                                         <th style="text-align:center"width="200px">Keterangan Reject</th>
@@ -42,8 +42,14 @@
         </div>
     </div>
 </div>
+<style>
+    td {
+        padding:5px
+    }
 
-        <script>
+</style>
+<script>
+    
     $(document).ready(function () {
         // Load User once the page is loaded
         LoadData();
@@ -81,12 +87,12 @@
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
-                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>'+
-                                '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].HASIL_TINDAKAN + '</td>' +
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
                                 '<td style="text-align:center;"><input value="Revisi" onclick="Revisi(this, ' + data[trav].NO_DISPOSISI+')" type="button" class="btn btn-danger"/>';
 
                             // BISANYA ISI DOANG
@@ -99,18 +105,17 @@
                             data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY MANAGER' ||
                             data[trav].FLAG_VERIFIKASI == 'REJECTED'
                         ) {
-                            console.log(data[trav].STATUS);
                             trHTML +=
                                 '<tr><td style="text-align:center"><input value="Select" onclick="Open(this, ' + data[trav].NO_DISPOSISI +')" type="button" class="btn btn-success"/>' +
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
-                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
-                                '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].HASIL_TINDAKAN + '</td>' +
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
                                 '<td style="text-align:center"> N/A </td>'
 
                             // KALAU UDAH ISI / MINTA REVISI, STATUSNYA PENDING DAN GABISA NGAPA2IN
@@ -120,12 +125,12 @@
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Approval </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
-                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
-                                '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].HASIL_TINDAKAN + '</td>' +
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
                                 '<td style="text-align:center"> N/A </td>'
                         }
 
@@ -137,12 +142,12 @@
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
-                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
-                                '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].HASIL_TINDAKAN + '</td>' +
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td sstyle="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
                                 '<td style="text-align:center"> N/A </td>';
 
                         } else if (
@@ -160,12 +165,12 @@
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
-                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
-                                '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].HASIL_TINDAKAN + '</td>' +
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
                                 '<td style="text-align:center"> N/A </td>'
 
                             // KALAU UDAH ISI / MINTA REVISI, STATUSNYA PENDING DAN GABISA NGAPA2IN
@@ -175,12 +180,12 @@
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Approval </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
-                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
-                                '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].HASIL_TINDAKAN + '</td>' +
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                '<td style="text-align:center">' + data[trav].ALASAN_REJECT + '</td>' +
+                                '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
                                 '<td style="text-align:center"> N/A </td>'
                         }
 

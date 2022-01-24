@@ -419,7 +419,7 @@
 				document.getElementById('usulantindakan').value = data[0].USULAN_REMIDIAL;
 
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                ErrorPIC("QM_GetUsulanTindakan", JSON.stringify(ex));
 			}
 		});
 
@@ -436,15 +436,25 @@
 			data: JSON.stringify(dtx),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				$('#disposisitindakan').val(data[0].DISPOSISI_TINDAKAN);
-				$('#txtHasilTindakan').val(data[0].HASIL_TINDAKAN);
+                $('#disposisitindakan').val(data[0].DISPOSISI_TINDAKAN);
+                $('#txtHasilTindakan').val(data[0].HASIL_TINDAKAN);
                 var adaCost = data[0].HIDDEN_COST_TYPE;
 				$("input[name=checkhiddencost][value=" + adaCost + "]").prop('checked', true);
 				if (adaCost == 'Yes') {
-                    $("#picsubmission").prop('hidden', false);
-                }
+					$("#picsubmission").prop('hidden', false);
+
+
+				}
+
+                $('textarea').each(function () {
+                    //this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;width:500px;overflow-y:hidden;');
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                }).on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                ErrorPIC("QM_GetDisposisiTindakan", JSON.stringify(ex));
 			}
 		});
 	}
@@ -494,7 +504,7 @@
 				$("#mcSparepart").val(data[0].MC_SPAREPART);
 				$("#mcHargaSparepart").val(data[0].MC_TOTAL_HARGA_SPAREPART);
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                ErrorPIC("LoadCostDisposisi", JSON.stringify(ex));
 			}
 		});
 	}
@@ -517,7 +527,7 @@
 			success: function (data) {
 			}
 			, error: function (ex) {
-				alert("Delete Path in DB: " + stringify(ex));
+                ErrorPIC("Reviewer_DeletePath", stringify(ex));
 			}
 		});
 
@@ -530,7 +540,7 @@
 			success: function (data) {
 			}
 			, error: function (ex) {
-				alert("Delete Actual File: " + stringify(ex));
+                ErrorPIC("Reviewer_DeleteFile" , stringify(ex));
 			}
 		});
 	}
@@ -573,7 +583,7 @@
 						"onclick": null,
 						"showDuration": "100",
 						"hideDuration": "1000",
-						"timeOut": "1000",
+						"timeOut": "2000",
 						"extendedTimeOut": "1000",
 						"showEasing": "swing",
 						"hideEasing": "linear",
@@ -585,7 +595,7 @@
 				}
 			}
 			, error: function (ex) {
-				alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                ErrorPIC('Error Delete Attachment', JSON.stringify(ex));
 			}
 		});
 	}
@@ -644,7 +654,7 @@
 
 			}
 			, error: function (ex) {
-				alert('Error Load User Involved : ' + JSON.stringify(ex));
+                ErrorPIC('Error Load User Involved' , JSON.stringify(ex));
 			}
 		});
 	}
@@ -773,81 +783,114 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-                CheckDelete = 1;
+				CheckDelete = 1;
+
 				Swal.fire({
 					title: 'Form Submit',
-					showDenyButton: false,
-					showCancelButton: false,
-					confirmButtonText: `OK`
-				}).then((result) => {
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000
+				}).then(() => {
+					
+					function SendEmailPIC() {
+						//jika pakai cost kirim email ke superior
+						if (HiddenCostType == 'Yes') {
 
-					if (result.isConfirmed) {
-						window.location.href = "../DataDeviasi/PendingTask"
+							var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+							var tabletype = "One";
+							var whoreceiver = "Superior PIC after PIC Submit Cost";
+
+							var dtx = {
+								Receiver: receiver,
+								ReqID: REQID,
+								TableType: tabletype,
+								WhoReceiver: whoreceiver
+							};
+
+							$.ajax({
+								type: "post",
+								url: '../Form/SendEmailInputProposal',
+								data: JSON.stringify(dtx),
+								dataType: "json",
+								contentType: "application/json;charset=utf-8",
+								success: function (data) {
+                                    toastr.success("Email Sent Successfully !", "Notification", {
+                                        "closeButton": false,
+                                        "debug": true,
+                                        "newestOnTop": false,
+                                        "progressBar": false,
+                                        "positionClass": "toast-bottom-right",
+                                        "preventDuplicates": false,
+                                        "onclick": null,
+                                        "showDuration": "200",
+                                        "hideDuration": "1000",
+                                        "timeOut": "2000",
+                                        "extendedTimeOut": "1000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    });
+								}, error: function (ex) {
+									ErrorPIC("Error Email: " + JSON.stringify(ex));
+								}
+							});
+						}
+
+						//tanpa cost kirim email ke koordinator
+						else {
+							var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+							var tabletype = "More Than One";
+							var whoreceiver = "Koordinator after PIC Submit";
+
+							var dtx = {
+								Receiver: receiver,
+								ReqID: REQID,
+								TableType: tabletype,
+								WhoReceiver: whoreceiver
+							};
+
+							$.ajax({
+								type: "post",
+								url: '../Form/SendEmailInputProposal',
+								data: JSON.stringify(dtx),
+								dataType: "json",
+								contentType: "application/json;charset=utf-8",
+								success: function (data) {
+                                    toastr.success("Email Sent Successfully !", "Notification", {
+                                        "closeButton": false,
+                                        "debug": true,
+                                        "newestOnTop": false,
+                                        "progressBar": false,
+                                        "positionClass": "toast-bottom-right",
+                                        "preventDuplicates": false,
+                                        "onclick": null,
+                                        "showDuration": "200",
+                                        "hideDuration": "1000",
+                                        "timeOut": "2000",
+                                        "extendedTimeOut": "1000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    });
+								}, error: function (ex) {
+									ErrorPIC("Error Email: " + JSON.stringify(ex));
+								}
+							});
+						}
 					}
+
+                    $.when(SendEmailPIC()).done(window.location.href = "../DataDeviasi/PendingTask");
 				});
 
 			}
 			, error: function (ex) {
-				alert('Error Save: ' + JSON.stringify(ex));
+                ErrorPIC('Error Save', JSON.stringify(ex));
 			}
 		});
 
-		//jika pakai cost kirim email ke superior
-		if (HiddenCostType == 'Yes') {
 
-			var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-			var tabletype = "One";
-			var whoreceiver = "Superior PIC after PIC Submit Cost";
-
-			var dtx = {
-				Receiver: receiver,
-				ReqID: REQID,
-				TableType: tabletype,
-				WhoReceiver: whoreceiver
-			};
-
-			$.ajax({
-				type: "post",
-				url: '../Form/SendEmailInputProposal',
-				data: JSON.stringify(dtx),
-				dataType: "json",
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
-
-				}, error: function (ex) {
-					alert("Error Email: " + JSON.stringify(ex));
-				}
-			});
-		}
-
-		//tanpa cost kirim email ke koordinator
-		else {
-			var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-			var tabletype = "More Than One";
-			var whoreceiver = "Koordinator after PIC Submit";
-
-			var dtx = {
-				Receiver: receiver,
-				ReqID: REQID,
-				TableType: tabletype,
-				WhoReceiver: whoreceiver
-			};
-
-			$.ajax({
-				type: "post",
-				url: '../Form/SendEmailInputProposal',
-				data: JSON.stringify(dtx),
-				dataType: "json",
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
-
-				}, error: function (ex) {
-					alert("Error Email: " + JSON.stringify(ex));
-				}
-			});
-        }
 	}
 
 	function DeleteFileAttachment(button) {
@@ -885,7 +928,7 @@
 						"onclick": null,
 						"showDuration": "100",
 						"hideDuration": "1000",
-						"timeOut": "1000",
+						"timeOut": "2000",
 						"extendedTimeOut": "1000",
 						"showEasing": "swing",
 						"hideEasing": "linear",
@@ -897,11 +940,52 @@
 				}
 			},
 			error: function (ex) {
+                ErrorPIC("Delete AtachmentPIC", JSON.stringify(ex));
 			}
 		});
 
 	}
 
+	function ErrorPIC(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Failure ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
 </script>
 

@@ -119,8 +119,8 @@
                 Delegate();
             });
 
-            $("#btnGotomanager").click(function () {               
-				GoToManager();                
+            $("#btnGotomanager").click(function () {
+				GoToManager();
             });
 		});
 
@@ -142,14 +142,14 @@
 					contentType: "application/json;charset=utf-8",
 					success: function (data) {
 						Swal.fire({
-							title: 'Approved, Send To Manager',
+							title: 'Approved, Send To Evaluator',
 							icon: 'success',
 							showConfirmButton: false,
 							timer: 2000
 						});
 					},
 					error: function (ex) {
-						alert(JSON.stringify(ex));
+                        Error("Approve Send Evaluator", JSON.stringify(ex))
 					}
 				});
 			}
@@ -188,24 +188,9 @@
                             "showMethod": "fadeIn",
                             "hideMethod": "fadeOut"
                         });
-                    }, error: function (ex) {
-                        toastr.warning("Email Delivery Failure ! : " + JSON.stringify(ex), "Notification", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-bottom-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "200",
-                            "hideDuration": "1000",
-                            "timeOut": "1000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
+					}, error: function (ex) {
+                        Error("Email Notifikasi", JSON.stringify(ex))
+                        
                     }
                 });
 			}
@@ -268,7 +253,8 @@
 
 				}
 				, error: function (ex) {
-					alert('Error Delete User Involved : ' + JSON.stringify(ex));
+                    
+					Error("Error Delete User Involved", JSON.stringify(ex));
 				}
 			});
 		}
@@ -336,7 +322,7 @@
 
 
 				}, error: function (ex) {
-					alert(JSON.stringify(ex));
+					Error("Load Data Review Koor", JSON.stringify(ex));
 				}
 			});
 		}
@@ -375,7 +361,7 @@
 
                     },
                     error: function (ex) {
-                        alert(JSON.stringify(ex));
+                        Error("Approve Review", JSON.stringify(ex));
                     }
                 });
 			}
@@ -414,23 +400,7 @@
                         });
 					}, error: function (ex) {
 
-						toastr.warning("Email Delivery Failure ! : " + JSON.stringify(ex), "Notification", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-bottom-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "200",
-                            "hideDuration": "1000",
-                            "timeOut": "1000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
+                        Error("Email Notifikasi", JSON.stringify(ex))
                     }
                 });
 			}
@@ -462,7 +432,8 @@
                         showConfirmButton: false,
                         timer: 2000
 					});
-				} else if (result.isConfirmed) {
+				}
+				else if (result.isConfirmed) {
 
 					var row = $(button).closest("TR");
 					var empid = $("TD", row).eq(1).html();
@@ -498,11 +469,11 @@
                                 });
                             },
                             error: function (ex) {
-                                alert(JSON.stringify(ex));
+                                Error("Error Reject Review", JSON.stringify(ex))
                             }
                         });
 					}
-					
+
 					function NotifyReviewerReject() {
                         var dtx = {
                             Receiver: empid,
@@ -537,23 +508,7 @@
                                     "hideMethod": "fadeOut"
                                 });
                             }, error: function (ex) {
-                                toastr.warning("Email Delivery Failure ! : " + JSON.stringify(ex), "Notification", {
-                                    "closeButton": false,
-                                    "debug": true,
-                                    "newestOnTop": false,
-                                    "progressBar": false,
-                                    "positionClass": "toast-bottom-right",
-                                    "preventDuplicates": false,
-                                    "onclick": null,
-                                    "showDuration": "200",
-                                    "hideDuration": "1000",
-                                    "timeOut": "1000",
-                                    "extendedTimeOut": "1000",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
-                                });
+                                Error("Email Notifikasi Review Reject", JSON.stringify(ex))
                             }
                         });
 					}
@@ -603,7 +558,7 @@
 					}
 
 				}, error: function (ex) {
-					alert(JSON.stringify(ex));
+                    Error("Check Rev App", JSON.stringify(ex))
 				}
 			});
 		}
@@ -654,7 +609,7 @@
 					}
 				}
 				, error: function (ex) {
-					alert('Error Delete Attachment: ' + JSON.stringify(ex));
+					Error('Error Delete Attachment', JSON.stringify(ex));
 				}
 			});
 		}
@@ -704,7 +659,7 @@
 
 				}
 				, error: function (ex) {
-					alert('Error Load User Involved : ' + JSON.stringify(ex));
+					Error('Error Load User Involved', JSON.stringify(ex));
 				}
 			});
 		}
@@ -751,13 +706,55 @@
 					}
 				}
 				, error: function (ex) {
-					alert('Error Delete User Involved : ' + JSON.stringify(ex));
+					Error('Error Delete Ket Disposisi', JSON.stringify(ex));
 				}
 			});
 		}
 
 		function Delegate() {
 			window.location.href = "../Koordinator/Delegasi?Nomor=@ViewBag.nomor";
+		}
+
+		function Error(ErrorType, ErrorMsg) {
+			var REQID = @ViewBag.nomor;
+			var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+			var dto = {
+				REQ_ID: REQID,
+				UserLogin: USERNIK,
+                ErrorType: ErrorType,
+                ErrorMsg: ErrorMsg
+			}
+
+			$.ajax({
+				url: "../Form/LogError",
+				type: "post",
+				dataType: "json",
+				data: JSON.stringify(dto),
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+                    toastr.warning(data +" Failure ! ", "Notification", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-bottom-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "200",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+				}
+				, error: function (ex) {
+					
+				}
+			});
 		}
 
     </script>

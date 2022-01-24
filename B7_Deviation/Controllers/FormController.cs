@@ -21,7 +21,7 @@ namespace B7_Deviation.Controllers
         readonly OracleConnection OraDBConn = new OracleConnection(OraDB.ConnectionString);
         readonly OracleDataAdapter DataAdapt = new OracleDataAdapter();
         private readonly DataTable DT = new DataTable();
-        
+
         public ActionResult Index()
         {
             return View();
@@ -32,10 +32,10 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
-        
+
         public ActionResult CheckEmailAvailability(DeviationModel model)
         {
-            string result; 
+            string result;
             List<string> ModelData = new List<string>();
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
@@ -90,7 +90,7 @@ namespace B7_Deviation.Controllers
                  , t_location = ""
                  , t_status = ""
                  , t_namapenerima = ""
-                 , t_emailpenerima = "" ;
+                 , t_emailpenerima = "";
 
             //SettingAttribute Detail Data Email 
             try
@@ -169,7 +169,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@UserID", SqlDbType.VarChar);
                             Command.Parameters["@UserID"].Value = Model.Receiver;
                         }
-                        else if(Model.WhoReceiver == "PIC after Appointed")
+                        else if (Model.WhoReceiver == "PIC after Appointed")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Reviewer One";
@@ -185,7 +185,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@UserID", SqlDbType.VarChar);
                             Command.Parameters["@UserID"].Value = Model.Receiver;
                         }
-                        else if(Model.WhoReceiver == "Pelapor after Lanjut CAPA")
+                        else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
@@ -193,7 +193,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        else if(Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
+                        else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
@@ -201,7 +201,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        else if(Model.WhoReceiver == "Canceled")
+                        else if (Model.WhoReceiver == "Canceled")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
@@ -209,7 +209,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        else if(Model.WhoReceiver == "Delegasi")
+                        else if (Model.WhoReceiver == "Delegasi")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Delegasi";
@@ -217,7 +217,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        else if(Model.WhoReceiver == "SPV PIC Usulan Revisi")
+                        else if (Model.WhoReceiver == "SPV PIC Usulan Revisi")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "SPV PIC Usulan Revisi";
@@ -225,7 +225,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@UserID", SqlDbType.VarChar);
                             Command.Parameters["@UserID"].Value = Model.Receiver;
                         }
-                        else if(Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
+                        else if (Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Reviewer Rejected Usulan Revisi";
@@ -236,7 +236,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        else if(Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
+                        else if (Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Reviewer Rejected Usulan Revisi";
@@ -247,7 +247,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        
+
 
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
                         dataAdap.SelectCommand = Command;
@@ -943,7 +943,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        else if(Model.WhoReceiver == "Koordinator after PIC Submit")
+                        else if (Model.WhoReceiver == "Koordinator after PIC Submit")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
@@ -951,7 +951,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        else if(Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
+                        else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
@@ -959,7 +959,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        else if(Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
+                        else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Reviwer after Appointed";
@@ -967,7 +967,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        else if(Model.WhoReceiver == "QM PIC Usulan Revisi")
+                        else if (Model.WhoReceiver == "QM PIC Usulan Revisi")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
@@ -992,8 +992,8 @@ namespace B7_Deviation.Controllers
                 string daftarNamaPenerima = "";
                 foreach (DataRow dr in DT.Rows)
                 {
-                    daftarNamaPenerima+= dr[0].ToString()+", ";
-                    t_namapenerima = dr[0].ToString(); 
+                    daftarNamaPenerima += dr[0].ToString() + ", ";
+                    t_namapenerima = dr[0].ToString();
                     t_emailpenerima = dr[1].ToString();
                     Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
                 }
@@ -1464,7 +1464,7 @@ namespace B7_Deviation.Controllers
                 //result = ex.ToString();
                 throw ex;
             }
-            
+
             ModelData.Add(result);
             return Json(ModelData);
         }
@@ -1501,25 +1501,25 @@ namespace B7_Deviation.Controllers
         }
 
         #region Attachment File
-        
+
         public ActionResult UploadAttachment(FormCollection formCollection)
         {
-           string FileNameForDB 
-                , URLDownload
-                , URLAttachment
-                , result = ""
-                , ReqID = formCollection["ReqID"];
+            string FileNameForDB
+                 , URLDownload
+                 , URLAttachment
+                 , result = ""
+                 , ReqID = formCollection["ReqID"];
 
             string DateTimeF = DateTime.Now.ToString("mmssff");
 
-            
+
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
 
             for (int i = 0; i < Request.Files.Count; i++)
             {
                 var file = Request.Files[i];
-                var fileName = ReqID + '_' + DateTimeF + '_'+Path.GetFileName(file.FileName);
+                var fileName = ReqID + '_' + DateTimeF + '_' + Path.GetFileName(file.FileName);
 
                 //URLAttachment = Path.Combine(@"D:\B7_Deviation\B7_Deviation\Content\TempURLFiles", fileName);
 
@@ -1830,7 +1830,7 @@ namespace B7_Deviation.Controllers
             }
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             Dictionary<string, object> row;
-            foreach(DataRow dr in DT.Rows)
+            foreach (DataRow dr in DT.Rows)
             {
                 row = new Dictionary<string, object>();
                 foreach (DataColumn col in DT.Columns)
@@ -1919,7 +1919,7 @@ namespace B7_Deviation.Controllers
 
         public ActionResult GetNoBatchOracle(DeviationModel Model)
         {
-            try 
+            try
             {
                 using (OracleCommand command = new OracleCommand("XXB7_DEVIATION.GET_NO_WO", OraDBConn))
                 {
@@ -1945,7 +1945,7 @@ namespace B7_Deviation.Controllers
                 }
                 return Json(rows);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -2670,7 +2670,7 @@ namespace B7_Deviation.Controllers
             } catch (Exception ex) {
                 throw ex;
             }
-            
+
             ModelData.Add(result);
             return Json(ModelData, JsonRequestBehavior.AllowGet);
         }
@@ -2749,7 +2749,7 @@ namespace B7_Deviation.Controllers
             return Json(ModelData);
         }
 
-        public ActionResult LoadUserInvolved(DeviationModel Model) 
+        public ActionResult LoadUserInvolved(DeviationModel Model)
         {
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
@@ -2793,5 +2793,40 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
         #endregion
+
+        public ActionResult LogError(ErrorModel Model) 
+        {
+            string ConString = MyDB.ConnectionString, result;
+            SqlConnection Conn = new SqlConnection(ConString);
+            List<string> ModelData = new List<string>();
+
+            try {
+                using (SqlCommand command = new SqlCommand("SP_ERROR", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@REQ_ID", SqlDbType.VarChar);
+                    command.Parameters["@REQ_ID"].Value = Model.REQ_ID;
+
+                    command.Parameters.Add("@ErrorType", SqlDbType.VarChar);
+                    command.Parameters["@ErrorType"].Value = Model.ErrorType;
+
+                    command.Parameters.Add("@ErrorMsg", SqlDbType.VarChar);
+                    command.Parameters["@ErrorMsg"].Value = Model.ErrorMsg;
+
+                    command.Parameters.Add("@UserLogin", SqlDbType.VarChar);
+                    command.Parameters["@UserLogin"].Value = Model.UserLogin;
+                    Conn.Open();
+                    result = (string)command.ExecuteScalar();
+                    Conn.Close();
+                }
+            } catch(Exception ex) {
+                throw ex;
+            }
+
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
     }
 }
