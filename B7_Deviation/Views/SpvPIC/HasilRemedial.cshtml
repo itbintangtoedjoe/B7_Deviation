@@ -277,7 +277,6 @@
 </div>
 
 <script>
-
 	$(document).ready(function () {
 		//FORM INPUT
 		LoadFormInput();
@@ -325,7 +324,7 @@
 				document.getElementById('disposisitindakan').value = data[0].DISPOSISI_TINDAKAN;
 
 			}, error: function (ex) {
-                GetErrorSup('GetDispTindakanSupPic', JSON.stringify(ex));
+				alert(JSON.stringify(ex));
 			}
 		});
 	}
@@ -505,7 +504,7 @@
 				$("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
 			},
 			error: function (ex) {
-                GetErrorSup('LoadEvalusiResiko', JSON.stringify(ex));
+				alert(JSON.stringify(ex));
 			}
 		});
 	}
@@ -694,8 +693,8 @@
                             '<label class="col-form-label label-trigger">Keterangan Review</label>' +
                             '</div>' +
 
-							'<div class="row form-group">' +
-                            '<textarea type="text" class="form-control" placeholder="Keterangan Reviewer" style="width: 500px;" disabled>' + data[trav].KETERANGAN_REVIEW + '</textarea>' +
+                            '<div class="row form-group">' +
+                            '<input type="text" class="form-control" placeholder="Keterangan Reviewer" style="width: 500px;" disabled value="' + data[trav].KETERANGAN_REVIEW + '">' +
                             '</div>' +
 
                             '<div class="row form-group">' +
@@ -788,7 +787,7 @@
                                 }
 
                             }, error: function (ex) {
-                                GetErrorSup('LoadTattchmentSupPIC', JSON.stringify(ex));
+                                alert('Error Load Attachment : ' + JSON.stringify(ex));
                             }, async: true
 
                         });
@@ -809,7 +808,7 @@
 
 
             }, error: function (ex) {
-                GetErrorSup('LoadDevApprovalSupPic', JSON.stringify(ex));
+                alert(JSON.stringify(ex));
             }, async: false
         });
 	}
@@ -1010,7 +1009,7 @@
 
 			}
 			, error: function (ex) {
-                GetErrorSup('KetDisposisiSupPIC', JSON.stringify(ex));
+				alert('Error Load User Involved : ' + JSON.stringify(ex));
 			}
 		});
 	}
@@ -1080,7 +1079,7 @@
 
 			}
 			, error: function (ex) {
-                GetErrorSup('LoadBuktiSupPIC', JSON.stringify(ex));
+				alert('Error Load User Involved : ' + JSON.stringify(ex));
 			}
 		});
 	}
@@ -1128,16 +1127,10 @@
                 document.getElementById('mcSparepart').value = data[0].MC_SPAREPART;
                 document.getElementById('mcHargaSparepart').value = data[0].MC_TOTAL_HARGA_SPAREPART;
 				document.getElementById('mcTotalMachineHours').value = data[0].MC_TOTAL_MACHINE_HOURS_VALUE;
-                $('textarea').each(function () {
-                    //this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;width:500px;overflow-y:hidden;');
-                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-                }).on('input', function () {
-                    this.style.height = 'auto';
-                    this.style.height = (this.scrollHeight) + 'px';
-                });
+
 			}
 			, error: function (ex) {
-                GetErrorSup('LoadPICSection', JSON.stringify(ex));
+				alert('Error Load User Involved : ' + JSON.stringify(ex));
 			}
 		});
 	}
@@ -1161,17 +1154,47 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+
 				Swal.fire({
-                    icon: 'success',
 					title: 'Form Approved',
-                    showConfirmButton: false,
-                    timer: 2000
-				}).then(() => {
-					window.location.href = "../DataDeviasi/PendingTask"
+					showDenyButton: false,
+					showCancelButton: false,
+					confirmButtonText: `OK`
+				}).then((result) => {
+
+					if (result.isConfirmed) {
+						window.location.href = "../DataDeviasi/PendingTask"
+					}
 				})
+
 			}
 			, error: function (ex) {
-                GetErrorSup('ApproveSupPic', JSON.stringify(ex));
+
+			}
+		});
+
+		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var tabletype = "More Than One";
+		var whoreceiver = "Koordinator after Superior PIC Approved Cost";
+
+		var dto = {
+			Receiver: receiver,
+			ReqID: REQID,
+			TableType: tabletype,
+			WhoReceiver: whoreceiver
+		};
+
+		$.ajax({
+			type: "post",
+			url: '../Form/SendEmailInputProposal',
+			data: JSON.stringify(dto),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+			}, error: function (ex) {
+				alert("Error Email: " + JSON.stringify(ex));
 			}
 		});
 	}
@@ -1194,9 +1217,7 @@
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: 'Please Insert Reason!',
-                    showConfirmButton: false,
-                    timer: 2000
+					text: 'Please Insert Reason!'
 				});
 			} else if (result.isConfirmed) {
 
@@ -1222,61 +1243,48 @@
 					success: function (data) {
 
 						Swal.fire({
-                            icon: 'success',
 							title: 'Form Rejected',
-                            showConfirmButton: false,
-                            timer: 2000
-						}).then(() => {
-							window.location.href = "../DataDeviasi/PendingTask"
+							showDenyButton: false,
+							showCancelButton: false,
+							confirmButtonText: `OK`
+						}).then((result) => {
+
+							if (result.isConfirmed) {
+								window.location.href = "../DataDeviasi/PendingTask"
+							}
 						})
 
 					}
 					, error: function (ex) {
-                        GetErrorSup('RejectSupPic' , JSON.stringify(ex));
+						alert('Error Delete Attachment: ' + JSON.stringify(ex));
 					}
 				});
-			}
-		});
-	}
 
-	function GetErrorSup(ErrorType, ErrorMsg) {
-		var REQID = @ViewBag.nomor;
-		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+				var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		var dto = {
-			REQ_ID: REQID,
-			UserLogin: USERNIK,
-            ErrorType: ErrorType,
-            ErrorMsg: ErrorMsg
-		}
+				var tabletype = "One";
+				var whoreceiver = "PIC after Superior Rejected Cost";
 
-		$.ajax({
-			url: "../Form/LogError",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-                toastr.warning(data +" Superior PIC ! ", "Notification", {
-                    "closeButton": false,
-                    "debug": true,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-bottom-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "200",
-                    "hideDuration": "1000",
-                    "timeOut": "1000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                });
-			}
-			, error: function (ex) {
+				var dto = {
+					Receiver: receiver,
+					ReqID: REQID,
+					TableType: tabletype,
+					WhoReceiver: whoreceiver,
+					Urutan: DIS
+				};
 
+				$.ajax({
+					type: "post",
+					url: '../Form/SendEmailInputProposal',
+					data: JSON.stringify(dto),
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+
+					}, error: function (ex) {
+						alert("Error Email: " + JSON.stringify(ex));
+					}
+				});
 			}
 		});
 	}
