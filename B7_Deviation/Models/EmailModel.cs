@@ -22,5 +22,7 @@ namespace B7_Deviation.Models
         public string WhoReceiver { get; set; }
         public string TableType { get; set; }
 
+        //KHUSUS DISPOSISI
+        public string Urutan { get; set; }
     }
 }

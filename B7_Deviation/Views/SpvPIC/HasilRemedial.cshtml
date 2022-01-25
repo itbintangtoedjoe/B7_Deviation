@@ -277,7 +277,6 @@
 </div>
 
 <script>
-
 	$(document).ready(function () {
 		//FORM INPUT
 		LoadFormInput();
@@ -1173,6 +1172,31 @@
 
 			}
 		});
+
+		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var tabletype = "More Than One";
+		var whoreceiver = "Koordinator after Superior PIC Approved Cost";
+
+		var dto = {
+			Receiver: receiver,
+			ReqID: REQID,
+			TableType: tabletype,
+			WhoReceiver: whoreceiver
+		};
+
+		$.ajax({
+			type: "post",
+			url: '../Form/SendEmailInputProposal',
+			data: JSON.stringify(dto),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+			}, error: function (ex) {
+				alert("Error Email: " + JSON.stringify(ex));
+			}
+		});
 	}
 
 	function Reject() {
@@ -1236,8 +1260,32 @@
 					}
 				});
 
-			}
+				var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
+				var tabletype = "One";
+				var whoreceiver = "PIC after Superior Rejected Cost";
+
+				var dto = {
+					Receiver: receiver,
+					ReqID: REQID,
+					TableType: tabletype,
+					WhoReceiver: whoreceiver,
+					Urutan: DIS
+				};
+
+				$.ajax({
+					type: "post",
+					url: '../Form/SendEmailInputProposal',
+					data: JSON.stringify(dto),
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+
+					}, error: function (ex) {
+						alert("Error Email: " + JSON.stringify(ex));
+					}
+				});
+			}
 		});
 	}
 
