@@ -325,7 +325,7 @@
 				document.getElementById('disposisitindakan').value = data[0].DISPOSISI_TINDAKAN;
 
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                GetErrorSup('GetDispTindakanSupPic', JSON.stringify(ex));
 			}
 		});
 	}
@@ -505,7 +505,7 @@
 				$("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
 			},
 			error: function (ex) {
-				alert(JSON.stringify(ex));
+                GetErrorSup('LoadEvalusiResiko', JSON.stringify(ex));
 			}
 		});
 	}
@@ -694,8 +694,8 @@
                             '<label class="col-form-label label-trigger">Keterangan Review</label>' +
                             '</div>' +
 
-                            '<div class="row form-group">' +
-                            '<input type="text" class="form-control" placeholder="Keterangan Reviewer" style="width: 500px;" disabled value="' + data[trav].KETERANGAN_REVIEW + '">' +
+							'<div class="row form-group">' +
+                            '<textarea type="text" class="form-control" placeholder="Keterangan Reviewer" style="width: 500px;" disabled>' + data[trav].KETERANGAN_REVIEW + '</textarea>' +
                             '</div>' +
 
                             '<div class="row form-group">' +
@@ -788,7 +788,7 @@
                                 }
 
                             }, error: function (ex) {
-                                alert('Error Load Attachment : ' + JSON.stringify(ex));
+                                GetErrorSup('LoadTattchmentSupPIC', JSON.stringify(ex));
                             }, async: true
 
                         });
@@ -809,7 +809,7 @@
 
 
             }, error: function (ex) {
-                alert(JSON.stringify(ex));
+                GetErrorSup('LoadDevApprovalSupPic', JSON.stringify(ex));
             }, async: false
         });
 	}
@@ -1010,7 +1010,7 @@
 
 			}
 			, error: function (ex) {
-				alert('Error Load User Involved : ' + JSON.stringify(ex));
+                GetErrorSup('KetDisposisiSupPIC', JSON.stringify(ex));
 			}
 		});
 	}
@@ -1080,7 +1080,7 @@
 
 			}
 			, error: function (ex) {
-				alert('Error Load User Involved : ' + JSON.stringify(ex));
+                GetErrorSup('LoadBuktiSupPIC', JSON.stringify(ex));
 			}
 		});
 	}
@@ -1128,10 +1128,16 @@
                 document.getElementById('mcSparepart').value = data[0].MC_SPAREPART;
                 document.getElementById('mcHargaSparepart').value = data[0].MC_TOTAL_HARGA_SPAREPART;
 				document.getElementById('mcTotalMachineHours').value = data[0].MC_TOTAL_MACHINE_HOURS_VALUE;
-
+                $('textarea').each(function () {
+                    //this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;width:500px;overflow-y:hidden;');
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                }).on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
 			}
 			, error: function (ex) {
-				alert('Error Load User Involved : ' + JSON.stringify(ex));
+                GetErrorSup('LoadPICSection', JSON.stringify(ex));
 			}
 		});
 	}
@@ -1155,22 +1161,17 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
 				Swal.fire({
+                    icon: 'success',
 					title: 'Form Approved',
-					showDenyButton: false,
-					showCancelButton: false,
-					confirmButtonText: `OK`
-				}).then((result) => {
-
-					if (result.isConfirmed) {
-						window.location.href = "../DataDeviasi/PendingTask"
-					}
+                    showConfirmButton: false,
+                    timer: 2000
+				}).then(() => {
+					window.location.href = "../DataDeviasi/PendingTask"
 				})
-
 			}
 			, error: function (ex) {
-
+                GetErrorSup('ApproveSupPic', JSON.stringify(ex));
 			}
 		});
 	}
@@ -1193,7 +1194,9 @@
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: 'Please Insert Reason!'
+					text: 'Please Insert Reason!',
+                    showConfirmButton: false,
+                    timer: 2000
 				});
 			} else if (result.isConfirmed) {
 
@@ -1219,25 +1222,62 @@
 					success: function (data) {
 
 						Swal.fire({
+                            icon: 'success',
 							title: 'Form Rejected',
-							showDenyButton: false,
-							showCancelButton: false,
-							confirmButtonText: `OK`
-						}).then((result) => {
-
-							if (result.isConfirmed) {
-								window.location.href = "../DataDeviasi/PendingTask"
-							}
+                            showConfirmButton: false,
+                            timer: 2000
+						}).then(() => {
+							window.location.href = "../DataDeviasi/PendingTask"
 						})
 
 					}
 					, error: function (ex) {
-						alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                        GetErrorSup('RejectSupPic' , JSON.stringify(ex));
 					}
 				});
+			}
+		});
+	}
+
+	function GetErrorSup(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Superior PIC ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
 
 			}
-
 		});
 	}
 
