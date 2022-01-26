@@ -320,11 +320,9 @@
 			data: JSON.stringify(dtx),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
 				document.getElementById('disposisitindakan').value = data[0].DISPOSISI_TINDAKAN;
-
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                GetErrorSupRemedial("GetDisposisiTindakanSupPIC", JSON.stringify(ex));
 			}
 		});
 	}
@@ -333,9 +331,9 @@
 
 	function LoadFormInput() {
 		var nomor = @ViewBag.nomor;
-		var dto = {
-			ReqID: nomor
-		}
+		//var dto = {
+		//	ReqID: nomor
+		//}
 
 		//$.ajax({
 		//	url: "../SpvPelapor/App_LoadDeviationApproval",
@@ -499,12 +497,10 @@
 			data: JSON.stringify(dtx),
 			contentType: "application/json;charset=utf-8",
             success: function (data) {
-                console.log('data');
-				console.log(data);
 				$("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
 			},
 			error: function (ex) {
-				alert(JSON.stringify(ex));
+                GetErrorSupRemedial("LoadEvalusiResSupPIC", JSON.stringify(ex));
 			}
 		});
 	}
@@ -787,7 +783,7 @@
                                 }
 
                             }, error: function (ex) {
-                                alert('Error Load Attachment : ' + JSON.stringify(ex));
+                                GetErrorSupRemedial("AttchmentSupPIC", JSON.stringify(ex));
                             }, async: true
 
                         });
@@ -808,7 +804,7 @@
 
 
             }, error: function (ex) {
-                alert(JSON.stringify(ex));
+                GetErrorSupRemedial("DeviationApprovalSupPIC", JSON.stringify(ex));
             }, async: false
         });
 	}
@@ -1009,7 +1005,7 @@
 
 			}
 			, error: function (ex) {
-				alert('Error Load User Involved : ' + JSON.stringify(ex));
+                GetErrorSupRemedial("LoadKetDispSupPIC", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1076,10 +1072,9 @@
 				else {
                     $("#tblBuktiBody").addBack();
 				}
-
 			}
 			, error: function (ex) {
-				alert('Error Load User Involved : ' + JSON.stringify(ex));
+                GetErrorSupRemedial("LoadBuktiSupPIC", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1128,9 +1123,15 @@
                 document.getElementById('mcHargaSparepart').value = data[0].MC_TOTAL_HARGA_SPAREPART;
 				document.getElementById('mcTotalMachineHours').value = data[0].MC_TOTAL_MACHINE_HOURS_VALUE;
 
+				$('textarea').each(function () {
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                }).on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
 			}
 			, error: function (ex) {
-				alert('Error Load User Involved : ' + JSON.stringify(ex));
+                GetErrorSupRemedial("LoadPICSecSupPIC", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1141,66 +1142,82 @@
 		var DIS = @ViewBag.dis;
 		var IDUser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		var dto = {
-			REQ_ID: REQID,
-			NO_DISPOSISI: DIS,
-			CURR_USER: IDUser
+		function ApproveSupPIC() {
+            var dto = {
+                REQ_ID: REQID,
+                NO_DISPOSISI: DIS,
+                CURR_USER: IDUser
+            }
+
+            $.ajax({
+                url: "../SpvPIC/Approve",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+					Swal.fire({
+                        icon: 'success',
+                        title: 'Form Approved',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+						window.location.href = "../DataDeviasi/PendingTask"
+                    })
+                }
+                , error: function (ex) {
+                    GetErrorSupRemedial("ApproveSupPIC", JSON.stringify(ex));
+                }
+            });
 		}
 
-		$.ajax({
-			url: "../SpvPIC/Approve",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
+		function EmailApproveSupPIC() {
+			var tabletype = "More Than One";
+			var whoreceiver = "Koordinator after Superior PIC Approved Cost";
 
-				Swal.fire({
-					title: 'Form Approved',
-					showDenyButton: false,
-					showCancelButton: false,
-					confirmButtonText: `OK`
-				}).then((result) => {
+			var dto = {
+                Receiver: IDUser,
+				ReqID: REQID,
+				TableType: tabletype,
+				WhoReceiver: whoreceiver
+			};
 
-					if (result.isConfirmed) {
-						window.location.href = "../DataDeviasi/PendingTask"
-					}
-				})
-
-			}
-			, error: function (ex) {
-
-			}
-		});
-
-		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-        var tabletype = "More Than One";
-		var whoreceiver = "Koordinator after Superior PIC Approved Cost";
-
-		var dto = {
-			Receiver: receiver,
-			ReqID: REQID,
-			TableType: tabletype,
-			WhoReceiver: whoreceiver
-		};
-
-		$.ajax({
-			type: "post",
-			url: '../Form/SendEmailInputProposal',
-			data: JSON.stringify(dto),
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-
-			}, error: function (ex) {
-				alert("Error Email: " + JSON.stringify(ex));
-			}
-		});
+			$.ajax({
+				type: "post",
+				url: '../Form/SendEmailInputProposal',
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					toastr.success("Email Sent Successfully !", "Notification", {
+						"closeButton": false,
+						"debug": true,
+						"newestOnTop": false,
+						"progressBar": false,
+						"positionClass": "toast-bottom-right",
+						"preventDuplicates": false,
+						"onclick": null,
+						"showDuration": "100",
+						"hideDuration": "1000",
+						"timeOut": "2000",
+						"extendedTimeOut": "1000",
+						"showEasing": "swing",
+						"hideEasing": "linear",
+						"showMethod": "fadeIn",
+						"hideMethod": "fadeOut"
+					});
+				}, error: function (ex) {
+                    GetErrorSupRemedial("EmailAppSupPIC" ,JSON.stringify(ex));
+				}
+			});
+		}
+        $.when(ApproveSupPIC()).done(EmailApproveSupPIC());
 	}
 
 	function Reject() {
-		Swal.fire({
+        Swal.fire({
+            icon: 'question',
 			title: 'Alasan Reject',
 			input: 'text',
 			inputAttributes: {
@@ -1223,70 +1240,128 @@
 
 				var REQID = @ViewBag.nomor;
 				var DIS = @ViewBag.dis;
-				var Keterangan = result.value;
-				var IDUser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-				// PINJAM MODEL DISPOSISI
-				var dto = {
-					REQ_ID: REQID,
-					KETERANGAN_DISPOSISI: Keterangan,
-					NO_DISPOSISI: DIS,
-					CURR_USER: IDUser
-				};
+				function RejectRemidialSup() {
+					var Keterangan = result.value;
+					var IDUser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-				$.ajax({
-					url: "../SpvPIC/Reject",
-					type: "post",
-					dataType: "json",
-					data: JSON.stringify(dto),
-					contentType: "application/json;charset=utf-8",
-					success: function (data) {
+					// PINJAM MODEL DISPOSISI
+					var dto = {
+						REQ_ID: REQID,
+						KETERANGAN_DISPOSISI: Keterangan,
+						NO_DISPOSISI: DIS,
+						CURR_USER: IDUser
+					};
 
-						Swal.fire({
-							title: 'Form Rejected',
-							showDenyButton: false,
-							showCancelButton: false,
-							confirmButtonText: `OK`
-						}).then((result) => {
+					$.ajax({
+						url: "../SpvPIC/Reject",
+						type: "post",
+						dataType: "json",
+						data: JSON.stringify(dto),
+						contentType: "application/json;charset=utf-8",
+						success: function (data) {
 
-							if (result.isConfirmed) {
+							Swal.fire({
+                                icon: 'success',
+								title: 'Form Rejected',
+                                showConfirmButton: false,
+                                timer: 2000
+							}).then(() => {
 								window.location.href = "../DataDeviasi/PendingTask"
-							}
-						})
+							})
+						}
+						, error: function (ex) {
+                            GetErrorSupRemedial('RejSupPIC ', JSON.stringify(ex));
+						}
+					});
+				}
 
-					}
-					, error: function (ex) {
-						alert('Error Delete Attachment: ' + JSON.stringify(ex));
-					}
-				});
+				function EmailRejectSupPIC() {
+					var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+					var tabletype = "One";
+					var whoreceiver = "PIC after Superior Rejected Cost";
 
-				var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+					var dto = {
+						Receiver: receiver,
+						ReqID: REQID,
+						TableType: tabletype,
+						WhoReceiver: whoreceiver,
+						Urutan: DIS
+					};
 
-				var tabletype = "One";
-				var whoreceiver = "PIC after Superior Rejected Cost";
-
-				var dto = {
-					Receiver: receiver,
-					ReqID: REQID,
-					TableType: tabletype,
-					WhoReceiver: whoreceiver,
-					Urutan: DIS
-				};
-
-				$.ajax({
-					type: "post",
-					url: '../Form/SendEmailInputProposal',
-					data: JSON.stringify(dto),
-					dataType: "json",
-					contentType: "application/json;charset=utf-8",
-					success: function (data) {
-
-					}, error: function (ex) {
-						alert("Error Email: " + JSON.stringify(ex));
-					}
-				});
+					$.ajax({
+						type: "post",
+						url: '../Form/SendEmailInputProposal',
+						data: JSON.stringify(dto),
+						dataType: "json",
+						contentType: "application/json;charset=utf-8",
+						success: function (data) {
+							toastr.success("Email Sent Successfully !", "Notification", {
+								"closeButton": false,
+								"debug": true,
+								"newestOnTop": false,
+								"progressBar": false,
+								"positionClass": "toast-bottom-right",
+								"preventDuplicates": false,
+								"onclick": null,
+								"showDuration": "100",
+								"hideDuration": "1000",
+								"timeOut": "2000",
+								"extendedTimeOut": "1000",
+								"showEasing": "swing",
+								"hideEasing": "linear",
+								"showMethod": "fadeIn",
+								"hideMethod": "fadeOut"
+							});
+						}, error: function (ex) {
+                            GetErrorSupRemedial("EmailSupPIC",JSON.stringify(ex));
+						}
+					});
+				}
+                $.when(RejectRemidialSup()).done(EmailRejectSupPIC());
 			}
 		});
 	}
 
+	function GetErrorSupRemedial(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
 </script>

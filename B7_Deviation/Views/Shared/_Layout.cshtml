@@ -29,6 +29,7 @@
 
 
     <link href="~/Content/Scripts/plugins/sweetalert/css/sweetalert.css" rel="stylesheet" />
+    <link href="~/Content/Scripts/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
     <!-- JS -->
     <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
     <link href="~/Content/Scripts/plugins/select2/css/select2.min.css" rel="stylesheet" />
@@ -277,7 +278,7 @@
         $(document).ready(function () {
             $('#spanLogout').click(function () {
                 var url = "../Login/Index";
-
+                event.preventDefault();
                 swal({
                     title: "Logout!",
                     text: "Anda sudah berhasil Logout ",

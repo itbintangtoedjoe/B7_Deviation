@@ -78,7 +78,7 @@ namespace B7_Deviation.Controllers
             Msg.Bcc.Add(new MailAddress("musicdoesmagicinlife@gmail.com"));
             Msg.Priority = MailPriority.High;
             Msg.IsBodyHtml = true;
-            Msg.Subject = "Deviation Notification";
+            Msg.Subject = "Testing Email (Abaikan) - Deviation Notification";
 
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);

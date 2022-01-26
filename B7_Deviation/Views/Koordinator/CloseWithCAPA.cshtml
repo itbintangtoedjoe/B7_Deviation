@@ -346,7 +346,7 @@
                     });
                 },
                 error: function (ex) {
-                    alert(JSON.stringify(ex));
+                    GetError("Coor_LoadPICDataClose", JSON.stringify(ex));
                 }
             })
 		).done(
@@ -385,7 +385,7 @@
 
                 },
                 error: function (ex) {
-                    alert(JSON.stringify(ex));
+                    GetError("Coor_LoadPICDataFooterClose", JSON.stringify(ex));
                 }
             })
         );
@@ -400,7 +400,7 @@
                 $("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                GetError("LoadEvaluasiResikoClose", JSON.stringify(ex));
             }
         });
     };
@@ -451,7 +451,7 @@
 				$("#tabel2").removeAttr("hidden");
 			}
 			, error: function (ex) {
-				alert('Error Delete User Involved : ' + JSON.stringify(ex));
+                GetError("QM_ShowBuktiTableClose", JSON.stringify(ex));
 			}
 		});
 	}
@@ -474,12 +474,10 @@
 				$("#ITDP").val(data[0].IT_DURASI_PENGERJAAN);
 				$("#ITJP").val(data[0].IT_JUMLAH_PELAKSANA);
 				$("#MTDP").val(data[0].MT_DURASI_PENGERJAAN);
-
 				$("#MTJP").val(data[0].MT_JUMLAH_PELAKSANA);
 			},
 			error: function (ex) {
-
-				alert(JSON.stringify(ex));
+                GetError("QM_LoadKoorSubClose", JSON.stringify(ex));
 			}
 		});
 	};
@@ -505,9 +503,8 @@
                 $("#txtJustifikasiLain").val(data[0].JUSTIFIKASI_LAIN);
                 @*disposisi, keterangandisposisi, txtTingkatKeparahan, txtJustifikasiLain*@
 			},
-			error: function (ex) {
-
-				alert(JSON.stringify(ex));
+            error: function (ex) {
+                GetError("LoadDataAwalCAPAClose", JSON.stringify(ex));
 			}
 		});
 	};
@@ -521,9 +518,8 @@
             Swal.fire({
                 title: 'Nomor CAPA harus diisi!',
                 icon:'error',
-                showDenyButton: false,
-                showCancelButton: false,
-                confirmButtonText: 'OK'
+                showConfirmButton: false,
+                timer: 2000
             });
             return;
         }
@@ -542,21 +538,59 @@
 			contentType: "application/json;charset=utf-8",
             success: function (data) {
                 Swal.fire({
+                    icon: 'success',
                     title: 'CAPA successfully closed with entered CAPA number!',
-                    showDenyButton: false,
-                    showCancelButton: false,
-                    confirmButtonText: `OK`
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        window.location.href = "../DataDeviasi/PendingTask"
-                    }
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(() => {
+                    window.location.href = "../DataDeviasi/PendingTask"                    
                 })
 			},
 			error: function (ex) {
-
-				alert(JSON.stringify(ex));
+                GetError("CloseDeviationWithCAPA", JSON.stringify(ex));
 			}
 		});
-	};
+    };
+
+    function GetError(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
 </script>

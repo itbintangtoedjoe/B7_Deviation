@@ -11,8 +11,8 @@
 	<div class="content-body">
 		<div class="form-group">
 			<div class="container-fluid">
+				
 				<div class="card">
-
 					<div class="card-body">
 						<div class="form-group">
 							<h2 class="d-inline">Assign PIC</h2>
@@ -32,8 +32,7 @@
                                 <tbody id="pictable">
                                 </tbody>
                             </table>
-                        </div>
-						
+                        </div>                        
 						<br />
 						<div class="row">
 							<div class="col-8">
@@ -59,10 +58,20 @@
 								</div>
 							</div>
 						</div>
-						
-					</div>
-
+					</div>                   
 				</div>
+				
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <h4>Cancel Deviation</h4>
+                            <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control" ">
+                                Cancel
+                                <span class="fa fa-trash-o"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 			</div>
 		</div>
 
@@ -122,15 +131,101 @@
 		//load reviewer
 		LoadData2();
 		CheckStatus();
+
+		$('#btnCancel').click(function () {
+			Cancel();
+		});
 	});
 
 	//function goBack() {
 	//	window.location.href = "../DataDeviasi/PendingTask"
 	//}
 
-	function Cancel(button) {
+	function Cancel() {
+		Swal.fire({
+            icon: 'question',
+            title: 'Mohon masukan alasan untuk membatalkan penyimpangan ini?',
+			input: 'textarea',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			showCancelButton: true,
+			confirmButtonText: 'Submit',
+			showLoaderOnConfirm: true,
 
-		LoadData();
+			allowOutsideClick: () => Swal.isLoading()
+		}).then((result) => {
+			if (result.isConfirmed) {
+				if (result.value == null || result.value == '') {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
+				});
+			} else if (result.isConfirmed) {
+
+				var REQID = @ViewBag.nomor;
+				var Keterangan = result.value;
+				var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+				var dto = {
+					REQID: REQID,
+					KETERANGAN: Keterangan,
+					IDUSER: iduser
+				};
+
+				$.ajax({
+					url: "../Koordinator/Coor_KoorCancel",
+					type: "post",
+					dataType: "json",
+					data: JSON.stringify(dto),
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+
+						Swal.fire({
+                            icon: 'success',
+							title: 'Form Cancelled',
+                            showConfirmButton: false,
+                            timer: 2000
+						}).then(() => {
+							window.location.href = "../DataDeviasi/PendingTask"
+						})
+
+					}
+					, error: function (ex) {
+
+					}
+				});
+
+				var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+				var tabletype = "One";
+				var whoreceiver = "Canceled";
+
+				var dtx = {
+					Receiver: receiver,
+					ReqID: REQID,
+
+					TableType: tabletype,
+					WhoReceiver: whoreceiver
+				};
+
+				$.ajax({
+					type: "post",
+					url: '../Form/SendEmailInputProposal',
+					data: JSON.stringify(dtx),
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+
+					}, error: function (ex) {
+						alert("Error Email: " + JSON.stringify(ex));
+					}
+				});
+			}
+			}
+
+		});
 	}
 
 	function CheckStatus() {
@@ -342,7 +437,7 @@
                                         "hideMethod": "fadeOut"
                                     });
 								}
-								
+
 								function ConditionLoad() {
                                     if (data == 'COMPLETE') {
                                         var url = "../DataDeviasi/PendingTask";

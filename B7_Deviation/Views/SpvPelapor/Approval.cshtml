@@ -762,15 +762,15 @@
 
 				document.getElementById('txtKeparahan').value = data[0].SEVERTY_DEVIATION;
 
-                
+
 
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                GetErrorSupPel("SupPel", JSON.stringify(ex));
 			}
 		});
 	}
 
-	function GetAllSite() {
+	@*function GetAllSite() {
 
 		//GetAllSite = function () { };
 
@@ -817,18 +817,16 @@
 				$("#ddlSite").append(trhtml);
 				$("#ddlSite").selectpicker();
 				$('#ddlSite').attr('disabled', true);
-
-
 				//GetAllSite = function () { };
 
 				alert($('#ddlSite').val());
 
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorSupPel("SupPel", JSON.stringify(ex));
 			}
 		});
-	}
+	}*@
 
 	function LoadUserInvolved() {
 
@@ -873,7 +871,7 @@
 
 			}
 			, error: function (ex) {
-				alert('Error Load User Involved : ' + JSON.stringify(ex));
+                GetErrorSupPel("SupPel", JSON.stringify(ex));
 			}
 		});
 	}
@@ -925,10 +923,50 @@
 				}
 			},
 			error: function (ex) {
-				alert('Error File Attachment : ' + JSON.stringify(ex));
+                GetErrorSupPel("SupPel", JSON.stringify(ex));
 			}
 		});
 	}
 
+	function GetErrorSupPel(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
 </script>

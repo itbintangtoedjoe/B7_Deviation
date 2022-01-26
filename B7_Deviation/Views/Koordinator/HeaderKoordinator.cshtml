@@ -147,7 +147,9 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Mohon pilih Reviewer terlebih dahulu!',
+						text: 'Mohon pilih Reviewer terlebih dahulu!',
+                        showConfirmButton: false,
+                        timer: 1500
                     });
                 }
                 else
@@ -179,12 +181,17 @@
 				if (data == 'ADA') {
 					InsertNamaTerlibat();
 				} else {
-					alert("please insert email first");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Mohon setup alamat email terlebih dahulu!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
 				}
-
 			}
 			, error: function (ex) {
-				alert('Check Email Availability: ' + JSON.stringify(ex));
+                GetErrorHeader("HedKorCheckEmailAvailability", JSON.stringify(ex));
 			}
 		});
 	}
@@ -242,7 +249,7 @@
                                     "onclick": null,
                                     "showDuration": "100",
                                     "hideDuration": "1000",
-                                    "timeOut": "1000",
+                                    "timeOut": "2000",
                                     "extendedTimeOut": "1000",
                                     "showEasing": "swing",
                                     "hideEasing": "linear",
@@ -250,20 +257,20 @@
                                     "hideMethod": "fadeOut"
                                 });
 							}, error: function (ex) {
-								alert("Error Email: " + JSON.stringify(ex));
+                                GetErrorHeader("HedKoSendEmailInputProposal", JSON.stringify(ex));
 							}
 						});
 					}
 
 					$.when(
-						SendEmailToReviewer
+						SendEmailToReviewer()
 					).then(
 						window.location.href = "../DataDeviasi/PendingTask"
 					);
                 })
 			}
 			, error: function (ex) {
-				alert('Error Approve : ' + JSON.stringify(ex));
+                GetErrorHeader("HedKorCoor_Approve", JSON.stringify(ex));
 			}
 		});
 
@@ -293,14 +300,11 @@
                     showConfirmButton: false,
                     timer: 1500
 				}).then(() => {
-
 					window.location.href = "../DataDeviasi/PendingTask"
-					
 				})
-
 			}
 			, error: function (ex) {
-				alert('Error Approve Reviewer : ' + JSON.stringify(ex));
+                GetErrorHeader("HedKorCoor_Approve", JSON.stringify(ex));
 			}
 		});
 	}
@@ -309,8 +313,8 @@
 
 		Swal.fire({
             icon: 'question',
-			title: 'Reason???',
-			input: 'text',
+			title: 'Mohon masukan alasan reject?',
+			input: 'textarea',
 			inputAttributes: {
 				autocapitalize: 'off'
 			},
@@ -325,7 +329,7 @@
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: 'Please Insert Reason!'
+					text: 'Alasan Reject tidak boleh kosong!'
 				});
 			} else if (result.isConfirmed) {
 
@@ -353,14 +357,12 @@
                             showConfirmButton: false,
                             timer: 1500
 						}).then(() => {
-
 							window.location.href = "../DataDeviasi/PendingTask"
-
 						})
 
 					}
 					, error: function (ex) {
-						alert('Error Reject: ' + JSON.stringify(ex));
+                        GetErrorHeader("HedKorCoor_Reject", JSON.stringify(ex));
 					}
 				});
 
@@ -396,7 +398,7 @@
 					title: 'Approve',
 					text: "No Penyimpangan : " + NoDevOl,
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 2000
 				}).then(() => {
                         $("#xddlx").removeAttr('hidden');
                         $("#btnApprove").text('Send to Reviewer');
@@ -409,7 +411,7 @@
 
 			}
 			, error: function (ex) {
-				alert('Error Get Dev Num: ' + JSON.stringify(ex));
+                GetErrorHeader("HedKorCoor_GetDevNum", JSON.stringify(ex));
 			}
 		});
 	}
@@ -440,7 +442,7 @@
 				$(".user-dropdown").append(trhtml);
 				$("#ddlReviewer").select2();
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                GetErrorHeader("HedKorCoor_LoadUser", JSON.stringify(ex));
 			}
 		});
 	}
@@ -488,7 +490,7 @@
 				}
 			}
 			, error: function (ex) {
-				alert('Insert Nama Terlibat: ' + JSON.stringify(ex));
+                GetErrorHeader("HedKorCoor_InsertUserInvolved", JSON.stringify(ex));
 			}
 		});
 	}
@@ -535,7 +537,7 @@
 
 			}
 			, error: function (ex) {
-				alert('Error Load User Involved : ' + JSON.stringify(ex));
+                GetErrorHeader("HedKorCoor_LoadUserInvolved", JSON.stringify(ex));
 			}
 		});
 	}
@@ -560,6 +562,7 @@
 			success: function (data) {
 
 				if (data == 'S') {
+
 					toastr.success("Data berhasil terhapus !", "Terhapus", {
 						"closeButton": false,
 						"debug": true,
@@ -582,7 +585,7 @@
 				}
 			}
 			, error: function (ex) {
-				alert('Error Delete User Involved : ' + JSON.stringify(ex));
+                GetErrorHeader("HedKorCoor_DeleteUserInvolved", JSON.stringify(ex));
 			}
 		});
 	}
@@ -659,7 +662,7 @@
 				}
 
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                GetErrorHeader("HedKorCoor_GetCurrStat", JSON.stringify(ex));
 			}
 		});
 	}
@@ -667,8 +670,8 @@
 	function Cancel() {
 		Swal.fire({
             icon: 'question',
-			title: 'Cancel Reason ...',
-			input: 'text',
+            title: 'Mohon masukan alasan untuk membatalkan penyimpangan ini?',
+			input: 'textarea',
 			inputAttributes: {
 				autocapitalize: 'off'
 			},
@@ -683,7 +686,7 @@
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: 'Please Insert Reason!'
+                    text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
 				});
 			} else if (result.isConfirmed) {
 
@@ -691,62 +694,123 @@
 				var Keterangan = result.value;
 				var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-				var dto = {
-					REQID: REQID,
-					KETERANGAN: Keterangan,
-					IDUSER: iduser
-				};
 
-				$.ajax({
-					url: "../Koordinator/Coor_KoorCancel",
-					type: "post",
-					dataType: "json",
-					data: JSON.stringify(dto),
-					contentType: "application/json;charset=utf-8",
-					success: function (data) {
+                function NotifyHedKor() {
+                    var tabletype = "One";
+                    var whoreceiver = "Canceled";
 
-						Swal.fire({
-                            icon: 'success',
-							title: 'Form Cancelled',
-							showDenyButton: false,
-							showCancelButton: false
-						}).then(() => {
-							window.location.href = "../DataDeviasi/PendingTask"
-						})
+                    var dtx = {
+                        Receiver: iduser,
+                        ReqID: REQID,
 
-					}
-					, error: function (ex) {
+                        TableType: tabletype,
+                        WhoReceiver: whoreceiver
+                    };
 
-					}
-				});
+                    $.ajax({
+                        type: "post",
+                        url: '../Form/SendEmailInputProposal',
+                        data: JSON.stringify(dtx),
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            toastr.success("Email Sent Successfully !", "Notification", {
+                                "closeButton": false,
+                                "debug": true,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-bottom-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "200",
+                                "hideDuration": "1000",
+                                "timeOut": "2000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            });
+                        }, error: function (ex) {
+                            GetErrorHeader("HedKorSendEmailInputProposal", JSON.stringify(ex));
+                        }
+                    });
+				}
 
-				var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+				function CanceKor() {
+                    var dto = {
+                        REQID: REQID,
+                        KETERANGAN: Keterangan,
+                        IDUSER: iduser
+                    };
 
-				var tabletype = "One";
-				var whoreceiver = "Canceled";
+                    $.ajax({
+                        url: "../Koordinator/Coor_KoorCancel",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
 
-				var dtx = {
-					Receiver: receiver,
-					ReqID: REQID,
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Form Cancelled',
+                                showConfirmButton: false,
+                                timer: 2000
+							}).then(() => {
+                                $.when(NotifyHedKor()).done(window.location.href = "../DataDeviasi/PendingTask");
+                            })
+                        }
+                        , error: function (ex) {
+                            GetErrorHeader("HedKorCoor_KoorCancel", JSON.stringify(ex));
+                        }
+                    });
+				}
 
-					TableType: tabletype,
-					WhoReceiver: whoreceiver
-				};
-
-				$.ajax({
-					type: "post",
-					url: '../Form/SendEmailInputProposal',
-					data: JSON.stringify(dtx),
-					dataType: "json",
-					contentType: "application/json;charset=utf-8",
-					success: function (data) {
-
-					}, error: function (ex) {
-						alert("Error Email: " + JSON.stringify(ex));
-					}
-				});
+				CanceKor();
 			}
 		});
 	}
 
+	function GetErrorHeader(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
 </script>

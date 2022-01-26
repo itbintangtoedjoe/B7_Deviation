@@ -128,7 +128,7 @@
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../Reviewer/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             }
-                            
+
                         } else if (data[trav].SEND_TO == 'QManager') {
                             if (data[trav].STAT == 'ADKOR1' || data[trav].STAT == 'OKKOR1' || data[trav].STAT == 'RTDQM1') {
                                 trHTML +=
@@ -149,9 +149,13 @@
                                 {
                                     if (data[trav].FLAG_QMPIC == 'QM')
                                     {
-                                        //khusus atasan pic yg ada cost adalah pak wempie
+                                        //khusus atasan yg mempunyai role evaluator
                                         if (data[trav].STATUS == 'PIC Due Date Remidial') {
-                                            trHTML += '<tr><td><a class="btn btn-success" href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
+                                            if (data[trav].IS_EVALUATOR_PERUBAHAN == 1) {
+                                                trHTML += '<tr><td><a class="btn btn-success" href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                            } else {
+                                                trHTML += '<tr><td><a class="btn btn-success" href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
+                                            }
                                         }
                                         else {
                                             trHTML += '<tr><td><a class="btn btn-success" href="../QualityManager/PICProposal?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
@@ -169,7 +173,7 @@
                                         {
                                             trHTML += '<tr><td><a class="btn btn-success" href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
                                         }
-                                } 
+                                }
                             }
                             else {
                                 if (data[trav].FLAG_SPVPIC == 'PIC') {
@@ -178,9 +182,9 @@
                                 else
                                 {
                                     trHTML += '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
-                                }                               
+                                }
                             }
-                            
+
                         } else if (data[trav].SEND_TO == 'Supervisor PIC') {
                             if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
                                 trHTML +=
@@ -189,7 +193,7 @@
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
                             }
-                            
+
 
                             //if (data[trav].STAT == 'URTRD1') {
                             //    trHTML +=
@@ -292,7 +296,7 @@
                         "searching": false,
                     });
 
-                   
+
                 },
                 error: function (ex) {
                 }

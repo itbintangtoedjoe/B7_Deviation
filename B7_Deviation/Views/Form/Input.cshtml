@@ -722,6 +722,8 @@
 								icon: 'error',
 								title: 'Oops...',
 								text: 'Keterangan produk belum lengkap!',
+                                showConfirmButton: false,
+                                timer: 2000
 							});
 						}
 					}
@@ -729,7 +731,9 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Data yang diisikan kurang lengkap!',
+							text: 'Data yang diisikan kurang lengkap!',
+                            showConfirmButton: false,
+                            timer: 2000
                         });
                     }
 				}
@@ -760,14 +764,14 @@
 		$("#ddlKategori").change(function () {
 			$('#divreceipt').hide();
 
-            $("#TxtNoWO").attr("hidden", true);            
+            $("#TxtNoWO").attr("hidden", true);
 			$("#TxtItemCode").attr("hidden", true);
 			$('#TxtBatchNo').attr('hidden', true);
 			$('#TxtQCMaterialNo').attr('hidden', true);
 
             $("#TxtNoWO").attr("disabled", true);
 			$('#txtKetKategori').attr('disabled', false);
-			
+
 			$('#TxtBatchNo').val('');
 			$("#TxtNoWO").val('');
 			$('#TxtItemCode').val('');
@@ -823,7 +827,7 @@
 
 						$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
 						$("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
-						
+
                         ToggleShowKualitasProdukFields(jenisPenyimpangan);
 					}
 
@@ -834,7 +838,7 @@
 					$('#txtKetKategori').val('');
 				}
 			}
-				
+
 		});
 
 		$('input[type=radio][name=r_receipt]').change(function () {
@@ -1147,7 +1151,7 @@
 				$("#TxtItemCode").attr("disabled", false);
 				$("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                 $('#txtKetKategori').attr('disabled', false);
-				
+
 				GetItemKualitasProduk();
 
 				$("#TxtNoWO").attr("disabled", false);
@@ -1167,7 +1171,7 @@
 					$("#divsimpang").show();
 					$('#divreceipt').show();
 
-					
+
 					$('#TxtQCMaterialNo').attr("hidden", false);
 					$('#TxtQCMaterialNo').val('');
 					$("#TxtItemCode").attr("hidden", false);
@@ -1232,7 +1236,7 @@
 				$("#ddlSiteLokasi").select2();
 			}
 			, error: function (ex) {
-
+                GetErrorInput("GetSiteLokasiKejadianInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1269,7 +1273,7 @@
 
 			}
 			, error: function (ex) {
-
+                GetErrorInput("GetDeptLokasiKejadianInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1291,7 +1295,7 @@
 			success: function (data) {
 			}
 			, error: function (ex) {
-
+                GetErrorInput("DeleteFromDBInput", JSON.stringify(ex));
 			}
 		});
 
@@ -1316,7 +1320,7 @@
 			success: function (data) {
 			}
 			, error: function (ex) {
-
+                GetErrorInput("DeleteFileInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1336,9 +1340,10 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+
 			}
 			, error: function (ex) {
-
+                GetErrorInput("DeletePathInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1364,7 +1369,7 @@
 				$("#ddlSite").selectpicker();
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetSiteNameInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1389,7 +1394,7 @@
 				$("#ddlKategori").selectpicker();
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetKategoriDeviationInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1452,14 +1457,9 @@
                         }
 					}
 				});
-
-				$("#TxtBatchNo").change(function () {
-
-                    
-				});
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetNoBatchOracleInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1487,7 +1487,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				
+
 				var count = data.length;
 				if (count > 0) {
 
@@ -1503,7 +1503,7 @@
                         item["value"] = arr[trav];
 						jsonObj.push(item);
                     }
-                    
+
                     $("#TxtQCMaterialNo").autocomplete({
                         source: function (request, response) {
                             var results = $.ui.autocomplete.filter(jsonObj, request.term);
@@ -1556,10 +1556,10 @@
      //                   }
 					//});
 				}
-               
+
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetQCMaterialNoOracleInput", JSON.stringify(ex));
 			}
 		});
     }
@@ -1621,7 +1621,7 @@
 							for (var i = 0; i < count; i++) {
                                 if (data[i].ITEM_CODE == ui.item.label) {
                                      //$("#TxtItemCode").val(data[i].ITEM_CODE);
-									
+
                                     $("#txtKetKategori").val(data[i].ITEM_DESCRIPTION);
                                     break;
                                 } else {
@@ -1634,7 +1634,7 @@
 
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetItemKualitasProdukInput", JSON.stringify(ex));
             }
         });
     }
@@ -1708,9 +1708,6 @@
 			}
 
 		});
-
-       
-
 	}
 
 
@@ -1736,7 +1733,7 @@
 				$("#ddlKualProd").selectpicker();
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetKualitasProdukInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1762,7 +1759,7 @@
 				$("#ddlCompliance").selectpicker();
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetComplianceInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1788,7 +1785,7 @@
 				$("#ddlRiskOpr").selectpicker();
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetResikoOperasionalInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1815,7 +1812,7 @@
 				$("#ddlRiskFin").selectpicker();
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetResikoFinansialInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1841,7 +1838,7 @@
 				$("#ddlRiskOrg").selectpicker();
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetResikoOrganisasiInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1867,7 +1864,7 @@
 				$("#ddlKeamamananP").selectpicker();
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetResikoKeamPersonilInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1894,7 +1891,7 @@
 				$("#ddlKesehatanPer").selectpicker();
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetResikoKesehatanPersonilInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1920,7 +1917,7 @@
 				$("#ddlResLingk").selectpicker();
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetResikokLingkunganInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1946,7 +1943,7 @@
 				$("#ddlRiskIntelek").selectpicker();
 			},
 			error: function (ex) {
-				alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetResikoIntelektualInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -1989,9 +1986,9 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				$("#TbDeptPusul").val(data);
-
 			},
 			error: function (ex) {
+                GetErrorInput("GenerateDepartmentInput", JSON.stringify(ex));
 			}
 		});
 
@@ -2008,7 +2005,7 @@
 				$('#lblReq').text(data);
 			},
 			error: function (ex) {
-				alert('Error ReqID: ' + JSON.stringify(ex));
+                GetErrorInput("GenerateNoReqIDInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -2058,7 +2055,7 @@
 					}
 				}
 				, error: function (ex) {
-					alert('Error Upload Attachment: ' + JSON.stringify(ex));
+                    GetErrorInput("UploadAttachmentInput", JSON.stringify(ex));
 				}
 			});
 		}
@@ -2109,7 +2106,7 @@
 				}
 			},
 			error: function (ex) {
-				alert('Error Load Attachment : ' + JSON.stringify(ex));
+                GetErrorInput("LoadAttachmentInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -2158,7 +2155,7 @@
 				}
 			},
 			error: function (ex) {
-				alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                GetErrorInput("DeleteAttachmentInput", JSON.stringify(ex));
 			}
 		});
 
@@ -2229,7 +2226,7 @@
         var FlagReceipt = $('input[name="r_receipt"]:checked').val();
 		var QCMaterialManufacturerNo = $('#TxtQCMaterialNo').val();
 
-        
+
 
 		var dto = {
 			CrDateUser: CR_DATE_USER,
@@ -2245,7 +2242,7 @@
 			NO_WO_ORACLE: NO_WO_ORACLE,
 			Item_Code_Oracle: Item_Code_Oracle,
 			No_Batch_Oracle: No_Batch_Oracle,
-			
+
 			KetCategory: KET_CATEGORY,
 
 
@@ -2295,7 +2292,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				
+
 				Swal.fire({
 					icon: 'success',
 					title: 'Form Submitted',
@@ -2308,13 +2305,13 @@
                         SendEmail()
 					).then(
 						window.location.href = "../DataDeviasi/PendingTask"
-					);                    
+					);
                 });
-				
+
 
 			}
 			, error: function (ex) {
-				alert('Error Insert Form Deviation: ' + JSON.stringify(ex));
+                GetErrorInput("InsertFormDeviationInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -2360,9 +2357,9 @@
 					"hideMethod": "fadeOut"
 				});
 
-                
+
 			}, error: function (ex) {
-				alert("Error Email: " + JSON.stringify(ex));
+                GetErrorInput("SendEmailInputProposalInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -2410,7 +2407,7 @@
 				}
 			}
 			, error: function (ex) {
-				alert('Error Insert Nama Terlibat: ' + JSON.stringify(ex));
+                GetErrorInput("UserInvolvedInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -2455,7 +2452,7 @@
 
 			}
 			, error: function (ex) {
-				alert('Error Load User Involved : ' + JSON.stringify(ex));
+                GetErrorInput("LoadUserInvolvedInput", JSON.stringify(ex));
 			}
 		});
 	}
@@ -2502,12 +2499,54 @@
 				}
 			}
 			, error: function (ex) {
-				alert('Error Delete User Involved : ' + JSON.stringify(ex));
+                GetErrorInput("DeleteUserInvolvedInput", JSON.stringify(ex));
 			}
 		});
 	}
 
 	function s() {
 		return false;
+	}
+
+	function GetErrorInput(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
 	}
 </script>

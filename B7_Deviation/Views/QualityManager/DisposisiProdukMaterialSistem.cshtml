@@ -199,7 +199,7 @@
 		CheckStatusQMApproval2();
 
 		// Load Body Data
-       
+
 		LoadData();
 
 		// Load Investigation and Meeting Time
@@ -254,7 +254,7 @@
 				}
 
 			}, error: function (ex) {
-				alert(JSON.stringify(ex));
+                GetErrorDisposisi("QM_CheckStatusQMApproval2", JSON.stringify(ex));
 			}
 		});
 
@@ -268,7 +268,7 @@
                 $("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
             },
             error: function (ex) {
-                alert(JSON.stringify(ex));
+                GetErrorDisposisi("LoadEvaluasiResiko", JSON.stringify(ex));
             }
         });
 
@@ -291,17 +291,15 @@
 				$("#ITDP").val(data[0].IT_DURASI_PENGERJAAN);
 				$("#ITJP").val(data[0].IT_JUMLAH_PELAKSANA);
 				$("#MTDP").val(data[0].MT_DURASI_PENGERJAAN);
-
 				$("#MTJP").val(data[0].MT_JUMLAH_PELAKSANA);
 			},
 			error: function (ex) {
-
-				alert(JSON.stringify(ex));
+                GetErrorDisposisi("QM_LoadKoorSub", JSON.stringify(ex));
 			}
 		});
 	};
 
-	
+
 
 	function ShowBukti(button) {
 		event.preventDefault();
@@ -349,7 +347,7 @@
 				$("#tabel2").removeAttr("hidden");
 			}
 			, error: function (ex) {
-				alert('Error Delete User Involved : ' + JSON.stringify(ex));
+                GetErrorDisposisi("QM_ShowBuktiTable", JSON.stringify(ex));
 			}
 		});
 	}
@@ -375,76 +373,95 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Disposisi Produk atau Sistem dan Keterangannya tidak boleh kosong !',
+                showConfirmButton: false,
+                timer: 2000
             })
             return;
 		}
 
-		var dto = {
+		function Next() {
+            var dto = {
 
-			REQID: REQID,
-			IDUSER: iduser,
-			TINGKAT_KEPARAHAN: tingkatkeparahan,
-            JUSTIFIKASI_LAIN: justifikasiLain,
-			DISPOSISI_PRODUK_SISTEM: disposisi,
-			KETERANGAN_DISPOSISI: keterangan
+                REQID: REQID,
+                IDUSER: iduser,
+                TINGKAT_KEPARAHAN: tingkatkeparahan,
+                JUSTIFIKASI_LAIN: justifikasiLain,
+                DISPOSISI_PRODUK_SISTEM: disposisi,
+                KETERANGAN_DISPOSISI: keterangan
 
-		};
+            };
 
-		$.ajax({
-			url: "../QualityManager/QM_LanjutCARPAR",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
+            $.ajax({
+                url: "../QualityManager/QM_LanjutCARPAR",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
 
-				Swal.fire({
-					title: 'Form Saved as BUTUH CARPAR',
-					showDenyButton: false,
-					showCancelButton: false,
-					confirmButtonText: `OK`
-				}).then((result) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Form Saved as BUTUH CARPAR',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        window.location.href = "../DataDeviasi/PendingTask"
+                    });
 
-					if (result.isConfirmed) {
-						window.location.href = "../DataDeviasi/PendingTask"
-					}
-				});
+                }
+                , error: function (ex) {
+                    GetErrorDisposisi("QM_LanjutCARPAR", JSON.stringify(ex));
+                }
+            });
+		}
+		
 
-			}
-			, error: function (ex) {
+		function EmailDisposisi() {
+            var subject = 'B7 - Deviation';
+            var tabletype = "One";
+            var whoreceiver = "Pelapor after Lanjut CAPA";
 
-			}
-		});
+            var dtx = {
+                Receiver: iduser,
+                ReqID: REQID,
+                Body: body,
+                Subject: subject,
+                TableType: tabletype,
+                WhoReceiver: whoreceiver
+            };
 
-		var REQID = @ViewBag.nomor;
-		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            $.ajax({
+                type: "post",
+                url: '../Form/SendEmailInputProposal',
+                data: JSON.stringify(dtx),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    toastr.success("Email Sent Successfully !", "Notification", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-bottom-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "200",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+                }, error: function (ex) {
+                    GetErrorDisposisi("SendEmailInputProposalDisposisi", JSON.stringify(ex));
+                }
+            });
+		}
 
-		var subject = 'B7 - Deviation';
-
-		var tabletype = "One";
-		var whoreceiver = "Pelapor after Lanjut CAPA";
-
-		var dtx = {
-			Receiver: receiver,
-			ReqID: REQID,
-			Body: body,
-			Subject: subject,
-			TableType: tabletype,
-			WhoReceiver: whoreceiver
-		};
-
-		$.ajax({
-			type: "post",
-			url: '../Form/SendEmailInputProposal',
-			data: JSON.stringify(dtx),
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-
-			}, error: function (ex) {
-				alert("Error Email: " + JSON.stringify(ex));
-			}
-		});
+        $.when(Next()).done(EmailDisposisi());
+		
 	}
 
 	function TidakLanjut() {
@@ -452,71 +469,127 @@
 		var Keterangan = "";
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		var dto = {
-			REQID: REQID,
-			KETERANGAN: Keterangan,
-			IDUSER: iduser
-		};
+		function TidakLanjutNext() {
+            var dto = {
+                REQID: REQID,
+                KETERANGAN: Keterangan,
+                IDUSER: iduser
+            };
 
-		$.ajax({
-			url: "../QualityManager/QM_TidakLanjut",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
+            $.ajax({
+                url: "../QualityManager/QM_TidakLanjut",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
 
-				Swal.fire({
-					title: 'Form Saved As Tidak Butuh CARPAR',
-					showDenyButton: false,
-					showCancelButton: false,
-					confirmButtonText: `OK`
-				}).then((result) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Form Saved As Tidak Butuh CARPAR',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        window.location.href = "../DataDeviasi/PendingTask"
+                    });
 
-					if (result.isConfirmed) {
-						window.location.href = "../DataDeviasi/PendingTask"
-					}
-				});
+                }
+                , error: function (ex) {
+                    GetErrorDisposisi("QM_TidakLanjut", JSON.stringify(ex));
+                }
+            });
+		}
+		
 
-			}
-			, error: function (ex) {
-				alert('Error Delete Attachment: ' + JSON.stringify(ex));
-			}
-		});
+		function EmailTidakLanjut(){
+            var subject = 'B7 - Deviation';
+            var tabletype = "One";
+            var whoreceiver = "Pelapor after Tidak Lanjut CAPA";
 
-		var REQID = @ViewBag.nomor;
-		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            var dtx = {
+                Receiver: iduser,
+                ReqID: REQID,
+                Body: body,
+                Subject: subject,
+                TableType: tabletype,
+                WhoReceiver: whoreceiver
+            };
 
-		var subject = 'B7 - Deviation';
-		var tabletype = "One";
-		var whoreceiver = "Pelapor after Tidak Lanjut CAPA";
-
-		var dtx = {
-			Receiver: receiver,
-			ReqID: REQID,
-			Body: body,
-			Subject: subject,
-			TableType: tabletype,
-			WhoReceiver: whoreceiver
-		};
-
-		$.ajax({
-			type: "post",
-			url: '../Form/SendEmailInputProposal',
-			data: JSON.stringify(dtx),
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-
-			}, error: function (ex) {
-				alert("Error Email: " + JSON.stringify(ex));
-			}
-		});
-
+            $.ajax({
+                type: "post",
+                url: '../Form/SendEmailInputProposal',
+                data: JSON.stringify(dtx),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    toastr.success("Email Sent Successfully !", "Notification", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-bottom-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "200",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+                }, error: function (ex) {
+                    GetErrorDisposisi("SendEmailInputProposalRejDis", JSON.stringify(ex));
+                }
+            });
+		}
+		
+        $.when(TidakLanjutNext()).done(EmailTidakLanjut());
 
 	}
 
+    function GetErrorDisposisi(ErrorType, ErrorMsg) {
+        var REQID = @ViewBag.nomor;
+        var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
+        var dto = {
+            REQ_ID: REQID,
+            UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+        }
+
+        $.ajax({
+            url: "../Form/LogError",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                toastr.warning(data + " Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+            }
+            , error: function (ex) {
+
+            }
+        });
+    }
 </script>
 
 
