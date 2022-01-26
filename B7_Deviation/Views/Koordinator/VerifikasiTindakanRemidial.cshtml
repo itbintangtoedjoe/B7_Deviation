@@ -403,7 +403,7 @@
 				dataType: "json",
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
-				
+
 					var trHTML = '';
 					var trav = 0;
 					var Count = data.length;
@@ -435,7 +435,7 @@
 					}
 
 					// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
-					
+
 
 					$('#picfooter').append(trHTML);
 				},
@@ -538,8 +538,9 @@
                         Swal.fire({
                             title: 'Berhasil direject',
                             icon: 'success',
-                            buttons: false,
-                        }).then((result) => {
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
                             LoadStatus();
                         });
                     }
@@ -627,8 +628,6 @@
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 
-
-
 			}, error: function (ex) {
 				alert(JSON.stringify(ex));
 			}
@@ -675,8 +674,15 @@
 					contentType: "application/json;charset=utf-8",
 					success: function (data) {
 
-						alert('Form Canceled');
-						window.location.href = "../DataDeviasi/PendingTask"
+                        Swal.fire({
+                            title: 'Form Canceled',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            window.location.href = "../DataDeviasi/PendingTask"
+                        });
+
 
 					}
 					, error: function (ex) {
@@ -752,14 +758,10 @@
 				Swal.fire({
 					title: 'Form Approved',
 					icon: 'success',
-					showDenyButton: false,
-					showCancelButton: false,
-					confirmButtonText: `OK`
-				}).then((result) => {
-
-					if (result.isConfirmed) {
-						window.location.href = "../DataDeviasi/PendingTask"
-					}
+                    showConfirmButton: false,
+                    timer: 2000
+				}).then(() => {
+					window.location.href = "../DataDeviasi/PendingTask"
 				});
 
 			}
@@ -785,7 +787,23 @@
 			dataType: "json",
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
+                toastr.success("Email Sent Successfully !", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "100",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
 			}, error: function (ex) {
 				alert("Error Email: " + JSON.stringify(ex));
 			}
@@ -837,14 +855,10 @@
 						Swal.fire({
 							title: 'Form Rejected',
 							icon: 'success',
-							showDenyButton: false,
-							showCancelButton: false,
-							confirmButtonText: `OK`
-						}).then((result) => {
-
-							if (result.isConfirmed) {
-								window.location.href = "../DataDeviasi/PendingTask"
-							}
+                            showConfirmButton: false,
+                            timer: 2000
+						}).then(() => {
+							window.location.href = "../DataDeviasi/PendingTask"
 						});
 
 					}
@@ -873,7 +887,23 @@
 					dataType: "json",
 					contentType: "application/json;charset=utf-8",
 					success: function (data) {
-
+                        toastr.success("Email Sent Successfully !", "Notification", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-bottom-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
 					}, error: function (ex) {
 						alert("Error Email: " + JSON.stringify(ex));
 					}
@@ -884,5 +914,45 @@
 		});
 	}
 
+	function GetErrorVerifikasi(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
 </script>
