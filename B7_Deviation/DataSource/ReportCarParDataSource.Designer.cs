@@ -293,6 +293,8 @@ namespace B7_Deviation.DataSource {
             
             private global::System.Data.DataColumn columnFLAG_CARPAR;
             
+            private global::System.Data.DataColumn columnCREATION_DATE;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_ReportCarParDataTable() {
@@ -384,6 +386,14 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CREATION_DATEColumn {
+                get {
+                    return this.columnCREATION_DATE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -419,7 +429,7 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportCarParRow AddSP_ReportCarParRow(string IDUSER, string EmpName, string TINGKAT_KEPARAHAN, string DISPOSISI_PRODUK_SISTEM, string KETERANGAN_DISPOSISI, string NO_CARPAR, string FLAG_CARPAR) {
+            public SP_ReportCarParRow AddSP_ReportCarParRow(string IDUSER, string EmpName, string TINGKAT_KEPARAHAN, string DISPOSISI_PRODUK_SISTEM, string KETERANGAN_DISPOSISI, string NO_CARPAR, string FLAG_CARPAR, string CREATION_DATE) {
                 SP_ReportCarParRow rowSP_ReportCarParRow = ((SP_ReportCarParRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         IDUSER,
@@ -428,7 +438,8 @@ namespace B7_Deviation.DataSource {
                         DISPOSISI_PRODUK_SISTEM,
                         KETERANGAN_DISPOSISI,
                         NO_CARPAR,
-                        FLAG_CARPAR};
+                        FLAG_CARPAR,
+                        CREATION_DATE};
                 rowSP_ReportCarParRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_ReportCarParRow);
                 return rowSP_ReportCarParRow;
@@ -458,6 +469,7 @@ namespace B7_Deviation.DataSource {
                 this.columnKETERANGAN_DISPOSISI = base.Columns["KETERANGAN_DISPOSISI"];
                 this.columnNO_CARPAR = base.Columns["NO_CARPAR"];
                 this.columnFLAG_CARPAR = base.Columns["FLAG_CARPAR"];
+                this.columnCREATION_DATE = base.Columns["CREATION_DATE"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -477,6 +489,8 @@ namespace B7_Deviation.DataSource {
                 base.Columns.Add(this.columnNO_CARPAR);
                 this.columnFLAG_CARPAR = new global::System.Data.DataColumn("FLAG_CARPAR", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFLAG_CARPAR);
+                this.columnCREATION_DATE = new global::System.Data.DataColumn("CREATION_DATE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCREATION_DATE);
                 this.columnIDUSER.MaxLength = 50;
                 this.columnEmpName.ReadOnly = true;
                 this.columnEmpName.MaxLength = 80;
@@ -485,6 +499,8 @@ namespace B7_Deviation.DataSource {
                 this.columnKETERANGAN_DISPOSISI.MaxLength = 50;
                 this.columnNO_CARPAR.MaxLength = 2000;
                 this.columnFLAG_CARPAR.MaxLength = 50;
+                this.columnCREATION_DATE.ReadOnly = true;
+                this.columnCREATION_DATE.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -741,6 +757,22 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string CREATION_DATE {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportCarPar.CREATION_DATEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CREATION_DATE\' in table \'SP_ReportCarPar\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportCarPar.CREATION_DATEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsIDUSERNull() {
                 return this.IsNull(this.tableSP_ReportCarPar.IDUSERColumn);
             }
@@ -821,6 +853,18 @@ namespace B7_Deviation.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetFLAG_CARPARNull() {
                 this[this.tableSP_ReportCarPar.FLAG_CARPARColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCREATION_DATENull() {
+                return this.IsNull(this.tableSP_ReportCarPar.CREATION_DATEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCREATION_DATENull() {
+                this[this.tableSP_ReportCarPar.CREATION_DATEColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -990,6 +1034,7 @@ namespace B7_Deviation.DataSource.ReportCarParDataSourceTableAdapters {
             tableMapping.ColumnMappings.Add("KETERANGAN_DISPOSISI", "KETERANGAN_DISPOSISI");
             tableMapping.ColumnMappings.Add("NO_CARPAR", "NO_CARPAR");
             tableMapping.ColumnMappings.Add("FLAG_CARPAR", "FLAG_CARPAR");
+            tableMapping.ColumnMappings.Add("CREATION_DATE", "CREATION_DATE");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

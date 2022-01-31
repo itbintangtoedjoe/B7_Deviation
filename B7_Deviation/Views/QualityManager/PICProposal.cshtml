@@ -90,14 +90,19 @@
                             '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                             '<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" onclick=ApprovePIC(this) class="btn btn-success" style="width:120px;"/> <input type="button" id="Reject" value="Reject" onclick=RejectPIC(this) class="btn btn-danger" style="width:100px;"/></td>';
                     }
-
-                    $('#deviationtable').empty();
-                    $('#deviationtable').append(trHTML);
-                    $('#deviationdatatable').DataTable();
+                    if (Count > 0) {
+                        $('#deviationtable').empty();
+                        $('#deviationtable').append(trHTML);
+                        $('#deviationdatatable').DataTable();
+                    }
+                    else {
+                        window.location.href = "../DataDeviasi/PendingTask"
+                    }
+                    
 
                 },
                 error: function (ex) {
-                    alert(JSON.stringify(ex));
+                    GetErrorQMAppProp("PICPropQM_PICLoadDataTable", JSON.stringify(ex));
                 }
             });
         }
@@ -110,69 +115,82 @@
             var req_id = @ViewBag.nomor;
             var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-            var dto = {
-                REQID: req_id,
-                NO_DISPOSISI: no_disposisi,
-                IDUSER: curr_user
+
+            function ApproveProposal() {
+                var dto = {
+                    REQID: req_id,
+                    NO_DISPOSISI: no_disposisi,
+                    IDUSER: curr_user
+                }
+
+                $.ajax({
+                    url: "../QualityManager/QM_ApprovePIC",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+
+                        Swal.fire({
+                            title: 'Revisi Disposisi Approved',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 3000
+                        }).then(() => {
+                            LoadData()
+                        });
+                    }
+                    , error: function (ex) {
+                        GetErrorQMAppProp("PICPropApprove", JSON.stringify(ex));
+                    }
+                });
+            }
+            
+            function NotifyProposal() {
+                var receiver = $("TD", row).eq(8).html();
+                var tabletype = "One";
+                var whoreceiver = "Reviewer Approved Usulan Revisi by QM";
+
+                var dto = {
+                    Receiver: receiver,
+                    ReqID: req_id,
+                    TableType: tabletype,
+                    WhoReceiver: whoreceiver
+                };
+
+                $.ajax({
+                    type: "post",
+                    url: '../Form/SendEmailInputProposal',
+                    data: JSON.stringify(dto),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        
+                        toastr.success("Email Sent Successfully !", "Notification", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-bottom-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        })
+                       
+                    }, error: function (ex) {
+                        GetErrorQMAppProp("PICPropNotifyApp", JSON.stringify(ex));
+                    }
+                });
             }
 
-            $.ajax({
-                url: "../QualityManager/QM_ApprovePIC",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-
-                    toastr.success("Revisi Disposisi Approved", "Tersimpan", {
-                        "closeButton": false,
-                        "debug": true,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "100",
-                        "hideDuration": "1000",
-                        "timeOut": "1000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    });
-
-                    LoadData();
-                }
-                , error: function (ex) {
-
-                }
-            });
-
-            var receiver = $("TD", row).eq(8).html();
-
-            var tabletype = "One";
-            var whoreceiver = "Reviewer Approved Usulan Revisi by QM";
-
-            var dto = {
-                Receiver: receiver,
-                ReqID: REQID,
-                TableType: tabletype,
-                WhoReceiver: whoreceiver
-            };
-
-            $.ajax({
-                type: "post",
-                url: '../Form/SendEmailInputProposal',
-                data: JSON.stringify(dto),
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-
-                }, error: function (ex) {
-                    alert("Error Email: " + JSON.stringify(ex));
-                }
-            });
+            $.when(ApproveProposal()).done(NotifyProposal());
         }
 
         function RejectPIC(button) {
@@ -201,6 +219,7 @@
                     var no_disposisi = $("TD", row).eq(8).html();
                     var req_id = @ViewBag.nomor;
                     var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+                    var receiver = $("TD", row).eq(8).html();
                     var alasanReject = result.value;
 
                     var dto = {
@@ -222,34 +241,16 @@
                                 showDenyButton: false,
                                 showCancelButton: false,
                                 confirmButtonText: `OK`
-                            });
-
-                            @*toastr.success("Assign PIC Berhasil!", "Tersimpan", {
-                                "closeButton": false,
-                                "debug": true,
-                                "newestOnTop": false,
-                                "progressBar": false,
-                                "positionClass": "toast-top-right",
-                                "preventDuplicates": false,
-                                "onclick": null,
-                                "showDuration": "100",
-                                "hideDuration": "1000",
-                                "timeOut": "1000",
-                                "extendedTimeOut": "1000",
-                                "showEasing": "swing",
-                                "hideEasing": "linear",
-                                "showMethod": "fadeIn",
-                                "hideMethod": "fadeOut"
-                            });*@
+                            });                            
 
                             LoadData();
                         }
                         , error: function (ex) {
-
+                            GetErrorQMAppProp("PICPropQM_RejectPIC", JSON.stringify(ex));
                         }
                     });
 
-                    var receiver = $("TD", row).eq(8).html();
+                    
 
                     var tabletype = "One";
                     var whoreceiver = "Reviewer Rejected Usulan Revisi";
@@ -268,17 +269,73 @@
                         dataType: "json",
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
-
+                            toastr.success("Email Sent Successfully !", "Notification", {
+                                "closeButton": false,
+                                "debug": true,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-bottom-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "100",
+                                "hideDuration": "1000",
+                                "timeOut": "1000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            });
                         }, error: function (ex) {
-                            alert("Error Email: " + JSON.stringify(ex));
+                            GetErrorQMAppProp("PICPropNotifyRej", JSON.stringify(ex));
                         }
                     });
                 }
 		    });
         }
+
+        function GetErrorQMAppProp(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
     </script>
-
-
 </body>
 
 

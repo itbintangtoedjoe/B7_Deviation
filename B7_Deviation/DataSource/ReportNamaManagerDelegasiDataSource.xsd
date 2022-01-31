@@ -24,6 +24,7 @@
             <Mappings>
               <Mapping SourceColumn="NAMA" DataSetColumn="NAMA" />
               <Mapping SourceColumn="FLAG" DataSetColumn="FLAG" />
+              <Mapping SourceColumn="CREATION_DATE" DataSetColumn="CREATION_DATE" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -35,7 +36,7 @@
   <xs:element name="ReportNamaManagerDelegasiDataSource" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ReportNamaManagerDelegasiDataSource" msprop:Generator_UserDSName="ReportNamaManagerDelegasiDataSource">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="SP_ReportNamaManagerDelegasi" msprop:Generator_TableClassName="SP_ReportNamaManagerDelegasiDataTable" msprop:Generator_TableVarName="tableSP_ReportNamaManagerDelegasi" msprop:Generator_RowChangedName="SP_ReportNamaManagerDelegasiRowChanged" msprop:Generator_TablePropName="SP_ReportNamaManagerDelegasi" msprop:Generator_RowDeletingName="SP_ReportNamaManagerDelegasiRowDeleting" msprop:Generator_RowChangingName="SP_ReportNamaManagerDelegasiRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportNamaManagerDelegasiRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportNamaManagerDelegasiRowDeleted" msprop:Generator_RowClassName="SP_ReportNamaManagerDelegasiRow" msprop:Generator_UserTableName="SP_ReportNamaManagerDelegasi" msprop:Generator_RowEvArgName="SP_ReportNamaManagerDelegasiRowChangeEvent">
+        <xs:element name="SP_ReportNamaManagerDelegasi" msprop:Generator_TableClassName="SP_ReportNamaManagerDelegasiDataTable" msprop:Generator_TableVarName="tableSP_ReportNamaManagerDelegasi" msprop:Generator_TablePropName="SP_ReportNamaManagerDelegasi" msprop:Generator_RowDeletingName="SP_ReportNamaManagerDelegasiRowDeleting" msprop:Generator_RowChangingName="SP_ReportNamaManagerDelegasiRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportNamaManagerDelegasiRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportNamaManagerDelegasiRowDeleted" msprop:Generator_UserTableName="SP_ReportNamaManagerDelegasi" msprop:Generator_RowChangedName="SP_ReportNamaManagerDelegasiRowChanged" msprop:Generator_RowEvArgName="SP_ReportNamaManagerDelegasiRowChangeEvent" msprop:Generator_RowClassName="SP_ReportNamaManagerDelegasiRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="NAMA" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNAMA" msprop:Generator_ColumnPropNameInRow="NAMA" msprop:Generator_ColumnPropNameInTable="NAMAColumn" msprop:Generator_UserColumnName="NAMA" minOccurs="0">
@@ -46,6 +47,13 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="FLAG" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFLAG" msprop:Generator_ColumnPropNameInRow="FLAG" msprop:Generator_ColumnPropNameInTable="FLAGColumn" msprop:Generator_UserColumnName="FLAG" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CREATION_DATE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCREATION_DATE" msprop:Generator_ColumnPropNameInRow="CREATION_DATE" msprop:Generator_ColumnPropNameInTable="CREATION_DATEColumn" msprop:Generator_UserColumnName="CREATION_DATE" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />

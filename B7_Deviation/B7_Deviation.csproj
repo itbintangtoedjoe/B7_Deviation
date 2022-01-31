@@ -5573,9 +5573,6 @@
     <Content Include="Views\Reviewer\ReviewerHeader.cshtml" />
     <Content Include="Views\SpvPelapor\Approval.cshtml" />
     <Content Include="Views\SpvPelapor\ApprovalHeader.cshtml" />
-    <Content Include="Views\SpvPelapor\DataTableList.cshtml" />
-    <Content Include="Views\SpvPelapor\PendingApproval.cshtml" />
-    <Content Include="Views\SpvPelapor\PICProposal.cshtml" />
     <Content Include="Views\CMS\InputForm.cshtml" />
     <Content Include="Views\CMS\ShowUser.cshtml" />
     <Content Include="Views\SpvPIC\HasilRemedial.cshtml" />

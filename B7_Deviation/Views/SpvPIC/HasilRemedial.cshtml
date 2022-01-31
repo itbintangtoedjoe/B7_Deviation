@@ -1219,7 +1219,7 @@
         Swal.fire({
             icon: 'question',
 			title: 'Alasan Reject',
-			input: 'text',
+			input: 'textarea',
 			inputAttributes: {
 				autocapitalize: 'off'
 			},
@@ -1230,95 +1230,97 @@
 			allowOutsideClick: () => Swal.isLoading()
 		}).then((result) => {
 
-			if (result.value == null || result.value == '') {
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					text: 'Please Insert Reason!'
-				});
-			} else if (result.isConfirmed) {
-
-				var REQID = @ViewBag.nomor;
-				var DIS = @ViewBag.dis;
-
-				function RejectRemidialSup() {
-					var Keterangan = result.value;
-					var IDUser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-					// PINJAM MODEL DISPOSISI
-					var dto = {
-						REQ_ID: REQID,
-						KETERANGAN_DISPOSISI: Keterangan,
-						NO_DISPOSISI: DIS,
-						CURR_USER: IDUser
-					};
-
-					$.ajax({
-						url: "../SpvPIC/Reject",
-						type: "post",
-						dataType: "json",
-						data: JSON.stringify(dto),
-						contentType: "application/json;charset=utf-8",
-						success: function (data) {
-
-							Swal.fire({
-                                icon: 'success',
-								title: 'Form Rejected',
-                                showConfirmButton: false,
-                                timer: 2000
-							}).then(() => {
-								window.location.href = "../DataDeviasi/PendingTask"
-							})
-						}
-						, error: function (ex) {
-                            GetErrorSupRemedial('RejSupPIC ', JSON.stringify(ex));
-						}
+			if (result.isConfirmed) {
+				if (result.value == null || result.value == '') {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'Please Insert Reason!'
 					});
 				}
+				else {
+					var REQID = @ViewBag.nomor;
+					var DIS = @ViewBag.dis;
 
-				function EmailRejectSupPIC() {
-					var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-					var tabletype = "One";
-					var whoreceiver = "PIC after Superior Rejected Cost";
+					function RejectRemidialSup() {
+						var Keterangan = result.value;
+						var IDUser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-					var dto = {
-						Receiver: receiver,
-						ReqID: REQID,
-						TableType: tabletype,
-						WhoReceiver: whoreceiver,
-						Urutan: DIS
-					};
+						// PINJAM MODEL DISPOSISI
+						var dto = {
+							REQ_ID: REQID,
+							KETERANGAN_DISPOSISI: Keterangan,
+							NO_DISPOSISI: DIS,
+							CURR_USER: IDUser
+						};
 
-					$.ajax({
-						type: "post",
-						url: '../Form/SendEmailInputProposal',
-						data: JSON.stringify(dto),
-						dataType: "json",
-						contentType: "application/json;charset=utf-8",
-						success: function (data) {
-							toastr.success("Email Sent Successfully !", "Notification", {
-								"closeButton": false,
-								"debug": true,
-								"newestOnTop": false,
-								"progressBar": false,
-								"positionClass": "toast-bottom-right",
-								"preventDuplicates": false,
-								"onclick": null,
-								"showDuration": "100",
-								"hideDuration": "1000",
-								"timeOut": "2000",
-								"extendedTimeOut": "1000",
-								"showEasing": "swing",
-								"hideEasing": "linear",
-								"showMethod": "fadeIn",
-								"hideMethod": "fadeOut"
-							});
-						}, error: function (ex) {
-                            GetErrorSupRemedial("EmailSupPIC",JSON.stringify(ex));
-						}
-					});
+						$.ajax({
+							url: "../SpvPIC/Reject",
+							type: "post",
+							dataType: "json",
+							data: JSON.stringify(dto),
+							contentType: "application/json;charset=utf-8",
+							success: function (data) {
+
+								Swal.fire({
+									icon: 'success',
+									title: 'Form Rejected',
+									showConfirmButton: false,
+									timer: 2000
+								}).then(() => {
+									window.location.href = "../DataDeviasi/PendingTask"
+								})
+							}
+							, error: function (ex) {
+								GetErrorSupRemedial('RejSupPIC ', JSON.stringify(ex));
+							}
+						});
+					}
+
+					function EmailRejectSupPIC() {
+						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+						var tabletype = "One";
+						var whoreceiver = "PIC after Superior Rejected Cost";
+
+						var dto = {
+							Receiver: receiver,
+							ReqID: REQID,
+							TableType: tabletype,
+							WhoReceiver: whoreceiver,
+							Urutan: DIS
+						};
+
+						$.ajax({
+							type: "post",
+							url: '../Form/SendEmailInputProposal',
+							data: JSON.stringify(dto),
+							dataType: "json",
+							contentType: "application/json;charset=utf-8",
+							success: function (data) {
+								toastr.success("Email Sent Successfully !", "Notification", {
+									"closeButton": false,
+									"debug": true,
+									"newestOnTop": false,
+									"progressBar": false,
+									"positionClass": "toast-bottom-right",
+									"preventDuplicates": false,
+									"onclick": null,
+									"showDuration": "100",
+									"hideDuration": "1000",
+									"timeOut": "2000",
+									"extendedTimeOut": "1000",
+									"showEasing": "swing",
+									"hideEasing": "linear",
+									"showMethod": "fadeIn",
+									"hideMethod": "fadeOut"
+								});
+							}, error: function (ex) {
+								GetErrorSupRemedial("EmailSupPIC",JSON.stringify(ex));
+							}
+						});
+					}
+					$.when(RejectRemidialSup()).done(EmailRejectSupPIC());
 				}
-                $.when(RejectRemidialSup()).done(EmailRejectSupPIC());
 			}
 		});
 	}

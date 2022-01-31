@@ -2509,7 +2509,7 @@
 	}
 
 	function GetErrorInput(ErrorType, ErrorMsg) {
-		var REQID = @ViewBag.nomor;
+        var REQID = $('#lblReq').text();
 		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 		var dto = {

@@ -98,10 +98,9 @@
 						window.location.href = "../DataDeviasi/PendingTask"
 					);
 				})
-
 			}
 			, error: function (ex) {
-				alert('Error Approve: ' + JSON.stringify(ex));
+                GetErrorSupPelH("Spv_Approve", JSON.stringify(ex));
 			}
 		});
 	}
@@ -160,10 +159,9 @@
 								window.location.href = "../DataDeviasi/PendingTask"
 							);
 						})
-
 					}
 					, error: function (ex) {
-						alert('Error Reject : ' + JSON.stringify(ex));
+                        GetErrorSupPelH("Spv_Reject", JSON.stringify(ex));
 					}
 				});
 			}
@@ -173,8 +171,6 @@
 	function SendEmailRejectSpvRjt() {
 		var REQID = $("#lblReq").text();
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-		//var body = '<html><body>Dear {Model.Receiver}, Proposal with No: <b>' + REQID + ' </b> Is Rejected by Superior</body></html>';
-		//var subject = 'B7 - Deviation';
 
 		var tabletype = "One";
 		var whoreceiver = "Proposer after Superior Reject";
@@ -182,8 +178,6 @@
 		var dto = {
 			Receiver: receiver,
 			ReqID: REQID,
-			//Body: body,
-			//Subject: subject,
 			TableType: tabletype,
 			WhoReceiver: whoreceiver
 		};
@@ -211,9 +205,9 @@
                     "hideEasing": "linear",
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
-				});                
+				});
 			}, error: function (ex) {
-				alert("Error Email: " + JSON.stringify(ex));
+                GetErrorSupPelH("SendEmailRejectSpvRjt", JSON.stringify(ex));
 			}
 		});
 	}
@@ -221,7 +215,7 @@
 	function SendEmailApproveSpvApv() {
 		var REQID = $("#lblReq").text();
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-		
+
 
 		var tabletype = "More Than One";
 		var whoreceiver = "Koordinator after Superior Approved";
@@ -229,7 +223,7 @@
 		var dto = {
 			Receiver: receiver,
 			ReqID: REQID,
-			
+
 			TableType: tabletype,
 			WhoReceiver: whoreceiver
 		};
@@ -251,15 +245,57 @@
                     "onclick": null,
                     "showDuration": "100",
                     "hideDuration": "1000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+				});
+			}, error: function (ex) {
+                GetErrorSupPelH("SendEmailApproveSpvApv",JSON.stringify(ex));
+			}
+		});
+	}
+
+	function GetErrorSupPelH(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
                     "timeOut": "1000",
                     "extendedTimeOut": "1000",
                     "showEasing": "swing",
                     "hideEasing": "linear",
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
-				});                
-			}, error: function (ex) {
-				alert("Error Email: " + JSON.stringify(ex));
+                });
+			}
+			, error: function (ex) {
+
 			}
 		});
 	}

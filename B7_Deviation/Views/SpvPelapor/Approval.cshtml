@@ -546,26 +546,6 @@
 			success: function (data) {
 
 				var text = '';
-
-				// SHOW / HIDE
-				// KUALITAS PRODUK
-				//if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
-
-				//	$("#TxtNoWO").attr("hidden", false);
-				//	$('#TxtBatchNo').attr('hidden', false);
-				//	$("#TxtItemCode").attr("hidden", false);
-
-
-				//	// MATERIAL AWAL (MASIH ADA LAGI)
-				//} else if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
-
-				//	$("#TxtItemCode").attr("hidden", false);
-
-				//} else {
-				//	$("#divsimpang").attr("hidden", true);
-				//}
-
-
                 $("#TxtNoWO").attr("hidden", true);
                 $("#TxtItemCode").attr("hidden", true);
                 $('#TxtQCMaterialNo').attr('hidden', true);
@@ -769,64 +749,6 @@
 			}
 		});
 	}
-
-	@*function GetAllSite() {
-
-		//GetAllSite = function () { };
-
-		var REQID = @ViewBag.nomor;
-
-		var dto = {
-			ReqID: REQID
-		}
-
-		$.ajax({
-			url: "../SpvPelapor/App_GetSiteName",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				var count = data.length;
-				var trhtml = '';
-				var trav = 0;
-				trhtml += '<select id="ddlSite">';
-				trhtml += '<option disabled hidden class="dropdown-header"  value = " ">   Site Pelapor   </option>';
-
-				if (count > 0) {
-					for (trav = 0; trav < count; trav++) {
-
-						if (data[trav].DDL_TRUE == '' || data[trav].DDL_TRUE == null) {
-							trhtml += '<Option class="dropdown-item" selected value = "" > - ';
-							break;
-						}
-
-						if (data[trav].DDL_TRUE == data[trav].DDL_CODE) {
-							trhtml += '<Option class="dropdown-item" selected value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION ;
-						} else {
-							trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION ;
-						}
-
-
-					}
-				}
-
-				trhtml += '</select>';
-
-				$("#ddlSite").empty();
-				$("#ddlSite").append(trhtml);
-				$("#ddlSite").selectpicker();
-				$('#ddlSite').attr('disabled', true);
-				//GetAllSite = function () { };
-
-				alert($('#ddlSite').val());
-
-			},
-			error: function (ex) {
-                GetErrorSupPel("SupPel", JSON.stringify(ex));
-			}
-		});
-	}*@
 
 	function LoadUserInvolved() {
 

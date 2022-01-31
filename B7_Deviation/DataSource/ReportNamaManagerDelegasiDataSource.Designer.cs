@@ -283,6 +283,8 @@ namespace B7_Deviation.DataSource {
             
             private global::System.Data.DataColumn columnFLAG;
             
+            private global::System.Data.DataColumn columnCREATION_DATE;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_ReportNamaManagerDelegasiDataTable() {
@@ -334,6 +336,14 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CREATION_DATEColumn {
+                get {
+                    return this.columnCREATION_DATE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -369,11 +379,12 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportNamaManagerDelegasiRow AddSP_ReportNamaManagerDelegasiRow(string NAMA, string FLAG) {
+            public SP_ReportNamaManagerDelegasiRow AddSP_ReportNamaManagerDelegasiRow(string NAMA, string FLAG, string CREATION_DATE) {
                 SP_ReportNamaManagerDelegasiRow rowSP_ReportNamaManagerDelegasiRow = ((SP_ReportNamaManagerDelegasiRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         NAMA,
-                        FLAG};
+                        FLAG,
+                        CREATION_DATE};
                 rowSP_ReportNamaManagerDelegasiRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_ReportNamaManagerDelegasiRow);
                 return rowSP_ReportNamaManagerDelegasiRow;
@@ -398,6 +409,7 @@ namespace B7_Deviation.DataSource {
             internal void InitVars() {
                 this.columnNAMA = base.Columns["NAMA"];
                 this.columnFLAG = base.Columns["FLAG"];
+                this.columnCREATION_DATE = base.Columns["CREATION_DATE"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -407,10 +419,14 @@ namespace B7_Deviation.DataSource {
                 base.Columns.Add(this.columnNAMA);
                 this.columnFLAG = new global::System.Data.DataColumn("FLAG", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFLAG);
+                this.columnCREATION_DATE = new global::System.Data.DataColumn("CREATION_DATE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCREATION_DATE);
                 this.columnNAMA.ReadOnly = true;
                 this.columnNAMA.MaxLength = 200;
                 this.columnFLAG.ReadOnly = true;
                 this.columnFLAG.MaxLength = 50;
+                this.columnCREATION_DATE.ReadOnly = true;
+                this.columnCREATION_DATE.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -585,6 +601,23 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string CREATION_DATE {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportNamaManagerDelegasi.CREATION_DATEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CREATION_DATE\' in table \'SP_ReportNamaManagerDelegasi\' is D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportNamaManagerDelegasi.CREATION_DATEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsNAMANull() {
                 return this.IsNull(this.tableSP_ReportNamaManagerDelegasi.NAMAColumn);
             }
@@ -605,6 +638,18 @@ namespace B7_Deviation.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetFLAGNull() {
                 this[this.tableSP_ReportNamaManagerDelegasi.FLAGColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCREATION_DATENull() {
+                return this.IsNull(this.tableSP_ReportNamaManagerDelegasi.CREATION_DATEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCREATION_DATENull() {
+                this[this.tableSP_ReportNamaManagerDelegasi.CREATION_DATEColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -769,6 +814,7 @@ namespace B7_Deviation.DataSource.ReportNamaManagerDelegasiDataSourceTableAdapte
             tableMapping.DataSetTable = "SP_ReportNamaManagerDelegasi";
             tableMapping.ColumnMappings.Add("NAMA", "NAMA");
             tableMapping.ColumnMappings.Add("FLAG", "FLAG");
+            tableMapping.ColumnMappings.Add("CREATION_DATE", "CREATION_DATE");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

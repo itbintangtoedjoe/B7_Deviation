@@ -281,6 +281,8 @@ namespace B7_Deviation.DataSource {
             
             private global::System.Data.DataColumn columnCoorName;
             
+            private global::System.Data.DataColumn columnCREATION_DATE;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_ReportKoordinator2DataTable() {
@@ -324,6 +326,14 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CREATION_DATEColumn {
+                get {
+                    return this.columnCREATION_DATE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -359,10 +369,11 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_ReportKoordinator2Row AddSP_ReportKoordinator2Row(string CoorName) {
+            public SP_ReportKoordinator2Row AddSP_ReportKoordinator2Row(string CoorName, string CREATION_DATE) {
                 SP_ReportKoordinator2Row rowSP_ReportKoordinator2Row = ((SP_ReportKoordinator2Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        CoorName};
+                        CoorName,
+                        CREATION_DATE};
                 rowSP_ReportKoordinator2Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_ReportKoordinator2Row);
                 return rowSP_ReportKoordinator2Row;
@@ -386,6 +397,7 @@ namespace B7_Deviation.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
                 this.columnCoorName = base.Columns["CoorName"];
+                this.columnCREATION_DATE = base.Columns["CREATION_DATE"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -393,8 +405,12 @@ namespace B7_Deviation.DataSource {
             private void InitClass() {
                 this.columnCoorName = new global::System.Data.DataColumn("CoorName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCoorName);
+                this.columnCREATION_DATE = new global::System.Data.DataColumn("CREATION_DATE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCREATION_DATE);
                 this.columnCoorName.ReadOnly = true;
                 this.columnCoorName.MaxLength = 80;
+                this.columnCREATION_DATE.ReadOnly = true;
+                this.columnCREATION_DATE.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -553,6 +569,22 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string CREATION_DATE {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_ReportKoordinator2.CREATION_DATEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CREATION_DATE\' in table \'SP_ReportKoordinator2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_ReportKoordinator2.CREATION_DATEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsCoorNameNull() {
                 return this.IsNull(this.tableSP_ReportKoordinator2.CoorNameColumn);
             }
@@ -561,6 +593,18 @@ namespace B7_Deviation.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetCoorNameNull() {
                 this[this.tableSP_ReportKoordinator2.CoorNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCREATION_DATENull() {
+                return this.IsNull(this.tableSP_ReportKoordinator2.CREATION_DATEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCREATION_DATENull() {
+                this[this.tableSP_ReportKoordinator2.CREATION_DATEColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -724,6 +768,7 @@ namespace B7_Deviation.DataSource.ReportKoordinatorDataSource2TableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "SP_ReportKoordinator2";
             tableMapping.ColumnMappings.Add("CoorName", "CoorName");
+            tableMapping.ColumnMappings.Add("CREATION_DATE", "CREATION_DATE");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

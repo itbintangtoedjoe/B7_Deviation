@@ -299,72 +299,12 @@
                     var Count = data.length;
 
                     if (Count == '0') {
-                        //trHTML +=
-                        //    '<tr><td> N/A </td>' +
-                        //    '<td> N/A </td>' +
-                        //    '<td> N/A </td>' +
-                        //    '<td> N/A </td>' +
-                        //    '<td> N/A </td>' +
-                        //    '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis"> N/A </td>' +
-                        //    '<td> N/A </td>' +
-                        //    '<td> N/A </td>' +
-                        //    '<td> N/A </td>' +
-                        //    '<td> N/A </td>' +
-                        //    '<td> N/A </td>' +
-                        //    '<td align="center">-</td>' +
-                        //    '<td hidden> - </td>';
+                      
                     } else {
                         for (trav = 0; trav < Count; trav++) {
 
-                            // IF STATUS = OPEN, USER ONLY ABLE TO SEE PROGRESS (SUS)
-                            // IF STATUS = CANCELLED, USER ONLY ABLE TO SEE REASON AND CANCEL DATE
-                            //if (
-                            //    data[trav].STAT == 'OPEN' ||
-                            //    data[trav].STAT == 'CANCELED' ||
-                            //    (
-                            //        data[trav].STAT == 'APKOR1' && data[trav].FLAG_APKOR == 'COOR WAIT'
-                            //    )
-
-                            //    ||
-
-                            //    (
-                            //        data[trav].STAT == 'PICDD1' && data[trav].FLAG_PICDD == 'COOR WAIT'
-                            //    )
-                            //) {
-                            //    // LIAT DOANG
-                            //    trHTML +=
-                            //        '<tr><td>' + data[trav].REQ_ID + '</td>' +
-                            //        '<td>' + data[trav].DEVIATION_NO + '</td>' +
-                            //        '<td>' + data[trav].EMPNAME + '</td>' +
-                            //        '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +
-                            //        '<td>' + data[trav].PLAN_DEV + '</td>' +
-                            //        '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
-                            //        '<td>' + data[trav].STATUS + '</td>' +
-                            //        '<td>' + data[trav].NO_CARPAR + '</td>' +
-                            //        '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
-                            //        '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
-                            //        '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
-                            //        '<td align="center">-</td>' +
-                            //        '<td hidden>' + data[trav].REQ_ID + '</td>';
-
-                            //    // WHEN STATUS = APPROVED, USER ABLE TO DOWNLOAD
-                            //} else
-                            if (
-
-                                //data[trav].STAT == 'CLOSE' ||
-                                //data[trav].STAT == 'APSPV1' ||
-                                //(
-                                //    data[trav].STAT == 'APKOR1' && data[trav].FLAG_APKOR == 'COOR APPROVED'
-                                //)
-
-                                //||
-
-                                //data[trav].STAT == 'OKKOR1' ||
-                                //data[trav].STAT == 'DTRQM1' ||
-                                //data[trav].STAT == 'VTROK1'
-
-                                data[trav].STAT == 'PICDD1' || data[trav].STAT == 'CAPANO' || data[trav].STAT == 'CAPAYS' || data[trav].STAT == 'Close'
-                            ) {
+                            if (data[trav].STAT == 'PICDD1' || data[trav].STAT == 'CAPANO' || data[trav].STAT == 'CAPAYS' || data[trav].STAT == 'CLOSE')
+                            {
                                 // BISA DONLOT
                                 trHTML +=
                                     '<tr><td> <input type="button" id="Print" value="Print" onclick=Print(this) class="btn btn-success" style="width:auto;"/> <input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
@@ -378,8 +318,7 @@
                                     '<td>' + data[trav].NO_CARPAR + '</td>' +
                                     '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
                                     '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
-                                    '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
-                                    //'<td> <input type="button" id="Print" value="Print" onclick=Print(this) class="btn btn-success" style="width:auto;"/> <input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
+                                    '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +                                    
                                     '<td hidden>' + data[trav].REQ_ID + '</td></tr>';
 
                                 // WHEN GOT REJECTED WHATSOEVER
@@ -397,8 +336,7 @@
                                     '<td>' + data[trav].NO_CARPAR + '</td>' +
                                     '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
                                     '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
-                                    '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
-                                    //'<td align="center"><input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
+                                    '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +                                    
                                 '<td hidden>' + data[trav].REQ_ID + '</td></tr>';
                             }
                         }
@@ -583,55 +521,8 @@
                     var Count = data.length;
                     checkLoading = Count;
                     for (trav = 0; trav < Count; trav++) {
-
-                        // IF STATUS = OPEN, USER ONLY ABLE TO SEE PROGRESS (SUS)
-                        // IF STATUS = CANCELLED, USER ONLY ABLE TO SEE REASON AND CANCEL DATE
-                        //if (
-                        //    data[trav].STAT == 'OPEN' ||
-                        //    data[trav].STAT == 'CANCELED' ||
-                        //    (
-                        //        data[trav].STAT == 'APKOR1' && data[trav].FLAG_APKOR == 'COOR WAIT'
-                        //    )
-
-                        //    ||
-
-                        //    (
-                        //        data[trav].STAT == 'PICDD1' && data[trav].FLAG_PICDD == 'COOR WAIT'
-                        //    )
-                        //) {
-                        //    // LIAT DOANG
-                        //    trHTML +=
-                        //        '<tr><td>' + data[trav].REQ_ID + '</td>' +
-                        //        '<td>' + data[trav].DEVIATION_NO + '</td>' +
-                        //        '<td>' + data[trav].EMPNAME + '</td>' +
-                        //        '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +
-                        //        '<td>' + data[trav].PLAN_DEV + '</td>' +
-                        //        '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
-                        //        '<td>' + data[trav].STATUS + '</td>' +
-                        //        '<td>' + data[trav].NO_CARPAR + '</td>' +
-                        //        '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
-                        //        '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
-                        //        '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
-                        //        '<td align="center">-</td>' +
-                        //        '<td hidden>' + data[trav].REQ_ID + '</td>';
-
-                        //    // WHEN STATUS = APPROVED, USER ABLE TO DOWNLOAD
-                        //} else
-                        if (
-
-                            //data[trav].STAT == 'CLOSE' ||
-                            //data[trav].STAT == 'APSPV1' ||
-                            //(
-                            //    data[trav].STAT == 'APKOR1' && data[trav].FLAG_APKOR == 'COOR APPROVED'
-                            //)
-
-                            //||
-
-                            //data[trav].STAT == 'OKKOR1' ||
-                            //data[trav].STAT == 'DTRQM1' ||
-                            //data[trav].STAT == 'VTROK1'
-                            data[trav].STAT == 'PICDD1' || data[trav].STAT == 'CAPANO' || data[trav].STAT == 'CAPAYS' || data[trav].STAT == 'CLOSE'
-                        ) {
+                        if (data[trav].STAT == 'PICDD1' || data[trav].STAT == 'CAPANO' || data[trav].STAT == 'CAPAYS' || data[trav].STAT == 'CLOSE')
+                        {
                             // BISA DONLOT
                             trHTML +=
                                 '<tr><td> <input type="button" id="Print" value="Print" onclick=Print(this) class="btn btn-success" style="width:auto;"/> <input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
@@ -646,7 +537,6 @@
                                 '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
                                 '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
                                 '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
-                                //'<td> <input type="button" id="Print" value="Print" onclick=Print(this) class="btn btn-success" style="width:auto;"/> <input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
                                 '<td hidden>' + data[trav].REQ_ID + '</td>';
 
                             // WHEN GOT REJECTED WHATSOEVER
@@ -665,11 +555,8 @@
                                 '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
                                 '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
                                 '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
-                                //'<td align="center"><input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
                                 '<td hidden>' + data[trav].REQ_ID + '</td>';
                         }
-                        
-                        
                     }
 
                     if (checkLoading > 0) {
@@ -683,9 +570,7 @@
                         aaSorting: [[1, 'desc']]                  
                     });
 
-
                     objDeviation = data;
-
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));

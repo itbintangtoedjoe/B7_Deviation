@@ -148,7 +148,7 @@
 			success: function (data) {
 			}
 			, error: function (ex) {
-				alert("Delete Path in DB: " + stringify(ex));
+                GetErrorReview("BeforeUnloadDeletePath", JSON.stringify(ex));
 			}
 		});
 
@@ -161,7 +161,7 @@
 			success: function (data) {
 			}
 			, error: function (ex) {
-				alert("Delete Actual File: " + stringify(ex));
+                GetErrorReview("BeforeUnloadDeleteFile", JSON.stringify(ex));
 			}
 		});
 
@@ -170,62 +170,85 @@
 	function Submit() {
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["nik"]';
+		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 		var keterangan = $("#txtReason").val();
 
-		var dto = {
+		function SubmitF() {
+            var dto = {
 
-			REQID: REQID,
-			KETERANGAN: keterangan,
-			IDUSER: iduser
-		};
+                REQID: REQID,
+                KETERANGAN: keterangan,
+                IDUSER: iduser
+            };
 
-		$.ajax({
-			url: "../Reviewer/Rev_Submit",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
+            $.ajax({
+                url: "../Reviewer/Rev_Submit",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
 
-				Swal.fire({
-                    icon: 'success',
-					title: 'Review Submitted',
-                    showConfirmButton: false,
-                    timer: 2000
-				}).then(() => {
-					CheckDelete = 1;
-					window.location.href = "../DataDeviasi/PendingTask"
-				})
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Review Submitted',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        CheckDelete = 1;
+                        window.location.href = "../DataDeviasi/PendingTask"
+                    })
 
-			}
-			, error: function (ex) {
-				alert('Error Sumbit: ' + JSON.stringify(ex));
-			}
-		});
+                }
+                , error: function (ex) {
+                    GetErrorReview("Rev_Submit", JSON.stringify(ex));
+                }
+            });
+		}
+		
 
-		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-		var tabletype = "More Than One";
-		var whoreceiver = "Koordinator after Reviewer Submit";
+		function EmailSubmitReview() {
+            var tabletype = "More Than One";
+            var whoreceiver = "Koordinator after Reviewer Submit";
 
-		var dtx = {
-			Receiver: receiver,
-			ReqID: REQID,
-			TableType: tabletype,
-			WhoReceiver: whoreceiver
-		};
+            var dtx = {
+                Receiver: receiver,
+                ReqID: REQID,
+                TableType: tabletype,
+                WhoReceiver: whoreceiver
+            };
 
-		$.ajax({
-			type: "post",
-			url: '../Form/SendEmailInputProposal',
-			data: JSON.stringify(dtx),
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
+            $.ajax({
+                type: "post",
+                url: '../Form/SendEmailInputProposal',
+                data: JSON.stringify(dtx),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    toastr.success("Email Sent Successfully !", "Notification", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-bottom-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+                }, error: function (ex) {
+                    GetErrorReview("EmailReviewSubmit", JSON.stringify(ex));
+                }
+            });
+		}
 
-			}, error: function (ex) {
-				alert("Error Email: " + JSON.stringify(ex));
-			}
-		});
+        $.when(SubmitF()).done(EmailSubmitReview());
 	}
 
 	function UploadAttachmentDeviation() {
@@ -277,11 +300,9 @@
 					}
 				}
 				, error: function (ex) {
-					alert('Error Upload Attachment: ' + JSON.stringify(ex));
+                    GetErrorReview("UploadAttachmentDeviationReview", JSON.stringify(ex));
 				}
 			});
-		} else {
-
 		}
 	}
 
@@ -338,7 +359,7 @@
 				}
 			},
 			error: function (ex) {
-				alert('Error Load File Attachment : ' + JSON.stringify(ex));
+                GetErrorReview("Rev_LoadAttachment", JSON.stringify(ex));
 			}
 		});
 	}
@@ -366,7 +387,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				
+
 				if (data == 'S') {
 					toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
 						"closeButton": false,
@@ -385,14 +406,11 @@
 						"showMethod": "fadeIn",
 						"hideMethod": "fadeOut"
 					});
-
-                   
-
 					GetFileAttachmentReviewer();
 				}
 			},
 			error: function (ex) {
-				alert("Error Delete File Attachment: " + stringify(ex));
+                GetErrorReview("DeleteFileAttachmentReview", JSON.stringify(ex));
 			}
 		});
 	}
@@ -428,8 +446,50 @@
                 });
             }
             , error: function (ex) {
-                alert('Error Load Data Review: ' + JSON.stringify(ex));
+                GetErrorReview("LoadDataReview", JSON.stringify(ex));
             }
         });
+	}
+
+	function GetErrorReview(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
 	}
 </script>

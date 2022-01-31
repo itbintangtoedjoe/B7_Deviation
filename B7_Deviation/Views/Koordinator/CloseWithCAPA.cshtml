@@ -512,7 +512,8 @@
     function CloseWithCAPA() {
         var nomor = @ViewBag.nomor;
         var noCAPA = $("#txtNoCAPA").val();
-		var empid = '@Request.RequestContext.HttpContext.Session["nik"]';
+        var empid = '@Request.RequestContext.HttpContext.Session["nik"]';
+        let usrnm = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
         if (noCAPA.trim() == '' || noCAPA == null) {
             Swal.fire({
@@ -527,7 +528,7 @@
 		var dto = {
             REQID: nomor,
             KETERANGAN: noCAPA,
-            IDUSER: empid
+            IDUSER: usrnm
 		}
 
 		$.ajax({
@@ -539,11 +540,11 @@
             success: function (data) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'CAPA successfully closed with entered CAPA number!',
+                    title: 'Deviation successfully closed with entered CAPA number!',
                     showConfirmButton: false,
                     timer: 2000
                 }).then(() => {
-                    window.location.href = "../DataDeviasi/PendingTask"                    
+                    window.location.href = "../DataDeviasi/PendingTask"
                 })
 			},
 			error: function (ex) {
