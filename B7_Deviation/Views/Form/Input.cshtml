@@ -1415,12 +1415,14 @@
 				var trhtml = '';
 				var trav = 0;
 				var arr = new Array();
+                var arr1 = new Array();
 				var jsonObj = [];
 
 				for (trav = 0; trav < count; trav++) {
 					arr[trav] = data[trav].NO_BATCH;
+					arr1[trav] = data[trav].NO_BATCH + '-' + data[trav].WO_NUMBER;
 					var item = {}
-					item["label"] = arr[trav];
+					item["label"] = arr1[trav];
 					item["value"] = arr[trav];
 					jsonObj.push(item);
 				}
@@ -1443,9 +1445,9 @@
                         $('#TxtItemCode').val('');
                         $('#txtKetKategori').val('');
                         $('#TxtQCMaterialNo').val('');
-
-                        for (var i = 0; i < count; i++) {
-                            if (data[i].NO_BATCH == ui.item.value) {
+						
+						for (var i = 0; i < count; i++) {
+							if (data[i].NO_BATCH + '-' + data[i].WO_NUMBER == ui.item.label) {
                                 $("#TxtNoWO").val(data[i].WO_NUMBER);
                                 $('#TxtItemCode').val(data[i].ITEM_CODE);
                                 $('#txtKetKategori').val(data[i].ITEM_DESCRIPTION);
