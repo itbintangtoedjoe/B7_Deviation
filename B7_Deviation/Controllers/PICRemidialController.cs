@@ -150,7 +150,8 @@ namespace B7_Deviation.Controllers
                 , URLDownload = ""
                 , result = ""
                 , ReqID = formCollection["ReqID"]
-                , UserNIK = formCollection["UserNIK"];
+                , UserNIK = formCollection["UserNIK"]
+                , NoDisposisi = formCollection["NoDisposisi"];
 
             string DateTimeF = DateTime.Now.ToString("mmssff");
 
@@ -193,6 +194,9 @@ namespace B7_Deviation.Controllers
                         command.Parameters.Add("@REQID", SqlDbType.VarChar);
                         command.Parameters["@REQID"].Value = ReqID;
 
+                        command.Parameters.Add("@NOMOR_DISPOSISI", SqlDbType.VarChar);
+                        command.Parameters["@NOMOR_DISPOSISI"].Value = NoDisposisi;
+
                         result = (string)command.ExecuteScalar();
                     }
                     Conn.Close();
@@ -206,7 +210,7 @@ namespace B7_Deviation.Controllers
         }
         public ActionResult PIC_LoadBukti(DeviationModel Model)
         {
-            string ConString = mySetting.ConnectionString;
+            string ConString = mySetting.ConnectionString;            
             SqlConnection Conn = new SqlConnection(ConString);
             List<string> ModelData = new List<string>();
             try
@@ -224,6 +228,9 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@REQID", SqlDbType.VarChar);
                     command.Parameters["@REQID"].Value = Model.ReqID;
+
+                    command.Parameters.Add("@NOMOR_DISPOSISI", SqlDbType.VarChar);
+                    command.Parameters["@NOMOR_DISPOSISI"].Value = Model.NO_DISPOSISI;
 
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
@@ -285,6 +292,9 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@Option", SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "PIC Remidial";
+
+                    command.Parameters.Add("@NoDisposisi", SqlDbType.VarChar);
+                    command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
 
                     command.Parameters.Add("@HasilTindakan", SqlDbType.VarChar);
                     command.Parameters["@HasilTindakan"].Value = Model.HasilTindakan;
@@ -429,7 +439,7 @@ namespace B7_Deviation.Controllers
         public ActionResult PIC_DeleteAttachment(DeviationModel Model)
         {
             string result;
-            string PathFile = "//10.100.18.54" + Model.PathFile;
+            string PathFile = "//10.100.18.138" +  Model.PathFile;
 
             List<string> ModelData = new List<string>();
             string ConString = mySetting.ConnectionString;
@@ -452,6 +462,9 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@RecordID", SqlDbType.VarChar);
                     command.Parameters["@RecordID"].Value = Model.RecordID;
+
+                    command.Parameters.Add("@NOMOR_DISPOSISI", SqlDbType.VarChar);
+                    command.Parameters["@NOMOR_DISPOSISI"].Value = Model.NO_DISPOSISI;
 
                     result = (string)command.ExecuteScalar();
 

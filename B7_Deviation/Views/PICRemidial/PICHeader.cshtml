@@ -393,6 +393,34 @@
 			$("#picsubmission").removeAttr("hidden");
 		} else {
 			$("#picsubmission").attr("hidden", true);
+
+            // Testing Section
+            $("#testingDurasiPengerjaan").val('');
+            $("#testingJumlahPelaksana").val('');
+            $("#testingManhoursValue").val('');
+            $("#testingCostAnalysis").val('');
+
+            // Processing Section
+            $("#procDurasiPengerjaan").val('');
+            $("#procJumlahPelaksana").val('');
+            $("#procManhoursValue").val('');
+            $("#procMaterial").val('');
+            $("#procQty").val('');
+            $("#procCostMaterial").val('');
+
+            // Rejection Section
+            $("#rejMaterial").val('');
+            $("#rejQty").val('');
+            $("#rejCostMaterial").val('');
+
+            // Machine Cost
+            $("#mcDurasiPengerjaan").val('');
+            $("#mcJumlahTeknisi").val('');
+            $("#mcManhoursValue").val('');
+            $("#mcNamaMesin").val('');
+            $("#mcTotalMachineHours").val('');
+            $("#mcSparepart").val('');
+            $("#mcHargaSparepart").val('');
         }
 	}
 
@@ -549,12 +577,14 @@
 		var REQID = @ViewBag.nomor;
 		var totalFiles = document.getElementById("idFileUploadAttach").files.length;
 		var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
+		var urutan = @ViewBag.urutan;
 
 		for (var i = 0; i < totalFiles; i++) {
 			var file = document.getElementById("idFileUploadAttach").files[i];
 			formData.append("idFileUploadAttach", file);
 			formData.append("ReqID", REQID);
 			formData.append("UserNIK", usernik);
+			formData.append("NoDisposisi", urutan);
 		}
 
 		$.ajax({
@@ -661,7 +691,7 @@
 
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
+		var urutan = @ViewBag.urutan;
 
 		// Detailed Section
         var HiddenCostType = $('input[name="checkhiddencost"]:checked').val();
@@ -749,6 +779,7 @@
 		var dto = {
 			REQID: REQID,
 			IDUSER: iduser,
+			NO_DISPOSISI: urutan,
 
 			HasilTindakan: HasilTindakan,
 			HiddenCostType: HiddenCostType,
@@ -789,7 +820,7 @@
                     showConfirmButton: false,
                     timer: 2000
 				}).then(() => {
-					
+
 					function SendEmailPIC() {
 						//jika pakai cost kirim email ke superior
 						if (HiddenCostType == 'Yes') {
@@ -897,6 +928,7 @@
 		var RecordID = $("TD", Row).eq(2).html();
 		var FileName = $("TD", Row).eq(3).html();
 		var PathFile = $("TD", Row).eq(4).html();
+		var urutan = @ViewBag.urutan;
 
 		var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -904,7 +936,8 @@
 			ReqID: ReqID,
 			RecordID: RecordID,
 			PathFile: PathFile,
-			USERNIK: usernik
+			USERNIK: usernik,
+            NO_DISPOSISI: urutan
 		}
 
 		$.ajax({

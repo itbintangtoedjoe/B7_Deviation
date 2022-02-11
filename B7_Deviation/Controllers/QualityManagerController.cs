@@ -851,6 +851,9 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar);
                     command.Parameters["@UserID"].Value = Model.IDUSER;
 
+                    command.Parameters.Add("@NoDisposisi", SqlDbType.VarChar);
+                    command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
+
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
 

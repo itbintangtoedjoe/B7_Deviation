@@ -71,11 +71,11 @@ namespace B7_Deviation.Controllers
         public ActionResult SendEmailInputProposal(EmailModel Model)
         {
             MailMessage Msg = new MailMessage();
-            SmtpClient MailObject = new SmtpClient("10.100.18.216");
+            SmtpClient MailObject = new SmtpClient("mail.kalbe.co.id");
 
             Msg.From = new MailAddress("notification@bintang7.com", "Deviation Notification");
             Msg.Bcc.Add(new MailAddress("shinvin10@gmail.com"));
-            Msg.Bcc.Add(new MailAddress("musicdoesmagicinlife@gmail.com"));
+
             Msg.Priority = MailPriority.High;
             Msg.IsBodyHtml = true;
             Msg.Subject = "Deviation Notification";
@@ -84,6 +84,7 @@ namespace B7_Deviation.Controllers
             SqlConnection Conn = new SqlConnection(ConString);
             List<string> ModelData = new List<string>();
             DT.Reset();
+            string result="";
             string EmailBody = ""
                  , t_deviation_no = ""
                  , t_problem = ""
@@ -96,7 +97,7 @@ namespace B7_Deviation.Controllers
             //SettingAttribute Detail Data Email 
             try
             {
-                Conn.Open();
+                
                 using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
                 {
                     Command.CommandType = CommandType.StoredProcedure;
@@ -105,14 +106,14 @@ namespace B7_Deviation.Controllers
 
                     Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                     Command.Parameters["@ReqID"].Value = Model.ReqID;
-
+                    
+                    Conn.Open();
                     SqlDataAdapter dataAdap = new SqlDataAdapter();
                     dataAdap.SelectCommand = Command;
-
-
                     dataAdap.Fill(DT);
+                    Conn.Close();
                 }
-                Conn.Close();
+                
             }
             catch (Exception ex)
             {
@@ -120,11 +121,11 @@ namespace B7_Deviation.Controllers
             }
             foreach (DataRow dr in DT.Rows)
             {
-                t_deviation_no = dr[1].ToString();
-                t_problem = dr[2].ToString();
-                t_location = dr[3].ToString();
-                t_category = dr[4].ToString();
-                t_status = dr[5].ToString();
+                t_deviation_no  = dr[1].ToString();
+                t_problem       = dr[2].ToString();
+                t_location      = dr[3].ToString();
+                t_category      = dr[4].ToString();
+                t_status        = dr[5].ToString();
             }
 
             DT.Reset();
@@ -133,11 +134,11 @@ namespace B7_Deviation.Controllers
                 //SettingAttribute Email and Name
                 try
                 {
-                    Conn.Open();
                     using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
                     {
                         Command.CommandType = CommandType.StoredProcedure;
 
+                        #region SendToOne
                         if (Model.WhoReceiver == "Superior after Form Input")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
@@ -259,18 +260,21 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
+                        #endregion
 
-
+                        Conn.Open();
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
                         dataAdap.SelectCommand = Command;
                         dataAdap.Fill(DT);
+                        Conn.Close();
                     }
-                    Conn.Close();
+                    
                 }
                 catch (Exception ex)
                 {
                     throw ex;
                 }
+
                 foreach (DataRow dr in DT.Rows)
                 {
                     t_namapenerima = dr[0].ToString();
@@ -278,6 +282,7 @@ namespace B7_Deviation.Controllers
                     Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
                 }
 
+                #region EmailBodyOne
                 if (Model.WhoReceiver == "Superior after Form Input")
                 {
                     EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
@@ -942,12 +947,100 @@ namespace B7_Deviation.Controllers
                         "</table>" +
                         "</body></html>";
                 }
+                #endregion
 
-                // Start Setting Send Notification
-                Msg.Subject = "Deviation Notification";
-                Msg.Body = EmailBody;
-                MailObject.Send(Msg);
-                // End Setting Send Notification
+                try {
+                    
+                    // Start Setting Send Notification
+                    Msg.Subject = "Deviation Notification";
+                    Msg.Body = EmailBody;
+                    MailObject.Send(Msg);
+                    // End Setting Send Notification
+
+                }
+                catch (Exception ex)
+                {
+                    using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                    {
+                        Command.CommandType = CommandType.StoredProcedure;
+                            
+                        Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                        Command.Parameters["@REQID"].Value = Model.ReqID;
+
+                        Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                        Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+
+                        Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                        Command.Parameters["@ERR_MSG"].Value = ex.ToString();
+
+                        Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                        Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                        Conn.Open();
+                        result = (string)Command.ExecuteScalar();
+                        Conn.Close();
+                    }
+                    try 
+                    {
+                        // Start Setting Send Notification
+                        Msg.Subject = "Deviation Notification";
+                        Msg.Body = EmailBody;
+                        MailObject.Send(Msg);
+                        // End Setting Send Notification
+                    }
+                    catch (Exception ex2)
+                    {                        
+                        using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                        {
+                            Command.CommandType = CommandType.StoredProcedure;
+
+                            Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                            Command.Parameters["@REQID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                            Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+
+                            Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                            Command.Parameters["@ERR_MSG"].Value = ex2.ToString();
+
+                            Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                            Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                            Conn.Open();
+                            result = (string)Command.ExecuteScalar();
+                            Conn.Close();
+                        }                      
+                        try {
+                            // Start Setting Send Notification
+                            Msg.Subject = "Deviation Notification";
+                            Msg.Body = EmailBody;
+                            MailObject.Send(Msg);
+                            // End Setting Send Notification
+                        }
+                        catch (Exception ex3){                            
+                            using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                            {
+                                Command.CommandType = CommandType.StoredProcedure;
+
+                                Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                                Command.Parameters["@REQID"].Value = Model.ReqID;
+
+                                Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                                Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+
+                                Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                                Command.Parameters["@ERR_MSG"].Value = ex3.ToString();
+
+                                Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                                Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                                Conn.Open();
+                                result = (string)Command.ExecuteScalar();
+                                Conn.Close();
+                            }
+                        }
+                    }
+                }
             }
             else if (Model.TableType == "More Than One")
             {
@@ -957,11 +1050,11 @@ namespace B7_Deviation.Controllers
 
                 try
                 {
-                    Conn.Open();
                     using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
                     {
                         Command.CommandType = CommandType.StoredProcedure;
 
+                        #region Send More than One
                         if (Model.WhoReceiver == "Koordinator after Superior Approved")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
@@ -1034,14 +1127,14 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
+                        #endregion
 
+                        Conn.Open();
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
                         dataAdap.SelectCommand = Command;
-
-
                         dataAdap.Fill(DT);
+                        Conn.Close();
                     }
-                    Conn.Close();
                 }
                 catch (Exception ex)
                 {
@@ -1057,6 +1150,7 @@ namespace B7_Deviation.Controllers
                     Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
                 }
 
+                #region EmailBodyMoreThanOne
                 if (Model.WhoReceiver == "Koordinator after Superior Approved")
                 {
                     EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
@@ -1532,13 +1626,95 @@ namespace B7_Deviation.Controllers
                         "</table>" +
                         "</body></html>";
                 }
+                #endregion
 
-                // Start Setting Send Notification
-                Msg.Subject = "Deviation Notification";
-                Msg.Body = EmailBody;
-                MailObject.Send(Msg);
-                // End Setting Send Notification
+                try
+                {
+                    // Start Setting Send Notification
+                    Msg.Subject = "Deviation Notification";
+                    Msg.Body = EmailBody;
+                    MailObject.Send(Msg);
+                    // End Setting Send Notification
+                }
+                catch (Exception ex)
+                {
+                    using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                    {
+                        Command.CommandType = CommandType.StoredProcedure;
+
+                        Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                        Command.Parameters["@REQID"].Value = Model.ReqID;
+                        Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                        Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+                        Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                        Command.Parameters["@ERR_MSG"].Value = ex.ToString();
+                        Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                        Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                        Conn.Open();
+                        result = (string)Command.ExecuteScalar();
+                        Conn.Close();
+                    }
+
+                    try
+                    {
+                        // Start Setting Send Notification
+                        Msg.Subject = "Deviation Notification";
+                        Msg.Body = EmailBody;
+                        MailObject.Send(Msg);
+                        // End Setting Send Notification
+                    }
+                    catch (Exception ex2)
+                    {
+                        using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                        {
+                            Command.CommandType = CommandType.StoredProcedure;
+
+                            Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                            Command.Parameters["@REQID"].Value = Model.ReqID;
+                            Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                            Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+                            Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                            Command.Parameters["@ERR_MSG"].Value = ex2.ToString();
+                            Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                            Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                            Conn.Open();
+                            result = (string)Command.ExecuteScalar();
+                            Conn.Close();
+                        }
+
+                        try
+                        {
+                            // Start Setting Send Notification
+                            Msg.Subject = "Deviation Notification";
+                            Msg.Body = EmailBody;
+                            MailObject.Send(Msg);
+                            // End Setting Send Notification
+                        }
+                        catch (Exception ex3)
+                        {
+                            using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                            {
+                                Command.CommandType = CommandType.StoredProcedure;
+                                Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                                Command.Parameters["@REQID"].Value = Model.ReqID;
+                                Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                                Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+                                Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                                Command.Parameters["@ERR_MSG"].Value = ex3.ToString();
+                                Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                                Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                                Conn.Open();
+                                result = (string)Command.ExecuteScalar();
+                                Conn.Close();
+                            }
+                        }
+                    }
+                }
             }
+
             Msg.To.Clear();
             Msg.Bcc.Clear();
             return Json(ModelData);

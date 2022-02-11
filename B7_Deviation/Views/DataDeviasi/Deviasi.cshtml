@@ -596,7 +596,7 @@
                             <h4>DISPOSISI</h4>
                             <br />
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered" id="deviationdatatable" width="2400px">
+                                <table class="table-striped table-bordered" id="deviationdatatable" width="2400px">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -1512,13 +1512,16 @@
     function ShowBukti(button) {
         event.preventDefault();
         $('#buktidatatable').DataTable().clear().destroy();
+
         var row = $(button).closest("TR");
         var ReqID = @ViewBag.nomor;
         var picnik = $("TD", row).eq(16).html();
-
+        var seq = $("TD", row).eq(0).html();
+        
         var dto = {
             REQID: ReqID,
-            IDUSER: picnik
+            IDUSER: picnik,
+            NO_DISPOSISI: seq
         }
 
         $.ajax({
@@ -1538,7 +1541,7 @@
                     trHTML +=
                         '<tr><td>' + no + '</td>' +
                         '<td>' + data[trav].PIC_ID + '</td>' +
-                        '<td><a href="../' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+                        '<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
 
                 }
 

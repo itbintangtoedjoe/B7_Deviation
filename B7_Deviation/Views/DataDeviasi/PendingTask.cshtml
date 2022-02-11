@@ -90,6 +90,7 @@
                             }
 
                         } else if (data[trav].SEND_TO == 'Supervisor') {
+                            
                             trHTML +=
                                 '<tr><td><a class="btn btn-success" href="../SpvPelapor/ApprovalHeader?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
 
@@ -145,10 +146,10 @@
                         } else if (data[trav].SEND_TO == 'PICRemidial') {
                             // Kurang disini
                             if (data[trav].CURRUSER == 'Supervisor') {
-                                if (data[trav].FLAG_SPVPIC == 'SPV PIC')
-                                {
-                                    if (data[trav].FLAG_QMPIC == 'QM')
-                                    {
+
+
+                                if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
+                                    if (data[trav].FLAG_QMPIC == 'QM') {
                                         //khusus atasan yg mempunyai role evaluator
                                         if (data[trav].STATUS == 'PIC Due Date Remidial') {
                                             if (data[trav].IS_EVALUATOR_PERUBAHAN == 1) {
@@ -169,11 +170,16 @@
                                         //}
 
                                     } else
-                                        if (data[trav].FLAG_QMPIC = 'No')
-                                        {
+                                        if (data[trav].FLAG_QMPIC = 'No') {
                                             trHTML += '<tr><td><a class="btn btn-success" href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
                                         }
                                 }
+                                else if (data[trav].FLAG_SPVPIC == 'PIC')
+                                {
+                                    trHTML += '<tr><td><a class="btn btn-success" href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
+                                }
+
+
                             }
                             else {
                                 if (data[trav].FLAG_SPVPIC == 'PIC') {
@@ -288,20 +294,22 @@
                             '<td hidden>' + data[trav].REQ_ID + '</td></tr>';
 
                     }
-
+                    
                     $('#deviationtable').empty();
+                    console.log(trHTML)
                     $('#deviationtable').append(trHTML);
                     $('#deviationdatatable').DataTable({
-                        order: [[0, "desc"]],
-                        "searching": false,
+                        order: [[0, "desc"]]
                     });
 
 
                 },
                 error: function (ex) {
+                    
                 }
             });
         }
+
     </script>
 
 </body>

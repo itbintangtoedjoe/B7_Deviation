@@ -607,8 +607,19 @@
         });
 
         $("#btnCancel").click(function () {
-            window.location.href = "../DataDeviasi/PendingTask"
-
+            Swal.fire({
+                title: 'Apakah anda yakin tidak menyimpan perubahan ini?',
+                icon: 'question',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Yes',
+                denyButtonText: 'No',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    window.location.href = "../DataDeviasi/PendingTask"
+                }
+            });
         });
 
     });

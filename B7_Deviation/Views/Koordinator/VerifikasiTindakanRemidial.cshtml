@@ -567,14 +567,16 @@
 		var row = $(button).closest("TR");
 		var ReqID = @ViewBag.nomor;
 		var picnik = $("TD", row).eq(16).html();
+        var seq = $("TD", row).eq(0).html();
 
 		var dto = {
 			REQID: ReqID,
-			IDUSER: picnik
+			IDUSER: picnik,
+            NO_DISPOSISI: seq
 		}
 
 		$.ajax({
-			url: "../Koordinator/Coor_ShowBuktiTable",
+            url: "../QualityManager/QM_ShowBuktiTable",
 			type: "post",
 			dataType: "json",
 			data: JSON.stringify(dto),
@@ -597,7 +599,7 @@
 						trHTML +=
 							'<tr><td>' + no + '</td>' +
 							'<td>' + data[trav].PIC_ID + '</td>' +
-							'<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';\
+							'<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
 					}
 				}
 
