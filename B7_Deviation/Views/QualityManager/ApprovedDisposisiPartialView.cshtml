@@ -73,13 +73,10 @@
 <script>
 
 	function LoadData() {
-
 		var nomor = @ViewBag.nomor;
 		var dto = {
 			REQID: nomor
 		}
-
-
 		$.when(
 			$.ajax({
 				url: "../Koordinator/Coor_LoadPICData",
@@ -219,6 +216,6 @@
 				}
 			})
 		);
-
 	}
+
 </script>
