@@ -84,7 +84,7 @@ namespace B7_Deviation.Controllers
             SqlConnection Conn = new SqlConnection(ConString);
             List<string> ModelData = new List<string>();
             DT.Reset();
-            string result="";
+            string result = "";
             string EmailBody = ""
                  , t_deviation_no = ""
                  , t_problem = ""
@@ -97,7 +97,7 @@ namespace B7_Deviation.Controllers
             //SettingAttribute Detail Data Email 
             try
             {
-                
+
                 using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
                 {
                     Command.CommandType = CommandType.StoredProcedure;
@@ -106,14 +106,14 @@ namespace B7_Deviation.Controllers
 
                     Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                     Command.Parameters["@ReqID"].Value = Model.ReqID;
-                    
+
                     Conn.Open();
                     SqlDataAdapter dataAdap = new SqlDataAdapter();
                     dataAdap.SelectCommand = Command;
                     dataAdap.Fill(DT);
                     Conn.Close();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -121,11 +121,11 @@ namespace B7_Deviation.Controllers
             }
             foreach (DataRow dr in DT.Rows)
             {
-                t_deviation_no  = dr[1].ToString();
-                t_problem       = dr[2].ToString();
-                t_location      = dr[3].ToString();
-                t_category      = dr[4].ToString();
-                t_status        = dr[5].ToString();
+                t_deviation_no = dr[1].ToString();
+                t_problem = dr[2].ToString();
+                t_location = dr[3].ToString();
+                t_category = dr[4].ToString();
+                t_status = dr[5].ToString();
             }
 
             DT.Reset();
@@ -268,7 +268,7 @@ namespace B7_Deviation.Controllers
                         dataAdap.Fill(DT);
                         Conn.Close();
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -949,8 +949,9 @@ namespace B7_Deviation.Controllers
                 }
                 #endregion
 
-                try {
-                    
+                try
+                {
+
                     // Start Setting Send Notification
                     Msg.Subject = "Deviation Notification";
                     Msg.Body = EmailBody;
@@ -963,7 +964,7 @@ namespace B7_Deviation.Controllers
                     using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
                     {
                         Command.CommandType = CommandType.StoredProcedure;
-                            
+
                         Command.Parameters.Add("@REQID", SqlDbType.VarChar);
                         Command.Parameters["@REQID"].Value = Model.ReqID;
 
@@ -980,7 +981,7 @@ namespace B7_Deviation.Controllers
                         result = (string)Command.ExecuteScalar();
                         Conn.Close();
                     }
-                    try 
+                    try
                     {
                         // Start Setting Send Notification
                         Msg.Subject = "Deviation Notification";
@@ -989,7 +990,7 @@ namespace B7_Deviation.Controllers
                         // End Setting Send Notification
                     }
                     catch (Exception ex2)
-                    {                        
+                    {
                         using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
                         {
                             Command.CommandType = CommandType.StoredProcedure;
@@ -1009,15 +1010,17 @@ namespace B7_Deviation.Controllers
                             Conn.Open();
                             result = (string)Command.ExecuteScalar();
                             Conn.Close();
-                        }                      
-                        try {
+                        }
+                        try
+                        {
                             // Start Setting Send Notification
                             Msg.Subject = "Deviation Notification";
                             Msg.Body = EmailBody;
                             MailObject.Send(Msg);
                             // End Setting Send Notification
                         }
-                        catch (Exception ex3){                            
+                        catch (Exception ex3)
+                        {
                             using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
                             {
                                 Command.CommandType = CommandType.StoredProcedure;

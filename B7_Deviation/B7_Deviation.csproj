@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Pict\approved.png" />
+    <Content Include="Content\Pict\Closed-Stamp.png" />
     <Content Include="Content\Pict\delegasi.png" />
     <Content Include="Content\Pict\perlu.jpeg" />
     <Content Include="Content\Pict\perlu2.jpg" />

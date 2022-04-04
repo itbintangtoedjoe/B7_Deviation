@@ -917,7 +917,7 @@ namespace B7_Deviation.Controllers
             return Json(ModelData, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult QM_TidakLanjut(ApprovalModel Model)
+        public ActionResult QM_TidakLanjut(CARPARModel Model)
         {
             string conSQL = mySetting.ConnectionString;
 
@@ -941,8 +941,17 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@IDUser", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@IDUser"].Value = Model.IDUSER;
 
-                    command.Parameters.Add("@Keterangan", System.Data.SqlDbType.NVarChar);
-                    command.Parameters["@Keterangan"].Value = Model.KETERANGAN;
+                    command.Parameters.Add("@TingkatKeparahan", SqlDbType.VarChar);
+                    command.Parameters["@TingkatKeparahan"].Value = Model.TINGKAT_KEPARAHAN;
+
+                    command.Parameters.Add("@JustifikasiLain", SqlDbType.VarChar);
+                    command.Parameters["@JustifikasiLain"].Value = Model.JUSTIFIKASI_LAIN;
+
+                    command.Parameters.Add("@DisposisiProdukSistem", SqlDbType.VarChar);
+                    command.Parameters["@DisposisiProdukSistem"].Value = Model.DISPOSISI_PRODUK_SISTEM;
+
+                    command.Parameters.Add("@KeteranganDisposisi", SqlDbType.VarChar);
+                    command.Parameters["@KeteranganDisposisi"].Value = Model.KETERANGAN_DISPOSISI;
 
                     result = (string)command.ExecuteScalar();
                     conn.Close();

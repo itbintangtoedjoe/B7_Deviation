@@ -206,11 +206,59 @@
 		LoadKoorSub();
 
 		$("#btnLanjut").click(function () {
-			Lanjut();
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Apakah anda yakin?',
+                text: "Untuk menindaklanjuti Deviation ini dengan CAR-PAR",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, lanjut dan submit',
+                cancelButtonText: 'Tidak',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Lanjut();
+                }
+                else
+                    if (result.dismiss === Swal.DismissReason.cancel) {
+
+                    }
+            })
 		});
 
 		$("#btnTidakLanjut").click(function () {
-			TidakLanjut();
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Apakah anda yakin?',
+                text: "Untuk tidak menindaklanjuti Deviation ini dengan CAR-PAR",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, tidak lanjut',
+                cancelButtonText: 'Tidak',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    TidakLanjut();
+                }
+                else
+                    if (result.dismiss === Swal.DismissReason.cancel) {
+
+                    }
+            })
 		});
 
 		$('#btnPilihLanjut').click(function () {
@@ -467,15 +515,40 @@
 	}
 
 	function TidakLanjut() {
-		var REQID = @ViewBag.nomor;
-		var Keterangan = "";
-		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+        var REQID = @ViewBag.nomor;
+        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+        var tingkatkeparahan = null;
+        var disposisi = $("#disposisi").val();
+        var keterangan = $("#keterangandisposisi").val();
+        var justifikasiLain = $("#txtJustifikasiLain").val();
+
+        if ($('input[name="chkbx"]:checked').val() == null) {
+
+        }
+        else {
+            tingkatkeparahan = $('input[name="chkbx"]:checked').val();
+        }
+
+        if (keterangan == '' || disposisi == '* SELECT *') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Disposisi Produk atau Sistem dan Keterangannya tidak boleh kosong !',
+                showConfirmButton: false,
+                timer: 2000
+            })
+            return;
+        }
 
 		function TidakLanjutNext() {
             var dto = {
                 REQID: REQID,
-                KETERANGAN: Keterangan,
+                TINGKAT_KEPARAHAN: tingkatkeparahan,
+                JUSTIFIKASI_LAIN: justifikasiLain,
+                DISPOSISI_PRODUK_SISTEM: disposisi,
+                KETERANGAN_DISPOSISI: keterangan,
                 IDUSER: iduser
+                
             };
 
             $.ajax({

@@ -181,14 +181,32 @@
 
 
                             }
-                            else {
-                                if (data[trav].FLAG_SPVPIC == 'PIC') {
+                            else
+                            {
+                                if (data[trav].FLAG_SPVPIC == 'PIC')
+                                {
                                     trHTML += '<tr><td><a class="btn btn-success" href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
                                 }
                                 else
-                                {
-                                    trHTML += '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
-                                }
+                                    if (data[trav].FLAG_SPVPIC == 'SPV PIC')
+                                    {
+                                        if (data[trav].FLAG_QMPIC = 'No')
+                                        {
+
+                                            if (data[trav].CURRUSER == 'Pelapor')
+                                            {
+                                                trHTML += '<tr><td><a class="btn btn-success" href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
+                                            }
+                                            else
+                                            {
+                                                trHTML += '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        trHTML += '<tr><td><a class="btn btn-success" href="../Koordinator/VerifikasiTindakanRemidial?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                                    }
                             }
 
                         } else if (data[trav].SEND_TO == 'Supervisor PIC') {

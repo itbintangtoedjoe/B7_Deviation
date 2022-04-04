@@ -1103,7 +1103,6 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-
                 var count = data.length;
                 if (count > 0) {
 
@@ -1119,7 +1118,7 @@
                         item["value"] = arr[trav];
                         jsonObj.push(item);
                     }
-                    console.log(jsonObj);
+
                     $("#TxtQCMaterialNo").autocomplete({
                         source: function (request, response) {
                             var results = $.ui.autocomplete.filter(jsonObj, request.term);
@@ -1152,25 +1151,6 @@
                             }
                         }
                     });
-
-                    //$("#TxtQCMaterialNo").change(function () {
-
-                    //                   $('#TxtBatchNo').val('');
-                    //                   $("#TxtNoWO").val('');
-                    //                   $('#TxtItemCode').val('');
-                    //                   $('#txtKetKategori').val('');
-
-                    //	var QCMaterialNo = $("#TxtQCMaterialNo").val();
-                    //                   for (var i = 0; i < count; i++) {
-                    //                       if (data[i].QC_MATERIAL == QCMaterialNo) {
-                    //                           $("#TxtItemCode").val(data[i].ITEM_CODE);
-                    //                           $("#txtKetKategori").val(data[i].ITEM_DESC);
-                    //                           break;
-                    //                       } else {
-                    //                           $("#txtKetKategori").val("");
-                    //                       }
-                    //                   }
-                    //});
                 }
 
             },
@@ -1327,6 +1307,7 @@
         var dto = {
             LocationSite: LocationSite
         }
+
         $.ajax({
             url: "../Form/GetNoBatchOracle",
             type: "post",
@@ -1337,16 +1318,17 @@
                 var trhtml = '';
                 var trav = 0;
                 var arr = new Array();
+                var arr1 = new Array();
                 var jsonObj = [];
 
                 for (trav = 0; trav < count; trav++) {
                     arr[trav] = data[trav].NO_BATCH;
+                    arr1[trav] = data[trav].NO_BATCH + '-' + data[trav].WO_NUMBER;
                     var item = {}
-                    item["label"] = arr[trav];
+                    item["label"] = arr1[trav];
                     item["value"] = arr[trav];
                     jsonObj.push(item);
                 }
-                @*console.log(jsonObj);*@
 
                 $("#TxtBatchNo").autocomplete({
                     source: function (request, response) {
@@ -1360,6 +1342,7 @@
                             };
                         }));
                     },
+
                     select: function (e, ui) {
                         $("#TxtNoWO").val('');
                         $('#TxtItemCode').val('');
@@ -1367,7 +1350,7 @@
                         $('#TxtQCMaterialNo').val('');
 
                         for (var i = 0; i < count; i++) {
-                            if (data[i].NO_BATCH == ui.item.value) {
+                            if (data[i].NO_BATCH + '-' + data[i].WO_NUMBER == ui.item.label) {
                                 $("#TxtNoWO").val(data[i].WO_NUMBER);
                                 $('#TxtItemCode').val(data[i].ITEM_CODE);
                                 $('#txtKetKategori').val(data[i].ITEM_DESCRIPTION);
@@ -1379,21 +1362,6 @@
                         }
                     }
                 });
-
-                @*$("#TxtBatchNo").change(function () {
-                    var BatchNo = $("#TxtBatchNo").val();
-                    for (var i = 0; i < count; i++) {
-                        if (data[i].NO_BATCH == BatchNo) {
-                            $("#TxtNoWO").val(data[i].WO_NUMBER);
-                            $('#TxtItemCode').val(data[i].ITEM_CODE);
-                            $('#txtKetKategori').val(data[i].ITEM_DESCRIPTION);
-                            break;
-                        } else {
-                            $("#TxtNoWO").val("");
-                            $('#TxtItemCode').val("");
-                        }
-                    }
-                });*@
             },
             error: function (ex) {
                 alert('Error : ' + JSON.stringify(ex));
@@ -2847,60 +2815,6 @@
             }
         });
     }
-
-    @*function GetNoBatchOracle() {
-
-        var LocationSite = LOCATION_SITE = $("#ddlSite").val();
-        var dto = {
-            LocationSite: LocationSite
-        }
-        $.ajax({
-            url: "../Form/GetNoBatchOracle",
-            type: "post",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var count = data.length;
-                var trhtml = '';
-                var trav = 0;
-                var arr = new Array();
-                var jsonObj = [];
-
-                for (trav = 0; trav < count; trav++) {
-                    arr[trav] = data[trav].NO_BATCH;
-                    var item = {}
-                    item["label"] = arr[trav];
-                    item["value"] = arr[trav];
-                    jsonObj.push(item);
-                }
-
-                $("#TxtBatchNo").autocomplete({
-                    source: function (request, response) {
-                        var results = $.ui.autocomplete.filter(jsonObj, request.term);
-                        response(results.slice(0, 10));
-                    }
-                });
-
-                $("#TxtBatchNo").change(function () {
-                    var BatchNo = $("#TxtBatchNo").val();
-                    for (var i = 0; i < count; i++) {
-                        if (data[i].NO_BATCH == BatchNo) {
-                            $("#TxtNoWO").val(data[i].WO_NUMBER);
-                            $('#TxtItemCode').val(data[i].ITEM_CODE);
-                            $('#txtKetKategori').val(data[i].ITEM_DESCRIPTION);
-                            break;
-                        } else {
-                            $("#TxtNoWO").val("");
-                            $('#TxtItemCode').val("");
-                        }
-                    }
-                });
-            },
-            error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
-            }
-        });
-    }*@
 
      function LoadKategori() {
 

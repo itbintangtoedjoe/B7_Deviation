@@ -154,8 +154,33 @@
                 }
                 else
                     if (checkEvaluator > 0 && $.trim(btnText) == 'Send to Reviewer') {
+                        const swalWithBootstrapButtons = Swal.mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-success',
+                                cancelButton: 'btn btn-danger'
+                            },
+                            buttonsStyling: false
+                        })
 
-                        ApproveHeaderKoordinator();
+                        swalWithBootstrapButtons.fire({
+                            title: 'Apakah anda yakin?',
+                            text: "Pastikan nama reviwer sudah lengkap!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Ya, sudah lengkap',
+                            cancelButtonText: 'Belum',
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                ApproveHeaderKoordinator();
+							}
+							else
+								if (result.dismiss === Swal.DismissReason.cancel)
+								{
+
+								}
+                        })
+                        
                     }
 		});
 
@@ -605,7 +630,7 @@
 			url: "../Koordinator/Coor_GetCurrStat",
 			type: "post",
 			dataType: "json",
-			data: JSON.stringify(dto),
+			data: JSON.stringify(dto),			
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				console.log(data);
@@ -628,37 +653,42 @@
 						ApproveReviewer();
 					});
 				} else {
-                    GetDDL();
-					$("#partialview").attr("hidden", false);
-					$("#btnShowRev").attr("hidden", true);
-					$("#btnCancel").attr("hidden", true);
-					$("#btnApprove").removeAttr("hidden");
-					$("#btnReject").removeAttr("hidden");
+					function loadStat() {
+                        GetDDL();
+                        $("#partialview").attr("hidden", false);
+                        $("#btnShowRev").attr("hidden", true);
+                        $("#btnCancel").attr("hidden", true);
+                        $("#btnApprove").removeAttr("hidden");
+                        $("#btnReject").removeAttr("hidden");
 
-
-					Coor_LoadUserInvolved();
-
-					btnText = $("#btnApprove").text();
-					tbl = data[0].COUNTED
-					cNoDev = $('#TbNmrDev').val();
-
-					// KALAU UDAH ADA ISINYA
-					if (cNoDev != '')
-					{
-						$("#btnApprove").text('Send to Reviewer');
-						$("#btnApprove").width("110px");
-						$("#xddlx").removeAttr('hidden');
-						$("#btnReject").attr("hidden", true);
+                        Coor_LoadUserInvolved();
 					}
 
-					if (((tbl < 1) && ($.trim(btnText) == 'Approve'))
-					  && (checkEvaluator > 0 && ($.trim(btnText) == 'Approve'))) {
+					function CekStat() {
+                        btnText = $("#btnApprove").text();
+                        tbl = data[0].COUNTED
+                        cNoDev = $('#TbNmrDev').val();
 
-                        $("#xddlx").removeAttr('hidden');
-                        $("#btnApprove").text('Send to Reviewer');
-                        $("#btnApprove").width("110px");
-                        $("#btnReject").attr("hidden", true);
-                    }
+
+                        // KALAU UDAH ADA ISINYA
+                        if (cNoDev != '') {
+                            $("#btnApprove").text('Send to Reviewer');
+                            $("#btnApprove").width("110px");
+                            $("#xddlx").removeAttr('hidden');
+                            $("#btnReject").attr("hidden", true);
+                        }
+
+                        if (((tbl < 1) && ($.trim(btnText) == 'Approve'))
+                            && (checkEvaluator > 0 && ($.trim(btnText) == 'Approve'))) {
+
+                            $("#xddlx").removeAttr('hidden');
+                            $("#btnApprove").text('Send to Reviewer');
+                            $("#btnApprove").width("110px");
+                            $("#btnReject").attr("hidden", true);
+                        }
+					}
+
+                    $.when(CekStat()).done(loadStat());
 				}
 
 			}, error: function (ex) {
