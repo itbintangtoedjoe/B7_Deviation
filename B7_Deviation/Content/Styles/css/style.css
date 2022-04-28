@@ -21447,4 +21447,19 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
             color: #fff;
         }
 
+
+
+
+/*CUSTOM CSS*/
+
+.input-inline{
+/*    display:inline;*/
+float:left;
+}
+
+.table-custom-all-bordered th, .table-custom-all-bordered td {
+    border: 1px solid black;
+}
+
+/*CUSTOM CSS*/
 /*# sourceMappingURL=style.css.map */

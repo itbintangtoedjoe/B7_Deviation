@@ -5357,6 +5357,7 @@
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\PICModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\ReviewerModel.cs" />
     <Compile Include="Models\SaveUser.cs" />
     <Compile Include="Models\UsulanRevisiModel.cs" />

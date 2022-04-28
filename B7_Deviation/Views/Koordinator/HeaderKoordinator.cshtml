@@ -163,8 +163,8 @@
                         })
 
                         swalWithBootstrapButtons.fire({
-                            title: 'Apakah anda yakin?',
-                            text: "Pastikan nama reviwer sudah lengkap!",
+                            title: 'Apakah Anda yakin?',
+                            text: "Pastikan nama reviewer sudah lengkap!",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonText: 'Ya, sudah lengkap',
@@ -408,7 +408,7 @@
 			LocationSite: location,
 			Departement: dept
 		};
-
+		console.log(dto);
 		$.ajax({
 			url: "../Koordinator/Coor_GetDevNum",
 			type: "post",

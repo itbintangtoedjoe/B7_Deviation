@@ -17,5 +17,7 @@ namespace B7_Deviation.Models
         public string NO_DISPOSISI { get; set; }
         public string CURR_USER { get; set; }
         public string KETERANGAN_REJECT { get; set; }
+        public long TOTAL_COST { get; set; }
+        public string STATUS { get; set; }
     }
 }

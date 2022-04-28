@@ -68,4 +68,13 @@ namespace B7_Deviation.Models
         public string Password { get; set; }
     }
 
+    public class DetailProduk
+    {
+        public string ItemCodeOracle { get; set; }
+        public string NoBatchOracle { get; set; }
+        public string NoWOOracle { get; set; }
+        public string NoQCMaterial { get; set; }
+        public string KeteranganKategori { get; set; }
+    }
+
 }
