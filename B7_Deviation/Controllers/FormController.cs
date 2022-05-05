@@ -70,6 +70,7 @@ namespace B7_Deviation.Controllers
 
         public ActionResult SendEmailInputProposal(EmailModel Model)
         {
+            /*
             MailMessage Msg = new MailMessage();
             SmtpClient MailObject = new SmtpClient("mail.kalbe.co.id");
 
@@ -1828,8 +1829,8 @@ namespace B7_Deviation.Controllers
             }
 
             Msg.To.Clear();
-            Msg.Bcc.Clear();
-            return Json(ModelData);
+            Msg.Bcc.Clear();*/
+            return Json("S");
         }
 
 

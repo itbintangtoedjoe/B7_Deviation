@@ -18,16 +18,31 @@
 							
 							<div class="form-group row">
 								<div class="col-md-8">
-									<div class="form-group">
-										<button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control ">
-											Approve
-											<span class="fa fa-check-square-o"></span>
-										</button>
-										<button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
-											Reject
-											<span class="fa fa-ban"></span>
-										</button>
-									</div>
+                                    <div class="form-group">
+                                        <button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control ">
+                                            Approve
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
+                                        <button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
+                                            Reject
+                                            <span class="fa fa-ban"></span>
+                                        </button>
+                                        <button type="button" id="btnSubmit" class="col-sm-2 btn mb-1 btn-success form-control " style="display:none">
+                                            Submit
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
+                                        <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control"style="display:none">
+                                            Cancel
+                                            <span class="fa fa-ban"></span>
+                                        </button>
+
+
+                                        <button type="button" id="btnEdit" class="col-sm-2 btn mb-1 btn-warning form-control">
+                                            Edit
+                                            <span class="fa fa-edit"></span>
+                                        </button>
+
+                                    </div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
@@ -167,6 +182,26 @@
 			}
 		});
 	}
+
+	$('#btnEdit').click(function () {
+        var x = document.getElementById("btnApprove");
+		var y = document.getElementById("btnReject");
+        if (x.style.display === "none" && y.style.display=="none") {
+			x.style.display = "inline";
+			y.style.display = "inline";
+        } else {
+			x.style.display = "none";
+			y.style.display = "none";
+            document.getElementById("btnSubmit").style.display = "inline";
+            document.getElementById("btnCancel").style.display = "inline";
+		}
+		
+		document.getElementById("btnEdit").style.display = "none";
+		
+
+
+	});
+
 
 	function SendEmailRejectSpvRjt() {
 		var REQID = $("#lblReq").text();
