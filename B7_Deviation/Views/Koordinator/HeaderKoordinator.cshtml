@@ -38,8 +38,9 @@
 											Show Reviewer
 										</button>
 
+										<br/>
 
-										<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control" hidden="hidden">
+										<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control">
 											Cancel
 											<span class="fa fa-trash-o"></span>
 										</button>
@@ -95,7 +96,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 
 	</div>
 
@@ -104,7 +104,7 @@
 	</div>
 </div>
 
-<script>
+    <script>
 	let checkEvaluator = '';
 	let countBtn = 0;
 	let btnText = '';;
@@ -180,7 +180,7 @@
 
 								}
                         })
-                        
+
                     }
 		});
 
@@ -630,7 +630,7 @@
 			url: "../Koordinator/Coor_GetCurrStat",
 			type: "post",
 			dataType: "json",
-			data: JSON.stringify(dto),			
+			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
 				console.log(data);
@@ -640,7 +640,7 @@
 				else
 				if (data[0].STAT == 'S') {
 
-					$("#btnCancel").removeAttr('hidden');
+					//$("#btnCancel").removeAttr('hidden');
 					$("#btnShowRev").removeAttr('hid\en');
 
 					$("#btnShowRev").click(function () {
@@ -657,7 +657,7 @@
                         GetDDL();
                         $("#partialview").attr("hidden", false);
                         $("#btnShowRev").attr("hidden", true);
-                        $("#btnCancel").attr("hidden", true);
+                        //$("#btnCancel").attr("hidden", true);
                         $("#btnApprove").removeAttr("hidden");
                         $("#btnReject").removeAttr("hidden");
 
@@ -713,11 +713,36 @@
 		}).then((result) => {
 
 			if (result.value == null || result.value == '') {
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-                    text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
-				});
+				//Swal.fire({
+				//	icon: 'error',
+				//	title: 'Oops...',
+    //                text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
+				//});
+                let timerInterval
+                Swal.fire({
+
+
+                    timer: 1600,
+                    timerProgressBar: true,
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Alasan untuk membatalkan penyimpangan harus diisi !',
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log('I was closed by the timer')
+                    }
+                });
 			} else if (result.isConfirmed) {
 
 				var REQID = @ViewBag.nomor;
@@ -843,4 +868,4 @@
 			}
 		});
 	}
-</script>
+    </script>

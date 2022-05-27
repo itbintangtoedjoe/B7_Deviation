@@ -672,7 +672,7 @@
 		});
 	}
 
-	function Cancel() {
+	@*function Cancel() {
 		Swal.fire({
 			title: 'Cancel Reason ...',
 			input: 'text',
@@ -772,6 +772,136 @@
                     });
 				}
                 $.when(CancelUpdate()).done(NotifyVerifikasiKoor());
+			}
+		});
+	}*@
+
+    function Cancel() {
+		Swal.fire({
+            icon: 'question',
+            title: 'Mohon masukan alasan untuk membatalkan penyimpangan ini?',
+			input: 'textarea',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			showCancelButton: true,
+			confirmButtonText: 'Submit',
+			showLoaderOnConfirm: true,
+
+			allowOutsideClick: () => Swal.isLoading()
+		}).then((result) => {
+
+			if (result.value == null || result.value == '') {
+				//Swal.fire({
+				//	icon: 'error',
+				//	title: 'Oops...',
+    //                text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
+				//});
+                let timerInterval
+                Swal.fire({
+
+
+                    timer: 1600,
+                    timerProgressBar: true,
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Alasan untuk membatalkan penyimpangan harus diisi !',
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log('I was closed by the timer')
+                    }
+                });
+			} else if (result.isConfirmed) {
+
+				var REQID = @ViewBag.nomor;
+				var Keterangan = result.value;
+				var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+
+                function NotifyHedKor() {
+                    var tabletype = "One";
+                    var whoreceiver = "Canceled";
+
+                    var dtx = {
+                        Receiver: iduser,
+                        ReqID: REQID,
+
+                        TableType: tabletype,
+                        WhoReceiver: whoreceiver
+                    };
+
+                    $.ajax({
+                        type: "post",
+                        url: '../Form/SendEmailInputProposal',
+                        data: JSON.stringify(dtx),
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            toastr.success("Email Sent Successfully !", "Notification", {
+                                "closeButton": false,
+                                "debug": true,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-bottom-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "200",
+                                "hideDuration": "1000",
+                                "timeOut": "2000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            });
+                        }, error: function (ex) {
+                            GetErrorHeader("HedKorSendEmailInputProposal", JSON.stringify(ex));
+                        }
+                    });
+				}
+
+				function CanceKor() {
+                    var dto = {
+                        REQID: REQID,
+                        KETERANGAN: Keterangan,
+                        IDUSER: iduser
+                    };
+
+                    $.ajax({
+                        url: "../Koordinator/Coor_KoorCancel",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Form Cancelled',
+                                showConfirmButton: false,
+                                timer: 2000
+							}).then(() => {
+                                $.when(NotifyHedKor()).done(window.location.href = "../DataDeviasi/PendingTask");
+                            })
+                        }
+                        , error: function (ex) {
+                            GetErrorHeader("HedKorCoor_KoorCancel", JSON.stringify(ex));
+                        }
+                    });
+				}
+
+				CanceKor();
 			}
 		});
 	}
