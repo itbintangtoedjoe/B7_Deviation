@@ -1,52 +1,52 @@
 ﻿@*DELETE LAYOUT TO USE IT AS PARTIAL VIEW*@
 
-<!--**********************************
-		Content body start
-***********************************-->
+<!--************
+        Content body start
+*************-->
 
 <body>
-	<div class="container-fluid">
-		<div class="row" id="headerPenyimpangan">
-			<div class="col-md-12">
-				<div class="card">
-					<div class="card-body">
-						<h4 class="d-inline" style="">Laporan Penyimpangan / Potensi Penyimpangan</h4>
-						<div class="form-group row">
-							<div class="col">
-								<br />
-								<label>Register Number</label>
-								<br />
-								<label type="text" id="lblReq" style="font-weight:bold" disabled>@ViewBag.nomor</label>
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col">
-								<label>Tanggal Pembuatan Form</label>
-								<input id="TbTglCreated" class="form-control" disabled="disabled">
-							</div>
-							<div class="col">
-								<label>Nomor Deviation</label>
-								<input id="TbNmrDev" type="text" class="form-control" disabled="disabled">
-							</div>
-							<div class="col">
-								<label>Pelapor</label>
-								<input id="TbPesul" type="text" class="form-control" disabled="disabled">
-							</div>
-							<div class="col">
-								<label>Departemen</label>
-								<input id="TbDeptPusul" type="text" class="form-control" disabled="disabled">
-							</div>
-						</div>
-						<!-- Readonly End -->
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="card">
-					<div class="card-body">
-						<div class="basic-form">
+    <div class="container-fluid">
+        <div class="row" id="headerPenyimpangan">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="d-inline" style="">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+                        <div class="form-group row">
+                            <div class="col">
+                                <br />
+                                <label>Register Number</label>
+                                <br />
+                                <label type="text" id="lblReq" style="font-weight:bold" disabled>@ViewBag.nomor</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col">
+                                <label>Tanggal Pembuatan Form</label>
+                                <input id="TbTglCreated" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Nomor Deviation</label>
+                                <input id="TbNmrDev" type="text" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Pelapor</label>
+                                <input id="TbPesul" type="text" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Departemen</label>
+                                <input id="TbDeptPusul" type="text" class="form-control" disabled="disabled">
+                            </div>
+                        </div>
+                        <!-- Readonly End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
                             <form>
                                 <!-- Site -->
                                 <div class="form-group row">
@@ -92,49 +92,49 @@
                                             </div>
                                         </div>
                                         <!--<div id="divsimpang">
-            <div class="basic-dropdown">-->
+                                        <div class="basic-dropdown">-->
                                         @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
                                         <!--<input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control" disabled="disabled">
-                    <br />
-                    <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle" disabled="disabled">
-                    <br />
-                    <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle" disabled="disabled">
-                </div>
-            </div>-->
+                                                <br />
+                                                <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle" disabled="disabled">
+                                                <br />
+                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle" disabled="disabled">
+                                            </div>
+                                        </div>-->
                                         <!--<div id="divsimpang">
-                                        <div class="basic-dropdown">
-                <div id="divreceipt" class="form-group">
-                    <div class="form-check form-check-inline">
-                        <label>
-                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receipt_y" value="Yes" checked disabled> Receipt
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <label>
-                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receip_n" value="No" disabled> Vendor
-                        </label>
-                    </div>
-                </div>
-                <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control">
-                <br />
-                <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
-                <br />
-                <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control">
-                <br />
-                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control">
-            </div>
-            <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered text-center">
-                    <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
-                </div>
-            </div>
-            </div>
-            <br>-->
+                                                                    <div class="basic-dropdown">
+                                            <div id="divreceipt" class="form-group">
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receipt_y" value="Yes" checked disabled> Receipt
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label>
+                                                        <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receip_n" value="No" disabled> Vendor
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control">
+                                            <br />
+                                            <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
+                                            <br />
+                                            <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control">
+                                            <br />
+                                            <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control">
+                                        </div>
+                                        <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered text-center">
+                                                <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <br>-->
                                         @*<div id="divproduk">
-                    <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
-                </div>*@
+                                                <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
+                                            </div>*@
                                         <!--</div>
-            <br />-->
+                                        <br />-->
                                         <br />
                                         <div id="divreceipt" class="form-group">
                                             <div class="form-check form-check-inline">
@@ -166,7 +166,9 @@
                                                     <th id="thNoBatch">No Batch</th>
                                                     <th id="thNoWO">No WO Oracle</th>
                                                     <th>Keterangan</th>
-                                                    @*<th style="width:30px">Action</th>*@
+                                                    @*
+                                                    <th style="width:30px">Action</th>
+                                                    *@
                                                 </tr>
                                             </thead>
                                             <tbody id="tblListProdukBody">
@@ -246,7 +248,9 @@
                                                     <tr>
                                                         <th style="width:20px">No</th>
                                                         <th>Nama</th>
-                                                        @*<th style="width:30px">Action</th>*@
+                                                        @*
+                                                        <th style="width:30px">Action</th>
+                                                        *@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tblBodyWho">
@@ -404,161 +408,161 @@
                                     </div>
                                 </div>
                             </form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- ************************** List Penilaian ***************************** -->
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="card">
-					<div class="card-body">
-						<div class="basic-form">
-							<form>
-								<div class="form-group row">
-									<h4 class="col-sm-6 col-form-label">Penilaian Potensi Dampak dari penyimpangan<span class="text-danger">*</span></h4>
-								</div>
-								<div class="form-group">
-									<div class="row">
-										<div class="col">
-											<label>Kualitas Produk</label>
-											<br />
-											<div class="btn-group mb-2">
-												<div class="basic-dropdown">
-													<div class="dropdown">
-														<select id="ddlKualProd" title="Kualitas Produk"></select>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<label>Risiko Finansial</label>
-											<br />
-											<div class="btn-group mb-2">
-												<div class="basic-dropdown">
-													<div class="dropdown">
-														<select id="ddlRiskFin" title="Risiko Finansial"></select>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<label>Risiko Kesehatan Personil</label>
-											<br />
-											<div class="btn-group mb-2">
-												<div class="basic-dropdown">
-													<div class="dropdown">
-														<select id="ddlKesehatanPer" title="Risiko Kesehatan Personil"></select>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Baris 2 -->
-								<div class="form-group">
-									<div class="row">
-										<div class="col">
-											<label>Compliance</label>
-											<br />
-											<div class="btn-group mb-2">
-												<div class="basic-dropdown">
-													<div class="dropdown">
-														<select id="ddlCompliance" title="Compliance"></select>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<label>Risiko Organisasi</label>
-											<br />
-											<div class="btn-group mb-2">
-												<div class="basic-dropdown">
-													<div class="dropdown">
-														<select id="ddlRiskOrg" title="Risiko Organisasi"></select>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<label>Resiko Lingkungan</label>
-											<br />
-											<div class="btn-group mb-2">
-												<div class="basic-dropdown">
-													<div class="dropdown">
-														<select id="ddlResLingk" title="Risiko Lingkungan"></select>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Baris 3-->
-								<div class="form-group">
-									<div class="row">
-										<div class="col">
-											<label>Risiko Operasional</label>
-											<br />
-											<div class="btn-group mb-2">
-												<div class="basic-dropdown">
-													<div class="dropdown">
-														<select id="ddlRiskOpr" title="Risiko Operasional"></select>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<label>Risiko Keamanan Personil</label>
-											<br />
-											<div class="btn-group mb-2">
-												<div class="basic-dropdown">
-													<div class="dropdown">
-														<select id="ddlKeamamananP" title="Risiko Keamanan Personil"></select>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<label>Risiko Intelektual</label>
-											<br />
-											<div class="btn-group mb-2">
-												<div class="basic-dropdown">
-													<div class="dropdown">
-														<select id="ddlRiskIntelek" title="Risiko Intelektual"></select>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="row">
-										<div class="col">
-											<label>Tingkat Keparahan Penyimpangan</label>
-											<br />
-											<div class="btn-group mb-2">
-												<input id="txtKeparahan" type="text" readonly class="form-control">
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- End Form-->
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ********* List Penilaian ********** -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form>
+                                <div class="form-group row">
+                                    <h4 class="col-sm-6 col-form-label">Penilaian Potensi Dampak dari penyimpangan<span class="text-danger">*</span></h4>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label>Kualitas Produk</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlKualProd" title="Kualitas Produk"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Risiko Finansial</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlRiskFin" title="Risiko Finansial"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Risiko Kesehatan Personil</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlKesehatanPer" title="Risiko Kesehatan Personil"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Baris 2 -->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label>Compliance</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlCompliance" title="Compliance"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Risiko Organisasi</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlRiskOrg" title="Risiko Organisasi"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Resiko Lingkungan</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlResLingk" title="Risiko Lingkungan"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Baris 3-->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label>Risiko Operasional</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlRiskOpr" title="Risiko Operasional"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Risiko Keamanan Personil</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlKeamamananP" title="Risiko Keamanan Personil"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label>Risiko Intelektual</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <div class="basic-dropdown">
+                                                    <div class="dropdown">
+                                                        <select id="ddlRiskIntelek" title="Risiko Intelektual"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label>Tingkat Keparahan Penyimpangan</label>
+                                            <br />
+                                            <div class="btn-group mb-2">
+                                                <input id="txtKeparahan" type="text" readonly class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Form-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
 
 
-<!--**********************************
-		Content body end
-	***********************************-->
+<!--************
+        Content body end
+    *************-->
 
 <script>
 	$(document).ready(function () {
@@ -595,7 +599,7 @@
 
                 if (dev_kategori == 'QPR') {
 
-					/*Kualitas Produk*/
+					/Kualitas Produk/
 
 					$("#TxtNoWO").attr("hidden", false);
                     $("#TxtItemCode").attr("hidden", false);
@@ -606,7 +610,7 @@
                 } else
                     if (dev_kategori == 'QMT') {
 
-						/*Kualitas Material Awal*/
+						/Kualitas Material Awal/
 
 						$("#TxtItemCode").attr("hidden", false);
                         $('#TxtQCMaterialNo').attr('hidden', false);
@@ -910,7 +914,7 @@
 			}
 		});
 	}
-    
+
 
 	function GetFileAttachment() {
 

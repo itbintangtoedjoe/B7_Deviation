@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using B7_Deviation.Models;
 using Oracle.ManagedDataAccess.Client;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using B7_Deviation.Models;
-using System.Net.Mail;
-using System.Net;
 
 namespace B7_Deviation.Controllers
 {
@@ -1840,7 +1836,8 @@ namespace B7_Deviation.Controllers
             List<string> ModelData = new List<string>();
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
-            try {
+            try
+            {
                 Conn.Open();
                 using (SqlCommand command = new SqlCommand("GENERATE_REQ_NO", Conn))
                 {
@@ -1848,7 +1845,9 @@ namespace B7_Deviation.Controllers
                     result = (string)command.ExecuteScalar();
                 }
                 Conn.Close();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
 
                 //result = ex.ToString();
                 throw ex;
@@ -2202,7 +2201,8 @@ namespace B7_Deviation.Controllers
         {
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
-            try {
+            try
+            {
                 Conn.Open();
                 using (SqlCommand command = new SqlCommand("DEVIATION_MASTER_DLL", Conn))
                 {
@@ -2214,7 +2214,9 @@ namespace B7_Deviation.Controllers
                     dataAdap.Fill(DT);
                 }
                 Conn.Close();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
@@ -2912,7 +2914,8 @@ namespace B7_Deviation.Controllers
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
 
-            try {
+            try
+            {
                 Conn.Open();
                 using (SqlCommand command = new SqlCommand("DEVIATION_FORM_INPUT", Conn))
                 {
@@ -2920,6 +2923,10 @@ namespace B7_Deviation.Controllers
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add("@Option", SqlDbType.Int);
                     command.Parameters["@Option"].Value = 4;
+
+
+                    command.Parameters.Add("@RoleEditor", SqlDbType.VarChar);
+                    command.Parameters["@RoleEditor"].Value = Model.RoleEditor;
 
                     command.Parameters.Add("@REQID", SqlDbType.VarChar);
                     command.Parameters["@REQID"].Value = Model.ReqID;
@@ -3056,7 +3063,9 @@ namespace B7_Deviation.Controllers
                     result = (string)command.ExecuteScalar();
                 }
                 Conn.Close();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
 
@@ -3065,13 +3074,13 @@ namespace B7_Deviation.Controllers
         }
         public ActionResult InsertMultipleProduk(string ReqID, List<ProductModel> ListProduk)
         {
-            string result="";
+            string result = "";
             List<string> ModelData = new List<string>();
 
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
 
-            foreach(ProductModel product in ListProduk)
+            foreach (ProductModel product in ListProduk)
             {
                 try
                 {
@@ -3111,6 +3120,88 @@ namespace B7_Deviation.Controllers
                     result = ex.Message;
                 }
             }
+
+
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UpdateMultipleProduk(string ReqID, List<ProductModel> ListProduk)
+        {
+            string result = "";
+            List<string> ModelData = new List<string>();
+
+            string ConString = MyDB.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            //Delete Detail Produk
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_InsertData", Conn))
+                {
+                    /* Header*/
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Delete Detail Produk";
+
+                    command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                    command.Parameters["@ReqID"].Value = ReqID;
+
+                    /* End Details */
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
+
+            //Insert Detail Produk Baru
+            foreach (ProductModel product in ListProduk)
+            {
+                try
+                {
+                    Conn.Open();
+                    using (SqlCommand command = new SqlCommand("SP_InsertData", Conn))
+                    {
+                        /* Header*/
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("@Option", SqlDbType.VarChar);
+                        command.Parameters["@Option"].Value = "Insert Detail Produk";
+
+                        command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                        command.Parameters["@ReqID"].Value = ReqID;
+
+                        command.Parameters.Add("@ItemCodeOracle", SqlDbType.VarChar);
+                        command.Parameters["@ItemCodeOracle"].Value = product.ItemCodeOracle;
+
+                        command.Parameters.Add("@NoBatchOracle", SqlDbType.VarChar);
+                        command.Parameters["@NoBatchOracle"].Value = product.NoBatchOracle;
+
+                        command.Parameters.Add("@NoWOOracle", SqlDbType.VarChar);
+                        command.Parameters["@NoWOOracle"].Value = product.NoWOOracle;
+
+                        command.Parameters.Add("@QCMaterialNo", SqlDbType.VarChar);
+                        command.Parameters["@QCMaterialNo"].Value = product.NoQCMaterial;
+
+                        command.Parameters.Add("@Keterangan", SqlDbType.VarChar);
+                        command.Parameters["@Keterangan"].Value = product.KeteranganKategori;
+
+                        /* End Details */
+                        result = (string)command.ExecuteScalar();
+                    }
+                    Conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    result = ex.Message;
+                }
+            }
+
+
 
             ModelData.Add(result);
             return Json(ModelData, JsonRequestBehavior.AllowGet);
@@ -3235,13 +3326,14 @@ namespace B7_Deviation.Controllers
         }
         #endregion
 
-        public ActionResult LogError(ErrorModel Model) 
+        public ActionResult LogError(ErrorModel Model)
         {
             string ConString = MyDB.ConnectionString, result;
             SqlConnection Conn = new SqlConnection(ConString);
             List<string> ModelData = new List<string>();
 
-            try {
+            try
+            {
                 using (SqlCommand command = new SqlCommand("SP_ERROR", Conn))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -3261,7 +3353,9 @@ namespace B7_Deviation.Controllers
                     result = (string)command.ExecuteScalar();
                     Conn.Close();
                 }
-            } catch(Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
 

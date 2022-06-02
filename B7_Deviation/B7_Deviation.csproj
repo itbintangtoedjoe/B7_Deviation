@@ -5772,6 +5772,7 @@
       <DependentUpon>ReportHiddenCostDataSource.xsd</DependentUpon>
     </Content>
     <Content Include="Views\DataDeviasi\ReportHiddenCost.cshtml" />
+    <Content Include="Views\PelaporPenyimpangan\EditDeviationPartialView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
