@@ -175,6 +175,14 @@
                                     </div>
                                 </div>
 
+                                @*PARTIAL VIEW TABLE
+                                <div class="form-group">
+                                    @Html.Partial("../DataDeviasi/TablePartialView")
+                                </div>*@
+
+
+
+
                                 @*  Penyimpangan terencana *@
                                 <!-- Problem (What) -->
                                 <div class="form-group row">
@@ -610,14 +618,18 @@
 
 						$("#TxtItemCode").attr("hidden", false);
                         $('#TxtQCMaterialNo').attr('hidden', false);
-                        $("#txtKetKategori").attr("hidden", true);
+						$("#txtKetKategori").attr("hidden", true);
+                        $("#divreceipt").attr("hidden", false);
                     } else {
-                        $("#divsimpang").attr("hidden", true);
+						$("#divsimpang").attr("hidden", true);
+                        $("#divreceipt").attr("hidden", true);
                     }
                 $('input[name=r_receipt][value=' + data[0].FLAG_RECEIPT + ']').prop('checked', true);
 
 				if (dev_kategori == 'QPR' || dev_kategori == 'QMT') {
-					LoadListProduk();
+					LoadListProduk(dev_kategori);
+                    //LoadListProduk();
+
 				}
 
 				// INPUTS
@@ -839,10 +851,11 @@
 		});
 	}
 
-    function LoadListProduk() {
-        var dev_kategori = $("#ddlKategori").val();
+	function LoadListProduk(dev_kategori) {
+		//var dev_kategori = $("#ddlKategori option:selected").val();
+		console.log(dev_kategori);
+		//var dev_kategori = [];
 		var REQID = @ViewBag.nomor;
-
 		var dto = {
 			ReqID: REQID
 		}
@@ -888,7 +901,9 @@
                         var api = new $.fn.dataTable.Api(settings);
 
                         var showColumnQPR = dev_kategori == 'QPR' ? true : false;
-                        var showColumnQMT = dev_kategori == 'QMT' ? true : false;
+						var showColumnQMT = dev_kategori == 'QMT' ? true : false;
+
+
 
                         api.columns([3, 4]).visible(showColumnQPR);
                         api.columns([1]).visible(showColumnQMT);
