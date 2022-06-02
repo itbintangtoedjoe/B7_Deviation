@@ -10,7 +10,7 @@ namespace B7_Deviation.Models
         public string ReqID { get; set; }
         public string FileName { get; set; }
         public string PathFile { get; set; }
-
+        public string RoleEditor { get; set; }
         public string CrDateUser { get; set; }
         public string IdProposer { get; set; }
         public string Departement { get; set; }
