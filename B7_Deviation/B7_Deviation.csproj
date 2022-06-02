@@ -5774,6 +5774,7 @@
     <Content Include="Views\DataDeviasi\ReportHiddenCost.cshtml" />
     <Content Include="Views\DataDeviasi\DeviasiPartialView.cshtml" />
     <Content Include="Views\DataDeviasi\TablePartialView.cshtml" />
+    <Content Include="Views\CMS\MasterAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
