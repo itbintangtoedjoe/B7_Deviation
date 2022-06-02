@@ -1,0 +1,536 @@
+﻿
+@{
+    ViewBag.Title = "MasterAdmin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content-body">
+
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h1>List of Users</h1>
+
+                <a href="/CMS/InputForm" class="btn btn-primary">Add User</a>
+
+                <hr />
+
+                <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" width="100%" id="datatableuser">
+                    <thead>
+                        <tr>
+                            <th hidden="hidden"></th>
+                            <th>Employee ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Employee Name</th>
+                            <th>Job Name</th>
+                            <th>Superior ID</th>
+                            <th>Superior Name</th>
+                            <th>Department</th>
+                            <th>Superior Email</th>
+                            @*<th>Role Deviation</th>*@
+                            <th>Kategori Penyimpangan</th>
+                            <th>Actions</th>
+                            <th>Reset Password</th>
+                            <th hidden="hidden">Type</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="usertable" class="nowrap">
+                    </tbody>
+                </table>
+
+
+                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit User: <label id="nama"></label></h5>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row form-group">
+                                    <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                        <label for="username" class="col-form-label">
+                                            Username :
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" id="username" type="text" style="display:block;" name="username" />
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                        <label for="email" class="col-form-label">
+                                            Email :
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" id="email" type="text" style="display:block;" name="email" />
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                        <label for="name" class="col-form-label">
+                                            Name :
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" id="name" type="text" style="display:block;" name="name" />
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                        <label for="job" class="col-form-label">
+                                            Job Name :
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" id="job" type="text" style="display:block;" name="job" />
+                                    </div>
+                                </div>
+
+                                @*<div class="row form-group">
+                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                            <label for="ddlsuperiorname" class="col-form-label">
+                                                Superior Name :
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <select id="ddlsuperiorname" class="form-control">
+                                                <option value="" class="dropdown-header" selected>Select Superior Name</option>
+                                                <option id="vspv"></option>
+                                            </select>
+                                        </div>
+                                    </div>*@
+
+                                <div class="row form-group">
+                                    <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                        <label for="spvid" class="col-form-label">
+                                            Superior ID :
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" id="spvid" type="text" style="display:block;" name="spvid" />
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                        <label for="spvid" class="col-form-label">
+                                            Superior Name :
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" id="spvname" type="text" style="display:block;" name="spvname" />
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                        <label for="dept" class="col-form-label">
+                                            Department :
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" id="dept" type="text" style="display:block;" name="dept" />
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                        <label for="spvemail" class="col-form-label">
+                                            Superior Email :
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" id="spvemail" type="text" style="display:block;" name="spvemail" />
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                        <label for="role" class="col-form-label">
+                                            Deviation Role :
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <select id="role" class="form-control">
+                                            <option value="" class="dropdown-header" selected>Select Role</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                        <label for="penyimpangan" class="col-form-label">
+                                            Kategori Penyimpangan :
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <select id="penyimpangan" class="form-control js-example-basic-multiple" style="width: 350px;">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="Update">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<script>
+    let CekAja = true;
+    $(document).ready(function () {
+
+        GetRole();
+        GetVendorID();
+        GetSuperior();
+        $("#role").change(function () {
+            GetKategoriPenyimpangan();
+
+        });
+
+        $('#new').click(function () {
+
+        });
+
+        $('#submit').click(function () {
+            $.when(
+                //function () {
+                //    if (!$(".form-user").valid()) {
+                //            return
+                //    };
+
+                //    alert('habis if');
+                //    // Check Confirmation Password
+
+                //    if ($("#password").val() != $("#repassword").val()) {
+                //        $("#redconf").removeAttr("Hidden");
+                //        return
+                //    }
+                //    alert('habis if 2');
+                    CheckEmpID(),
+                    //alert('CheckEmpID');
+                    CheckUserName()
+                    //alert('CheckUserName');
+                    //if ($("#reconfid").val() != "ga ok" && $("#reconfusername").val() != "ga ok") {
+                    //    return
+                    //}
+                //}
+            ).done(
+
+                function () {
+                    alert(CekAja)
+                    if (CekAja == false) {
+                        alert('Sebelum Save')
+                        SaveForm();
+                    }
+
+                }
+            );
+
+
+        });
+
+        $('#clearall').click(function () {
+            $('#empid').val(null);
+            $('#username').val(null);
+            $('#email').val(null);
+            $('#empname').val(null);
+            $('#jobttlname').val(null);
+            $('#superiorid').val(null);
+            $('#superiorname').val(null);
+            $('#orggroupname').val(null);
+            $('#emailsuperior').val(null);
+            $('kategori').val(null);
+            GetRole();
+            Swal.fire(
+                'Form Cleared!',
+                'Successfuly Cleared Form!',
+                'success'
+            )
+        });
+
+    });
+
+    function GetKategoriPenyimpangan() {
+
+        var t_username = "undefined";
+
+        var dto = {
+            Username: t_username
+        }
+
+        $.ajax({
+            url: "../CMS/CMS_GetKategoriPenyimpangan",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+                trhtml += '<option disabled class="dropdown-header">* Select Kategori Penyimpangan *</option>';
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        if ($("#role").val() == 'Coordinator_QA' || $("#role").val() == 'Coordinator_QS') {
+                            trhtml += '<Option value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                        } else {
+                            trhtml += '<Option class="dropdown-item" selected value = " " > - ';
+                            break;
+                        }
+
+
+                    }
+                }
+
+                $("#kategori").empty();
+                $("#kategori").append(trhtml);
+                $("#kategori").select2({
+                    placeholder: "Kategori Penyimpangan",
+                    multiple: true
+
+                });
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetVendorID() {
+        $.ajax({
+            url: "../CMS/CMS_GetVendorID",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                $("#empid").val(data[0].VENDORID);
+                $("#empid").attr("disabled", true);
+
+                //$("#superiorid").val(data[0].SPVVENDOR);
+                //$("#superiorid").attr("disabled", true);
+
+
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function CheckEmpID() {
+        var empid = $('#empid').val();
+
+        var dto = {
+            empid: empid
+        }
+
+        $.ajax({
+            url: '../CMS/CMS_CheckEmpID',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data == "ID Exists") {
+                    $("#confid").removeAttr("Hidden");
+                    $("#reconfid").val("EmpID Ada");
+                    $("#empid").val(null);
+                } else {
+                    $("#confid").attr("Hidden", true);
+                    $("#reconfid").val("ga ok");
+                }
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+
+
+    }
+
+    function CheckUserName() {
+        var username = $('#username').val();
+
+        var dto = {
+            Username: username
+        }
+
+        $.ajax({
+            url: '../CMS/CMS_CheckUsername',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data == "Username Exists") {
+                    $("#confusername").removeAttr("Hidden");
+                    $("#username").val(null);
+                    $("#reconfusername").val("Username Ada");
+
+
+                } else {
+                    $("#confusername").attr("Hidden", true);
+                    $("#reconfusername").val("ga ok");
+                    CekAja = false;
+                }
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+    }
+
+    function SaveForm() {
+
+        var empid = $('#empid').val();
+        var username = $('#username').val();
+        var password = $('#password').val();
+        var email = $('#email').val();
+        var empname = $('#empname').val();
+        var jobttlname = $('#jobttlname').val();
+        var superiorid = $('#superiorid').val();
+        var superiorname = $('#superiorname').val();
+        var orggroupname = $('#orggroupname').val();
+        var emailsuperior = $('#emailsuperior').val();
+        var role = $('#role').val();
+        var kategori = $('#kategori').val();
+
+        var dto = {
+            empid: empid,
+            username: username,
+            email: email,
+            empname: empname,
+            password: password,
+            jobttlname: jobttlname,
+            superiorid: superiorid,
+            superiorname: superiorname,
+            orggroupname: orggroupname,
+            emailsuperior: emailsuperior,
+            role: role,
+            KategoriPenyimpangan: kategori
+        }
+
+        $.ajax({
+            url: '../CMS/CMS_SaveForm',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                Swal.fire({
+                    position: 'middle',
+                    icon: 'success',
+                    title: 'Successfully Insert User',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                window.location.href = "/CMS/ShowUser2"
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+    }
+
+    function GetRole() {
+        $.ajax({
+            url: "../CMS/CMS_GetRole",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+
+                trhtml += '<option disabled selected class="dropdown-header">Select Role</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml +=
+                            '<option class="dropdown-item" value = "' + data[trav].rolename + '" > ' + data[trav].rolename;
+                    }
+                }
+
+                $("#role").empty();
+                $("#role").append(trhtml);
+                $("#role").select2();
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetSuperior() {
+        $.ajax({
+            url: "../CMS/CMS_GetSuperior",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+
+                trhtml += '<option disabled selected class="dropdown-header">Select Role</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml +=
+                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].empname;
+                    }
+                }
+
+                $("#ddlSuperior").empty();
+                $("#ddlSuperior").append(trhtml);
+                $("#ddlSuperior").select2();
+
+                $("#ddlSuperior").change(function () {
+                    var IDLL = $("#ddlSuperior").val();
+                    $('#superiorid').val(data[IDLL].empid);
+                    $('#superiorname').val(data[IDLL].empname);
+                    $('#orggroupname').val(data[IDLL].orggroupname);
+                    $('#emailsuperior').val(data[IDLL].emailsuperior);
+                });
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function falsefunction(e) {
+        alert("NOPE");
+        return false;
+    }
+
+</script>
+
+

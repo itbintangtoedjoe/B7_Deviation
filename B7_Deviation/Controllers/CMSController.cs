@@ -16,8 +16,13 @@ namespace B7_Deviation.Controllers
         readonly DataTable DT = new DataTable();
 
         // GET: CMS
-
+        
         public ActionResult InputForm()
+        {
+            return View();
+        }
+
+        public ActionResult MasterAdmin()
         {
             return View();
         }
@@ -54,6 +59,9 @@ namespace B7_Deviation.Controllers
                 {
                     conn.Open();
                     command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@Option"].Value = Model.Option;
 
                     command.Parameters.Add("@empid", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@empid"].Value = Model.Empid;
