@@ -60,6 +60,10 @@ namespace B7_Deviation.Models
         public string FlagReceipt { get; set; }        
         public string QCMaterialManufacturerNo { get; set; }
         public string NO_DISPOSISI { get; set; }
+
+        //untuk pic
+        public string Group { get; set; }
+        public string GroupSite { get; set; }
     }
 
     public class LoginModel
@@ -67,14 +71,4 @@ namespace B7_Deviation.Models
         public string Username { get; set; }
         public string Password { get; set; }
     }
-
-    public class DetailProduk
-    {
-        public string ItemCodeOracle { get; set; }
-        public string NoBatchOracle { get; set; }
-        public string NoWOOracle { get; set; }
-        public string NoQCMaterial { get; set; }
-        public string KeteranganKategori { get; set; }
-    }
-
 }

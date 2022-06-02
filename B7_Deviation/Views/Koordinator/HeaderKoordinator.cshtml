@@ -195,7 +195,6 @@
 			REQID: REQID,
 			UserInvolved: UserInvolved
 		}
-
 		$.ajax({
 			url: "../Form/CheckEmailAvailability",
 			type: "post",
@@ -203,7 +202,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				if (data == 'ADA') {
+				if (data[0].STATUS == 'ADA') {
 					InsertNamaTerlibat();
 				} else {
                     Swal.fire({
@@ -408,7 +407,6 @@
 			LocationSite: location,
 			Departement: dept
 		};
-		console.log(dto);
 		$.ajax({
 			url: "../Koordinator/Coor_GetDevNum",
 			type: "post",
@@ -633,7 +631,7 @@
 			data: JSON.stringify(dto),			
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				console.log(data);
+				@*console.log(data);*@
 				if (data == '' || data == null) {
 
 				}

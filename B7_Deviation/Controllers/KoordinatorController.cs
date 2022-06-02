@@ -982,12 +982,17 @@ namespace B7_Deviation.Controllers
                     conn.Open();
                     command.CommandType = CommandType.StoredProcedure;
 
-                    
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@Option"].Value = "Assign PIC";
+
                     command.Parameters.Add("@Nomor", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@Nomor"].Value = Model.REQ_ID;
 
                     command.Parameters.Add("@NIK", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@NIK"].Value = Model.PIC_REMEDIAL_NIK;
+
+                    command.Parameters.Add("@GROUPSITE", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@GROUPSITE"].Value = Model.GROUP_SITE;
 
                     command.Parameters.Add("@DUEDATE", System.Data.SqlDbType.Date);
                     command.Parameters["@DUEDATE"].Value = Model.DUE_DATE;

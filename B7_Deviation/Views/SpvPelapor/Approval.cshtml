@@ -579,7 +579,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
+				console.log(data);
 				var text = '';
                 $("#TxtNoWO").attr("hidden", true);
                 $("#TxtItemCode").attr("hidden", true);
@@ -854,7 +854,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				console.log(data);
+				@*console.log(data);*@
                 $('#tblListProduk').DataTable({
                     "pageLength": 10,
                     "lengthChange": false,

@@ -345,6 +345,8 @@
                     </div>
                     <input type="hidden" id="totalCost" />
                     <input type="hidden" id="flagPIC" />
+                    <input type="hidden" id="picNIK" />
+                    <input type="hidden" id="groupSite" />
                 </div>
             </div>
         </div>
@@ -905,7 +907,7 @@
 				dataType: "json",
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
-					console.log(data);
+					@*console.log(data);*@
 					var checkVerify = 0;
 					var trHTML = '';
 					var trav = 0;
@@ -970,6 +972,8 @@
 					}
 
                     $('#flagPIC').val(data[0].FLAG_PIC);
+                    $('#picNIK').val(data[0].PIC_REMEDIAL_NIK);
+                    $('#groupSite').val(data[0].GROUP_SITE);
 				},
 				error: function (ex) {
                     GetErrorVerifikasi("LoadDataVerifikasi", JSON.stringify(ex));
@@ -983,6 +987,7 @@
             dataType: "json",
             contentType: "application/json;charset=utf-8",
 			success: function (data) {
+				@*console.log(data);*@
                 var trHTML = '';
                 var trav = 0;
                 var Count = data.length;
@@ -1645,6 +1650,15 @@
 					var REQID = @ViewBag.nomor;
 					var DIS = @ViewBag.dis;
 
+                    //kalau pic ke group
+					var picIsGroup = false;
+					var group = $("#picNIK").val();
+					console.log(group);
+					if (group.substring(1, 2) == 'G_') {
+						picIsGroup = true;
+                    }
+                    var groupSite = $('#groupSite').val();
+
 					function RejectRemidialSup() {
 						var Keterangan = result.value;
 						var IDUser = '@Request.RequestContext.HttpContext.Session["xUser"]';
@@ -1682,8 +1696,12 @@
 					}
 
 					function EmailRejectSupPIC() {
-						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-						var tabletype = "One";
+                        var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+                        var tabletype = "One";
+						if (picIsGroup === true) {
+							tabletype = "More than One";
+                        }
+						
 						var whoreceiver = "PIC after Superior Rejected Cost";
 
 						var dto = {
@@ -1691,7 +1709,9 @@
 							ReqID: REQID,
 							TableType: tabletype,
 							WhoReceiver: whoreceiver,
-							Urutan: DIS
+                            Urutan: DIS,
+                            Group: group,
+                            Site: groupSite,
 						};
 
 						$.ajax({
@@ -1726,7 +1746,10 @@
 
 					function EmailRejectDivHead() {
 						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-						var tabletype = "One";
+                        var tabletype = "One";
+                        if (picIsGroup === true) {
+                            tabletype = "More than One";
+                        }
 						var whoreceiver = "PIC after Division Head Rejected Cost";
 
 						var dto = {
@@ -1734,7 +1757,9 @@
 							ReqID: REQID,
 							TableType: tabletype,
 							WhoReceiver: whoreceiver,
-							Urutan: DIS
+                            Urutan: DIS,
+                            Group: group,
+                            Site: groupSite,
 						};
 
 						$.ajax({

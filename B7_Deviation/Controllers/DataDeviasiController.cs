@@ -969,6 +969,8 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar);
                     command.Parameters["@UserID"].Value = Model.IDUSER;
+
+                    command.CommandTimeout = 950;
                     SqlDataAdapter dataAdap = new SqlDataAdapter();
                     dataAdap.SelectCommand = command;
                     dataAdap.Fill(DT);

@@ -7272,7 +7272,9 @@
                                 <TextRun>
                                   <Value>=IIf(IIf(Fields!TESTING_JUMLAH_PELAKSANA.Value = "-",0,Fields!TESTING_JUMLAH_PELAKSANA.Value)
 * 
-IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-",0,Fields!TESTING_DURASI_PENGERJAAN.Value),0,"-")</Value>
+IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-",0,Fields!TESTING_DURASI_PENGERJAAN.Value)=0,"-",CDbl(IIf(Fields!TESTING_JUMLAH_PELAKSANA.Value="-",0,Fields!TESTING_JUMLAH_PELAKSANA.Value))
+* 
+CDbl(IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-", 0,Fields!TESTING_DURASI_PENGERJAAN.Value)))</Value>
                                   <Style>
                                     <FontSize>5pt</FontSize>
                                   </Style>
@@ -7295,6 +7297,7 @@ IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-",0,Fields!TESTING_DURASI_PENGERJAA
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -7408,9 +7411,11 @@ IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-",0,Fields!TESTING_DURASI_PENGERJAA
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(IIf(Fields!PROC_JUMLAH_PELAKSANA.Value="-",0,Fields!PROC_JUMLAH_PELAKSANA.Value)
+                                  <Value>=IIF(CInt(IIf(Fields!PROC_JUMLAH_PELAKSANA.Value="-",0,Fields!PROC_JUMLAH_PELAKSANA.Value))
 * 
-IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Value),0,"-")</Value>
+CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAAN.Value))=0,"-",CInt(IIf(Fields!PROC_JUMLAH_PELAKSANA.Value="-",0,Fields!PROC_JUMLAH_PELAKSANA.Value))
+* 
+CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAAN.Value)))</Value>
                                   <Style>
                                     <FontSize>5pt</FontSize>
                                   </Style>
@@ -8081,7 +8086,7 @@ IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0 ,Fields!PROC_DURASI_PENGERJAAN.Va
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total Testing Manhours</Value>
+                                  <Value>Total Processing Manhours</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
                                   </Style>

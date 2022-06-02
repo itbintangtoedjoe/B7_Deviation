@@ -66,7 +66,6 @@
                     var trav = 0;
                     var Count = data.length;
                     for (trav = 0; trav < Count; trav++) {
-
                         // HASIL REMEDIAL
                         if (data[trav].STATUSCODE == 'RMPIC1') {
                             if (data[trav].FLAG_PIC == 'REVISI DUE DATE') {
@@ -102,21 +101,18 @@
                                     '<td> Pending Approval </td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
                             } else {
-                                trHTML +=
-                                    '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenHasil(this, ' + data[trav].NO_DISPOSISI + ')"/></td>' +
-                                    '<td>' + data[trav].REQ_ID + '</td>' +
-                                    '<td>' + data[trav].DEVIATION_NO + '</td>' +
-                                    '<td>' + data[trav].ID_PROPOSER + '</td>' +
-                                    '<td>' + data[trav].PROPOSER_NAME + '</td>' +
-                                    '<td> Pending Approval </td>' +
-                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
+                                if (data[trav].FLAG_PIC != 'REMEDIAL WAITING FOR DIV HEAD' && data[trav].FLAG_PIC != 'REMEDIAL ACCEPTED BY SPV PIC') {
+                                    trHTML +=
+                                        '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenHasil(this, ' + data[trav].NO_DISPOSISI + ')"/></td>' +
+                                        '<td>' + data[trav].REQ_ID + '</td>' +
+                                        '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                        '<td>' + data[trav].ID_PROPOSER + '</td>' +
+                                        '<td>' + data[trav].PROPOSER_NAME + '</td>' +
+                                        '<td> Pending Approval </td>' +
+                                        '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
+                                }
                             }
-
-                            
-
                         }
-
-
                     }
 
                     $('#deviationtable').empty();

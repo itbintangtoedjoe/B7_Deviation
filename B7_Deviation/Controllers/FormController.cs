@@ -35,7 +35,7 @@ namespace B7_Deviation.Controllers
 
         public ActionResult CheckEmailAvailability(DeviationModel model)
         {
-            string result;
+            //string result;
             List<string> ModelData = new List<string>();
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
@@ -52,7 +52,19 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@UserID", SqlDbType.VarChar);
                     command.Parameters["@UserID"].Value = model.UserInvolved;
 
-                    result = (string)command.ExecuteScalar();
+                    command.Parameters.Add("@Group", SqlDbType.VarChar);
+                    command.Parameters["@Group"].Value = model.Group;
+
+                    command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
+                    command.Parameters["@GroupSite"].Value = model.GroupSite;
+
+                    //result = (string)command.ExecuteScalar();
+
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
                 }
                 Conn.Close();
             }
@@ -63,8 +75,20 @@ namespace B7_Deviation.Controllers
                 throw ex;
             }
 
-            ModelData.Add(result);
-            return Json(ModelData);
+            //return Json(ModelData);
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
         }
 
 
@@ -1207,6 +1231,34 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
+                        else if (Model.WhoReceiver == "Group PIC after Appointed")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Group PIC after Appointed";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Group", SqlDbType.VarChar);
+                            Command.Parameters["@Group"].Value = Model.Group;
+
+                            Command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
+                            Command.Parameters["@GroupSite"].Value = Model.Site;
+                        }
+                        else if (Model.WhoReceiver == "PIC after Superior Rejected Cost" || Model.WhoReceiver== "PIC after Division Head Rejected Cost")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Group PIC after Appointed";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Group", SqlDbType.VarChar);
+                            Command.Parameters["@Group"].Value = Model.Group;
+
+                            Command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
+                            Command.Parameters["@GroupSite"].Value = Model.Site;
+                        }
                         else if (Model.WhoReceiver == "Koordinator after PIC Submit" || Model.WhoReceiver == "Koordinator after Superior PIC Approved Cost")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
@@ -1503,6 +1555,135 @@ namespace B7_Deviation.Controllers
                         "</body></html>";
 
 
+                }
+                else if (Model.WhoReceiver == "Group PIC after Appointed")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>Need Your Group Member to Review as PIC</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "PIC after Superior Rejected Cost") //group
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>Cost Tindakan Remidial Rejected by a Superior in Your Group</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost") //group
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>Cost Tindakan Remidial Rejected by Your Division Head</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
                 }
                 else if (Model.WhoReceiver == "Koordinator after PIC Submit")
                 {
