@@ -192,7 +192,7 @@
 
 </div>
 
-<script>
+<script nonce="fWFPWDdJx1NVeNHR7av12w==">
 	$(document).ready(function () {
 
 		// Check If All PIC Already Submit Their Form
@@ -349,57 +349,59 @@
 
 
 
-	function ShowBukti(button) {
-		event.preventDefault();
-		var row = $(button).closest("TR");
-		var ReqID = @ViewBag.nomor;
-		var picnik = $("TD", row).eq(16).html();
-        var seq = $("TD", row).eq(0).html();
+    function ShowBukti() {
+        $("[id^='btnShowBukti']").click(function (e) {
+            e.preventDefault();
+		    var row = this.closest("TR");
+		    var ReqID = @ViewBag.nomor;
+		    var picnik = $("TD", row).eq(16).html();
+            var seq = $("TD", row).eq(0).html();
 
-		var dto = {
-			REQID: ReqID,
-            IDUSER: picnik,
-            NO_DISPOSISI: seq
-		}
+		    var dto = {
+			    REQID: ReqID,
+                IDUSER: picnik,
+                NO_DISPOSISI: seq
+		    }
 
-		$.ajax({
-			url: "../QualityManager/QM_ShowBuktiTable",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				var trHTML = '';
-				var trav = 0;
-				var Count = data.length;
+		    $.ajax({
+			    url: "../QualityManager/QM_ShowBuktiTable",
+			    type: "post",
+			    dataType: "json",
+			    data: JSON.stringify(dto),
+			    contentType: "application/json;charset=utf-8",
+			    success: function (data) {
+				    var trHTML = '';
+				    var trav = 0;
+				    var Count = data.length;
 
-				if (Count == '0') {
-					trHTML +=
-						'<tr><td> N/A </td>' +
-						'<td> N/A </td>' +
-						'<td> N/A </td>';
-				} else {
-					for (trav = 0; trav < Count; trav++) {
-						var no = 1;
-						no = no + trav;
-						trHTML +=
-							'<tr><td>' + no + '</td>' +
-							'<td>' + data[trav].PIC_ID + '</td>' +
-							'<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+				    if (Count == '0') {
+					    trHTML +=
+						    '<tr><td> N/A </td>' +
+						    '<td> N/A </td>' +
+						    '<td> N/A </td>';
+				    } else {
+					    for (trav = 0; trav < Count; trav++) {
+						    var no = 1;
+						    no = no + trav;
+						    trHTML +=
+							    '<tr><td>' + no + '</td>' +
+							    '<td>' + data[trav].PIC_ID + '</td>' +
+							    '<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
 
-					}
-				}
+					    }
+				    }
 
-				$('#buktitable').empty();
-				$('#buktitable').append(trHTML);
-				$('#buktidatatable').DataTable();
+				    $('#buktitable').empty();
+				    $('#buktitable').append(trHTML);
+				    $('#buktidatatable').DataTable();
 
-				$("#tabel2").removeAttr("hidden");
-			}
-			, error: function (ex) {
-                GetErrorDisposisi("QM_ShowBuktiTable", JSON.stringify(ex));
-			}
-		});
+				    $("#tabel2").removeAttr("hidden");
+			    }
+			    , error: function (ex) {
+                    GetErrorDisposisi("QM_ShowBuktiTable", JSON.stringify(ex));
+			    }
+            });
+        });
 	}
 
 	function Lanjut() {

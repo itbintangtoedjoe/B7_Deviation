@@ -161,7 +161,7 @@
 
 </body>
 
-<script>
+<script nonce="kiRPeXR1m5J/Kibq69NYqg==">
 	$(document).ready(function () {
 		LoadHeader();
 		LoadReviewerData();
@@ -686,14 +686,15 @@
 							'<td>' + no + '</td>' +
 							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-							'<td><button onclick="DeleteKeteranganDisposisi(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button> <button onclick="EditDisposisi(this)" class="btn btn-success"><span class="fa fa-pencil"><strong></strong></span></button ></td ></tr > ';
+							'<td><button id="btnDelKetDis' + trav + '" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button> <button id="btnEditDisposisi' + trav + '" class="btn btn-success"><span class="fa fa-pencil"><strong></strong></span></button ></td></tr> ';
 					}
 
 					$("#tblDisKet").empty();
 					$("#tblDisKet").append(trHTML);
 					$("#tblDisKet").addBack();
 
-
+					DeleteKeteranganDisposisi();
+					EditDisposisi();
 				}
 				else {
 					$('#tblDis').attr('hidden', true);
@@ -707,163 +708,178 @@
 		});
 	}
 
-	function DeleteKeteranganDisposisi(button) {
-		event.preventDefault();
-		var row = $(button).closest("TR");
-		var ReqID = @ViewBag.nomor;
-		var RecordID = $("TD", row).eq(0).html();
+	function DeleteKeteranganDisposisi() {
+        $("[id^='btnDelKetDis']").click(function (e) {
+			e.preventDefault();
+			var row = this.closest("TR");
+			var ReqID = @ViewBag.nomor;
+			var RecordID = $("TD", row).eq(0).html();
 
-		var dto = {
-			REQID: ReqID,
-			RecordID: RecordID
-		}
+			var dto = {
+				REQID: ReqID,
+				RecordID: RecordID
+			}
 
-		$.ajax({
-			url: "../QualityManager/QM_DeleteKeteranganDisposisi",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
+			$.ajax({
+				url: "../QualityManager/QM_DeleteKeteranganDisposisi",
+				type: "post",
+				dataType: "json",
+				data: JSON.stringify(dto),
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
 
-				if (data == 'S') {
-					toastr.success("Data berhasil terhapus !", "Terhapus", {
-						"closeButton": false,
-						"debug": true,
-						"newestOnTop": false,
-						"progressBar": false,
-						"positionClass": "toast-top-right",
-						"preventDuplicates": false,
-						"onclick": null,
-						"showDuration": "100",
-						"hideDuration": "1000",
-						"timeOut": "1000",
-						"extendedTimeOut": "1000",
-						"showEasing": "swing",
-						"hideEasing": "linear",
-						"showMethod": "fadeIn",
-						"hideMethod": "fadeOut"
-					});
+					if (data == 'S') {
+						toastr.success("Data berhasil terhapus !", "Terhapus", {
+							"closeButton": false,
+							"debug": true,
+							"newestOnTop": false,
+							"progressBar": false,
+							"positionClass": "toast-top-right",
+							"preventDuplicates": false,
+							"onclick": null,
+							"showDuration": "100",
+							"hideDuration": "1000",
+							"timeOut": "1000",
+							"extendedTimeOut": "1000",
+							"showEasing": "swing",
+							"hideEasing": "linear",
+							"showMethod": "fadeIn",
+							"hideMethod": "fadeOut"
+						});
 
-					LoadKeteranganDisposisi();
+						LoadKeteranganDisposisi();
+					}
 				}
-			}
-			, error: function (ex) {
-				Error('Error Delete Disposisi ', JSON.stringify(ex));
-			}
+				, error: function (ex) {
+					Error('Error Delete Disposisi ', JSON.stringify(ex));
+				}
+			});
 		});
+
 	}
 
-	function EditDisposisi(button) {
-		event.preventDefault();
+	function EditDisposisi() {
+        $("[id^='btnEditDisposisi']").click(function (e) {
+			e.preventDefault();
+			var row = this.closest("TR");
+			var no = $("TD", row).eq(0).html();
 
-		var row = $(button).closest("TR");
-		var no = $("TD", row).eq(0).html();
+			 var REQID = @ViewBag.nomor;
 
-		 var REQID = @ViewBag.nomor;
+			var dto = {
+				REQ_ID: REQID
+			}
 
-		var dto = {
-			REQ_ID: REQID
-		}
+			$.ajax({
+				url: "../QualityManager/QM_LoadKeteranganDisposisi",
+				type: "post",
+				dataType: "json",
+				data: JSON.stringify(dto),
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
 
-		$.ajax({
-			url: "../QualityManager/QM_LoadKeteranganDisposisi",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-
-				var trHTML = '';
-				var trav = 0;
-				var Count = data.length;
-
-
-				for (trav = 0; trav < Count; trav++) {
-					var nom = 1;
-					nom = nom + trav;
-
-					if (no == data[trav].NO_DISPOSISI) {
-						trHTML += '<tr><td hidden="hidden">' + data[trav].NO_DISPOSISI + '</td>' +
-							'<td>' + nom + '</td>' +
-							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
-                            '<td><textarea class="form-control">' + data[trav].KETERANGAN_DISPOSISI+'</textarea></td>' +
-							'<td><button onclick="Cancel(this)" class="btn btn-danger"><span class="fa fa-ban"><strong></strong></span></button> <button onclick="Update(this)" class="btn btn-success"><span class="fa fa-floppy-o"><strong></strong></span></button ></td ></tr > ';
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
 
 
-					} else {
-						trHTML += '<tr><td hidden="hidden">' + data[trav].NO_DISPOSISI + '</td>' +
-							'<td>' + nom + '</td>' +
-							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
-							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-							'<td><button onclick="DeleteKeteranganDisposisi(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button> <button onclick="EditDisposisi(this)" class="btn btn-success"><span class="fa fa-pencil"><strong></strong></span></button ></td ></tr > ';
+					for (trav = 0; trav < Count; trav++) {
+						var nom = 1;
+						nom = nom + trav;
+
+						if (no == data[trav].NO_DISPOSISI) {
+							trHTML += '<tr><td hidden="hidden">' + data[trav].NO_DISPOSISI + '</td>' +
+								'<td>' + nom + '</td>' +
+								'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+								'<td><textarea class="form-control">' + data[trav].KETERANGAN_DISPOSISI + '</textarea></td>' +
+								'<td><button id="btnCancel' + trav + '" class="btn btn-danger"><span class="fa fa-ban"><strong></strong></span></button> <button id="btnUpdate' + trav + '" class="btn btn-success"><span class="fa fa-floppy-o"><strong></strong></span></button ></td ></tr > ';
+
+
+						} else {
+							trHTML += '<tr><td hidden="hidden">' + data[trav].NO_DISPOSISI + '</td>' +
+								'<td>' + nom + '</td>' +
+								'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+								'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+								'<td><button id="btnDelKetDis' + trav + '" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button> <button id="btnEditDisposisi' + trav + '" class="btn btn-success"><span class="fa fa-pencil"><strong></strong></span></button ></td ></tr > ';
+
+						}
 
 					}
 
+					$("#tblDisKet").empty();
+					$("#tblDisKet").append(trHTML);
+					$("#tblDisKet").addBack();
+
+					$('textarea').each(function () {
+						this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+					}).on('input', function () {
+						this.style.height = 'auto';
+						this.style.height = (this.scrollHeight) + 'px';
+					});
+
+					Cancel();
+					Update();
+				},
+				error: function (ex) {
+					Error("Edit Disposisi" , JSON.stringify(ex));
 				}
-
-				$("#tblDisKet").empty();
-				$("#tblDisKet").append(trHTML);
-				$("#tblDisKet").addBack();
-
-                $('textarea').each(function () {
-                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-                }).on('input', function () {
-                    this.style.height = 'auto';
-                    this.style.height = (this.scrollHeight) + 'px';
-                });
-			},
-			error: function (ex) {
-				Error("Edit Disposisi" , JSON.stringify(ex));
-			}
+			});
 		});
 	}
 
-	function Cancel(button) {
-		event.preventDefault();
-		LoadKeteranganDisposisi();
-	}
+	function Cancel() {
+		$("[id^='btnCancel']").click(function (e) {
 
-	function Update(button) {
-		event.preventDefault();
-		var row = $(button).closest("TR");
-
-		var keterangan = $("TD", row).eq(3).find("textarea").val();
-		var nomordisposisi = $("TD", row).eq(0).html();
-		var reqid = @ViewBag.nomor;
-
-
-		var dto = {
-
-			REQ_ID: reqid,
-			NO_DISPOSISI: nomordisposisi,
-			KETERANGAN_DISPOSISI: keterangan
-		}
-
-		$.ajax({
-			url: "../QualityManager/QM_UpdateKeteranganDisposisi",
-			type: "post",
-			data: JSON.stringify(dto),
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				event.preventDefault();
-				$.when(LoadKeteranganDisposisi()).done(
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Successfully Update Disposisi',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-				);
-				
-			},
-			error: function (ex) {
-				Error("Update Keterangan Disposisi" , JSON.stringify(ex));
-			}
+			e.preventDefault();
+			event.preventDefault();
+			LoadKeteranganDisposisi();
 		});
 	}
 
+	function Update() {
+
+		$("[id^='btnUpdate']").click(function (e) {
+
+			e.preventDefault();
+			var row = this.closest("TR");
+
+			var keterangan = $("TD", row).eq(3).find("textarea").val();
+			var nomordisposisi = $("TD", row).eq(0).html();
+			var reqid = @ViewBag.nomor;
+
+
+			var dto = {
+
+				REQ_ID: reqid,
+				NO_DISPOSISI: nomordisposisi,
+				KETERANGAN_DISPOSISI: keterangan
+			}
+
+			$.ajax({
+				url: "../QualityManager/QM_UpdateKeteranganDisposisi",
+				type: "post",
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					event.preventDefault();
+					$.when(LoadKeteranganDisposisi()).done(
+						Swal.fire({
+							icon: 'success',
+							title: 'Successfully Update Disposisi',
+							showConfirmButton: false,
+							timer: 2000
+						})
+					);
+
+				},
+				error: function (ex) {
+					Error("Update Keterangan Disposisi" , JSON.stringify(ex));
+				}
+			});
+		});
+
+	}
 
 	function Error(ErrorType, ErrorMsg) {
 		var REQID = @ViewBag.nomor;

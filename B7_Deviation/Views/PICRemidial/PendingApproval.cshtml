@@ -20,15 +20,16 @@
                                 <thead>
                                     <tr>
                                         <th style="text-align:center" width="100px">Action</th>
-                                        <th style="text-align:center"width="100px">Request ID</th>
-                                        <th style="text-align:center"width="100px">Status</th>
-                                        <th style="text-align:center"width="350px">Disposisi</th>
-                                        <th style="text-align:center"width="100px">Due Date</th>
-                                        <th style="text-align:center"width="300px">Action PIC</th>
-                                        <th style="text-align:center"width="100px">NIK PIC</th>
-                                        <th style="text-align:center"width="100px">Nama PIC</th>
-                                        <th style="text-align:center"width="200px">Keterangan Reject</th>
-                                        <th style="text-align:center"width="100px">Revisi Due Date/Tindakan</th>
+                                        <th style="text-align:center" width="100px">Request ID</th>
+                                        <th style="text-align:center" width="100px">Status</th>
+                                        <th style="text-align:center" width="350px">Disposisi</th>
+                                        <th style="text-align:center" width="100px">Due Date</th>
+                                        <th style="text-align:center" width="300px">Action PIC</th>
+                                        <th style="text-align:center" width="100px">NIK PIC</th>
+                                        <th style="text-align:center" width="100px">Nama PIC</th>
+                                        <th style="text-align:center" width="200px">Keterangan Reject</th>
+                                        <th style="text-align:center" width="100px">Revisi Due Date/Tindakan</th>
+                                        <th style="text-align:center" width="100px" hidden>NO_DISPOSISI</th>
                                     </tr>
                                 </thead>
                                 <tbody id="deviationtable" >
@@ -48,7 +49,7 @@
     }
 
 </style>
-<script>
+<script nonce="6qVPgYdXbyQ7Je1UD3eNdQ==">
     
     $(document).ready(function () {
         // Load User once the page is loaded
@@ -83,7 +84,7 @@
                         // KALAU ASSIGNED, BRARTI BISA ISI / MINTA REVISI
                         if (data[trav].FLAG_PIC == 'ASSIGNED') {
                             trHTML +=
-                                '<tr><td style="text-align:center"><input value="Select" onclick="Open(this, ' + data[trav].NO_DISPOSISI +')" type="button" class="btn btn-success"/>' +
+                                '<tr><td style="text-align:center"><button id="btnOpen' + trav + '" class="btn btn-success">Select</button>' +
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
@@ -93,8 +94,8 @@
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td style="text-align:center;"><input value="Revisi" onclick="Revisi(this, ' + data[trav].NO_DISPOSISI+')" type="button" class="btn btn-danger"/>';
-
+                                '<td style="text-align:center;"><button id="btnRevisi' + trav + '" class="btn btn-danger">Revisi</button></td>' +
+                                '<td style="text-align:justify" hidden>' + data[trav].NO_DISPOSISI + '</td>';
                             // BISANYA ISI DOANG
                         } else if (
                             data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY COORDINATOR' ||
@@ -107,7 +108,7 @@
                             data[trav].FLAG_VERIFIKASI == 'REJECTED'
                         ) {
                             trHTML +=
-                                '<tr><td style="text-align:center"><input value="Select" onclick="Open(this, ' + data[trav].NO_DISPOSISI +')" type="button" class="btn btn-success"/>' +
+                                '<tr><td style="text-align:center"><button id="btnOpen' + trav + '" class="btn btn-success">Select</button>' +
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
@@ -117,7 +118,8 @@
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td style="text-align:center"> N/A </td>'
+                                '<td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:justify" hidden>' + data[trav].NO_DISPOSISI + '</td>';
 
                             // KALAU UDAH ISI / MINTA REVISI, STATUSNYA PENDING DAN GABISA NGAPA2IN
                         } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE') {
@@ -132,7 +134,8 @@
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td style="text-align:center"> N/A </td>'
+                                '<td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:justify" hidden>' + data[trav].NO_DISPOSISI + '</td>';
                         }
 
                         // LIST OF OTHER'S PIC
@@ -149,7 +152,8 @@
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                                 '<td sstyle="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td style="text-align:center"> N/A </td>';
+                                '<td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:justify" hidden>' + data[trav].NO_DISPOSISI + '</td>';
 
                         } else if (
                             data[trav].FLAG_PIC == 'REMEDIAL APPROVED BY COORDINATOR' ||
@@ -172,7 +176,8 @@
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td style="text-align:center"> N/A </td>'
+                                '<td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:justify" hidden>' + data[trav].NO_DISPOSISI + '</td>';
 
                             // KALAU UDAH ISI / MINTA REVISI, STATUSNYA PENDING DAN GABISA NGAPA2IN
                         } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE') {
@@ -187,7 +192,8 @@
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td style="text-align:center"> N/A </td>'
+                                '<td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:justify" hidden>' + data[trav].NO_DISPOSISI + '</td>';
                         }
 
                     }
@@ -202,7 +208,8 @@
                 //    "info": false,
                 //    "ordering": false
                 //});
-
+                Open();
+                Revisi();
             },
             error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -210,19 +217,26 @@
         });
     }
 
-    function Open(button, no_disposisi) {
-        var row = $(button).closest("TR");
-
-        var Nomor = $("TD", row).eq(1).html();
-        window.open("../PICRemidial/PICHeader?Nomor=" + Nomor + "&Urutan=" + no_disposisi);
+    function Open() {
+        $("[id^='btnOpen']").click(function (e) {
+            e.preventDefault();
+            var row = this.closest("TR");
+            var Nomor = $("TD", row).eq(1).html();
+            var no_disposisi = $("TD", row).eq(10).html();
+            window.open("../PICRemidial/PICHeader?Nomor=" + Nomor + "&Urutan=" + no_disposisi);
+        });
+        
     }
 
-    function Revisi(button, no_disposisi) {
-
-        var row = $(button).closest("TR");
-
-        var Nomor = $("TD", row).eq(1).html();
-        window.open("../PICRemidial/UsulanRevisi?Nomor=" + Nomor + "&Urutan=" + no_disposisi);
+    function Revisi() {
+        $("[id^='btnRevisi']").click(function (e) {
+            e.preventDefault();
+            var row = this.closest("TR");            
+            var Nomor = $("TD", row).eq(1).html();
+            var no_disposisi = $("TD", row).eq(10).html();
+            window.open("../PICRemidial/UsulanRevisi?Nomor=" + Nomor + "&Urutan=" + no_disposisi);
+        });
+        
     }
 
         </script>

@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <script>
+    <script nonce="qy0UKKkAfWFqoQv/xEA1HA==">
         $(document).ready(function () {
             // Load User once the page is loaded
             LoadData();
@@ -69,7 +69,7 @@
 
                         if (data[trav].USER_ID == data[trav].USER_NIK) {
                             trHTML +=
-                                '<tr><td><input type="button" class="btn btn-success" value="Open" onclick="Open(this)"></td>';
+                                '<tr><td><button class="btn btn-success" >Open</button></td>';
 
                         } else {
                             trHTML +=
@@ -119,6 +119,8 @@
                         "ordering": false
                     });
                     LoadData = function () { };
+
+                    Open();
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
@@ -126,11 +128,13 @@
             });
         }
 
-        function Open(button) {
-            var row = $(button).closest("TR");
-
-            var Nomor = $("TD", row).eq(1).html();
-            window.open("../Reviewer/ReviewerHeader?Nomor=" + Nomor);
+        function Open() {
+            $('#deviationdatatable tbody').on('click', 'button.btn', function () {
+                var row = this.closest("TR");
+                var Nomor = $("TD", row).eq(1).html();
+                window.open("../Reviewer/ReviewerHeader?Nomor=" + Nomor);
+            })
+            
         }
 
     </script>

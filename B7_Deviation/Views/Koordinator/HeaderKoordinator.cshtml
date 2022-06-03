@@ -104,7 +104,7 @@
 	</div>
 </div>
 
-<script>
+<script nonce="HAmxxyvoWVmmY/IcUK9zBQ==">
 	let checkEvaluator = '';
 	let countBtn = 0;
 	let btnText = '';;
@@ -408,7 +408,6 @@
 			LocationSite: location,
 			Departement: dept
 		};
-		console.log(dto);
 		$.ajax({
 			url: "../Koordinator/Coor_GetDevNum",
 			type: "post",
@@ -633,7 +632,6 @@
 			data: JSON.stringify(dto),			
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				console.log(data);
 				if (data == '' || data == null) {
 
 				}

@@ -257,12 +257,11 @@
     <script src="~/Content/Scripts/plugins/select2/js/select2.full.min.js"></script>
     <script src="~/Content/Scripts/plugins/toastr/js/toastr.min.js"></script>
     <script src="~/Content/Scripts/plugins/auto-complete/jquery-ui.min.js"></script>
-    <script>
+
+    <script nonce="RibyraD2BA7Pf1eqkQxRmA==">
 
         $(document).ready(function () {
             CheckIsLogin();
-
-
             var Nama = '@Request.RequestContext.HttpContext.Session["xUser"]';
             var UrlMasterList = "../DataDeviasi/FindMasterList?Nama=" + Nama
             $("a[href='#LampiranBukti']").attr('href', UrlMasterList);

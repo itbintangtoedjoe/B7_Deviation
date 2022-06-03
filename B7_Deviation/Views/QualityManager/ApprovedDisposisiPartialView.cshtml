@@ -76,7 +76,7 @@
     </div>
 </body>
 
-<script>
+<script nonce="CmeTsLKZ0UrxmNoxywWrPg==">
 
 	function LoadData() {
 		var nomor = @ViewBag.nomor;
@@ -137,7 +137,7 @@
 
 						} else {
 							trHTML +=
-								'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+								'<td align="center"><button id="btnShowBukti" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
 						}
 
 						if ((data[trav].FLAG_VERIFIKASI == '-' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC') ||
@@ -176,7 +176,7 @@
 					if (checkVerify > 0) {
 						$('#headVerify').focus();
 					}
-
+                    ShowBukti();
 
 				},
 				error: function (ex) {

@@ -18,16 +18,20 @@
 							
 							<div class="form-group row">
 								<div class="col-md-8">
-									<div class="form-group">
-										<button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control ">
-											Approve
-											<span class="fa fa-check-square-o"></span>
-										</button>
-										<button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
-											Reject
-											<span class="fa fa-ban"></span>
-										</button>
-									</div>
+                                    <div class="form-group">
+                                        <button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control ">
+                                            Approve
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
+                                        <button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
+                                            Reject
+                                            <span class="fa fa-ban"></span>
+                                        </button>
+                                        <button type="button" id="btnUpdate" class="col-sm-2 btn mb-1 btn-info form-control">
+                                            Update
+                                            <span class="fa fa-ban"></span>
+                                        </button>
+                                    </div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
@@ -55,6 +59,7 @@
 </div>
 
 <script>
+	
 
 	$(document).ready(function () {
 		$("#btnApprove").click(function () {
@@ -66,7 +71,14 @@
 			Reject();
 		});
 
+        $("#btnUpdate").click(function () {
+            GetSiteName();
+
+        });
 	});
+
+	
+
 
 	function Approve() {
 		var REQID = @ViewBag.nomor;

@@ -351,7 +351,7 @@
     </div>
 </div>
 
-<script>
+<script nonce="FDaVOmGSur+NPTb0b64Xkg==">
 	$(document).ready(function () {
 		//FORM INPUT
 		LoadFormInput();
@@ -950,7 +950,7 @@
 
 						} else {
 							trHTML +=
-								'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+								'<td align="center"><button id="btnShowBukti" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
 						}
 
 					}
@@ -969,7 +969,9 @@
                         $('#headVerify').focus();
 					}
 
-                    $('#flagPIC').val(data[0].FLAG_PIC);
+					$('#flagPIC').val(data[0].FLAG_PIC);
+
+					ShowBukti();
 				},
 				error: function (ex) {
                     GetErrorVerifikasi("LoadDataVerifikasi", JSON.stringify(ex));
@@ -1057,64 +1059,68 @@
 
 	};
 
-	function ShowBukti(button) {
-		event.preventDefault();
-		var row = $(button).closest("TR");
-		var ReqID = @ViewBag.nomor;
-		var picnik = $("TD", row).eq(16).html();
-        var seq = $("TD", row).eq(0).html();
+	function ShowBukti() {
 
-		var dto = {
-			REQID: ReqID,
-			IDUSER: picnik,
-            NO_DISPOSISI: seq
-		}
+        $("[id^='btnShowBukti']").click(function (e) {
+			e.preventDefault();
+			var row = this.closest("TR");
+			var ReqID = @ViewBag.nomor;
+			var picnik = $("TD", row).eq(16).html();
+			var seq = $("TD", row).eq(0).html();
 
-		$.ajax({
-            url: "../QualityManager/QM_ShowBuktiTable",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				var trHTML = '';
-				var trav = 0;
-				var Count = data.length;
+			var dto = {
+				REQID: ReqID,
+				IDUSER: picnik,
+				NO_DISPOSISI: seq
+			}
 
-				if (Count == '0') {
-					trHTML +=
-						'<tr><td> - </td>' +
-						'<td> - </td>' +
-						'<td> - </td>';
+			$.ajax({
+				url: "../QualityManager/QM_ShowBuktiTable",
+				type: "post",
+				dataType: "json",
+				data: JSON.stringify(dto),
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
 
-				} else {
-					for (trav = 0; trav < Count; trav++) {
-						var no = 1;
-						no = no + trav;
+					if (Count == '0') {
 						trHTML +=
-							'<tr><td>' + no + '</td>' +
-							'<td>' + data[trav].PIC_ID + '</td>' +
-							'<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+							'<tr><td> - </td>' +
+							'<td> - </td>' +
+							'<td> - </td>';
+
+					} else {
+						for (trav = 0; trav < Count; trav++) {
+							var no = 1;
+							no = no + trav;
+							trHTML +=
+								'<tr><td>' + no + '</td>' +
+								'<td>' + data[trav].PIC_ID + '</td>' +
+								'<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+						}
 					}
+
+					$('#buktidatatable').DataTable().clear().destroy();
+
+					$('#buktitable').empty();
+					$('#buktitable').append(trHTML);
+					$('#buktidatatable').DataTable({
+						"searching": false,
+						"paging": false,
+						"info": false,
+						"ordering": false
+					});
+
+					$("#tabel2").removeAttr("hidden");
 				}
-
-                $('#buktidatatable').DataTable().clear().destroy();
-
-				$('#buktitable').empty();
-				$('#buktitable').append(trHTML);
-				$('#buktidatatable').DataTable({
-                    "searching": false,
-                    "paging": false,
-                    "info": false,
-                    "ordering": false
-				});
-
-				$("#tabel2").removeAttr("hidden");
-			}
-			, error: function (ex) {
-                GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
-			}
+				, error: function (ex) {
+					GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
+				}
+			});	
 		});
+
 	}
 
 	@*function LoadReviewerData() {

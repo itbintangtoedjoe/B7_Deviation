@@ -340,7 +340,7 @@
 	</div>
 </div>
 
-<script>
+<script nonce="Hjt2vo0Lr21oHx/pCzPtPA==">
 
 	var CheckDelete = 0;
 
@@ -664,7 +664,7 @@
 								'<td style="display:none">' + data[trav].NO_BUKTI + '</td>' +
 								'<td>' + data[trav].FILE_NAME_UPLOAD + '</td>' +
 								'<td style="display:none;">' + data[trav].PATH_FILE + '</td>' +
-								'<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
+								'<td><button id = "btnDelFileAttach' + trav + '"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
 						}
 
 						$("#tblBukti").attr('hidden', false);
@@ -679,7 +679,7 @@
 				else {
                     $("#tblBukti").attr('hidden', true);
 				}
-
+				DeleteFileAttachment();
 			}
 			, error: function (ex) {
                 ErrorPIC('Error Load User Involved' , JSON.stringify(ex));
@@ -922,59 +922,61 @@
 
 	}
 
-	function DeleteFileAttachment(button) {
-		var Row = $(button).closest("TR");
-		var ReqID = $("TD", Row).eq(1).html();
-		var RecordID = $("TD", Row).eq(2).html();
-		var FileName = $("TD", Row).eq(3).html();
-		var PathFile = $("TD", Row).eq(4).html();
-		var urutan = @ViewBag.urutan;
+	function DeleteFileAttachment() {
 
-		var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
+		$("[id^='btnDelFileAttach']").click(function (e) {
+			var Row = this.closest("TR");
+			var ReqID = $("TD", Row).eq(1).html();
+			var RecordID = $("TD", Row).eq(2).html();
+			var FileName = $("TD", Row).eq(3).html();
+			var PathFile = $("TD", Row).eq(4).html();
+			var urutan = @ViewBag.urutan;
 
-		var dto = {
-			ReqID: ReqID,
-			RecordID: RecordID,
-			PathFile: PathFile,
-			USERNIK: usernik,
-            NO_DISPOSISI: urutan
-		}
+			var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		$.ajax({
-            url: "../PICRemidial/PIC_DeleteAttachment",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				if (data == 'S') {
-
-					toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
-						"closeButton": false,
-						"debug": true,
-						"newestOnTop": false,
-						"progressBar": false,
-						"positionClass": "toast-top-left",
-						"preventDuplicates": false,
-						"onclick": null,
-						"showDuration": "100",
-						"hideDuration": "1000",
-						"timeOut": "2000",
-						"extendedTimeOut": "1000",
-						"showEasing": "swing",
-						"hideEasing": "linear",
-						"showMethod": "fadeIn",
-						"hideMethod": "fadeOut"
-					});
-
-					LoadBukti();
-				}
-			},
-			error: function (ex) {
-                ErrorPIC("Delete AtachmentPIC", JSON.stringify(ex));
+			var dto = {
+				ReqID: ReqID,
+				RecordID: RecordID,
+				PathFile: PathFile,
+				USERNIK: usernik,
+				NO_DISPOSISI: urutan
 			}
-		});
 
+			$.ajax({
+				url: "../PICRemidial/PIC_DeleteAttachment",
+				type: "post",
+				dataType: "json",
+				data: JSON.stringify(dto),
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					if (data == 'S') {
+
+						toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
+							"closeButton": false,
+							"debug": true,
+							"newestOnTop": false,
+							"progressBar": false,
+							"positionClass": "toast-top-left",
+							"preventDuplicates": false,
+							"onclick": null,
+							"showDuration": "100",
+							"hideDuration": "1000",
+							"timeOut": "2000",
+							"extendedTimeOut": "1000",
+							"showEasing": "swing",
+							"hideEasing": "linear",
+							"showMethod": "fadeIn",
+							"hideMethod": "fadeOut"
+						});
+
+						LoadBukti();
+					}
+				},
+				error: function (ex) {
+					ErrorPIC("Delete AtachmentPIC", JSON.stringify(ex));
+				}
+			});
+		});
 	}
 
 	function ErrorPIC(ErrorType, ErrorMsg) {

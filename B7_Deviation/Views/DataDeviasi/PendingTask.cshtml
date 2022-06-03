@@ -50,12 +50,28 @@
                         </tbody>
                     </table>
                 </div>
+                <div  id="divLoading" class="card-body">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center">
+                            <img src="~/Content/Styles/images/loading2.gif" width="400" height="300" />
+                        </div>
+
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
 
-    <script>
+    <script nonce="VpE4kDs9oT5m9wkhtYwwkA==">
+        let checkLoading = 0;
         $(document).ready(function () {
+            if (checkLoading == 0) {
+                $('#divLoading').prop('hidden', false);
+                $('#cardTable').prop('hidden', true);
+
+            }
+
             LoadData();
         });
 
@@ -75,6 +91,7 @@
                     console.log(data);
                     var trHTML = '';
                     var trav = 0;
+                    checkLoading = 1;
                     var Count = data.length;
                     for (trav = 0; trav < Count; trav++) {
 
@@ -317,7 +334,11 @@
                         order: [[0, "desc"]]
                     });
 
-
+                    if (checkLoading > 0) {
+                        $('#divLoading').prop('hidden', true);
+                        $('#cardTable').prop('hidden', false);
+                        checkLoading = 0;
+                    }
                 },
                 error: function (ex) {
                     

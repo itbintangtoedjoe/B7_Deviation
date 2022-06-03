@@ -103,7 +103,7 @@
 		</div>
 	</div>
 
-    <script>
+    <script nonce="/WfdpSviijhDbz/ppOmI8w==">
 		$(document).ready(function () {
 
 			LoadData();
@@ -190,73 +190,12 @@
                         });
 					}, error: function (ex) {
                         Error("Email Notifikasi", JSON.stringify(ex))
-                        
+
                     }
                 });
 			}
 
             $.when(EmailEvalutor(), ApproveOKKOR()).done(window.location.href = "../DataDeviasi/PendingTask");
-		}
-
-		function ShowBukti(button) {
-			event.preventDefault();
-
-			$("#reviewerbuktidatatable").removeAttr("hidden");
-
-			var row = $(button).closest("TR");
-			var ReqID = @ViewBag.nomor;
-			var reviewer = $("TD", row).eq(1).html();
-
-			var dto = {
-				REQID: ReqID,
-				USER_NIK: reviewer
-			}
-
-			$.ajax({
-				url: "../Koordinator/Coor_ShowReviewerBukti",
-				type: "post",
-				dataType: "json",
-				data: JSON.stringify(dto),
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
-					var trHTML = '';
-					var trav = 0;
-					var Count = data.length;
-
-					if (Count == '0') {
-						trHTML +=
-							'<tr><td> - </td>' +
-							'<td> N/A </td>' +
-							'<td> N/A </td>';
-					} else {
-						for (trav = 0; trav < Count; trav++) {
-							var no = 1;
-							no = no + trav;
-							trHTML +=
-								'<tr><td>' + no + '</td>' +
-								'<td>' + data[trav].REVIEWER_NIK + '</td>' +
-                                '<td><a href="../' + data[trav].PATH_FILE_DOWNLOAD + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
-
-						}
-					}
-
-
-                    $('#reviewerbuktidatatable').DataTable().clear().destroy();
-					$('#reviewerbukti').empty();
-					$('#reviewerbukti').append(trHTML);
-					$('#reviewerbuktidatatable').DataTable({
-                        "searching": false,
-                        "paging": false,
-                        "info": false,
-						"ordering": false
-					});
-
-				}
-				, error: function (ex) {
-                    
-					Error("Error Delete User Involved", JSON.stringify(ex));
-				}
-			});
 		}
 
 		// Check Status to Determine which Row Has Action
@@ -305,11 +244,11 @@
 									'<td>' + data[trav].FLAG_REVIEW + '</td>';
                             }
 							trHTML += '<td>' + data[trav].KETERANGAN_REJECT + '</td>' +
-								'<td> <input type="button" id = "Approve"  value="Approve" onclick="Approve(this)" class="btn btn-success" style="width:50px"/> <input type = "button" id = "Reject" value = "Reject" onclick="Reject(this)" class="btn btn-danger" style="width:50px"/>' + '</td>';
+								'<td> <button id="btnapproveReview' + trav + '" class="btn btn-success" style="width:50px">Approve</button> <button id="btnrejectReview' + trav + '" class="btn btn-danger" style="width:50px">Reject</button>' + '</td>';
 							;
 						}
 
-						trHTML += '<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info">View</button ></td ></tr > ';
+						trHTML += '<td align="center"><button id="btnshowbukti' + trav + '"class="btn btn-info">View</button ></td ></tr > ';
                         $('#deviationdatatable').DataTable().clear().destroy();
 						$('#deviationtable').empty();
 						$('#deviationtable').append(trHTML);
@@ -320,201 +259,268 @@
 						});
 					}
 
-
+					ShowBukti();
+					Approve();
+					Reject();
 				}, error: function (ex) {
 					Error("Load Data Review Koor", JSON.stringify(ex));
 				}
 			});
 		}
 
-		function Approve(button) {
+		function ShowBukti() {
 
-			var row = $(button).closest("TR");
-			var empid = $("TD", row).eq(1).html();
-			var reqid = @ViewBag.nomor;
+            $("[id^='btnshowbukti']").click(function (e) {
+				var row = this.closest("TR");
+				var ReqID = @ViewBag.nomor;
+				var reviewer = $("TD", row).eq(1).html();
+                $("#reviewerbuktidatatable").removeAttr("hidden");
+				var dto = {
+					REQID: ReqID,
+					USER_NIK: reviewer
+				}
 
-            var tabletype = "One";
-            var whoreceiver = "Reviewer after Koordinator Approved";
+				$.ajax({
+					url: "../Koordinator/Coor_ShowReviewerBukti",
+					type: "post",
+					dataType: "json",
+					data: JSON.stringify(dto),
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+						var trHTML = '';
+						var trav = 0;
+						var Count = data.length;
 
-			function ApproveKoorReviewer() {
-                var dto = {
-                    REQID: reqid,
-                    USER_NIK: empid
-                };
+						if (Count == '0') {
+							trHTML +=
+								'<tr><td> - </td>' +
+								'<td> N/A </td>' +
+								'<td> N/A </td>';
+						} else {
+							for (trav = 0; trav < Count; trav++) {
+								var no = 1;
+								no = no + trav;
+								trHTML +=
+									'<tr><td>' + no + '</td>' +
+									'<td>' + data[trav].REVIEWER_NIK + '</td>' +
+									'<td><a href="../' + data[trav].PATH_FILE_DOWNLOAD + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
 
-                $.ajax({
-                    url: "../Koordinator/Coor_ApprovePerReviewer",
-                    type: "post",
-                    data: JSON.stringify(dto),
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
+							}
+						}
 
-                        Swal.fire({
-                            title: 'Review Approved',
-                            icon: 'success',
-                            showConfirmButton: false,
-                            timer: 2000
-                        }).then(() => {
-                            $.when(CheckRevApp()).then(LoadData());
-                        });
 
-                    },
-                    error: function (ex) {
-                        Error("Approve Review", JSON.stringify(ex));
-                    }
-                });
-			}
+						$('#reviewerbuktidatatable').DataTable().clear().destroy();
+						$('#reviewerbukti').empty();
+						$('#reviewerbukti').append(trHTML);
+						$('#reviewerbuktidatatable').DataTable({
+							"searching": false,
+							"paging": false,
+							"info": false,
+							"ordering": false
+						});
 
-			function NotifyReviwerApprove() {
-                var dtx = {
-                    Receiver: empid,
-                    ReqID: reqid,
-                    TableType: tabletype,
-                    WhoReceiver: whoreceiver
-                };
+					}
+					, error: function (ex) {
 
-                $.ajax({
-                    type: "post",
-                    url: '../Form/SendEmailInputProposal',
-                    data: JSON.stringify(dtx),
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-                        toastr.success("Email Sent Successfully !", "Notification", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-bottom-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "200",
-                            "hideDuration": "1000",
-                            "timeOut": "1000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
-					}, error: function (ex) {
-
-                        Error("Email Notifikasi", JSON.stringify(ex))
-                    }
-                });
-			}
-
-            $.when(NotifyReviwerApprove()).then(ApproveKoorReviewer());
+						Error("Error Delete User Involved", JSON.stringify(ex));
+					}
+				});
+            })
 		}
 
-		function Reject(button) {
+		function Approve() {
+			$("[id^='btnapproveReview']").click(function (e) {
+				e.preventDefault();
 
-			Swal.fire({
-                icon: 'question',
-				title: 'Alasan Reject',
-				input: 'textarea',
-				inputAttributes: {
-					autocapitalize: 'off'
-				},
-				showCancelButton: true,
-				confirmButtonText: 'Submit',
-				showLoaderOnConfirm: true,
+				var row = this.closest("TR");
+				var empid = $("TD", row).eq(1).html();
+				var reqid = @ViewBag.nomor;
 
-				allowOutsideClick: () => Swal.isLoading()
-			}).then((result) => {
+				var tabletype = "One";
+				var whoreceiver = "Reviewer after Koordinator Approved";				
 
-				if (result.value == null || result.value == '') {
-					Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: 'Please Insert Reason!',
-                        showConfirmButton: false,
-                        timer: 2000
+				function ApproveKoorReviewer() {
+					var dto = {
+						REQID: reqid,
+						USER_NIK: empid
+					};
+
+					$.ajax({
+						url: "../Koordinator/Coor_ApprovePerReviewer",
+						type: "post",
+						data: JSON.stringify(dto),
+						dataType: "json",
+						contentType: "application/json;charset=utf-8",
+						success: function (data) {
+
+							Swal.fire({
+								title: 'Review Approved',
+								icon: 'success',
+								showConfirmButton: false,
+								timer: 2000
+							}).then(() => {
+								$.when(CheckRevApp()).then(LoadData());
+							});
+
+						},
+						error: function (ex) {
+							Error("Approve Review", JSON.stringify(ex));
+						}
 					});
 				}
-				else if (result.isConfirmed) {
 
-					var row = $(button).closest("TR");
-					var empid = $("TD", row).eq(1).html();
-					var reqid = @ViewBag.nomor;
-					var keteranganReject = result.value;
+				function NotifyReviwerApprove() {
+					var dtx = {
+						Receiver: empid,
+						ReqID: reqid,
+						TableType: tabletype,
+						WhoReceiver: whoreceiver
+					};
 
-                    var tabletype = "One";
-					var whoreceiver = "Reviewer after Koordinator Reject";
+					$.ajax({
+						type: "post",
+						url: '../Form/SendEmailInputProposal',
+						data: JSON.stringify(dtx),
+						dataType: "json",
+						contentType: "application/json;charset=utf-8",
+						success: function (data) {
+                            console.log(data);
+							toastr.success("Email Sent Successfully !", "Notification", {
+								"closeButton": false,
+								"debug": true,
+								"newestOnTop": false,
+								"progressBar": false,
+								"positionClass": "toast-bottom-right",
+								"preventDuplicates": false,
+								"onclick": null,
+								"showDuration": "200",
+								"hideDuration": "1000",
+								"timeOut": "1000",
+								"extendedTimeOut": "1000",
+								"showEasing": "swing",
+								"hideEasing": "linear",
+								"showMethod": "fadeIn",
+								"hideMethod": "fadeOut"
+							});
+						}, error: function (ex) {
 
-					function RejectReviewer() {
-                        var dto = {
-                            REQID: reqid,
-                            USER_NIK: empid,
-                            KETERANGAN_REJECT: keteranganReject
-                        };
-
-                        $.ajax({
-                            url: "../Koordinator/Coor_RejectPerReviewer",
-                            type: "post",
-                            data: JSON.stringify(dto),
-                            dataType: "json",
-                            contentType: "application/json;charset=utf-8",
-                            success: function (data) {
-
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Review Rejected',
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                }).then(() => {
-                                    LoadData();
-                                    CheckRevApp();
-                                });
-                            },
-                            error: function (ex) {
-                                Error("Error Reject Review", JSON.stringify(ex))
-                            }
-                        });
-					}
-
-					function NotifyReviewerReject() {
-                        var dtx = {
-                            Receiver: empid,
-                            ReqID: reqid,
-                            Body: body,
-                            TableType: tabletype,
-                            WhoReceiver: whoreceiver
-                        };
-
-                        $.ajax({
-                            type: "post",
-                            url: '../Form/SendEmailInputProposal',
-                            data: JSON.stringify(dtx),
-                            dataType: "json",
-                            contentType: "application/json;charset=utf-8",
-                            success: function (data) {
-                                toastr.success("Email Sent Successfully !", "Notification", {
-                                    "closeButton": false,
-                                    "debug": true,
-                                    "newestOnTop": false,
-                                    "progressBar": false,
-                                    "positionClass": "toast-bottom-right",
-                                    "preventDuplicates": false,
-                                    "onclick": null,
-                                    "showDuration": "200",
-                                    "hideDuration": "1000",
-                                    "timeOut": "1000",
-                                    "extendedTimeOut": "1000",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
-                                });
-                            }, error: function (ex) {
-                                Error("Email Notifikasi Review Reject", JSON.stringify(ex))
-                            }
-                        });
-					}
-
-                    $.when(NotifyReviewerReject()).then(RejectReviewer());
+							Error("Email Notifikasi", JSON.stringify(ex))
+						}
+					});
 				}
+
+				$.when(NotifyReviwerApprove()).then(ApproveKoorReviewer());
+			});
+		}
+
+		function Reject() {
+			$("[id^='btnrejectReview']").click(function (e) {
+				e.preventDefault();
+				Swal.fire({
+					icon: 'question',
+					title: 'Alasan Reject',
+					input: 'textarea',
+					inputAttributes: {
+						autocapitalize: 'off'
+					},
+					showCancelButton: true,
+					confirmButtonText: 'Submit',
+
+					allowOutsideClick: () => Swal.isLoading()
+				}).then((result) => {
+
+					if (result.value == null || result.value == '') {
+						Swal.fire({
+							icon: 'error',
+							title: 'Oops...',
+							text: 'Please Insert Reason!',
+							showConfirmButton: false,
+							timer: 2000
+						});
+					}
+					else if (result.isConfirmed) {
+
+						var row = this.closest("TR");
+						var empid = $("TD", row).eq(1).html();
+						var reqid = @ViewBag.nomor;
+						var keteranganReject = result.value;
+
+						var tabletype = "One";
+						var whoreceiver = "Reviewer after Koordinator Reject";
+
+						function RejectReviewer() {
+							var dto = {
+								REQID: reqid,
+								USER_NIK: empid,
+								KETERANGAN_REJECT: keteranganReject
+							};
+
+							$.ajax({
+								url: "../Koordinator/Coor_RejectPerReviewer",
+								type: "post",
+								data: JSON.stringify(dto),
+								dataType: "json",
+								contentType: "application/json;charset=utf-8",
+								success: function (data) {
+
+									Swal.fire({
+										icon: 'success',
+										title: 'Review Rejected',
+										showConfirmButton: false,
+										timer: 2000
+									}).then(() => {
+										LoadData();
+										CheckRevApp();
+									});
+								},
+								error: function (ex) {
+									Error("Error Reject Review", JSON.stringify(ex))
+								}
+							});
+						}
+
+						function NotifyReviewerReject() {
+							var dtx = {
+								Receiver: empid,
+								ReqID: reqid,
+								Body: body,
+								TableType: tabletype,
+								WhoReceiver: whoreceiver
+							};
+
+							$.ajax({
+								type: "post",
+								url: '../Form/SendEmailInputProposal',
+								data: JSON.stringify(dtx),
+								dataType: "json",
+								contentType: "application/json;charset=utf-8",
+								success: function (data) {
+									toastr.success("Email Sent Successfully !", "Notification", {
+										"closeButton": false,
+										"debug": true,
+										"newestOnTop": false,
+										"progressBar": false,
+										"positionClass": "toast-bottom-right",
+										"preventDuplicates": false,
+										"onclick": null,
+										"showDuration": "200",
+										"hideDuration": "1000",
+										"timeOut": "1000",
+										"extendedTimeOut": "1000",
+										"showEasing": "swing",
+										"hideEasing": "linear",
+										"showMethod": "fadeIn",
+										"hideMethod": "fadeOut"
+									});
+								}, error: function (ex) {
+									Error("Email Notifikasi Review Reject", JSON.stringify(ex))
+								}
+							});
+						}
+
+						$.when(NotifyReviewerReject()).then(RejectReviewer());
+					}
+				});
 			});
 		}
 
@@ -645,12 +651,15 @@
 								'<td>' + no + '</td>' +
 								'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 								'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-								'<td><button onclick="DeleteKeteranganDisposisi(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
+								'<td><button class="DelKetDisposisi btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
 						}
 
 						$("#tblDisKet").empty();
 						$("#tblDisKet").append(trHTML);
 						$("#tblDisKet").addBack();
+
+
+						DeleteKeteranganDisposisi();
 					}
 					else {
 						$('#tblDis').attr('hidden', true);
@@ -664,50 +673,52 @@
 			});
 		}
 
-		function DeleteKeteranganDisposisi(button) {
-			event.preventDefault();
-			var row = $(button).closest("TR");
-			var ReqID = @ViewBag.nomor;
-			var RecordID = $("TD", row).eq(0).html();
+		function DeleteKeteranganDisposisi() {
+			$('#tblDis tbody').on('click', 'button.DelKetDisposisi', function () {
 
-			var dto = {
-				REQID: ReqID,
-				RecordID: RecordID
-			}
+				var row = this.closest("TR");
+				var ReqID = @ViewBag.nomor;
+				var RecordID = $("TD", row).eq(0).html();
 
-			$.ajax({
-				url: "../QualityManager/QM_DeleteKeteranganDisposisi",
-				type: "post",
-				dataType: "json",
-				data: JSON.stringify(dto),
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
+				var dto = {
+					REQID: ReqID,
+					RecordID: RecordID
+				}
 
-					if (data == 'S') {
-						toastr.success("Data berhasil terhapus !", "Terhapus", {
-							"closeButton": false,
-							"debug": true,
-							"newestOnTop": false,
-							"progressBar": false,
-							"positionClass": "toast-top-right",
-							"preventDuplicates": false,
-							"onclick": null,
-							"showDuration": "100",
-							"hideDuration": "1000",
-							"timeOut": "1000",
-							"extendedTimeOut": "1000",
-							"showEasing": "swing",
-							"hideEasing": "linear",
-							"showMethod": "fadeIn",
-							"hideMethod": "fadeOut"
-						});
+				$.ajax({
+					url: "../QualityManager/QM_DeleteKeteranganDisposisi",
+					type: "post",
+					dataType: "json",
+					data: JSON.stringify(dto),
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
 
-						LoadKeteranganDisposisi();
+						if (data == 'S') {
+							toastr.success("Data berhasil terhapus !", "Terhapus", {
+								"closeButton": false,
+								"debug": true,
+								"newestOnTop": false,
+								"progressBar": false,
+								"positionClass": "toast-top-right",
+								"preventDuplicates": false,
+								"onclick": null,
+								"showDuration": "100",
+								"hideDuration": "1000",
+								"timeOut": "1000",
+								"extendedTimeOut": "1000",
+								"showEasing": "swing",
+								"hideEasing": "linear",
+								"showMethod": "fadeIn",
+								"hideMethod": "fadeOut"
+							});
+
+							LoadKeteranganDisposisi();
+						}
 					}
-				}
-				, error: function (ex) {
-					Error('Error Delete Ket Disposisi', JSON.stringify(ex));
-				}
+					, error: function (ex) {
+						Error('Error Delete Ket Disposisi', JSON.stringify(ex));
+					}
+				});
 			});
 		}
 
@@ -752,7 +763,7 @@
                     });
 				}
 				, error: function (ex) {
-					
+
 				}
 			});
 		}
