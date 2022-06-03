@@ -29,7 +29,6 @@
                                 <th width="100px">Proposer Name</th>
                                 <th width="100px">Status</th>
                                 <th>PIC Name</th>
-                                <th hidden>NO_DISPOSISI</th>
                             </tr>
                         </thead>
                         <tbody id="deviationtable" class="nowrap">
@@ -42,7 +41,7 @@
         </div>
     </div>
 
-    <script nonce="xEQMfzNmkZdRf+aYcbKxbg==">
+    <script>
         $(document).ready(function () {
             LoadData();
 
@@ -67,29 +66,26 @@
                     var trav = 0;
                     var Count = data.length;
                     for (trav = 0; trav < Count; trav++) {
-
                         // HASIL REMEDIAL
                         if (data[trav].STATUSCODE == 'RMPIC1') {
                             if (data[trav].FLAG_PIC == 'REVISI DUE DATE') {
                                 trHTML +=
-                                    '<tr><td><button class="btn btn-success" title = "Select" id="btnOpenRevisi' + trav + '">Select</button></td>' +
+                                    '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenRevisi(this)"/></td>' +
                                     '<td>' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                     '<td>' + data[trav].ID_PROPOSER + '</td>' +
                                     '<td>' + data[trav].PROPOSER_NAME + '</td>' +
                                     '<td> Pending Approval </td>' +
-                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                    '<td hidden>' + data[trav].NO_DISPOSISI + '</td>';
+                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
                             } else {
                                 trHTML +=
-                                    '<tr><td><button class="btn btn-success" title = "Select" id="btnOpenHasil' + trav + '">Select</button></td>' +
+                                    '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenHasil(this, ' + data[trav].NO_DISPOSISI + ')"/></td>' +
                                     '<td>' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                     '<td>' + data[trav].ID_PROPOSER + '</td>' +
                                     '<td>' + data[trav].PROPOSER_NAME + '</td>' +
                                     '<td> Pending Approval </td>' +
-                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                    '<td hidden>' + data[trav].NO_DISPOSISI + '</td>';
+                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
                             }
                            
                         // USULAN REVISI
@@ -97,24 +93,24 @@
 
                             if (data[trav].FLAG_PIC == 'REVISI DUE DATE') {
                                 trHTML +=
-                                    '<tr><td><button class="btn btn-success" title = "Select" id="btnOpenRevisi' + trav + '">Select</button></td>' +
+                                    '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenRevisi(this)"/></td>' +
                                     '<td>' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                     '<td>' + data[trav].ID_PROPOSER + '</td>' +
                                     '<td>' + data[trav].PROPOSER_NAME + '</td>' +
                                     '<td> Pending Approval </td>' +
-                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                    '<td hidden>' + data[trav].NO_DISPOSISI + '</td>';
+                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
                             } else {
-                                trHTML +=
-                                    '<tr><td><button class="btn btn-success" title = "Select" id="btnOpenHasil' + trav + '">Select</button></td>' +
-                                    '<td>' + data[trav].REQ_ID + '</td>' +
-                                    '<td>' + data[trav].DEVIATION_NO + '</td>' +
-                                    '<td>' + data[trav].ID_PROPOSER + '</td>' +
-                                    '<td>' + data[trav].PROPOSER_NAME + '</td>' +
-                                    '<td> Pending Approval </td>' +
-                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                                    '<td hidden>' + data[trav].NO_DISPOSISI + '</td>';
+                                if (data[trav].FLAG_PIC != 'REMEDIAL WAITING FOR DIV HEAD' && data[trav].FLAG_PIC != 'REMEDIAL ACCEPTED BY SPV PIC') {
+                                    trHTML +=
+                                        '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenHasil(this, ' + data[trav].NO_DISPOSISI + ')"/></td>' +
+                                        '<td>' + data[trav].REQ_ID + '</td>' +
+                                        '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                        '<td>' + data[trav].ID_PROPOSER + '</td>' +
+                                        '<td>' + data[trav].PROPOSER_NAME + '</td>' +
+                                        '<td> Pending Approval </td>' +
+                                        '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
+                                }
                             }
                         }
                     }
@@ -123,9 +119,6 @@
                     $('#deviationtable').append(trHTML);
                     $('#deviationdatatable').DataTable();
                     LoadData = function () { };
-
-                    OpenHasil();
-                    OpenRevisi();
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
@@ -133,24 +126,18 @@
             });
         }
 
-        function OpenHasil() {
-            $("[id^='btnOpenHasil']").click(function (e) {
-                e.preventDefault();
-                var row = this.closest("TR");
-                var Nomor = $("TD", row).eq(1).html();
-                var no_disposisi = $("TD", row).eq(7).html();
+        function OpenHasil(button, no_disposisi) {
+            var row = $(button).closest("TR");
 
-                window.open("../SpvPIC/HasilRemedial?Nomor=" + Nomor + "&Dis=" + no_disposisi);
-            });
+            var Nomor = $("TD", row).eq(1).html();
+            window.open("../SpvPIC/HasilRemedial?Nomor=" + Nomor + "&Dis=" + no_disposisi);
         }
 
-        function OpenRevisi() {
-            $("[id^='btnOpenRevisi']").click(function (e) {
-                var row = this.closest("TR");
-                var Nomor = $("TD", row).eq(1).html();
+        function OpenRevisi(button) {
+            var row = $(button).closest("TR");
 
-                window.open("../SpvPIC/PICProposal?Nomor=" + Nomor);
-            });
+            var Nomor = $("TD", row).eq(1).html();
+            window.open("../SpvPIC/PICProposal?Nomor=" + Nomor);
         }
 
     </script>

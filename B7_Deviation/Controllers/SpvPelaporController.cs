@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace B7_Deviation.Controllers
@@ -28,6 +26,11 @@ namespace B7_Deviation.Controllers
             return PartialView("~/SpvPelapor/ApprovalForm/Approval.cshtml");
         }
 
+        public ActionResult EditDeviationPartialView()
+        {
+            return PartialView("~Views/PelaporPenyimpangan/EditDeviationPartialView");
+        }
+
         // Page for Data Table
         public ActionResult PendingApproval()
         {
@@ -45,7 +48,7 @@ namespace B7_Deviation.Controllers
             ViewBag.nomor = Nomor;
             return View();
         }
-        
+
         public ActionResult PICProposal(String Nomor)
         {
             ViewBag.nomor = Nomor;
@@ -616,4 +619,10 @@ namespace B7_Deviation.Controllers
 
 
     }
+
+
+
+
+
+
 }

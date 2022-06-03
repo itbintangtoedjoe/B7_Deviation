@@ -43,9 +43,10 @@
     </div>
 
     @* PROPOSER SECTION *@
-    <div class="form-group" id="partialview">
-        @Html.Partial("../SpvPelapor/Approval")
-    </div>
+<div class="form-group" id="partialview">
+    @Html.Partial("../SpvPelapor/Approval")
+    @*@Html.Partial("../DataDeviasi/DeviasiPartialView")*@
+</div>
 
     @* REVIEWER SECTION *@
     <div class="form-group" id="DIV_REVIEWER">
@@ -345,13 +346,15 @@
                     </div>
                     <input type="hidden" id="totalCost" />
                     <input type="hidden" id="flagPIC" />
+                    <input type="hidden" id="picNIK" />
+                    <input type="hidden" id="groupSite" />
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script nonce="FDaVOmGSur+NPTb0b64Xkg==">
+<script>
 	$(document).ready(function () {
 		//FORM INPUT
 		LoadFormInput();
@@ -905,7 +908,7 @@
 				dataType: "json",
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
-					console.log(data);
+					@*console.log(data);*@
 					var checkVerify = 0;
 					var trHTML = '';
 					var trav = 0;
@@ -950,7 +953,7 @@
 
 						} else {
 							trHTML +=
-								'<td align="center"><button id="btnShowBukti" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+								'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
 						}
 
 					}
@@ -969,9 +972,9 @@
                         $('#headVerify').focus();
 					}
 
-					$('#flagPIC').val(data[0].FLAG_PIC);
-
-					ShowBukti();
+                    $('#flagPIC').val(data[0].FLAG_PIC);
+                    $('#picNIK').val(data[0].PIC_REMEDIAL_NIK);
+                    $('#groupSite').val(data[0].GROUP_SITE);
 				},
 				error: function (ex) {
                     GetErrorVerifikasi("LoadDataVerifikasi", JSON.stringify(ex));
@@ -985,6 +988,7 @@
             dataType: "json",
             contentType: "application/json;charset=utf-8",
 			success: function (data) {
+				@*console.log(data);*@
                 var trHTML = '';
                 var trav = 0;
                 var Count = data.length;
@@ -1059,68 +1063,64 @@
 
 	};
 
-	function ShowBukti() {
+	function ShowBukti(button) {
+		event.preventDefault();
+		var row = $(button).closest("TR");
+		var ReqID = @ViewBag.nomor;
+		var picnik = $("TD", row).eq(16).html();
+        var seq = $("TD", row).eq(0).html();
 
-        $("[id^='btnShowBukti']").click(function (e) {
-			e.preventDefault();
-			var row = this.closest("TR");
-			var ReqID = @ViewBag.nomor;
-			var picnik = $("TD", row).eq(16).html();
-			var seq = $("TD", row).eq(0).html();
+		var dto = {
+			REQID: ReqID,
+			IDUSER: picnik,
+            NO_DISPOSISI: seq
+		}
 
-			var dto = {
-				REQID: ReqID,
-				IDUSER: picnik,
-				NO_DISPOSISI: seq
-			}
+		$.ajax({
+            url: "../QualityManager/QM_ShowBuktiTable",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				var trHTML = '';
+				var trav = 0;
+				var Count = data.length;
 
-			$.ajax({
-				url: "../QualityManager/QM_ShowBuktiTable",
-				type: "post",
-				dataType: "json",
-				data: JSON.stringify(dto),
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
-					var trHTML = '';
-					var trav = 0;
-					var Count = data.length;
+				if (Count == '0') {
+					trHTML +=
+						'<tr><td> - </td>' +
+						'<td> - </td>' +
+						'<td> - </td>';
 
-					if (Count == '0') {
+				} else {
+					for (trav = 0; trav < Count; trav++) {
+						var no = 1;
+						no = no + trav;
 						trHTML +=
-							'<tr><td> - </td>' +
-							'<td> - </td>' +
-							'<td> - </td>';
-
-					} else {
-						for (trav = 0; trav < Count; trav++) {
-							var no = 1;
-							no = no + trav;
-							trHTML +=
-								'<tr><td>' + no + '</td>' +
-								'<td>' + data[trav].PIC_ID + '</td>' +
-								'<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
-						}
+							'<tr><td>' + no + '</td>' +
+							'<td>' + data[trav].PIC_ID + '</td>' +
+							'<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
 					}
-
-					$('#buktidatatable').DataTable().clear().destroy();
-
-					$('#buktitable').empty();
-					$('#buktitable').append(trHTML);
-					$('#buktidatatable').DataTable({
-						"searching": false,
-						"paging": false,
-						"info": false,
-						"ordering": false
-					});
-
-					$("#tabel2").removeAttr("hidden");
 				}
-				, error: function (ex) {
-					GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
-				}
-			});	
+
+                $('#buktidatatable').DataTable().clear().destroy();
+
+				$('#buktitable').empty();
+				$('#buktitable').append(trHTML);
+				$('#buktidatatable').DataTable({
+                    "searching": false,
+                    "paging": false,
+                    "info": false,
+                    "ordering": false
+				});
+
+				$("#tabel2").removeAttr("hidden");
+			}
+			, error: function (ex) {
+                GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
+			}
 		});
-
 	}
 
 	@*function LoadReviewerData() {
@@ -1651,6 +1651,15 @@
 					var REQID = @ViewBag.nomor;
 					var DIS = @ViewBag.dis;
 
+                    //kalau pic ke group
+					var picIsGroup = false;
+					var group = $("#picNIK").val();
+					console.log(group);
+					if (group.substring(1, 2) == 'G_') {
+						picIsGroup = true;
+                    }
+                    var groupSite = $('#groupSite').val();
+
 					function RejectRemidialSup() {
 						var Keterangan = result.value;
 						var IDUser = '@Request.RequestContext.HttpContext.Session["xUser"]';
@@ -1688,8 +1697,12 @@
 					}
 
 					function EmailRejectSupPIC() {
-						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-						var tabletype = "One";
+                        var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+                        var tabletype = "One";
+						if (picIsGroup === true) {
+							tabletype = "More than One";
+                        }
+						
 						var whoreceiver = "PIC after Superior Rejected Cost";
 
 						var dto = {
@@ -1697,7 +1710,9 @@
 							ReqID: REQID,
 							TableType: tabletype,
 							WhoReceiver: whoreceiver,
-							Urutan: DIS
+                            Urutan: DIS,
+                            Group: group,
+                            Site: groupSite,
 						};
 
 						$.ajax({
@@ -1732,7 +1747,10 @@
 
 					function EmailRejectDivHead() {
 						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-						var tabletype = "One";
+                        var tabletype = "One";
+                        if (picIsGroup === true) {
+                            tabletype = "More than One";
+                        }
 						var whoreceiver = "PIC after Division Head Rejected Cost";
 
 						var dto = {
@@ -1740,7 +1758,9 @@
 							ReqID: REQID,
 							TableType: tabletype,
 							WhoReceiver: whoreceiver,
-							Urutan: DIS
+                            Urutan: DIS,
+                            Group: group,
+                            Site: groupSite,
 						};
 
 						$.ajax({

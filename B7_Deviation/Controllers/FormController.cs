@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using B7_Deviation.Models;
 using Oracle.ManagedDataAccess.Client;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using B7_Deviation.Models;
-using System.Net.Mail;
-using System.Net;
 
 namespace B7_Deviation.Controllers
 {
@@ -35,7 +31,7 @@ namespace B7_Deviation.Controllers
 
         public ActionResult CheckEmailAvailability(DeviationModel model)
         {
-            string result;
+            //string result;
             List<string> ModelData = new List<string>();
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
@@ -52,7 +48,19 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@UserID", SqlDbType.VarChar);
                     command.Parameters["@UserID"].Value = model.UserInvolved;
 
-                    result = (string)command.ExecuteScalar();
+                    command.Parameters.Add("@Group", SqlDbType.VarChar);
+                    command.Parameters["@Group"].Value = model.Group;
+
+                    command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
+                    command.Parameters["@GroupSite"].Value = model.GroupSite;
+
+                    //result = (string)command.ExecuteScalar();
+
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
                 }
                 Conn.Close();
             }
@@ -63,1773 +71,1943 @@ namespace B7_Deviation.Controllers
                 throw ex;
             }
 
-            ModelData.Add(result);
-            return Json(ModelData);
+            //return Json(ModelData);
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
         }
 
 
         public ActionResult SendEmailInputProposal(EmailModel Model)
         {
-            //MailMessage Msg = new MailMessage();
-            //SmtpClient MailObject = new SmtpClient("mail.kalbe.co.id");
-
-            //Msg.From = new MailAddress("notification@bintang7.com", "Deviation Notification");
-            //Msg.Bcc.Add(new MailAddress("shinvin10@gmail.com"));
-
-            //Msg.Priority = MailPriority.High;
-            //Msg.IsBodyHtml = true;
-            //Msg.Subject = "Deviation Notification";
-
-            //string ConString = MyDB.ConnectionString;
-            //SqlConnection Conn = new SqlConnection(ConString);
-            //List<string> ModelData = new List<string>();
-            //DT.Reset();
-            //string result = "";
-            //string EmailBody = ""
-            //     , t_deviation_no = ""
-            //     , t_problem = ""
-            //     , t_category = ""
-            //     , t_location = ""
-            //     , t_status = ""
-            //     , t_namapenerima = ""
-            //     , t_emailpenerima = "";
-
-            ////SettingAttribute Detail Data Email 
-            //try
-            //{
-
-            //    using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
-            //    {
-            //        Command.CommandType = CommandType.StoredProcedure;
-            //        Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //        Command.Parameters["@Option"].Value = "LoadDetailEmail";
-
-            //        Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //        Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-            //        Conn.Open();
-            //        SqlDataAdapter dataAdap = new SqlDataAdapter();
-            //        dataAdap.SelectCommand = Command;
-            //        dataAdap.Fill(DT);
-            //        Conn.Close();
-            //    }
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
-            //foreach (DataRow dr in DT.Rows)
-            //{
-            //    t_deviation_no = dr[1].ToString();
-            //    t_problem = dr[2].ToString();
-            //    t_location = dr[3].ToString();
-            //    t_category = dr[4].ToString();
-            //    t_status = dr[5].ToString();
-            //}
-
-            //DT.Reset();
-            //if (Model.TableType == "One")
-            //{
-            //    //SettingAttribute Email and Name
-            //    try
-            //    {
-            //        using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
-            //        {
-            //            Command.CommandType = CommandType.StoredProcedure;
-
-            //            #region SendToOne
-            //            if (Model.WhoReceiver == "Superior after Form Input")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Form Input";
-
-            //                Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-            //                Command.Parameters["@UserID"].Value = Model.Receiver;
-            //            }
-            //            else if (Model.WhoReceiver == "Proposer after Superior Reject")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "Reviewer after Koordinator Approved")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Reviewer One";
-
-            //                Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-            //                Command.Parameters["@UserID"].Value = Model.Receiver;
-            //            }
-            //            else if (Model.WhoReceiver == "Reviewer after Koordinator Reject")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Reviewer One";
-
-            //                Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-            //                Command.Parameters["@UserID"].Value = Model.Receiver;
-            //            }
-            //            else if (Model.WhoReceiver == "PIC after Appointed")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Reviewer One";
-
-            //                Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-            //                Command.Parameters["@UserID"].Value = Model.Receiver;
-            //            }
-            //            else if (Model.WhoReceiver == "Superior PIC after PIC Submit Cost")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Form Input";
-
-            //                Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-            //                Command.Parameters["@UserID"].Value = Model.Receiver;
-            //            }
-            //            else if (Model.WhoReceiver == "Div Head after Sup PIC Approve Cost")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Find Div Head";
-
-            //                Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-            //                Command.Parameters["@UserID"].Value = Model.Receiver;
-            //            }
-            //            else if (Model.WhoReceiver == "PIC after Superior Rejected Cost")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "PIC after Superior Rejected Cost";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-            //                Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
-            //                Command.Parameters["@Urutan"].Value = Model.Urutan;
-            //            }
-            //            else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "PIC after Superior Rejected Cost";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-            //                Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
-            //                Command.Parameters["@Urutan"].Value = Model.Urutan;
-            //            }
-            //            else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "Canceled")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "Delegasi")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Delegasi";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "SPV PIC Usulan Revisi")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "SPV PIC Usulan Revisi";
-
-            //                Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-            //                Command.Parameters["@UserID"].Value = Model.Receiver;
-            //            }
-            //            else if (Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Reviewer Rejected Usulan Revisi";
-
-            //                Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-            //                Command.Parameters["@UserID"].Value = Model.Receiver;
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Reviewer Rejected Usulan Revisi";
-
-            //                Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-            //                Command.Parameters["@UserID"].Value = Model.Receiver;
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            #endregion
-
-            //            Conn.Open();
-            //            SqlDataAdapter dataAdap = new SqlDataAdapter();
-            //            dataAdap.SelectCommand = Command;
-            //            dataAdap.Fill(DT);
-            //            Conn.Close();
-            //        }
-
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw ex;
-            //    }
-
-            //    foreach (DataRow dr in DT.Rows)
-            //    {
-            //        t_namapenerima = dr[0].ToString();
-            //        t_emailpenerima = dr[1].ToString();
-            //        Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
-            //    }
-
-            //    #region EmailBodyOne
-            //    if (Model.WhoReceiver == "Superior after Form Input")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>"
-            //                "<td><b>Need Your Approval</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Your Approval</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + " >Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "Proposer after Superior Reject")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Is Rejected by Superior</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Is Rejected by Superior</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "Reviewer after Koordinator Approved")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Your Review with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Is Approved by Koordinator</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Is Approved by Koordinator</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "Reviewer after Koordinator Reject")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Your Review with, <br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                 //"<td><b>" + t_status + "</b></td>" +
-            //                 "<td><b>Is Rejected by Koordinator</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Is Rejected by Koordinator</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "PIC after Appointed")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with, <br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Need Your Review as PIC</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Your Review as PIC</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-            //    }
-            //    else if (Model.WhoReceiver == "Superior PIC after PIC Submit Cost")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>"
-            //                "<td><b>Need Your Approval for the Cost</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Your Approval</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "Div Head after Sup PIC Approve Cost")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>Need Your Approval as Division Head for the Cost</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "PIC after Superior Rejected Cost")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>"
-            //                "<td><b>Cost Tindakan Remidial Rejected by Your Superior</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Your Approval</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>"
-            //                "<td><b>Cost Tindakan Remidial Rejected by Your Division Head</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Your Approval</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Has been Approved and Proceeded to CAPA</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Has been Approved and Proceeded to CAPA</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-            //    }
-            //    else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with, <br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Has been Approved and Not Proceeded to CAPA</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Has been Approved and Not Proceeded to CAPA</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-            //    }
-            //    else if (Model.WhoReceiver == "Canceled")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with, <br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Has been Canceled</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Has been Canceled</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-            //    }
-            //    else if (Model.WhoReceiver == "Delegasi")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Has been Delegated to you</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Has been Delegated to you</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-            //    }
-            //    else if (Model.WhoReceiver == "SPV PIC Usulan Revisi")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Proposed Revision</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Proposed Revision</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-            //    }
-            //    else if (Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Proposed revision has been Rejected</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Proposed revision has been Rejected</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                 //"<td><b>" + t_status + "</b></td>" +
-            //                 "<td><b>Proposed Revision has been Approved</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Proposed Revision has been Approved</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    #endregion
-
-            //    try
-            //    {
-
-            //        // Start Setting Send Notification
-            //        Msg.Subject = "Deviation Notification";
-            //        Msg.Body = EmailBody;
-            //        MailObject.Send(Msg);
-            //        // End Setting Send Notification
-
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
-            //        {
-            //            Command.CommandType = CommandType.StoredProcedure;
-
-            //            Command.Parameters.Add("@REQID", SqlDbType.VarChar);
-            //            Command.Parameters["@REQID"].Value = Model.ReqID;
-
-            //            Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
-            //            Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
-
-            //            Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
-            //            Command.Parameters["@ERR_MSG"].Value = ex.ToString();
-
-            //            Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
-            //            Command.Parameters["@SENDER"].Value = Model.Receiver;
-
-            //            Conn.Open();
-            //            result = (string)Command.ExecuteScalar();
-            //            Conn.Close();
-            //        }
-            //        try
-            //        {
-            //            // Start Setting Send Notification
-            //            Msg.Subject = "Deviation Notification";
-            //            Msg.Body = EmailBody;
-            //            MailObject.Send(Msg);
-            //            // End Setting Send Notification
-            //        }
-            //        catch (Exception ex2)
-            //        {
-            //            using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
-            //            {
-            //                Command.CommandType = CommandType.StoredProcedure;
-
-            //                Command.Parameters.Add("@REQID", SqlDbType.VarChar);
-            //                Command.Parameters["@REQID"].Value = Model.ReqID;
-
-            //                Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
-            //                Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
-
-            //                Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
-            //                Command.Parameters["@ERR_MSG"].Value = ex2.ToString();
-
-            //                Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
-            //                Command.Parameters["@SENDER"].Value = Model.Receiver;
-
-            //                Conn.Open();
-            //                result = (string)Command.ExecuteScalar();
-            //                Conn.Close();
-            //            }
-            //            try
-            //            {
-            //                // Start Setting Send Notification
-            //                Msg.Subject = "Deviation Notification";
-            //                Msg.Body = EmailBody;
-            //                MailObject.Send(Msg);
-            //                // End Setting Send Notification
-            //            }
-            //            catch (Exception ex3)
-            //            {
-            //                using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
-            //                {
-            //                    Command.CommandType = CommandType.StoredProcedure;
-
-            //                    Command.Parameters.Add("@REQID", SqlDbType.VarChar);
-            //                    Command.Parameters["@REQID"].Value = Model.ReqID;
-
-            //                    Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
-            //                    Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
-
-            //                    Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
-            //                    Command.Parameters["@ERR_MSG"].Value = ex3.ToString();
-
-            //                    Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
-            //                    Command.Parameters["@SENDER"].Value = Model.Receiver;
-
-            //                    Conn.Open();
-            //                    result = (string)Command.ExecuteScalar();
-            //                    Conn.Close();
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //else if (Model.TableType == "More Than One")
-            //{
-
-            //    DT.Reset();
-            //    // MORE THAN 1 RECEIVER
-
-            //    try
-            //    {
-            //        using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
-            //        {
-            //            Command.CommandType = CommandType.StoredProcedure;
-
-            //            #region Send More than One
-            //            if (Model.WhoReceiver == "Koordinator after Superior Approved")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "Reviewer after Appointed")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Reviewer after Appointed";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "Koordinator after Reviewer Submit")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "Koordinator after QM Approve")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "Koordinator after PIC Submit" || Model.WhoReceiver == "Koordinator after Superior PIC Approved Cost")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "Reviwer after Appointed";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            else if (Model.WhoReceiver == "QM PIC Usulan Revisi")
-            //            {
-            //                Command.Parameters.Add("@Option", SqlDbType.VarChar);
-            //                Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
-
-            //                Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-            //                Command.Parameters["@ReqID"].Value = Model.ReqID;
-            //            }
-            //            #endregion
-
-            //            Conn.Open();
-            //            SqlDataAdapter dataAdap = new SqlDataAdapter();
-            //            dataAdap.SelectCommand = Command;
-            //            dataAdap.Fill(DT);
-            //            Conn.Close();
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw ex;
-            //    }
-
-            //    string daftarNamaPenerima = "";
-            //    foreach (DataRow dr in DT.Rows)
-            //    {
-            //        daftarNamaPenerima += dr[0].ToString() + ", ";
-            //        t_namapenerima = dr[0].ToString();
-            //        t_emailpenerima = dr[1].ToString();
-            //        Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
-            //    }
-
-            //    #region EmailBodyMoreThanOne
-            //    if (Model.WhoReceiver == "Koordinator after Superior Approved")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Need Your Approval as Coordinator</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Your Approval as Coordinator</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-            //    }
-            //    else if (Model.WhoReceiver == "Reviewer after Appointed")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Need Your Review as Reviewer</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Your Review as Reviewer</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "Koordinator after Reviewer Submit")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
-            //            "Proposal with<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Need Your Approval as Coordinator</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Your Approval as Coordinator</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-            //    }
-            //    else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
-            //            "Proposal with, <br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Need Your Approval as Quality Manager</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Your Approval as Quality Manager</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-
-            //    }
-            //    else if (Model.WhoReceiver == "Koordinator after QM Approve")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
-            //            "Proposal with ,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Need Assign PIC</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Assign PIC</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-
-            //    }
-            //    else if (Model.WhoReceiver == "Koordinator after PIC Submit")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Need Verifikasi Tindakan Remedial</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Verifikasi Tindakan Remedial</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "Koordinator after Superior PIC Approved Cost")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>Need Your Approval for Disposition Cost</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
-            //            "Proposal with, <br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                 //"<td><b>" + t_status + "</b></td>" +
-            //                 "<td><b>Need Your Approval as Quality Manager</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Need Your Approval as Quality Manager</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-
-            //    }
-            //    else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
-            //            "Proposal with, <br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Has been Rejected by Quality Manager, Need Your Review as Reviewer</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Has been Rejected by Quality Manager, Need Your Review as Reviewer</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-
-            //    }
-            //    else if (Model.WhoReceiver == "QM PIC Usulan Revisi")
-            //    {
-            //        EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
-            //            "Proposal with,<br/><br/>" +
-            //            "<table style=" + "float:left" + ">" +
-            //            "<tr>" +
-            //                "<td>Req No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + Model.ReqID + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Deviation No</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_deviation_no + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Problem</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_problem + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Category</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_category + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Location</td>" +
-            //                "<td>:</td>" +
-            //                "<td><b>" + t_location + "</b></td>" +
-            //            "</tr>" +
-            //            "<tr>" +
-            //                "<td>Status</td>" +
-            //                "<td>:</td>" +
-            //                //"<td><b>" + t_status + "</b></td>" +
-            //                "<td><b>Proposed Revision</b></td>" +
-            //            "</tr>" +
-            //            "<tr></tr>" +
-            //            //"<tr>" +
-            //            //    "<td><b>Proposed Revision</b></td>" +
-            //            //"</tr>" +
-            //            "<tr>" +
-            //                "Access : " +
-            //                "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-            //            "</tr>" +
-            //            "</table>" +
-            //            "</body></html>";
-            //    }
-            //    #endregion
-
-            //    try
-            //    {
-            //        // Start Setting Send Notification
-            //        Msg.Subject = "Deviation Notification";
-            //        Msg.Body = EmailBody;
-            //        MailObject.Send(Msg);
-            //        // End Setting Send Notification
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
-            //        {
-            //            Command.CommandType = CommandType.StoredProcedure;
-
-            //            Command.Parameters.Add("@REQID", SqlDbType.VarChar);
-            //            Command.Parameters["@REQID"].Value = Model.ReqID;
-            //            Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
-            //            Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
-            //            Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
-            //            Command.Parameters["@ERR_MSG"].Value = ex.ToString();
-            //            Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
-            //            Command.Parameters["@SENDER"].Value = Model.Receiver;
-
-            //            Conn.Open();
-            //            result = (string)Command.ExecuteScalar();
-            //            Conn.Close();
-            //        }
-
-            //        try
-            //        {
-            //            // Start Setting Send Notification
-            //            Msg.Subject = "Deviation Notification";
-            //            Msg.Body = EmailBody;
-            //            MailObject.Send(Msg);
-            //            // End Setting Send Notification
-            //        }
-            //        catch (Exception ex2)
-            //        {
-            //            using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
-            //            {
-            //                Command.CommandType = CommandType.StoredProcedure;
-
-            //                Command.Parameters.Add("@REQID", SqlDbType.VarChar);
-            //                Command.Parameters["@REQID"].Value = Model.ReqID;
-            //                Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
-            //                Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
-            //                Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
-            //                Command.Parameters["@ERR_MSG"].Value = ex2.ToString();
-            //                Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
-            //                Command.Parameters["@SENDER"].Value = Model.Receiver;
-
-            //                Conn.Open();
-            //                result = (string)Command.ExecuteScalar();
-            //                Conn.Close();
-            //            }
-
-            //            try
-            //            {
-            //                // Start Setting Send Notification
-            //                Msg.Subject = "Deviation Notification";
-            //                Msg.Body = EmailBody;
-            //                MailObject.Send(Msg);
-            //                // End Setting Send Notification
-            //            }
-            //            catch (Exception ex3)
-            //            {
-            //                using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
-            //                {
-            //                    Command.CommandType = CommandType.StoredProcedure;
-            //                    Command.Parameters.Add("@REQID", SqlDbType.VarChar);
-            //                    Command.Parameters["@REQID"].Value = Model.ReqID;
-            //                    Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
-            //                    Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
-            //                    Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
-            //                    Command.Parameters["@ERR_MSG"].Value = ex3.ToString();
-            //                    Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
-            //                    Command.Parameters["@SENDER"].Value = Model.Receiver;
-
-            //                    Conn.Open();
-            //                    result = (string)Command.ExecuteScalar();
-            //                    Conn.Close();
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-
-            //Msg.To.Clear();
-            //Msg.Bcc.Clear();
-            return Json("Ss");
+            /*
+            MailMessage Msg = new MailMessage();
+            SmtpClient MailObject = new SmtpClient("mail.kalbe.co.id");
+
+            Msg.From = new MailAddress("notification@bintang7.com", "Deviation Notification");
+            Msg.Bcc.Add(new MailAddress("shinvin10@gmail.com"));
+
+            Msg.Priority = MailPriority.High;
+            Msg.IsBodyHtml = true;
+            Msg.Subject = "Deviation Notification";
+
+            string ConString = MyDB.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            List<string> ModelData = new List<string>();
+            DT.Reset();
+            string result = "";
+            string EmailBody = ""
+                 , t_deviation_no = ""
+                 , t_problem = ""
+                 , t_category = ""
+                 , t_location = ""
+                 , t_status = ""
+                 , t_namapenerima = ""
+                 , t_emailpenerima = "";
+
+            //SettingAttribute Detail Data Email 
+            try
+            {
+
+                using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
+                {
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    Command.Parameters["@Option"].Value = "LoadDetailEmail";
+
+                    Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                    Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                    Conn.Open();
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = Command;
+                    dataAdap.Fill(DT);
+                    Conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            foreach (DataRow dr in DT.Rows)
+            {
+                t_deviation_no = dr[1].ToString();
+                t_problem = dr[2].ToString();
+                t_location = dr[3].ToString();
+                t_category = dr[4].ToString();
+                t_status = dr[5].ToString();
+            }
+
+            DT.Reset();
+            if (Model.TableType == "One")
+            {
+                //SettingAttribute Email and Name
+                try
+                {
+                    using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
+                    {
+                        Command.CommandType = CommandType.StoredProcedure;
+
+                        #region SendToOne
+                        if (Model.WhoReceiver == "Superior after Form Input")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Form Input";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }
+                        else if (Model.WhoReceiver == "Proposer after Superior Reject")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Reviewer after Koordinator Approved")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer One";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }
+                        else if (Model.WhoReceiver == "Reviewer after Koordinator Reject")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer One";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }
+                        else if (Model.WhoReceiver == "PIC after Appointed")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer One";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }
+                        else if (Model.WhoReceiver == "Superior PIC after PIC Submit Cost")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Form Input";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }
+                        else if (Model.WhoReceiver == "Div Head after Sup PIC Approve Cost")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Find Div Head";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }
+                        else if (Model.WhoReceiver == "PIC after Superior Rejected Cost")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "PIC after Superior Rejected Cost";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@Urutan"].Value = Model.Urutan;
+                        }
+                        else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "PIC after Superior Rejected Cost";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@Urutan"].Value = Model.Urutan;
+                        }
+                        else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Canceled")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Delegasi")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Delegasi";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "SPV PIC Usulan Revisi")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "SPV PIC Usulan Revisi";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+                        }
+                        else if (Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer Rejected Usulan Revisi";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer Rejected Usulan Revisi";
+
+                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                            Command.Parameters["@UserID"].Value = Model.Receiver;
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        #endregion
+
+                        Conn.Open();
+                        SqlDataAdapter dataAdap = new SqlDataAdapter();
+                        dataAdap.SelectCommand = Command;
+                        dataAdap.Fill(DT);
+                        Conn.Close();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                foreach (DataRow dr in DT.Rows)
+                {
+                    t_namapenerima = dr[0].ToString();
+                    t_emailpenerima = dr[1].ToString();
+                    Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
+                }
+
+                #region EmailBodyOne
+                if (Model.WhoReceiver == "Superior after Form Input")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>"
+                            "<td><b>Need Your Approval</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + " >Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "Proposer after Superior Reject")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Is Rejected by Superior</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Is Rejected by Superior</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "Reviewer after Koordinator Approved")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Your Review with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Is Approved by Koordinator</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Is Approved by Koordinator</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "Reviewer after Koordinator Reject")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Your Review with, <br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                             //"<td><b>" + t_status + "</b></td>" +
+                             "<td><b>Is Rejected by Koordinator</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Is Rejected by Koordinator</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "PIC after Appointed")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with, <br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Need Your Review as PIC</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Review as PIC</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                }
+                else if (Model.WhoReceiver == "Superior PIC after PIC Submit Cost")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>"
+                            "<td><b>Need Your Approval for the Cost</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "Div Head after Sup PIC Approve Cost")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>Need Your Approval as Division Head for the Cost</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "PIC after Superior Rejected Cost")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>"
+                            "<td><b>Cost Tindakan Remidial Rejected by Your Superior</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>"
+                            "<td><b>Cost Tindakan Remidial Rejected by Your Division Head</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Has been Approved and Proceeded to CAPA</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Has been Approved and Proceeded to CAPA</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                }
+                else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with, <br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Has been Approved and Not Proceeded to CAPA</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Has been Approved and Not Proceeded to CAPA</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                }
+                else if (Model.WhoReceiver == "Canceled")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with, <br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Has been Canceled</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Has been Canceled</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                }
+                else if (Model.WhoReceiver == "Delegasi")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Has been Delegated to you</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Has been Delegated to you</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                }
+                else if (Model.WhoReceiver == "SPV PIC Usulan Revisi")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Proposed Revision</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Proposed Revision</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                }
+                else if (Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Proposed revision has been Rejected</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Proposed revision has been Rejected</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                             //"<td><b>" + t_status + "</b></td>" +
+                             "<td><b>Proposed Revision has been Approved</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Proposed Revision has been Approved</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                #endregion
+
+                try
+                {
+
+                    // Start Setting Send Notification
+                    Msg.Subject = "Deviation Notification";
+                    Msg.Body = EmailBody;
+                    MailObject.Send(Msg);
+                    // End Setting Send Notification
+
+                }
+                catch (Exception ex)
+                {
+                    using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                    {
+                        Command.CommandType = CommandType.StoredProcedure;
+
+                        Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                        Command.Parameters["@REQID"].Value = Model.ReqID;
+
+                        Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                        Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+
+                        Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                        Command.Parameters["@ERR_MSG"].Value = ex.ToString();
+
+                        Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                        Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                        Conn.Open();
+                        result = (string)Command.ExecuteScalar();
+                        Conn.Close();
+                    }
+                    try
+                    {
+                        // Start Setting Send Notification
+                        Msg.Subject = "Deviation Notification";
+                        Msg.Body = EmailBody;
+                        MailObject.Send(Msg);
+                        // End Setting Send Notification
+                    }
+                    catch (Exception ex2)
+                    {
+                        using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                        {
+                            Command.CommandType = CommandType.StoredProcedure;
+
+                            Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                            Command.Parameters["@REQID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                            Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+
+                            Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                            Command.Parameters["@ERR_MSG"].Value = ex2.ToString();
+
+                            Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                            Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                            Conn.Open();
+                            result = (string)Command.ExecuteScalar();
+                            Conn.Close();
+                        }
+                        try
+                        {
+                            // Start Setting Send Notification
+                            Msg.Subject = "Deviation Notification";
+                            Msg.Body = EmailBody;
+                            MailObject.Send(Msg);
+                            // End Setting Send Notification
+                        }
+                        catch (Exception ex3)
+                        {
+                            using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                            {
+                                Command.CommandType = CommandType.StoredProcedure;
+
+                                Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                                Command.Parameters["@REQID"].Value = Model.ReqID;
+
+                                Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                                Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+
+                                Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                                Command.Parameters["@ERR_MSG"].Value = ex3.ToString();
+
+                                Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                                Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                                Conn.Open();
+                                result = (string)Command.ExecuteScalar();
+                                Conn.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            else if (Model.TableType == "More Than One")
+            {
+
+                DT.Reset();
+                // MORE THAN 1 RECEIVER
+
+                try
+                {
+                    using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
+                    {
+                        Command.CommandType = CommandType.StoredProcedure;
+
+                        #region Send More than One
+                        if (Model.WhoReceiver == "Koordinator after Superior Approved")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Reviewer after Appointed")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer after Appointed";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Koordinator after Reviewer Submit")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Koordinator after QM Approve")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "Group PIC after Appointed")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Group PIC after Appointed";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Group", SqlDbType.VarChar);
+                            Command.Parameters["@Group"].Value = Model.Group;
+
+                            Command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
+                            Command.Parameters["@GroupSite"].Value = Model.Site;
+                        }
+                        else if (Model.WhoReceiver == "PIC after Superior Rejected Cost" || Model.WhoReceiver== "PIC after Division Head Rejected Cost")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Group PIC after Appointed";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Group", SqlDbType.VarChar);
+                            Command.Parameters["@Group"].Value = Model.Group;
+
+                            Command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
+                            Command.Parameters["@GroupSite"].Value = Model.Site;
+                        }
+                        else if (Model.WhoReceiver == "Koordinator after PIC Submit" || Model.WhoReceiver == "Koordinator after Superior PIC Approved Cost")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviwer after Appointed";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        else if (Model.WhoReceiver == "QM PIC Usulan Revisi")
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        }
+                        #endregion
+
+                        Conn.Open();
+                        SqlDataAdapter dataAdap = new SqlDataAdapter();
+                        dataAdap.SelectCommand = Command;
+                        dataAdap.Fill(DT);
+                        Conn.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                string daftarNamaPenerima = "";
+                foreach (DataRow dr in DT.Rows)
+                {
+                    daftarNamaPenerima += dr[0].ToString() + ", ";
+                    t_namapenerima = dr[0].ToString();
+                    t_emailpenerima = dr[1].ToString();
+                    Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
+                }
+
+                #region EmailBodyMoreThanOne
+                if (Model.WhoReceiver == "Koordinator after Superior Approved")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Need Your Approval as Coordinator</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval as Coordinator</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                }
+                else if (Model.WhoReceiver == "Reviewer after Appointed")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Need Your Review as Reviewer</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Review as Reviewer</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "Koordinator after Reviewer Submit")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Need Your Approval as Coordinator</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval as Coordinator</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                }
+                else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with, <br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Need Your Approval as Quality Manager</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval as Quality Manager</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+
+                }
+                else if (Model.WhoReceiver == "Koordinator after QM Approve")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with ,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Need Assign PIC</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Assign PIC</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+
+                }
+                else if (Model.WhoReceiver == "Group PIC after Appointed")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>Need Your Group Member to Review as PIC</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "PIC after Superior Rejected Cost") //group
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>Cost Tindakan Remidial Rejected by a Superior in Your Group</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost") //group
+                {
+                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>Cost Tindakan Remidial Rejected by Your Division Head</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "Koordinator after PIC Submit")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Need Verifikasi Tindakan Remedial</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Verifikasi Tindakan Remedial</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "Koordinator after Superior PIC Approved Cost")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            "<td><b>Need Your Approval for Disposition Cost</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with, <br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                             //"<td><b>" + t_status + "</b></td>" +
+                             "<td><b>Need Your Approval as Quality Manager</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Need Your Approval as Quality Manager</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+
+                }
+                else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with, <br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Has been Rejected by Quality Manager, Need Your Review as Reviewer</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Has been Rejected by Quality Manager, Need Your Review as Reviewer</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+
+                }
+                else if (Model.WhoReceiver == "QM PIC Usulan Revisi")
+                {
+                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+                        "Proposal with,<br/><br/>" +
+                        "<table style=" + "float:left" + ">" +
+                        "<tr>" +
+                            "<td>Req No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + Model.ReqID + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Deviation No</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_deviation_no + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Problem</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_problem + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Category</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_category + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Location</td>" +
+                            "<td>:</td>" +
+                            "<td><b>" + t_location + "</b></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>Status</td>" +
+                            "<td>:</td>" +
+                            //"<td><b>" + t_status + "</b></td>" +
+                            "<td><b>Proposed Revision</b></td>" +
+                        "</tr>" +
+                        "<tr></tr>" +
+                        //"<tr>" +
+                        //    "<td><b>Proposed Revision</b></td>" +
+                        //"</tr>" +
+                        "<tr>" +
+                            "Access : " +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</body></html>";
+                }
+                #endregion
+
+                try
+                {
+                    // Start Setting Send Notification
+                    Msg.Subject = "Deviation Notification";
+                    Msg.Body = EmailBody;
+                    MailObject.Send(Msg);
+                    // End Setting Send Notification
+                }
+                catch (Exception ex)
+                {
+                    using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                    {
+                        Command.CommandType = CommandType.StoredProcedure;
+
+                        Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                        Command.Parameters["@REQID"].Value = Model.ReqID;
+                        Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                        Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+                        Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                        Command.Parameters["@ERR_MSG"].Value = ex.ToString();
+                        Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                        Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                        Conn.Open();
+                        result = (string)Command.ExecuteScalar();
+                        Conn.Close();
+                    }
+
+                    try
+                    {
+                        // Start Setting Send Notification
+                        Msg.Subject = "Deviation Notification";
+                        Msg.Body = EmailBody;
+                        MailObject.Send(Msg);
+                        // End Setting Send Notification
+                    }
+                    catch (Exception ex2)
+                    {
+                        using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                        {
+                            Command.CommandType = CommandType.StoredProcedure;
+
+                            Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                            Command.Parameters["@REQID"].Value = Model.ReqID;
+                            Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                            Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+                            Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                            Command.Parameters["@ERR_MSG"].Value = ex2.ToString();
+                            Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                            Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                            Conn.Open();
+                            result = (string)Command.ExecuteScalar();
+                            Conn.Close();
+                        }
+
+                        try
+                        {
+                            // Start Setting Send Notification
+                            Msg.Subject = "Deviation Notification";
+                            Msg.Body = EmailBody;
+                            MailObject.Send(Msg);
+                            // End Setting Send Notification
+                        }
+                        catch (Exception ex3)
+                        {
+                            using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
+                            {
+                                Command.CommandType = CommandType.StoredProcedure;
+                                Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                                Command.Parameters["@REQID"].Value = Model.ReqID;
+                                Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
+                                Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
+                                Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
+                                Command.Parameters["@ERR_MSG"].Value = ex3.ToString();
+                                Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
+                                Command.Parameters["@SENDER"].Value = Model.Receiver;
+
+                                Conn.Open();
+                                result = (string)Command.ExecuteScalar();
+                                Conn.Close();
+                            }
+                        }
+                    }
+                }
+            }
+
+            Msg.To.Clear();
+            Msg.Bcc.Clear();*/
+            return Json("S");
         }
 
 
@@ -1839,7 +2017,8 @@ namespace B7_Deviation.Controllers
             List<string> ModelData = new List<string>();
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
-            try {
+            try
+            {
                 Conn.Open();
                 using (SqlCommand command = new SqlCommand("GENERATE_REQ_NO", Conn))
                 {
@@ -1847,7 +2026,9 @@ namespace B7_Deviation.Controllers
                     result = (string)command.ExecuteScalar();
                 }
                 Conn.Close();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
 
                 //result = ex.ToString();
                 throw ex;
@@ -2201,7 +2382,8 @@ namespace B7_Deviation.Controllers
         {
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
-            try {
+            try
+            {
                 Conn.Open();
                 using (SqlCommand command = new SqlCommand("DEVIATION_MASTER_DLL", Conn))
                 {
@@ -2213,7 +2395,9 @@ namespace B7_Deviation.Controllers
                     dataAdap.Fill(DT);
                 }
                 Conn.Close();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
@@ -2911,7 +3095,8 @@ namespace B7_Deviation.Controllers
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
 
-            try {
+            try
+            {
                 Conn.Open();
                 using (SqlCommand command = new SqlCommand("DEVIATION_FORM_INPUT", Conn))
                 {
@@ -2919,6 +3104,10 @@ namespace B7_Deviation.Controllers
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add("@Option", SqlDbType.Int);
                     command.Parameters["@Option"].Value = 4;
+
+
+                    command.Parameters.Add("@RoleEditor", SqlDbType.VarChar);
+                    command.Parameters["@RoleEditor"].Value = Model.RoleEditor;
 
                     command.Parameters.Add("@REQID", SqlDbType.VarChar);
                     command.Parameters["@REQID"].Value = Model.ReqID;
@@ -3055,7 +3244,9 @@ namespace B7_Deviation.Controllers
                     result = (string)command.ExecuteScalar();
                 }
                 Conn.Close();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
 
@@ -3064,13 +3255,13 @@ namespace B7_Deviation.Controllers
         }
         public ActionResult InsertMultipleProduk(string ReqID, List<ProductModel> ListProduk)
         {
-            string result="";
+            string result = "";
             List<string> ModelData = new List<string>();
 
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
 
-            foreach(ProductModel product in ListProduk)
+            foreach (ProductModel product in ListProduk)
             {
                 try
                 {
@@ -3110,6 +3301,88 @@ namespace B7_Deviation.Controllers
                     result = ex.Message;
                 }
             }
+
+
+
+            ModelData.Add(result);
+            return Json(ModelData, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UpdateMultipleProduk(string ReqID, List<ProductModel> ListProduk)
+        {
+            string result = "";
+            List<string> ModelData = new List<string>();
+
+            string ConString = MyDB.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            //Delete Detail Produk
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_InsertData", Conn))
+                {
+                    /* Header*/
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Delete Detail Produk";
+
+                    command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                    command.Parameters["@ReqID"].Value = ReqID;
+
+                    /* End Details */
+                    result = (string)command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
+
+            //Insert Detail Produk Baru
+            foreach (ProductModel product in ListProduk)
+            {
+                try
+                {
+                    Conn.Open();
+                    using (SqlCommand command = new SqlCommand("SP_InsertData", Conn))
+                    {
+                        /* Header*/
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("@Option", SqlDbType.VarChar);
+                        command.Parameters["@Option"].Value = "Insert Detail Produk";
+
+                        command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                        command.Parameters["@ReqID"].Value = ReqID;
+
+                        command.Parameters.Add("@ItemCodeOracle", SqlDbType.VarChar);
+                        command.Parameters["@ItemCodeOracle"].Value = product.ItemCodeOracle;
+
+                        command.Parameters.Add("@NoBatchOracle", SqlDbType.VarChar);
+                        command.Parameters["@NoBatchOracle"].Value = product.NoBatchOracle;
+
+                        command.Parameters.Add("@NoWOOracle", SqlDbType.VarChar);
+                        command.Parameters["@NoWOOracle"].Value = product.NoWOOracle;
+
+                        command.Parameters.Add("@QCMaterialNo", SqlDbType.VarChar);
+                        command.Parameters["@QCMaterialNo"].Value = product.NoQCMaterial;
+
+                        command.Parameters.Add("@Keterangan", SqlDbType.VarChar);
+                        command.Parameters["@Keterangan"].Value = product.KeteranganKategori;
+
+                        /* End Details */
+                        result = (string)command.ExecuteScalar();
+                    }
+                    Conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    result = ex.Message;
+                }
+            }
+
+
 
             ModelData.Add(result);
             return Json(ModelData, JsonRequestBehavior.AllowGet);
@@ -3234,13 +3507,14 @@ namespace B7_Deviation.Controllers
         }
         #endregion
 
-        public ActionResult LogError(ErrorModel Model) 
+        public ActionResult LogError(ErrorModel Model)
         {
             string ConString = MyDB.ConnectionString, result;
             SqlConnection Conn = new SqlConnection(ConString);
             List<string> ModelData = new List<string>();
 
-            try {
+            try
+            {
                 using (SqlCommand command = new SqlCommand("SP_ERROR", Conn))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -3260,7 +3534,9 @@ namespace B7_Deviation.Controllers
                     result = (string)command.ExecuteScalar();
                     Conn.Close();
                 }
-            } catch(Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
 

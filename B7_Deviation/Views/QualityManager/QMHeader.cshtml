@@ -62,40 +62,79 @@
 
     </div>
 
-    <div class="form-group">
-
-        @Html.Partial("QualityManagerPartialView", "ReviewerList")
-
-    </div>
-
-    <div class="form-group">
-        @Html.Partial("../SpvPelapor/Approval")
-    </div>
-
-    @*<div class="form-group">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="usulantindakan">
-                                            Usulan Tindakan Remedial
-                                        </label>
-                                        <textarea id="usulantindakan" class="form-control" disabled="disabled"></textarea>
-                                    </div>
-
-                                </div>
-
+       
+        @*<div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="d-inline" style="">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+                        <div class="form-group row">
+                            <div class="col">
+                                <br />
+                                <label>Register Number</label>
+                                <br />
+                                <label type="text" id="lblReq" style="font-weight:bold" disabled>@ViewBag.nomor</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col">
+                                <label>Tanggal</label>
+                                <input id="TbTglCreated" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Nomor Deviation</label>
+                                <input id="TbNmrDev" type="text" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Pelapor</label>
+                                <input id="TbPesul" type="text" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col">
+                                <label>Departemen</label>
+                                <input id="TbDeptPusul" type="text" class="form-control" disabled="disabled">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>*@
+        <div class="form-group">
+
+            @Html.Partial("QualityManagerPartialView", "ReviewerList")
+
         </div>
-    </div>*@
+    
+
+
+
+    @*<div class="form-group">
+            @Html.Partial("../SpvPelapor/Approval")
+        </div>*@
+
+    @*<div class="form-group">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="usulantindakan">
+                                                Usulan Tindakan Remedial
+                                            </label>
+                                            <textarea id="usulantindakan" class="form-control" disabled="disabled"></textarea>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 </div>
 
 <script nonce="cOO5cbp/5zcxZYWSs6RNEg==">

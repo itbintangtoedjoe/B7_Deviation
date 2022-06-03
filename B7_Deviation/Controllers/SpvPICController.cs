@@ -358,7 +358,7 @@ namespace B7_Deviation.Controllers
             try
             {
                 Conn.Open();
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_Approve_Dev]", Conn))
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_Approve]", Conn))
                 {
                     /* Header*/
                     command.CommandType = CommandType.StoredProcedure;

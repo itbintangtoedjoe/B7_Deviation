@@ -464,6 +464,7 @@
 			data: JSON.stringify(dtx),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+				console.log(data);
                 $('#disposisitindakan').val(data[0].DISPOSISI_TINDAKAN);
                 $('#txtHasilTindakan').val(data[0].HASIL_TINDAKAN);
                 var adaCost = data[0].HIDDEN_COST_TYPE;

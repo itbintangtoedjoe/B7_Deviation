@@ -24,5 +24,9 @@ namespace B7_Deviation.Models
 
         //KHUSUS DISPOSISI
         public string Urutan { get; set; }
+
+        //KHUSUS DISPOSISI PIC KE GROUP
+        public string Group { get; set; }
+        public string Site { get; set; }
     }
 }

@@ -60,12 +60,11 @@
 						</div>
 					</div>                   
 				</div>
-				
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
                             <h4>Cancel Deviation</h4>
-                            <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control" ">
+                            <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control">
                                 Cancel
                                 <span class="fa fa-trash-o"></span>
                             </button>
@@ -123,7 +122,7 @@
 
 </body>
 
-<script nonce="rjDlrDsSe0nZGfjf3dLSOQ==">
+<script>
 
 	$(document).ready(function () {
         //load desposisi
@@ -131,6 +130,7 @@
 		//load reviewer
 		LoadData2();
 		CheckStatus();
+		@*LoadSiteGroupPIC();*@
 
 		$('#btnCancel').click(function () {
 			Cancel();
@@ -140,6 +140,13 @@
 	//function goBack() {
 	//	window.location.href = "../DataDeviasi/PendingTask"
 	//}
+
+    var jumlahdisposisi = 0;
+    var masterSites = [
+        { id: "ALL", name: 'All' },
+        { id: "PLG", name: 'Pulogadung' },
+        { id: "PLM", name: 'Pulomas' },
+		{ id: "CKR", name: 'Cikarang' }];
 
 	function Cancel() {
 		Swal.fire({
@@ -256,62 +263,63 @@
 		});
     }
 
-	function ShowBukti() {
-        $("[id^='btnShowBukti']").click(function (e) {
-			e.preventDefault();
-			$("#reviewerbuktidatatable").removeAttr("hidden");
-			var row = this.closest("TR");
-			var ReqID = @ViewBag.nomor;
-			var reviewer = $("TD", row).eq(1).html();
+	function ShowBukti(button) {
+		event.preventDefault();
 
-			var dto = {
-				REQID: ReqID,
-				USER_NIK: reviewer
-			}
-			$('#reviewerbuktidatatable').DataTable().clear().destroy();
+		$("#reviewerbuktidatatable").removeAttr("hidden");
 
-			$.ajax({
-				url: "../Koordinator/Coor_ShowReviewerBukti",
-				type: "post",
-				dataType: "json",
-				data: JSON.stringify(dto),
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
-					var trHTML = '';
-					var trav = 0;
-					var Count = data.length;
 
-					if (Count == '0') {
+		var row = $(button).closest("TR");
+		var ReqID = @ViewBag.nomor;
+		var reviewer = $("TD", row).eq(1).html();
+
+		var dto = {
+			REQID: ReqID,
+			USER_NIK: reviewer
+		}
+		$('#reviewerbuktidatatable').DataTable().clear().destroy();
+
+		$.ajax({
+			url: "../Koordinator/Coor_ShowReviewerBukti",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				var trHTML = '';
+				var trav = 0;
+				var Count = data.length;
+
+				if (Count == '0') {
+					trHTML +=
+						'<tr><td> - </td>' +
+						'<td> N/A </td>' +
+						'<td> N/A </td>';
+				} else {
+					for (trav = 0; trav < Count; trav++) {
+						var no = 1;
+						no = no + trav;
 						trHTML +=
-							'<tr><td> - </td>' +
-							'<td> N/A </td>' +
-							'<td> N/A </td>';
-					} else {
-						for (trav = 0; trav < Count; trav++) {
-							var no = 1;
-							no = no + trav;
-							trHTML +=
-								'<tr><td>' + no + '</td>' +
-								'<td>' + data[trav].REVIEWER_NIK + '</td>' +
-								'<td><a href="..' + data[trav].PATH_FILE_DOWNLOAD + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+							'<tr><td>' + no + '</td>' +
+							'<td>' + data[trav].REVIEWER_NIK + '</td>' +
+                            '<td><a href="..' + data[trav].PATH_FILE_DOWNLOAD + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
 
-						}
 					}
-
-					$('#reviewerbukti').empty();
-					$('#reviewerbukti').append(trHTML);
-					$('#reviewerbuktidatatable').DataTable({
-						"searching": false,
-						"paging": false,
-						"info": false,
-						"ordering": false
-					});
-
 				}
-				, error: function (ex) {
-					GetError('Coor_ShowReviewerBukti', JSON.stringify(ex));
-				}
-			});
+
+				$('#reviewerbukti').empty();
+				$('#reviewerbukti').append(trHTML);
+                $('#reviewerbuktidatatable').DataTable({
+                    "searching": false,
+                    "paging": false,
+					"info": false,
+                    "ordering": false
+                });
+
+			}
+			, error: function (ex) {
+                GetError('Coor_ShowReviewerBukti', JSON.stringify(ex));
+			}
 		});
 	}
 
@@ -345,7 +353,7 @@
 							'<td>' + data[trav].KETERANGAN_REVIEW + '</td>' ;
 
 
-					trHTML += '<td align="center"><button id="btnShowBukti' + trav + '" class="btn btn-info">View</button ></td ></tr > ';
+					trHTML += '<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info">View</button ></td ></tr > ';
                     $('#deviationdatatable').DataTable().destroy().clear();
 					$('#deviationtable').empty();
 					$('#deviationtable').append(trHTML);
@@ -354,8 +362,7 @@
 						"paging": false,
 						"info": false,
                         "ordering": false
-					});
-					ShowBukti();
+                    });
 				}
 			}, error: function (ex) {
                 GetError("LoadData2", JSON.stringify(ex));
@@ -363,55 +370,97 @@
 		});
 	}
 
-	function AssignPIC() {
+	@*function LoadSiteGroupPIC() {
+		console.log(jumlahdisposisi);
+        $('.allDdlPIC').on('change', function () {
+            alert($(this).val());
+        });
+		for (var k = 0; k < jumlahdisposisi; k++) {
+			addClick(k);
+        }
+	}*@
 
-		$("[id^='btnAssignPIC']").click(function (e) {
-			e.preventDefault();
-			var row = this.closest("TR");
-			var pic_nik = $("TD", row).eq(2).find("select").val();
-			var due_date = $("TD", row).eq(3).find("input[type='date']").val();
-			if (pic_nik == null || pic_nik == '' || due_date == null || due_date == '') {
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					text: 'Pelaksana dan due date wajib diisi!'
-				});
-				return;
-			}
+    @*function addClick(k) {
+		console.log(k);
+        jQuery("#pic" + k).click(function () {
+            console.log(k);
+        });
+    }*@
 
-			var REQID = @ViewBag.nomor;
+	function AssignPIC(button) {
+		//code here
+		var row = $(button).closest("TR");
+		var id = parseInt($("TD", row).eq(0).html()) - 1;
+        @*var pic_nik = $("TD", row).eq(2).find("select").val();*@
+        var pic_nik = $('#pic' + id).val();
+		var site_pic = $('#site' + id).val();
+		var due_date = $("TD", row).eq(3).find("input[type='date']").val();
+		var pic_is_group = false;
+		@*pic_nik.startsWith('G_') ? pic_is_group == true : pic_is_group == false;*@
 
-			var dtx = {
-				REQID: REQID,
-				UserInvolved: pic_nik
-			}
+		if (pic_nik == null || pic_nik == '' || due_date == null || due_date == '') {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Pelaksana dan due date wajib diisi!'
+			});
+			return;
+        } else if (pic_nik.startsWith('G_') && site_pic == null) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Site grouping wajib diisi!'
+			});
+			return;
+		}
+        @*else {
+            Swal.fire({
+                icon: 'success',
+                title: 'OK'
+            });
+            return;
+        }*@
 
-			$.ajax({
-				url: "../Form/CheckEmailAvailability",
-				type: "post",
-				dataType: "json",
-				data: JSON.stringify(dtx),
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
-					if (data == 'ADA') {
+        if (pic_nik.startsWith('G_')) {
+            pic_is_group = true;
+        }
 
+        var REQID = @ViewBag.nomor;
+
+		var dtx = {
+			REQID: REQID,
+			UserInvolved: pic_nik,
+			Group: pic_nik,
+			GroupSite: site_pic
+		}
+		$.ajax({
+			url: "../Form/CheckEmailAvailability",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dtx),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				@*console.log(data);*@
+				if (data[0].STATUS == 'ADA') {
+					if (data[0].JumlahUser == 0) {
+                        swal({
+                            title: "Gagal",
+                            text: "Tidak ada user terdaftar dalam group terpilih. Mohon cek group dan site yang dipilih.",
+							type: "error",
+							timer:1500,
+                            showConfirmButton: false
+                        });
+					}
+					else {
 						var no_disposisi = $("TD", row).eq(5).find("input[type='text']").val();
 						var req_id = @ViewBag.nomor;
 						var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-						if (pic_nik == null || due_date == '') {
-							Swal.fire({
-								icon: 'error',
-								title: 'Oops...',
-								text: 'Nama Pelaksana dan Tanggal Due Date Tidak Boleh Kosong'
-							});
-							return;
-						}
-
-						function AssignPIC() {
+						@*console.log('aman');*@
+						function AssigningPIC() {
 							var dto = {
 								REQ_ID: req_id,
 								PIC_REMEDIAL_NIK: pic_nik,
+								GROUP_SITE: site_pic,
 								DUE_DATE: due_date,
 								NO_DISPOSISI: no_disposisi,
 								CURR_USER: curr_user
@@ -462,13 +511,13 @@
 							});
 						}
 
-						function SendMailAssign() {
-							var receiver = $("TD", row).eq(2).find("select").val();
+						function SendMailAssignSinglePIC() {
+							@*var receiver = $("TD", row).eq(2).find("select").val();*@
 							var tabletype = "One";
 							var whoreceiver = "PIC after Appointed";
 
 							var dtx = {
-								Receiver: receiver,
+								Receiver: pic_nik,
 								ReqID: REQID,
 								TableType: tabletype,
 								WhoReceiver: whoreceiver
@@ -505,24 +554,90 @@
 							});
 						}
 
-						$.when(AssignPIC()).then(SendMailAssign());
+						function SendMailAssignPICGroup() {
+							var receiver = $("TD", row).eq(2).find("select").val();
+							var tabletype = "More Than One";
+							var whoreceiver = "Group PIC after Appointed";
 
-					} else {
+							var dtx = {
+								Group: pic_nik,
+								Site: site_pic,
+								ReqID: REQID,
+								TableType: tabletype,
+								WhoReceiver: whoreceiver
+							};
+
+							$.ajax({
+								type: "post",
+								url: '../Form/SendEmailInputProposal',
+								data: JSON.stringify(dtx),
+								dataType: "json",
+								contentType: "application/json;charset=utf-8",
+								success: function (data) {
+
+									toastr.success("Email Sent Successfully !", "Notification", {
+										"closeButton": false,
+										"debug": true,
+										"newestOnTop": false,
+										"progressBar": false,
+										"positionClass": "toast-bottom-right",
+										"preventDuplicates": false,
+										"onclick": null,
+										"showDuration": "200",
+										"hideDuration": "1000",
+										"timeOut": "1000",
+										"extendedTimeOut": "1000",
+										"showEasing": "swing",
+										"hideEasing": "linear",
+										"showMethod": "fadeIn",
+										"hideMethod": "fadeOut"
+									});
+								}, error: function (ex) {
+									GetError("Error Email Assign", JSON.stringify(ex));
+								}
+							});
+						}
+						//kalau ke group, send email ke group
+						if (pic_is_group===true) {
+							@*$.when(AssignPIC()).then(SendMailAssign());*@
+							$.when(AssigningPIC()).done(SendMailAssignPICGroup());
+						}
+						//kalau ke 1 orang, send email ke single pic
+						else {
+							$.when(AssigningPIC()).done(SendMailAssignSinglePIC());
+						}
+                    }
+				} else {
+					if (pic_is_group == 1) {
+						var trav = 0;
+						var count = data.length;
+						var listUsername = '';
+						if (count > 0) {
+							listUsername = data[0].Username;
+							for (trav = 1; trav < count; trav++) {
+								listUsername += ', ' + data[trav].Username;
+							}
+						}
 
 						Swal.fire({
 							icon: 'error',
-							title: 'Oops...',
-							text: 'Nama Pelaksana Kosong/Email Pelaksana Tidak Tersedia'
+							title: 'Ada user dalam group yang tidak memiliki email',
+							text: 'Mohon lengkapi data email user: ' + listUsername
 						});
 					}
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'PIC yang dipilih belum memiliki email terdaftar',
+                            text: 'Mohon lengkapi data email user'
+                        });
+                    }
 				}
-				, error: function (ex) {
-					GetError('Check Email Availability', JSON.stringify(ex));
-				}
-			});
+			}
+			, error: function (ex) {
+				GetError('Check Email Availability', JSON.stringify(ex.responseText));
+			}
 		});
-
-
 	}
 
 	function LoadData() {
@@ -548,12 +663,23 @@
                     for (trav = 0; trav < Count; trav++) {
                         var no = trav + 1;
 
-                        if (data[trav].PIC_REMEDIAL_NIK == '-' && data[trav].PIC_REMEDIAL_NAME == 'NOT YET ASSIGNED') {
+                        @*if (data[trav].PIC_REMEDIAL_NIK == '-' && data[trav].PIC_REMEDIAL_NAME == 'NOT YET ASSIGNED') {
                             trHTML += '<tr><td align="center">' + no + '</td>' +
                                 '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                                '<td> <select id="pic' + trav + '"></td>' +
-								'<td> <input type="date" id="duedate' + trav + '"></td>' +
-                                '<td align="center"> <button id="btnAssignPIC' + trav + '" class="btn btn-success">Assign PIC</button></td>' +
+								'<td> <select id="pic' + trav + '">' +
+								'<table id="tblListProduk" class="table table-striped table-bordered">'+
+								'<thead>'+
+                                    '<th style="width:20px">No</th>'+
+									'<th id="thQCNum">QC Material/Manufacturing Number</th>' +
+									'<th id="thItemCode">Item Code</th>' +
+									'<th id="thNoBatch">No Batch</th>' +
+									'<th id="thNoWO">No WO Oracle</th>' +
+									'<th>Keterangan</th>' +
+									'<th style="width:30px">Action</th>'+
+								'</thead >'+
+                                        '</table ></td>' +
+                                '<td> <input type="date" id="duedate' + trav + '"></td>' +
+                                '<td align="center"> <input type="button" id="AssignPIC" value="Assign PIC" onclick=AssignPIC(this) class="btn btn-primary" /></td>' +
                                 '<td hidden="hidden"><input type="text" value="' + data[trav].NO_DISPOSISI + '"</td>';
 
                         } else {
@@ -563,8 +689,23 @@
                                 '<td>' + data[trav].DUE_DATE + '</td>' +
                                 '<td align="center">* NO ACTIONS *</td>' +
                                 '<td hidden="hidden"><input type="text" value="' + data[trav].NO_DISPOSISI + '"</td>';
+                        }*@
+                        if (data[trav].PIC_REMEDIAL_NIK == '-' && data[trav].PIC_REMEDIAL_NAME == 'NOT YET ASSIGNED') {
+                            trHTML += '<tr><td align="center" class="rowNumber">' + no + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td> <select id="pic' + trav + '" class="allDdlPIC"></select><select id="site' + trav + '" class="allDdlSite" style="width:200px;"></select>' + '</td>' +
+                                '<td> <input type="date" id="duedate' + trav + '"></td>' +
+                                '<td align="center"> <input type="button" id="AssignPIC" value="Assign PIC" onclick=AssignPIC(this) class="btn btn-primary" /></td>' +
+                                '<td hidden="hidden"><input type="text" value="' + data[trav].NO_DISPOSISI + '"</td>';
+						}
+                        else {
+                            trHTML += '<tr><td align="center" class="rowNumber">' + no + '</td>' +
+                                '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                                '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+                                '<td>' + data[trav].DUE_DATE + '</td>' +
+                                '<td align="center">* NO ACTIONS *</td>' +
+                                '<td hidden="hidden"><input type="text" value="' + data[trav].NO_DISPOSISI + '"</td>';
                         }
-
 
                     }
                     $('#datatablepic').DataTable().clear().destroy();
@@ -577,10 +718,39 @@
                         "ordering": true
                     });
 
-                    var jumlahdisposisi = trav;
+                    jumlahdisposisi = trav;
 
 					LoadPICList(jumlahdisposisi);
-					AssignPIC();
+
+					//SITE PIC
+                    $(".allDdlSite").hide();
+
+					$('.allDdlPIC').on('change', function (event) {
+						var idPIC = $(this).val();
+						var clickedID = event.target.id;
+						clickedID = clickedID.slice(clickedID.length - 1);
+
+						if (idPIC.startsWith("G_", 0)) {
+                            $("#site" + clickedID).show();
+                            // Populate Group Site Dropdown Lists
+							trhtml = '';
+                            trhtml += '<option disabled class="dropdown-header" value="" selected>Select Site</option>';
+
+							for (i = 0; i < masterSites.length; i++) {
+                                trhtml +=
+                                    '<option class="dropdown-item" value = "' + masterSites[i].id + '">' + masterSites[i].name + '</option>';
+							}
+
+                            $("#site" + clickedID).empty();
+                            $("#site" + clickedID).append(trhtml);
+                            $("#site" + clickedID).select2();
+                        } else {
+                            $("#site" + clickedID).hide();
+                        }
+                        @*alert($(this).val());
+                        alert(clickedID);*@
+
+                    });
                 },
                 error: function (ex) {
                     GetError("Coor_LoadDisposisiData", JSON.stringify(ex));
@@ -618,7 +788,6 @@
 			dataType: "json",
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
 				var trhtml = "";
 				var trav = 0;
 				var count = data.length;
@@ -627,7 +796,7 @@
 				if (count > 0) {
 					for (trav = 0; trav < count; trav++) {
 						trhtml +=
-							'<option class="dropdown-item" value = "' + data[trav].EmpId + '">' + data[trav].EmpName + '</option>';
+                            '<option class="dropdown-item" value = "' + data[trav].EmpId + '">' + data[trav].EmpName + '</option>';
 					}
 				}
 				var i = 0;
@@ -638,7 +807,6 @@
 					$("#pic" + i).append(trhtml);
 					$("#pic" + i).select2();
 				}
-
 			}, error: function (ex) {
                 GetError("Load PIC List", JSON.stringify(ex));
 			}
