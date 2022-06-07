@@ -64,6 +64,10 @@ namespace B7_Deviation.Models
         //untuk pic
         public string Group { get; set; }
         public string GroupSite { get; set; }
+
+        // untuk update reviewer
+        public string NamaEmployeeRemoved { get; set; }
+        public string NamaEmployeeAdded { get; set; }
     }
 
     public class LoginModel
