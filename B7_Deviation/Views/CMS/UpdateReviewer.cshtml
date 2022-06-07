@@ -17,7 +17,7 @@
                             <h2 class="d-inline">Update Reviewer</h2>
                         </div>
 
-                        <input id="TxtReqID" disabled hidden/>
+                        <input id="TxtReqID" disabled/>
                         <div class="row form-group">
                             <div class="col-lg-2 col-form-label">
                                 <label class="col-form-label">Nomor Penyimpangan</label>
@@ -88,7 +88,7 @@
             </div>
         </div>
     </div>
-    s
+    
     @*Pop Up Update Reviewer*@
     <div class="modal fade" id="updateReviewer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -129,356 +129,99 @@
         .select2-selection__arrow {
             height: 34px !important;
         }
-
-        .whiteBg {
-            background: white;
+        span.select2-container {
+            z-index:10050;
         }
-        
+       
+       
     </style>
 
 
-    <script>
-        $(document).ready(function () {
+<script>
 
 
-            GetNoPenyimpangan();
-            LoadData();
-            GetNamaEmployee();
-
-            $('#ddlNoPenyimpangan').select2();
-            $('#ddlNama').select2();
-            $('#ddlNama2').select2();
-
-            $("#ddlNoPenyimpangan").change(function () {
-
-                $('#headerTabel').attr('hidden', false);
-                GetReqID();
-                setTimeout(function () {
-                    LoadData();
-                }, 300);
-
+    $(document).ready(function () {
+        $('select:not(.normal)').each(function () {
+            $(this).select2({
+                dropdownParent: $(this).parent()
             });
+        });
 
-            $("#ddlNama").change(function () {
+        GetNoPenyimpangan();
+        LoadData();
+        
 
-                if ($('#ddlNama').val() != '') {
-                    document.getElementById("btnAddReviewerValidation").disabled = false;
-                } else {
-                    document.getElementById("btnAddReviewerValidation").disabled = true;
+        $('#ddlNoPenyimpangan').select2();
+        $('#ddlNama').select2();
+        $('#ddlNama2').select2();
 
-                }
-                var nama = $('#ddlNama option:selected').text();
-                $('#reviewerName').text('REVIEWER ' + nama + ' WILL BE ADDED!');
-            });
+        $("#ddlNoPenyimpangan").change(function () {
+            $('#headerTabel').attr('hidden', false);
+            GetReqID();
+            setTimeout(function () {
+                LoadData();
+                GetNamaEmployee();
+            }, 300);
 
-            $("#btnAddReviewer").click(function () {
+        });
 
-                if ($('#TxtReqID').val() == '') {
-                    alert('Please Choose the Deviation Number.');
-                } else {
-                    AddReviewer();
-                    $('#addReviewerValidation').modal('hide');
-                    $(".modal-backdrop").remove();
-                }
-            });
+        $("#ddlNama").change(function () {
 
-            $( "#btnAddReviewerValidation" ).click(function() {
-                $('#addReviewerValidation').modal('show');
-            });
+            if ($('#ddlNama').val() != '') {
+                document.getElementById("btnAddReviewerValidation").disabled = false;
+            } else {
+                document.getElementById("btnAddReviewerValidation").disabled = true;
 
-            var NamaEmployeeRemoved = 'capek';
+            }
+            var nama = $('#ddlNama option:selected').text();
+            $('#reviewerName').text('REVIEWER ' + nama + ' WILL BE ADDED!');
+        });
 
-            // Update Function
-            $('#deviationdatatable').on('click',
-                'tbody tr .update', function () {
-                    var row = $(this).closest("TR");
-                    NamaEmployeeRemoved = $("TD", row).eq(0).html();
+        $("#btnAddReviewer").click(function () {
 
-                    $('#updateReviewer').modal('show');
-                    $(row, this).css({ 'background-color': 'lightsteelblue' });
+            if ($('#TxtReqID').val() == '') {
+                alert('Please Choose the Deviation Number.');
+            } else {
+                AddReviewer();
+                $('#addReviewerValidation').modal('hide');
+                $(".modal-backdrop").remove();
+            }
+        });
 
-                    $('#updateReviewer').on('hidden.bs.modal', function () {
-                        $(row, this).css({ 'background-color': 'white' });
-                    });
+        $( "#btnAddReviewerValidation" ).click(function() {
+            $('#addReviewerValidation').modal('show');
+        });
 
-            });
+        var NamaEmployeeRemoved = 'capek';
 
+        // Update Function
+        $('#deviationdatatable').on('click',
+            'tbody tr .update', function () {
+                var row = $(this).closest("TR");
+                NamaEmployeeRemoved = $("TD", row).eq(0).html();
 
-            $("#btnUpdate").click(function () {
-                var NamaEmployeeAdded = $('#ddlNama2 option:selected').text();
+                $('#updateReviewer').modal('show');
+                $(row, this).css({ 'background-color': 'lightsteelblue' });
 
-                var REQID = $('#TxtReqID').val();
-                var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                $('#updateReviewer').modal('hide');
-
-                @*alert(NamaEmployeeRemoved + ' ' + NamaEmployeeAdded + ' ' + REQID + ' ' + iduser)*@
-                var dto = {
-                    REQID: REQID,
-                    NamaEmployeeRemoved: NamaEmployeeRemoved,
-                    NamaEmployeeAdded: NamaEmployeeAdded,
-                    IdProposer: iduser
-                }
-
-                $.ajax({
-                    url: "../CMS/CMS_UpdateReviewer",
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(dto),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-                        toastr.success("Update Reviewer Berhasil!", "Tersimpan", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "100",
-                            "hideDuration": "2000",
-                            "timeOut": "2000",
-                            "extendedTimeOut": "2000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
-                        LoadData();
-                    },
-                    error: function (ex) {
-                        alert(ex);
-                    }
+                $('#updateReviewer').on('hidden.bs.modal', function () {
+                    $(row, this).css({ 'background-color': 'white' });
                 });
 
-            });                           
-
-
-            $("#ddlNama2").change(function () {
-
-                if ($('#ddlNama2').val() != '') {
-                    document.getElementById("btnUpdate").disabled = false;
-                } else {
-                    document.getElementById("btnUpdate").disabled = true;
-
-                }
             });
 
-        });
 
-
-        // Check Status to Determine which Row Has Action
-        function LoadData() {
-            var REQID = $('#TxtReqID').val();
-            @*alert(REQID);*@
-            var dto = {
-                REQID: REQID
-            };
-
-            $.ajax({
-                url: "../CMS/CMS_LoadReviewerList",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    var trHTML = '';
-                    var trav = 0;
-                    var Count = data.length;
-                   
-                    for (trav = 0; trav < Count; trav++) {
-
-                        trHTML +=
-                            '<tr><td>' + data[trav].USER_NAME + '</td>' +
-                            '<td>' + data[trav].USER_NIK + '</td>'
-
-                        if (data[trav].FLAG_REVIEW == 'NOT YET') {
-                            trHTML +=
-                                '<td> PENDING REVIEW </td>'
-
-                        }
-                        else if (data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY COORDINATOR' || data[trav].FLAG_REVIEW == 'REVIEW APPROVED BY COORDINATOR') {
-                            trHTML +=
-                                '<td>' + data[trav].FLAG_REVIEW + '</td>'
-                        }
-                        else if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR' || 'DONE REVISE FROM COORDINATOR') {
-                            if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR') {
-                                trHTML +=
-                                    '<td>DONE REVIEW</td>';
-                            }
-                            else {
-                                trHTML +=
-                                    '<td>' + data[trav].FLAG_REVIEW + '</td>';
-                            }
-
-                        }
-                        var flagReview = data[trav].FLAG_REVIEW;
-                        if (flagReview != 'NOT YET' || flagReview.toLowerCase().indexOf("Rejected") >= 0) {
-                            trHTML +=
-                                '<td> <input type="button" id = "btnUpdateValidation" value="Update" class="btn btn-success update" style="width:50px" disabled/> </td></tr>';
-                        } else {
-                            trHTML +=
-                                '<td> <input type="button" id = "btnUpdateValidation" value="Update" class="btn btn-success update" style="width:50px"/> </td></tr>';
-                        }
-
-                        
-
-                        $('#deviationdatatable').DataTable().clear().destroy();
-                        $('#deviationtable').empty();
-                        $('#deviationtable').append(trHTML);
-                        $('#deviationdatatable').DataTable({
-                        "searching": false,
-                        "paging": false,
-                        "info": false
-                    });
-                }
-
-
-            }, error: function (ex) {
-                Error("Load Data Review Koor", JSON.stringify(ex));
-            }
-        });
-    }
-
-        function GetNoPenyimpangan() {
-            $.ajax({
-                url: "../CMS/CMS_GetNoPenyimpangan",
-                type: "post",
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-
-                    var trhtml = "";
-                    var trav = 0;
-                    var count = data.length;
-
-                    trhtml += '<option disabled selected class="dropdown-header" value="">Select No. Penyimpangan</option>';
-                    if (count > 0) {
-                        for (trav = 0; trav < count; trav++) {
-                            trhtml +=
-                                '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].DEVIATION_NO;
-                        }
-                    }
-
-                    $("#ddlNoPenyimpangan").empty();
-                    $("#ddlNoPenyimpangan").append(trhtml);
-                    $("#ddlNoPenyimpangan").select2();
-
-
-                }, error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-
-        }
-
-        function GetNamaEmployee() {
-            $.ajax({
-                url: "../CMS/CMS_GetNamaEmployee",
-                type: "post",
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-
-                    var trhtml = "";
-                    var trav = 0;
-                    var count = data.length;
-
-                    trhtml += '<option disabled selected class="dropdown-header">Select Nama Employee</option>';
-                    if (count > 0) {
-                        for (trav = 0; trav < count; trav++) {
-
-
-                            trhtml +=
-                                '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].empname;
-                        }
-                    }
-
-                    $("#ddlNama").empty();
-                    $("#ddlNama2").empty();
-                    $("#ddlNama").append(trhtml);
-                    $("#ddlNama2").append(trhtml);
-
-                }, error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-
-        }
-
-        function GetReqID() {
-            var devNo = $('#ddlNoPenyimpangan option:selected').text();
-
-            var dto = {
-                NoPenyimpangan: devNo
-            };
-            $.ajax({
-                url: "../CMS/CMS_GetReqID",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    @*$("#TxtReqID").val('wasup');*@
-                    $("#TxtReqID").val(data);
-
-                }, error: function (ex) {
-                    alert(JSON.stringify(ex));
-                }
-            });
-    }
-
-        function AddReviewer() {
-            var UserInvolved = $('#ddlNama option:selected').text();
-            var REQID = $('#TxtReqID').val();
-            var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-            var dto = {
-                REQID: REQID,
-                UserInvolved: UserInvolved,
-                IdProposer: iduser
-            }
-
-            $.ajax({
-                url: "../CMS/CMS_AddReviewer",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    toastr.success("Data berhasil tersimpan!", "Tersimpan", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "100",
-                            "hideDuration": "2000",
-                            "timeOut": "2000",
-                            "extendedTimeOut": "2000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
-                    LoadData();
-                },
-                error: function (ex) {
-                    alert('ohno');
-                }
-            });
-        }
-
-        function UpdateReviewer() {
-            var NamaEmployeeRemoved = $('#ddlNama2 option:selected').text();
+        $("#btnUpdate").click(function () {
             var NamaEmployeeAdded = $('#ddlNama2 option:selected').text();
+
             var REQID = $('#TxtReqID').val();
             var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            $('#updateReviewer').modal('hide');
 
+            @*alert(NamaEmployeeRemoved + ' ' + NamaEmployeeAdded + ' ' + REQID + ' ' + iduser)*@
             var dto = {
                 REQID: REQID,
-                NamaEmployee: NamaEmployee,
+                NamaEmployeeRemoved: NamaEmployeeRemoved,
+                NamaEmployeeAdded: NamaEmployeeAdded,
                 IdProposer: iduser
             }
 
@@ -512,10 +255,281 @@
                     alert(ex);
                 }
             });
+
+        });                           
+
+
+        $("#ddlNama2").change(function () {
+
+            if ($('#ddlNama2').val() != '') {
+                document.getElementById("btnUpdate").disabled = false;
+            } else {
+                document.getElementById("btnUpdate").disabled = true;
+
+            }
+        });
+
+    });
+
+
+    // Check Status to Determine which Row Has Action
+    function LoadData() {
+        var REQID = $('#TxtReqID').val();
+        @*alert(REQID);*@
+        var dto = {
+            REQID: REQID
+        };
+
+        $.ajax({
+            url: "../CMS/CMS_LoadReviewerList",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var trHTML = '';
+                var trav = 0;
+                var Count = data.length;
+                   
+                for (trav = 0; trav < Count; trav++) {
+
+                    trHTML +=
+                        '<tr><td>' + data[trav].USER_NAME + '</td>' +
+                        '<td>' + data[trav].USER_NIK + '</td>'
+
+                    if (data[trav].FLAG_REVIEW == 'NOT YET') {
+                        trHTML +=
+                            '<td> PENDING REVIEW </td>'
+
+                    }
+                    else if (data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY COORDINATOR' || data[trav].FLAG_REVIEW == 'REVIEW APPROVED BY COORDINATOR') {
+                        trHTML +=
+                            '<td>' + data[trav].FLAG_REVIEW + '</td>'
+                    }
+                    else if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR' || 'DONE REVISE FROM COORDINATOR') {
+                        if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR') {
+                            trHTML +=
+                                '<td>DONE REVIEW</td>';
+                        }
+                        else {
+                            trHTML +=
+                                '<td>' + data[trav].FLAG_REVIEW + '</td>';
+                        }
+
+                    }
+                    var flagReview = data[trav].FLAG_REVIEW;
+                    if (flagReview != 'NOT YET' || flagReview.toLowerCase().indexOf("Rejected") >= 0) {
+                        trHTML +=
+                            '<td> <input type="button" id = "btnUpdateValidation" value="Update" class="btn btn-success update" style="width:50px" disabled/> </td></tr>';
+                    } else {
+                        trHTML +=
+                            '<td> <input type="button" id = "btnUpdateValidation" value="Update" class="btn btn-success update" style="width:50px"/> </td></tr>';
+                    }
+
+                        
+
+                    $('#deviationdatatable').DataTable().clear().destroy();
+                    $('#deviationtable').empty();
+                    $('#deviationtable').append(trHTML);
+                    $('#deviationdatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false
+                    });
+                }
+
+
+            }, error: function (ex) {
+                Error("Load Data Review Koor", JSON.stringify(ex));
+            }
+        });
+    }
+
+    var tableDataCount = 0;
+
+    function GetNoPenyimpangan() {
+        $.ajax({
+            url: "../CMS/CMS_GetNoPenyimpangan",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                tableDataCount = data.length;
+
+                trhtml += '<option disabled selected class="dropdown-header" value="">Select No. Penyimpangan</option>';
+                if (tableDataCount > 0) {
+                    for (trav = 0; trav < tableDataCount; trav++) {
+                        trhtml +=
+                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].DEVIATION_NO;
+                    }
+
+                }
+
+                $("#ddlNoPenyimpangan").empty();
+                $("#ddlNoPenyimpangan").append(trhtml);
+                $("#ddlNoPenyimpangan").select2();
+
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+    function GetNamaEmployee() {
+        var REQID = $('#TxtReqID').val();
+
+        var dto = {
+            REQID: REQID
+        };
+        $.ajax({
+            url: "../CMS/CMS_GetNamaEmployee",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+
+                trhtml += '<option disabled selected class="dropdown-header">Select Nama Employee</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        trhtml +=
+                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].empname;
+                    }
+                }
+
+                $("#ddlNama").empty();
+                $("#ddlNama2").empty();
+                $("#ddlNama").append(trhtml);
+                $("#ddlNama2").append(trhtml);
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+
+    }
+
+    function GetReqID() {
+        var devNo = $('#ddlNoPenyimpangan option:selected').text();
+
+        var dto = {
+            NoPenyimpangan: devNo
+        };
+        $.ajax({
+            url: "../CMS/CMS_GetReqID",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                @*$("#TxtReqID").val('wasup');*@
+                $("#TxtReqID").val(data);
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    function AddReviewer() {
+        var UserInvolved = $('#ddlNama option:selected').text();
+        var REQID = $('#TxtReqID').val();
+        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var dto = {
+            REQID: REQID,
+            UserInvolved: UserInvolved,
+            IdProposer: iduser
         }
 
+        $.ajax({
+            url: "../CMS/CMS_AddReviewer",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                toastr.success("Data berhasil tersimpan!", "Tersimpan", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "100",
+                    "hideDuration": "2000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "2000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+                LoadData();
+            },
+            error: function (ex) {
+                alert('ohno');
+            }
+        });
+    }
 
-    </script>
+    function UpdateReviewer() {
+        var NamaEmployeeRemoved = $('#ddlNama2 option:selected').text();
+        var NamaEmployeeAdded = $('#ddlNama2 option:selected').text();
+        var REQID = $('#TxtReqID').val();
+        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var dto = {
+            REQID: REQID,
+            NamaEmployee: NamaEmployee,
+            IdProposer: iduser
+        }
+
+        $.ajax({
+            url: "../CMS/CMS_UpdateReviewer",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                toastr.success("Update Reviewer Berhasil!", "Tersimpan", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "100",
+                    "hideDuration": "2000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "2000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+                LoadData();
+            },
+            error: function (ex) {
+                alert(ex);
+            }
+        });
+    }
+
+
+</script>
 
 </body>
 

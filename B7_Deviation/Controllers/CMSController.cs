@@ -36,6 +36,11 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
+        public ActionResult UpdatePIC()
+        {
+            return View();
+        }
+
         public ActionResult ShowUser2()
         {
             return View();
@@ -928,6 +933,46 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+        public ActionResult CMS_GetNoPenyimpanganPIC()
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationData]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Load No. Penyimpangan PIC DDL";
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
+
         public ActionResult CMS_LoadReviewerList(ApprovalModel Model)
         {
             string conString = mySetting.ConnectionString;
@@ -941,6 +986,51 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "Get Reviewer List";
+
+                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Model.REQID;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
+
+        public ActionResult CMS_LoadPICList(ApprovalModel Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationData]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Get PIC List";
 
                     command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
                     command.Parameters["@Nomor"].Value = Model.REQID;
@@ -1012,7 +1102,7 @@ namespace B7_Deviation.Controllers
             return Json(modelData);
         }
 
-        public ActionResult CMS_GetNamaEmployee()
+        public ActionResult CMS_GetNamaEmployee(ApprovalModel Model)
         {
             string conString = mySetting.ConnectionString;
             SqlConnection conn = new SqlConnection(conString);
@@ -1024,6 +1114,10 @@ namespace B7_Deviation.Controllers
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "Load Nama Employee DDL";
+
+                    command.Parameters.Add("@REQID", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@REQID"].Value = Model.REQID;
+
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
 
@@ -1131,6 +1225,89 @@ namespace B7_Deviation.Controllers
 
             ModelData.Add(result);
             return Json(ModelData);
+        }
+
+        public ActionResult CMS_UpdatePIC(DeviationModel Model)
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+
+            string result;
+            List<string> ModelData = new List<string>();
+
+            try
+            {
+                Conn.Open();
+                using (SqlCommand Command = new SqlCommand("SP_LoadDeviationData", Conn))
+                {
+                    Command.CommandType = CommandType.StoredProcedure;
+                    Command.Parameters.Add("@Option", SqlDbType.NVarChar);
+                    Command.Parameters["@Option"].Value = "Update PIC";
+
+                    Command.Parameters.Add("@REQID", SqlDbType.VarChar);
+                    Command.Parameters["@REQID"].Value = Model.ReqID;
+
+                    Command.Parameters.Add("@NamaEmployee", SqlDbType.NVarChar);
+                    Command.Parameters["@NamaEmployee"].Value = Model.NamaEmployee;
+
+                    Command.Parameters.Add("@NoDisposisi", SqlDbType.NVarChar);
+                    Command.Parameters["@NoDisposisi"].Value = Model.NoDisposisi;
+
+                    result = (string)Command.ExecuteScalar();
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            ModelData.Add(result);
+            return Json(ModelData);
+        }
+
+        public ActionResult CMS_GetNamaEmployeePIC(ApprovalModel Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationData]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Load Nama Employee PIC DDL";
+
+                    command.Parameters.Add("@REQID", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@REQID"].Value = Model.REQID;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
         }
     }
 }

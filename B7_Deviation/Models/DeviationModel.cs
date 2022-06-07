@@ -68,6 +68,10 @@ namespace B7_Deviation.Models
         // untuk update reviewer
         public string NamaEmployeeRemoved { get; set; }
         public string NamaEmployeeAdded { get; set; }
+
+        // untuk update PIC
+        public string NamaEmployee{ get; set; }
+        public string NoDisposisi{ get; set; }
     }
 
     public class LoginModel

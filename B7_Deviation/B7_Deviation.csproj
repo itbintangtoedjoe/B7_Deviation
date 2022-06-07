@@ -5783,6 +5783,7 @@
     <Content Include="Views\DataDeviasi\TablePartialView.cshtml" />
     <Content Include="Views\PelaporPenyimpangan\EditDeviationPartialView.cshtml" />
     <Content Include="Views\CMS\UpdateReviewer.cshtml" />
+    <Content Include="Views\CMS\UpdatePIC.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
