@@ -60,8 +60,8 @@ namespace B7_Deviation.Controllers
                     conn.Open();
                     command.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.Add("@Option", System.Data.SqlDbType.NVarChar);
-                    command.Parameters["@Option"].Value = Model.Option;
+                    //command.Parameters.Add("@Option", System.Data.SqlDbType.NVarChar);
+                    //command.Parameters["@Option"].Value = Model.Option;
 
                     command.Parameters.Add("@empid", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@empid"].Value = Model.Empid;
@@ -434,6 +434,9 @@ namespace B7_Deviation.Controllers
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
+                    //command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    //command.Parameters["@Option"].Value = "Load User";
+
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
 
@@ -462,6 +465,48 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+
+        public ActionResult CMS_LoadAdmin()
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadUser]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Load Admin";
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
         public ActionResult CMS_SavePassword(SaveUser Model)
         {
             string conSQL = mySetting.ConnectionString;
@@ -768,7 +813,7 @@ namespace B7_Deviation.Controllers
             return Json(ModelData);
         }
 
-        public ActionResult CMS_GetVendorID()
+        public ActionResult CMS_GetVendorID(SaveUser Model)
         {
             string conString = mySetting.ConnectionString;
             SqlConnection conn = new SqlConnection(conString);
@@ -779,7 +824,7 @@ namespace B7_Deviation.Controllers
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add("@option", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@option"].Value = "Get VendorID";
+                    command.Parameters["@option"].Value = Model.Option;
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
 

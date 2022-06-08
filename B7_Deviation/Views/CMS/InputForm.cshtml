@@ -79,7 +79,7 @@
                                 </label>
                             </div>
                             <div class="col-lg-6">
-                                <input class="form-control" id="empid" type="text" placeholder="Enter Employee ID" style="display:block;" name="empid" required />
+                                <input class="form-control" id="empid" type="text" placeholder="Enter Employee ID" style="display:block;" name="empid" required disabled />
                                 <span hidden="hidden" id="confid" class="text-danger">Employee ID Already Exists, Please Insert a Different Employee ID</span>
                             </div>
 
@@ -158,7 +158,7 @@
                             </div>
                         </div>
 
-                        <div class="row form-group">
+                        <div class="row form-group" id="job">
                             <div class="col-lg-4 col-form-label">
                                 <label for="jobttlname" class="col-form-label">
                                     Job
@@ -170,7 +170,7 @@
                             </div>
                         </div>
 
-                        <div class="row form-group">
+                        <div class="row form-group" id="superiorddl">
                             <div class="col-lg-4 col-form-label">
                                 <label for="superiorid" class="col-form-label">
                                     Superior
@@ -198,7 +198,7 @@
             </div>
         </div>*@
 
-                        <div class="row form-group">
+                        <div class="row form-group" id="superior2">
                             <div class="col-lg-4 col-form-label">
                                 <label for="superiorname" class="col-form-label">
                                     Superior Name
@@ -210,7 +210,7 @@
                             </div>
                         </div>
 
-                        <div class="row form-group">
+                        <div class="row form-group" id="department">
                             <div class="col-lg-4 col-form-label">
                                 <label for="orggroupname" class="col-form-label">
                                     Department
@@ -222,7 +222,7 @@
                             </div>
                         </div>
 
-                        <div class="row form-group">
+                        <div class="row form-group" id="superioremail">
                             <div class="col-lg-4 col-form-label">
                                 <label for="emailsuperior" class="col-form-label">
                                     Superior Email
@@ -261,16 +261,15 @@
         //    CheckPassword();
         //}
         GetRole();
-        GetVendorID();
+        
         GetSuperior();
         $("#role").change(function () {
             GetKategoriPenyimpangan();
+            GetVendorID();
+            GetSuperior();
 
         });
 
-        $('#new').click(function () {
-
-        });
 
         $('#submit').click(function () {
             $.when(
@@ -301,15 +300,11 @@
             ).done(
                 //alert('haha')
                 function () {
-                    //alert(CekAja)
+                    alert(CekAja)
+                    //var x = document.getElementById("password");
+                    //var y = document.getElementById("repassword");
                     if (CekAja == false) {
-                        if ($("#role").val() == 'Admin') {
-                            SaveFormAdmin();
-                        }
-                        else {
-                            SaveForm();
-
-                        }
+                        SaveFormUser();
                     }
                     else if (CekAja == true) {
                         let timerInterval
@@ -322,10 +317,10 @@
                             //backdrop: 'rgb(255, 0, 0, 0.5)',
                             didOpen: () => {
                                 Swal.showLoading()
-                                const b = Swal.getHtmlContainer().querySelector('b')
-                                timerInterval = setInterval(() => {
-                                    b.textContent = Swal.getTimerLeft()
-                                }, 100)
+                                //const b = Swal.getHtmlContainer().querySelector('b')
+                                //timerInterval = setInterval(() => {
+                                //    b.textContent = Swal.getTimerLeft()
+                                //}, 100)
                             },
                             willClose: () => {
                                 clearInterval(timerInterval)
@@ -464,9 +459,21 @@
     }
 
     function GetVendorID() {
+        let option
+        if ($("#role option:selected").val() == 'Admin') {
+            option = 'Get AdminID'
+        }
+        else {
+            option = 'Get UserID'
+        }
+
+
         $.ajax({
             url: "../CMS/CMS_GetVendorID",
             type: "post",
+            data: JSON.stringify({
+                Option: option
+            }),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -568,21 +575,22 @@
     }
 
     function CheckAllForm() {
-            var x = document.getElementById("password");
-            var y = document.getElementById("repassword");
-        if ($('#role').val() == '' || $('#kategori').val() == '' || $('#username').val() == '' || $('#password').val() == '' || $('#repassword').val() == ''
-            || $('#email').val() == '' || $('#jobttlname').val() == '' || $('#superiorid').val() == '') {
+        var x = document.getElementById("password");
+        var y = document.getElementById("repassword");
+        if ($('#role').val() == '' || $('#username').val() == '' || $('#password').val() == '' || $('#repassword').val() == ''
+            || $('#email').val() == '' || $('#jobttlname').val() == '' || $('#ddlsuperior').val() == '' || $('#superiorname').val() == '' || $('#orggroupname').val() == '' 
+            || $('#emailsuperior').val() == '' || $('#empid').val() == ''|| $('#empname').val() == ''){
             CekAja = true;
         }
        
         else {
 
             if (x.value != y.value) {
-                $("#redconf").prop('hidden', true);
+                $("#redconf").prop('hidden', false);
                 CekAja = true;
             }
             else {
-                $("#redconf").prop('hidden', false);
+                $("#redconf").prop('hidden', true);
                 CekAja = false;
             }
         }
@@ -607,7 +615,7 @@
             emailsuperior: $('#emailsuperior').val(),
             role: $('#role').val(),
             KategoriPenyimpangan: $('#kategori').val(),
-            Option: 'Add User'
+            //Option: 'Add User'
         }
 
         $.ajax({
@@ -633,46 +641,46 @@
         });
     }
 
-    function SaveFormAdmin() {
+    //function SaveFormAdmin() {
 
-        var dto = {
-            empid: $('#empid').val(),
-            username: $('#username').val(),
-            email: $('#email').val(),
-            empname: $('#empname').val(),
-            password: $('#password').val(),
-            jobttlname: $('#jobttlname').val(),
-            superiorid: $('#superiorid').val(),
-            superiorname: $('#superiorname').val(),
-            orggroupname: $('#orggroupname').val(),
-            emailsuperior: $('#emailsuperior').val(),
-            role: $('#role').val(),
-            KategoriPenyimpangan: $('#kategori').val(),
-            Option: 'Add Admin'
-        }
+    //    var dto = {
+    //        empid: $('#empid').val(),
+    //        username: $('#username').val(),
+    //        email: $('#email').val(),
+    //        empname: $('#empname').val(),
+    //        password: $('#password').val(),
+    //        jobttlname: $('#jobttlname').val(),
+    //        superiorid: $('#superiorid').val(),
+    //        superiorname: $('#superiorname').val(),
+    //        orggroupname: $('#orggroupname').val(),
+    //        emailsuperior: $('#emailsuperior').val(),
+    //        role: $('#role').val(),
+    //        KategoriPenyimpangan: $('#kategori').val(),
+    //        Option: 'Add Admin'
+    //    }
 
-        $.ajax({
-            url: '../CMS/CMS_SaveForm',
-            type: 'post',
-            data: JSON.stringify(dto),
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                Swal.fire({
-                    position: 'middle',
-                    icon: 'success',
-                    title: 'Successfully Insert User',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                window.location.href = "/CMS/ShowUser2"
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
+    //    $.ajax({
+    //        url: '../CMS/CMS_SaveForm',
+    //        type: 'post',
+    //        data: JSON.stringify(dto),
+    //        dataType: 'json',
+    //        contentType: 'application/json; charset=utf-8',
+    //        success: function (data) {
+    //            Swal.fire({
+    //                position: 'middle',
+    //                icon: 'success',
+    //                title: 'Successfully Insert User',
+    //                showConfirmButton: false,
+    //                timer: 1500
+    //            });
+    //            window.location.href = "/CMS/MasterAdmin"
+    //        },
+    //        error: function (ex) {
+    //            alert(JSON.stringify(ex));
+    //        }
 
-        });
-    }
+    //    });
+    //}
 
     function GetRole() {
         $.ajax({
@@ -719,8 +727,34 @@
                 trhtml += '<option disabled selected class="dropdown-header">Select Role</option>';
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                        trhtml +=
-                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].empname;
+                            trhtml += '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].empname;
+
+                        if ($("#role").val() == 'Coordinator_QA' || $("#role").val() == 'Coordinator_QS'){
+                            document.getElementById('superiorddl').removeAttribute("style")
+                            document.getElementById('superior2').removeAttribute("style")
+                            document.getElementById('department').removeAttribute("style")
+                            document.getElementById('superioremail').removeAttribute("style")
+                        }
+                        else if ($("#role").val() == 'Pelapor' || $("#role").val() == 'Superior') {
+                            $('#kategori').val("-");
+                        }
+                        else if ($("#role option:selected").val() == 'Admin') {
+                            //trhtml += '<Option class="dropdown-item" selected value = " " > - ';
+                            document.getElementById('superiorddl').style.display = 'none'
+                            document.getElementById('superior2').style.display = 'none'
+                            document.getElementById('department').style.display = 'none'
+                            document.getElementById('superioremail').style.display = 'none'
+                            document.getElementById('job').style.display = 'none'
+                            $('#superiorid').val("-");
+                            $('#ddlSuperior').val("-");
+                            $('#superiorname').val("-");
+                            $('#orggroupname').val("-");
+                            $('#emailsuperior').val("-");
+                            $('#kategori').val("-");
+                            $('#jobttlname').val("-");
+
+                            break;
+                        }
                     }
                 }
 
