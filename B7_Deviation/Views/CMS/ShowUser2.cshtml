@@ -796,11 +796,30 @@
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
                         LoadUser();
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
+                        let timerInterval
+                        Swal.fire({
+                            timer: 1600,
+                            timerProgressBar: true,
+                            icon: 'success',
+                            title: 'Data Terhapus',
+                            text: 'Data telah berhasil dihapus!',
+                            //backdrop: 'rgb(255, 0, 0, 0.5)',
+                            didOpen: () => {
+                                Swal.showLoading()
+                                const b = Swal.getHtmlContainer().querySelector('b')
+                                timerInterval = setInterval(() => {
+                                    b.textContent = Swal.getTimerLeft()
+                                }, 100)
+                            },
+                            willClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        }).then((result) => {
+                            /* Read more about handling dismissals below */
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                console.log('I was closed by the timer')
+                            }
+                        });
                     },
                     error: function (ex) {
                         alert(JSON.stringify(ex));
