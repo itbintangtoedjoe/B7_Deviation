@@ -365,7 +365,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + " >Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + " >Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -412,7 +412,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -459,7 +459,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -506,7 +506,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -553,7 +553,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -601,7 +601,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -644,7 +644,7 @@ namespace B7_Deviation.Controllers
                         "<tr></tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -691,7 +691,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -738,7 +738,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -785,7 +785,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -833,7 +833,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -881,7 +881,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -929,7 +929,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -977,7 +977,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1025,7 +1025,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1072,7 +1072,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1354,7 +1354,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1402,7 +1402,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1449,7 +1449,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1497,7 +1497,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1546,7 +1546,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1591,7 +1591,7 @@ namespace B7_Deviation.Controllers
                         "<tr></tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1634,7 +1634,7 @@ namespace B7_Deviation.Controllers
                         "<tr></tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1677,7 +1677,7 @@ namespace B7_Deviation.Controllers
                         "<tr></tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1724,7 +1724,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1767,7 +1767,7 @@ namespace B7_Deviation.Controllers
                         "<tr></tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1814,7 +1814,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1863,7 +1863,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -1911,7 +1911,7 @@ namespace B7_Deviation.Controllers
                         //"</tr>" +
                         "<tr>" +
                             "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
+                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
                         "</tr>" +
                         "</table>" +
                         "</body></html>";
@@ -2097,7 +2097,7 @@ namespace B7_Deviation.Controllers
 
                 string subPath = "~/Content/Attachment/FormUsulan/";
                 URLAttachment = Path.Combine(Server.MapPath(subPath), fileName);
-                URLDownload = Path.Combine(@"//10.100.18.138/B7_Deviation/Content/Attachment/FormUsulan/", fileName);
+                URLDownload = Path.Combine(@"//10.100.18.138/B7_Deviationv2/Content/Attachment/FormUsulan/", fileName);
 
                 //10.167.1.78\Intranetportal\Intranet Attachment\Deviation\
                 file.SaveAs(URLAttachment);

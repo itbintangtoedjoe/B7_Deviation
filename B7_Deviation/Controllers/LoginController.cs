@@ -35,61 +35,149 @@ namespace B7_Deviation.Controllers
         {
             List<string> List = new List<string>();
             
-            string status;
+            string status="";
             string result = "";
             string t_LVL = "";
             int check_login = 0;
             _ = new IntPtr(0);
 
+            string UserName, MachineName, Pwd = null;
+            bool returnValue = false;
+
+            //The MachineName property gets the name of your computer.                
+            UserName = Model.Username;
+            Pwd = Model.Password;
+            MachineName = "ONEKALBE";
+            const int LOGON32_PROVIDER_DEFAULT = 0;
+            const int LOGON32_LOGON_INTERACTIVE = 2;
+            IntPtr tokenHandle = IntPtr.Zero;
             try
             {
-                string UserName, MachineName, Pwd = null;
-
-                //The MachineName property gets the name of your computer.                
-                UserName = Model.Username;
-                Pwd = Model.Password;
-                MachineName = "ONEKALBE";
-                const int LOGON32_PROVIDER_DEFAULT = 0;
-                const int LOGON32_LOGON_INTERACTIVE = 2;
-                IntPtr tokenHandle = IntPtr.Zero;
-
-                //Call the LogonUser function to obtain a handle to an access token.
-                bool returnValue = LogonUser(UserName, MachineName, Pwd, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, ref tokenHandle);
-
-                if (returnValue == false)
+                //cek apakah user ada di table users devol
+                SqlConnection Conn2 = new SqlConnection(constr);
+                try
                 {
-                    /*
-                     Ketika pengecekan ke Login AD kosong akan melakukan pengecekan ke table user dengan menggunakan username dan password
-                     */
-                    SqlConnection Conn2 = new SqlConnection(constr);
-                    try {
-                        using (SqlCommand cmd = new SqlCommand("CHECK_LOGIN_DEVIATION", Conn2))
+                    using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", Conn2))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+                        cmd.Parameters["@pilih"].Value = 3;
+                        cmd.Parameters.Add("@username", System.Data.SqlDbType.VarChar);
+                        cmd.Parameters["@username"].Value = Model.Username;
+                        cmd.Parameters.Add("@password", System.Data.SqlDbType.VarChar);
+                        cmd.Parameters["@password"].Value = Model.Password;
+                        Conn2.Open();
+                        check_login = (int)cmd.ExecuteScalar();
+                        Conn2.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    status = "Error Web silahkan hubungin IT";
+                    throw ex;
+                }
+
+                //username dan password terdaftar di devol users --> vendor/admin
+                //code here
+                if (check_login == 2)
+                {
+                    status = "True";
+                    Session["xUser"] = Model.Username;
+
+                    SqlConnection conn = new SqlConnection(constr);
+                    try
+                    {
+                        conn.Open();
+                        using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;                            
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+                            cmd.Parameters["@pilih"].Value = 1;
 
                             cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
                             cmd.Parameters["@Username"].Value = Model.Username;
-                            cmd.Parameters.Add("@Password", System.Data.SqlDbType.VarChar);
-                            cmd.Parameters["@Password"].Value = Model.Password;
-                            Conn2.Open();
-                            check_login = (int)cmd.ExecuteScalar();
-                            Conn2.Close();
-                        }
-                    } catch (Exception ex) 
-                    {
-                        status = "Error Web silahkan hubungin IT";
-                        throw ex; 
-                    }
 
-                    /*
-                     Ketika pengecekan ada datanya ada dan username tidak kosong akan melakukan login
-                     */
-                    if (check_login > 0)
-                    {
-                        if (Model.Username == "")
-                        {
-                            status = "Username wajib diisi!";
+                            result = (string)cmd.ExecuteScalar();
                         }
+                        conn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        status = $"Error Web silahkan hubungin IT {ex}";
+                        //throw ex;
+                    }
+                    finally
+                    {
+                        if (result == "kosong")
+                        {
+                            status = "kosong";
+                        }
+                    }
+                }
+                //username ada, tapi password salah di devol users --> khusus cek AD 
+                else if (check_login == 1)
+                {
+                    if (Model.Password == "B7Portal")
+                    {
+                        status = "True";
+                        Session["xUser"] = Model.Username;
+
+                        SqlConnection conn = new SqlConnection(constr);
+                        try
+                        {
+                            conn.Open();
+                            using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+                                cmd.Parameters["@pilih"].Value = 1;
+
+                                cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+                                cmd.Parameters["@Username"].Value = Model.Username;
+
+                                SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                                dataAdapt.SelectCommand = cmd;
+                                dataAdapt.Fill(DT);
+
+                                result = DT.Rows[0]["EMPID"].ToString();
+                                t_LVL = DT.Rows[0]["LVL"].ToString();
+                            }
+                            conn.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+                        finally
+                        {
+                            if (result == "kosong")
+                            {
+                                status = "kosong";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //Call the LogonUser function to obtain a handle to an access token.
+                        returnValue = LogonUser(UserName, MachineName, Pwd, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, ref tokenHandle);
+
+                        //login AD gagal
+                        if (returnValue == false)
+                        {
+                            //This function returns the error code that the last unmanaged function returned.
+                            int ret = Marshal.GetLastWin32Error();
+                            if (ret == 1329)
+                            {
+                                Session["xUser"] = Model.Username;
+                                status = "Account directory tidak valid";
+                            }
+                            else
+                            {
+                                status = "Username atau password yang dimasukkan tidak sesuai!";
+                            }
+                        }
+                        //login AD berhasil
                         else
                         {
                             status = "True";
@@ -108,14 +196,19 @@ namespace B7_Deviation.Controllers
                                     cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
                                     cmd.Parameters["@Username"].Value = Model.Username;
 
-                                    result = (string)cmd.ExecuteScalar();
+                                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                                    dataAdapt.SelectCommand = cmd;
+                                    dataAdapt.Fill(DT);
+
+                                    result = DT.Rows[0]["EMPID"].ToString();
+                                    t_LVL = DT.Rows[0]["LVL"].ToString();
                                 }
                                 conn.Close();
+
                             }
                             catch (Exception ex)
                             {
-                                status = $"Error Web silahkan hubungin IT {ex}";
-                                //throw ex;
+                                throw ex;
                             }
                             finally
                             {
@@ -126,134 +219,136 @@ namespace B7_Deviation.Controllers
                             }
                         }
                     }
-                    else
-                    {
-                        //This function returns the error code that the last unmanaged function returned.
-                        int ret = Marshal.GetLastWin32Error();
-                        if (ret == 1329)
+                }
+                //username tidak terdaftar di devol users
+                else if (check_login == 0)
+                {
+                    //khusus vendor/admin
+                    //if(UserName.StartsWith("V_") || UserName.StartsWith("A_"))
+                    //{
+                    //    status = "Username tidak terdaftar";
+                    //}
+                    //cek apakah ada di AD
+                    //else
+                    //{
+                        if (Model.Password == "B7Portal")
                         {
+                            status = "True";
                             Session["xUser"] = Model.Username;
-                            status = "Account Directory tidak Valid";
+
+                            SqlConnection conn = new SqlConnection(constr);
+                            try
+                            {
+                                conn.Open();
+                                using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
+                                {
+                                    cmd.CommandType = CommandType.StoredProcedure;
+                                    cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+                                    cmd.Parameters["@pilih"].Value = 1;
+
+                                    cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+                                    cmd.Parameters["@Username"].Value = Model.Username;
+
+                                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                                    dataAdapt.SelectCommand = cmd;
+                                    dataAdapt.Fill(DT);
+
+                                    result = DT.Rows[0]["EMPID"].ToString();
+                                    t_LVL = DT.Rows[0]["LVL"].ToString();
+                                }
+                                conn.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                throw ex;
+                            }
+                            finally
+                            {
+                                if (result == "kosong")
+                                {
+                                    status = "kosong";
+                                }
+                            }
                         }
                         else
                         {
-                            if (Model.Password == "B7Portal")
+                            //Call the LogonUser function to obtain a handle to an access token.
+                            returnValue = LogonUser(UserName, MachineName, Pwd, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, ref tokenHandle);
+
+                            //login AD gagal
+                            if (returnValue == false)
                             {
-                                if (Model.Username == "")
+                                //This function returns the error code that the last unmanaged function returned.
+                                int ret = Marshal.GetLastWin32Error();
+                                if (ret == 1329)
                                 {
-                                    status = "Username kosong!";
+                                    Session["xUser"] = Model.Username;
+                                    status = "Account directory tidak valid";
                                 }
                                 else
                                 {
-                                    status = "True";
-                                    Session["xUser"] = Model.Username;
+                                    status = "Username atau password yang dimasukkan tidak sesuai!";
+                                }
+                            }
+                            //login AD berhasil
+                            else
+                            {
+                                status = "True";
+                                Session["xUser"] = Model.Username;
 
-                                    SqlConnection conn = new SqlConnection(constr);
-                                    try
+                                SqlConnection conn = new SqlConnection(constr);
+                                try
+                                {
+                                    conn.Open();
+                                    using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
                                     {
-                                        conn.Open();
-                                        using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
-                                        {
-                                            //cmd.CommandType = CommandType.StoredProcedure;
-                                            //cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                                            //cmd.Parameters["@pilih"].Value = 1;
+                                        cmd.CommandType = CommandType.StoredProcedure;
+                                        cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+                                        cmd.Parameters["@pilih"].Value = 1;
 
-                                            //cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                                            //cmd.Parameters["@Username"].Value = Model.Username;
+                                        cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+                                        cmd.Parameters["@Username"].Value = Model.Username;
 
-                                            //result = (string)cmd.ExecuteScalar();
+                                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                                        dataAdapt.SelectCommand = cmd;
+                                        dataAdapt.Fill(DT);
 
-                                            cmd.CommandType = CommandType.StoredProcedure;
-                                            cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                                            cmd.Parameters["@pilih"].Value = 1;
-
-                                            cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                                            cmd.Parameters["@Username"].Value = Model.Username;
-
-                                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                                            dataAdapt.SelectCommand = cmd;
-                                            dataAdapt.Fill(DT);
-
-                                            result = DT.Rows[0]["EMPID"].ToString();
-                                            t_LVL = DT.Rows[0]["LVL"].ToString();
-                                        }
-                                        conn.Close();
+                                        result = DT.Rows[0]["EMPID"].ToString();
+                                        t_LVL = DT.Rows[0]["LVL"].ToString();
                                     }
-                                    catch (Exception ex)
+                                    conn.Close();
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw ex;
+                                }
+                                finally
+                                {
+                                    if (result == "kosong")
                                     {
-                                        throw ex;
-                                    }
-                                    finally
-                                    {
-                                        if (result == "kosong")
-                                        {
-                                            status = "kosong";
-                                        }                                     
+                                        status = "kosong";
                                     }
                                 }
                             }
-                            else
-                            {
-                                status = "Username atau password yang dimasukkan tidak sesuai!";
-                            }
                         }
-                    }
-                }
-                else 
-                {
-
-                    status = "True";
-                    Session["xUser"] = Model.Username;
-
-                    SqlConnection conn = new SqlConnection(constr);
-                    try
-                    {
-                        conn.Open();
-                        using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                            cmd.Parameters["@pilih"].Value = 1;
-
-                            cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                            cmd.Parameters["@Username"].Value = Model.Username;
-
-                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                            dataAdapt.SelectCommand = cmd;
-                            dataAdapt.Fill(DT);
-
-                            result = DT.Rows[0]["EMPID"].ToString();
-                            t_LVL = DT.Rows[0]["LVL"].ToString();
-                        }
-                        conn.Close();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                    finally
-                    {
-                        if (result == "kosong") 
-                        {
-                            status = "kosong";
-                        }
-                    }
+                    //}
                 }
             }
+
             catch (Exception ex)
             {
                 status = ex.ToString();
             }
 
-            if (status != "kosong")
+            if (status == "True")
             {
                 if (t_LVL == "STAFF")
                 {
                     status = "staff";
                 }
-                else 
-                { 
+                else
+                {
                     // Get Role Login
                     SqlConnection conn2 = new SqlConnection(constr);
                     try
