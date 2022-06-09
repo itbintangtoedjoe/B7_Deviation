@@ -15,7 +15,8 @@
                             <h2 class="d-inline">Update PIC</h2>
                         </div>
 
-                        <input id="TxtReqID" disabled />
+                        <input id="TxtReqID" disabled hidden />
+                        <input id="TxtEmpID" disabled hidden/>
                         <div class="row form-group">
                             <div class="col-lg-2 col-form-label">
                                 <label class="col-form-label">Nomor Penyimpangan</label>
@@ -44,6 +45,8 @@
                                 </tbody>
                             </table>
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -63,14 +66,26 @@
                 <div class="modal-body" style="margin-left: 5px">
                     <div class="row form-group">
                         <div class="col-lg-5 col-form-label">
-                            <label class="col-form-label">Nama Employee</label>
+                            <label class="col-form-label">Nama PIC/Group</label>
                         </div>
 
                         <div class="col-lg-7" style="margin-top:10px">
                             <select id="ddlNama" class="form-control" style="width: 100%">
-                                <option value="" class="dropdown-header" selected>Select Nama Employee</option>
+                                <option value="" class="dropdown-header" selected>Select Nama PIC/Group</option>
                             </select>
+                            <div id="divDdlSite" hidden>
+                                <select id="ddlSite"  style="width: 100%;">
+                                    <option value="ALL">All</option>
+                                    <option value="PLG">Pulogadung</option>
+                                    <option value="PLM">Pulomas</option>
+                                    <option value="CKR">Cikarang</option>
+                                </select>
+                            </div>
+                           
+
                         </div>
+                      
+                       
                     </div>
                 </div>
                 <div class="modal-footer"> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-success" id="btnUpdate" disabled>Update PIC</button> </div>
@@ -98,106 +113,269 @@
     </style>
 
 
-<script>
+    <script>
 
-    $(document).ready(function () {
-        
-        //fungsi buat nangkep perubahan di textbox reqid biar manggil fungsi
-        var prevREQID= $('#TxtReqID').val();
-        setInterval(function(){
-            if (prevREQID != $('#TxtReqID').val()) {
-                prevREQID = $('#TxtReqID').val();
-                LoadData();
-                GetNamaEmployee();
-            }
-        }, 100);
+        $(document).ready(function () {
 
-        GetNoPenyimpangan();
-        LoadData();
+            //fungsi buat nangkep perubahan di textbox reqid biar manggil fungsi
+            var prevREQID= $('#TxtReqID').val();
+            setInterval(function(){
+                if (prevREQID != $('#TxtReqID').val()) {
+                    prevREQID = $('#TxtReqID').val();
+                    LoadData();
+                    GetNamaPIC();
+                }
+            }, 100);
 
-        $('#ddlNoPenyimpangan').select2();
-        $('#ddlNama').select2();
-        $('#ddlNama2').select2();
+            var prevEMPID= $('#TxtEmpID').val();
+            setInterval(function(){
+                if (prevEMPID != $('#TxtEmpID').val()) {
+                    prevEMPID = $('#TxtEmpID').val();
 
-        $("#ddlNoPenyimpangan").change(function () {
-            $('#headerTabel').attr('hidden', false);
-            GetReqID();
-        });
+                    var empId = $('#TxtEmpID').val();
 
-        var NoDisposisi = 'capek';
+                    if (empId.includes("G_") == true) {
+                        $('#divDdlSite').attr('hidden', false);
+                    } else {
+                        $('#divDdlSite').attr('hidden', true);
+                    }
+                }
+            }, 100);
 
-        // Update Function
-        $('#deviationdatatable').on('click',
-            'tbody tr .update', function () {
-                var row = $(this).closest("TR");
-                NoDisposisi = $("TD", row).eq(0).html();
+            GetNoPenyimpangan();
+            LoadData();
 
-                $('#updatePIC').modal('show');
-                $(row, this).css({ 'background-color': 'lightsteelblue' });
+            $('#ddlNoPenyimpangan').select2();
+            $('#ddlNama').select2();
+            $('#ddlSite').select2();
 
-                $('#updatePIC').on('hidden.bs.modal', function () {
-                    $(row, this).css({ 'background-color': 'white' });
+            $("#ddlNoPenyimpangan").change(function () {
+                $('#headerTabel').attr('hidden', false);
+                GetReqID();
+            });
+
+            var NoDisposisi = 'capek';
+
+            // Update Function
+            $('#deviationdatatable').on('click',
+                'tbody tr .update', function () {
+                    var row = $(this).closest("TR");
+                    NoDisposisi = $("TD", row).eq(0).html();
+
+                    $('#updatePIC').modal('show');
+                    $(row, this).css({ 'background-color': 'lightsteelblue' });
+
+                    $('#updatePIC').on('hidden.bs.modal', function () {
+                        $(row, this).css({ 'background-color': 'white' });
+                    });
                 });
 
-            });
 
-
-        $("#btnUpdate").click(function () {
-            var NamaEmployee = $('#ddlNama option:selected').text();
-            var REQID = $('#TxtReqID').val();
-
-            var dto = {
-                REQID: REQID,
-                NamaEmployee: NamaEmployee,
-                NoDisposisi: NoDisposisi
-            }
-             
-            $('#updatePIC').modal('hide');
-
-
-            $.ajax({
-                url: "../CMS/CMS_UpdatePIC",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    toastr.success("Update PIC Berhasil!", "Tersimpan", {
-                        "closeButton": false,
-                        "debug": true,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "100",
-                        "hideDuration": "2000",
-                        "timeOut": "2000",
-                        "extendedTimeOut": "2000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    });
-                    LoadData();
-                },
-                error: function (ex) {
-                    alert(ex);
+            $("#btnUpdate").click(function () {
+                var NamaPIC = $('#ddlNama option:selected').text();
+                var NamaSite = $('#ddlSite').val();
+                var REQID = $('#TxtReqID').val();
+                var empID = $('#TxtEmpID').val();
+                var pic_is_group = false;
+            
+                var dto = {
+                    REQID: REQID,
+                    NamaPIC: NamaPIC,
+                    NamaSite: NamaSite,
+                    NoDisposisi: NoDisposisi,
+                    EmpID: empID
                 }
-            });
 
+                var empId = $('#TxtEmpID').val();
+
+                if (empId.includes("G_") == true) {
+                    pic_is_group = true;
+                }
+
+                var dtx = {
+                    REQID: REQID,
+                    UserInvolved: empID,
+                    Group: empID,
+                    GroupSite: NamaSite
+                }
+                $.ajax({
+                    url: "../Form/CheckEmailAvailability",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dtx),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        @*console.log(data);*@
+                        if (pic_is_group == true) {
+                            var trav = 0;
+                            var count = data.length;
+                            var listUsername = '';
+
+                            @* alert(count);*@
+                                for (trav = 1; trav < count; trav++) {
+                                listUsername += ', ' + data[trav].Username;
+                            }
+                            if (listUsername != '') {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ada user dalam group yang tidak memiliki email',
+                                    text: 'Mohon lengkapi data email user: ' + listUsername
+                                });
+                            } else {
+                                //BLOM DITAMBAHIN FUNGSI SEND EMAIL BENERANNYA. CMN NOTIF DOANG INI.
+                                toastr.success("Email Sent Successfully!",
+                                    "Notification",
+                                    {
+                                        "closeButton": false,
+                                        "debug": true,
+                                        "newestOnTop": false,
+                                        "progressBar": false,
+                                        "positionClass": "toast-bottom-right",
+                                        "preventDuplicates": false,
+                                        "onclick": null,
+                                        "showDuration": "200",
+                                        "hideDuration": "5000",
+                                        "timeOut": "5000",
+                                        "extendedTimeOut": "5s000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    });
+
+                                $('#updatePIC').modal('hide');
+
+                                //Update PIC
+                                $.ajax({
+                                    url: "../CMS/CMS_UpdatePIC",
+                                    type: "post",
+                                    dataType: "json",
+                                    data: JSON.stringify(dto),
+                                    contentType: "application/json;charset=utf-8",
+                                    success: function (data) {
+                                        toastr.success("Update PIC Berhasil!",
+                                            "Tersimpan",
+                                            {
+                                                "closeButton": false,
+                                                "debug": true,
+                                                "newestOnTop": false,
+                                                "progressBar": false,
+                                                "positionClass": "toast-top-right",
+                                                "preventDuplicates": false,
+                                                "onclick": null,
+                                                "showDuration": "100",
+                                                "hideDuration": "2000",
+                                                "timeOut": "2000",
+                                                "extendedTimeOut": "2000",
+                                                "showEasing": "swing",
+                                                "hideEasing": "linear",
+                                                "showMethod": "fadeIn",
+                                                "hideMethod": "fadeOut"
+                                            });
+                                        LoadData();
+                                    },
+                                    error: function (ex) {
+                                        alert(ex);
+                                    }
+                                });
+                            }
+                        }
+                        if (data[0].STATUS == 'ADA') {
+                            if (pic_is_group == false) {
+                                //BLOM DITAMBAHIN FUNGSI SEND EMAIL BENERANNYA. CMN NOTIF DOANG INI.
+                                toastr.success("Email Sent Successfully!",
+                                    "Notification",
+                                    {
+                                        "closeButton": false,
+                                        "debug": true,
+                                        "newestOnTop": false,
+                                        "progressBar": false,
+                                        "positionClass": "toast-bottom-right",
+                                        "preventDuplicates": false,
+                                        "onclick": null,
+                                        "showDuration": "200",
+                                        "hideDuration": "5000",
+                                        "timeOut": "5000",
+                                        "extendedTimeOut": "5000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    });
+
+                                $('#updatePIC').modal('hide');
+
+                                //Update PIC
+                                $.ajax({
+                                    url: "../CMS/CMS_UpdatePIC",
+                                    type: "post",
+                                    dataType: "json",
+                                    data: JSON.stringify(dto),
+                                    contentType: "application/json;charset=utf-8",
+                                    success: function (data) {
+                                        toastr.success("Update PIC Berhasil!",
+                                            "Tersimpan",
+                                            {
+                                                "closeButton": false,
+                                                "debug": true,
+                                                "newestOnTop": false,
+                                                "progressBar": false,
+                                                "positionClass": "toast-top-right",
+                                                "preventDuplicates": false,
+                                                "onclick": null,
+                                                "showDuration": "100",
+                                                "hideDuration": "2000",
+                                                "timeOut": "2000",
+                                                "extendedTimeOut": "2000",
+                                                "showEasing": "swing",
+                                                "hideEasing": "linear",
+                                                "showMethod": "fadeIn",
+                                                "hideMethod": "fadeOut"
+                                            });
+                                        LoadData();
+                                    },
+                                    error: function (ex) {
+                                        alert(ex);
+                                    }
+                                });
+                            }
+                        }
+                        else {
+                            if (pic_is_group == false) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'PIC yang dipilih belum memiliki email terdaftar',
+                                    text: 'Mohon lengkapi data email user'
+                                });
+                            }
+                        }
+                  
+                    },
+                    error: function (ex) {
+                        alert(ex);
+                    }
+        });
         });
 
 
         $("#ddlNama").change(function () {
-
+            GetEmpID();
             if ($('#ddlNama').val() != '') {
                 document.getElementById("btnUpdate").disabled = false;
             } else {
                 document.getElementById("btnUpdate").disabled = true;
 
             }
+
         });
+
+
+      @*  $("#ddlSite").change(function () {
+
+
+
+
+        });*@
 
     });
 
@@ -321,14 +499,14 @@
 
     }
 
-    function GetNamaEmployee() {
+    function GetNamaPIC() {
         var REQID = $('#TxtReqID').val();
 
         var dto = {
             REQID: REQID
         };
         $.ajax({
-            url: "../CMS/CMS_GetNamaEmployeePIC",
+            url: "../CMS/CMS_GetNamaPIC",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
@@ -339,12 +517,13 @@
                 var trav = 0;
                 var count = data.length;
 
-                trhtml += '<option disabled selected class="dropdown-header">Select Nama Employee</option>';
+                trhtml += '<option disabled selected class="dropdown-header">Select Nama PIC/Group</option>';
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
 
                         trhtml +=
-                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].empname;
+                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].EmpName;
+
                     }
                 }
 
@@ -380,7 +559,28 @@
         });
     }
 
-</script>
+    function GetEmpID() {
+        var picName = $('#ddlNama option:selected').text();
+
+        var dto = {
+            PICName:picName
+        };
+        $.ajax({
+            url: "../CMS/CMS_GetEmpID",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $("#TxtEmpID").val(data);
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+    </script>
 
 </body>
 

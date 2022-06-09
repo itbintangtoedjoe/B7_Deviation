@@ -1102,6 +1102,45 @@ namespace B7_Deviation.Controllers
             return Json(modelData);
         }
 
+        public ActionResult CMS_GetEmpID(ApprovalModel Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+            List<string> modelData = new List<string>();
+            string result;
+            try
+            {
+
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationData]", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "Get Emp ID";
+
+                    command.Parameters.Add("@PICName", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@PICName"].Value = Model.PICName;
+
+                    dataAdapt.SelectCommand = command;
+
+                    result = (string)command.ExecuteScalar();
+                    conn.Close();
+                    modelData.Add(result);
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+
+            return Json(modelData);
+        }
+
         public ActionResult CMS_GetNamaEmployee(ApprovalModel Model)
         {
             string conString = mySetting.ConnectionString;
@@ -1247,11 +1286,17 @@ namespace B7_Deviation.Controllers
                     Command.Parameters.Add("@REQID", SqlDbType.VarChar);
                     Command.Parameters["@REQID"].Value = Model.ReqID;
 
-                    Command.Parameters.Add("@NamaEmployee", SqlDbType.NVarChar);
-                    Command.Parameters["@NamaEmployee"].Value = Model.NamaEmployee;
+                    Command.Parameters.Add("@NamaPIC", SqlDbType.NVarChar);
+                    Command.Parameters["@NamaPIC"].Value = Model.NamaPIC;
+
+                    Command.Parameters.Add("@NamaSite", SqlDbType.NVarChar);
+                    Command.Parameters["@NamaSite"].Value = Model.NamaSite;
 
                     Command.Parameters.Add("@NoDisposisi", SqlDbType.NVarChar);
                     Command.Parameters["@NoDisposisi"].Value = Model.NoDisposisi;
+
+                    Command.Parameters.Add("@EmpID", SqlDbType.NVarChar);
+                    Command.Parameters["@EmpID"].Value = Model.EmpID;
 
                     result = (string)Command.ExecuteScalar();
                 }
@@ -1266,7 +1311,7 @@ namespace B7_Deviation.Controllers
             return Json(ModelData);
         }
 
-        public ActionResult CMS_GetNamaEmployeePIC(ApprovalModel Model)
+        public ActionResult CMS_GetNamaPIC(ApprovalModel Model)
         {
             string conString = mySetting.ConnectionString;
             SqlConnection conn = new SqlConnection(conString);
@@ -1277,7 +1322,7 @@ namespace B7_Deviation.Controllers
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Option"].Value = "Load Nama Employee PIC DDL";
+                    command.Parameters["@Option"].Value = "Load Nama PIC DDL";
 
                     command.Parameters.Add("@REQID", System.Data.SqlDbType.VarChar);
                     command.Parameters["@REQID"].Value = Model.REQID;
@@ -1309,5 +1354,7 @@ namespace B7_Deviation.Controllers
 
             return Json(rows);
         }
+
+
     }
 }

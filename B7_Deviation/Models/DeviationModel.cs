@@ -70,8 +70,11 @@ namespace B7_Deviation.Models
         public string NamaEmployeeAdded { get; set; }
 
         // untuk update PIC
-        public string NamaEmployee{ get; set; }
+        public string NamaPIC{ get; set; }
         public string NoDisposisi{ get; set; }
+        public string NamaSite { get; set; }
+
+        public string EmpID { get; set; }
     }
 
     public class LoginModel

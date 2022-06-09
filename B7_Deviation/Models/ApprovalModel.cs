@@ -20,5 +20,7 @@ namespace B7_Deviation.Models
 
         public string NoDisposisi { get; set; }
 
+        public string PICName { get; set; }
+
     }
 }
