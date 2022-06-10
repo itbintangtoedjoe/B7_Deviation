@@ -21,11 +21,27 @@
                             <div class="form-group row">
                                 <div class="col-md-8">
                                     <div class="form-group">
-
-                                        <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control ">
-                                            Cancel
+                                        <button type="button" id="btnSave" class="col-sm-2 btn mb-1 btn-success form-control "style="display:none">
+                                            Save
                                             <span class="fa fa-check-square-o"></span>
                                         </button>
+
+                                        <button type="button" id="btnUpdate" class="col-sm-3 btn mb-1 btn-warning form-control ">
+                                            Update Produk/Material
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
+
+                                        <button type="button" id="btnCancelPerubahan" class="col-sm-3 btn mb-1 btn-danger form-control " style="display:none">
+                                            Cancel Perubahan
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
+
+                                        <button type="button" id="btnCancel" class="col-sm-3 btn mb-1 btn-danger form-control ">
+                                            Cancel Penyimpangan
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
+
+
 
                                     </div>
                                 </div>
@@ -223,15 +239,39 @@
 </div>
 
 <script>
-	$(document).ready(function () {
-		CheckFormStatus();
-		GetUsulanTindakan();
-		LoadStatus();
+    var listProduk = [];
+    var editMode = false;
+    
+        var dev_kategori = $("#ddlKategori").val();
 
+    $(document).ready(function () {
+     
+        CheckFormStatus();
+        GetUsulanTindakan();
+        LoadStatus();
+
+       
 
 		$("#btnCancel").click(function () {
 			Cancel();
-		});
+        });
+
+        $("#btnCancelPerubahan").click(function () {
+          
+            Swal.fire({
+                title: 'Apakah anda yakin tidak menyimpan perubahan ini?',
+                icon: 'question',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Yes',
+                denyButtonText: 'No',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        });
 
 		$("#btnApprove2").click(function () {
 			Approve();
@@ -250,8 +290,80 @@
             }
         });
 
+
+        $('#btnUpdate').click(function () {
+            editMode = true;
+            var dev_kategori = $("#ddlKategori").val();
+
+            GetQCMaterialNoOracle();
+            SetTableProduk(dev_kategori);
+
+            var x = document.getElementById("btnUpdate");
+
+            if (x.style.display === "none") {
+                x.style.display = "inline";
+            } else {
+                x.style.display = "none";
+
+                document.getElementById("btnSave").style.display = "inline";
+                document.getElementById("btnCancelPerubahan").style.display = "inline";
+                document.getElementById("btnCancel").style.display = "block";
+            }
+
+            $("#txtKetKategori").attr("hidden", false);
+            $('#JenisPenyimpanganDetail').show();
+
+
+            //Empty Dev Kategori Value
+            $('#TxtBatchNo').val('');
+            $("#TxtNoWO").val('');
+            $('#TxtItemCode').val('');
+            $('#txtKetKategori').val('');
+            $('#TxtQCMaterialNo').val('');
+
+
+            //Receipt hidden or show
+            if (dev_kategori == 'QPR') {
+                $("#divreceipt").attr("hidden", true);
+            } else {
+                if (dev_kategori == 'QMT') {
+                    $("#divreceipt").attr("hidden", false);
+                } else {
+                    $("#divTblDaftarProduk").attr("hidden", true);
+                    $("#divreceipt").attr("hidden", true);
+                }
+            }
+
+
+        });
+
+
+
+
+
 	});
 
+    $("#btnSave").click(function () {
+        Swal.fire({
+            title: 'Apakah anda yakin untuk menyimpan perubahan ini?',
+            icon: 'question',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Yes',
+            denyButtonText: 'No',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                UpdateMultipleProduk();
+                location.reload();
+            }
+        });
+
+    });
+ 
+
+ 
+  
 	function GetUsulanTindakan() {
 		var REQID = @ViewBag.nomor;
 
@@ -1148,5 +1260,27 @@
 
 			}
 		});
-	}
+    }
+
+    function UpdateMultipleProduk() {
+        var ReqID = $('#lblReq').text();
+        var dto = {
+            ReqID,
+            ListProduk: listProduk
+        }
+
+        $.ajax({
+            url: "../Form/UpdateMultipleProduk",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+            }
+            , error: function (ex) {
+                GetErrorInput("UpdateMultipleProduk", JSON.stringify(ex));
+            }
+        });
+    }
+
 </script>

@@ -168,7 +168,10 @@
 </body>
 
 <script>
+	var listProduk = [];
+    var editMode = false; 
 	$(document).ready(function () {
+        $('#JenisPenyimpanganDetail').hide();
 		LoadHeader();
 		LoadReviewerData();
 		GetCurrStat();
