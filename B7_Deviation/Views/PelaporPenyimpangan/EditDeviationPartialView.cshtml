@@ -89,7 +89,7 @@
                                     <br>
                                 </div>
                                 <div class="col-sm-6">
-                                    <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan"></textarea>
+                                    <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan" readonly="readonly"></textarea>
                                 </div>
                             </div>
 
@@ -110,31 +110,31 @@
                                 </div>
 
                                 <div class="row" id="JenisPenyimpanganDetail">
-                                    <div class="form-group name1 col-md-3" id="divQCMaterial">
+                                    <div class="row form-group name1 col-md-3" id="divQCMaterial" style="margin-right:10px">
                                         <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control input-inline">
                                     </div>
+                                    
+                                        <div class="row form-group name2 col-md-3"  style="margin-right:10px">
+                                            <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control input-inline">
+                                        </div>
+                                        <div class="row form-group name1 col-md-3" id="divBatchNo"  style="margin-right:10px">
+                                            <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control input-inline" placeholder="No Batch Oracle">
+                                        </div>
 
-                                    <div class="form-group name2 col-md-3">
-                                        <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control input-inline">
+                                        <div class="row form-group name2 col-md-3" id="divWoOracle" style="margin-right:10px">
+                                            <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control input-inline" placeholder="No WO Oracle">
+                                        </div>
+
+                                        <div class="row form-group name2 col-md-3" style="margin-right:10px">
+                                            <button type="button" id="btnTambahProduk" class="col-sm-12 btn mb-1 btn-success form-control">Tambah Produk</button>
+                                        </div>
+                                        @*<br />*@
+
+                                        @*<br />*@
+
+                                        <br />
+
                                     </div>
-                                    <div class="form-group name1 col-md-3" id="divBatchNo">
-                                        <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control input-inline" placeholder="No Batch Oracle">
-                                    </div>
-
-                                    <div class="form-group name2 col-md-3" id="divWoOracle">
-                                        <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control input-inline" placeholder="No WO Oracle">
-                                    </div>
-
-                                    <div class="form-group name2 col-md-3">
-                                        <button type="button" id="btnTambahProduk" class="col-sm-12 btn mb-1 btn-success form-control">Tambah Produk</button>
-                                    </div>
-                                    @*<br />*@
-
-                                    @*<br />*@
-
-                                    <br />
-
-                                </div>
                                 <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered text-center">
                                         <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
@@ -618,7 +618,7 @@
         $.when(LoadAll()).done(ToggleByCategory());
        @* LoadAll();*@
 
-        
+
 
         //if (checkLoading == 0) {
         //    $('#divLoading').prop('hidden', true);
@@ -648,8 +648,15 @@
 
 
         $('#divsimpang').hide();
-        $('#div').hide();
-        $('#JenisPenyimpanganDetail').hide();
+
+        //Jenis Penyimpangan Detail
+        $('#JenisPenyimpanganDetail').attr("hidden",true);
+
+
+
+
+
+
         $('#whoedit').hide();
         $('#Upload').hide();
         $('#deletefile').hide();
@@ -762,7 +769,7 @@
             $('#upload').show();
             $('#whoedit').show();
             $('#divsimpang').show();
-            $('#JenisPenyimpanganDetail').show();
+            $('#JenisPenyimpanganDetail').attr("hidden",false);
             $('#Upload').show();
             $('#deletefile').show();
 
@@ -784,9 +791,21 @@
             } else {
                 if (dev_kategori == 'QMT') {
                     $("#divreceipt").attr("hidden", false);
+
+
                 } else {
+
                     $("#divTblDaftarProduk").attr("hidden", true);
                     $("#divreceipt").attr("hidden", true);
+                    $("#TxtItemCode").css("display", "none");
+                   @* $("#TxtItemCode").attr("hidden",true);*@
+                    $("#TxtBatchNo").css("display", "none");
+                    @*$("#TxtBatchNo").attr("hidden", true);*@
+                    $("#TxtNoWO").css("display", "none");
+                    @*$("#TxtNoWO").attr("hidden", true);*@
+                    $("#btnTambahProduk").css("display", "none");
+                    @*$("#btnTambahProduk").attr("hidden", true);*@
+
                 }
             }
 
@@ -929,7 +948,14 @@
                 return;
             }
         }
-        TambahProdukList(dev_kategori, item_code, no_wo, no_batch, no_qc, ket_kategori);
+        TambahProdukList(dev_kategori, item_code, no_batch, no_wo, no_qc, ket_kategori);
+
+        //Empty Dev Kategori Value
+        $('#TxtBatchNo').val('');
+        $("#TxtNoWO").val('');
+        $('#TxtItemCode').val('');
+        $('#txtKetKategori').val('');
+        $('#TxtQCMaterialNo').val('');
     });
 
 
@@ -971,7 +997,6 @@
         $("#TxtNoWO").attr("disabled", true);
         $("#TxtItemCode").attr("disabled", true);
 
-        $('#divproduk').hide();
 
 
 
@@ -1003,70 +1028,7 @@
 
             var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
 
-            if ($("#ddlKategori").val() == 'QPR') {
-                if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
-                    swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
 
-                    var id = $(this).find('option:selected').val();
-                    if (id != null) {
-                        $(this).val('0');
-                    }
-
-                    return;
-                } else {
-                    $("#divsimpang").show();
-                    //$('#divreceipt').hide();
-                    $("#divreceipt").attr("hidden", true);
-
-                    $('#TxtQCMaterialNo').attr("hidden", true);
-                    $("#TxtNoWO").attr("hidden", false);
-                    $('#TxtBatchNo').attr('hidden', false);
-                    $('#txtKetKategori').attr('disabled', true);
-                    @* menentukan field input yg dienable sesuai jenis penyimpangan *@
-                    EmptyFields();
-                    ToggleShowKualitasProdukFields(jenisPenyimpangan);
-                }
-            }
-            else {
-                // Kualitas Materi Awal
-                if ($("#ddlKategori").val() == 'QMT') {
-                    //$('#divreceipt').show();
-                    $("#divreceipt").attr("hidden", false);
-                    if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
-                        swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
-
-                        var id = $(this).find('option:selected').val();
-                        if (id != null) {
-                            $(this).val('0');
-                        }
-
-                        return;
-                    } else {
-                        $("#divsimpang").show();
-
-                        $("#TxtNoWO").attr("hidden", true);
-                        $('#TxtBatchNo').attr('hidden', true);
-
-                        $('#TxtQCMaterialNo').attr("hidden", false);
-                        $("#TxtItemCode").attr("hidden", false);
-                        $('#txtKetKategori').attr('disabled', true);
-                        $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
-                        $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
-                        GetQCMaterialNoOracle();
-                        EmptyFields();
-                        ToggleShowKualitasProdukFields(jenisPenyimpangan);
-                    }
-
-                }
-                else {
-                    $("#divsimpang").hide();
-                    //$('#divreceipt').hide();
-                    $("#divreceipt").attr("hidden", true);
-                    $('#TxtQCMaterialNo').attr("hidden", true);
-                    $("#TxtNoWO").attr("disabled", true);
-                    $('#txtKetKategori').val('');
-                }
-            }
 
             // Kualitas Produk
             if (kategoriDev == 'QPR') {
@@ -1081,18 +1043,27 @@
                     return;
                 } else {
                     $("#divsimpang").show();
-                    $("#divProdukEdit").show();
+                    $("#JenisPenyimpanganDetail").attr("hidden", false);
+                    $("#divProduk").show();
                     $("#divMaterial").hide();
                     $("#divQCMaterial").hide();
                     $("#divBatchNo").show();
                     $("#divWoOracle").show();
 
+                    $("#divreceipt").attr("hidden", true);
                     $("#TxtNoWO").attr("hidden", false);
                     $('#TxtBatchNo').attr('hidden', false);
                     $('#txtKetKategori').attr('disabled', true);
 
+                    $("#TxtItemCode").css("display", "inline");
+                    $("#TxtBatchNo").css("display", "inline");
+                    $("#TxtNoWO").css("display", "inline");
+                    $("#btnTambahProduk").css("display", "inline");
+
+
                     @* menentukan field input yg dienable sesuai jenis penyimpangan *@
                     ToggleShowKualitasProdukFields(jenisPenyimpangan);
+             
                 }
             }
             else {
@@ -1109,18 +1080,22 @@
                         return;
                     } else {
                         $("#divsimpang").show();
+
                         //$('#divreceipt').show();
 
                         $("#divreceipt").attr("hidden", false);
+                        $("#JenisPenyimpanganDetail").attr("hidden",false);
                         $("#divProdukEdit").show();
                         $("#divMaterial").show();
                         $("#divQCMaterial").show();
+
+
+
                         $("#divBatchNo").hide();
                         $("#divWoOracle").hide();
 
                         $('#TxtQCMaterialNo').attr("hidden", false);
                         $("#TxtItemCode").attr("hidden", false);
-                        $('#TxtQCMaterialNo').attr("hidden", false);
 
                         $('#txtKetKategori').attr('disabled', true);
                         $("#TxtItemCode").attr("disable", true);
@@ -1128,21 +1103,33 @@
                         $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                         $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
 
+                        $("#TxtItemCode").css("display", "inline");
+                        $("#TxtBatchNo").css("display", "inline");
+                        $("#TxtNoWO").css("display", "inline");
+                        $("#btnTambahProduk").css("display", "inline");
+@*
+                        GetQCMaterialNoOracle();*@
                         ToggleShowKualitasProdukFields(jenisPenyimpangan);
+                    
                     }
 
                 }
                 else {
                     $("#divsimpang").hide();
-                    $("#divProdukEdit").hide();
+                    $("#divProduk").hide();
                     $("#divMaterial").hide();
                     $("#TxtNoWO").attr("disabled", true);
                     $('#txtKetKategori').val('');
+                    $("#TxtItemCode").css("display", "none");
+                    $("#TxtBatchNo").css("display", "none");
+                    $("#TxtNoWO").css("display", "none");
+                    $("#btnTambahProduk").css("display", "none");
+
+                    
+
+
                 }
             }
-
-
-
 
         });
 
@@ -1592,7 +1579,6 @@
                 $("#TxtItemCode").attr("hidden", false);
                 $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                 GetItemKualitasProduk();
-
                 $("#TxtNoWO").attr("disabled", false);
             }
             else {
@@ -1609,6 +1595,8 @@
             }
             else {
                 $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                GetQCMaterialNoOracle();
+               
             }
         }
         if (jenisPenyimpangan == 'Yes') {
@@ -1637,8 +1625,7 @@
     }*@
 
 
-    function TambahProdukList(dev_kategori, item_code, no_wo, no_batch, no_qc, ket_kategori) {
-        console.log("Tambah Produk")
+    function TambahProdukList(dev_kategori, item_code, no_batch, no_wo, no_qc, ket_kategori) {
 
         var prod = {
             "ItemCodeOracle": item_code,
@@ -1652,8 +1639,6 @@
     }
 
     function LoadListProduk(dev_kategori) {
-        console.log('load')
-
         //var dev_kategori = $("#ddlKategori").val();
         //console.log(dev_kategori);
 		var REQID = @ViewBag.nomor;
@@ -1683,6 +1668,7 @@
                     $('#thQCNum').attr('hidden', true);
                     $('#thNoBatch').attr('hidden', false);
                     $('#thNoWO').attr('hidden', false);
+
                 } else if (dev_kategori == 'QMT') {
                     $('#thQCNum').attr('hidden', false);
                     $('#thNoBatch').attr('hidden', true);
@@ -2665,8 +2651,8 @@
 
     }
 
- 
-	
+
+
     function InsertMultipleProduk() {
         var ReqID = $('#lblReq').text();
         var dto = {
@@ -2687,7 +2673,7 @@
             }
         });
     }
-    
+
     function UpdateMultipleProduk() {
         var ReqID = $('#lblReq').text();
         var dto = {
@@ -3022,6 +3008,7 @@
 
                 LoadKategori();
 
+
                  var dev_kategori = data[0].ID_DEVIATION_CATEGORY;
 
                 if (dev_kategori == 'QPR') {
@@ -3030,6 +3017,7 @@
                     $("#TxtItemCode").attr("hidden", false);
                     $('#TxtBatchNo').attr('hidden', false);*@
                     $("#divreceipt").attr("hidden", true);
+                    @*$("#JenisPenyimpanganDetail").attr("hidden", false);*@
                     //$("#txtKetKategori").attr("hidden", true);
                     // MATERIAL AWAL (MASIH ADA LAGI)
                 } else
@@ -3038,15 +3026,16 @@
                         $('#TxtQCMaterialNo').attr('hidden', false);*@
                         //$("#txtKetKategori").attr("hidden", true);
                         $("#divreceipt").attr("hidden", false);
+                       @* $("#JenisPenyimpanganDetail").attr("hidden",false);*@
                     } else {
                         $("#divTblDaftarProduk").attr("hidden", true);
                         $("#divreceipt").attr("hidden", true);
+                     
                     }
 
                 $('input[name=r_receipt][value=' + data[0].FLAG_RECEIPT + ']').prop('checked', true);
 
                 if (dev_kategori == 'QPR' || dev_kategori == 'QMT') {
-                    console.log('masuk kategori')
                     LoadListProduk(dev_kategori);
                 }
 
@@ -3060,7 +3049,8 @@
                     $("#divreceipt").attr("hidden", true);
                     $("#TxtNoWO").attr("hidden", false);
                     $('#TxtQCMaterialNo').attr("hidden", true);
-
+                    $("#divQCMaterial").css("display", "none");
+                    $("#TxtItemCode").attr('placeholder', 'Item Code');
                     GetNoBatchOracle();
                     $('#txtKetKategori').attr('disabled', true);
                 }
@@ -3072,7 +3062,6 @@
 
                         $("#TxtNoWO").attr("hidden", true);
                         $('#TxtBatchNo').attr('hidden', true);
-
                         $('#TxtQCMaterialNo').attr("hidden", false);
                         $("#TxtItemCode").attr("hidden", false);
                         $('#txtKetKategori').attr('disabled', true);
@@ -3082,8 +3071,12 @@
                     }
                     else {
                         $("#divsimpang").hide();
+                        $('#divProduk').hide();
                         $('#TxtQCMaterialNo').attr("hidden", true);
                         $("#TxtNoWO").attr("disabled", true);
+                      
+                        @*$("#JenisPenyimpanganDetail").attr("hidden", true);*@
+                       @* $("#JenisPenyimpanganDetail").attr("hidden", true);*@
                         $('#txtKetKategori').val('');
                     }
                 }
@@ -3339,7 +3332,6 @@
     }
 
     function SetTableProduk(dev_kategori) {
-        console.log(listProduk)
 
         $('#tblListProduk').DataTable({
             "pageLength": 10,

@@ -297,7 +297,7 @@ namespace B7_Deviation.Controllers
                 string subPath = "~/Content/Attachment/Reviewer/";
                 URLAttachment = Path.Combine(Server.MapPath(subPath), fileName);
                 //URLAttachment = Path.Combine(@"\\10.100.18.138\B7_Deviation\Content\Attachment\Reviewer\", fileName);
-                URLDownload = Path.Combine(@"/B7_Deviation/Content/Attachment/Reviewer/", fileName);
+                URLDownload = Path.Combine(@"/B7_Deviationv2/Content/Attachment/Reviewer/", fileName);
 
 
                 //D:\TempURLFiles LOCAL DIRECTORY

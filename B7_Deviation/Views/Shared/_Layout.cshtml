@@ -148,6 +148,8 @@
                         <ul id="globalmenu" aria-expanded="false">
                             <li><a href="../CMS/InputForm">User Control</a></li>
                             <li><a href="../CMS/ShowUser2">List User</a></li>
+                            <li><a href="../CMS/UpdateReviewer">Update Reviewer</a></li>
+                            <li><a href="../CMS/UpdatePIC">Update PIC</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -365,6 +367,7 @@
             var IsHead = IsJobTitle.includes("Head");
             var url = "../Login/Index";
             $('#UserLoginXd').text(IsLogin);
+            
 
             // ENABLE / DISABLE MENU
             
@@ -376,14 +379,14 @@
                 } else {
                     $("#userlist").attr("hidden", true);
                     $("#cms").attr("hidden", true);
-                    
+
 
                     //untuk Manager Quality
                     $("#masterlist").attr("hidden", true);
                     $("#leadtime").attr("hidden", true);
 
                     $("#hiddenCost").attr("hidden", true);
-                    
+
                     if (IsHead) {
                         $("#create").attr("hidden", true);
                     }
@@ -391,17 +394,25 @@
                         $("#create").attr("hidden", false);
                     }
                 }
-               
-            } else
-                if (IsRole == 'Pelapor') {
-                    $("#masterlist").attr("hidden", true);
-                    $("#leadtime").attr("hidden", true);
-                    $("#hiddenCost").attr("hidden", true);
+
+            } else if (IsRole == 'Pelapor') {
+                $("#masterlist").attr("hidden", true);
+                $("#leadtime").attr("hidden", true);
+                $("#hiddenCost").attr("hidden", true);
 
 
-                    $("#find").attr("hidden", false);
-                    $("#userlist").attr("hidden", true);
-                    $("#cms").attr("hidden", true);
+                $("#find").attr("hidden", false);
+                $("#userlist").attr("hidden", true);
+                $("#cms").attr("hidden", true);
+            }
+
+            else if (IsRole == 'Admin') {
+                $("#create").attr("hidden", true);
+                $("#outstanding").attr("hidden", true);
+                $("#leadtime").attr("hidden", false);
+                $("#cms").attr("hidden", true);
+                $("#userlist").attr("hidden", true);
+                $("#find").attr("hidden", false);
             }
 
             if (IsLogin === '' || IsLogin === null) {
