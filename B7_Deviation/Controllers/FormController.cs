@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace B7_Deviation.Controllers
@@ -90,7 +91,6 @@ namespace B7_Deviation.Controllers
 
         public ActionResult SendEmailInputProposal(EmailModel Model)
         {
-            /*
             MailMessage Msg = new MailMessage();
             SmtpClient MailObject = new SmtpClient("mail.kalbe.co.id");
 
@@ -360,9 +360,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Need Your Approval</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Your Approval</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Approval</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + " >Click Here</a>" +
@@ -407,9 +407,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Is Rejected by Superior</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Is Rejected by Superior</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Is Rejected by Superior</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -454,9 +454,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Is Approved by Koordinator</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Is Approved by Koordinator</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Is Approved by Koordinator</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -501,9 +501,9 @@ namespace B7_Deviation.Controllers
                              "<td><b>Is Rejected by Koordinator</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Is Rejected by Koordinator</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Is Rejected by Koordinator</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -548,9 +548,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Need Your Review as PIC</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Your Review as PIC</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Review as PIC</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -596,9 +596,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Need Your Approval for the Cost</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Your Approval</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Approval</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -686,9 +686,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Cost Tindakan Remidial Rejected by Your Superior</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Your Approval</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Approval</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -733,9 +733,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Cost Tindakan Remidial Rejected by Your Division Head</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Your Approval</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Approval</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -780,9 +780,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Has been Approved and Proceeded to CAPA</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Has been Approved and Proceeded to CAPA</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Has been Approved and Proceeded to CAPA</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -828,9 +828,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Has been Approved and Not Proceeded to CAPA</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Has been Approved and Not Proceeded to CAPA</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Has been Approved and Not Proceeded to CAPA</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -876,9 +876,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Has been Canceled</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Has been Canceled</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Has been Canceled</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -924,9 +924,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Has been Delegated to you</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Has been Delegated to you</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Has been Delegated to you</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -972,9 +972,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Proposed Revision</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Proposed Revision</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Proposed Revision</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1020,9 +1020,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Proposed revision has been Rejected</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Proposed revision has been Rejected</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Proposed revision has been Rejected</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1067,9 +1067,9 @@ namespace B7_Deviation.Controllers
                              "<td><b>Proposed Revision has been Approved</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Proposed Revision has been Approved</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Proposed Revision has been Approved</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1082,11 +1082,11 @@ namespace B7_Deviation.Controllers
                 try
                 {
 
-                    // Start Setting Send Notification
+                    //Start Setting Send Notification
                     Msg.Subject = "Deviation Notification";
                     Msg.Body = EmailBody;
                     MailObject.Send(Msg);
-                    // End Setting Send Notification
+                    //End Setting Send Notification
 
                 }
                 catch (Exception ex)
@@ -1113,11 +1113,11 @@ namespace B7_Deviation.Controllers
                     }
                     try
                     {
-                        // Start Setting Send Notification
+                        //Start Setting Send Notification
                         Msg.Subject = "Deviation Notification";
                         Msg.Body = EmailBody;
                         MailObject.Send(Msg);
-                        // End Setting Send Notification
+                        //End Setting Send Notification
                     }
                     catch (Exception ex2)
                     {
@@ -1143,11 +1143,11 @@ namespace B7_Deviation.Controllers
                         }
                         try
                         {
-                            // Start Setting Send Notification
+                            //Start Setting Send Notification
                             Msg.Subject = "Deviation Notification";
                             Msg.Body = EmailBody;
                             MailObject.Send(Msg);
-                            // End Setting Send Notification
+                            //End Setting Send Notification
                         }
                         catch (Exception ex3)
                         {
@@ -1179,7 +1179,7 @@ namespace B7_Deviation.Controllers
             {
 
                 DT.Reset();
-                // MORE THAN 1 RECEIVER
+                //MORE THAN 1 RECEIVER
 
                 try
                 {
@@ -1242,7 +1242,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
                             Command.Parameters["@GroupSite"].Value = Model.Site;
                         }
-                        else if (Model.WhoReceiver == "PIC after Superior Rejected Cost" || Model.WhoReceiver== "PIC after Division Head Rejected Cost")
+                        else if (Model.WhoReceiver == "PIC after Superior Rejected Cost" || Model.WhoReceiver == "PIC after Division Head Rejected Cost")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Group PIC after Appointed";
@@ -1349,9 +1349,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Need Your Approval as Coordinator</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Your Approval as Coordinator</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Approval as Coordinator</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1397,9 +1397,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Need Your Review as Reviewer</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Your Review as Reviewer</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Review as Reviewer</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1444,9 +1444,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Need Your Approval as Coordinator</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Your Approval as Coordinator</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Approval as Coordinator</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1492,9 +1492,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Need Your Approval as Quality Manager</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Your Approval as Quality Manager</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Approval as Quality Manager</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1541,9 +1541,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Need Assign PIC</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Assign PIC</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Assign PIC</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1719,9 +1719,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Need Verifikasi Tindakan Remedial</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Verifikasi Tindakan Remedial</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Verifikasi Tindakan Remedial</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1809,9 +1809,9 @@ namespace B7_Deviation.Controllers
                              "<td><b>Need Your Approval as Quality Manager</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Your Approval as Quality Manager</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Need Your Approval as Quality Manager</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1858,9 +1858,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Has been Rejected by Quality Manager, Need Your Review as Reviewer</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Has been Rejected by Quality Manager, Need Your Review as Reviewer</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Has been Rejected by Quality Manager, Need Your Review as Reviewer</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1906,9 +1906,9 @@ namespace B7_Deviation.Controllers
                             "<td><b>Proposed Revision</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Proposed Revision</b></td>" +
-                        //"</tr>" +
+                        "<tr>" +
+                            "<td><b>Proposed Revision</b></td>" +
+                        "</tr>" +
                         "<tr>" +
                             "Access : " +
                             "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
@@ -1920,11 +1920,11 @@ namespace B7_Deviation.Controllers
 
                 try
                 {
-                    // Start Setting Send Notification
+                    //Start Setting Send Notification
                     Msg.Subject = "Deviation Notification";
                     Msg.Body = EmailBody;
                     MailObject.Send(Msg);
-                    // End Setting Send Notification
+                    //End Setting Send Notification
                 }
                 catch (Exception ex)
                 {
@@ -1948,11 +1948,11 @@ namespace B7_Deviation.Controllers
 
                     try
                     {
-                        // Start Setting Send Notification
+                        //Start Setting Send Notification
                         Msg.Subject = "Deviation Notification";
                         Msg.Body = EmailBody;
                         MailObject.Send(Msg);
-                        // End Setting Send Notification
+                        //End Setting Send Notification
                     }
                     catch (Exception ex2)
                     {
@@ -1976,11 +1976,11 @@ namespace B7_Deviation.Controllers
 
                         try
                         {
-                            // Start Setting Send Notification
+                            //Start Setting Send Notification
                             Msg.Subject = "Deviation Notification";
                             Msg.Body = EmailBody;
                             MailObject.Send(Msg);
-                            // End Setting Send Notification
+                            //End Setting Send Notification
                         }
                         catch (Exception ex3)
                         {
@@ -2006,7 +2006,7 @@ namespace B7_Deviation.Controllers
             }
 
             Msg.To.Clear();
-            Msg.Bcc.Clear();*/
+            Msg.Bcc.Clear();
             return Json("S");
         }
 
