@@ -46,7 +46,6 @@
                         </tbody>
                     </table>
 
-
                     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="tablemenu">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
@@ -102,18 +101,18 @@
                                     </div>
 
                                     @*<div class="row form-group">
-                                        <div class="col-lg-4 col-form-label" style="text-align:right;">
-                                            <label for="ddlsuperiorname" class="col-form-label">
-                                                Superior Name :
-                                            </label>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <select id="ddlsuperiorname" class="form-control">
-                                                <option value="" class="dropdown-header" selected>Select Superior Name</option>
-                                                <option id="vspv"></option>
-                                            </select>
-                                        </div>
-                                    </div>*@
+                            <div class="col-lg-4 col-form-label" style="text-align:right;">
+                                <label for="ddlsuperiorname" class="col-form-label">
+                                    Superior Name :
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <select id="ddlsuperiorname" class="form-control">
+                                    <option value="" class="dropdown-header" selected>Select Superior Name</option>
+                                    <option id="vspv"></option>
+                                </select>
+                            </div>
+                        </div>*@
 
                                     <div class="row form-group" id="superiorid">
                                         <div class="col-lg-4 col-form-label" style="text-align:right;">
@@ -174,7 +173,7 @@
 
                                     <div class="row form-group" id="kategoripenyimpangan">
                                         <div class="col-lg-4 col-form-label" style="text-align:right;">
-                                            <label for="penyimpangan" class="col-form-label">
+                                            <label for="penyimpangan" class="col-form-label" id="lbl">
                                                 Kategori Penyimpangan :
                                             </label>
                                         </div>
@@ -183,6 +182,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1029,14 +1029,14 @@
                     }
                 }
 
-                var names = 'QPR,QMT,QNA,HSE,SJH';
-                var nameArr = names.split(',');
+                //var names = 'QPR,QMT,QNA,HSE,SJH';
+                //var nameArr = names.split(',');
 
-                if (count > 0) {
-                    for (trav = 0; trav < count; trav++) {
-                        var item = nameArr;
-                    }
-                }
+                //if (count > 0) {
+                //    for (trav = 0; trav < count; trav++) {
+                //        var item = nameArr;
+                //    }
+                //}
                 //var selectedarray = new Array();
                 //selectedarray[0] = "QMT";
                 //selectedarray[1] = "HSE";
@@ -1045,11 +1045,48 @@
 
                 $("#penyimpangan").empty();
                 $("#penyimpangan").append(trhtml);
-                $('#penyimpangan').val(item);
+                $('#penyimpangan').val();
                 $("#penyimpangan").select2({
                     placeholder: "Kategori Penyimpangan",
                     multiple: true
                     
+                });
+                GetKategoriCode(t_username);
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
+
+
+    function GetKategoriCode(t_username) {
+
+        var dto = {
+            Username: t_username
+        }
+
+        $.ajax({
+            url: "../CMS/CMS_GetKategoriCode",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var names = data[0].kategori_penyimpangan;
+                console.log(data);
+                var nameArr = names.split(',');
+                var count = nameArr.length;
+                //if (count > 0) {
+                //    for (trav = 0; trav < count; trav++) {
+                //        var item = nameArr;
+                //    }
+                //}
+                //$("#kategoricode").append(trhtml);
+                $('#penyimpangan').val(nameArr);
+                $("#penyimpangan").select2({
+                    placeholder: "Kategori Penyimpangan",
+                    multiple: true
+
                 });
             }, error: function (ex) {
                 alert(JSON.stringify(ex));

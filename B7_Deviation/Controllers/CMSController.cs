@@ -349,6 +349,47 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+        public ActionResult CMS_GetKategoriCode(SaveUser Model)
+        {
+            string conString = mySetting.ConnectionString;
+            SqlConnection conn = new SqlConnection(conString);
+            try
+            {
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_GetKategoriCode]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@username"].Value = Model.Username;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(DT);
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
+
         public ActionResult CMS_GetRole_Param(SaveUser Model)
         {
             string conString = mySetting.ConnectionString;
