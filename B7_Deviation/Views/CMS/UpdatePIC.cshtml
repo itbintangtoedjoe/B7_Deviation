@@ -177,7 +177,7 @@
                 var REQID = $('#TxtReqID').val();
                 var empID = $('#TxtEmpID').val();
                 var pic_is_group = false;
-            
+
                 var dto = {
                     REQID: REQID,
                     NamaPIC: NamaPIC,
@@ -222,7 +222,165 @@
                                     text: 'Mohon lengkapi data email user: ' + listUsername
                                 });
                             } else {
-                                //BLOM DITAMBAHIN FUNGSI SEND EMAIL BENERANNYA. CMN NOTIF DOANG INI.
+                                var no_disposisi = $("TD", row).eq(5).find("input[type='text']").val();
+                                var req_id = @ViewBag.nomor;
+                                var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+						        @*console.log('aman');*@
+						        function AssigningPIC() {
+							        var dto = {
+								        REQ_ID: req_id,
+								        PIC_REMEDIAL_NIK: pic_nik,
+								        GROUP_SITE: site_pic,
+								        DUE_DATE: due_date,
+								        NO_DISPOSISI: no_disposisi,
+								        CURR_USER: curr_user
+							        }
+
+							        $.ajax({
+								        url: "../Koordinator/Coor_AssignPIC",
+								        type: "post",
+								        dataType: "json",
+								        data: JSON.stringify(dto),
+								        contentType: "application/json;charset=utf-8",
+								        success: function (data) {
+									        function NotifyAssignT() {
+										        toastr.success("Assign PIC Berhasil!", "Tersimpan", {
+											        "closeButton": false,
+											        "debug": true,
+											        "newestOnTop": false,
+											        "progressBar": false,
+											        "positionClass": "toast-top-right",
+											        "preventDuplicates": false,
+											        "onclick": null,
+											        "showDuration": "100",
+											        "hideDuration": "1000",
+											        "timeOut": "2000",
+											        "extendedTimeOut": "1000",
+											        "showEasing": "swing",
+											        "hideEasing": "linear",
+											        "showMethod": "fadeIn",
+											        "hideMethod": "fadeOut"
+										        });
+									        }
+
+									        function ConditionLoad() {
+										        if (data == 'COMPLETE') {
+											        var url = "../DataDeviasi/PendingTask";
+											        $(location).attr('href', url);
+										        }
+										        else {
+											        LoadData();
+										        }
+									        }
+
+									        $.when(NotifyAssignT()).done(ConditionLoad());
+								        }
+								        , error: function (ex) {
+									        GetError('Coor_AssignPIC',  JSON.stringify(ex));
+								        }
+							        });
+						        }
+
+						        function SendMailAssignSinglePIC() {
+							        @*var receiver = $("TD", row).eq(2).find("select").val();*@
+							        var tabletype = "One";
+							        var whoreceiver = "PIC after Appointed";
+
+							        var dtx = {
+								        Receiver: pic_nik,
+								        ReqID: REQID,
+								        TableType: tabletype,
+								        WhoReceiver: whoreceiver
+							        };
+
+							        $.ajax({
+								        type: "post",
+								        url: '../Form/SendEmailInputProposal',
+								        data: JSON.stringify(dtx),
+								        dataType: "json",
+								        contentType: "application/json;charset=utf-8",
+								        success: function (data) {
+
+									        toastr.success("Email Sent Successfully !", "Notification", {
+										        "closeButton": false,
+										        "debug": true,
+										        "newestOnTop": false,
+										        "progressBar": false,
+										        "positionClass": "toast-bottom-right",
+										        "preventDuplicates": false,
+										        "onclick": null,
+										        "showDuration": "200",
+										        "hideDuration": "1000",
+										        "timeOut": "1000",
+										        "extendedTimeOut": "1000",
+										        "showEasing": "swing",
+										        "hideEasing": "linear",
+										        "showMethod": "fadeIn",
+										        "hideMethod": "fadeOut"
+									        });
+								        }, error: function (ex) {
+									        GetError("Error Email Assign", JSON.stringify(ex));
+								        }
+							        });
+						        }
+
+						        function SendMailAssignPICGroup() {
+							        var receiver = $("TD", row).eq(2).find("select").val();
+							        var tabletype = "More Than One";
+							        var whoreceiver = "Group PIC after Appointed";
+
+							        var dtx = {
+								        Group: pic_nik,
+								        Site: site_pic,
+								        ReqID: REQID,
+								        TableType: tabletype,
+								        WhoReceiver: whoreceiver
+							        };
+
+							        $.ajax({
+								        type: "post",
+								        url: '../Form/SendEmailInputProposal',
+								        data: JSON.stringify(dtx),
+								        dataType: "json",
+								        contentType: "application/json;charset=utf-8",
+								        success: function (data) {
+
+									        toastr.success("Email Sent Successfully !", "Notification", {
+										        "closeButton": false,
+										        "debug": true,
+										        "newestOnTop": false,
+										        "progressBar": false,
+										        "positionClass": "toast-bottom-right",
+										        "preventDuplicates": false,
+										        "onclick": null,
+										        "showDuration": "200",
+										        "hideDuration": "1000",
+										        "timeOut": "1000",
+										        "extendedTimeOut": "1000",
+										        "showEasing": "swing",
+										        "hideEasing": "linear",
+										        "showMethod": "fadeIn",
+										        "hideMethod": "fadeOut"
+									        });
+								        }, error: function (ex) {
+									        GetError("Error Email Assign", JSON.stringify(ex));
+								        }
+							        });
+						        }
+						        //kalau ke group, send email ke group
+						        if (pic_is_group===true) {
+							        @*$.when(AssignPIC()).then(SendMailAssign());*@
+							        $.when(AssigningPIC()).done(SendMailAssignPICGroup());
+						        }
+						        //kalau ke 1 orang, send email ke single pic
+						        else {
+							        $.when(AssigningPIC()).done(SendMailAssignSinglePIC());
+						        }
+
+
+
+
                                 toastr.success("Email Sent Successfully!",
                                     "Notification",
                                     {
@@ -349,7 +507,7 @@
                                 });
                             }
                         }
-                  
+
                     },
                     error: function (ex) {
                         alert(ex);
