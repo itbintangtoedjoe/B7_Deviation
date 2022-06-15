@@ -5,90 +5,56 @@
 }
 
 <div class="content-body">
-    <div class="form-group">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <h4 class="d-inline" style="">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+	<div class="form-group">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="form-group">
+								<h4 class="d-inline" style="">Laporan Penyimpangan / Potensi Penyimpangan</h4>
 
-                            </div>
+							</div>
+							
+							<div class="form-group row">
+								<div class="col-md-8">
+									<div class="form-group">
+										<button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control ">
+											Approve
+											<span class="fa fa-check-square-o"></span>
+										</button>
+										<button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
+											Reject
+											<span class="fa fa-ban"></span>
+										</button>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Approval:</label>
+										<input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
+									</div>
+									<div class="form-group">
+										<label for="txtTanggal">Tanggal:</label>
+										<input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-                            <div class="form-group row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <button type="button" id="btnApprove" class="col-sm-2 btn mb-1 btn-success form-control ">
-                                            Approve
-                                            <span class="fa fa-check-square-o"></span>
-                                        </button>
-                                        @*Edit Submit*@
-                                        <button type="button" id="btnSubmit" class="col-sm-2 btn mb-1 btn-success form-control " style="display:none">
-                                            Submit
-                                            <span class="fa fa-check-square-o"></span>
-                                        </button>
-                                        <button type="button" id="btnCancelDeviation" class="col-sm-3 btn mb-1 btn-danger form-control">
-                                            Cancel Penyimpangan
-                                            <span class="fa fa-ban"></span>
-                                        </button>
-                                        @*  <button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
-                                          Reject
-                                             <span class="fa fa-ban"></span>
-                                         </button>*@
-                                        @*Edit Cancel*@
-                                        <button type="button" id="btnCancelEdit" class="col-sm-2 btn mb-1 btn-warning form-control" style="display:none">
-                                            Cancel Edit
-                                            <span class="fa fa-ban"></span>
-                                        </button>
+	</div>
 
+	<div class="form-group">
+		@Html.Partial("Approval", "Approval")
 
-                                        <button type="button" id="btnEdit" class="col-sm-2 btn mb-1 btn-warning form-control">
-                                            Edit
-                                            <span class="fa fa-edit"></span>
-                                        </button>
-
-                                    </div>
-                                  
-                                  
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Approval:</label>
-                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtTanggal">Tanggal:</label>
-                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!--<div class="form-group">-->
-     @*   @Html.Partial("Approval", "Approval")*@
-
-    <!--</div>-->
-
-    <div class="form-group">
-
-		@Html.Partial("~/Views/PelaporPenyimpangan/EditDeviationPartialView.cshtml")
-        @*@Html.Partial("PelaporPenyimpangan", "EditDeviationPartialView")*@
-
-    </div>
-
-
+	</div>
 </div>
 
-
-
-<script>
+<script nonce="8v4F7XpGhXKS9ktHD/DF3g==">
 
 	$(document).ready(function () {
 		$("#btnApprove").click(function () {
@@ -96,13 +62,9 @@
 
 		});
 
-	@*	$("#btnReject").click(function () {
+		$("#btnReject").click(function () {
 			Reject();
-		});*@
-
-
-
-
+		});
 
 	});
 
@@ -143,7 +105,7 @@
 		});
 	}
 
-	@*function Reject() {
+	function Reject() {
 
 		Swal.fire({
             icon: 'question',
@@ -204,294 +166,6 @@
 				});
 			}
 		});
-	}*@
-
-	$('#btnEdit').click(function () {
-        var x = document.getElementById("btnApprove");
-		@*var y = document.getElementById("btnReject");*@
-
-
-        if (x.style.display === "none" /*&& y.style.display=="none"*/) {
-			x.style.display = "inline";
-			/*y.style.display = "inline";*/
-        } else {
-			x.style.display = "none";
-			@*y.style.display = "none";*@
-            document.getElementById("btnSubmit").style.display = "inline";
-            document.getElementById("btnCancelEdit").style.display = "block";
-           /* document.getElementById("btnCancelDeviation").style.display = "block";*/
-		}
-
-		document.getElementById("btnEdit").style.display = "none";
-
-
-
-
-	});
-
-    $("#btnSubmit").click(function () {
-        if (!$(".form-valide").valid()) {
-            return;
-        }
-        InsertDeviation();
-
-    });
-
-	 // Save Deviation
-    function InsertDeviation() {
-
-        var ID_PROPOSER = '@Request.RequestContext.HttpContext.Session["xUser"]';
-        var DEPARTEMENT = $("#TbDeptPusul").val();
-        var PROBLEM = $("#txtProblem").val();
-        var DATE_OF_INCIDENT = $("#date-format").val();
-        var LOCATION_SITE = $("#ddlSite").val();
-
-        var DEVIATION_CATEGORY = $("#ddlKategori").val();
-        var NO_WO_ORACLE = $('#TxtNoWO').val();
-        var Item_Code_Oracle = $('#TxtItemCode').val();
-        var No_Batch_Oracle = $('#TxtBatchNo').val();
-
-
-        //var DEVIATION_TYPE = $("#ddlJenSi").val();
-        var KET_CATEGORY = $("#txtKetKategori").val();
-        var CR_DATE_USER = $("#TbTglCreated").val();
-
-        var LOCATION = $("#txtLokasi").val();
-        var LocationSiteIncident = $('#txtSiteLokasi').val();
-        var LocationDeptIncident = $("#txtDept").val();
-
-
-        var USER_INVOLVED = $("#txtWho").val();
-        var ORDER_OF_EVENTS = $("#txtHow").val();
-
-        var PLAN_DEV_FLAG = $('input[name="travel5"]:checked').val();
-
-        var SAME_POTEN_DEV_FLAG = $('input[name="travel1"]:checked').val();
-        var SAME_POTEN_DEV = $("#txtsama").val();
-        var POTEN_DEV_RLS_FLG = $('input[name="travel2"]:checked').val();
-        var POTEN_DEV_RLS = $("#txtrilis").val();
-        var POTEN_DEV_OTH_FLG = $('input[name="travel3"]:checked').val();
-        var POTEN_DEV_OTH = $("#txtlain").val();
-        var ACTION_WHEN_DEV = $("#txtTindakan").val();
-        var FILE_UPLOAD_ID = $("#txtUpload").val();
-        var QUALITY_PRODUCT = $("#ddlKualProd").val();
-        var COMPLIANCE = $("#ddlCompliance").val();
-        var RISK_OPERATION = $("#ddlRiskOpr").val();
-        var RISK_FINANCIAL = $("#ddlRiskFin").val();
-        var RISK_ORGANIZATION = $("#ddlRiskOrg").val();
-        var RISK_SECURITY = $("#ddlKeamamananP").val();
-        var RISK_HEALTY = $("#ddlKesehatanPer").val();
-        var RISK_ENVIRONTMENT = $("#ddlResLingk").val();
-        var RISK_INTELLECTUAL = $("#ddlRiskIntelek").val();
-        var SEVERTY_DEVIATION = $("#txtKeparahan").val();
-        var REQID = $("#lblReq").text();
-
-        var REQ = $("#txtReq").val();
-
-        var THIRTY_FLAG = $('input[name="travel4"]:checked').val();
-        var THIRTY = $("#txt30hari").val();
-
-        var FLAG_KOOR = document.getElementById('ddlKategori').value;
-
-
-        if (FLAG_KOOR == 'QPR' || FLAG_KOOR == 'QNA' || FLAG_KOOR == 'QMT' || FLAG_KOOR == 'LLI') {
-            FLAG_KOOR = 'Coordinator_QA';
-        } else if (FLAG_KOOR == 'QNS' || FLAG_KOOR == 'HSE' ){
-            FLAG_KOOR = 'Coordinator_QS';
-        }
-        var UsulanRemidial = $('#txtUsulanRemidial').val();
-
-        var FlagReceipt = $('input[name="r_receipt"]:checked').val();
-        var QCMaterialManufacturerNo = $('#TxtQCMaterialNo').val();
-
-
-
-        var dto = {
-            CrDateUser: CR_DATE_USER,
-            IdProposer: ID_PROPOSER,
-            Departement: DEPARTEMENT,
-            Problem: PROBLEM,
-            Date_of_incident: DATE_OF_INCIDENT,
-            LocationSite: LOCATION_SITE,
-
-
-            DeviationCategory: DEVIATION_CATEGORY,
-            NO_WO_ORACLE: NO_WO_ORACLE,
-            Item_Code_Oracle: Item_Code_Oracle,
-            No_Batch_Oracle: No_Batch_Oracle,
-
-            //DeviationType: DEVIATION_TYPE,
-            KetCategory: KET_CATEGORY,
-
-            Location: LOCATION,
-            LocationSiteIncident: LocationSiteIncident,
-            LocationDeptIncident: LocationDeptIncident,
-
-            User_involved: USER_INVOLVED,
-            OrderOfEvents: ORDER_OF_EVENTS,
-            SamePotenDevFlag: SAME_POTEN_DEV_FLAG,
-            SamePotennDev: SAME_POTEN_DEV,
-            PotenDevRlsFlg: POTEN_DEV_RLS_FLG,
-            PotenDevRls: POTEN_DEV_RLS,
-            PotenDevOTHFlg: POTEN_DEV_OTH_FLG,
-            PotenDevOTH: POTEN_DEV_OTH,
-
-            ActionWhenDev: ACTION_WHEN_DEV,
-            File_upload_id: FILE_UPLOAD_ID,
-            QualityProduct: QUALITY_PRODUCT,
-            Compliance: COMPLIANCE,
-            RiskOperasional: RISK_OPERATION,
-            RiskFinancial: RISK_FINANCIAL,
-            RiskOrganization: RISK_ORGANIZATION,
-            RiskSecurity: RISK_SECURITY,
-            RiskHealty: RISK_HEALTY,
-            RiskEnvirontment: RISK_ENVIRONTMENT,
-            RiskIntellectual: RISK_INTELLECTUAL,
-            SevertyDeviation: SEVERTY_DEVIATION,
-            ReqID: REQID,
-
-            FLAG_KOOR: FLAG_KOOR,
-
-            PLAN_DEV: PLAN_DEV_FLAG,
-            THIRTY_FLAG: THIRTY_FLAG,
-            THIRTY: THIRTY,
-            REQ: REQ,
-
-            UsulanRemidial: UsulanRemidial,
-			FlagReceipt: FlagReceipt,
-            QCMaterialManufacturerNo: QCMaterialManufacturerNo,
-
-			RoleEditor: 'Sup Pelapor', //jgn lupa diganti
-        };
-
-        $.ajax({
-            url: "../Form/InsertFormDeviation",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Form Submitted',
-                    showConfirmButton: false,
-                    timer: 2000
-                }).then(() => {
-                    if (DEVIATION_CATEGORY == 'QPR' || DEVIATION_CATEGORY == 'QMT') {
-                        @*InsertMultipleProduk();*@
-                        UpdateMultipleProduk();
-                    }
-                    CheckDelete = 1;
-                    $.when(
-                       @* SendEmailRev()*@
-                       SendEmailApproveSpvApv()
-                    ).then(
-                        window.location.href = "../DataDeviasi/PendingTask"
-                    );
-
-                });
-
-            }
-            , error: function (ex) {
-                alert('Error Delete Attachment: ' + JSON.stringify(ex));
-            }
-        });
-    }
-
-    $('#btnCancelDeviation').click(function () {
-        Cancel();
-    });
-
-    	function Cancel() {
-		Swal.fire({
-            icon: 'question',
-            title: 'Mohon masukan alasan untuk membatalkan penyimpangan ini?',
-			input: 'textarea',
-			inputAttributes: {
-				autocapitalize: 'off'
-			},
-			showCancelButton: true,
-			confirmButtonText: 'Submit',
-			showLoaderOnConfirm: true,
-
-			allowOutsideClick: () => Swal.isLoading()
-		}).then((result) => {
-			if (result.isConfirmed) {
-				if (result.value == null || result.value == '') {
-					Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
-					});
-				} else
-					if (result.isConfirmed) {
-						var REQID = @ViewBag.nomor;
-						var Keterangan = result.value;
-						var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-						function CancelDeviationKoor() {
-                            var dto = {
-                                REQID: REQID,
-                                KETERANGAN: Keterangan,
-                                IDUSER: iduser
-                            };
-
-                            $.ajax({
-                                url: "../Koordinator/Coor_KoorCancel",
-                                type: "post",
-                                dataType: "json",
-                                data: JSON.stringify(dto),
-                                contentType: "application/json;charset=utf-8",
-                                success: function (data) {
-
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Form Cancelled',
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    }).then(() => {
-                                        window.location.href = "../DataDeviasi/PendingTask"
-                                    })
-
-                                }
-                                , error: function (ex) {
-                                    GetError("Coor_KoorCancel", JSON.stringify(ex));
-                                }
-                            });
-						}
-
-						function NotifyCancelDevKor() {
-                            var tabletype = "One";
-                            var whoreceiver = "Canceled";
-
-                            var dtx = {
-                                Receiver: iduser,
-                                ReqID: iduser,
-                                TableType: tabletype,
-                                WhoReceiver: whoreceiver
-                            };
-
-                            $.ajax({
-                                type: "post",
-                                url: '../Form/SendEmailInputProposal',
-                                data: JSON.stringify(dtx),
-                                dataType: "json",
-                                contentType: "application/json;charset=utf-8",
-                                success: function (data) {
-
-                                }, error: function (ex) {
-                                    GetError("EmailCancelDeviationKoor", JSON.stringify(ex));
-                                }
-                            });
-						}
-
-                        $.when(CancelDeviationKoor()).done(NotifyCancelDevKor());
-
-					}
-			}
-
-		});
 	}
 
 	function SendEmailRejectSpvRjt() {
@@ -538,7 +212,7 @@
 		});
 	}
 
-function SendEmailApproveSpvApv() {
+	function SendEmailApproveSpvApv() {
 		var REQID = $("#lblReq").text();
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -625,10 +299,6 @@ function SendEmailApproveSpvApv() {
 			}
 		});
 	}
-
-
-
-
 
 </script>
 

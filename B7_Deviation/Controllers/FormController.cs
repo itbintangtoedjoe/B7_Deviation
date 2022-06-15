@@ -1,12 +1,16 @@
-﻿using B7_Deviation.Models;
-using Oracle.ManagedDataAccess.Client;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Oracle.ManagedDataAccess.Client;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using B7_Deviation.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace B7_Deviation.Controllers
 {
@@ -31,7 +35,7 @@ namespace B7_Deviation.Controllers
 
         public ActionResult CheckEmailAvailability(DeviationModel model)
         {
-            //string result;
+            string result;
             List<string> ModelData = new List<string>();
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
@@ -48,19 +52,7 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@UserID", SqlDbType.VarChar);
                     command.Parameters["@UserID"].Value = model.UserInvolved;
 
-                    command.Parameters.Add("@Group", SqlDbType.VarChar);
-                    command.Parameters["@Group"].Value = model.Group;
-
-                    command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
-                    command.Parameters["@GroupSite"].Value = model.GroupSite;
-
-                    //result = (string)command.ExecuteScalar();
-
-
-                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                    dataAdapt.SelectCommand = command;
-
-                    dataAdapt.Fill(DT);
+                    result = (string)command.ExecuteScalar();
                 }
                 Conn.Close();
             }
@@ -71,26 +63,13 @@ namespace B7_Deviation.Controllers
                 throw ex;
             }
 
-            //return Json(ModelData);
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-            Dictionary<string, object> row;
-            foreach (DataRow dr in DT.Rows)
-            {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in DT.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);
-                }
-                rows.Add(row);
-            }
-
-            return Json(rows);
+            ModelData.Add(result);
+            return Json(ModelData);
         }
 
 
         public ActionResult SendEmailInputProposal(EmailModel Model)
         {
-            /*
             MailMessage Msg = new MailMessage();
             SmtpClient MailObject = new SmtpClient("mail.kalbe.co.id");
 
@@ -208,26 +187,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@UserID", SqlDbType.VarChar);
                             Command.Parameters["@UserID"].Value = Model.Receiver;
                         }
-                        else if (Model.WhoReceiver == "Div Head after Sup PIC Approve Cost")
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Find Div Head";
-
-                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@UserID"].Value = Model.Receiver;
-                        }
                         else if (Model.WhoReceiver == "PIC after Superior Rejected Cost")
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "PIC after Superior Rejected Cost";
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
-                            Command.Parameters["@Urutan"].Value = Model.Urutan;
-                        }
-                        else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "PIC after Superior Rejected Cost";
@@ -606,49 +566,6 @@ namespace B7_Deviation.Controllers
                         "</table>" +
                         "</body></html>";
                 }
-                else if (Model.WhoReceiver == "Div Head after Sup PIC Approve Cost")
-                {
-                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-                        "Proposal with,<br/><br/>" +
-                        "<table style=" + "float:left" + ">" +
-                        "<tr>" +
-                            "<td>Req No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + Model.ReqID + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Deviation No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_deviation_no + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Problem</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_problem + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Category</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_category + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Location</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_location + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Status</td>" +
-                            "<td>:</td>" +
-                            "<td><b>Need Your Approval as Division Head for the Cost</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
-                            "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-                        "</tr>" +
-                        "</table>" +
-                        "</body></html>";
-                }
                 else if (Model.WhoReceiver == "PIC after Superior Rejected Cost")
                 {
                     EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
@@ -684,53 +601,6 @@ namespace B7_Deviation.Controllers
                             "<td>:</td>" +
                             //"<td><b>" + t_status + "</b></td>"
                             "<td><b>Cost Tindakan Remidial Rejected by Your Superior</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        //"<tr>" +
-                        //    "<td><b>Need Your Approval</b></td>" +
-                        //"</tr>" +
-                        "<tr>" +
-                            "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-                        "</tr>" +
-                        "</table>" +
-                        "</body></html>";
-                }
-                else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost")
-                {
-                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-                        "Proposal with,<br/><br/>" +
-                        "<table style=" + "float:left" + ">" +
-                        "<tr>" +
-                            "<td>Req No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + Model.ReqID + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Deviation No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_deviation_no + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Problem</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_problem + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Category</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_category + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Location</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_location + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Status</td>" +
-                            "<td>:</td>" +
-                            //"<td><b>" + t_status + "</b></td>"
-                            "<td><b>Cost Tindakan Remidial Rejected by Your Division Head</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
                         //"<tr>" +
@@ -1228,34 +1098,6 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
                         }
-                        else if (Model.WhoReceiver == "Group PIC after Appointed")
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Group PIC after Appointed";
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            Command.Parameters.Add("@Group", SqlDbType.VarChar);
-                            Command.Parameters["@Group"].Value = Model.Group;
-
-                            Command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
-                            Command.Parameters["@GroupSite"].Value = Model.Site;
-                        }
-                        else if (Model.WhoReceiver == "PIC after Superior Rejected Cost" || Model.WhoReceiver== "PIC after Division Head Rejected Cost")
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Group PIC after Appointed";
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            Command.Parameters.Add("@Group", SqlDbType.VarChar);
-                            Command.Parameters["@Group"].Value = Model.Group;
-
-                            Command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
-                            Command.Parameters["@GroupSite"].Value = Model.Site;
-                        }
                         else if (Model.WhoReceiver == "Koordinator after PIC Submit" || Model.WhoReceiver == "Koordinator after Superior PIC Approved Cost")
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
@@ -1552,135 +1394,6 @@ namespace B7_Deviation.Controllers
                         "</body></html>";
 
 
-                }
-                else if (Model.WhoReceiver == "Group PIC after Appointed")
-                {
-                    EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
-                        "Proposal with,<br/><br/>" +
-                        "<table style=" + "float:left" + ">" +
-                        "<tr>" +
-                            "<td>Req No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + Model.ReqID + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Deviation No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_deviation_no + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Problem</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_problem + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Category</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_category + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Location</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_location + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Status</td>" +
-                            "<td>:</td>" +
-                            "<td><b>Need Your Group Member to Review as PIC</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
-                            "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-                        "</tr>" +
-                        "</table>" +
-                        "</body></html>";
-                }
-                else if (Model.WhoReceiver == "PIC after Superior Rejected Cost") //group
-                {
-                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-                        "Proposal with,<br/><br/>" +
-                        "<table style=" + "float:left" + ">" +
-                        "<tr>" +
-                            "<td>Req No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + Model.ReqID + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Deviation No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_deviation_no + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Problem</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_problem + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Category</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_category + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Location</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_location + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Status</td>" +
-                            "<td>:</td>" +
-                            "<td><b>Cost Tindakan Remidial Rejected by a Superior in Your Group</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
-                            "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-                        "</tr>" +
-                        "</table>" +
-                        "</body></html>";
-                }
-                else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost") //group
-                {
-                    EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-                        "Proposal with,<br/><br/>" +
-                        "<table style=" + "float:left" + ">" +
-                        "<tr>" +
-                            "<td>Req No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + Model.ReqID + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Deviation No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_deviation_no + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Problem</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_problem + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Category</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_category + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Location</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_location + "</b></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Status</td>" +
-                            "<td>:</td>" +
-                            "<td><b>Cost Tindakan Remidial Rejected by Your Division Head</b></td>" +
-                        "</tr>" +
-                        "<tr></tr>" +
-                        "<tr>" +
-                            "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviation/Login/Index" + ">Click Here</a>" +
-                        "</tr>" +
-                        "</table>" +
-                        "</body></html>";
                 }
                 else if (Model.WhoReceiver == "Koordinator after PIC Submit")
                 {
@@ -2006,8 +1719,8 @@ namespace B7_Deviation.Controllers
             }
 
             Msg.To.Clear();
-            Msg.Bcc.Clear();*/
-            return Json("S");
+            Msg.Bcc.Clear();
+            return Json(ModelData);
         }
 
 
@@ -2017,8 +1730,7 @@ namespace B7_Deviation.Controllers
             List<string> ModelData = new List<string>();
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
-            try
-            {
+            try {
                 Conn.Open();
                 using (SqlCommand command = new SqlCommand("GENERATE_REQ_NO", Conn))
                 {
@@ -2026,9 +1738,7 @@ namespace B7_Deviation.Controllers
                     result = (string)command.ExecuteScalar();
                 }
                 Conn.Close();
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
 
                 //result = ex.ToString();
                 throw ex;
@@ -2382,8 +2092,7 @@ namespace B7_Deviation.Controllers
         {
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
-            try
-            {
+            try {
                 Conn.Open();
                 using (SqlCommand command = new SqlCommand("DEVIATION_MASTER_DLL", Conn))
                 {
@@ -2395,9 +2104,7 @@ namespace B7_Deviation.Controllers
                     dataAdap.Fill(DT);
                 }
                 Conn.Close();
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 throw ex;
             }
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
@@ -3095,8 +2802,7 @@ namespace B7_Deviation.Controllers
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
 
-            try
-            {
+            try {
                 Conn.Open();
                 using (SqlCommand command = new SqlCommand("DEVIATION_FORM_INPUT", Conn))
                 {
@@ -3104,10 +2810,6 @@ namespace B7_Deviation.Controllers
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add("@Option", SqlDbType.Int);
                     command.Parameters["@Option"].Value = 4;
-
-
-                    command.Parameters.Add("@RoleEditor", SqlDbType.VarChar);
-                    command.Parameters["@RoleEditor"].Value = Model.RoleEditor;
 
                     command.Parameters.Add("@REQID", SqlDbType.VarChar);
                     command.Parameters["@REQID"].Value = Model.ReqID;
@@ -3244,145 +2946,9 @@ namespace B7_Deviation.Controllers
                     result = (string)command.ExecuteScalar();
                 }
                 Conn.Close();
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 throw ex;
             }
-
-            ModelData.Add(result);
-            return Json(ModelData, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult InsertMultipleProduk(string ReqID, List<ProductModel> ListProduk)
-        {
-            string result = "";
-            List<string> ModelData = new List<string>();
-
-            string ConString = MyDB.ConnectionString;
-            SqlConnection Conn = new SqlConnection(ConString);
-
-            foreach (ProductModel product in ListProduk)
-            {
-                try
-                {
-                    Conn.Open();
-                    using (SqlCommand command = new SqlCommand("SP_InsertData", Conn))
-                    {
-                        /* Header*/
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add("@Option", SqlDbType.VarChar);
-                        command.Parameters["@Option"].Value = "Insert Detail Produk";
-
-                        command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                        command.Parameters["@ReqID"].Value = ReqID;
-
-                        command.Parameters.Add("@ItemCodeOracle", SqlDbType.VarChar);
-                        command.Parameters["@ItemCodeOracle"].Value = product.ItemCodeOracle;
-
-                        command.Parameters.Add("@NoBatchOracle", SqlDbType.VarChar);
-                        command.Parameters["@NoBatchOracle"].Value = product.NoBatchOracle;
-
-                        command.Parameters.Add("@NoWOOracle", SqlDbType.VarChar);
-                        command.Parameters["@NoWOOracle"].Value = product.NoWOOracle;
-
-                        command.Parameters.Add("@QCMaterialNo", SqlDbType.VarChar);
-                        command.Parameters["@QCMaterialNo"].Value = product.NoQCMaterial;
-
-                        command.Parameters.Add("@Keterangan", SqlDbType.VarChar);
-                        command.Parameters["@Keterangan"].Value = product.KeteranganKategori;
-
-                        /* End Details */
-                        result = (string)command.ExecuteScalar();
-                    }
-                    Conn.Close();
-                }
-                catch (Exception ex)
-                {
-                    result = ex.Message;
-                }
-            }
-
-
-
-            ModelData.Add(result);
-            return Json(ModelData, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult UpdateMultipleProduk(string ReqID, List<ProductModel> ListProduk)
-        {
-            string result = "";
-            List<string> ModelData = new List<string>();
-
-            string ConString = MyDB.ConnectionString;
-            SqlConnection Conn = new SqlConnection(ConString);
-
-            //Delete Detail Produk
-            try
-            {
-                Conn.Open();
-                using (SqlCommand command = new SqlCommand("SP_InsertData", Conn))
-                {
-                    /* Header*/
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@Option", SqlDbType.VarChar);
-                    command.Parameters["@Option"].Value = "Delete Detail Produk";
-
-                    command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                    command.Parameters["@ReqID"].Value = ReqID;
-
-                    /* End Details */
-                    result = (string)command.ExecuteScalar();
-                }
-                Conn.Close();
-            }
-            catch (Exception ex)
-            {
-                result = ex.Message;
-            }
-
-            //Insert Detail Produk Baru
-            foreach (ProductModel product in ListProduk)
-            {
-                try
-                {
-                    Conn.Open();
-                    using (SqlCommand command = new SqlCommand("SP_InsertData", Conn))
-                    {
-                        /* Header*/
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add("@Option", SqlDbType.VarChar);
-                        command.Parameters["@Option"].Value = "Insert Detail Produk";
-
-                        command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                        command.Parameters["@ReqID"].Value = ReqID;
-
-                        command.Parameters.Add("@ItemCodeOracle", SqlDbType.VarChar);
-                        command.Parameters["@ItemCodeOracle"].Value = product.ItemCodeOracle;
-
-                        command.Parameters.Add("@NoBatchOracle", SqlDbType.VarChar);
-                        command.Parameters["@NoBatchOracle"].Value = product.NoBatchOracle;
-
-                        command.Parameters.Add("@NoWOOracle", SqlDbType.VarChar);
-                        command.Parameters["@NoWOOracle"].Value = product.NoWOOracle;
-
-                        command.Parameters.Add("@QCMaterialNo", SqlDbType.VarChar);
-                        command.Parameters["@QCMaterialNo"].Value = product.NoQCMaterial;
-
-                        command.Parameters.Add("@Keterangan", SqlDbType.VarChar);
-                        command.Parameters["@Keterangan"].Value = product.KeteranganKategori;
-
-                        /* End Details */
-                        result = (string)command.ExecuteScalar();
-                    }
-                    Conn.Close();
-                }
-                catch (Exception ex)
-                {
-                    result = ex.Message;
-                }
-            }
-
-
 
             ModelData.Add(result);
             return Json(ModelData, JsonRequestBehavior.AllowGet);
@@ -3507,14 +3073,13 @@ namespace B7_Deviation.Controllers
         }
         #endregion
 
-        public ActionResult LogError(ErrorModel Model)
+        public ActionResult LogError(ErrorModel Model) 
         {
             string ConString = MyDB.ConnectionString, result;
             SqlConnection Conn = new SqlConnection(ConString);
             List<string> ModelData = new List<string>();
 
-            try
-            {
+            try {
                 using (SqlCommand command = new SqlCommand("SP_ERROR", Conn))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -3534,9 +3099,7 @@ namespace B7_Deviation.Controllers
                     result = (string)command.ExecuteScalar();
                     Conn.Close();
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch(Exception ex) {
                 throw ex;
             }
 

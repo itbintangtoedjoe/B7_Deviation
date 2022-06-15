@@ -141,7 +141,7 @@ namespace B7_Deviation.Controllers
                             {
                                 if (Model.Username == "")
                                 {
-                                    status = "Username kosong!";
+                                    status = "Useername Kosong !";
                                 }
                                 else
                                 {
@@ -279,7 +279,6 @@ namespace B7_Deviation.Controllers
                         Session["fullname"] = DT2.Rows[0]["empname"].ToString();
                         Session["jobttlname"] = DT2.Rows[0]["jobttlname"].ToString();
                         Session["nik"] = DT2.Rows[0]["empid"].ToString();
-                        Session["usergroup"] = DT2.Rows[0]["dept"].ToString();
                     }
                     catch (Exception ex)
                     {

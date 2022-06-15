@@ -5,7 +5,7 @@
 }
 
 <link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer nonce="FBGBmcLFKA6p5Vts07JmSw=="></script>
 
 <style>
     .ellipsis {
@@ -24,55 +24,39 @@
                     <div class="form-group">
                         <h2 class="d-inline">B7 Deviation Pending List</h2>
                     </div>
-                    <div id="divLoading" class="row">
-                        <div class="col-md-12" style="text-align:center">
-                            <img src="~/Content/Styles/images/loading2.gif" width="400" height="300" />
-                        </div>
 
-                    </div>
-                    <div id="cardTable">
-                        <table class="table table-striped table-bordered table-hover zero-configuration nowrap table-responsive" width="100%" id="deviationdatatable" style="color:black">
-                            <thead>
-                                <tr>
-                                    <th width="100px">Action</th>
-                                    <th width="100px">Request&nbsp;ID</th>
-                                    <th width="100px">Nomor Penyimpangan</th>
-                                    <th width="100px">Nama&nbsp;Pelapor</th>
-                                    <th width="100px">Kategori Penyimpangan</th>
-                                    <th width="100px">Jenis Penyimpangan</th>
-                                    <th width="100px">Deskripsi Singkat</th>
-                                    <th width="100px">Status</th>
-                                    <th width="100px">Alasan Reject</th>
-                                    <th width="100px">Assign To</th>
-                                    <th width="100px" hidden>SENDTO</th>
-                                    <th width="100px">Nomor CAPA</th>
-                                    <th width="100px">Tanggal Closed</th>
-                                    <th width="100px">Alasan Cancelled</th>
-                                    <th width="100px">Tanggal Cancelled</th>
-                                    <th width="100px" hidden>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="deviationtable">
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="table table-striped table-bordered table-hover zero-configuration nowrap table-responsive" width="100%" id="deviationdatatable" style="color:black">
+                        <thead>
+                            <tr>
+                                <th width="100px">Action</th>
+                                <th width="100px">Request&nbsp;ID</th>
+                                <th width="100px">Nomor Penyimpangan</th>
+                                <th width="100px">Nama&nbsp;Pelapor</th>
+                                <th width="100px">Kategori Penyimpangan</th>
+                                <th width="100px">Jenis Penyimpangan</th>
+                                <th width="100px">Deskripsi Singkat</th>
+                                <th width="100px">Status</th>
+                                <th width="100px">Alasan Reject</th>
+                                <th width="100px">Assign To</th>
+                                <th width="100px" hidden>SENDTO</th>
+                                <th width="100px">Nomor CAPA</th>
+                                <th width="100px">Tanggal Closed</th>
+                                <th width="100px">Alasan Cancelled</th>
+                                <th width="100px">Tanggal Cancelled</th>
+                                <th width="100px" hidden>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deviationtable">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        let checkLoading = 0;
+    <script nonce="BNu8TEK5c4hBARTBF27VlA==">
         $(document).ready(function () {
             LoadData();
-
-            if (checkLoading == 0) {
-                $('#divLoading').prop('hidden', false);
-                $('#cardTable').prop('hidden', true);
-            } else {
-                $('#divLoading').prop('hidden', true);
-                $('#cardTable').prop('hidden', false);
-            }
         });
 
         function LoadData() {
@@ -88,11 +72,10 @@
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    console.log(data);
+                    /*console.log(data);*/
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
-                    checkLoading = Count;
                     for (trav = 0; trav < Count; trav++) {
 
                         // Set Button
@@ -163,6 +146,8 @@
                         } else if (data[trav].SEND_TO == 'PICRemidial') {
                             // Kurang disini
                             if (data[trav].CURRUSER == 'Supervisor') {
+
+
                                 if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
                                     if (data[trav].FLAG_QMPIC == 'QM') {
                                         //khusus atasan yg mempunyai role evaluator
@@ -247,6 +232,20 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         trHTML +=
                             '<td>' + data[trav].REQ_ID + '</td>' +
                             '<td>' + data[trav].DEVIATION_NO + '</td>' +
@@ -313,13 +312,9 @@
                             '<td hidden>' + data[trav].REQ_ID + '</td></tr>';
 
                     }
-
-                    if ((Count > 0 && checkLoading > 0) || Count==0) {
-                        $('#divLoading').prop('hidden', true);
-                        $('#cardTable').prop('hidden', false);
-                    }
                     
                     $('#deviationtable').empty();
+                    //console.log(trHTML)
                     $('#deviationtable').append(trHTML);
                     $('#deviationdatatable').DataTable({
                         order: [[0, "desc"]]
@@ -328,15 +323,7 @@
 
                 },
                 error: function (ex) {
-                    checkLoading = 0;
-                    $('#divLoading').prop('hidden', true);
-                    $('#cardTable').prop('hidden', false);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Mohon refresh halaman. Jika problem berkelanjutan, hubungi IT',
-                    })
-                    console.log(ex.responseText);
+                    
                 }
             });
         }

@@ -13,7 +13,6 @@ namespace B7_Deviation.Models
         public string KategoriPenyimpangan { get; set; }
         public string JenisPenyimpangan { get; set; }
         public string TahunPelaporan { get; set; }
-        public string SitePenyimpangan { get; set; }
 
         // Lead Time
         public string BulanPelaporan { get; set; }

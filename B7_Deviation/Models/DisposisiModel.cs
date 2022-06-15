@@ -13,12 +13,9 @@ namespace B7_Deviation.Models
         public string KETERANGAN_DISPOSISI{ get; set; }
         public string PIC_REMEDIAL_NIK { get; set; }
         public string PIC_REMEDIAL_NAME { get; set; }
-        public string GROUP_SITE { get; set; }
         public DateTime DUE_DATE { get; set; }
         public string NO_DISPOSISI { get; set; }
         public string CURR_USER { get; set; }
         public string KETERANGAN_REJECT { get; set; }
-        public long TOTAL_COST { get; set; }
-        public string STATUS { get; set; }
     }
 }

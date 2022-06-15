@@ -5,40 +5,34 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-custom-all-bordered" id="deviationdatatable" width="3500px" style="color:black;border:solid;">
+                            <table class="table table-bordered table-hover" id="deviationdatatable" width="3500px">
                                 <thead>
                                     <tr>
                                         <th rowspan="2" width="50px">No</th>
-                                        <th rowspan="2" width="250px">Usulan Tindakan Remedial</th>
-                                        <th rowspan="2" width="150px">Nama PIC</th>
+                                        <th rowspan="2">Usulan Tindakan Remedial</th>
                                         <th rowspan="2">Hasil Tindakan Remedial</th>
-                                        <th colspan="5" style="text-align:center">Testing Cost</th>
-                                        <th colspan="4" style="text-align:center">Processing Cost</th>
+                                        <th colspan="4" style="text-align:center">Testing Cost</th>
+                                        <th colspan="3" style="text-align:center">Processing Cost</th>
                                         <th colspan="3" style="text-align:center">Reject Cost</th>
-                                        <th colspan="6" style="text-align:center">Machine Cost</th>
-                                        <th rowspan="2" style="text-align:center" width="100px">Status</th>
-                                        <th rowspan="2" style="text-align:center" width="20px">Dokumen Pendukung</th>
+                                        <th colspan="2" style="text-align:center">Machine Cost</th>
+                                        <th rowspan="2" style="text-align:center" width="150px">PIC</th>
+                                        <th rowspan="2" style="text-align:center">Status</th>
+                                        <th rowspan="2" style="text-align:center" width="50px">Dokumen Pendukung</th>
                                         <th id="headVerify" rowspan="2" style="text-align:center" width="200px">Verifikasi Tindakan Remedial</th>
                                     </tr>
                                     <tr>
-                                        <th width="75px">Jumlah Personel (orang)</th>
-                                        <th width="75px">Durasi Pengerjaan (jam)</th>
-                                        <th width="75px">Manhours</th>
-                                        <th width="75px">Manhours Cost (Rp)</th>
-                                        <th width="150px">Cost of Analysis (Rp)</th>
-                                        <th width="75px">Jumlah Personel (orang)</th>
-                                        <th width="75px">Durasi Pengerjaan (jam)</th>
-                                        <th width="75px">Manhours</th>
-                                        <th width="75px">Manhours Cost (Rp)</th>
+                                        <th width="75px">Jumlah&nbspPersonel</th>
+                                        <th width="75px">Durasi&nbspPengerjaan&nbsp(Jam)</th>
+                                        <th width="75px">Manhours&nbspValue</th>
+                                        <th width="150px">Cost&nbspof&nbspAnalysis</th>
+                                        <th width="75px">Durasi&nbspPengerjaan</th>
+                                        <th width="75px">Jumlah&nbspPelaksana&nbsp(Jam)</th>
+                                        <th width="75px">Manhours&nbspValue</th>
                                         <th width="75px">Material</th>
                                         <th width="75px">Quantity</th>
-                                        <th width="75px">Cost Material (Rp)</th>
-                                        <th width="75px">Jumlah Teknisi (orang)</th>
-                                        <th width="75px">Durasi (jam)</th>
-                                        <th width="75px">Manhours</th>
-                                        <th width="75px">Manhours Cost (Rp)</th>
-                                        <th width="75px">Nama Sparepart</th>
-                                        <th width="75px">Harga Sparepart (Rp)</th>
+                                        <th width="75px">Cost&nbspMaterial</th>
+                                        <th width="75px">Nama&nbspSparepart</th>
+                                        <th width="75px">Harga&nbspSparepart</th>
                                         <th width="75px" hidden="hidden">NIK PIC</th>
                                     </tr>
 
@@ -76,7 +70,7 @@
     </div>
 </body>
 
-<script nonce="CmeTsLKZ0UrxmNoxywWrPg==">
+<script nonce="oF+VMq2x0l6ECpDQWiS8/Q==">
 
 	function LoadData() {
 		var nomor = @ViewBag.nomor;
@@ -98,37 +92,27 @@
 					for (trav = 0; trav < Count; trav++) {
 						var counter = 1;
 						counter += trav;
-                        trHTML +=
-                            '<tr><td align="center">' + counter + '</td>' +
-                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                            '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
-                            '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-
-                            '<td align="right">' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
-                            '<td align="right">' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
-                            '<td align="right">' + data[trav].TESTING_MANHOURS + '</td>' +
-                            //'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
-                            '<td align="right">' + data[trav].TESTING_MANHOURS_VALUE + '</td>' +
-                            '<td align="right">' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
-
-                            '<td align="right">' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
-                            '<td align="right">' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
-                            //'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
-                            '<td align="right">' + data[trav].PROC_MANHOURS + '</td>' +
-                            '<td align="right">' + data[trav].PROC_MANHOURS_VALUE + '</td>' +
-
-                            '<td align="right">' + data[trav].REJ_MATERIAL + '</td>' +
-                            '<td align="right">' + data[trav].REJ_QUANTITY + '</td>' +
-                            '<td align="right">' + data[trav].REJ_COST_MATERIAL + '</td>' +
-
-                            '<td align="right">' + data[trav].MC_JUMLAH_TEKNISI + '</td>' +
-                            '<td align="right">' + data[trav].MC_DURASI_PENGERJAAN + '</td>' +
-                            '<td align="right">' + data[trav].MC_MANHOURS + '</td>' +
-                            '<td align="right">' + data[trav].MC_MANHOURS_VALUE + '</td>' +
-                            '<td>' + data[trav].MC_SPAREPART + '</td>' +
-                            '<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
-                            '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
-                            '<td align="left">' + data[trav].FLAG_PIC + '</td>';
+						trHTML +=
+							'<tr><td align="center">' + counter + '</td>' +
+							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+							'<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+							'<td align="right">' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
+							'<td align="right">' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
+							//'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
+							'<td align="right">' + data[trav].MANHOURS_VALUE_TESTING + '</td>' +
+							'<td align="right">' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
+							'<td align="right">' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
+							'<td align="right">' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+							//'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+							'<td align="right">' + data[trav].MANHOURS_VALUE_PROCESSING + '</td>' +
+							'<td align="right">' + data[trav].REJ_MATERIAL + '</td>' +
+							'<td align="right">' + data[trav].REJ_QUANTITY + '</td>' +
+							'<td align="right">' + data[trav].REJ_COST_MATERIAL + '</td>' +
+							'<td align="right">' + data[trav].MC_SPAREPART + '</td>' +
+							'<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
+							'<td align="left">' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+							'<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+							'<td align="left">' + data[trav].FLAG_PIC + '</td>';
 
                         @*data[trav].FLAG_PIC == 'REJECTED' ||*@
 						if (data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
@@ -137,7 +121,7 @@
 
 						} else {
 							trHTML +=
-								'<td align="center"><button id="btnShowBukti" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+								'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
 						}
 
 						if ((data[trav].FLAG_VERIFIKASI == '-' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC') ||
@@ -176,7 +160,7 @@
 					if (checkVerify > 0) {
 						$('#headVerify').focus();
 					}
-                    ShowBukti();
+
 
 				},
 				error: function (ex) {
@@ -198,40 +182,28 @@
 					for (trav = 0; trav < Count; trav++) {
 
 						trHTML +=
-                            '<tr>' +
-                            '<th colspan="4" rowspan="2" style= "text-align: right;  background-color: #f3f3f3;vertical-align:middle;"> Total</th >' +
-                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Testing Manhours</th>' +
-                            '<th style="text-align: right; background-color: #f3f3f3">Total Testing Manhours Cost</th>' +
-                            '<th style="text-align: right; background-color: #f3f3f3">Total Analysis Cost</th>' +
-                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Processing Manhours</th>' +
-                            '<th style="text-align: right; background-color: #f3f3f3">Total Processing Cost</th>' +
-                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Rejected Cost</th>' +
-                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Machine Manhours</th>' +
-                            '<th style="text-align: right; background-color: #f3f3f3">Total Machine Manhours Cost</th>' +
-                            '<th colspan="2" style="text-align: right; background-color: #f3f3f3">Total Machine Cost</th>' +
-                            '</tr >' +
-
-                            '<tr>' +
-                            '<td colspan = "3" align = "right" style = "padding:10px 8px" > ' + data[0].TOTAL_TESTING_MANHOURS + '</td > '
-                            +
-                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_MANHOURS_COST + '</td>' +
-                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
-
-                            '<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MANHOURS + '</td>' +
-                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_PROC_COST + '</td>' +
-
-                            '<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
-
-                            '<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_MC_MANHOURS + '</td>' +
-                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_MANHOURS_COST + '</td>' +
-                            '<td align="right" colspan="2" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
+							'<tr>' +
+							'<th colspan = "3" style = "text-align: center;  background-color: #f3f3f3" > Total</th >' +
+							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Testing Manhours</th>' +
+							'<th style="text-align: center; background-color: #f3f3f3">Total Testing Cost</th>' +
+							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Processing Manhours</th>' +
+							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Rejected Cost</th>' +
+							'<th colspan="2" style="text-align: center; background-color: #f3f3f3">Total Machine Cost</th>' +
+							'</tr >' +
+							'<tr>' +
+							'<td style="background-color: #f3f3f3" colspan="3"></td><td colspan="3" align="right" style="padding:10px 8px">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
+							'<td align="right" colspan="1" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
+							'<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
+							'<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
+							'<td align="right" colspan="2" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
 
 
-                            '<tr><th colspan = "19" style="text-align:center;background-color: #f3f3f3">Total Times (Total Testing Manhours + Total Processing Manhours + Total Machine Manhours)</th>' +
-                            '<td colspan="3" align="right" style="padding:10px 8px">' + data[trav].TOTAL_TIMES + '</td></tr>' +
+							'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Times</th>' +
+							'<td colspan="2" align="right" style="padding:10px 8px">' + data[trav].TOTAL_TIMES + '</td></tr>' +
 
-                            '<tr><th colspan = "19" style="text-align:center;background-color: #f3f3f3">Total Cost (Total Testing Cost + Total Processing Cost + Total Reject Cost + Total Machine Cost)</th>' +
-                            '<td colspan="3" align="right" style="padding:10px 8px"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
+							'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Cost</th>' +
+							'<td colspan="2" align="right" style="padding:10px 8px"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
+
 					}
 
 					// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY

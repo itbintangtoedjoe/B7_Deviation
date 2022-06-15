@@ -375,44 +375,6 @@ namespace B7_Deviation.Controllers
             return Json(ModelData, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetJenisPIC(PICModel Model)
-        {
-            string result;
-            List<string> ModelData = new List<string>();
-
-            string ConString = mySetting.ConnectionString;
-            SqlConnection Conn = new SqlConnection(ConString);
-
-            try
-            {
-                Conn.Open();
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_AssignPIC]", Conn))
-                {
-                    /* Header*/
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    command.Parameters.Add("@Option", SqlDbType.VarChar);
-                    command.Parameters["@Option"].Value = "Get Jenis PIC";
-
-                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
-                    command.Parameters["@Nomor"].Value = Model.REQID;
-
-                    command.Parameters.Add("@NoDisposisi", SqlDbType.VarChar);
-                    command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
-
-                    result = (string)command.ExecuteScalar();
-                }
-                Conn.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            ModelData.Add(result);
-            return Json(ModelData, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult PIC_SubmitUsulanRevisi(UsulanRevisiModel Model)
         {
             string result;
