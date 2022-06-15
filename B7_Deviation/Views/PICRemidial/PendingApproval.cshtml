@@ -48,8 +48,8 @@
     }
 
 </style>
-<script nonce="/uabV0XDIYM1dG70cSOS6Q==">
-    
+<script nonce="6qVPgYdXbyQ7Je1UD3eNdQ==">
+
     $(document).ready(function () {
         // Load User once the page is loaded
         LoadData();
@@ -59,6 +59,7 @@
     function LoadData() {
 
         var userid = '@Request.RequestContext.HttpContext.Session["xUser"]';
+        var usergroup = '@Request.RequestContext.HttpContext.Session["usergroup"]';
         var reqid = @ViewBag.nomor;
         var dto = {
             IDUSER: userid,
@@ -72,13 +73,14 @@
             dataType: "json",
             contentType: "application/json;charset=utf-8",
             success: function (data) {
+                console.log(data);
                 var trHTML = '';
                 var trav = 0;
                 var Count = data.length;
                 for (trav = 0; trav < Count; trav++) {
-
-
-                    if (data[trav].USER_ID == data[trav].PIC_REMEDIAL_NIK) {
+                    var group = data[trav].PIC_REMEDIAL_NIK.substring(2, data[trav].PIC_REMEDIAL_NIK.count);
+                    //CODE HERE
+                    if ((data[trav].USER_ID == data[trav].PIC_REMEDIAL_NIK) || group == usergroup) {
 
                         // KALAU ASSIGNED, BRARTI BISA ISI / MINTA REVISI
                         if (data[trav].FLAG_PIC == 'ASSIGNED') {
@@ -99,6 +101,7 @@
                         } else if (
                             data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY COORDINATOR' ||
                             data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY SPV PIC' ||
+                            data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY DIV HEAD' ||
                             data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY SPV PIC' ||
                             data[trav].FLAG_PIC == 'PROPOSAL APPROVED BY SPV PIC' ||
                             data[trav].FLAG_PIC == 'PROPOSAL APPROVED BY MANAGER' ||
@@ -119,7 +122,7 @@
                                 '<td style="text-align:center"> N/A </td>'
 
                             // KALAU UDAH ISI / MINTA REVISI, STATUSNYA PENDING DAN GABISA NGAPA2IN
-                        } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE') {
+                        } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE' || data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC' || data[trav].FLAG_PIC == 'REMEDIAL WAITING FOR DIV HEAD') {
                             trHTML +=
                                 '<tr><td style="text-align:center"> N/A </td>' +
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
@@ -155,6 +158,7 @@
                             data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY COORDINATOR' ||
                             data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY SPV PIC' ||
                             data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC' ||
+                            data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY DIV HEAD' ||
                             data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY SPV PIC' ||
                             data[trav].FLAG_PIC == 'PROPOSAL APPROVED BY SPV PIC' ||
                             data[trav].FLAG_PIC == 'PROPOSAL APPROVED BY MANAGER' ||
@@ -224,5 +228,5 @@
         window.open("../PICRemidial/UsulanRevisi?Nomor=" + Nomor + "&Urutan=" + no_disposisi);
     }
 
-        </script>
+</script>
 

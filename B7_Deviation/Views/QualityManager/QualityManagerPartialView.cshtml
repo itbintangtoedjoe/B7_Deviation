@@ -3,6 +3,9 @@
 
 
 <body>
+        @*<div class="form-group">
+            @Html.Partial("../SpvPelapor/Approval")
+        </div>*@
     <div class="container-fluid">
 
 
@@ -122,7 +125,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        @*<div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -156,13 +159,19 @@
                     </div>
                 </div>
             </div>
+        </div>*@
+        <div class="form-group">
+            @Html.Partial("../DataDeviasi/DeviasiPartialView")
         </div>
     </div>
 
 </body>
 
-<script nonce="pkfZojT2j93wXouIiA0I5g==">
+<script nonce="kiRPeXR1m5J/Kibq69NYqg==">
+	var listProduk = [];
+    var editMode = false; 
 	$(document).ready(function () {
+        $('#JenisPenyimpanganDetail').hide();
 		LoadHeader();
 		LoadReviewerData();
 		GetCurrStat();
@@ -653,6 +662,38 @@
 		});
 	}
 
+	function ApproveStatusAssignPIC() {
+		$("#btnApprove").attr('hidden', true);
+
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			REQID: REQID
+		};
+
+		$.ajax({
+			url: "../QualityManager/QM_GetCurrStatAssignPIC",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				if (data == "CAN") {
+					$("#btnApprove").attr('hidden', false);
+					$("#evaluasiresiko").attr('hidden', false);
+				} else {
+					$("#btnApprove").attr('hidden', true);
+					$("#evaluasiresiko").attr('hidden', true);
+				}
+
+			}, error: function (ex) {
+				Error("Get Current Status", JSON.stringify(ex));
+			}
+		});
+
+	}
+
 	function LoadKeteranganDisposisi() {
 
 		ApproveStatusAssignPIC();
@@ -856,7 +897,7 @@
                         timer: 2000
                     })
 				);
-				
+
 			},
 			error: function (ex) {
 				Error("Update Keterangan Disposisi" , JSON.stringify(ex));

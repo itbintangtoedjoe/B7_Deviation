@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer nonce="tcjO+QQ/DmQR4xWUCbmFlA=="></script>
+@*<link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>*@
 
 <div class="content-body">
     <div class="form-group">
@@ -43,9 +43,10 @@
     </div>
 
     @* PROPOSER SECTION *@
-    <div class="form-group" id="partialview">
-        @Html.Partial("../SpvPelapor/Approval")
-    </div>
+<div class="form-group" id="partialview">
+    @Html.Partial("../SpvPelapor/Approval")
+    @*@Html.Partial("../DataDeviasi/DeviasiPartialView")*@
+</div>
 
     @* REVIEWER SECTION *@
     <div class="form-group" id="DIV_REVIEWER">
@@ -69,220 +70,297 @@
         </div>
     </div>
 
+    @*<div class="form-group">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>DISPOSISI TINDAKAN REMIDIAL</h4>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">
+                                        Disposisi Tindakan Remedial
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <textarea id="disposisitindakan" class="form-control" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Hasil Tindakan Remedial<span class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <textarea id="txtHasilTindakan" class="form-control" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row" id="can">
+                                    <label class="col-sm-2 col-form-label">Upload Bukti Tindakan Remidial<span class="text-danger">*</span></label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group">
+
+                                        </div>
+                                        <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+                                            <table id="tblBukti" class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:20px">No</th>
+                                                        <th>Bukti Tindakan Remidial</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tblBuktiBody">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <h4>Testing Cost</h4>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="testingDurasiPengerjaan" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="testingJumlahPelaksana" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Manhours Value<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="testingManhoursValue" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Cost of Analysis<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="testingCostAnalysis" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <h4>Processing</h4>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="procDurasiPengerjaan" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="procJumlahPelaksana" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Manhours Value<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="procManhoursValue" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Material/Product<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="procMaterial" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Quantity<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="procQty" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Cost Material<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="procCostMaterial" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <h4>Rejected</h4>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Material/Product<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="rejMaterial" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Quantity<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="rejQty" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Cost Material<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="rejCostMaterial" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <h4>Machine Cost</h4>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="mcDurasiPengerjaan" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Jumlah Teknisi<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="mcJumlahTeknisi" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Manhours Value<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="mcManhoursValue" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Nama Mesin<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="mcNamaMesin" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Total Machine Hours Value<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="mcTotalMachineHours" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Nama Sparepart<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="mcSparepart" disabled />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Harga Sparepart<span class="text-danger">*</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="mcHargaSparepart" disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group" id="evaluasiresiko">
+                                    <h4>Evaluasi Risiko</h4>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault1" value="Yes" disabled="disabled">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Perlu Ditindaklanjuti dengan Pengkajian Risiko
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault2" value="No" disabled="disabled">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Tidak Perlu Ditindaklanjuti dengan Pengkajian
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+
     <div class="form-group">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4>DISPOSISI TINDAKAN REMIDIAL</h4>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">
-                                    Disposisi Tindakan Remedial
-                                </label>
-                                <div class="col-sm-10">
-                                    <textarea id="disposisitindakan" class="form-control" disabled="disabled"></textarea>
-                                </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered table-custom-all-bordered" id="deviationdatatable" width="3450px" style="color:black;border:solid;">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" width="50px">No</th>
+                                            <th rowspan="2" width="250px">Usulan Tindakan Remedial</th>
+                                            <th rowspan="2" width="150px">Nama PIC</th>
+                                            <th rowspan="2">Hasil Tindakan Remedial</th>
+                                            <th colspan="5" style="text-align:center">Testing Cost</th>
+                                            <th colspan="4" style="text-align:center">Processing Cost</th>
+                                            <th colspan="3" style="text-align:center">Reject Cost</th>
+                                            <th colspan="6" style="text-align:center">Machine Cost</th>
+                                            <th rowspan="2" style="text-align:center" width="20px">Dokumen Pendukung</th>
+                                        </tr>
+                                        <tr>
+                                            <th width="75px">Jumlah Personel (orang)</th>
+                                            <th width="75px">Durasi Pengerjaan (jam)</th>
+                                            <th width="75px">Manhours</th>
+                                            <th width="75px">Manhours Cost (Rp)</th>
+                                            <th width="150px">Cost of Analysis (Rp)</th>
+                                            <th width="75px">Jumlah Personel (orang)</th>
+                                            <th width="75px">Durasi Pengerjaan (jam)</th>
+                                            <th width="75px">Manhours</th>
+                                            <th width="75px">Manhours Cost (Rp)</th>
+                                            <th width="75px">Material</th>
+                                            <th width="75px">Quantity</th>
+                                            <th width="75px">Cost Material (Rp)</th>
+                                            <th width="75px">Jumlah Teknisi (orang)</th>
+                                            <th width="75px">Durasi (jam)</th>
+                                            <th width="75px">Manhours</th>
+                                            <th width="75px">Manhours Cost (Rp)</th>
+                                            <th width="75px">Nama Sparepart</th>
+                                            <th width="75px">Harga Sparepart (Rp)</th>
+                                            <th width="75px" hidden="hidden">NIK PIC</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="deviationtable">
+                                    </tbody>
+                                    <tfoot id="picfooter">
+                                    </tfoot>
+                                </table>
                             </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Hasil Tindakan Remedial<span class="text-danger">*</span></label>
-                                <div class="col-sm-10">
-                                    <textarea id="txtHasilTindakan" class="form-control" disabled="disabled"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-group row" id="can">
-                                <label class="col-sm-2 col-form-label">Upload Bukti Tindakan Remidial<span class="text-danger">*</span></label>
-                                <div class="col-sm-7">
-                                    <div class="input-group">
-
-                                    </div>
-                                    <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
-                                        <table id="tblBukti" class="table table-striped table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width:20px">No</th>
-                                                    <th>Bukti Tindakan Remidial</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tblBuktiBody">
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <h4>Testing Cost</h4>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="testingDurasiPengerjaan" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="testingJumlahPelaksana" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Manhours Value<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="testingManhoursValue" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Cost of Analysis<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="testingCostAnalysis" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <h4>Processing</h4>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="procDurasiPengerjaan" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Jumlah Pelaksana<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="procJumlahPelaksana" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Manhours Value<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="procManhoursValue" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Material/Product<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="procMaterial" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Quantity<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="procQty" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Cost Material<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="procCostMaterial" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <h4>Rejected</h4>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Material/Product<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="rejMaterial" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Quantity<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="rejQty" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Cost Material<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="rejCostMaterial" disabled="disabled" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <h4>Machine Cost</h4>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Durasi Pengerjaan<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="mcDurasiPengerjaan" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Jumlah Teknisi<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="mcJumlahTeknisi" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Manhours Value<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="mcManhoursValue" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Nama Mesin<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="mcNamaMesin" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Total Machine Hours Value<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="mcTotalMachineHours" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Nama Sparepart<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="mcSparepart" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Harga Sparepart<span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="mcHargaSparepart" disabled />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-group" id="evaluasiresiko">
-                                <h4>Evaluasi Risiko</h4>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault1" value="Yes" disabled="disabled">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Perlu Ditindaklanjuti dengan Pengkajian Risiko
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault2" value="No" disabled="disabled">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Tidak Perlu Ditindaklanjuti dengan Pengkajian
-                                    </label>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
+                    <div class="card" id="tabel2" hidden="hidden">
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="buktidatatable" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="75px">No</th>
+                                        <th width="100px">Nama PIC</th>
+                                        <th width="75px">Nama File</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="buktitable" class="nowrap">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <input type="hidden" id="totalCost" />
+                    <input type="hidden" id="flagPIC" />
+                    <input type="hidden" id="picNIK" />
+                    <input type="hidden" id="groupSite" />
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script nonce="qxEBNYeNPt0vQ+WEMW9QPA==">
+<script nonce="FDaVOmGSur+NPTb0b64Xkg==">
 	$(document).ready(function () {
 		//FORM INPUT
 		LoadFormInput();
 		//LoadUserInvolved();
 		//GetFileAttachment();
-		GetUsulanTindakan();
+		@*GetUsulanTindakan();*@
 
 		//$(".site-dropdown").click(function () {
 		//	GetAllSite();
@@ -293,7 +371,9 @@
 		LoadKeteranganDisposisi();
 
 		LoadBukti();
-		LoadPICSection();
+		@*LoadPICSection();*@
+
+		LoadDataVerifikasiTindakan();
 
 		$("#btnApprove").click(function () {
 			Approve();
@@ -304,7 +384,7 @@
 		});
 	});
 
-	function GetUsulanTindakan() {
+	@*function GetUsulanTindakan() {
 		var REQID = @ViewBag.nomor;
 		var dis = @ViewBag.dis;
 
@@ -325,7 +405,7 @@
                 GetErrorSupRemedial("GetDisposisiTindakanSupPIC", JSON.stringify(ex));
 			}
 		});
-	}
+	}*@
 
 	//FORM INPUT
 
@@ -809,6 +889,240 @@
         });
 	}
 
+
+
+	function LoadDataVerifikasiTindakan() {
+
+		var nomor = @ViewBag.nomor;
+		var urutan = @ViewBag.dis;
+
+		var dto = {
+            REQID: nomor,
+            NoDisposisi: urutan
+		}
+
+			$.ajax({
+                url: "../SpvPIC/LoadPICCost",
+				type: "post",
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					@*console.log(data);*@
+					var checkVerify = 0;
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+					for (trav = 0; trav < Count; trav++) {
+						var counter = 1;
+						counter += trav;
+						trHTML +=
+							'<tr><td align="center">' + counter + '</td>' +
+							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+							'<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+						'<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+
+							'<td align="right">' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
+							'<td align="right">' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
+							'<td align="right">' + data[trav].TESTING_MANHOURS + '</td>' +
+							//'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
+							'<td align="right">' + data[trav].TESTING_MANHOURS_VALUE + '</td>' +
+						'<td align="right">' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
+
+							'<td align="right">' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+							'<td align="right">' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
+                        //'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+							'<td align="right">' + data[trav].PROC_MANHOURS + '</td>' +
+						'<td align="right">' + data[trav].PROC_MANHOURS_VALUE + '</td>' +
+
+							'<td align="right">' + data[trav].REJ_MATERIAL + '</td>' +
+							'<td align="right">' + data[trav].REJ_QUANTITY + '</td>' +
+							'<td align="right">' + data[trav].REJ_COST_MATERIAL + '</td>' +
+
+							'<td align="right">' + data[trav].MC_JUMLAH_TEKNISI + '</td>' +
+							'<td align="right">' + data[trav].MC_DURASI_PENGERJAAN + '</td>' +
+							'<td align="right">' + data[trav].MC_MANHOURS + '</td>' +
+							'<td align="right">' + data[trav].MC_MANHOURS_VALUE + '</td>' +
+							'<td>' + data[trav].MC_SPAREPART + '</td>' +
+							'<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
+							'<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
+
+						if (data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
+							trHTML +=
+								'<td align="center"> - </td>';
+
+						} else {
+							trHTML +=
+								'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+						}
+
+					}
+
+					$('#deviationdatatable').DataTable().clear().destroy();
+					$('#deviationtable').empty();
+					$('#deviationtable').append(trHTML);
+					$('#deviationdatatable').DataTable({
+						"searching": false,
+						"paging": false,
+						"info": false,
+						"ordering": false
+					});
+
+					if (checkVerify > 0) {
+                        $('#headVerify').focus();
+					}
+
+                    $('#flagPIC').val(data[0].FLAG_PIC);
+                    $('#picNIK').val(data[0].PIC_REMEDIAL_NIK);
+                    $('#groupSite').val(data[0].GROUP_SITE);
+				},
+				error: function (ex) {
+                    GetErrorVerifikasi("LoadDataVerifikasi", JSON.stringify(ex));
+				}
+			})
+
+        $.ajax({
+            url: "../SpvPIC/LoadPICCostFooter",
+            type: "post",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				@*console.log(data);*@
+                var trHTML = '';
+                var trav = 0;
+                var Count = data.length;
+                for (trav = 0; trav < Count; trav++) {
+
+					trHTML +=
+						'<tr>' +
+						'<th colspan="4" rowspan="2" style= "text-align: right;  background-color: #f3f3f3;vertical-align:middle;"> Total</th >' +
+						'<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Testing Manhours</th>' +
+						'<th style="text-align: right; background-color: #f3f3f3">Total Testing Manhours Cost</th>' +
+						'<th style="text-align: right; background-color: #f3f3f3">Total Analysis Cost</th>' +
+						'<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Processing Manhours</th>' +
+						'<th style="text-align: right; background-color: #f3f3f3">Total Processing Cost</th>' +
+						'<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Rejected Cost</th>' +
+						'<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Machine Manhours</th>' +
+						'<th style="text-align: right; background-color: #f3f3f3">Total Machine Manhours Cost</th>' +
+						'<th colspan="2" style="text-align: right; background-color: #f3f3f3">Total Machine Cost</th>' +
+						'</tr >' +
+
+						'<tr>' +
+						'<td colspan = "3" align = "right" style = "padding:10px 8px" > ' + data[0].TOTAL_TESTING_MANHOURS + '</td > '
+						+
+						'<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_MANHOURS_COST + '</td>' +
+						'<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
+
+						'<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MANHOURS + '</td>' +
+						'<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_PROC_COST + '</td>' +
+
+						'<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
+
+						'<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_MC_MANHOURS + '</td>' +
+						'<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_MANHOURS_COST + '</td>' +
+						'<td align="right" colspan="2" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>'+
+
+
+						'<tr><th colspan = "19" style="text-align:center;background-color: #f3f3f3">Total Times (Total Testing Manhours + Total Processing Manhours + Total Machine Manhours)</th>' +
+						'<td colspan="3" align="right" style="padding:10px 8px">' + data[trav].TOTAL_TIMES + '</td></tr>' +
+
+						'<tr><th colspan = "19" style="text-align:center;background-color: #f3f3f3">Total Cost (Total Testing Cost + Total Processing Cost + Total Reject Cost + Total Machine Cost)</th>' +
+						'<td colspan="3" align="right" style="padding:10px 8px"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
+
+                }
+
+                // NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
+
+
+                $('#picfooter').empty();
+				$('#picfooter').append(trHTML);
+
+
+                $('#totalCost').val(data[0].TOTAL_COST);
+            },
+            error: function (ex) {
+                GetErrorVerifikasi("FooterVerifikasi", JSON.stringify(ex));
+            }
+        })
+
+		// GET EVALUASI RESIKO
+		$.ajax({
+			url: "../Koordinator/LoadEvaluasiResiko",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				$("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
+			},
+			error: function (ex) {
+                GetErrorVerifikasi("LoadEvaluasiResikoVerifikasi", JSON.stringify(ex));
+			}
+		});
+
+	};
+
+	function ShowBukti(button) {
+		event.preventDefault();
+		var row = $(button).closest("TR");
+		var ReqID = @ViewBag.nomor;
+		var picnik = $("TD", row).eq(16).html();
+        var seq = $("TD", row).eq(0).html();
+
+		var dto = {
+			REQID: ReqID,
+			IDUSER: picnik,
+            NO_DISPOSISI: seq
+		}
+
+		$.ajax({
+            url: "../QualityManager/QM_ShowBuktiTable",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				var trHTML = '';
+				var trav = 0;
+				var Count = data.length;
+
+				if (Count == '0') {
+					trHTML +=
+						'<tr><td> - </td>' +
+						'<td> - </td>' +
+						'<td> - </td>';
+
+				} else {
+					for (trav = 0; trav < Count; trav++) {
+						var no = 1;
+						no = no + trav;
+						trHTML +=
+							'<tr><td>' + no + '</td>' +
+							'<td>' + data[trav].PIC_ID + '</td>' +
+							'<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+					}
+				}
+
+                $('#buktidatatable').DataTable().clear().destroy();
+
+				$('#buktitable').empty();
+				$('#buktitable').append(trHTML);
+				$('#buktidatatable').DataTable({
+                    "searching": false,
+                    "paging": false,
+                    "info": false,
+                    "ordering": false
+				});
+
+				$("#tabel2").removeAttr("hidden");
+			}
+			, error: function (ex) {
+                GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
+			}
+		});
+	}
+
 	@*function LoadReviewerData() {
 		var nomor = @ViewBag.nomor;
 
@@ -1079,7 +1393,7 @@
 		});
 	}
 
-	function LoadPICSection() {
+	@*function LoadPICSection() {
 
 		var REQID = @ViewBag.nomor;
 		var DIS = @ViewBag.dis;
@@ -1134,19 +1448,47 @@
                 GetErrorSupRemedial("LoadPICSecSupPIC", JSON.stringify(ex));
 			}
 		});
-	}
+	}*@
 
 	function Approve() {
-
 		var REQID = @ViewBag.nomor;
 		var DIS = @ViewBag.dis;
-		var IDUser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+        var IDUser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+		var totalCost = $("#totalCost").val();
+		if (totalCost == null || totalCost == '' || totalCost == '-') {
+			totalCost = 0;
+		}
+		else {
+            totalCost = totalCost.replace(/\,/g, '');
+			totalCost = parseInt(totalCost);
+        }
 
+		var flagPICBefore = $("#flagPIC").val();
+		//kalau cost <15jt, langsung accepted dan ke koor
+		var flagPICAfter = 'REMEDIAL ACCEPTED BY SPV PIC';
+		var status = 'DONE';
+
+        if (totalCost >= 15000000) {
+            status = 'NOT DONE';
+			//kalau yg login sup pic
+			if (flagPICBefore == 'SUBMITTED') {
+				flagPICAfter = 'REMEDIAL WAITING FOR DIV HEAD';
+			}
+			//kalau yg login div head
+            else if (flagPICBefore == 'REMEDIAL WAITING FOR DIV HEAD') {
+				flagPICAfter = 'REMEDIAL ACCEPTED BY DIV HEAD';
+            }
+		}
+		//console.log(flagPICBefore);
+		//console.log(flagPICAfter);
+
+		//approve oleh sup pic maupun div head
 		function ApproveSupPIC() {
             var dto = {
                 REQ_ID: REQID,
                 NO_DISPOSISI: DIS,
-                CURR_USER: IDUser
+				CURR_USER: IDUser,
+                STATUS: flagPICAfter
             }
 
             $.ajax({
@@ -1172,47 +1514,96 @@
             });
 		}
 
-		function EmailApproveSupPIC() {
-			var tabletype = "More Than One";
-			var whoreceiver = "Koordinator after Superior PIC Approved Cost";
+        function EmailApproveSupPIC() {
+            var tabletype = "More Than One";
+            var whoreceiver = "Koordinator after Superior PIC Approved Cost";
 
-			var dto = {
+            var dto = {
                 Receiver: IDUser,
-				ReqID: REQID,
-				TableType: tabletype,
-				WhoReceiver: whoreceiver
-			};
+                ReqID: REQID,
+                TableType: tabletype,
+                WhoReceiver: whoreceiver
+            };
 
-			$.ajax({
-				type: "post",
-				url: '../Form/SendEmailInputProposal',
-				data: JSON.stringify(dto),
-				dataType: "json",
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
-					toastr.success("Email Sent Successfully !", "Notification", {
-						"closeButton": false,
-						"debug": true,
-						"newestOnTop": false,
-						"progressBar": false,
-						"positionClass": "toast-bottom-right",
-						"preventDuplicates": false,
-						"onclick": null,
-						"showDuration": "100",
-						"hideDuration": "1000",
-						"timeOut": "2000",
-						"extendedTimeOut": "1000",
-						"showEasing": "swing",
-						"hideEasing": "linear",
-						"showMethod": "fadeIn",
-						"hideMethod": "fadeOut"
-					});
-				}, error: function (ex) {
-                    GetErrorSupRemedial("EmailAppSupPIC" ,JSON.stringify(ex));
-				}
-			});
+            $.ajax({
+                type: "post",
+                url: '../Form/SendEmailInputProposal',
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    toastr.success("Email Sent Successfully !", "Notification", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-bottom-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+                }, error: function (ex) {
+                    GetErrorSupRemedial("EmailAppSupPIC", JSON.stringify(ex));
+                }
+            });
 		}
-        $.when(ApproveSupPIC()).done(EmailApproveSupPIC());
+
+        function EmailApproveDivHead() {
+            var tabletype = "One";
+            var whoreceiver = "Div Head after Sup PIC Approve Cost";
+
+            var dto = {
+                Receiver: IDUser,
+                ReqID: REQID,
+                TableType: tabletype,
+                WhoReceiver: whoreceiver
+            };
+
+            $.ajax({
+                type: "post",
+                url: '../Form/SendEmailInputProposal',
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    toastr.success("Email Sent Successfully !", "Notification", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-bottom-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+                }, error: function (ex) {
+                    GetErrorSupRemedial("EmailApproveDivHead", JSON.stringify(ex));
+                }
+            });
+        }
+
+		//kalau <15jt sup udah approve atau >=15jt div head udah approve
+        if (status =='DONE') {
+            $.when(ApproveSupPIC()).done(EmailApproveSupPIC());
+		}
+		//kalau approval lanjut ke div head
+        else {
+            $.when(ApproveSupPIC()).done(EmailApproveDivHead());
+        }
 	}
 
 	function Reject() {
@@ -1238,9 +1629,36 @@
 						text: 'Please Insert Reason!'
 					});
 				}
-				else {
+                else {
+                    var flagPICBefore = $("#flagPIC").val();
+                    //otomatis yg login sup pic
+					var posisi = 'SUP PIC';
+                    var flagPICAfter = 'REMEDIAL REJECTED BY SPV PIC';
+                    var totalCost = $("#totalCost").val();
+                    if (totalCost == null || totalCost == '' || totalCost == '-') {
+                        totalCost = 0;
+                    }
+                    else {
+                        totalCost = totalCost.replace(/\,/g, '');
+                        totalCost = parseInt(totalCost);
+                    }
+
+					//kalau yg login div head
+                    if (totalCost >= 15000000 && flagPICBefore == 'REMEDIAL WAITING FOR DIV HEAD') {
+						posisi = 'DIV HEAD';
+                        flagPICAfter = 'REMEDIAL REJECTED BY DIV HEAD';
+					}
 					var REQID = @ViewBag.nomor;
 					var DIS = @ViewBag.dis;
+
+                    //kalau pic ke group
+					var picIsGroup = false;
+					var group = $("#picNIK").val();
+					console.log(group);
+					if (group.substring(1, 2) == 'G_') {
+						picIsGroup = true;
+                    }
+                    var groupSite = $('#groupSite').val();
 
 					function RejectRemidialSup() {
 						var Keterangan = result.value;
@@ -1251,7 +1669,8 @@
 							REQ_ID: REQID,
 							KETERANGAN_DISPOSISI: Keterangan,
 							NO_DISPOSISI: DIS,
-							CURR_USER: IDUser
+                            CURR_USER: IDUser,
+							STATUS: flagPICAfter
 						};
 
 						$.ajax({
@@ -1278,8 +1697,12 @@
 					}
 
 					function EmailRejectSupPIC() {
-						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-						var tabletype = "One";
+                        var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+                        var tabletype = "One";
+						if (picIsGroup === true) {
+							tabletype = "More than One";
+                        }
+						
 						var whoreceiver = "PIC after Superior Rejected Cost";
 
 						var dto = {
@@ -1287,7 +1710,9 @@
 							ReqID: REQID,
 							TableType: tabletype,
 							WhoReceiver: whoreceiver,
-							Urutan: DIS
+                            Urutan: DIS,
+                            Group: group,
+                            Site: groupSite,
 						};
 
 						$.ajax({
@@ -1319,7 +1744,60 @@
 							}
 						});
 					}
-					$.when(RejectRemidialSup()).done(EmailRejectSupPIC());
+
+					function EmailRejectDivHead() {
+						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+                        var tabletype = "One";
+                        if (picIsGroup === true) {
+                            tabletype = "More than One";
+                        }
+						var whoreceiver = "PIC after Division Head Rejected Cost";
+
+						var dto = {
+							Receiver: receiver,
+							ReqID: REQID,
+							TableType: tabletype,
+							WhoReceiver: whoreceiver,
+                            Urutan: DIS,
+                            Group: group,
+                            Site: groupSite,
+						};
+
+						$.ajax({
+							type: "post",
+							url: '../Form/SendEmailInputProposal',
+							data: JSON.stringify(dto),
+							dataType: "json",
+							contentType: "application/json;charset=utf-8",
+							success: function (data) {
+								toastr.success("Email Sent Successfully !", "Notification", {
+									"closeButton": false,
+									"debug": true,
+									"newestOnTop": false,
+									"progressBar": false,
+									"positionClass": "toast-bottom-right",
+									"preventDuplicates": false,
+									"onclick": null,
+									"showDuration": "100",
+									"hideDuration": "1000",
+									"timeOut": "2000",
+									"extendedTimeOut": "1000",
+									"showEasing": "swing",
+									"hideEasing": "linear",
+									"showMethod": "fadeIn",
+									"hideMethod": "fadeOut"
+								});
+							}, error: function (ex) {
+								GetErrorSupRemedial("EmailDivHeadRejectDisposition",JSON.stringify(ex));
+							}
+						});
+					}
+                    if (posisi == 'SUP PIC') {
+                        $.when(RejectRemidialSup()).done(EmailRejectSupPIC());
+					}
+                    else {
+                        $.when(RejectRemidialSup()).done(EmailRejectDivHead());
+                    }
 				}
 			}
 		});

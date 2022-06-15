@@ -16,6 +16,11 @@ namespace B7_Deviation.Models
         public string MTDP { get; set; }
         public string MTJP { get; set; }
         public string EvaluasiResiko { get; set; }
+        public string NoPenyimpangan { get; set; }
+
+        public string NoDisposisi { get; set; }
+
+        public string PICName { get; set; }
 
     }
 }

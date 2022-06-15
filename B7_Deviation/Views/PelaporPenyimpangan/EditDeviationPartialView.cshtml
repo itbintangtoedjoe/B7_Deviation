@@ -1,0 +1,3435 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="d-inline" style="">Laporan Penyimpangan Baru</h4>
+                    <div class="form-group row">
+                        <div class="col">
+                            <br />
+                            <label>Register Number</label>
+                            <br />
+                            <label id="lblReq" style="font-weight:bold"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label>Tanggal</label>
+                            <input id="TbTglCreated" class="form-control" readonly="readonly">
+                        </div>
+                        <div class="col">
+                            <label>Nomor Deviation</label>
+                            <input id="TbNmrDev" type="text" class="form-control" readonly="readonly">
+                        </div>
+                        <div class="col">
+                            <label>Pengusul</label>
+                            <input id="TbPesul" type="text" class="form-control" readonly="readonly">
+                        </div>
+                        <div class="col">
+                            <label>Departemen</label>
+                            <input id="TbDeptPusul" type="text" class="form-control" readonly="readonly">
+                        </div>
+                    </div>
+                    <!-- Readonly End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="formBody" class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-validation">
+                        <form class="form-valide" onsubmit="return s();" action="#" method="post">
+                            <!-- Site -->
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label" for="ddlSite">Site<span class="text-danger">*</span></label>
+
+                                <div class="col-sm-3">
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlSite" name="ddlSite" disabled></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Jenis Penyimpangan<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes" disabled> Terencana
+
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No" checked disabled> Tidak Terencana
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
+                                <div class="col-sm-4">
+                                    <div>
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlKategori" name="ddlKategori" disabled></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="col-sm-6">
+                                    <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+
+                            <div id="divsimpang">
+                                <div class="basic-dropdown">
+                                    <div id="divreceipt" class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receipt_y" value="Yes" checked disabled> Receipt
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receip_n" value="No" disabled> Vendor
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="JenisPenyimpanganDetail">
+                                    <div class="row form-group name1 col-md-3" id="divQCMaterial" style="margin-right:10px">
+                                        <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control input-inline">
+                                    </div>
+                                    
+                                        <div class="row form-group name2 col-md-3"  style="margin-right:10px">
+                                            <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control input-inline">
+                                        </div>
+                                        <div class="row form-group name1 col-md-3" id="divBatchNo"  style="margin-right:10px">
+                                            <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control input-inline" placeholder="No Batch Oracle">
+                                        </div>
+
+                                        <div class="row form-group name2 col-md-3" id="divWoOracle" style="margin-right:10px">
+                                            <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control input-inline" placeholder="No WO Oracle">
+                                        </div>
+
+                                        <div class="row form-group name2 col-md-3" style="margin-right:10px">
+                                            <button type="button" id="btnTambahProduk" class="col-sm-12 btn mb-1 btn-success form-control">Tambah Produk</button>
+                                        </div>
+                                        @*<br />*@
+
+                                        @*<br />*@
+
+                                        <br />
+
+                                    </div>
+                                <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered text-center">
+                                        <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px" id="divProduk">
+                                    <table id="tblListProduk" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20px">No</th>
+                                                <th id="thQCNum">QC Material/Manufacturing Number</th>
+                                                <th id="thItemCode">Item Code</th>
+                                                <th id="thNoBatch">No Batch</th>
+                                                <th id="thNoWO">No WO Oracle</th>
+                                                <th>Keterangan</th>
+                                                <th style="width:30px" id="thDeleteAction">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblListProdukBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <br />
+
+
+                            <!-- Problem (What) -->
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Problem (What)<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id="txtProblem" name="txtProblem" class="form-control" placeholder="Problem (What)" disabled></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Requirement (Jika Ada) -->
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Requirement (Jika Ada)</label>
+                                <div class="col-sm-10">
+                                    <textarea id="txtReq" name="txtReq" class="form-control" placeholder="Requirement (Jika Ada)" disabled></textarea>
+                                </div>
+                            </div>
+
+                            @* Tanggal Kejadian *@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Tanggal dan Waktu Kejadian (When)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <input id="date-format" name="date-format" type="text" class="form-control" disabled>
+                                        <span class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="mdi mdi-calendar-check"></i>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Lokasi *@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Lokasi (Where)<span class="text-danger">*</span></label>
+                                <div class="col-sm-3">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="txtSiteLokasi" name="txtSiteLokasi" style="width: 280px;" disabled></select>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="txtDept" name="txtDept" style="width: 280px;" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Lokasi (Where)" disabled></textarea>
+                                </div>
+                            </div>
+
+
+                            @* Siapa Saja *@
+
+                            @*Siapa Saja tampilan view approval*@
+                            <div class="form-group row" id="whoapprove">
+                                <label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+
+                                    </div>
+                                    <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+                                        <table id="tblWhoApprove" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:20px">No</th>
+                                                    <th>Nama</th>
+
+                                                    @*  <th style="width:30px">Action</th>*@
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblBodyWhoApprove">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Siapa saja tampilan edit*@
+                            <div class="form-group row" id="whoedit">
+                                <label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input id="txtWho" class="form-control" placeholder="Siapa saja yang terlibat (Who)">
+                                        <span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
+                                            <span class="input-group-text btn-success">
+                                                <i class="fa fa-user-plus"></i>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+                                        <table id="tblWho" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:20px">No</th>
+                                                    <th>Nama</th>
+                                                    <th style="width:30px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblBodyWho">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Bagaimana Urutan Kejadian*@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Bagaimana Urutan Kejadian (How)<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id="txtHow" name="txtHow" class="form-control" placeholder="Bagaimana Urutan Kejadian (How)" disabled></textarea>
+                                </div>
+                            </div>
+
+
+                            @*Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?*@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="travel4" data-travelNumber="1" id="pernah_yes_1" value="Yes" disabled> Ya
+
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input name="travel4" type="radio" data-travelNumber="1" id="pernah_no_1" value="No" checked disabled> Tidak
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <textarea name="txt30hari" id="txt30hari" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+
+                            @*Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?*@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="travel1" data-travelNumber="1" id="sama_yes_1" value="Yes" disabled> Ya
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input name="travel1" type="radio" data-travelNumber="1" id="sama_no_1" value="No" checked disabled> Tidak
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <textarea name="txtsama" id="txtsama" class="form-control" placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+
+                            @*Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?*@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel2" data-travelNumber="1" id="rilis_yes_2" value="Yes" disabled> Ya
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel2" type="radio" data-travelNumber="1" id="rilis_no_2" value="No" checked disabled> Tidak
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <textarea id="txtrilis" name="txtrilis" class="form-control" placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+
+                            @*Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?*@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="travel3" data-travelNumber="1" id="lain_yes_3" value="Yes" disabled> Ya
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input name="travel3" type="radio" data-travelNumber="1" id="lain_no_3" value="No" checked disabled> Tidak
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <textarea id="txtlain" name="txtlain" class="form-control" placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+
+                            @*Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi*@
+
+                            <div class="form-group row">
+                                <div class="col-sm-2 col-form-label">
+                                    <label>
+                                        Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi
+                                    </label>
+                                    <label style="font-size:x-small; color:red">
+                                        *Wajib diisi untuk penyimpangan tidak terencana
+                                    </label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi" readonly="readonly"></textarea>
+
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="form-group row" id="downloadfile">
+                            <label class="col-sm-2 col-form-label"></label>
+
+                            <div class="col-sm-10">
+                                <div class="table-responsive">
+                                    <table id="tbl_Attachment_Approve" class="table header-border">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <b>No</b>
+                                                </th>
+                                                <th>
+                                                    <b>File Name</b>
+                                                </th>
+                                                <th style="text-align:center">
+                                                    <b>Download</b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody_Attachment_Approve"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row" id="Upload">
+                            <div class="col-sm-2 col-form-label">
+
+                            </div>
+                            <div class="col-sm-10">
+
+                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <input type="file" style="margin-left:-15px" name="NamaFileUpload" class="col-sm-6" id="idFileUpload" />
+                                    <br />
+                                    <br />
+                                    <button type="button" id="btnUpload" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>
+                                }
+
+
+                                @*<button type="button" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>*@
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row" id="deletefile">
+                            <label class="col-sm-2 col-form-label"></label>
+
+                            <div class="col-sm-10">
+                                <div class="table-responsive">
+                                    <table id="tbl_Attachment" class="table header-border">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <b>No</b>
+                                                </th>
+                                                <th>
+                                                    <b>File Name</b>
+                                                </th>
+                                                <th>
+                                                    <b>Action</b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody_Attachment"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <form class="form-valide2" onsubmit="return s();" action="#" method="post">
+                        <div class="form-group row">
+                            <div class="col-sm-2 col-form-label">
+                                <label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-sm-10">
+                                <textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial" disabled></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="ddlKualProd">Kualitas Produk</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlKualProd" name="ddlKualProd" title="Kualitas Produk" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <label for="ddlRiskFin">Risiko Finansial</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlRiskFin" name="ddlRiskFin" title="Risiko Finansial" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="ddlKesehatanPer">Risiko Kesehatan Personil</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlKesehatanPer" name="ddlKesehatanPer" title="Risiko Kesehatan Personil" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            @*Baris 2*@
+
+                            <div class="col">
+                                <label for="ddlCompliance">Compliance</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlCompliance" name="ddlCompliance" title="Compliance" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="ddlRiskOrg">Risiko Organisasi</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlRiskOrg" name="ddlRiskOrg" title="Risiko Organisasi" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="ddlResLingk">Resiko Lingkungan</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlResLingk" name="ddlResLingk" title="Risiko Lingkungan" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            @*Baris 3*@
+
+                            <div class="col">
+                                <label for="ddlRiskOpr">Risiko Operasional</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlRiskOpr" name="ddlRiskOpr" title="Risiko Operasional" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="ddlKeamamananP">Risiko Keamanan Personil</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlKeamamananP" name="ddlKeamamananP" title="Risiko Keamanan Personil" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="ddlRiskIntelek">Risiko Intelektual</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlRiskIntelek" name="ddlRiskIntelek" title="Risiko Intelektual" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="txtKeparahan">Tingkat Keparahan Penyimpangan</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <input id="txtKeparahan" name="txtKeparahan" type="text" class="form-control" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                    <div id="divLoading" class="row" hidden>
+                        <div class="col-md-12" style="text-align:center">
+                            <img src="~/Content/Styles/images/loading2.gif" width="400" height="300" />
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var listProduk = [];
+   /* let checkLoading = 0;*/
+    var editMode = false;
+    $(document).ready(function () {
+        $.when(LoadAll()).done(ToggleByCategory());
+       @* LoadAll();*@
+
+
+
+        //if (checkLoading == 0) {
+        //    $('#divLoading').prop('hidden', true);
+        //    $('#cardTable').prop('hidden', false);
+
+        //}
+
+        /*var pageURL = $(location).attr("href");*/
+        //alert(pageURL);
+     @*   function HideLoadingDiv() {
+            console.log('hide')
+            $('#divLoading').prop('hidden', false);
+            checkLoading = 0;
+            elem.dispatchEvent(new Event('click'));
+        }*@
+        //if (pageURL.indexOf("PelaporPenyimpangan")>-1) {
+        //    checkLoading = 1;
+        //    ShowLoadingDiv();
+        //    $.when(LoadAll()).done(HideLoadingDiv());
+            //$.when(ShowLoadingDiv()).done(HideLoadingDiv());
+            //$.when(ShowLoadingDiv()).done(LoadAll());
+        //} else {
+        //    LoadAll();
+        //}
+
+
+
+
+        $('#divsimpang').hide();
+
+        //Jenis Penyimpangan Detail
+        $('#JenisPenyimpanganDetail').attr("hidden",true);
+
+
+
+
+
+
+        $('#whoedit').hide();
+        $('#Upload').hide();
+        $('#deletefile').hide();
+
+        setTimeout(ToggleByCategory, 2000);
+
+        $('input[type=radio][name=travel5]').change(function () {
+            EmptyFields();
+            ToggleByCategory();
+        });
+
+        $('input[type=radio][name=r_receipt]').change(function () {
+
+            $('#TxtItemCode').val('');
+            $('#txtKetKategori').val('');
+            $('#TxtQCMaterialNo').val('');
+
+            //Y -> Receipt; N-> Vendor
+            if ($('input[name="r_receipt"]:checked').val() == 'Yes') {
+                $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
+                GetQCMaterialNoOracle();
+            }
+            else {
+                $("#TxtQCMaterialNo").attr('placeholder', 'Manufacturing Number');
+                GetQCMaterialNoOracle();
+            }
+        });
+
+        $("#btnCancelEdit").click(function () {
+            Swal.fire({
+                title: 'Apakah anda yakin tidak menyimpan perubahan ini?',
+                icon: 'question',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Yes',
+                denyButtonText: 'No',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    window.location.href = "../DataDeviasi/PendingTask"
+                }
+            });
+        });
+
+        $('#btnEdit').click(function () {
+            editMode = true;
+            var dev_kategori = $("#ddlKategori").val();
+
+            GetQCMaterialNoOracle();
+            SetTableProduk(dev_kategori);
+
+
+
+            $('#ddlSite').prop('disabled', false);
+            $('#ddlSite').selectpicker('refresh');
+            document.getElementById("ddlKategori").disabled = false;
+            $('#ddlKategori').selectpicker('refresh');
+            document.getElementById("terencana_yes_2").disabled = false;
+            document.getElementById("terencana_no_2").disabled = false;
+            document.getElementById("r_receipt_y").disabled = false;
+            document.getElementById("r_receip_n").disabled = false;
+            document.getElementById("txtProblem").disabled = false;
+            document.getElementById("txtReq").disabled = false;
+            document.getElementById("date-format").disabled = false;
+            document.getElementById("txtSiteLokasi").disabled = false;
+            @* $('#txtSiteLokasi').selectpicker('refresh');*@
+            document.getElementById("txtDept").disabled = false;
+
+            document.getElementById("txtLokasi").disabled = false;
+            document.getElementById("txtHow").disabled = false;
+            $('#txtKetKategori').removeAttr('readonly');
+            $('#txt30hari').removeAttr('readonly');
+            $('#txtsama').removeAttr('readonly');
+            $('#txtrilis').removeAttr('readonly');
+            $('#txtlain').removeAttr('readonly');
+            $('#txtTindakan').removeAttr('readonly');
+
+            document.getElementById("pernah_yes_1").disabled = false;
+            document.getElementById("pernah_no_1").disabled = false;
+            document.getElementById("sama_yes_1").disabled = false;
+            document.getElementById("sama_no_1").disabled = false;
+            document.getElementById("rilis_yes_2").disabled = false;
+            document.getElementById("rilis_no_2").disabled = false;
+            document.getElementById("lain_yes_3").disabled = false;
+            document.getElementById("lain_no_3").disabled = false;
+
+            document.getElementById("txtUsulanRemidial").disabled = false;
+
+            //Penilaian
+            document.getElementById("ddlKualProd").disabled = false;
+            $('#ddlKualProd').selectpicker('refresh');
+            document.getElementById("ddlRiskFin").disabled = false;
+            $('#ddlRiskFin').selectpicker('refresh');
+            document.getElementById("ddlKesehatanPer").disabled = false;
+            $('#ddlKesehatanPer').selectpicker('refresh');
+            document.getElementById("ddlCompliance").disabled = false;
+            $('#ddlCompliance').selectpicker('refresh');
+            document.getElementById("ddlRiskOrg").disabled = false;
+            $('#ddlRiskOrg').selectpicker('refresh');
+            document.getElementById("ddlResLingk").disabled = false;
+            $('#ddlResLingk').selectpicker('refresh');
+            document.getElementById("ddlRiskOpr").disabled = false;
+            $('#ddlRiskOpr').selectpicker('refresh');
+            document.getElementById("ddlKeamamananP").disabled = false;
+            $('#ddlKeamamananP').selectpicker('refresh');
+            document.getElementById("ddlRiskIntelek").disabled = false;
+            $('#ddlRiskIntelek').selectpicker('refresh');
+
+            //show
+            $('#upload').show();
+            $('#whoedit').show();
+            $('#divsimpang').show();
+            $('#JenisPenyimpanganDetail').attr("hidden",false);
+            $('#Upload').show();
+            $('#deletefile').show();
+
+            //hide
+            $('#downloadfile').hide();
+            $('#whoapprove').hide();
+
+            //Empty Dev Kategori Value
+            $('#TxtBatchNo').val('');
+            $("#TxtNoWO").val('');
+            $('#TxtItemCode').val('');
+            $('#txtKetKategori').val('');
+            $('#TxtQCMaterialNo').val('');
+
+
+            //Receipt hidden or show
+            if (dev_kategori == 'QPR') {
+                $("#divreceipt").attr("hidden", true);
+            } else {
+                if (dev_kategori == 'QMT') {
+                    $("#divreceipt").attr("hidden", false);
+
+
+                } else {
+
+                    $("#divTblDaftarProduk").attr("hidden", true);
+                    $("#divreceipt").attr("hidden", true);
+                    $("#TxtItemCode").css("display", "none");
+                   @* $("#TxtItemCode").attr("hidden",true);*@
+                    $("#TxtBatchNo").css("display", "none");
+                    @*$("#TxtBatchNo").attr("hidden", true);*@
+                    $("#TxtNoWO").css("display", "none");
+                    @*$("#TxtNoWO").attr("hidden", true);*@
+                    $("#btnTambahProduk").css("display", "none");
+                    @*$("#btnTambahProduk").attr("hidden", true);*@
+
+                }
+            }
+
+
+        });
+
+    });
+
+
+  @*  function ShowLoadingDiv() {
+        checkLoading = 1;
+        $('#divLoading').prop('hidden', false);*@
+        //setTimeout(function () {
+        //    $('#divLoading').prop('hidden', false);
+        //}, 12000);
+   //}
+
+
+    function ToggleByCategory() {
+        var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
+        //console.log(jenisPenyimpangan);
+        ToggleShowKualitasProdukFields(jenisPenyimpangan);
+        @*ToggleShowKualitasMaterialFields(jenisPenyimpangan);*@
+
+        if (jenisPenyimpangan == 'Yes') {
+            $("#txtTindakan").attr("disabled", true);
+            $('#txtKetKategori').attr("disabled", false);
+        } else {
+            $("#txtTindakan").attr("disabled", false);
+            $('#txtKetKategori').attr("disabled", true);
+        }
+    }
+
+    @*function Submit() {
+        var REQID = @ViewBag.nomor;
+        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var dto = {
+            REQID: REQID,
+            IDUSER: iduser
+        };
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/Prop_SubmitRejectedSPV",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                Swal.fire({
+                    title: 'Form Submitted',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: `OK`
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        window.location.href = "../PelaporPenyimpangan/PendingApproval"
+                    }
+                })
+
+            }
+            , error: function (ex) {
+                alert('Error Submit: ' + JSON.stringify(ex));
+            }
+        });
+    }*@
+
+
+    $(document).ready(function () {
+
+        GenerateDepartment();
+
+        // Generate Req ID
+        $(document).ready(function () {
+            //$('#tblWho').attr('hidden', true);
+            $.when($.ajax(GenerateReqID())).then(function () {
+                $.when($.ajax(GenerateDate())).then(function () {
+                    GetFileAttachment();
+
+                    LoadUserInvolved();
+                    LoadUserInvolvedApprove();
+                });
+            });
+        });
+
+        // Load
+        $(document).ready(function () {
+            GetSiteName();
+            //GetKategoriDeviation();
+            SetupRbDtPicker();
+
+        });
+
+    });
+
+    // Button click
+    $(document).ready(function () {
+        $('#spanUser').click(function () {
+            $.when($.ajax(InsertNamaTerlibat())).then(function () {
+                $('#txtWho').val('');
+            });
+        });
+
+        $("#btnUpload").click(function () {
+            UploadAttachmentDeviation();
+        });
+    });
+
+    $("#btnTambahProduk").click(function () {
+        var dev_kategori = $("#ddlKategori").val();
+        var item_code = $('#TxtItemCode').val().trim();
+        var no_wo = $('#TxtNoWO').val().trim();
+        var no_batch = $('#TxtBatchNo').val().trim();
+        var no_qc = $('#TxtQCMaterialNo').val().trim();
+        var ket_kategori = $("#txtKetKategori").val().trim();
+
+        if (dev_kategori == 'QPR') {
+            if (item_code == '' || no_wo == '' || no_batch == '' || ket_kategori == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Keterangan produk belum lengkap!',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                return;
+            }
+        }
+        else if (dev_kategori == 'QMT') {
+            if (item_code == '' || no_qc == '' || ket_kategori == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Keterangan material belum lengkap!',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                return;
+            }
+        }
+        TambahProdukList(dev_kategori, item_code, no_batch, no_wo, no_qc, ket_kategori);
+
+        //Empty Dev Kategori Value
+        $('#TxtBatchNo').val('');
+        $("#TxtNoWO").val('');
+        $('#TxtItemCode').val('');
+        $('#txtKetKategori').val('');
+        $('#TxtQCMaterialNo').val('');
+    });
+
+
+    //function delete Table List Produk
+
+    $('#tblListProduk tbody').on('click', '.deleteProduk', function () {
+    //    var data = $('#tblListProduk').DataTable().row(this).data();
+            var data = $('#tblListProduk').DataTable().row($(this).parents('tr')).data();
+       var dev_kategori = $("#ddlKategori").val();
+      var filteredArray = listProduk;
+
+
+
+        if (dev_kategori == 'QMT') {
+            var noQC = data['NoQCMaterial'];
+            filteredArray = listProduk.filter(value => value.NoQCMaterial != noQC);
+        }
+        else if (dev_kategori == 'QPR') {
+            var noWOOracle = data['NoWOOracle'];
+            filteredArray = listProduk.filter(value => value.NoWOOracle != noWOOracle);
+        }
+
+
+        listProduk = filteredArray;
+        SetTableProduk(dev_kategori);
+        //the job
+    });
+
+
+
+
+
+    // Drop Down List Click
+    $(document).ready(function () {
+        $("#divsimpang").hide();
+
+        $("#TxtNoWO").attr("disabled", true);
+
+        $("#TxtNoWO").attr("disabled", true);
+        $("#TxtItemCode").attr("disabled", true);
+
+
+
+
+
+
+        $("#ddlKategori").change(function () {
+            $("#TxtNoWO").attr("hidden", true);
+            $("#TxtNoWO").attr("disabled", true);
+
+            $("#TxtItemCode").attr("hidden", true);
+
+            $('#TxtBatchNo').attr('hidden', true);
+
+            $('#txtKetKategori').attr('disabled', false);
+
+            $('#TxtQCMaterialNo').attr('hidden', true);
+
+            $('#TxtBatchNo').val('');
+            $("#TxtNoWO").val('');
+            $('#TxtItemCode').val('');
+            $('#txtKetKategori').val('');
+            $('#TxtQCMaterialNo').val('');
+
+
+
+            listProduk = [];
+            var kategoriDev = $(this).val();
+            SetTableProduk(kategoriDev);
+
+            var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
+
+
+
+            // Kualitas Produk
+            if (kategoriDev == 'QPR') {
+                if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
+                    swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
+
+                    var id = $(this).find('option:selected').val();
+                    if (id != null) {
+                        $(this).val('0');
+                    }
+
+                    return;
+                } else {
+                    $("#divsimpang").show();
+                    $("#JenisPenyimpanganDetail").attr("hidden", false);
+                    $("#divProduk").show();
+                    $("#divMaterial").hide();
+                    $("#divQCMaterial").hide();
+                    $("#divBatchNo").show();
+                    $("#divWoOracle").show();
+
+                    $("#divreceipt").attr("hidden", true);
+                    $("#TxtNoWO").attr("hidden", false);
+                    $('#TxtBatchNo').attr('hidden', false);
+                    $('#txtKetKategori').attr('disabled', true);
+
+                    $("#TxtItemCode").css("display", "inline");
+                    $("#TxtBatchNo").css("display", "inline");
+                    $("#TxtNoWO").css("display", "inline");
+                    $("#btnTambahProduk").css("display", "inline");
+
+
+                    @* menentukan field input yg dienable sesuai jenis penyimpangan *@
+                    ToggleShowKualitasProdukFields(jenisPenyimpangan);
+             
+                }
+            }
+            else {
+                // Kualitas Materi Awal
+                if (kategoriDev == 'QMT') {
+                    if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
+                        swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
+
+                        var id = $(this).find('option:selected').val();
+                        if (id != null) {
+                            $(this).val('0');
+                        }
+
+                        return;
+                    } else {
+                        $("#divsimpang").show();
+
+                        //$('#divreceipt').show();
+
+                        $("#divreceipt").attr("hidden", false);
+                        $("#JenisPenyimpanganDetail").attr("hidden",false);
+                        $("#divProdukEdit").show();
+                        $("#divMaterial").show();
+                        $("#divQCMaterial").show();
+
+
+
+                        $("#divBatchNo").hide();
+                        $("#divWoOracle").hide();
+
+                        $('#TxtQCMaterialNo').attr("hidden", false);
+                        $("#TxtItemCode").attr("hidden", false);
+
+                        $('#txtKetKategori').attr('disabled', true);
+                        $("#TxtItemCode").attr("disable", true);
+
+                        $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                        $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
+
+                        $("#TxtItemCode").css("display", "inline");
+                        $("#TxtBatchNo").css("display", "inline");
+                        $("#TxtNoWO").css("display", "inline");
+                        $("#btnTambahProduk").css("display", "inline");
+@*
+                        GetQCMaterialNoOracle();*@
+                        ToggleShowKualitasProdukFields(jenisPenyimpangan);
+                    
+                    }
+
+                }
+                else {
+                    $("#divsimpang").hide();
+                    $("#divProduk").hide();
+                    $("#divMaterial").hide();
+                    $("#TxtNoWO").attr("disabled", true);
+                    $('#txtKetKategori').val('');
+                    $("#TxtItemCode").css("display", "none");
+                    $("#TxtBatchNo").css("display", "none");
+                    $("#TxtNoWO").css("display", "none");
+                    $("#btnTambahProduk").css("display", "none");
+
+                    
+
+
+                }
+            }
+
+        });
+
+
+
+
+
+
+
+        $("#txtSiteLokasi").change(function () {
+            $('#txtDept').attr('hidden', false);
+            GetDepartementLokasiKejadian();
+        });
+
+        $('#ddlKualProd').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt(this.value)
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlRiskFin').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlKesehatanPer').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlCompliance').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlRiskOrg').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlResLingk').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlRiskOpr').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlKeamamananP').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt(this.value)
+                    , parseInt($('#ddlRiskIntelek').val())
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+
+        $('#ddlRiskIntelek').change(function () {
+            var nilai = [];
+
+            if ($('#ddlKualProd').val() != '' &&
+                $('#ddlRiskFin').val() != '' &&
+                $('#ddlKesehatanPer').val() != '' &&
+
+                $('#ddlCompliance').val() != '' &&
+                $('#ddlRiskOrg').val() != '' &&
+                $('#ddlResLingk').val() != '' &&
+
+                $('#ddlRiskOpr').val() != '' &&
+                $('#ddlKeamamananP').val() != '' &&
+                $('#ddlRiskIntelek').val() != '') {
+                nilai.push(parseInt($('#ddlKualProd').val())
+                    , parseInt($('#ddlRiskFin').val())
+                    , parseInt($('#ddlKesehatanPer').val())
+                    , parseInt($('#ddlCompliance').val())
+                    , parseInt($('#ddlRiskOrg').val())
+                    , parseInt($('#ddlResLingk').val())
+                    , parseInt($('#ddlRiskOpr').val())
+                    , parseInt($('#ddlKeamamananP').val())
+                    , parseInt(this.value)
+                );
+                nilai.sort((a, b) => b - a); /*sorting Array Desc*/
+                $('#txtKeparahan').val(nilai[0]);
+            }
+        });
+    });
+
+    function GetQCMaterialNoOracle() {
+        var LocationSite = $("#ddlSite").val();
+        var DEVIATION_CATEGORY = $("#ddlKategori").val();
+        var FlagReceipt = $('input[name="r_receipt"]:checked').val();
+
+        var dto = {
+            LocationSite: LocationSite,
+            DeviationCategory: DEVIATION_CATEGORY,
+            FlagReceipt: FlagReceipt
+        }
+
+        $('#ModalLoading').modal('show');
+        setTimeout(function () {
+            $('#ModalLoading').modal('hide');
+        }, 2000);
+
+        $.ajax({
+            url: "../Form/GetQCMaterialNoOracle",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                if (count > 0) {
+
+                    var trhtml = '';
+                    var trav = 0;
+                    var arr = new Array();
+                    var jsonObj = [];
+
+                    for (trav = 0; trav < count; trav++) {
+                        arr[trav] = data[trav].QC_MATERIAL;
+                        var item = {}
+                        item["label"] = arr[trav];
+                        item["value"] = arr[trav];
+                        jsonObj.push(item);
+                    }
+
+                    $("#TxtQCMaterialNo").autocomplete({
+                        source: function (request, response) {
+                            var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                            response(results.slice(0, 20));
+
+                            ($.map(results, function (el) {
+                                return {
+                                    label: el.label,
+                                    value: el.value
+                                };
+                            }));
+
+                        },
+
+                        select: function (e, ui) {
+
+                            $('#TxtBatchNo').val('');
+                            $("#TxtNoWO").val('');
+                            $('#TxtItemCode').val('');
+                            $('#txtKetKategori').val('');
+
+                            for (var i = 0; i < count; i++) {
+                                if (data[i].QC_MATERIAL == ui.item.value) {
+                                    $("#TxtItemCode").val(data[i].ITEM_CODE);
+                                    $("#txtKetKategori").val(data[i].ITEM_DESC);
+                                    break;
+                                } else {
+                                    $("#txtKetKategori").val("");
+                                }
+                            }
+                        }
+                    });
+                }
+
+            },
+            error: function (ex) {
+                GetErrorInput("GetQCMaterialNoOracleInput", JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetItemKualitasProduk() {
+        var LocationSite = $("#ddlSite").val();
+        @*var ItemCode = $("#TxtItemCode").val();*@
+
+        var dto = {
+            LocationSite: LocationSite
+        }
+
+        $('#ModalLoading').modal('show');
+        setTimeout(function () {
+            $('#ModalLoading').modal('hide');
+        }, 2000);
+
+        $.ajax({
+            url: "../Form/GetItemKualitasProduk",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+              @*  console.log(data);*@
+                var count = data.length;
+                if (count > 0) {
+
+                    var trhtml = '';
+                    var trav = 0;
+                    var arrLabel = new Array();
+                    var arrValue = new Array();
+                    var jsonObj = [];
+
+                    for (trav = 0; trav < count; trav++) {
+                        arrLabel[trav] = data[trav].ITEM_CODE;
+                        //arrValue[trav] = data[trav].ITEM_CODE;
+                        var item = {}
+                        item["label"] = arrLabel[trav];
+                        item["value"] = arrLabel[trav];
+                        jsonObj.push(item);
+                    }
+                 @*   console.log(jsonObj);*@
+
+                    $("#TxtItemCode").autocomplete({
+                        source: function (request, response) {
+                            var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                            response(results.slice(0, 20));
+
+                            $.map(results, function (el) {
+                                return {
+                                    label: el.label,
+                                    value: el.value
+                                };
+                            });
+
+                        },
+
+                        select: function (e, ui) {
+                            $('#txtKetKategori').val('');
+
+                            for (var i = 0; i < count; i++) {
+                                if (data[i].ITEM_CODE == ui.item.label) {
+                                    //$("#TxtItemCode").val(data[i].ITEM_CODE);
+
+                                    $("#txtKetKategori").val(data[i].ITEM_DESCRIPTION);
+                                    break;
+                                } else {
+                                    $("#txtKetKategori").val("");
+                                }
+                            }
+                        }
+                    });
+                }
+
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function EmptyFields() {
+        $("#txtKetKategori").val('');
+        $("#TxtItemCode").val('');
+        $("#TxtBatchNo").val('');
+        $("#TxtNoWO").val('');
+        $("#TxtQCMaterialNo").val('');
+    }
+
+    function ToggleShowKualitasProdukFields(jenisPenyimpangan) {
+        $('#txtKetKategori').attr('disabled', true);
+        $("#TxtNoWO").attr("disabled", true);
+
+        if ($("#ddlKategori").val() == 'QPR') {
+            if (jenisPenyimpangan == 'Yes') {
+                $("#TxtItemCode").attr("hidden", false);
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                GetItemKualitasProduk();
+                $("#TxtNoWO").attr("disabled", false);
+            }
+            else {
+                $("#TxtItemCode").attr("hidden", false);
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+
+                GetNoBatchOracle();
+                $("#TxtNoWO").attr("disabled", true);
+            }
+        }
+        else if ($("#ddlKategori").val() == 'QMT') {
+            if (jenisPenyimpangan == 'Yes') {
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+            }
+            else {
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                GetQCMaterialNoOracle();
+               
+            }
+        }
+        if (jenisPenyimpangan == 'Yes') {
+            $("#txtTindakan").attr("disabled", false);
+            $("#TxtItemCode").attr("disabled", false);
+        }
+        else {
+            $("#txtTindakan").attr("disabled", true);
+            $("#TxtItemCode").attr("disabled", true);
+        }
+    }
+
+    @*function ToggleShowKualitasMaterialFields(jenisPenyimpangan) {
+        if ($("#ddlKategori").val() == 'QMT') {
+            if (jenisPenyimpangan == 'Yes') {-
+                $("#txtTindakan").attr("disabled", false);
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                $("#TxtItemCode").attr("disabled", false);
+            }
+            else {
+                $("#txtTindakan").attr("disabled", true);
+                $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                $("#TxtItemCode").attr("disabled", true);
+            }
+        }
+    }*@
+
+
+    function TambahProdukList(dev_kategori, item_code, no_batch, no_wo, no_qc, ket_kategori) {
+
+        var prod = {
+            "ItemCodeOracle": item_code,
+            "NoBatchOracle": no_batch,
+            "NoWOOracle": no_wo,
+            "NoQCMaterial": no_qc,
+            "KeteranganKategori": ket_kategori,
+        }
+        listProduk.push(prod);
+        SetTableProduk(dev_kategori);
+    }
+
+    function LoadListProduk(dev_kategori) {
+        //var dev_kategori = $("#ddlKategori").val();
+        //console.log(dev_kategori);
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			ReqID: REQID
+        }
+
+
+
+		$.ajax({
+            url: "../SpvPelapor/LoadListProduk",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                //console.log(data);
+
+
+                for (var i = 0; i < data.length; i++) {
+               @*     console.log(i);*@
+                    TambahProdukList(dev_kategori, data[i].ITEM_CODE_ORACLE, data[i].NO_BATCH_ORACLE, data[i].NO_WO_ORACLE, data[i].QC_MATERIAL_NO, data[i].KET_CATEGORY);
+                }
+
+                if (dev_kategori == 'QPR') {
+                    $('#thQCNum').attr('hidden', true);
+                    $('#thNoBatch').attr('hidden', false);
+                    $('#thNoWO').attr('hidden', false);
+
+                } else if (dev_kategori == 'QMT') {
+                    $('#thQCNum').attr('hidden', false);
+                    $('#thNoBatch').attr('hidden', true);
+                    $('#thNoWO').attr('hidden', true);
+                }
+			}
+			, error: function (ex) {
+                GetErrorSupPel("LoadListProduk", JSON.stringify(ex));
+			}
+		});
+	}
+
+
+
+    function GetNoBatchOracle() {
+        $('#ModalLoading').modal('show');
+        setTimeout(function () {
+            $('#ModalLoading').modal('hide');
+        }, 2000);
+
+        var LocationSite = LOCATION_SITE = $("#ddlSite").val();
+        var dto = {
+            LocationSite: LocationSite
+        }
+
+        $.ajax({
+            url: "../Form/GetNoBatchOracle",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                var arr = new Array();
+                var arr1 = new Array();
+                var jsonObj = [];
+
+                for (trav = 0; trav < count; trav++) {
+                    arr[trav] = data[trav].NO_BATCH;
+                    arr1[trav] = data[trav].NO_BATCH + '-' + data[trav].WO_NUMBER;
+                    var item = {}
+                    item["label"] = arr1[trav];
+                    item["value"] = arr[trav];
+                    jsonObj.push(item);
+                }
+
+                $("#TxtBatchNo").autocomplete({
+                    source: function (request, response) {
+                        var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                        response(results.slice(0, 10));
+
+                        ($.map(results, function (el) {
+                            return {
+                                label: el.label,
+                                value: el.value
+                            };
+                        }));
+                    },
+
+                    select: function (e, ui) {
+                        $("#TxtNoWO").val('');
+                        $('#TxtItemCode').val('');
+                        $('#txtKetKategori').val('');
+                        $('#TxtQCMaterialNo').val('');
+
+                        for (var i = 0; i < count; i++) {
+                            if (data[i].NO_BATCH + '-' + data[i].WO_NUMBER == ui.item.label) {
+                                $("#TxtNoWO").val(data[i].WO_NUMBER);
+                                $('#TxtItemCode').val(data[i].ITEM_CODE);
+                                $('#txtKetKategori').val(data[i].ITEM_DESCRIPTION);
+                                break;
+                            } else {
+                                $("#TxtNoWO").val("");
+                                $('#TxtItemCode').val("");
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (ex) {
+                GetErrorInput("GetNoBatchOracleInput", JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetItemCodeOracle() {
+
+        var LocationSite = $("#ddlSite").val();
+        var DEVIATION_CATEGORY = $("#ddlKategori").val();
+
+        var dto = {
+            LocationSite: LocationSite,
+            DeviationCategory: DEVIATION_CATEGORY,
+        }
+        $.ajax({
+            url: "../Form/GetItemCodeOracle",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                var arr = new Array();
+                var jsonObj = [];
+
+                for (trav = 0; trav < count; trav++) {
+                    arr[trav] = data[trav].ITEM_CODE;
+                    var item = {}
+                    item["label"] = arr[trav];
+                    item["value"] = arr[trav];
+                    jsonObj.push(item);
+                }
+                @*console.log(jsonObj);*@
+
+                $("#TxtItemCode").autocomplete({
+                    source: function (request, response) {
+                        var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                        response(results.slice(0, 10));
+                    }
+                });
+
+                $("#TxtItemCode").change(function () {
+                    var itemCode = $("#TxtItemCode").val();
+                    for (var i = 0; i < count; i++) {
+                        if (data[i].ITEM_CODE == itemCode) {
+                            $("#txtKetKategori").val(data[i].ITEM_DESCRIPTION);
+                            break;
+                        } else {
+                            $("#txtKetKategori").val("");
+                        }
+                    }
+                });
+
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+
+
+    // Load Dropdownlist
+
+
+    function GetSiteName() {
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
+        $.ajax({
+            url: "../Form/GetSiteName2",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                            trhtml += '<option selected class="dropdown-item"  value = "' + data[trav].DDL_TRUE + ' ">' + data[trav].DDL_DESCRIPTION + '</option>';
+                        } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION +'</option>';
+
+                        }
+
+                    }
+                }
+                $("#ddlSite").empty();
+                $("#ddlSite").append(trhtml);
+                $("#ddlSite").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error GetSiteName : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetKategoriDeviation() {
+        $.ajax({
+            url: "../Form/GetKategoriDeviation",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                trhtml += '<option disabled selected hidden class="dropdown-header">   Kategori Penyimpangan   </option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                            trhtml += '<Option selected class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description + '</option>';
+                        }
+                        else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description + '</option>';
+                        }
+
+                    }
+                }
+                $("#ddlKategori").empty();
+                $("#ddlKategori").append(trhtml);
+                $("#ddlKategori").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error GetKategoriDeviation : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+
+
+    function GetItemCodeOracle() {
+
+        var LocationSite = $("#ddlSite").val();
+        var dto = {
+            LocationSite: LocationSite
+        }
+        $.ajax({
+            url: "../Form/GetItemCodeOracle",
+            type: "post",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+                var arr = new Array();
+                var jsonObj = [];
+
+                for (trav = 0; trav < count; trav++) {
+                    arr[trav] = data[trav].ITEM_CODE;
+                    var item = {}
+                    item["label"] = arr[trav];
+                    item["value"] = arr[trav];
+                    jsonObj.push(item);
+                }
+                @*console.log(jsonObj);*@
+
+                $("#TxtItemCode").autocomplete({
+                    source: function (request, response) {
+                        var results = $.ui.autocomplete.filter(jsonObj, request.term);
+                        response(results.slice(0, 10));
+                    }
+                });
+
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    //function GetSiteLokasiKejadian() {
+    //    $.ajax({
+    //        url: "../Form/GetSiteLokasiKejadian",
+    //        type: "post",
+    //        dataType: "json",
+    //        contentType: "application/json;charset=utf-8",
+    //        success: function (data) {
+
+    //            var trhtml = "";
+    //            var trav = 0;
+    //            var count = data.length;
+
+    //            trhtml += '<option disabled selected class="dropdown-header">Site Lokasi Kejadian</option>';
+    //            if (count > 0) {
+    //                for (trav = 0; trav < count; trav++) {
+    //                    trhtml += '<option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+    //                }
+    //            }
+    //            $("#txtSiteLokasi").empty();
+    //            $("#txtSiteLokasi").append(trhtml);
+    //            $("#txtSiteLokasi").select2();
+    //        }
+    //        , error: function (ex) {
+
+    //        }
+    //    });
+    //}
+
+
+
+
+    // Set Picker disable text
+    function SetupRbDtPicker() {
+        $('#ddlSite selectpicker').selectpicker();
+
+        @*$('input[type=radio][name=travel5]').change(function () {
+            if ($('input[name="travel5"]:checked').val() == 'Yes') {
+
+                $("#txtTindakan").attr("disabled", true);
+            } else {
+                $("#txtTindakan").removeAttr("disabled");
+            }
+
+        });*@
+
+        $('input[type=radio][name=travel1]').change(function () {
+            if ($('input[name="travel1"]:checked').val() == 'Yes') {
+
+                $("#txtsama").removeAttr("disabled");
+            } else {
+                $("#txtsama").attr("disabled", true);
+            }
+
+        });
+
+        $('input[type=radio][name=travel2]').change(function () {
+            if ($('input[name="travel2"]:checked').val() == 'Yes') {
+
+                $("#txtrilis").removeAttr("disabled");
+            } else {
+                $("#txtrilis").attr("disabled", true);
+            }
+
+        });
+
+        $('input[type=radio][name=travel3]').change(function () {
+            if ($('input[name="travel3"]:checked').val() == 'Yes') {
+
+                $("#txtlain").removeAttr("disabled");
+            } else {
+                $("#txtlain").attr("disabled", true);
+            }
+
+        });
+
+        $('input[type=radio][name=travel4]').change(function () {
+            if ($('input[name="travel4"]:checked').val() == 'Yes') {
+
+                $("#txt30hari").removeAttr("disabled");
+            } else {
+                $("#txt30hari").attr("disabled", true);
+            }
+
+        });
+    }
+
+
+    // Dropdown list pentuan angka keparahan
+    function GetKualitasProduk() {
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/GetKualitasProduk",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
+                    }
+                }
+                $("#ddlKualProd").empty();
+                $("#ddlKualProd").append(trhtml);
+                $("#ddlKualProd").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error GetKualitasProduk : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetCompliance() {
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/GetCompliance",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
+                    }
+                }
+                $("#ddlCompliance").empty();
+                $("#ddlCompliance").append(trhtml);
+                $("#ddlCompliance").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error GetCompliance : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetResikoOperasional() {
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/GetResikoOperational",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
+                    }
+                }
+                $("#ddlRiskOpr").empty();
+                $("#ddlRiskOpr").append(trhtml);
+                $("#ddlRiskOpr").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error GetResikoOperasional : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+
+    function GetResikoFinansial() {
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/GetResikoFinansial",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
+                    }
+                }
+                $("#ddlRiskFin").empty();
+                $("#ddlRiskFin").append(trhtml);
+                $("#ddlRiskFin").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error GetResikoFinansial : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetResikoOrganisasi() {
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/GetResikoOrganisasi",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
+                    }
+                }
+                $("#ddlRiskOrg").empty();
+                $("#ddlRiskOrg").append(trhtml);
+                $("#ddlRiskOrg").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error GetResikoOrganisasi : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetResikoKeamPersonil() {
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/GetResikoKeamPersonil",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
+                    }
+                }
+                $("#ddlKeamamananP").empty();
+                $("#ddlKeamamananP").append(trhtml);
+                $("#ddlKeamamananP").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error GetResikoKeamPersonil : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+
+    function GetResikoKesehatanPersonil() {
+
+       var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/GetResikoKesehatanPersonil",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
+                    }
+                }
+                $("#ddlKesehatanPer").empty();
+                $("#ddlKesehatanPer").append(trhtml);
+                $("#ddlKesehatanPer").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error GetResikoKesehatanPersonil : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetResikokLingkungan() {
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/GetResikoLingkungan",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
+                    }
+                }
+                $("#ddlResLingk").empty();
+                $("#ddlResLingk").append(trhtml);
+                $("#ddlResLingk").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error GetResikokLingkungan : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function GetResikoIntelektual() {
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        };
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/GetResikoIntelektual",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                       if (data[trav].DDL_CODE == data[trav].DDL_TRUE) {
+                           trhtml += '<option selected class="dropdown-item" value="' + data[trav].DDL_TRUE + '">' + data[trav].DDL_DESCRIPTION;
+
+                       } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                       }
+                    }
+                }
+
+
+                $("#ddlRiskIntelek").empty();
+                $("#ddlRiskIntelek").append(trhtml);
+                $("#ddlRiskIntelek").selectpicker();
+            },
+            error: function (ex) {
+                alert('Error GetResikoIntelektual : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+
+    // Generate Date Jquery
+    function GenerateDate() {
+        // Start Show Date
+        var d = new Date();
+        var day = d.getDay();
+        var date = d.getDate();
+        date = (date < 10) ? ("0" + date) : date;
+        var year = d.getFullYear();
+        var month = d.getMonth();
+        var xx = d.getMonth();
+        var hour = d.getHours();
+        hour = (hour < 10) ? ("0" + hour) : hour;
+        var minuts = d.getMinutes();
+        minuts = (minuts < 10) ? ("0" + minuts) : minuts;
+        var monthArr = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "October", "November", "Desember"];
+        var daysArr = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+        month = monthArr[month];
+        day = daysArr[day];
+
+        $('#TbTglCreated').attr("value", date + " " + month + " " + year + " " + hour + ":" + minuts);
+    }
+
+    function GenerateDepartment() {
+        var ID_PROPOSER = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+        var dto = {
+            IdProposer: ID_PROPOSER
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "../Form/GenerateDepartment",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $("#TbDeptPusul").val(data);
+
+            },
+            error: function (ex) {
+                alert('Error GenerateDepartment : ' + JSON.stringify(ex));
+            }
+        });
+
+    }
+
+    // Generate ReqID
+    function GenerateReqID() {
+        $('#lblReq').text(@ViewBag.nomor);
+
+    }
+
+
+
+    // File Attachment Deviation
+    function UploadAttachmentDeviation() {
+
+        var formData = new FormData();
+        var REQID = $("#lblReq").text();
+        var totalFiles = document.getElementById("idFileUpload").files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("idFileUpload").files[i];
+            formData.append("idFileUpload", file);
+            formData.append("ReqID", REQID);
+        }
+
+        if (file.name != null || file.name != "") {
+            $.ajax({
+                type: "POST",
+                url: "../Form/UploadAttachment",
+                data: formData,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    formData.append("ReqID", REQID);
+                    if (data == 'S') {
+
+                        toastr.success("File Attachment " + file.name + " Berhasil diupload", "Berhasil", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+                        GetFileAttachment(REQID);
+                    }
+                }
+                , error: function (ex) {
+                    alert('Error Upload Attachment Deviation: ' + JSON.stringify(ex));
+                }
+            });
+        }
+    }
+
+    @*Get file attachment approve*@
+            function GetFileAttachmentApprove() {
+
+                var ReqID = @ViewBag.nomor;
+                var dto = {
+                    ReqID: ReqID
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "../SpvPelapor/App_LoadAttachment",
+                    data: JSON.stringify(dto),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        if (data != '') {
+                            var trHTML = '';
+                            var trav = 0;
+                            var Count = data.length;
+
+                            if (Count > 0) {
+                                for (trav = 0; trav < Count; trav++) {
+                                    var no = 1
+                                    no = no + trav
+
+                                    trHTML += '<tr><td>' + no + '</td>' +
+                                        '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                                        '<td style="display:none">' + data[trav].NO_FILE + '</td>' +
+                                        '<td>' + data[trav].file_name_upload + '</td>' +
+                                        '<td style="display:none;">' + data[trav].path_file + '</td>' +
+                                        '<td align="center"><a href=' + data[trav].path_file_download + ' target="_blank"><i class="fa fa-cloud-download"></i></a></td></tr>';
+                                }
+
+                                $("#tbl_Attachment_Approve").show();
+                                $("#tbody_Attachment_Approve").empty();
+                                $("#tbody_Attachment_Approve").append(trHTML);
+                                $("#tbody_Attachment_Approve").addBack();
+
+                            } else {
+                                $("#tbl_Attachment_Approve").hide();
+                            }
+                        } else {
+                            $("#tbl_Attachment_Approve").hide();
+                            $("#tbody_Attachment_Approve").addBack();
+                        }
+                    },
+                    error: function (ex) {
+                        GetErrorSupPel("SupPel", JSON.stringify(ex));
+                    }
+                });
+            }
+
+    @*Get file attachment edit*@
+
+    function GetFileAttachment() {
+
+        var ReqID = $('#lblReq').text();
+        var dto = {
+            ReqID: ReqID
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "../Form/LoadAttachment",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data != '') {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+                    if (Count > 0) {
+                        for (trav = 0; trav < Count; trav++) {
+                            var no = 1
+                            no = no + trav
+                            trHTML += '<tr><td>' + no + '</td>' +
+                                '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                                '<td style="display:none">' + data[trav].NO_FILE + '</td>' +
+                                '<td>' + data[trav].file_name_upload + '</td>' +
+                                '<td style="display:none;">' + data[trav].path_file + '</td>' +
+                                '<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
+                        }
+
+                        $("#tbl_Attachment").show();
+                        $("#tbody_Attachment").empty();
+                        $("#tbody_Attachment").append(trHTML);
+                        $("#tbody_Attachment").addBack();
+
+                    } else {
+                        $("#tbl_Attachment").hide();
+                    }
+                } else {
+                    $("#tbl_Attachment").hide();
+                    $("#tbody_Attachment").addBack();
+                }
+            },
+            error: function (ex) {
+                alert('Error Get File Attachment : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function DeleteFileAttachment(button) {
+        event.preventDefault();
+        var Row = $(button).closest("TR");
+        var ReqID = $("TD", Row).eq(1).html();
+        var RecordID = $("TD", Row).eq(2).html();
+        var FileName = $("TD", Row).eq(3).html();
+        var PathFile = $("TD", Row).eq(4).html();
+
+        var dto = {
+            ReqID: ReqID,
+            RecordID: RecordID,
+            PathFile: PathFile
+        }
+
+        $.ajax({
+            url: "../Form/DeleteAttachment",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data == 'S') {
+                    toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-left",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+
+                    GetFileAttachment();
+                }
+            },
+            error: function (ex) {
+                alert('Error Delete File Attachment: ' + JSON.stringify(ex));
+            }
+        });
+
+    }
+
+
+
+    function InsertMultipleProduk() {
+        var ReqID = $('#lblReq').text();
+        var dto = {
+            ReqID,
+            ListProduk: listProduk
+        }
+
+        $.ajax({
+            url: "../Form/InsertMultipleProduk",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+            }
+            , error: function (ex) {
+                GetErrorInput("InsertMultipleProduk", JSON.stringify(ex));
+            }
+        });
+    }
+
+    function UpdateMultipleProduk() {
+        var ReqID = $('#lblReq').text();
+        var dto = {
+            ReqID,
+            ListProduk: listProduk
+        }
+
+        $.ajax({
+            url: "../Form/UpdateMultipleProduk",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+            }
+            , error: function (ex) {
+                GetErrorInput("UpdateMultipleProduk", JSON.stringify(ex));
+            }
+        });
+    }
+
+    function SendEmailRev() {
+
+        var REQID = $("#lblReq").text();
+		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var tabletype = "One";
+		var whoreceiver = "Superior after Form Input";
+
+		var dto = {
+			Receiver: receiver,
+			ReqID: REQID,
+			TableType: tabletype,
+			WhoReceiver: whoreceiver
+		};
+
+		$.ajax({
+			type: "post",
+			url: '../Form/SendEmailInputProposal',
+			data: JSON.stringify(dto),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				toastr.success("Email Sent Successfully !", "Notification", {
+					"closeButton": false,
+					"debug": true,
+					"newestOnTop": false,
+					"progressBar": false,
+					"positionClass": "toast-bottom-right",
+					"preventDuplicates": false,
+					"onclick": null,
+					"showDuration": "100",
+					"hideDuration": "1000",
+					"timeOut": "1000",
+					"extendedTimeOut": "1000",
+					"showEasing": "swing",
+					"hideEasing": "linear",
+					"showMethod": "fadeIn",
+					"hideMethod": "fadeOut"
+				});
+
+
+			}, error: function (ex) {
+				alert("Error Email: " + JSON.stringify(ex));
+			}
+		});
+    }
+
+    // Save Orang terlibat
+    function InsertNamaTerlibat() {
+        var UserInvolved = $('#txtWho').val();
+        var REQID = $("#lblReq").text();
+
+        var dto = {
+            REQID: REQID,
+            UserInvolved: UserInvolved
+        }
+
+        $.ajax({
+            url: "../Form/UserInvolved",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data == 'S') {
+                    $('#txtWho').val('');
+                    toastr.success("Data berhasil tersimpan !", "Tersimpan", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+
+                    LoadUserInvolved();
+                }
+            }
+            , error: function (ex) {
+                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+
+
+    function LoadUserInvolvedApprove() {
+
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			ReqID: REQID
+		}
+
+		$.ajax({
+			url: "../SpvPelapor/App_LoadUserInvolved",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				if (data != '') {
+					$('#tblWhoApprove').attr('hidden', false);
+
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+
+
+					for (trav = 0; trav < Count; trav++) {
+
+						trHTML += '<tr><td>' + data[trav].NO + '</td>' +
+							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+							'<td style="display:none">' + data[trav].RecordID + '</td>' +
+							'<td>' + data[trav].USER_NAME + '</td>></tr>';
+
+					}
+
+
+					$("#tblBodyWhoApprove").empty();
+					$("#tblBodyWhoApprove").append(trHTML);
+				}
+				else {
+					$('#tblWhoApprove').attr('hidden', true);
+					$("#tblBodyWhoApprove").addBack();
+				}
+
+			}
+			, error: function (ex) {
+                GetErrorSupPel("SupPel", JSON.stringify(ex));
+			}
+		});
+	}
+
+
+	function GetErrorSupPel(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
+
+    function LoadUserInvolved() {
+
+        var REQID = $("#lblReq").text();
+
+        var dto = {
+            REQID: REQID
+        }
+
+        $.ajax({
+            url: "../Form/LoadUserInvolved",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data != '') {
+                    //$('#tblWho').attr('hidden', false);
+
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+                    for (trav = 0; trav < Count; trav++) {
+                        trHTML += '<tr><td>' + data[trav].NO + '</td>' +
+                            '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                            '<td style="display:none">' + data[trav].RecordID + '</td>' +
+                            '<td>' + data[trav].USER_NAME + '</td>' +
+                            '<td><button onclick="DeleteUserInvolved(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
+                    }
+
+                    $("#tblBodyWho").empty();
+                    $("#tblBodyWho").append(trHTML);
+                    $("#tblBodyWho").addBack();
+                }
+                else {
+                    //$('#tblWho').attr('hidden', true);
+                    $("#tblBodyWho").addBack();
+                }
+
+            }
+            , error: function (ex) {
+                alert('Error Load User Involved : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function DeleteUserInvolved(button) {
+        event.preventDefault();
+        var row = $(button).closest("TR");
+        var ReqID = $("TD", row).eq(1).html();
+        var RecordID = $("TD", row).eq(2).html();
+
+        var dto = {
+            REQID: ReqID,
+            RecordID: RecordID
+        }
+
+        $.ajax({
+            url: "../Form/DeleteUserInvolved",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                if (data == 'S') {
+                    toastr.success("Data berhasil terhapus !", "Terhapus", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+
+                    LoadUserInvolved();
+                }
+            }
+            , error: function (ex) {
+                alert('Error Delete User Involved : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function s() {
+        return false;
+    }
+
+    function LoadAll() {
+        var nomor = @ViewBag.nomor;
+        var dto = {
+            ReqID: nomor
+        }
+
+        $.ajax({
+            url: "../SpvPelapor/App_LoadDeviationApproval",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var text = '';
+                //console.log(data);
+                //BUGGY
+                GetFileAttachment();
+                GetFileAttachmentApprove();
+                LoadUserInvolved();
+                LoadUserInvolvedApprove();
+
+                document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
+                document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
+                //document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
+                document.getElementById('TbPesul').value = data[0].NAME_PROPOSER;
+                document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
+
+                //$("#txtrilis").attr("disabled", true);
+
+                LoadKategori();
+
+
+                 var dev_kategori = data[0].ID_DEVIATION_CATEGORY;
+
+                if (dev_kategori == 'QPR') {
+
+                    @*$("#TxtNoWO").attr("hidden", false);
+                    $("#TxtItemCode").attr("hidden", false);
+                    $('#TxtBatchNo').attr('hidden', false);*@
+                    $("#divreceipt").attr("hidden", true);
+                    @*$("#JenisPenyimpanganDetail").attr("hidden", false);*@
+                    //$("#txtKetKategori").attr("hidden", true);
+                    // MATERIAL AWAL (MASIH ADA LAGI)
+                } else
+                    if (dev_kategori == 'QMT') {
+                        @*$("#TxtItemCode").attr("hidden", false);
+                        $('#TxtQCMaterialNo').attr('hidden', false);*@
+                        //$("#txtKetKategori").attr("hidden", true);
+                        $("#divreceipt").attr("hidden", false);
+                       @* $("#JenisPenyimpanganDetail").attr("hidden",false);*@
+                    } else {
+                        $("#divTblDaftarProduk").attr("hidden", true);
+                        $("#divreceipt").attr("hidden", true);
+                     
+                    }
+
+                $('input[name=r_receipt][value=' + data[0].FLAG_RECEIPT + ']').prop('checked', true);
+
+                if (dev_kategori == 'QPR' || dev_kategori == 'QMT') {
+                    LoadListProduk(dev_kategori);
+                }
+
+
+
+                $('#txtKetKategori').val(data[0].KET_CATEGORY);
+
+                if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
+                    $("#divsimpang").show();
+                    //$('#divreceipt').hide();
+                    $("#divreceipt").attr("hidden", true);
+                    $("#TxtNoWO").attr("hidden", false);
+                    $('#TxtQCMaterialNo').attr("hidden", true);
+                    $("#divQCMaterial").css("display", "none");
+                    $("#TxtItemCode").attr('placeholder', 'Item Code');
+                    GetNoBatchOracle();
+                    $('#txtKetKategori').attr('disabled', true);
+                }
+                else {
+                    if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
+                        $("#divsimpang").show();
+                        //$('#divreceipt').show();
+                        $("#divreceipt").attr("hidden", false);
+
+                        $("#TxtNoWO").attr("hidden", true);
+                        $('#TxtBatchNo').attr('hidden', true);
+                        $('#TxtQCMaterialNo').attr("hidden", false);
+                        $("#TxtItemCode").attr("hidden", false);
+                        $('#txtKetKategori').attr('disabled', true);
+                        $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                        $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
+                        GetQCMaterialNoOracle();
+                    }
+                    else {
+                        $("#divsimpang").hide();
+                        $('#divProduk').hide();
+                        $('#TxtQCMaterialNo').attr("hidden", true);
+                        $("#TxtNoWO").attr("disabled", true);
+                      
+                        @*$("#JenisPenyimpanganDetail").attr("hidden", true);*@
+                       @* $("#JenisPenyimpanganDetail").attr("hidden", true);*@
+                        $('#txtKetKategori').val('');
+                    }
+                }
+
+                document.getElementById('TxtNoWO').value = data[0].NO_WO_ORACLE;
+                document.getElementById('TxtBatchNo').value = data[0].NO_BATCH_ORACLE;
+                document.getElementById('TxtItemCode').value = data[0].ITEM_CODE_ORACLE;
+                document.getElementById('TxtQCMaterialNo').value = data[0].QC_MATERIAL_NO;
+
+
+                document.getElementById('txtProblem').value = data[0].PROBLEM;
+
+                document.getElementById('txtLokasi').value = data[0].LOCATION;
+
+
+                // GET DEPT
+                GetSiteLokasiKejadian();
+
+                document.getElementById('txtHow').value = data[0].ORDER_OF_EVENTS;
+                document.getElementById('date-format').value = data[0].DATE_OF_INCIDENT;
+
+                document.getElementById('txtTindakan').value = data[0].ACTION_WHEN_DEV;
+
+                document.getElementById('txtReq').value = data[0].REQ;
+
+                // USULAN REMIDIAL
+                $('#txtUsulanRemidial').val(data[0].USULAN_REMIDIAL);
+
+                // 1st Card Radio Button
+                // Travel 1
+                $("input[name=travel1][value=" + data[0].SAME_POTEN_DEV_FLAG + "]").prop('checked', true);
+                if (data[0].SAME_POTEN_DEV_FLAG == 'Yes') {
+
+                    $("#txtsama").removeAttr("disabled");
+                } else {
+                    $("#txtsama").attr("disabled", true);
+                }
+                $('#txtsama').val(data[0].SAME_POTEN_DEV);
+
+                // Travel 2 (Txt2 HTML5 missing)
+
+                $("input[name=travel2][value=" + data[0].POTEN_DEV_RLS_FLG + "]").prop('checked', true);
+                if (data[0].POTEN_DEV_RLS_FLG == 'Yes') {
+
+                    $("#txtrilis").removeAttr("disabled");
+                } else {
+                    $("#txtrilis").attr("disabled", true);
+                }
+                $('#txtrilis').val(data[0].POTEN_DEV_RLS);
+
+                // Travel 3 (Txt3 HTML5 missing)
+                $("input[name=travel3][value=" + data[0].POTEN_DEV_OTH_FLG + "]").prop('checked', true);
+                if (data[0].POTEN_DEV_OTH_FLG == 'Yes') {
+
+                    $("#txtlain").removeAttr("disabled");
+                } else {
+                    $("#txtlain").attr("disabled", true);
+                }
+                $('#txtlain').val(data[0].POTEN_DEV_OTH);
+
+                // Travel 4 -> missing
+                $("input[name=travel4][value=" + data[0].THIRTY_FLAG + "]").prop('checked', true);
+                if (data[0].THIRTY_FLAG == 'Yes') {
+
+                    $("#txt30hari").removeAttr("disabled");
+                } else {
+                    $("#txt30hari").attr("disabled", true);
+                }
+                $('#txt30hari').val(data[0].THIRTY);
+
+                // Travel 5 -> missing
+                $("input[name=travel5][value=" + data[0].PLAN_DEV + "]").prop('checked', true);
+                if (data[0].PLAN_DEV == 'Yes') {
+
+                    $("#txtTindakan").attr("disabled", true);
+                } else {
+                    $("#txtTindakan").attr("disabled", false);
+                }
+                // 2nd Card FINISHED!
+
+                // 2nd Card Quality Product
+
+                // Kualitas Produk
+
+                GetKualitasProduk();
+                GetCompliance();
+                GetResikoOperasional();
+
+                GetResikoFinansial();
+                GetResikoOrganisasi();
+                GetResikoKeamPersonil();
+
+                GetResikoKesehatanPersonil();
+                GetResikokLingkungan();
+                GetResikoIntelektual();
+
+                // 2nd Card Severity Risk
+
+                document.getElementById('txtKeparahan').value = data[0].SEVERTY_DEVIATION;
+
+                $('textarea').each(function () {
+                    this.setAttribute('style', 'height: ' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                }).on('input', function () {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+        @*ToggleByCategory();*@
+    }
+
+    function GetSiteLokasiKejadian() {
+       var ReqID =  @ViewBag.nomor;
+
+        var dto = {
+            ReqID: ReqID
+        }
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/Rev_GetSiteLokasiKejadian",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+
+                trhtml += '<option disabled class="dropdown-header">Site Lokasi Kejadian</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        if (data[trav].ddl_code == data[trav].DDL_TRUE) {
+                            trhtml += '<option class="dropdown-item" selected value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                        } else {
+                            trhtml += '<option class="dropdown-item" value = "' + data[trav].ddl_code + '" > ' + data[trav].ddl_description;
+
+                        }
+                    }
+                }
+                $("#txtSiteLokasi").empty();
+                $("#txtSiteLokasi").append(trhtml);
+                $("#txtSiteLokasi").select2();
+
+                GetDepartementLokasiKejadian();
+            }
+            , error: function (ex) {
+
+            }
+        });
+    }
+
+    function GetDepartementLokasiKejadian() {
+        var LocationSiteIncident = $("#txtSiteLokasi").val();
+        var ReqID =  @ViewBag.nomor;
+
+        var dto = {
+            ReqID: ReqID,
+            LocationSiteIncident: LocationSiteIncident
+        }
+
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/Rev_GetDeptLokasiKejadian",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
+
+                trhtml += '<option disabled class="dropdown-header">Department Lokasi Kejadian</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        if (data[trav].SubDeptCode == data[trav].DDL_TRUE) {
+                            trhtml += '<option class="dropdown-item" selected value = "' + data[trav].SubDeptCode + '" > ' + data[trav].orggroupname;
+
+                        } else {
+                            trhtml += '<option class="dropdown-item" value = "' + data[trav].SubDeptCode + '" > ' + data[trav].orggroupname;
+
+                        }
+                    }
+
+                }
+                $("#txtDept").empty();
+                $("#txtDept").append(trhtml);
+                $("#txtDept").select2();
+
+            }
+            , error: function (ex) {
+
+            }
+        });
+    }
+
+     function LoadKategori() {
+
+        LoadKategori = function () { };
+
+        var REQID = @ViewBag.nomor;
+
+        var dto = {
+            ReqID: REQID
+        }
+
+        $.ajax({
+            url: "../PelaporPenyimpangan/LoadKategori",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = data.length;
+                var trhtml = '';
+                var trav = 0;
+
+                trhtml += '<option class="dropdown-header"  value = " ">   Kategori   </option>';
+
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+
+                        if (data[trav].DDL_TRUE == '' || data[trav].DDL_TRUE == null) {
+                            trhtml += '<Option class="dropdown-item" selected value = "" > - ';
+                            break;
+                        }
+
+                        if (data[trav].DDL_TRUE == data[trav].DDL_CODE) {
+                            trhtml += '<Option class="dropdown-item" selected value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                        } else {
+                            trhtml += '<Option class="dropdown-item" value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
+                        }
+                    }
+                }
+
+                $("#ddlKategori").empty();
+                $("#ddlKategori").append(trhtml);
+                $("#ddlKategori").selectpicker();
+
+                LoadKategori = function () { };
+
+            },
+            error: function (ex) {
+                alert('Error : ' + JSON.stringify(ex));
+            }
+        });
+    }
+
+    function SetTableProduk(dev_kategori) {
+
+        $('#tblListProduk').DataTable({
+            "pageLength": 10,
+            "lengthChange": false,
+            "searching": false,
+            "data": listProduk,
+            "select": true,
+            "bDestroy": true,
+            "scrollCollapse": true,
+            "scrollX": true,
+            "paging": false,
+            "info": false,
+            "ordering": false,
+            "columns": [
+                {
+                    "data": "id",
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                { "data": "NoQCMaterial" },
+                { "data": "ItemCodeOracle" },
+                { "data": "NoBatchOracle" },
+                { "data": "NoWOOracle" },
+                { "data": "KeteranganKategori" },
+                {
+                    "data": null,
+                    "defaultContent": '<input type="button" value="Delete" class="btn btn-danger deleteProduk" style="width:auto;"/>'
+                },
+            ],
+            "initComplete": function (settings) {
+                var api = new $.fn.dataTable.Api(settings);
+
+                var showColumnQPR = dev_kategori == 'QPR' ? true : false;
+                var showColumnQMT = dev_kategori == 'QMT' ? true : false;
+                var showColumnAction = editMode === true ? true : false;
+
+                api.columns([3, 4]).visible(showColumnQPR);
+                api.columns([1]).visible(showColumnQMT);
+                api.columns([6]).visible(showColumnAction);
+            }
+        });
+
+        if (dev_kategori == 'QPR') {
+            $('#thQCNum').attr('hidden', true);
+            $('#thNoBatch').attr('hidden', false);
+            $('#thNoWO').attr('hidden', false);
+        } else if (dev_kategori == 'QMT') {
+            $('#thQCNum').attr('hidden', false);
+            $('#thNoBatch').attr('hidden', true);
+            $('#thNoWO').attr('hidden', true);
+        }
+    }
+
+    function GetErrorInput(ErrorType, ErrorMsg) {
+        var REQID = $('#lblReq').text();
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
+
+</script>
+
+
+
+

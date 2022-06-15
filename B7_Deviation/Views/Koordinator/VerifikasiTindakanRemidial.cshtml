@@ -1,93 +1,114 @@
-﻿
-@{
-	ViewBag.Title = "VerifikasiTindakanRemidial";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewBag.Title = "VerifikasiTindakanRemidial";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer nonce="6DQnROG/UYcNQI28o4gfLA=="></script>
+@*<link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>*@
 
 <div class="content-body">
-	<div class="form-group">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="card">
-						<div class="card-body">
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
 
-							<div class="form-group">
-								<h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
-							</div>
+                            <div class="form-group">
+                                <h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+                            </div>
 
-							<div class="form-group row">
-								<div class="col-md-8">
-									<div class="form-group">
+                            <div class="form-group row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <button type="button" id="btnSave" class="col-sm-2 btn mb-1 btn-success form-control "style="display:none">
+                                            Save
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
 
-										<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control ">
-											Cancel
-											<span class="fa fa-check-square-o"></span>
-										</button>
+                                        <button type="button" id="btnUpdate" class="col-sm-3 btn mb-1 btn-warning form-control ">
+                                            Update Produk/Material
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
 
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<label>Nama</label>
-										<input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
-									</div>
-									<div class="form-group">
-										<label for="txtTanggal">Tanggal:</label>
-										<input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                                        <button type="button" id="btnCancelPerubahan" class="col-sm-3 btn mb-1 btn-danger form-control " style="display:none">
+                                            Cancel Perubahan
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
 
-	</div>
+                                        <button type="button" id="btnCancel" class="col-sm-3 btn mb-1 btn-danger form-control ">
+                                            Cancel Penyimpangan
+                                            <span class="fa fa-check-square-o"></span>
+                                        </button>
 
-	<div class="form-group">
-		@Html.Partial("~/Views/QualityManager/QualityManagerPartialView.cshtml")
-	</div>
 
-	<div class="form-group">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="card">
-						<div class="card-body">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nama</label>
+                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtTanggal">Tanggal:</label>
+                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.Partial("~/Views/QualityManager/QualityManagerPartialView.cshtml")
+    </div>
+
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-hover table-bordered" id="deviationdatatable" width="3450px" style="color:black">
+                                <table class="table table-hover table-bordered table-custom-all-bordered" id="deviationdatatable" width="3450px" style="color:black;border:solid;">
                                     <thead>
                                         <tr>
                                             <th rowspan="2" width="50px">No</th>
-                                            <th rowspan="2" width="400px">Usulan Tindakan Remedial</th>
-                                            <th rowspan="2" >Hasil Tindakan Remedial</th>
-                                            <th colspan="4" style="text-align:center">Testing Cost</th>
-                                            <th colspan="3" style="text-align:center">Processing Cost</th>
+                                            <th rowspan="2" width="250px">Usulan Tindakan Remedial</th>
+                                            <th rowspan="2" width="150px">Nama PIC</th>
+                                            <th rowspan="2">Hasil Tindakan Remedial</th>
+                                            <th colspan="5" style="text-align:center">Testing Cost</th>
+                                            <th colspan="4" style="text-align:center">Processing Cost</th>
                                             <th colspan="3" style="text-align:center">Reject Cost</th>
-                                            <th colspan="2" style="text-align:center">Machine Cost</th>
-                                            <th rowspan="2" style="text-align:center">PIC</th>
+                                            <th colspan="6" style="text-align:center">Machine Cost</th>
                                             <th rowspan="2" style="text-align:center" width="100px">Status</th>
                                             <th rowspan="2" style="text-align:center" width="20px">Dokumen Pendukung</th>
                                             <th id="headVerify" rowspan="2" style="text-align:center" width="200px">Verifikasi Tindakan Remedial</th>
                                         </tr>
                                         <tr>
-                                            <th width="75px">Jumlah&nbspPersonel</th>
-                                            <th width="75px">Durasi&nbspPengerjaan&nbsp(Jam)</th>
-                                            <th width="75px">Manhours&nbspValue</th>
-                                            <th width="150px">Cost&nbspof&nbspAnalysis</th>
-                                            <th width="75px">Durasi&nbspPengerjaan</th>
-                                            <th width="75px">Jumlah&nbspPelaksana&nbsp(Jam)</th>
-                                            <th width="75px">Manhours&nbspValue</th>
+                                            <th width="75px">Jumlah Personel (orang)</th>
+                                            <th width="75px">Durasi Pengerjaan (jam)</th>
+                                            <th width="75px">Manhours</th>
+                                            <th width="75px">Manhours Cost (Rp)</th>
+                                            <th width="150px">Cost of Analysis (Rp)</th>
+                                            <th width="75px">Jumlah Personel (orang)</th>
+                                            <th width="75px">Durasi Pengerjaan (jam)</th>
+                                            <th width="75px">Manhours</th>
+                                            <th width="75px">Manhours Cost (Rp)</th>
                                             <th width="75px">Material</th>
                                             <th width="75px">Quantity</th>
-                                            <th width="75px">Cost&nbspMaterial</th>
-                                            <th width="75px">Nama&nbspSparepart</th>
-                                            <th width="75px">Harga&nbspSparepart</th>
+                                            <th width="75px">Cost Material (Rp)</th>
+                                            <th width="75px">Jumlah Teknisi (orang)</th>
+                                            <th width="75px">Durasi (jam)</th>
+                                            <th width="75px">Manhours</th>
+                                            <th width="75px">Manhours Cost (Rp)</th>
+                                            <th width="75px">Nama Sparepart</th>
+                                            <th width="75px">Harga Sparepart (Rp)</th>
                                             <th width="75px" hidden="hidden">NIK PIC</th>
                                         </tr>
 
@@ -98,88 +119,88 @@
                                     </tfoot>
                                 </table>
                             </div>
-						</div>
-					</div>
-					<div class="card" id="tabel2" hidden="hidden">
-						<div class="card-body">
-							<table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="buktidatatable" width="100%">
-								<thead>
-									<tr>
-										<th width="75px">No</th>
-										<th width="100px">Nama PIC</th>
-										<th width="75px">Nama File</th>
+                        </div>
+                    </div>
+                    <div class="card" id="tabel2" hidden="hidden">
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" id="buktidatatable" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="75px">No</th>
+                                        <th width="100px">Nama PIC</th>
+                                        <th width="75px">Nama File</th>
 
-									</tr>
-								</thead>
-								<tbody id="buktitable" class="nowrap">
-								</tbody>
-							</table>
+                                    </tr>
+                                </thead>
+                                <tbody id="buktitable" class="nowrap">
+                                </tbody>
+                            </table>
 
-						</div>
-					</div>
+                        </div>
+                    </div>
 
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<div class="form-group">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="card">
-						<div class="card-body">
-							<div class="form-group row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label for="usulantindakan">
-											Usulan Tindakan Remedial
-										</label>
-										<textarea id="usulantindakan" class="form-control" disabled="disabled"></textarea>
-									</div>
-								</div>
-							</div>
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="usulantindakan">
+                                            Usulan Tindakan Remedial
+                                        </label>
+                                        <textarea id="usulantindakan" class="form-control" disabled="disabled"></textarea>
+                                    </div>
+                                </div>
+                            </div>
 
-							<div class="form-group" id="evaluasiresiko">
-								<label>Evaluasi Risiko</label>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault1" value="Yes" disabled="disabled">
-									<label class="form-check-label" for="flexRadioDefault1">
-										Perlu Ditindaklanjuti dengan Pengkajian Risiko
-									</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault2" value="No" disabled="disabled">
-									<label class="form-check-label" for="flexRadioDefault2">
-										Tidak Perlu Ditindaklanjuti dengan Pengkajian
-									</label>
-								</div>
-							</div>
+                            <div class="form-group" id="evaluasiresiko">
+                                <label>Evaluasi Risiko</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault1" value="Yes" disabled="disabled">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Perlu Ditindaklanjuti dengan Pengkajian Risiko
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radbut" id="flexRadioDefault2" value="No" disabled="disabled">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Tidak Perlu Ditindaklanjuti dengan Pengkajian
+                                    </label>
+                                </div>
+                            </div>
 
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<div class="form-group" id="koorsubmission" hidden="hidden">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="card">
+    <div class="form-group" id="koorsubmission" hidden="hidden">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
                         <div class="card-body">
                             <h4>Investigation Time</h4>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)</label>
                                 <div class="col-sm-10">
-                                    <input  type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"  id="ITDP" class="form-control" />
+                                    <input type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" id="ITDP" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)</label>
                                 <div class="col-sm-10">
-                                    <input  type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"  id="ITJP" class="form-control" />
+                                    <input type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" id="ITJP" class="form-control" />
                                 </div>
                             </div>
 
@@ -189,46 +210,70 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)</label>
                                 <div class="col-sm-10">
-                                    <input  type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"  id="MTDP" class="form-control" />
+                                    <input type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" id="MTDP" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Jumlah Pelaksana (Orang)</label>
                                 <div class="col-sm-10">
-                                    <input  type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"  id="MTJP" class="form-control" />
+                                    <input type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" id="MTJP" class="form-control" />
                                 </div>
                             </div>
                         </div>
-						<div class="card-body">
+                        <div class="card-body">
 
 
-							<button type="button" id="btnApprove" class="col-sm-2 btn btn-success">
-								Save
-								<span class="fa fa-check-square-o"></span>
-							</button>
-							
+                            <button type="button" id="btnApprove2" class="col-sm-2 btn btn-success">
+                                Save
+                                <span class="fa fa-check-square-o"></span>
+                            </button>
 
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
-<script nonce="I9fvt2/HXQ1jdLyrZWeivA==">
-	$(document).ready(function () {
-		CheckFormStatus();
-		GetUsulanTindakan();
-		LoadStatus();
+<script nonce="CWexcXO1KD5c83YEXnoPAw==">
+    var listProduk = [];
+    var editMode = false;
+    
+        var dev_kategori = $("#ddlKategori").val();
 
+    $(document).ready(function () {
+     
+        CheckFormStatus();
+        GetUsulanTindakan();
+        LoadStatus();
+
+       
 
 		$("#btnCancel").click(function () {
 			Cancel();
-		});
+        });
 
-		$("#btnApprove").click(function () {
+        $("#btnCancelPerubahan").click(function () {
+          
+            Swal.fire({
+                title: 'Apakah anda yakin tidak menyimpan perubahan ini?',
+                icon: 'question',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Yes',
+                denyButtonText: 'No',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        });
+
+		$("#btnApprove2").click(function () {
 			Approve();
 		});
 
@@ -245,8 +290,80 @@
             }
         });
 
+
+        $('#btnUpdate').click(function () {
+            editMode = true;
+            var dev_kategori = $("#ddlKategori").val();
+
+            GetQCMaterialNoOracle();
+            SetTableProduk(dev_kategori);
+
+            var x = document.getElementById("btnUpdate");
+
+            if (x.style.display === "none") {
+                x.style.display = "inline";
+            } else {
+                x.style.display = "none";
+
+                document.getElementById("btnSave").style.display = "inline";
+                document.getElementById("btnCancelPerubahan").style.display = "inline";
+                document.getElementById("btnCancel").style.display = "block";
+            }
+
+            $("#txtKetKategori").attr("hidden", false);
+            $('#JenisPenyimpanganDetail').show();
+
+
+            //Empty Dev Kategori Value
+            $('#TxtBatchNo').val('');
+            $("#TxtNoWO").val('');
+            $('#TxtItemCode').val('');
+            $('#txtKetKategori').val('');
+            $('#TxtQCMaterialNo').val('');
+
+
+            //Receipt hidden or show
+            if (dev_kategori == 'QPR') {
+                $("#divreceipt").attr("hidden", true);
+            } else {
+                if (dev_kategori == 'QMT') {
+                    $("#divreceipt").attr("hidden", false);
+                } else {
+                    $("#divTblDaftarProduk").attr("hidden", true);
+                    $("#divreceipt").attr("hidden", true);
+                }
+            }
+
+
+        });
+
+
+
+
+
 	});
 
+    $("#btnSave").click(function () {
+        Swal.fire({
+            title: 'Apakah anda yakin untuk menyimpan perubahan ini?',
+            icon: 'question',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Yes',
+            denyButtonText: 'No',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                UpdateMultipleProduk();
+                location.reload();
+            }
+        });
+
+    });
+ 
+
+ 
+  
 	function GetUsulanTindakan() {
 		var REQID = @ViewBag.nomor;
 
@@ -327,25 +444,35 @@
 					for (trav = 0; trav < Count; trav++) {
 						var counter = 1;
 						counter += trav;
-						trHTML +=
-							'<tr><td align="center">' + counter + '</td>' +
-							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-							'<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
-                        '<td align="right">' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
-                        '<td align="right">' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
-							//'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
-							'<td align="right">' + data[trav].MANHOURS_VALUE_TESTING + '</td>' +
-							'<td align="right">' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
-							'<td align="right">' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
-							'<td align="right">' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
-							//'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
-							'<td align="right">' + data[trav].MANHOURS_VALUE_PROCESSING + '</td>' +
-							'<td align="right">' + data[trav].REJ_MATERIAL + '</td>' +
-							'<td align="right">' + data[trav].REJ_QUANTITY + '</td>' +
-							'<td align="right">' + data[trav].REJ_COST_MATERIAL + '</td>' +
-							'<td align="right">' + data[trav].MC_SPAREPART + '</td>' +
-							'<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
-							'<td align="left">' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+                        trHTML +=
+                            '<tr><td align="center">' + counter + '</td>' +
+                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                            '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+                            '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+
+                            '<td align="right">' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
+                            '<td align="right">' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
+                            '<td align="right">' + data[trav].TESTING_MANHOURS + '</td>' +
+                            //'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
+                            '<td align="right">' + data[trav].TESTING_MANHOURS_VALUE + '</td>' +
+                            '<td align="right">' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
+
+                            '<td align="right">' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+                            '<td align="right">' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
+                            //'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+                            '<td align="right">' + data[trav].PROC_MANHOURS + '</td>' +
+                            '<td align="right">' + data[trav].PROC_MANHOURS_VALUE + '</td>' +
+
+                            '<td align="right">' + data[trav].REJ_MATERIAL + '</td>' +
+                            '<td align="right">' + data[trav].REJ_QUANTITY + '</td>' +
+                            '<td align="right">' + data[trav].REJ_COST_MATERIAL + '</td>' +
+
+                            '<td align="right">' + data[trav].MC_JUMLAH_TEKNISI + '</td>' +
+                            '<td align="right">' + data[trav].MC_DURASI_PENGERJAAN + '</td>' +
+                            '<td align="right">' + data[trav].MC_MANHOURS + '</td>' +
+                            '<td align="right">' + data[trav].MC_MANHOURS_VALUE + '</td>' +
+                            '<td>' + data[trav].MC_SPAREPART + '</td>' +
+                            '<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
                             '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>'+
 							'<td align="left">' + data[trav].FLAG_PIC + '</td>';
 
@@ -356,22 +483,23 @@
 
 						} else {
 							trHTML +=
-								'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+                                '<td align="center"><button id="btnShowBukti' + trav + '" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
 						}
-
-						if ((data[trav].FLAG_VERIFIKASI == '-' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC') ||
-							(data[trav].FLAG_VERIFIKASI == 'REJECTED' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC')) {
+						// || data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY DIV HEAD'
+						//if ((data[trav].FLAG_VERIFIKASI == '-' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC') ||
+      //                      (data[trav].FLAG_VERIFIKASI == 'REJECTED' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC')) {
+                        if (data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC' || data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY DIV HEAD') {
 							trHTML +=
 								'<td align="center">' +
-								'<button style="width:50px" onclick = "Verifikasi(this)" class="btn btn-success">Verifikasi</button>' +
-								'<button style="width:50px" onclick = "RejectVerifikasi(this)" class="btn btn-danger" >Reject</button>' +
+								'<button style="width:50px" id = "btnVerifikasi' + trav + '" class="btn btn-success">Verifikasi</button>&nbsp;&nbsp;' +
+								'<button style="width:50px" id = "btnRejectVerifikasi' + trav + '" class="btn btn-danger">Reject</button>' +
 								'</td > ';
 							//15 Nov 21, tampilkan cap verified
                         } else if ((data[trav].FLAG_VERIFIKASI == 'VERIFIED' && data[trav].FLAG_PIC == 'REMEDIAL APPROVED BY COORDINATOR'))
 						{
                             trHTML += '<td align="center"><img src="../Content/Pict/verified4.png" /></td>';
 						} else {
-							trHTML += '<td> N/A </td>';
+                            trHTML += '<td align="center"> N/A </td>';
 						}
 
                         if (data[trav].FLAG_VERIFIKASI == 'VERIFIED') {
@@ -380,7 +508,6 @@
 					}
 
 					$('#deviationdatatable').DataTable().clear().destroy();
-					$('#picfooter').empty();
 					$('#deviationtable').empty();
 					$('#deviationtable').append(trHTML);
 					$('#deviationdatatable').DataTable({
@@ -394,7 +521,9 @@
                         $('#headVerify').focus();
 					}
 
-
+                    Verifikasi();
+                    RejectVerifikasi();
+					ShowBukti();
 				},
 				error: function (ex) {
                     GetErrorVerifikasi("LoadDataVerifikasi", JSON.stringify(ex));
@@ -414,34 +543,47 @@
 					var Count = data.length;
 					for (trav = 0; trav < Count; trav++) {
 
-						trHTML +=
-                            '<tr>'+
-                            '<th colspan = "3" style = "text-align: center;  background-color: #f3f3f3" > Total</th >'+
-							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Testing Manhours</th>'+
-							'<th style="text-align: center; background-color: #f3f3f3">Total Testing Cost</th>'+
-							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Processing Manhours</th>'+
-							'<th colspan="3" style="text-align: center; background-color: #f3f3f3">Total Rejected Cost</th>'+
-							'<th colspan="2" style="text-align: center; background-color: #f3f3f3">Total Machine Cost</th>'+
-							'</tr >'+
-							'<tr>' +
-							'<td style="background-color: #f3f3f3" colspan="3"></td><td colspan="3" align="right" style="padding:10px 8px">' + data[0].TOTAL_TESTING_MANHOURS + '</td>' +
-							'<td align="right" colspan="1" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
-							'<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
-							'<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
-							'<td align="right" colspan="2" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
+                        trHTML +=
+                            '<tr>' +
+                            '<th colspan="4" rowspan="2" style= "text-align: right;  background-color: #f3f3f3;vertical-align:middle;"> Total</th >' +
+                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Testing Manhours</th>' +
+                            '<th style="text-align: right; background-color: #f3f3f3">Total Testing Manhours Cost</th>' +
+                            '<th style="text-align: right; background-color: #f3f3f3">Total Analysis Cost</th>' +
+                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Processing Manhours</th>' +
+                            '<th style="text-align: right; background-color: #f3f3f3">Total Processing Cost</th>' +
+                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Rejected Cost</th>' +
+                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Machine Manhours</th>' +
+                            '<th style="text-align: right; background-color: #f3f3f3">Total Machine Manhours Cost</th>' +
+                            '<th colspan="2" style="text-align: right; background-color: #f3f3f3">Total Machine Cost</th>' +
+                            '</tr >' +
+
+                            '<tr>' +
+                            '<td colspan = "3" align = "right" style = "padding:10px 8px" > ' + data[0].TOTAL_TESTING_MANHOURS + '</td > '
+                            +
+                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_MANHOURS_COST + '</td>' +
+                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
+
+                            '<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
+                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_PROC_COST + '</td>' +
+
+                            '<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
+
+                            '<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_MC_MANHOURS + '</td>' +
+                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_MANHOURS_COST + '</td>' +
+                            '<td align="right" colspan="2" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
 
 
-							'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Times</th>' +
-							'<td colspan="2" align="right" style="padding:10px 8px">' + data[trav].TOTAL_TIMES + '</td></tr>' +
+                            '<tr><th colspan = "19" style="text-align:center;background-color: #f3f3f3">Total Times (Total Testing Manhours + Total Processing Manhours + Total Machine Manhours)</th>' +
+                            '<td colspan="3" align="right" style="padding:10px 8px">' + data[trav].TOTAL_TIMES + '</td></tr>' +
 
-							'<tr><th colspan = "13" style="text-align:center;background-color: #f3f3f3">Total Cost</th>' +
-							'<td colspan="2" align="right" style="padding:10px 8px"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
-
+                            '<tr><th colspan = "19" style="text-align:center;background-color: #f3f3f3">Total Cost (Total Testing Cost + Total Processing Cost + Total Reject Cost + Total Machine Cost)</th>' +
+                            '<td colspan="3" align="right" style="padding:10px 8px"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
 					}
 
 					// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
 
 
+                    $('#picfooter').empty();
 					$('#picfooter').append(trHTML);
 				},
 				error: function (ex) {
@@ -466,159 +608,167 @@
                 GetErrorVerifikasi("LoadEvaluasiResikoVerifikasi", JSON.stringify(ex));
 			}
 		});
-
 	};
 
-	function Verifikasi(button) {
-		var row = $(button).closest("TR");
-		var ReqID = @ViewBag.nomor;
-		var no_disposisi = $("TD", row).eq(0).html();
-		var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
+	function Verifikasi() {
+        $("[id^='btnVerifikasi']").click(function (e) {
+			e.preventDefault();
+			var row = this.closest("TR");
+			var ReqID = @ViewBag.nomor;
+			var no_disposisi = $("TD", row).eq(0).html();
+			var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		var dto = {
-			REQ_ID: ReqID,
-			NO_DISPOSISI: no_disposisi,
-			CURR_USER:username
-		}
+			var dto = {
+				REQ_ID: ReqID,
+				NO_DISPOSISI: no_disposisi,
+				CURR_USER:username
+			}
 
-		$.ajax({
-			url: "../Koordinator/VerifikasiPerPIC",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-                LoadStatus();
-			}
-			, error: function (ex) {
-                GetErrorVerifikasi("VerifikasiPerPIC", JSON.stringify(ex));
-			}
+			$.ajax({
+				url: "../Koordinator/VerifikasiPerPIC",
+				type: "post",
+				dataType: "json",
+				data: JSON.stringify(dto),
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					LoadStatus();
+				}
+				, error: function (ex) {
+					GetErrorVerifikasi("VerifikasiPerPIC", JSON.stringify(ex));
+				}
+			});
 		});
 	}
 
-	function RejectVerifikasi(button) {
-		var empid = '@Request.RequestContext.HttpContext.Session["nik"]';
-		var empUsername = '@Request.RequestContext.HttpContext.Session["xUser"]';
-		var row = $(button).closest("TR");
-		var ReqID = @ViewBag.nomor;
-		var no_disposisi = $("TD", row).eq(0).html();
+	function RejectVerifikasi() {
+        $("[id^='btnRejectVerifikasi']").click(function (e) {
+			e.preventDefault();
+			var empid = '@Request.RequestContext.HttpContext.Session["nik"]';
+			var empUsername = '@Request.RequestContext.HttpContext.Session["xUser"]';
+			var row = this.closest("TR");
+			var ReqID = @ViewBag.nomor;
+			var no_disposisi = $("TD", row).eq(0).html();
 
-        Swal.fire({
-            title: 'Mohon masukkan alasan reject!',
-            input: 'textarea',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Submit',
-            showLoaderOnConfirm: true,
+			Swal.fire({
+				title: 'Mohon masukkan alasan reject!',
+				input: 'textarea',
+				inputAttributes: {
+					autocapitalize: 'off'
+				},
+				showCancelButton: true,
+				confirmButtonText: 'Submit',
+				showLoaderOnConfirm: true,
 
-            allowOutsideClick: () => Swal.isLoading()
-        }).then((result) => {
-			if (result.isConfirmed) {
-				if (result.value == null || result.value == '') {
-					Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: 'Alasan reject wajib diisi',
-                        showConfirmButton: false,
-                        timer: 2000
-					});
+				allowOutsideClick: () => Swal.isLoading()
+			}).then((result) => {
+				if (result.isConfirmed) {
+					if (result.value == null || result.value == '') {
+						Swal.fire({
+							icon: 'error',
+							title: 'Oops...',
+							text: 'Alasan reject wajib diisi',
+							showConfirmButton: false,
+							timer: 2000
+						});
+					}
+					else {
+						var keteranganReject = result.value;
+						var dto = {
+							REQ_ID: ReqID,
+							NO_DISPOSISI: no_disposisi,
+							KETERANGAN_REJECT: keteranganReject,
+							USER_NIK: empid,
+							CURR_USER: empUsername
+						}
+
+						$.ajax({
+							url: "../Koordinator/RejectVerifikasiPerPIC",
+							type: "post",
+							dataType: "json",
+							data: JSON.stringify(dto),
+							contentType: "application/json;charset=utf-8",
+							success: function (data) {
+
+								Swal.fire({
+									title: 'Berhasil direject',
+									icon: 'success',
+									showConfirmButton: false,
+									timer: 2000
+								}).then(() => {
+									LoadStatus();
+								});
+							}
+							, error: function (ex) {
+								GetErrorVerifikasi("Koor:RejectVerifikasiPerPIC", JSON.stringify(ex));
+							}
+						});
+					}
 				}
-				else {
-                    var keteranganReject = result.value;
-                    var dto = {
-                        REQ_ID: ReqID,
-                        NO_DISPOSISI: no_disposisi,
-                        KETERANGAN_REJECT: keteranganReject,
-                        USER_NIK: empid,
-                        CURR_USER: empUsername
-                    }
+			});
+		});
 
-                    $.ajax({
-                        url: "../Koordinator/RejectVerifikasiPerPIC",
-                        type: "post",
-                        dataType: "json",
-                        data: JSON.stringify(dto),
-                        contentType: "application/json;charset=utf-8",
-                        success: function (data) {
-
-                            Swal.fire({
-                                title: 'Berhasil direject',
-                                icon: 'success',
-                                showConfirmButton: false,
-                                timer: 2000
-                            }).then(() => {
-                                LoadStatus();
-                            });
-                        }
-                        , error: function (ex) {
-                            GetErrorVerifikasi("Koor:RejectVerifikasiPerPIC", JSON.stringify(ex));
-                        }
-                    });
-				}
-            }
-        });
 	}
 
 
-	function ShowBukti(button) {
-		event.preventDefault();
-		var row = $(button).closest("TR");
-		var ReqID = @ViewBag.nomor;
-		var picnik = $("TD", row).eq(16).html();
-        var seq = $("TD", row).eq(0).html();
+	function ShowBukti() {
+        $("[id^='btnShowBukti']").click(function (e) {
+			e.preventDefault();
+			var row = this.closest("TR");
+			var ReqID = @ViewBag.nomor;
+			var picnik = $("TD", row).eq(16).html();
+			var seq = $("TD", row).eq(0).html();
 
-		var dto = {
-			REQID: ReqID,
-			IDUSER: picnik,
-            NO_DISPOSISI: seq
-		}
+			var dto = {
+				REQID: ReqID,
+				IDUSER: picnik,
+				NO_DISPOSISI: seq
+			}
 
-		$.ajax({
-            url: "../QualityManager/QM_ShowBuktiTable",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				var trHTML = '';
-				var trav = 0;
-				var Count = data.length;
+			$.ajax({
+				url: "../QualityManager/QM_ShowBuktiTable",
+				type: "post",
+				dataType: "json",
+				data: JSON.stringify(dto),
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
 
-				if (Count == '0') {
-					trHTML +=
-						'<tr><td> - </td>' +
-						'<td> - </td>' +
-						'<td> - </td>';
-
-				} else {
-					for (trav = 0; trav < Count; trav++) {
-						var no = 1;
-						no = no + trav;
+					if (Count == '0') {
 						trHTML +=
-							'<tr><td>' + no + '</td>' +
-							'<td>' + data[trav].PIC_ID + '</td>' +
-							'<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+							'<tr><td> - </td>' +
+							'<td> - </td>' +
+							'<td> - </td>';
+
+					} else {
+						for (trav = 0; trav < Count; trav++) {
+							var no = 1;
+							no = no + trav;
+							trHTML +=
+								'<tr><td>' + no + '</td>' +
+								'<td>' + data[trav].PIC_ID + '</td>' +
+								'<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+						}
 					}
+
+					$('#buktidatatable').DataTable().clear().destroy();
+
+					$('#buktitable').empty();
+					$('#buktitable').append(trHTML);
+					$('#buktidatatable').DataTable({
+						"searching": false,
+						"paging": false,
+						"info": false,
+						"ordering": false
+					});
+
+					$("#tabel2").removeAttr("hidden");
 				}
-
-                $('#buktidatatable').DataTable().clear().destroy();
-
-				$('#buktitable').empty();
-				$('#buktitable').append(trHTML);
-				$('#buktidatatable').DataTable({
-                    "searching": false,
-                    "paging": false,
-                    "info": false,
-                    "ordering": false
-				});
-
-				$("#tabel2").removeAttr("hidden");
-			}
-			, error: function (ex) {
-                GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
-			}
+				, error: function (ex) {
+					GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
+				}
+			});
 		});
 	}
 
@@ -644,7 +794,7 @@
 		});
 	}
 
-	function Cancel() {
+	@*function Cancel() {
 		Swal.fire({
 			title: 'Cancel Reason ...',
 			input: 'text',
@@ -744,6 +894,136 @@
                     });
 				}
                 $.when(CancelUpdate()).done(NotifyVerifikasiKoor());
+			}
+		});
+	}*@
+
+    function Cancel() {
+		Swal.fire({
+            icon: 'question',
+            title: 'Mohon masukan alasan untuk membatalkan penyimpangan ini?',
+			input: 'textarea',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			showCancelButton: true,
+			confirmButtonText: 'Submit',
+			showLoaderOnConfirm: true,
+
+			allowOutsideClick: () => Swal.isLoading()
+		}).then((result) => {
+
+			if (result.value == null || result.value == '') {
+				//Swal.fire({
+				//	icon: 'error',
+				//	title: 'Oops...',
+    //                text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
+				//});
+                let timerInterval
+                Swal.fire({
+
+
+                    timer: 1600,
+                    timerProgressBar: true,
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Alasan untuk membatalkan penyimpangan harus diisi !',
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log('I was closed by the timer')
+                    }
+                });
+			} else if (result.isConfirmed) {
+
+				var REQID = @ViewBag.nomor;
+				var Keterangan = result.value;
+				var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+
+                function NotifyHedKor() {
+                    var tabletype = "One";
+                    var whoreceiver = "Canceled";
+
+                    var dtx = {
+                        Receiver: iduser,
+                        ReqID: REQID,
+
+                        TableType: tabletype,
+                        WhoReceiver: whoreceiver
+                    };
+
+                    $.ajax({
+                        type: "post",
+                        url: '../Form/SendEmailInputProposal',
+                        data: JSON.stringify(dtx),
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            toastr.success("Email Sent Successfully !", "Notification", {
+                                "closeButton": false,
+                                "debug": true,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-bottom-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "200",
+                                "hideDuration": "1000",
+                                "timeOut": "2000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            });
+                        }, error: function (ex) {
+                            GetErrorHeader("HedKorSendEmailInputProposal", JSON.stringify(ex));
+                        }
+                    });
+				}
+
+				function CanceKor() {
+                    var dto = {
+                        REQID: REQID,
+                        KETERANGAN: Keterangan,
+                        IDUSER: iduser
+                    };
+
+                    $.ajax({
+                        url: "../Koordinator/Coor_KoorCancel",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Form Cancelled',
+                                showConfirmButton: false,
+                                timer: 2000
+							}).then(() => {
+                                $.when(NotifyHedKor()).done(window.location.href = "../DataDeviasi/PendingTask");
+                            })
+                        }
+                        , error: function (ex) {
+                            GetErrorHeader("HedKorCoor_KoorCancel", JSON.stringify(ex));
+                        }
+                    });
+				}
+
+				CanceKor();
 			}
 		});
 	}
@@ -871,7 +1151,7 @@
 				var REQID = @ViewBag.nomor;
 				var Keterangan = result.value;
 				var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-				
+
 				function RejectUpdate(){
                     var dto = {
                         REQID: REQID,
@@ -990,5 +1270,27 @@
 
 			}
 		});
-	}
+    }
+
+    function UpdateMultipleProduk() {
+        var ReqID = $('#lblReq').text();
+        var dto = {
+            ReqID,
+            ListProduk: listProduk
+        }
+
+        $.ajax({
+            url: "../Form/UpdateMultipleProduk",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+            }
+            , error: function (ex) {
+                GetErrorInput("UpdateMultipleProduk", JSON.stringify(ex));
+            }
+        });
+    }
+
 </script>
