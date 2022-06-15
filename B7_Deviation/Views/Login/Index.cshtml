@@ -41,7 +41,7 @@
                     Username: UsernameGet, Password: PasswordGet
                 };
                 if (UsernameGet == '' || UsernameGet == null || PasswordGet == '' || PasswordGet == null) {
-                    swal("Unverified!", "Username dan Password tidak boleh kosong", "error");
+                    swal("Unverified!", "UserID dan Password tidak boleh kosong", "error");
                     return;
                 }
 
@@ -68,6 +68,8 @@
                                 setTimeout(function () {
                                     $(location).attr('href', url);
                                 }, 2000);
+
+
                             }
                             else
                                 if (data[0] == "staff") {

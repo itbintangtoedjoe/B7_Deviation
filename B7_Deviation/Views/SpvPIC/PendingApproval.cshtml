@@ -5,7 +5,7 @@
 }
 
 <link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer nonce="Kqa/7HVyyW00cvj6BCzOng=="></script>
 
 <body>
 
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <script nonce="xEQMfzNmkZdRf+aYcbKxbg==">
+    <script nonce="zp6t6SYSMiJ6XCI1aOvLnw==">
         $(document).ready(function () {
             LoadData();
 
@@ -62,11 +62,11 @@
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    console.log(data)
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
                     for (trav = 0; trav < Count; trav++) {
+
                         // HASIL REMEDIAL
                         if (data[trav].STATUSCODE == 'RMPIC1') {
                             if (data[trav].FLAG_PIC == 'REVISI DUE DATE') {
@@ -102,19 +102,21 @@
                                     '<td> Pending Approval </td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
                             } else {
-                                @*if (data[trav].FLAG_PIC != 'REMEDIAL WAITING FOR DIV HEAD' && data[trav].FLAG_PIC != 'REMEDIAL ACCEPTED BY SPV PIC') {*@
-                                    if (data[trav].FLAG_PIC != 'REMEDIAL ACCEPTED BY SPV PIC') {
-                                    trHTML +=
-                                        '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenHasil(this, ' + data[trav].NO_DISPOSISI + ')"/></td>' +
-                                        '<td>' + data[trav].REQ_ID + '</td>' +
-                                        '<td>' + data[trav].DEVIATION_NO + '</td>' +
-                                        '<td>' + data[trav].ID_PROPOSER + '</td>' +
-                                        '<td>' + data[trav].PROPOSER_NAME + '</td>' +
-                                        '<td> Pending Approval </td>' +
-                                        '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
-                                }
+                                trHTML +=
+                                    '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenHasil(this, ' + data[trav].NO_DISPOSISI + ')"/></td>' +
+                                    '<td>' + data[trav].REQ_ID + '</td>' +
+                                    '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                    '<td>' + data[trav].ID_PROPOSER + '</td>' +
+                                    '<td>' + data[trav].PROPOSER_NAME + '</td>' +
+                                    '<td> Pending Approval </td>' +
+                                    '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
                             }
+
+                            
+
                         }
+
+
                     }
 
                     $('#deviationtable').empty();

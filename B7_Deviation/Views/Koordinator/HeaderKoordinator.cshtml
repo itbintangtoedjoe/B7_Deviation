@@ -38,9 +38,8 @@
 											Show Reviewer
 										</button>
 
-										<br/>
 
-										<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control">
+										<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control" hidden="hidden">
 											Cancel
 											<span class="fa fa-trash-o"></span>
 										</button>
@@ -97,6 +96,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 
 	<div class="form-group" id="partialview">
@@ -104,7 +104,7 @@
 	</div>
 </div>
 
-    <script nonce="HAmxxyvoWVmmY/IcUK9zBQ==">
+<script nonce="LcNHmhpw8Xq7eCyN/Je3jA==">
 	let checkEvaluator = '';
 	let countBtn = 0;
 	let btnText = '';;
@@ -163,8 +163,8 @@
                         })
 
                         swalWithBootstrapButtons.fire({
-                            title: 'Apakah Anda yakin?',
-                            text: "Pastikan nama reviewer sudah lengkap!",
+                            title: 'Apakah anda yakin?',
+                            text: "Pastikan nama reviwer sudah lengkap!",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonText: 'Ya, sudah lengkap',
@@ -180,7 +180,7 @@
 
 								}
                         })
-
+                        
                     }
 		});
 
@@ -195,6 +195,7 @@
 			REQID: REQID,
 			UserInvolved: UserInvolved
 		}
+
 		$.ajax({
 			url: "../Form/CheckEmailAvailability",
 			type: "post",
@@ -202,7 +203,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				if (data[0].STATUS == 'ADA') {
+				if (data == 'ADA') {
 					InsertNamaTerlibat();
 				} else {
                     Swal.fire({
@@ -407,6 +408,7 @@
 			LocationSite: location,
 			Departement: dept
 		};
+
 		$.ajax({
 			url: "../Koordinator/Coor_GetDevNum",
 			type: "post",
@@ -628,17 +630,17 @@
 			url: "../Koordinator/Coor_GetCurrStat",
 			type: "post",
 			dataType: "json",
-			data: JSON.stringify(dto),
+			data: JSON.stringify(dto),			
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				@*console.log(data);*@
+				console.log(data);
 				if (data == '' || data == null) {
 
 				}
 				else
 				if (data[0].STAT == 'S') {
 
-					//$("#btnCancel").removeAttr('hidden');
+					$("#btnCancel").removeAttr('hidden');
 					$("#btnShowRev").removeAttr('hid\en');
 
 					$("#btnShowRev").click(function () {
@@ -655,7 +657,7 @@
                         GetDDL();
                         $("#partialview").attr("hidden", false);
                         $("#btnShowRev").attr("hidden", true);
-                        //$("#btnCancel").attr("hidden", true);
+                        $("#btnCancel").attr("hidden", true);
                         $("#btnApprove").removeAttr("hidden");
                         $("#btnReject").removeAttr("hidden");
 
@@ -711,36 +713,11 @@
 		}).then((result) => {
 
 			if (result.value == null || result.value == '') {
-				//Swal.fire({
-				//	icon: 'error',
-				//	title: 'Oops...',
-    //                text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
-				//});
-                let timerInterval
-                Swal.fire({
-
-
-                    timer: 1600,
-                    timerProgressBar: true,
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Alasan untuk membatalkan penyimpangan harus diisi !',
-                    didOpen: () => {
-                        Swal.showLoading()
-                        const b = Swal.getHtmlContainer().querySelector('b')
-                        timerInterval = setInterval(() => {
-                            b.textContent = Swal.getTimerLeft()
-                        }, 100)
-                    },
-                    willClose: () => {
-                        clearInterval(timerInterval)
-                    }
-                }).then((result) => {
-                    /* Read more about handling dismissals below */
-                    if (result.dismiss === Swal.DismissReason.timer) {
-                        console.log('I was closed by the timer')
-                    }
-                });
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+                    text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
+				});
 			} else if (result.isConfirmed) {
 
 				var REQID = @ViewBag.nomor;
@@ -866,4 +843,4 @@
 			}
 		});
 	}
-    </script>
+</script>

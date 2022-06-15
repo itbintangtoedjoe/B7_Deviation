@@ -5578,13 +5578,6 @@ button.close {
     overflow: hidden;
     outline: 0;
 }
-.modal-open .select2-dropdown {
-    z-index: 10060;
-}
-
-.modal-open .select2-close-mask {
-    z-index: 10055;
-}
 
 .modal-dialog {
     position: relative;

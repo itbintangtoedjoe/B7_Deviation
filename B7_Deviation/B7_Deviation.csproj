@@ -43,9 +43,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.0\lib\net45\Dapper.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
@@ -70,9 +67,6 @@
     </Reference>
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.19.11.0\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
@@ -5357,14 +5351,12 @@
     </Compile>
     <Compile Include="Models\ApprovalModel.cs" />
     <Compile Include="Models\CARPARModel.cs" />
-    <Compile Include="Models\DAL.cs" />
     <Compile Include="Models\DeviationModel.cs" />
     <Compile Include="Models\DisposisiModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\PICModel.cs" />
-    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\ReviewerModel.cs" />
     <Compile Include="Models\SaveUser.cs" />
     <Compile Include="Models\UsulanRevisiModel.cs" />
@@ -5779,11 +5771,6 @@
       <DependentUpon>ReportHiddenCostDataSource.xsd</DependentUpon>
     </Content>
     <Content Include="Views\DataDeviasi\ReportHiddenCost.cshtml" />
-    <Content Include="Views\DataDeviasi\DeviasiPartialView.cshtml" />
-    <Content Include="Views\DataDeviasi\TablePartialView.cshtml" />
-    <Content Include="Views\PelaporPenyimpangan\EditDeviationPartialView.cshtml" />
-    <Content Include="Views\CMS\UpdateReviewer.cshtml" />
-    <Content Include="Views\CMS\UpdatePIC.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
