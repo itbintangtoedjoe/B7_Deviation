@@ -1,578 +1,665 @@
-﻿ 
-@{
-    ViewBag.Title = "ProposerHeader";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<div class="content-body">
-    <div class="form-group">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <h4 class="d-inline">Edit Deviation Form</h4>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <button type="button" id="btnSubmit" class="col-sm-2 btn mb-1 btn-success form-control ">
-                                            Submit
-                                            <span class="fa fa-check-square-o"></span>
-                                        </button>
-                                        <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control">
-                                            Cancel
-                                            <span class="fa fa-ban"></span>
-                                        </button>
-                                    </div>
-                                    <div class="form-group">
-
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Nama</label>
-                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtTanggal">Tanggal:</label>
-                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
-                                    </div>
-                                </div>
-                            </div>
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="d-inline" style="">Laporan Penyimpangan Baru</h4>
+                    <div class="form-group row">
+                        <div class="col">
+                            <br />
+                            <label>Register Number</label>
+                            <br />
+                            <label id="lblReq" style="font-weight:bold"></label>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label>Tanggal</label>
+                            <input id="TbTglCreated" class="form-control" readonly="readonly">
+                        </div>
+                        <div class="col">
+                            <label>Nomor Deviation</label>
+                            <input id="TbNmrDev" type="text" class="form-control" readonly="readonly">
+                        </div>
+                        <div class="col">
+                            <label>Pengusul</label>
+                            <input id="TbPesul" type="text" class="form-control" readonly="readonly">
+                        </div>
+                        <div class="col">
+                            <label>Departemen</label>
+                            <input id="TbDeptPusul" type="text" class="form-control" readonly="readonly">
+                        </div>
+                    </div>
+                    <!-- Readonly End -->
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="d-inline" style="">Laporan Penyimpangan Baru</h4>
-                        <div class="form-group row">
-                            <div class="col">
-                                <br />
-                                <label>Register Number</label>
-                                <br />
-                                <label id="lblReq" style="font-weight:bold"></label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col">
-                                <label>Tanggal</label>
-                                <input id="TbTglCreated" class="form-control" readonly="readonly">
-                            </div>
-                            <div class="col">
-                                <label>Nomor Deviation</label>
-                                <input id="TbNmrDev" type="text" class="form-control" readonly="readonly">
-                            </div>
-                            <div class="col">
-                                <label>Pengusul</label>
-                                <input id="TbPesul" type="text" class="form-control" readonly="readonly">
-                            </div>
-                            <div class="col">
-                                <label>Departemen</label>
-                                <input id="TbDeptPusul" type="text" class="form-control" readonly="readonly">
-                            </div>
-                        </div>
-                        <!-- Readonly End -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="formBody" class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="form-validation">
-                            <form class="form-valide" onsubmit="return s();" action="#" method="post">
-                                <!-- Site -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label" for="ddlSite">Site<span class="text-danger">*</span></label>
-
-                                    <div class="col-sm-3">
-                                        <div class="btn-group mb-2">
-                                            <div class="basic-dropdown">
-                                                <div class="dropdown">
-                                                    <select id="ddlSite" name="ddlSite"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Jenis Penyimpangan<span class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
-                                        <div class="form-group">
-                                            <div class="form-check form-check-inline">
-                                                <label>
-                                                    <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes"> Terencana
-
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <label>
-                                                    <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No" checked> Tidak Terencana
-
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
-                                    <div class="col-sm-3">
-                                        <div>
-                                            <div class="basic-dropdown">
-                                                <div class="dropdown">
-                                                    <select id="ddlKategori" name="ddlKategori"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div id="divsimpang">
-                                            <div class="basic-dropdown">
-
-                                                @*<select style="width: 220px;" id="ddlJenSi" name="ddlJenSi"></select>*@
-                                                <div id="divreceipt" class="form-group">
-                                                    <div class="form-check form-check-inline">
-                                                        <label>
-                                                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receipt_y" value="Yes" checked> Receipt
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <label>
-                                                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receip_n" value="No"> Vendor
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control">
-                                                <br />
-                                                <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
-                                                <br />
-                                                <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle">
-                                                <br />
-                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle" disabled="disabled">
-                                            </div>
-                                            <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered text-center">
-                                                    <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        @*<div id="divproduk">
-                        <input type="text" class="form-control" id="txtKodeProduk" name="txtKodeProduk" placeholder="Kode Produk">
-                    </div>*@
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan"></textarea>
-                                    </div>
-                                </div>
-
-                                <!-- Problem (What) -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Problem (What)<span class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
-                                        <textarea id="txtProblem" name="txtProblem" class="form-control" placeholder="Problem (What)"></textarea>
-                                    </div>
-                                </div>
-
-                                <!-- Requirement (Jika Ada) -->
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Requirement (Jika Ada)</label>
-                                    <div class="col-sm-10">
-                                        <textarea id="txtReq" name="txtReq" class="form-control" placeholder="Requirement (Jika Ada)"></textarea>
-                                    </div>
-                                </div>
-
-                                @* Tanggal Kejadian *@
-
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Tanggal dan Waktu Kejadian (When)</label>
-                                    <div class="col-sm-4">
-                                        <div class="input-group">
-                                            <input id="date-format" name="date-format" type="text" class="form-control">
-                                            <span class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="mdi mdi-calendar-check"></i>
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                @* Lokasi *@
-
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Lokasi (Where)<span class="text-danger">*</span></label>
-                                    <div class="col-sm-3">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="txtSiteLokasi" name="txtSiteLokasi" style="width: 280px;"></select>
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="txtDept" name="txtDept" style="width: 280px;"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Lokasi (Where)"></textarea>
-                                    </div>
-                                </div>
-
-
-                                @* Siapa Saja *@
-
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
-                                    <div class="col-sm-7">
-                                        <div class="input-group">
-                                            <input id="txtWho" class="form-control" placeholder="Siapa saja yang terlibat (Who)">
-                                            <span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
-                                                <span class="input-group-text btn-success">
-                                                    <i class="fa fa-user-plus"></i>
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
-                                            <table id="tblWho" class="table table-striped table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:20px">No</th>
-                                                        <th>Nama</th>
-                                                        <th style="width:30px">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="tblBodyWho">
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                @*Bagaimana Urutan Kejadian*@
-
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Bagaimana Urutan Kejadian (How)<span class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
-                                        <textarea id="txtHow" name="txtHow" class="form-control" placeholder="Bagaimana Urutan Kejadian (How)"></textarea>
-                                    </div>
-                                </div>
-
-
-                                @*Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?*@
-
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?<span class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
-                                        <div class="form-group">
-                                            <div class="form-check form-check-inline">
-                                                <label>
-                                                    <input type="radio" name="travel4" data-travelNumber="1" id="pernah_yes_1" value="Yes"> Ya
-
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <label>
-                                                    <input name="travel4" type="radio" data-travelNumber="1" id="pernah_no_1" value="No" checked> Tidak
-
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <textarea name="txt30hari" id="txt30hari" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" disabled></textarea>
-                                    </div>
-                                </div>
-
-                                @*Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?*@
-
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?<span class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
-                                        <div class="form-group">
-                                            <div class="form-check form-check-inline">
-                                                <label>
-                                                    <input type="radio" name="travel1" data-travelNumber="1" id="sama_yes_1" value="Yes"> Ya
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <label>
-                                                    <input name="travel1" type="radio" data-travelNumber="1" id="sama_no_1" value="No" checked> Tidak
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <textarea name="txtsama" id="txtsama" class="form-control" placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" disabled></textarea>
-                                    </div>
-                                </div>
-
-                                @*Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?*@
-
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?<span class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
-                                        <div class="form-group">
-                                            <div class="form-check form-check-inline">
-                                                <div class="form-check form-check-inline">
-                                                    <label>
-                                                        <input type="radio" name="travel2" data-travelNumber="1" id="rilis_yes_2" value="Yes"> Ya
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <label>
-                                                        <input name="travel2" type="radio" data-travelNumber="1" id="rilis_no_2" value="No" checked> Tidak
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <textarea id="txtrilis" name="txtrilis" class="form-control" placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" disabled></textarea>
-                                    </div>
-                                </div>
-
-                                @*Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?*@
-
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?<span class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
-                                        <div class="form-group">
-                                            <div class="form-check form-check-inline">
-                                                <label>
-                                                    <input type="radio" name="travel3" data-travelNumber="1" id="lain_yes_3" value="Yes"> Ya
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <label>
-                                                    <input name="travel3" type="radio" data-travelNumber="1" id="lain_no_3" value="No" checked> Tidak
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <textarea id="txtlain" name="txtlain" class="form-control" placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" disabled></textarea>
-                                    </div>
-                                </div>
-
-                                @*Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi*@
-
-                                <div class="form-group row">
-                                    <div class="col-sm-2 col-form-label">
-                                        <label>
-                                            Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi
-                                        </label>
-                                        <label style="font-size:x-small; color:red">
-                                            *Wajib diisi untuk penyimpangan tidak terencana
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi" disabled></textarea>
-
-                                    </div>
-                                </div>
-                            </form>
-
+    <div id="formBody" class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-validation">
+                        <form class="form-valide" onsubmit="return s();" action="#" method="post">
+                            <!-- Site -->
                             <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
+                                <label class="col-sm-2 col-form-label" for="ddlSite">Site<span class="text-danger">*</span></label>
 
-                                </div>
-                                <div class="col-sm-10">
-
-                                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                    {
-                                        <input type="file" style="margin-left:-15px" name="NamaFileUpload" class="col-sm-6" id="idFileUpload" />
-                                        <br />
-                                        <br />
-                                        <button type="button" id="btnUpload" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>
-                                    }
-
-
-                                    @*<button type="button" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>*@
+                                <div class="col-sm-3">
+                                    <div class="btn-group mb-2">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlSite" name="ddlSite" disabled></select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label"></label>
-
+                                <label class="col-sm-2 col-form-label">Jenis Penyimpangan<span class="text-danger">*</span></label>
                                 <div class="col-sm-10">
-                                    <div class="table-responsive">
-                                        <table id="tbl_Attachment" class="table header-border">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="travel5" data-travelNumber="1" id="terencana_yes_2" value="Yes" disabled> Terencana
+
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input name="travel5" type="radio" data-travelNumber="1" id="terencana_no_2" value="No" checked disabled> Tidak Terencana
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
+                                <div class="col-sm-4">
+                                    <div>
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown">
+                                                <select id="ddlKategori" name="ddlKategori" disabled></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="col-sm-6">
+                                    <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+
+                            <div id="divsimpang">
+                                <div class="basic-dropdown">
+                                    <div id="divreceipt" class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receipt_y" value="Yes" checked disabled> Receipt
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receip_n" value="No" disabled> Vendor
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="JenisPenyimpanganDetail">
+                                    <div class="row form-group name1 col-md-3" id="divQCMaterial" style="margin-right:10px">
+                                        <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control input-inline">
+                                    </div>
+                                    
+                                        <div class="row form-group name2 col-md-3"  style="margin-right:10px">
+                                            <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control input-inline">
+                                        </div>
+                                        <div class="row form-group name1 col-md-3" id="divBatchNo"  style="margin-right:10px">
+                                            <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control input-inline" placeholder="No Batch Oracle">
+                                        </div>
+
+                                        <div class="row form-group name2 col-md-3" id="divWoOracle" style="margin-right:10px">
+                                            <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control input-inline" placeholder="No WO Oracle">
+                                        </div>
+
+                                        <div class="row form-group name2 col-md-3" style="margin-right:10px">
+                                            <button type="button" id="btnTambahProduk" class="col-sm-12 btn mb-1 btn-success form-control">Tambah Produk</button>
+                                        </div>
+                                        @*<br />*@
+
+                                        @*<br />*@
+
+                                        <br />
+
+                                    </div>
+                                <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered text-center">
+                                        <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px" id="divProduk">
+                                    <table id="tblListProduk" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:20px">No</th>
+                                                <th id="thQCNum">QC Material/Manufacturing Number</th>
+                                                <th id="thItemCode">Item Code</th>
+                                                <th id="thNoBatch">No Batch</th>
+                                                <th id="thNoWO">No WO Oracle</th>
+                                                <th>Keterangan</th>
+                                                <th style="width:30px" id="thDeleteAction">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblListProdukBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <br />
+
+
+                            <!-- Problem (What) -->
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Problem (What)<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id="txtProblem" name="txtProblem" class="form-control" placeholder="Problem (What)" disabled></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Requirement (Jika Ada) -->
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Requirement (Jika Ada)</label>
+                                <div class="col-sm-10">
+                                    <textarea id="txtReq" name="txtReq" class="form-control" placeholder="Requirement (Jika Ada)" disabled></textarea>
+                                </div>
+                            </div>
+
+                            @* Tanggal Kejadian *@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Tanggal dan Waktu Kejadian (When)</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <input id="date-format" name="date-format" type="text" class="form-control" disabled>
+                                        <span class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="mdi mdi-calendar-check"></i>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Lokasi *@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Lokasi (Where)<span class="text-danger">*</span></label>
+                                <div class="col-sm-3">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="txtSiteLokasi" name="txtSiteLokasi" style="width: 280px;" disabled></select>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="txtDept" name="txtDept" style="width: 280px;" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <textarea id="txtLokasi" name="txtLokasi" class="form-control" placeholder="Lokasi (Where)" disabled></textarea>
+                                </div>
+                            </div>
+
+
+                            @* Siapa Saja *@
+
+                            @*Siapa Saja tampilan view approval*@
+                            <div class="form-group row" id="whoapprove">
+                                <label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+
+                                    </div>
+                                    <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+                                        <table id="tblWhoApprove" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>
-                                                        <b>No</b>
-                                                    </th>
-                                                    <th>
-                                                        <b>File Name</b>
-                                                    </th>
-                                                    <th>
-                                                        <b>Action</b>
-                                                    </th>
+                                                    <th style="width:20px">No</th>
+                                                    <th>Nama</th>
+
+                                                    @*  <th style="width:30px">Action</th>*@
+
                                                 </tr>
                                             </thead>
-                                            <tbody id="tbody_Attachment"></tbody>
+                                            <tbody id="tblBodyWhoApprove">
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
+
+                            @*Siapa saja tampilan edit*@
+                            <div class="form-group row" id="whoedit">
+                                <label class="col-sm-2 col-form-label">Siapa saja yang terlibat (Who) <span class="text-danger">*</span></label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input id="txtWho" class="form-control" placeholder="Siapa saja yang terlibat (Who)">
+                                        <span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
+                                            <span class="input-group-text btn-success">
+                                                <i class="fa fa-user-plus"></i>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px">
+                                        <table id="tblWho" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:20px">No</th>
+                                                    <th>Nama</th>
+                                                    <th style="width:30px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblBodyWho">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Bagaimana Urutan Kejadian*@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Bagaimana Urutan Kejadian (How)<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <textarea id="txtHow" name="txtHow" class="form-control" placeholder="Bagaimana Urutan Kejadian (How)" disabled></textarea>
+                                </div>
+                            </div>
+
+
+                            @*Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?*@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="travel4" data-travelNumber="1" id="pernah_yes_1" value="Yes" disabled> Ya
+
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input name="travel4" type="radio" data-travelNumber="1" id="pernah_no_1" value="No" checked disabled> Tidak
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <textarea name="txt30hari" id="txt30hari" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+
+                            @*Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?*@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="travel1" data-travelNumber="1" id="sama_yes_1" value="Yes" disabled> Ya
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input name="travel1" type="radio" data-travelNumber="1" id="sama_no_1" value="No" checked disabled> Tidak
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <textarea name="txtsama" id="txtsama" class="form-control" placeholder="Apakah ada proses / batch lain yang berpotrnsi mengalami penyimpangan yang sama?" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+
+                            @*Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?*@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input type="radio" name="travel2" data-travelNumber="1" id="rilis_yes_2" value="Yes" disabled> Ya
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <label>
+                                                    <input name="travel2" type="radio" data-travelNumber="1" id="rilis_no_2" value="No" checked disabled> Tidak
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <textarea id="txtrilis" name="txtrilis" class="form-control" placeholder="Apakah status material / batch yang berpotensi mengalami penyimpangan sama sudah rilis / terdistribusi?" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+
+                            @*Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?*@
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?<span class="text-danger">*</span></label>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input type="radio" name="travel3" data-travelNumber="1" id="lain_yes_3" value="Yes" disabled> Ya
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label>
+                                                <input name="travel3" type="radio" data-travelNumber="1" id="lain_no_3" value="No" checked disabled> Tidak
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <textarea id="txtlain" name="txtlain" class="form-control" placeholder="Apakah penyimpangan juga berpotensi terjadi di area/proses yang lain?" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+
+                            @*Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi*@
+
+                            <div class="form-group row">
+                                <div class="col-sm-2 col-form-label">
+                                    <label>
+                                        Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi
+                                    </label>
+                                    <label style="font-size:x-small; color:red">
+                                        *Wajib diisi untuk penyimpangan tidak terencana
+                                    </label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <textarea style="height:150px" id="txtTindakan" name="txtTindakan" class="form-control" placeholder="Tindakan yang sudah dilakukan ketika penyimpangan / potensi penyimpangan terjadi" readonly="readonly"></textarea>
+
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="form-group row" id="downloadfile">
+                            <label class="col-sm-2 col-form-label"></label>
+
+                            <div class="col-sm-10">
+                                <div class="table-responsive">
+                                    <table id="tbl_Attachment_Approve" class="table header-border">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <b>No</b>
+                                                </th>
+                                                <th>
+                                                    <b>File Name</b>
+                                                </th>
+                                                <th style="text-align:center">
+                                                    <b>Download</b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody_Attachment_Approve"></tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
 
 
-                        <form class="form-valide2" onsubmit="return s();" action="#" method="post">
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
-                                    <label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial"></textarea>
-                                </div>
-                            </div>                                                      
-
-                            <div class="form-group row">
-                                <div class="col">
-                                    <label for="ddlKualProd">Kualitas Produk</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlKualProd" name="ddlKualProd" title="Kualitas Produk"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <label for="ddlRiskFin">Risiko Finansial</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlRiskFin" name="ddlRiskFin" title="Risiko Finansial"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="ddlKesehatanPer">Risiko Kesehatan Personil</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlKesehatanPer" name="ddlKesehatanPer" title="Risiko Kesehatan Personil"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="form-group row" id="Upload">
+                            <div class="col-sm-2 col-form-label">
 
                             </div>
-                            <div class="form-group row">
-                                @*Baris 2*@
+                            <div class="col-sm-10">
 
-                                <div class="col">
-                                    <label for="ddlCompliance">Compliance</label>
+                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <input type="file" style="margin-left:-15px" name="NamaFileUpload" class="col-sm-6" id="idFileUpload" />
                                     <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlCompliance" name="ddlCompliance" title="Compliance"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="ddlRiskOrg">Risiko Organisasi</label>
                                     <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlRiskOrg" name="ddlRiskOrg" title="Risiko Organisasi"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="ddlResLingk">Resiko Lingkungan</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlResLingk" name="ddlResLingk" title="Risiko Lingkungan"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    <button type="button" id="btnUpload" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>
+                                }
 
+
+                                @*<button type="button" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>*@
                             </div>
-                            <div class="form-group row">
-                                @*Baris 3*@
+                        </div>
 
-                                <div class="col">
-                                    <label for="ddlRiskOpr">Risiko Operasional</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlRiskOpr" name="ddlRiskOpr" title="Risiko Operasional"></select>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                        <div class="form-group row" id="deletefile">
+                            <label class="col-sm-2 col-form-label"></label>
+
+                            <div class="col-sm-10">
+                                <div class="table-responsive">
+                                    <table id="tbl_Attachment" class="table header-border">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <b>No</b>
+                                                </th>
+                                                <th>
+                                                    <b>File Name</b>
+                                                </th>
+                                                <th>
+                                                    <b>Action</b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody_Attachment"></tbody>
+                                    </table>
                                 </div>
-                                <div class="col">
-                                    <label for="ddlKeamamananP">Risiko Keamanan Personil</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlKeamamananP" name="ddlKeamamananP" title="Risiko Keamanan Personil"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="ddlRiskIntelek">Risiko Intelektual</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlRiskIntelek" name="ddlRiskIntelek" title="Risiko Intelektual"></select>
-                                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <form class="form-valide2" onsubmit="return s();" action="#" method="post">
+                        <div class="form-group row">
+                            <div class="col-sm-2 col-form-label">
+                                <label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-sm-10">
+                                <textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial" disabled></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="ddlKualProd">Kualitas Produk</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlKualProd" name="ddlKualProd" title="Kualitas Produk" disabled></select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="txtKeparahan">Tingkat Keparahan Penyimpangan</label>
-                                        <br />
-                                        <div class="btn-group mb-2">
-                                            <input id="txtKeparahan" name="txtKeparahan" type="text" class="form-control" readonly="readonly">
+
+                            <div class="col">
+                                <label for="ddlRiskFin">Risiko Finansial</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlRiskFin" name="ddlRiskFin" title="Risiko Finansial" disabled></select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                        </form>
+                            <div class="col">
+                                <label for="ddlKesehatanPer">Risiko Kesehatan Personil</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlKesehatanPer" name="ddlKesehatanPer" title="Risiko Kesehatan Personil" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            @*Baris 2*@
+
+                            <div class="col">
+                                <label for="ddlCompliance">Compliance</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlCompliance" name="ddlCompliance" title="Compliance" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="ddlRiskOrg">Risiko Organisasi</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlRiskOrg" name="ddlRiskOrg" title="Risiko Organisasi" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="ddlResLingk">Resiko Lingkungan</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlResLingk" name="ddlResLingk" title="Risiko Lingkungan" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            @*Baris 3*@
+
+                            <div class="col">
+                                <label for="ddlRiskOpr">Risiko Operasional</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlRiskOpr" name="ddlRiskOpr" title="Risiko Operasional" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="ddlKeamamananP">Risiko Keamanan Personil</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlKeamamananP" name="ddlKeamamananP" title="Risiko Keamanan Personil" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="ddlRiskIntelek">Risiko Intelektual</label>
+                                <br />
+                                <div class="btn-group mb-2">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown">
+                                            <select id="ddlRiskIntelek" name="ddlRiskIntelek" title="Risiko Intelektual" disabled></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="txtKeparahan">Tingkat Keparahan Penyimpangan</label>
+                                    <br />
+                                    <div class="btn-group mb-2">
+                                        <input id="txtKeparahan" name="txtKeparahan" type="text" class="form-control" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                    <div id="divLoading" class="row" hidden>
+                        <div class="col-md-12" style="text-align:center">
+                            <img src="~/Content/Styles/images/loading2.gif" width="400" height="300" />
+                        </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 
+<script>
 
-
-<script nonce="r+DUML3HXv8cHBO2VnsJnQ==">
-
+    var listProduk = [];
+   /* let checkLoading = 0;*/
+    var editMode = false;
     $(document).ready(function () {
-        @*$.when(LoadAll()).done(ToggleByCategory());*@
-        LoadAll();
+        $.when(LoadAll()).done(ToggleByCategory());
+       @* LoadAll();*@
+
+
+
+        //if (checkLoading == 0) {
+        //    $('#divLoading').prop('hidden', true);
+        //    $('#cardTable').prop('hidden', false);
+
+        //}
+
+        /*var pageURL = $(location).attr("href");*/
+        //alert(pageURL);
+     @*   function HideLoadingDiv() {
+            console.log('hide')
+            $('#divLoading').prop('hidden', false);
+            checkLoading = 0;
+            elem.dispatchEvent(new Event('click'));
+        }*@
+        //if (pageURL.indexOf("PelaporPenyimpangan")>-1) {
+        //    checkLoading = 1;
+        //    ShowLoadingDiv();
+        //    $.when(LoadAll()).done(HideLoadingDiv());
+            //$.when(ShowLoadingDiv()).done(HideLoadingDiv());
+            //$.when(ShowLoadingDiv()).done(LoadAll());
+        //} else {
+        //    LoadAll();
+        //}
+
+
+
+
+        $('#divsimpang').hide();
+
+        //Jenis Penyimpangan Detail
+        $('#JenisPenyimpanganDetail').attr("hidden",true);
+
+
+
+
+
+
+        $('#whoedit').hide();
+        $('#Upload').hide();
+        $('#deletefile').hide();
 
         setTimeout(ToggleByCategory, 2000);
 
@@ -598,15 +685,7 @@
             }
         });
 
-        $("#btnSubmit").click(function () {
-            if (!$(".form-valide").valid()) {
-                return;
-            }
-            InsertDeviation();
-
-        });
-
-        $("#btnCancel").click(function () {
+        $("#btnCancelEdit").click(function () {
             Swal.fire({
                 title: 'Apakah anda yakin tidak menyimpan perubahan ini?',
                 icon: 'question',
@@ -622,11 +701,132 @@
             });
         });
 
+        $('#btnEdit').click(function () {
+            editMode = true;
+            var dev_kategori = $("#ddlKategori").val();
+
+            GetQCMaterialNoOracle();
+            SetTableProduk(dev_kategori);
+
+
+
+            $('#ddlSite').prop('disabled', false);
+            $('#ddlSite').selectpicker('refresh');
+            document.getElementById("ddlKategori").disabled = false;
+            $('#ddlKategori').selectpicker('refresh');
+            document.getElementById("terencana_yes_2").disabled = false;
+            document.getElementById("terencana_no_2").disabled = false;
+            document.getElementById("r_receipt_y").disabled = false;
+            document.getElementById("r_receip_n").disabled = false;
+            document.getElementById("txtProblem").disabled = false;
+            document.getElementById("txtReq").disabled = false;
+            document.getElementById("date-format").disabled = false;
+            document.getElementById("txtSiteLokasi").disabled = false;
+            @* $('#txtSiteLokasi').selectpicker('refresh');*@
+            document.getElementById("txtDept").disabled = false;
+
+            document.getElementById("txtLokasi").disabled = false;
+            document.getElementById("txtHow").disabled = false;
+            $('#txtKetKategori').removeAttr('readonly');
+            $('#txt30hari').removeAttr('readonly');
+            $('#txtsama').removeAttr('readonly');
+            $('#txtrilis').removeAttr('readonly');
+            $('#txtlain').removeAttr('readonly');
+            $('#txtTindakan').removeAttr('readonly');
+
+            document.getElementById("pernah_yes_1").disabled = false;
+            document.getElementById("pernah_no_1").disabled = false;
+            document.getElementById("sama_yes_1").disabled = false;
+            document.getElementById("sama_no_1").disabled = false;
+            document.getElementById("rilis_yes_2").disabled = false;
+            document.getElementById("rilis_no_2").disabled = false;
+            document.getElementById("lain_yes_3").disabled = false;
+            document.getElementById("lain_no_3").disabled = false;
+
+            document.getElementById("txtUsulanRemidial").disabled = false;
+
+            //Penilaian
+            document.getElementById("ddlKualProd").disabled = false;
+            $('#ddlKualProd').selectpicker('refresh');
+            document.getElementById("ddlRiskFin").disabled = false;
+            $('#ddlRiskFin').selectpicker('refresh');
+            document.getElementById("ddlKesehatanPer").disabled = false;
+            $('#ddlKesehatanPer').selectpicker('refresh');
+            document.getElementById("ddlCompliance").disabled = false;
+            $('#ddlCompliance').selectpicker('refresh');
+            document.getElementById("ddlRiskOrg").disabled = false;
+            $('#ddlRiskOrg').selectpicker('refresh');
+            document.getElementById("ddlResLingk").disabled = false;
+            $('#ddlResLingk').selectpicker('refresh');
+            document.getElementById("ddlRiskOpr").disabled = false;
+            $('#ddlRiskOpr').selectpicker('refresh');
+            document.getElementById("ddlKeamamananP").disabled = false;
+            $('#ddlKeamamananP').selectpicker('refresh');
+            document.getElementById("ddlRiskIntelek").disabled = false;
+            $('#ddlRiskIntelek').selectpicker('refresh');
+
+            //show
+            $('#upload').show();
+            $('#whoedit').show();
+            $('#divsimpang').show();
+            $('#JenisPenyimpanganDetail').attr("hidden",false);
+            $('#Upload').show();
+            $('#deletefile').show();
+
+            //hide
+            $('#downloadfile').hide();
+            $('#whoapprove').hide();
+
+            //Empty Dev Kategori Value
+            $('#TxtBatchNo').val('');
+            $("#TxtNoWO").val('');
+            $('#TxtItemCode').val('');
+            $('#txtKetKategori').val('');
+            $('#TxtQCMaterialNo').val('');
+
+
+            //Receipt hidden or show
+            if (dev_kategori == 'QPR') {
+                $("#divreceipt").attr("hidden", true);
+            } else {
+                if (dev_kategori == 'QMT') {
+                    $("#divreceipt").attr("hidden", false);
+
+
+                } else {
+
+                    $("#divTblDaftarProduk").attr("hidden", true);
+                    $("#divreceipt").attr("hidden", true);
+                    $("#TxtItemCode").css("display", "none");
+                   @* $("#TxtItemCode").attr("hidden",true);*@
+                    $("#TxtBatchNo").css("display", "none");
+                    @*$("#TxtBatchNo").attr("hidden", true);*@
+                    $("#TxtNoWO").css("display", "none");
+                    @*$("#TxtNoWO").attr("hidden", true);*@
+                    $("#btnTambahProduk").css("display", "none");
+                    @*$("#btnTambahProduk").attr("hidden", true);*@
+
+                }
+            }
+
+
+        });
+
     });
+
+
+  @*  function ShowLoadingDiv() {
+        checkLoading = 1;
+        $('#divLoading').prop('hidden', false);*@
+        //setTimeout(function () {
+        //    $('#divLoading').prop('hidden', false);
+        //}, 12000);
+   //}
+
 
     function ToggleByCategory() {
         var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
-        console.log(jenisPenyimpangan);
+        //console.log(jenisPenyimpangan);
         ToggleShowKualitasProdukFields(jenisPenyimpangan);
         @*ToggleShowKualitasMaterialFields(jenisPenyimpangan);*@
 
@@ -686,7 +886,9 @@
             $.when($.ajax(GenerateReqID())).then(function () {
                 $.when($.ajax(GenerateDate())).then(function () {
                     GetFileAttachment();
+
                     LoadUserInvolved();
+                    LoadUserInvolvedApprove();
                 });
             });
         });
@@ -712,20 +914,90 @@
         $("#btnUpload").click(function () {
             UploadAttachmentDeviation();
         });
-
-
     });
+
+    $("#btnTambahProduk").click(function () {
+        var dev_kategori = $("#ddlKategori").val();
+        var item_code = $('#TxtItemCode').val().trim();
+        var no_wo = $('#TxtNoWO').val().trim();
+        var no_batch = $('#TxtBatchNo').val().trim();
+        var no_qc = $('#TxtQCMaterialNo').val().trim();
+        var ket_kategori = $("#txtKetKategori").val().trim();
+
+        if (dev_kategori == 'QPR') {
+            if (item_code == '' || no_wo == '' || no_batch == '' || ket_kategori == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Keterangan produk belum lengkap!',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                return;
+            }
+        }
+        else if (dev_kategori == 'QMT') {
+            if (item_code == '' || no_qc == '' || ket_kategori == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Keterangan material belum lengkap!',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                return;
+            }
+        }
+        TambahProdukList(dev_kategori, item_code, no_batch, no_wo, no_qc, ket_kategori);
+
+        //Empty Dev Kategori Value
+        $('#TxtBatchNo').val('');
+        $("#TxtNoWO").val('');
+        $('#TxtItemCode').val('');
+        $('#txtKetKategori').val('');
+        $('#TxtQCMaterialNo').val('');
+    });
+
+
+    //function delete Table List Produk
+
+    $('#tblListProduk tbody').on('click', '.deleteProduk', function () {
+    //    var data = $('#tblListProduk').DataTable().row(this).data();
+            var data = $('#tblListProduk').DataTable().row($(this).parents('tr')).data();
+       var dev_kategori = $("#ddlKategori").val();
+      var filteredArray = listProduk;
+
+
+
+        if (dev_kategori == 'QMT') {
+            var noQC = data['NoQCMaterial'];
+            filteredArray = listProduk.filter(value => value.NoQCMaterial != noQC);
+        }
+        else if (dev_kategori == 'QPR') {
+            var noWOOracle = data['NoWOOracle'];
+            filteredArray = listProduk.filter(value => value.NoWOOracle != noWOOracle);
+        }
+
+
+        listProduk = filteredArray;
+        SetTableProduk(dev_kategori);
+        //the job
+    });
+
+
+
+
 
     // Drop Down List Click
     $(document).ready(function () {
         $("#divsimpang").hide();
+
         $("#TxtNoWO").attr("disabled", true);
 
         $("#TxtNoWO").attr("disabled", true);
         $("#TxtItemCode").attr("disabled", true);
 
-        $('#divproduk').hide();
-        $('#divproduk').hide();
+
 
 
 
@@ -748,9 +1020,18 @@
             $('#txtKetKategori').val('');
             $('#TxtQCMaterialNo').val('');
 
+
+
+            listProduk = [];
+            var kategoriDev = $(this).val();
+            SetTableProduk(kategoriDev);
+
             var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
 
-            if ($("#ddlKategori").val() == 'QPR') {
+
+
+            // Kualitas Produk
+            if (kategoriDev == 'QPR') {
                 if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
                     swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
 
@@ -762,20 +1043,32 @@
                     return;
                 } else {
                     $("#divsimpang").show();
-                    $('#divreceipt').hide();
+                    $("#JenisPenyimpanganDetail").attr("hidden", false);
+                    $("#divProduk").show();
+                    $("#divMaterial").hide();
+                    $("#divQCMaterial").hide();
+                    $("#divBatchNo").show();
+                    $("#divWoOracle").show();
 
-                    $('#TxtQCMaterialNo').attr("hidden", true);
+                    $("#divreceipt").attr("hidden", true);
                     $("#TxtNoWO").attr("hidden", false);
                     $('#TxtBatchNo').attr('hidden', false);
                     $('#txtKetKategori').attr('disabled', true);
+
+                    $("#TxtItemCode").css("display", "inline");
+                    $("#TxtBatchNo").css("display", "inline");
+                    $("#TxtNoWO").css("display", "inline");
+                    $("#btnTambahProduk").css("display", "inline");
+
+
                     @* menentukan field input yg dienable sesuai jenis penyimpangan *@
-                    EmptyFields();
                     ToggleShowKualitasProdukFields(jenisPenyimpangan);
+             
                 }
             }
             else {
                 // Kualitas Materi Awal
-                if ($("#ddlKategori").val() == 'QMT') {
+                if (kategoriDev == 'QMT') {
                     if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
                         swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
 
@@ -787,31 +1080,64 @@
                         return;
                     } else {
                         $("#divsimpang").show();
-                        $('#divreceipt').show();
 
-                        $("#TxtNoWO").attr("hidden", true);
-                        $('#TxtBatchNo').attr('hidden', true);
+                        //$('#divreceipt').show();
+
+                        $("#divreceipt").attr("hidden", false);
+                        $("#JenisPenyimpanganDetail").attr("hidden",false);
+                        $("#divProdukEdit").show();
+                        $("#divMaterial").show();
+                        $("#divQCMaterial").show();
+
+
+
+                        $("#divBatchNo").hide();
+                        $("#divWoOracle").hide();
 
                         $('#TxtQCMaterialNo').attr("hidden", false);
                         $("#TxtItemCode").attr("hidden", false);
+
                         $('#txtKetKategori').attr('disabled', true);
+                        $("#TxtItemCode").attr("disable", true);
+
                         $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                         $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
-                        GetQCMaterialNoOracle();
-                        EmptyFields();
+
+                        $("#TxtItemCode").css("display", "inline");
+                        $("#TxtBatchNo").css("display", "inline");
+                        $("#TxtNoWO").css("display", "inline");
+                        $("#btnTambahProduk").css("display", "inline");
+@*
+                        GetQCMaterialNoOracle();*@
                         ToggleShowKualitasProdukFields(jenisPenyimpangan);
+                    
                     }
 
                 }
                 else {
                     $("#divsimpang").hide();
-                    $('#TxtQCMaterialNo').attr("hidden", true);
+                    $("#divProduk").hide();
+                    $("#divMaterial").hide();
                     $("#TxtNoWO").attr("disabled", true);
                     $('#txtKetKategori').val('');
+                    $("#TxtItemCode").css("display", "none");
+                    $("#TxtBatchNo").css("display", "none");
+                    $("#TxtNoWO").css("display", "none");
+                    $("#btnTambahProduk").css("display", "none");
+
+                    
+
+
                 }
             }
 
         });
+
+
+
+
+
+
 
         $("#txtSiteLokasi").change(function () {
             $('#txtDept').attr('hidden', false);
@@ -1081,7 +1407,6 @@
     });
 
     function GetQCMaterialNoOracle() {
-
         var LocationSite = $("#ddlSite").val();
         var DEVIATION_CATEGORY = $("#ddlKategori").val();
         var FlagReceipt = $('input[name="r_receipt"]:checked').val();
@@ -1124,7 +1449,7 @@
                             var results = $.ui.autocomplete.filter(jsonObj, request.term);
                             response(results.slice(0, 20));
 
-                            add($.map(results, function (el) {
+                            ($.map(results, function (el) {
                                 return {
                                     label: el.label,
                                     value: el.value
@@ -1155,7 +1480,7 @@
 
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetQCMaterialNoOracleInput", JSON.stringify(ex));
             }
         });
     }
@@ -1179,7 +1504,7 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                console.log(data);
+              @*  console.log(data);*@
                 var count = data.length;
                 if (count > 0) {
 
@@ -1197,7 +1522,7 @@
                         item["value"] = arrLabel[trav];
                         jsonObj.push(item);
                     }
-                    console.log(jsonObj);
+                 @*   console.log(jsonObj);*@
 
                     $("#TxtItemCode").autocomplete({
                         source: function (request, response) {
@@ -1248,12 +1573,12 @@
     function ToggleShowKualitasProdukFields(jenisPenyimpangan) {
         $('#txtKetKategori').attr('disabled', true);
         $("#TxtNoWO").attr("disabled", true);
+
         if ($("#ddlKategori").val() == 'QPR') {
             if (jenisPenyimpangan == 'Yes') {
                 $("#TxtItemCode").attr("hidden", false);
                 $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                 GetItemKualitasProduk();
-
                 $("#TxtNoWO").attr("disabled", false);
             }
             else {
@@ -1270,6 +1595,8 @@
             }
             else {
                 $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
+                GetQCMaterialNoOracle();
+               
             }
         }
         if (jenisPenyimpangan == 'Yes') {
@@ -1296,6 +1623,65 @@
             }
         }
     }*@
+
+
+    function TambahProdukList(dev_kategori, item_code, no_batch, no_wo, no_qc, ket_kategori) {
+
+        var prod = {
+            "ItemCodeOracle": item_code,
+            "NoBatchOracle": no_batch,
+            "NoWOOracle": no_wo,
+            "NoQCMaterial": no_qc,
+            "KeteranganKategori": ket_kategori,
+        }
+        listProduk.push(prod);
+        SetTableProduk(dev_kategori);
+    }
+
+    function LoadListProduk(dev_kategori) {
+        //var dev_kategori = $("#ddlKategori").val();
+        //console.log(dev_kategori);
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			ReqID: REQID
+        }
+
+
+
+		$.ajax({
+            url: "../SpvPelapor/LoadListProduk",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                //console.log(data);
+
+
+                for (var i = 0; i < data.length; i++) {
+               @*     console.log(i);*@
+                    TambahProdukList(dev_kategori, data[i].ITEM_CODE_ORACLE, data[i].NO_BATCH_ORACLE, data[i].NO_WO_ORACLE, data[i].QC_MATERIAL_NO, data[i].KET_CATEGORY);
+                }
+
+                if (dev_kategori == 'QPR') {
+                    $('#thQCNum').attr('hidden', true);
+                    $('#thNoBatch').attr('hidden', false);
+                    $('#thNoWO').attr('hidden', false);
+
+                } else if (dev_kategori == 'QMT') {
+                    $('#thQCNum').attr('hidden', false);
+                    $('#thNoBatch').attr('hidden', true);
+                    $('#thNoWO').attr('hidden', true);
+                }
+			}
+			, error: function (ex) {
+                GetErrorSupPel("LoadListProduk", JSON.stringify(ex));
+			}
+		});
+	}
+
+
 
     function GetNoBatchOracle() {
         $('#ModalLoading').modal('show');
@@ -1335,7 +1721,7 @@
                         var results = $.ui.autocomplete.filter(jsonObj, request.term);
                         response(results.slice(0, 10));
 
-                        add($.map(results, function (el) {
+                        ($.map(results, function (el) {
                             return {
                                 label: el.label,
                                 value: el.value
@@ -1364,7 +1750,7 @@
                 });
             },
             error: function (ex) {
-                alert('Error : ' + JSON.stringify(ex));
+                GetErrorInput("GetNoBatchOracleInput", JSON.stringify(ex));
             }
         });
     }
@@ -2057,8 +2443,11 @@
 
     }
 
+
+
     // File Attachment Deviation
     function UploadAttachmentDeviation() {
+
         var formData = new FormData();
         var REQID = $("#lblReq").text();
         var totalFiles = document.getElementById("idFileUpload").files.length;
@@ -2107,6 +2496,60 @@
             });
         }
     }
+
+    @*Get file attachment approve*@
+            function GetFileAttachmentApprove() {
+
+                var ReqID = @ViewBag.nomor;
+                var dto = {
+                    ReqID: ReqID
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "../SpvPelapor/App_LoadAttachment",
+                    data: JSON.stringify(dto),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        if (data != '') {
+                            var trHTML = '';
+                            var trav = 0;
+                            var Count = data.length;
+
+                            if (Count > 0) {
+                                for (trav = 0; trav < Count; trav++) {
+                                    var no = 1
+                                    no = no + trav
+
+                                    trHTML += '<tr><td>' + no + '</td>' +
+                                        '<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+                                        '<td style="display:none">' + data[trav].NO_FILE + '</td>' +
+                                        '<td>' + data[trav].file_name_upload + '</td>' +
+                                        '<td style="display:none;">' + data[trav].path_file + '</td>' +
+                                        '<td align="center"><a href=' + data[trav].path_file_download + ' target="_blank"><i class="fa fa-cloud-download"></i></a></td></tr>';
+                                }
+
+                                $("#tbl_Attachment_Approve").show();
+                                $("#tbody_Attachment_Approve").empty();
+                                $("#tbody_Attachment_Approve").append(trHTML);
+                                $("#tbody_Attachment_Approve").addBack();
+
+                            } else {
+                                $("#tbl_Attachment_Approve").hide();
+                            }
+                        } else {
+                            $("#tbl_Attachment_Approve").hide();
+                            $("#tbody_Attachment_Approve").addBack();
+                        }
+                    },
+                    error: function (ex) {
+                        GetErrorSupPel("SupPel", JSON.stringify(ex));
+                    }
+                });
+            }
+
+    @*Get file attachment edit*@
 
     function GetFileAttachment() {
 
@@ -2208,165 +2651,53 @@
 
     }
 
-    // Save Deviation
-    function InsertDeviation() {
-
-        var ID_PROPOSER = '@Request.RequestContext.HttpContext.Session["xUser"]';
-        var DEPARTEMENT = $("#TbDeptPusul").val();
-        var PROBLEM = $("#txtProblem").val();
-        var DATE_OF_INCIDENT = $("#date-format").val();
-        var LOCATION_SITE = $("#ddlSite").val();
-
-        var DEVIATION_CATEGORY = $("#ddlKategori").val();
-        var NO_WO_ORACLE = $('#TxtNoWO').val();
-        var Item_Code_Oracle = $('#TxtItemCode').val();
-        var No_Batch_Oracle = $('#TxtBatchNo').val();
 
 
-        //var DEVIATION_TYPE = $("#ddlJenSi").val();
-        var KET_CATEGORY = $("#txtKetKategori").val();
-        var CR_DATE_USER = $("#TbTglCreated").val();
-
-        var LOCATION = $("#txtLokasi").val();
-        var LocationSiteIncident = $('#txtSiteLokasi').val();
-        var LocationDeptIncident = $("#txtDept").val();
-
-
-        var USER_INVOLVED = $("#txtWho").val();
-        var ORDER_OF_EVENTS = $("#txtHow").val();
-
-        var PLAN_DEV_FLAG = $('input[name="travel5"]:checked').val();
-
-        var SAME_POTEN_DEV_FLAG = $('input[name="travel1"]:checked').val();
-        var SAME_POTEN_DEV = $("#txtsama").val();
-        var POTEN_DEV_RLS_FLG = $('input[name="travel2"]:checked').val();
-        var POTEN_DEV_RLS = $("#txtrilis").val();ntfs
-        var POTEN_DEV_OTH_FLG = $('input[name="travel3"]:checked').val();
-        var POTEN_DEV_OTH = $("#txtlain").val();
-        var ACTION_WHEN_DEV = $("#txtTindakan").val();
-        var FILE_UPLOAD_ID = $("#txtUpload").val();
-        var QUALITY_PRODUCT = $("#ddlKualProd").val();
-        var COMPLIANCE = $("#ddlCompliance").val();
-        var RISK_OPERATION = $("#ddlRiskOpr").val();
-        var RISK_FINANCIAL = $("#ddlRiskFin").val();
-        var RISK_ORGANIZATION = $("#ddlRiskOrg").val();
-        var RISK_SECURITY = $("#ddlKeamamananP").val();
-        var RISK_HEALTY = $("#ddlKesehatanPer").val();
-        var RISK_ENVIRONTMENT = $("#ddlResLingk").val();
-        var RISK_INTELLECTUAL = $("#ddlRiskIntelek").val();
-        var SEVERTY_DEVIATION = $("#txtKeparahan").val();
-        var REQID = $("#lblReq").text();
-
-        var REQ = $("#txtReq").val();
-
-        var THIRTY_FLAG = $('input[name="travel4"]:checked').val();
-        var THIRTY = $("#txt30hari").val();
-
-        var FLAG_KOOR = document.getElementById('ddlKategori').value;
-
-
-        if (FLAG_KOOR == 'QPR' || FLAG_KOOR == 'QNA' || FLAG_KOOR == 'QMT' || FLAG_KOOR == 'LLI') {
-            FLAG_KOOR = 'Coordinator_QA';
-        } else if (FLAG_KOOR == 'QNS' || FLAG_KOOR == 'HSE' ){
-            FLAG_KOOR = 'Coordinator_QS';
-        }
-        var UsulanRemidial = $('#txtUsulanRemidial').val();
-
-        var FlagReceipt = $('input[name="r_receipt"]:checked').val();
-        var QCMaterialManufacturerNo = $('#TxtQCMaterialNo').val();
-
-
-
+    function InsertMultipleProduk() {
+        var ReqID = $('#lblReq').text();
         var dto = {
-            CrDateUser: CR_DATE_USER,
-            IdProposer: ID_PROPOSER,
-            Departement: DEPARTEMENT,
-            Problem: PROBLEM,
-            Date_of_incident: DATE_OF_INCIDENT,
-            LocationSite: LOCATION_SITE,
-
-
-            DeviationCategory: DEVIATION_CATEGORY,
-            NO_WO_ORACLE: NO_WO_ORACLE,
-            Item_Code_Oracle: Item_Code_Oracle,
-            No_Batch_Oracle: No_Batch_Oracle,
-
-            //DeviationType: DEVIATION_TYPE,
-            KetCategory: KET_CATEGORY,
-
-            Location: LOCATION,
-            LocationSiteIncident: LocationSiteIncident,
-            LocationDeptIncident: LocationDeptIncident,
-
-            User_involved: USER_INVOLVED,
-            OrderOfEvents: ORDER_OF_EVENTS,
-            SamePotenDevFlag: SAME_POTEN_DEV_FLAG,
-            SamePotennDev: SAME_POTEN_DEV,
-            PotenDevRlsFlg: POTEN_DEV_RLS_FLG,
-            PotenDevRls: POTEN_DEV_RLS,
-            PotenDevOTHFlg: POTEN_DEV_OTH_FLG,
-            PotenDevOTH: POTEN_DEV_OTH,
-
-            ActionWhenDev: ACTION_WHEN_DEV,
-            File_upload_id: FILE_UPLOAD_ID,
-            QualityProduct: QUALITY_PRODUCT,
-            Compliance: COMPLIANCE,
-            RiskOperasional: RISK_OPERATION,
-            RiskFinancial: RISK_FINANCIAL,
-            RiskOrganization: RISK_ORGANIZATION,
-            RiskSecurity: RISK_SECURITY,
-            RiskHealty: RISK_HEALTY,
-            RiskEnvirontment: RISK_ENVIRONTMENT,
-            RiskIntellectual: RISK_INTELLECTUAL,
-            SevertyDeviation: SEVERTY_DEVIATION,
-            ReqID: REQID,
-
-            FLAG_KOOR: FLAG_KOOR,
-
-            PLAN_DEV: PLAN_DEV_FLAG,
-            THIRTY_FLAG: THIRTY_FLAG,
-            THIRTY: THIRTY,
-            REQ: REQ,
-
-            UsulanRemidial: UsulanRemidial,
-			FlagReceipt: FlagReceipt,
-            QCMaterialManufacturerNo: QCMaterialManufacturerNo
-        };
+            ReqID,
+            ListProduk: listProduk
+        }
 
         $.ajax({
-            url: "../Form/InsertFormDeviation",
+            url: "../Form/InsertMultipleProduk",
             type: "post",
             dataType: "json",
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Form Submitted',
-                    showConfirmButton: false,
-                    timer: 2000
-                }).then(() => {
-
-                    CheckDelete = 1;
-                    $.when(
-                        SendEmailRev()
-                    ).then(
-                        window.location.href = "../DataDeviasi/PendingTask"
-                    );
-
-                });
-
             }
             , error: function (ex) {
-                alert('Error Delete Attachment: ' + JSON.stringify(ex));
+                GetErrorInput("InsertMultipleProduk", JSON.stringify(ex));
+            }
+        });
+    }
+
+    function UpdateMultipleProduk() {
+        var ReqID = $('#lblReq').text();
+        var dto = {
+            ReqID,
+            ListProduk: listProduk
+        }
+
+        $.ajax({
+            url: "../Form/UpdateMultipleProduk",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+            }
+            , error: function (ex) {
+                GetErrorInput("UpdateMultipleProduk", JSON.stringify(ex));
             }
         });
     }
 
     function SendEmailRev() {
 
-		var REQID = $("#lblReq").text();
+        var REQID = $("#lblReq").text();
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 		var tabletype = "One";
@@ -2404,7 +2735,7 @@
 					"hideMethod": "fadeOut"
 				});
 
-                
+
 			}, error: function (ex) {
 				alert("Error Email: " + JSON.stringify(ex));
 			}
@@ -2456,6 +2787,99 @@
             }
         });
     }
+
+
+
+    function LoadUserInvolvedApprove() {
+
+		var REQID = @ViewBag.nomor;
+
+		var dto = {
+			ReqID: REQID
+		}
+
+		$.ajax({
+			url: "../SpvPelapor/App_LoadUserInvolved",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				if (data != '') {
+					$('#tblWhoApprove').attr('hidden', false);
+
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+
+
+					for (trav = 0; trav < Count; trav++) {
+
+						trHTML += '<tr><td>' + data[trav].NO + '</td>' +
+							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
+							'<td style="display:none">' + data[trav].RecordID + '</td>' +
+							'<td>' + data[trav].USER_NAME + '</td>></tr>';
+
+					}
+
+
+					$("#tblBodyWhoApprove").empty();
+					$("#tblBodyWhoApprove").append(trHTML);
+				}
+				else {
+					$('#tblWhoApprove').attr('hidden', true);
+					$("#tblBodyWhoApprove").addBack();
+				}
+
+			}
+			, error: function (ex) {
+                GetErrorSupPel("SupPel", JSON.stringify(ex));
+			}
+		});
+	}
+
+
+	function GetErrorSupPel(ErrorType, ErrorMsg) {
+		var REQID = @ViewBag.nomor;
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
 
     function LoadUserInvolved() {
 
@@ -2567,10 +2991,12 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var text = '';
-
+                //console.log(data);
                 //BUGGY
                 GetFileAttachment();
+                GetFileAttachmentApprove();
                 LoadUserInvolved();
+                LoadUserInvolvedApprove();
 
                 document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
                 document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
@@ -2578,31 +3004,64 @@
                 document.getElementById('TbPesul').value = data[0].NAME_PROPOSER;
                 document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
 
-
                 //$("#txtrilis").attr("disabled", true);
 
-
                 LoadKategori();
+
+
+                 var dev_kategori = data[0].ID_DEVIATION_CATEGORY;
+
+                if (dev_kategori == 'QPR') {
+
+                    @*$("#TxtNoWO").attr("hidden", false);
+                    $("#TxtItemCode").attr("hidden", false);
+                    $('#TxtBatchNo').attr('hidden', false);*@
+                    $("#divreceipt").attr("hidden", true);
+                    @*$("#JenisPenyimpanganDetail").attr("hidden", false);*@
+                    //$("#txtKetKategori").attr("hidden", true);
+                    // MATERIAL AWAL (MASIH ADA LAGI)
+                } else
+                    if (dev_kategori == 'QMT') {
+                        @*$("#TxtItemCode").attr("hidden", false);
+                        $('#TxtQCMaterialNo').attr('hidden', false);*@
+                        //$("#txtKetKategori").attr("hidden", true);
+                        $("#divreceipt").attr("hidden", false);
+                       @* $("#JenisPenyimpanganDetail").attr("hidden",false);*@
+                    } else {
+                        $("#divTblDaftarProduk").attr("hidden", true);
+                        $("#divreceipt").attr("hidden", true);
+                     
+                    }
+
+                $('input[name=r_receipt][value=' + data[0].FLAG_RECEIPT + ']').prop('checked', true);
+
+                if (dev_kategori == 'QPR' || dev_kategori == 'QMT') {
+                    LoadListProduk(dev_kategori);
+                }
+
+
 
                 $('#txtKetKategori').val(data[0].KET_CATEGORY);
 
                 if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
                     $("#divsimpang").show();
-                    $('#divreceipt').hide();
+                    //$('#divreceipt').hide();
+                    $("#divreceipt").attr("hidden", true);
                     $("#TxtNoWO").attr("hidden", false);
                     $('#TxtQCMaterialNo').attr("hidden", true);
-
+                    $("#divQCMaterial").css("display", "none");
+                    $("#TxtItemCode").attr('placeholder', 'Item Code');
                     GetNoBatchOracle();
                     $('#txtKetKategori').attr('disabled', true);
                 }
                 else {
                     if (data[0].ID_DEVIATION_CATEGORY == 'QMT') {
                         $("#divsimpang").show();
-                        $('#divreceipt').show();
+                        //$('#divreceipt').show();
+                        $("#divreceipt").attr("hidden", false);
 
                         $("#TxtNoWO").attr("hidden", true);
                         $('#TxtBatchNo').attr('hidden', true);
-
                         $('#TxtQCMaterialNo').attr("hidden", false);
                         $("#TxtItemCode").attr("hidden", false);
                         $('#txtKetKategori').attr('disabled', true);
@@ -2612,8 +3071,12 @@
                     }
                     else {
                         $("#divsimpang").hide();
+                        $('#divProduk').hide();
                         $('#TxtQCMaterialNo').attr("hidden", true);
                         $("#TxtNoWO").attr("disabled", true);
+                      
+                        @*$("#JenisPenyimpanganDetail").attr("hidden", true);*@
+                       @* $("#JenisPenyimpanganDetail").attr("hidden", true);*@
                         $('#txtKetKategori').val('');
                     }
                 }
@@ -2867,7 +3330,106 @@
             }
         });
     }
+
+    function SetTableProduk(dev_kategori) {
+
+        $('#tblListProduk').DataTable({
+            "pageLength": 10,
+            "lengthChange": false,
+            "searching": false,
+            "data": listProduk,
+            "select": true,
+            "bDestroy": true,
+            "scrollCollapse": true,
+            "scrollX": true,
+            "paging": false,
+            "info": false,
+            "ordering": false,
+            "columns": [
+                {
+                    "data": "id",
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                { "data": "NoQCMaterial" },
+                { "data": "ItemCodeOracle" },
+                { "data": "NoBatchOracle" },
+                { "data": "NoWOOracle" },
+                { "data": "KeteranganKategori" },
+                {
+                    "data": null,
+                    "defaultContent": '<input type="button" value="Delete" class="btn btn-danger deleteProduk" style="width:auto;"/>'
+                },
+            ],
+            "initComplete": function (settings) {
+                var api = new $.fn.dataTable.Api(settings);
+
+                var showColumnQPR = dev_kategori == 'QPR' ? true : false;
+                var showColumnQMT = dev_kategori == 'QMT' ? true : false;
+                var showColumnAction = editMode === true ? true : false;
+
+                api.columns([3, 4]).visible(showColumnQPR);
+                api.columns([1]).visible(showColumnQMT);
+                api.columns([6]).visible(showColumnAction);
+            }
+        });
+
+        if (dev_kategori == 'QPR') {
+            $('#thQCNum').attr('hidden', true);
+            $('#thNoBatch').attr('hidden', false);
+            $('#thNoWO').attr('hidden', false);
+        } else if (dev_kategori == 'QMT') {
+            $('#thQCNum').attr('hidden', false);
+            $('#thNoBatch').attr('hidden', true);
+            $('#thNoWO').attr('hidden', true);
+        }
+    }
+
+    function GetErrorInput(ErrorType, ErrorMsg) {
+        var REQID = $('#lblReq').text();
+		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQ_ID: REQID,
+			UserLogin: USERNIK,
+            ErrorType: ErrorType,
+            ErrorMsg: ErrorMsg
+		}
+
+		$.ajax({
+			url: "../Form/LogError",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+                toastr.warning(data +" Assign ! ", "Notification", {
+                    "closeButton": false,
+                    "debug": true,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "200",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+			}
+			, error: function (ex) {
+
+			}
+		});
+	}
+
 </script>
+
 
 
 

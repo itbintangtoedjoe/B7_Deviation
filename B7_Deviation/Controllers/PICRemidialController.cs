@@ -167,7 +167,7 @@ namespace B7_Deviation.Controllers
                 string subPath = "~/Content/Attachment/PICRemidial/";
                 URLAttachment = Path.Combine(Server.MapPath(subPath), fileName);
                 //URLAttachment = Path.Combine(@"\\10.100.18.138\B7_Deviation\Content\Attachment\PICRemidial\", fileName);               
-                URLDownload = Path.Combine(@"/B7_Deviation/Content/Attachment/PICRemidial/", fileName);
+                URLDownload = Path.Combine(@"/B7_Deviationv2/Content/Attachment/PICRemidial/", fileName);
 
                 file.SaveAs(URLAttachment);
                 FileNameForDB = fileName;
