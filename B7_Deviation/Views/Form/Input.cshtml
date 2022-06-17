@@ -816,7 +816,8 @@
 
             @*InsertMultipleProduk();*@
 			InsertDeviation();
-		});
+            @*SendEmail();*@
+        });
 
 		// Set Form Input Hidden
 		$('#formBody').attr('hidden', true);
@@ -2474,7 +2475,6 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
 				Swal.fire({
 					icon: 'success',
 					title: 'Form Submitted',
@@ -2520,15 +2520,15 @@
     }
 
 	function SendEmail() {
-
+        alert('kepanggil');
 		var REQID = $("#lblReq").text();
-		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+		var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		var tabletype = "One";
+		var tabletype = "More Than One";
 		var whoreceiver = "Superior after Form Input";
 
 		var dto = {
-			Receiver: receiver,
+			Username: username,
 			ReqID: REQID,
 			TableType: tabletype,
 			WhoReceiver: whoreceiver

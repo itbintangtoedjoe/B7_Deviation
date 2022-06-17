@@ -14,8 +14,8 @@ namespace B7_Deviation.Models
         public string Sender { get; set; }
         public string Body { get; set; }
         public string Subject { get; set; }
-
-
+        public string UserID { get; set; }
+        public string  Username { get; set; }
 
 
         // SORT BASED ON RECEIVER

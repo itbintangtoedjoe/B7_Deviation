@@ -262,11 +262,12 @@
             }
 
             function NotifySupPICRej() {
-                var tabletype = "One";
-                var whoreceiver = "Reviewer Rejected Usulan Revisi";
+                var tabletype = "More Than One";
+                var whoreceiver = "PIC Rejected Usulan Revisi";
+                var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
                 var dtx = {
-                    Receiver: receiver,
+                    Username: curr_user,
                     ReqID: REQID,
                     TableType: tabletype,
                     WhoReceiver: whoreceiver

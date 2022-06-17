@@ -2698,13 +2698,13 @@
     function SendEmailRev() {
 
         var REQID = $("#lblReq").text();
-		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+		var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		var tabletype = "One";
+		var tabletype = "More Than One";
 		var whoreceiver = "Superior after Form Input";
 
 		var dto = {
-			Receiver: receiver,
+			Username: username,
 			ReqID: REQID,
 			TableType: tabletype,
 			WhoReceiver: whoreceiver

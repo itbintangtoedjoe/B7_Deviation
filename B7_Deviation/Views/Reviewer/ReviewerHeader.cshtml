@@ -106,8 +106,7 @@
 	$(document).ready(function () {
 
 		$("#btnSubmit").click(function () {
-
-			if ($("#txtReason").val() == '' || $("#txtReason").val() == null) {
+            if ($("#txtReason").val() == '' || $("#txtReason").val() == null) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
@@ -212,7 +211,7 @@
             var whoreceiver = "Koordinator after Reviewer Submit";
 
             var dtx = {
-                Receiver: receiver,
+                Username: receiver,
                 ReqID: REQID,
                 TableType: tabletype,
                 WhoReceiver: whoreceiver

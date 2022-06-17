@@ -1556,11 +1556,11 @@
 		}
 
         function EmailApproveDivHead() {
-            var tabletype = "One";
+            var tabletype = "More Than One";
             var whoreceiver = "Div Head after Sup PIC Approve Cost";
 
             var dto = {
-                Receiver: IDUser,
+                Username: IDUser,
                 ReqID: REQID,
                 TableType: tabletype,
                 WhoReceiver: whoreceiver
@@ -1698,7 +1698,7 @@
 
 					function EmailRejectSupPIC() {
                         var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                        var tabletype = "One";
+                        var tabletype = "More Than One";
 						if (picIsGroup === true) {
 							tabletype = "More than One";
                         }
@@ -1747,7 +1747,7 @@
 
 					function EmailRejectDivHead() {
 						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                        var tabletype = "One";
+                        var tabletype = "More Than One";
                         if (picIsGroup === true) {
                             tabletype = "More than One";
                         }

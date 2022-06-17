@@ -148,11 +148,12 @@
             
             function NotifyProposal() {
                 var receiver = $("TD", row).eq(8).html();
-                var tabletype = "One";
-                var whoreceiver = "Reviewer Approved Usulan Revisi by QM";
+                var tabletype = "More Than One";
+                var whoreceiver = "PIC Approved Usulan Revisi by QM";
+                var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
                 var dto = {
-                    Receiver: receiver,
+                    Username: curr_user,
                     ReqID: req_id,
                     TableType: tabletype,
                     WhoReceiver: whoreceiver
@@ -252,11 +253,11 @@
 
                     
 
-                    var tabletype = "One";
-                    var whoreceiver = "Reviewer Rejected Usulan Revisi";
+                    var tabletype = "More Than One";
+                    var whoreceiver = "PIC Rejected Usulan Revisi";
 
                     var dto = {
-                        Receiver: receiver,
+                        Username: curr_user,
                         ReqID: REQID,
                         TableType: tabletype,
                         WhoReceiver: whoreceiver

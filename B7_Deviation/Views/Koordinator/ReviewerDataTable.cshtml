@@ -112,7 +112,7 @@
 		</div>
 	</div>
 
-        <script nonce="/WfdpSviijhDbz/ppOmI8w==">
+    <script nonce="/WfdpSviijhDbz/ppOmI8w==">
 		$(document).ready(function () {
 
 			LoadData();
@@ -282,7 +282,7 @@
 
 
                 function NotifyHedKor() {
-                    var tabletype = "One";
+                    var tabletype = "More Than One";
                     var whoreceiver = "Canceled";
 
                     var dtx = {
@@ -391,9 +391,11 @@
 			function EmailEvalutor() {
                 var tabletype = "More Than One";
                 var whoreceiver = "QM after Koordinator Approve Reviewer";
+                var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
                 var dtx = {
                     ReqID: reqid,
+                    Username: username,
                     TableType: tabletype,
                     WhoReceiver: whoreceiver
                 };
@@ -566,8 +568,8 @@
 			var row = $(button).closest("TR");
 			var empid = $("TD", row).eq(1).html();
 			var reqid = @ViewBag.nomor;
-
-            var tabletype = "One";
+            var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            var tabletype = "More Than One";
             var whoreceiver = "Reviewer after Koordinator Approved";
 
 			function ApproveKoorReviewer() {
@@ -602,10 +604,11 @@
 
 			function NotifyReviwerApprove() {
                 var dtx = {
-                    Receiver: empid,
+                    UserID: empid,
                     ReqID: reqid,
                     TableType: tabletype,
-                    WhoReceiver: whoreceiver
+                    WhoReceiver: whoreceiver,
+                    Username: username
                 };
 
                 $.ajax({
@@ -674,7 +677,7 @@
 					var reqid = @ViewBag.nomor;
 					var keteranganReject = result.value;
 
-                    var tabletype = "One";
+                    var tabletype = "More Than One";
 					var whoreceiver = "Reviewer after Koordinator Reject";
 
 					function RejectReviewer() {
@@ -991,7 +994,7 @@
 			});
 		}
 
-        </script>
+    </script>
 
 </body>
 

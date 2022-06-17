@@ -132,7 +132,7 @@
 
 		});
 
-        $("#btnApprove").click(function () {
+		$("#btnApprove").click(function () {
             btnText = $("#btnApprove").text();
 			NoDevOl = $('#TbNmrDev').val();
 
@@ -220,7 +220,8 @@
 		});
 	}
 
-	function ApproveHeaderKoordinator() {
+		function ApproveHeaderKoordinator() {
+            alert('approve');
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -245,12 +246,13 @@
 				}).then(() => {
 
 					function SendEmailToReviewer() {
+                        alert('email')
 						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 						var tabletype = "More Than One";
 						var whoreceiver = "Reviewer after Appointed";
 
 						var dtx = {
-							Receiver: receiver,
+							Username: receiver,
 							ReqID: REQID,
 							TableType: tabletype,
 							WhoReceiver: whoreceiver
@@ -749,7 +751,7 @@
 
 
                 function NotifyHedKor() {
-                    var tabletype = "One";
+                    var tabletype = "More Than One";
                     var whoreceiver = "Canceled";
 
                     var dtx = {

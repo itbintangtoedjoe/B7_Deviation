@@ -102,6 +102,7 @@
 
 	function Delegate() {
 		var nomor = @ViewBag.nomor;
+        var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 		var userid = $("#listDelegasi").val();
 		var reason = $("#txtReason").val();
 
@@ -142,11 +143,11 @@
 		}
 
 		function EmailDelegasi() {
-            var tabletype = "One";
+            var tabletype = "More Than One";
             var whoreceiver = "Delegasi";
 
             var dtx = {
-                Receiver: userid,
+                Username: receiver,
                 ReqID: nomor,
                 TableType: tabletype,
                 WhoReceiver: whoreceiver

@@ -55,7 +55,7 @@
 
 
     @*Pop Up Update PIC*@
-    <div class="modal fade" id="updatePIC" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="updatePIC" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -290,11 +290,14 @@
 
                                 function SendMailAssignSinglePIC() {
                                     @*var receiver = $("TD", row).eq(2).find("select").val();*@
-                                    var tabletype = "One";
+                                    var tabletype = "More Than One";
                                     var whoreceiver = "PIC after Appointed";
+                                    var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+                                  
 
                                     var dtx = {
-                                        Receiver: pic_nik,
+                                       
+                                        Username: curr_user,
                                         ReqID: REQID,
                                         TableType: tabletype,
                                         WhoReceiver: whoreceiver
@@ -335,11 +338,13 @@
                                 }
 
                                 function SendMailAssignPICGroup() {
+                                    var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
                                     var receiver = $("TD", row).eq(2).find("select").val();
                                     var tabletype = "More Than One";
                                     var whoreceiver = "Group PIC after Appointed";
 
                                     var dtx = {
+                                        Username: curr_user,
                                         Group: pic_nik,
                                         Site: site_pic,
                                         ReqID: REQID,

@@ -106,8 +106,8 @@
 
 	});
 
-	function Approve() {
-		var REQID = @ViewBag.nomor;
+    function Approve() {
+        var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 		var dto = {
@@ -462,7 +462,7 @@
 						}
 
 						function NotifyCancelDevKor() {
-                            var tabletype = "One";
+                            var tabletype = "More Than One";
                             var whoreceiver = "Canceled";
 
                             var dtx = {
@@ -498,7 +498,7 @@
 		var REQID = $("#lblReq").text();
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		var tabletype = "One";
+		var tabletype = "More Than One";
 		var whoreceiver = "Proposer after Superior Reject";
 
 		var dto = {
@@ -538,8 +538,8 @@
 		});
 	}
 
-function SendEmailApproveSpvApv() {
-		var REQID = $("#lblReq").text();
+    function SendEmailApproveSpvApv() {
+        var REQID = $("#lblReq").text();
 		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
 
@@ -547,7 +547,7 @@ function SendEmailApproveSpvApv() {
 		var whoreceiver = "Koordinator after Superior Approved";
 
 		var dto = {
-			Receiver: receiver,
+			Username: receiver,
 			ReqID: REQID,
 
 			TableType: tabletype,
