@@ -220,12 +220,365 @@
 
         GetSuperiorSU();
 
-        //$("#role").change(function () {
-        //    Edit();
+        //On click function button Edit
+        $('#datatableuser tbody').on('click', 'input[id="Edit"]', function () {
+            var row = $(this).closest("TR");
+            //var data = $('#datatableuser').DataTable().row(row).data();
+            id = $("TD", row).eq(1).html();
+            var result = id.substr(0, 2);
+            console.log(id);
+            username = $("TD", row).eq(2).html();
+            email = $("TD", row).eq(3).html();
+            name = $("TD", row).eq(4).html();
+            job = $("TD", row).eq(5).html();
+            spvid = $("TD", row).eq(6).html();
+            spvname = $("TD", row).eq(7).html();
+            dept = $("TD", row).eq(8).html();
+            spvemail = $("TD", row).eq(9).html();
+            var penyimpangan1 = $("TD", row).eq(11).html();
+            type = $("TD", row).eq(14).html();
+            var text = "";
 
-        //});
-        $("#Update").click(function () {
+            ClearDetail();
+            GetKategoriPenyimpangan(username, penyimpangan1);
+            GetRoleEdit(username);
+            GetSuperiorSU();
 
+            // JUDUL
+            $("#nama").text(name);
+
+            // ISI
+            $("#username").val(username);
+            $("#username").attr("disabled", true);
+
+
+            $("#email").val(email);
+            $("#email").attr("placeholder", email);
+
+            $("#name").val(name);
+            $("#name").attr("placeholder", name);
+
+            $("#job").val(job);
+            $("#job").attr("placeholder", job);
+
+            $("#spvid").val(spvid);
+            $("#spvid").attr("disabled", true);
+
+            $("#spvname").val(spvname);
+            $("#spvname").attr("disabled", true);
+
+
+            $("#dept").val(dept);
+            $("#dept").attr("disabled", true);
+
+            //$("#spvemail").attr("placeholder", spvemail);
+            $("#spvemail").val(spvemail);
+            $("#spvemail").attr("disabled", true);
+
+            $("#penyimpangan").val(penyimpangan1);
+            $("#penyimpangan").attr("placeholder", penyimpangan1);
+            //penyimpangan1 = $('#penyimpangan').select2("val");
+
+            if (type == "Vendor") {
+                $("#ddlsuperiorname").attr("disabled", false);
+                $("#name").attr("disabled", false);
+                $("#job").attr("disabled", false);
+                GetSuperiornameDDL(id);
+                GetSuperiorSU();
+            }
+
+            if (result == 'A_') {
+                //$("#superiorname").attr('Hidden', true);
+                //$('#jobname').prop('hidden', true);
+                document.getElementById('jobname').style.display = 'none'
+                document.getElementById('superiorid').style.display = 'none'
+                document.getElementById('superiorname').style.display = 'none'
+                document.getElementById('superioremail').style.display = 'none'
+                document.getElementById('department').style.display = 'none'
+                document.getElementById('kategoripenyimpangan').style.display = 'none'
+            }
+
+            if (result != 'A_') {
+                document.getElementById('jobname').removeAttribute("style");
+                document.getElementById('superiorid').removeAttribute("style");
+                document.getElementById('superiorname').removeAttribute("style");
+                document.getElementById('superioremail').removeAttribute("style");
+                document.getElementById('department').removeAttribute("style");
+                document.getElementById('kategoripenyimpangan').removeAttribute("style");
+
+            }
+
+            else {
+
+                text += '<Option class="dropdown-item" value = "' + spvname + '" selected >' + spvname;
+
+                $("#ddlsuperiorname").empty();
+                $("#ddlsuperiorname").append(text);
+                $("#ddlsuperiorname").select();
+
+
+                $("#ddlsuperiorname").attr("disabled", true);
+                $("#name").attr("disabled", true);
+                $("#spvemail").attr("disabled", true);
+                $("#job").attr("disabled", true);
+
+
+            }
+
+
+
+            //    const { value: formValues } = Swal.fire({
+            //        title: 'Update Credential : <i><b>' + name + '</b></i>',
+            //        html:
+
+            //            '<div class="row form-group">' +
+            //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+            //            '<label for="username" class="col-form-label">' +
+            //            'Username :' +
+            //            '</label>' +
+            //            '</div>' +
+            //            '<div class="col-lg-6">' +
+            //            '<input class="form-control" id="username" type="text" placeholder="' + username + '" style="display:block;" name="username"/>' +
+            //            '</div>' +
+            //            '</div>' +
+
+            //            '<div class="row form-group">' +
+            //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+            //            '<label for="email" class="col-form-label">' +
+            //            'Email :' +
+            //            '</label>' +
+            //            '</div>' +
+            //            '<div class="col-lg-6">' +
+            //            '<input class="form-control" id="email" type="text" placeholder="' + email + '" style="display:block;" name="email"/>' +
+            //            '</div>' +
+            //            '</div>' +
+
+            //            '<div class="row form-group">' +
+            //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+            //            '<label for="name" class="col-form-label">' +
+            //            'Name :' +
+            //            '</label>' +
+            //            '</div>' +
+            //            '<div class="col-lg-6">' +
+            //            '<input class="form-control" id="name" type="text" placeholder="' + name + '" style="display:block;" name="name"/>' +
+            //            '</div>' +
+            //            '</div>' +
+
+            //            '<div class="row form-group">' +
+            //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+            //            '<label for="job" class="col-form-label">' +
+            //            'Job Name :' +
+            //            '</label>' +
+            //            '</div>' +
+            //            '<div class="col-lg-6">' +
+            //            '<input class="form-control" id="job" type="text" placeholder="' + job + '" style="display:block;" name="job"/>' +
+            //            '</div>' +
+            //            '</div>' +
+
+            //            '<div class="row form-group">' +
+            //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+            //            '<label for="spvid" class="col-form-label">' +
+            //            'Superior ID :' +
+            //            '</label>' +
+            //            '</div>' +
+            //            '<div class="col-lg-6">' +
+            //            '<input class="form-control" id="spvid" type="text" placeholder="' + spvid + '" style="display:block;" name="spvid"/>' +
+            //            '</div>' +
+            //            '</div>' +
+
+            //            '<div class="row form-group">' +
+            //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+            //            '<label for="spvname" class="col-form-label">' +
+            //            'Superior Name :' +
+            //            '</label>' +
+            //            '</div>' +
+            //            '<div class="col-lg-6">' +
+            //            '<input class="form-control" id="spvname" type="text" placeholder="' + spvname + '" style="display:block;" name="spvid"/>' +
+            //            '</div>' +
+            //            '</div>' +
+
+            //            '<div class="row form-group">' +
+            //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+            //            '<label for="dept" class="col-form-label">' +
+            //            'Department :' +
+            //            '</label>' +
+            //            '</div>' +
+            //            '<div class="col-lg-6">' +
+            //            '<input class="form-control" id="dept" type="text" placeholder="' + dept + '" style="display:block;" name="dept"/>' +
+            //            '</div>' +
+            //            '</div>' +
+
+            //            '<div class="row form-group">' +
+            //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+            //            '<label for="spvemail" class="col-form-label">' +
+            //            'Superior Email :' +
+            //            '</label>' +
+            //            '</div>' +
+            //            '<div class="col-lg-6">' +
+            //            '<input class="form-control" id="spvemail" type="text" placeholder="' + spvemail + '" style="display:block;" name="spvemail"/>' +
+            //            '</div>' +
+            //            '</div>' +
+
+            //            '<div class="row form-group">' +
+            //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+            //            '<label for="role" class="col-form-label">' +
+            //            'Deviation Role :' +
+            //            '</label>' +
+            //            '</div>' +
+            //            '<div class="col-lg-6">' +
+            //            '<select id="role" class="form-control">' +
+            //            '<option value="" class="dropdown-header" selected>Select Role</option>' +
+            //            '</select>' +
+            //            '</div>' +
+            //            '</div>' +
+
+            //            '<div class="row form-group">' +
+            //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
+            //            '<label for="penyimpangan" class="col-form-label">' +
+            //            'Kategori Penyimpangan :' +
+            //            '</label>' +
+            //            '</div>' +
+            //            '<div class="col-lg-6">' +
+            //            '<select id="penyimpangan" class="form-control">' +
+            //            '<option value="" class="dropdown-header" selected>Kategori Penyimpangan</option>' +
+            //            '</select>' +
+            //            '</div>' +
+            //            '</div>' ,
+
+            //        focusConfirm: false,
+            //        showCancelButton: true,
+            //        icon: 'warning',
+            //        width: 1000,
+            //        confirmButtonText: 'Yes, Update!',
+            //        footer: '<p style="color:red;">Data Kosong Tidak Akan Berubah!</p>',
+            //        preConfirm: () => {
+
+            //            // VALIDATION THEN UPDATE DATA
+
+            //            usernamex = document.getElementById('username').value;
+
+            //            // IF NULL, THEN USE PREVIOUS DATA
+            //            if (!document.getElementById('email').value) {
+            //                email = email;
+            //            } else {
+            //                email = document.getElementById('email').value;
+            //            }
+
+            //            if (!document.getElementById('name').value) {
+            //                name = name;
+            //            } else {
+            //                name = document.getElementById('name').value;
+            //            }
+
+            //            if (!document.getElementById('job').value) {
+            //                job = job;
+            //            } else {
+            //                job = document.getElementById('job').value;
+            //            }
+
+            //            if (!document.getElementById('spvid').value) {
+            //                spvid = spvid;
+            //            } else {
+            //                spvid = document.getElementById('spvid').value;
+            //            }
+
+            //            if (!document.getElementById('spvname').value) {
+            //                spvname = spvname;
+            //            } else {
+            //                spvname = document.getElementById('spvname').value;
+            //            }
+
+            //            if (!document.getElementById('dept').value) {
+            //                dept = dept;
+            //            } else {
+            //                dept = document.getElementById('dept').value;
+            //            }
+
+            //            if (!document.getElementById('spvemail').value) {
+            //                spvemail = spvemail;
+            //            } else {
+            //                spvemail = document.getElementById('spvemail').value;
+            //            }
+
+            //            if (!document.getElementById('role').value) {
+            //                role = role;
+            //            } else {
+            //                role = document.getElementById('role').value;
+            //            }
+
+            //            if (!document.getElementById('penyimpangan').value) {
+            //                penyimpangan = "NULL";
+            //            } else {
+            //                penyimpangan = document.getElementById('penyimpangan').value;
+            //            }
+
+            //            // CHECK WHETHER USERNAME IS NULL
+            //            if (!usernamex) {
+            //                Swal.fire({
+            //                    icon: 'error',
+            //                    title: 'Oops...',
+            //                    text: 'Username Kosong'
+
+            //                })
+            //                return;
+            //            // CHECK USERNAME AVAILABILITY
+            //            } else if (usernamex != username) {
+
+            //                var retval = "retval";
+            //                var dto = {
+            //                    Username: usernamex
+            //                }
+
+            //                $.when(
+            //                    $.ajax({
+            //                    url: '../CMS/CMS_CheckUsername',
+            //                    type: 'post',
+            //                    data: JSON.stringify(dto),
+            //                    dataType: 'json',
+            //                    contentType: 'application/json; charset=utf-8',
+            //                    success: function (data) {
+
+            //                        if (data == "Username Exists") {
+
+            //                            retval = "ga ok";
+
+            //                        }
+
+            //                    },
+            //                    error: function (ex) {
+            //                        alert(JSON.stringify('Check Username: ' + ex));
+            //                    }
+
+            //                    })
+            //                ).then(function () {
+            //                    alert(retval);
+            //                    if (retval = "retval") {
+            //                        return;
+            //                    } else if(retval = "ga ok"){
+            //                        Swal.fire({
+            //                            icon: 'error',
+            //                            title: 'Oops...',
+            //                            text: 'Username Sudah Ada'
+
+            //                        });
+            //                    }
+            //                });
+
+
+            //            }
+
+            //            Update(id, usernamex, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan);
+
+            //        }
+            //    })
+
+            //    if (formValues) {
+            //        Swal.fire(JSON.stringify(formValues))
+            //    }
+        });
+
+        //On Click function button Update
+        $("#Update").click(function() {
             if (document.getElementById('penyimpangan').value == null) {
                 swal({
                     title: "Good job!",
@@ -300,9 +653,158 @@
             var role = $('#role option:selected').val();
             //var penyimpangan = $('#penyimpangan').val();
             Update(id, username, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan);
-
-
         });
+
+        //On Click function button Reset
+        $('#datatableuser tbody').on('click', 'input[id="Reset"]', function () {
+            var row = $(this).closest("TR");
+
+            var id = $("TD", row).eq(1).html();
+            var name = $("TD", row).eq(4).html();
+
+            var dto = {
+                Empid: id
+            }
+
+            $.ajax({
+                url: "../CMS/CMS_ResetPasswordVendor",
+                type: "post",
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Reset Password: ' + name + ', Success!'
+                    });
+
+                    LoadUser();
+
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            }); var row = $(this).closest("TR");
+
+            var id = $("TD", row).eq(1).html();
+            var name = $("TD", row).eq(4).html();
+
+            var dto = {
+                Empid: id
+            }
+
+            $.ajax({
+                url: "../CMS/CMS_ResetPasswordVendor",
+                type: "post",
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Reset Password: ' + name + ', Success!'
+                    });
+
+                    LoadUser();
+
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        });
+
+        //On Click function button Delete
+        $('#datatableuser tbody').on('click', 'input[id="Delete"]', function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    var row = $(button).closest("TR");
+                    var empid = $("TD", row).eq(1).html();
+
+                    var dto = {
+                        empid: empid
+                    }
+
+                    $.ajax({
+                        url: "../CMS/CMS_DeleteEntry",
+                        type: "post",
+                        data: JSON.stringify(dto),
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            LoadUser();
+                            let timerInterval
+                            Swal.fire({
+                                timer: 1600,
+                                timerProgressBar: true,
+                                icon: 'success',
+                                title: 'Data Terhapus',
+                                text: 'Data telah berhasil dihapus!',
+                                //backdrop: 'rgb(255, 0, 0, 0.5)',
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                    const b = Swal.getHtmlContainer().querySelector('b')
+                                    timerInterval = setInterval(() => {
+                                        b.textContent = Swal.getTimerLeft()
+                                    }, 100)
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            }).then((result) => {
+                                /* Read more about handling dismissals below */
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    console.log('I was closed by the timer')
+                                }
+                            });
+                        },
+                        error: function (ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
+                }
+            })
+        });
+
+        //$("#role").change(function () {
+        //    Edit();
+
+        //});
 
     });
 
@@ -328,7 +830,6 @@
             }
         });
     }
-
 
     function GetSuperiornameDDL(id) {
         var dto = {
@@ -375,417 +876,12 @@
         });
     }
 
-    function Reset(button) {
-        var row = $(button).closest("TR");
-
-        var id = $("TD", row).eq(1).html();
-        var name = $("TD", row).eq(4).html();
-
-        var dto = {
-            Empid: id
-        }
-
-        $.ajax({
-            url: "../CMS/CMS_ResetPasswordVendor",
-            type: "post",
-            data: JSON.stringify(dto),
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Reset Password: ' + name + ', Success!'
-                });
-
-                LoadUser();
-
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-
-    }
-
-
-    function Edit(button) {
-
-        var row = $(button).closest("TR");
-        //var data = $('#datatableuser').DataTable().row(row).data();
-        id = $("TD", row).eq(1).html();
-        var result = id.substr(0, 2);
-        console.log(id);
-        username = $("TD", row).eq(2).html();
-        email = $("TD", row).eq(3).html();
-        name = $("TD", row).eq(4).html();
-        job = $("TD", row).eq(5).html();
-        spvid = $("TD", row).eq(6).html();
-        spvname = $("TD", row).eq(7).html();
-        dept = $("TD", row).eq(8).html();
-        spvemail = $("TD", row).eq(9).html();
-        var penyimpangan1 = $("TD", row).eq(11).html();
-        type = $("TD", row).eq(14).html();
-        var text = "";
-
-        ClearDetail();
-        GetKategoriPenyimpangan(username, penyimpangan1);
-        GetRoleEdit(username);
-        GetSuperiorSU();
-
-        // JUDUL
-        $("#nama").text(name);
-
-        // ISI
-        $("#username").val(username);
-        $("#username").attr("disabled", true);
-
-
-        $("#email").val(email);
-        $("#email").attr("placeholder", email);
-
-        $("#name").val(name);
-        $("#name").attr("placeholder", name);
-
-        $("#job").val(job);
-        $("#job").attr("placeholder", job);
-
-        $("#spvid").val(spvid);
-        $("#spvid").attr("disabled", true);
-
-        $("#spvname").val(spvname);
-        $("#spvname").attr("disabled", true);
-        
-
-        $("#dept").val(dept);
-        $("#dept").attr("disabled", true);
-
-        //$("#spvemail").attr("placeholder", spvemail);
-        $("#spvemail").val(spvemail);
-        $("#spvemail").attr("disabled", true);
-
-        $("#penyimpangan").val(penyimpangan1);
-        $("#penyimpangan").attr("placeholder", penyimpangan1);
-        //penyimpangan1 = $('#penyimpangan').select2("val");
-
-        if (type == "Vendor") {
-            $("#ddlsuperiorname").attr("disabled", false);
-            $("#name").attr("disabled", false);
-            $("#job").attr("disabled", false);
-            GetSuperiornameDDL(id);
-            GetSuperiorSU();
-        }
-
-        if (result == 'A_') {
-            //$("#superiorname").attr('Hidden', true);
-            //$('#jobname').prop('hidden', true);
-            document.getElementById('jobname').style.display = 'none'
-            document.getElementById('superiorid').style.display = 'none'
-            document.getElementById('superiorname').style.display = 'none'
-            document.getElementById('superioremail').style.display = 'none'
-            document.getElementById('department').style.display = 'none'
-            document.getElementById('kategoripenyimpangan').style.display = 'none'
-        }
-
-        if (result != 'A_') {
-            document.getElementById('jobname').removeAttribute("style");
-            document.getElementById('superiorid').removeAttribute("style");
-            document.getElementById('superiorname').removeAttribute("style");
-            document.getElementById('superioremail').removeAttribute("style");
-            document.getElementById('department').removeAttribute("style");
-            document.getElementById('kategoripenyimpangan').removeAttribute("style");
-
-        }
-
-        else {
-
-            text += '<Option class="dropdown-item" value = "' + spvname + '" selected >' + spvname;
-
-            $("#ddlsuperiorname").empty();
-            $("#ddlsuperiorname").append(text);
-            $("#ddlsuperiorname").select();
-
-
-            $("#ddlsuperiorname").attr("disabled", true);
-            $("#name").attr("disabled", true);
-            $("#spvemail").attr("disabled", true);
-            $("#job").attr("disabled", true);
-
-
-        }
-
-        
-
-        //    const { value: formValues } = Swal.fire({
-        //        title: 'Update Credential : <i><b>' + name + '</b></i>',
-        //        html:
-
-        //            '<div class="row form-group">' +
-        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-        //            '<label for="username" class="col-form-label">' +
-        //            'Username :' +
-        //            '</label>' +
-        //            '</div>' +
-        //            '<div class="col-lg-6">' +
-        //            '<input class="form-control" id="username" type="text" placeholder="' + username + '" style="display:block;" name="username"/>' +
-        //            '</div>' +
-        //            '</div>' +
-
-        //            '<div class="row form-group">' +
-        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-        //            '<label for="email" class="col-form-label">' +
-        //            'Email :' +
-        //            '</label>' +
-        //            '</div>' +
-        //            '<div class="col-lg-6">' +
-        //            '<input class="form-control" id="email" type="text" placeholder="' + email + '" style="display:block;" name="email"/>' +
-        //            '</div>' +
-        //            '</div>' +
-
-        //            '<div class="row form-group">' +
-        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-        //            '<label for="name" class="col-form-label">' +
-        //            'Name :' +
-        //            '</label>' +
-        //            '</div>' +
-        //            '<div class="col-lg-6">' +
-        //            '<input class="form-control" id="name" type="text" placeholder="' + name + '" style="display:block;" name="name"/>' +
-        //            '</div>' +
-        //            '</div>' +
-
-        //            '<div class="row form-group">' +
-        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-        //            '<label for="job" class="col-form-label">' +
-        //            'Job Name :' +
-        //            '</label>' +
-        //            '</div>' +
-        //            '<div class="col-lg-6">' +
-        //            '<input class="form-control" id="job" type="text" placeholder="' + job + '" style="display:block;" name="job"/>' +
-        //            '</div>' +
-        //            '</div>' +
-
-        //            '<div class="row form-group">' +
-        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-        //            '<label for="spvid" class="col-form-label">' +
-        //            'Superior ID :' +
-        //            '</label>' +
-        //            '</div>' +
-        //            '<div class="col-lg-6">' +
-        //            '<input class="form-control" id="spvid" type="text" placeholder="' + spvid + '" style="display:block;" name="spvid"/>' +
-        //            '</div>' +
-        //            '</div>' +
-
-        //            '<div class="row form-group">' +
-        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-        //            '<label for="spvname" class="col-form-label">' +
-        //            'Superior Name :' +
-        //            '</label>' +
-        //            '</div>' +
-        //            '<div class="col-lg-6">' +
-        //            '<input class="form-control" id="spvname" type="text" placeholder="' + spvname + '" style="display:block;" name="spvid"/>' +
-        //            '</div>' +
-        //            '</div>' +
-
-        //            '<div class="row form-group">' +
-        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-        //            '<label for="dept" class="col-form-label">' +
-        //            'Department :' +
-        //            '</label>' +
-        //            '</div>' +
-        //            '<div class="col-lg-6">' +
-        //            '<input class="form-control" id="dept" type="text" placeholder="' + dept + '" style="display:block;" name="dept"/>' +
-        //            '</div>' +
-        //            '</div>' +
-
-        //            '<div class="row form-group">' +
-        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-        //            '<label for="spvemail" class="col-form-label">' +
-        //            'Superior Email :' +
-        //            '</label>' +
-        //            '</div>' +
-        //            '<div class="col-lg-6">' +
-        //            '<input class="form-control" id="spvemail" type="text" placeholder="' + spvemail + '" style="display:block;" name="spvemail"/>' +
-        //            '</div>' +
-        //            '</div>' +
-
-        //            '<div class="row form-group">' +
-        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-        //            '<label for="role" class="col-form-label">' +
-        //            'Deviation Role :' +
-        //            '</label>' +
-        //            '</div>' +
-        //            '<div class="col-lg-6">' +
-        //            '<select id="role" class="form-control">' +
-        //            '<option value="" class="dropdown-header" selected>Select Role</option>' +
-        //            '</select>' +
-        //            '</div>' +
-        //            '</div>' +
-
-        //            '<div class="row form-group">' +
-        //            '<div class="col-lg-4 col-form-label" style="text-align:right;">' +
-        //            '<label for="penyimpangan" class="col-form-label">' +
-        //            'Kategori Penyimpangan :' +
-        //            '</label>' +
-        //            '</div>' +
-        //            '<div class="col-lg-6">' +
-        //            '<select id="penyimpangan" class="form-control">' +
-        //            '<option value="" class="dropdown-header" selected>Kategori Penyimpangan</option>' +
-        //            '</select>' +
-        //            '</div>' +
-        //            '</div>' ,
-
-        //        focusConfirm: false,
-        //        showCancelButton: true,
-        //        icon: 'warning',
-        //        width: 1000,
-        //        confirmButtonText: 'Yes, Update!',
-        //        footer: '<p style="color:red;">Data Kosong Tidak Akan Berubah!</p>',
-        //        preConfirm: () => {
-
-        //            // VALIDATION THEN UPDATE DATA
-
-        //            usernamex = document.getElementById('username').value;
-
-        //            // IF NULL, THEN USE PREVIOUS DATA
-        //            if (!document.getElementById('email').value) {
-        //                email = email;
-        //            } else {
-        //                email = document.getElementById('email').value;
-        //            }
-
-        //            if (!document.getElementById('name').value) {
-        //                name = name;
-        //            } else {
-        //                name = document.getElementById('name').value;
-        //            }
-
-        //            if (!document.getElementById('job').value) {
-        //                job = job;
-        //            } else {
-        //                job = document.getElementById('job').value;
-        //            }
-
-        //            if (!document.getElementById('spvid').value) {
-        //                spvid = spvid;
-        //            } else {
-        //                spvid = document.getElementById('spvid').value;
-        //            }
-
-        //            if (!document.getElementById('spvname').value) {
-        //                spvname = spvname;
-        //            } else {
-        //                spvname = document.getElementById('spvname').value;
-        //            }
-
-        //            if (!document.getElementById('dept').value) {
-        //                dept = dept;
-        //            } else {
-        //                dept = document.getElementById('dept').value;
-        //            }
-
-        //            if (!document.getElementById('spvemail').value) {
-        //                spvemail = spvemail;
-        //            } else {
-        //                spvemail = document.getElementById('spvemail').value;
-        //            }
-
-        //            if (!document.getElementById('role').value) {
-        //                role = role;
-        //            } else {
-        //                role = document.getElementById('role').value;
-        //            }
-
-        //            if (!document.getElementById('penyimpangan').value) {
-        //                penyimpangan = "NULL";
-        //            } else {
-        //                penyimpangan = document.getElementById('penyimpangan').value;
-        //            }
-
-        //            // CHECK WHETHER USERNAME IS NULL
-        //            if (!usernamex) {
-        //                Swal.fire({
-        //                    icon: 'error',
-        //                    title: 'Oops...',
-        //                    text: 'Username Kosong'
-
-        //                })
-        //                return;
-        //            // CHECK USERNAME AVAILABILITY
-        //            } else if (usernamex != username) {
-
-        //                var retval = "retval";
-        //                var dto = {
-        //                    Username: usernamex
-        //                }
-
-        //                $.when(
-        //                    $.ajax({
-        //                    url: '../CMS/CMS_CheckUsername',
-        //                    type: 'post',
-        //                    data: JSON.stringify(dto),
-        //                    dataType: 'json',
-        //                    contentType: 'application/json; charset=utf-8',
-        //                    success: function (data) {
-
-        //                        if (data == "Username Exists") {
-
-        //                            retval = "ga ok";
-
-        //                        }
-
-        //                    },
-        //                    error: function (ex) {
-        //                        alert(JSON.stringify('Check Username: ' + ex));
-        //                    }
-
-        //                    })
-        //                ).then(function () {
-        //                    alert(retval);
-        //                    if (retval = "retval") {
-        //                        return;
-        //                    } else if(retval = "ga ok"){
-        //                        Swal.fire({
-        //                            icon: 'error',
-        //                            title: 'Oops...',
-        //                            text: 'Username Sudah Ada'
-
-        //                        });
-        //                    }
-        //                });
-
-
-        //            }
-
-        //            Update(id, usernamex, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan);
-
-        //        }
-        //    })
-
-        //    if (formValues) {
-        //        Swal.fire(JSON.stringify(formValues))
-        //    }
-    }
-
-
     function ClearDetail() {
         $('#username').val('');
         $('#email').val('');
         $('#name').val('');
         $('#job').val('');
     }
-
 
     function Update(id, username, email, name, job, spvid, spvname, dept, spvemail, role, penyimpangan) {
         console.log(id);
@@ -850,71 +946,6 @@
         });
     }
 
-
-
-    function Delete(button) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-
-                var row = $(button).closest("TR");
-                var empid = $("TD", row).eq(1).html();
-
-                var dto = {
-                    empid: empid
-                }
-
-                $.ajax({
-                    url: "../CMS/CMS_DeleteEntry",
-                    type: "post",
-                    data: JSON.stringify(dto),
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-                        LoadUser();
-                        let timerInterval
-                        Swal.fire({
-                            timer: 1600,
-                            timerProgressBar: true,
-                            icon: 'success',
-                            title: 'Data Terhapus',
-                            text: 'Data telah berhasil dihapus!',
-                            //backdrop: 'rgb(255, 0, 0, 0.5)',
-                            didOpen: () => {
-                                Swal.showLoading()
-                                const b = Swal.getHtmlContainer().querySelector('b')
-                                timerInterval = setInterval(() => {
-                                    b.textContent = Swal.getTimerLeft()
-                                }, 100)
-                            },
-                            willClose: () => {
-                                clearInterval(timerInterval)
-                            }
-                        }).then((result) => {
-                            /* Read more about handling dismissals below */
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                console.log('I was closed by the timer')
-                            }
-                        });
-                    },
-                    error: function (ex) {
-                        alert(JSON.stringify(ex));
-                    }
-                });
-
-
-
-            }
-        })
-    }
-
     function LoadUser() {
         $.ajax({
             url: "../CMS/CMS_LoadUser",
@@ -939,7 +970,7 @@
                         '<td>' + data[trav].emailsuperior + '</td>' +
                         '<td>' + data[trav].role_deviation + '</td>' +
                         '<td>' + data[trav].kategori_penyimpangan + '</td>' +
-                        '<td><input type="button" id="Edit" value="Edit" onclick="Edit(this)" class="btn btn-success" style="width:40px;" data-toggle="modal" data-target=".bd-example-modal-lg"/> <input type="button" id="Delete" value="Delete" onclick=Delete(this) class="btn btn-danger" style="width:40px;"/></td>';
+                        '<td><input type="button" id="Edit" value="Edit" class="btn btn-success Edit" style="width:40px;" data-toggle="modal" data-target=".bd-example-modal-lg"/> <input type="button" id="Delete" value="Delete" class="btn btn-danger Delete" style="width:40px;"/></td>';
 
                     if (data[trav].FLAG_TYPE == 'HRIS') {
                         trHTML +=
@@ -947,7 +978,7 @@
 
                     } else {
                         trHTML +=
-                            '<td><input type="button" id="Reset" value="Reset" onclick=Reset(this) class="btn btn-info" style="width:40px;"/></td>';
+                            '<td><input type="button" id="Reset" value="Reset" class="btn btn-info Reset" style="width:40px;"/></td>';
                     }
 
                     trHTML += '<td hidden="hidden">' + data[trav].FLAG_TYPE + '</td>';
@@ -1057,7 +1088,6 @@
             }
         });
     }
-
 
     function GetKategoriCode(t_username) {
 

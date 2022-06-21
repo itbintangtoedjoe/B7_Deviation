@@ -23,6 +23,7 @@
                         <thead>
                             <tr>
                                 <th width="100px">Action</th>
+                                <th width="100px" hidden>No. Disposisi</th>
                                 <th width="100px">Request ID</th>
                                 <th width="100px">Deviation No</th>
                                 <th width="100px">ID Proposer</th>
@@ -44,6 +45,22 @@
     <script nonce="xEQMfzNmkZdRf+aYcbKxbg==">
         $(document).ready(function () {
             LoadData();
+
+            $('#deviationdatatable tbody').on('click', 'input[id="OpenHasil"]', function () {
+                var row = $(this).closest("TR");
+
+                var Nomor = $("TD", row).eq(2).html();
+                var no_disposisi = $("TD", row).eq(1).html();
+                window.open("../SpvPIC/HasilRemedial?Nomor=" + Nomor + "&Dis=" + no_disposisi);
+            });
+
+
+            $('#deviationdatatable tbody').on('click', 'input[id="OpenRevisi"]', function () {
+                var row = $(this).closest("TR");
+
+                var Nomor = $("TD", row).eq(2).html();
+                window.open("../SpvPIC/PICProposal?Nomor=" + Nomor);
+            });
 
         });
 
@@ -71,7 +88,8 @@
                         if (data[trav].STATUSCODE == 'RMPIC1') {
                             if (data[trav].FLAG_PIC == 'REVISI DUE DATE') {
                                 trHTML +=
-                                    '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenRevisi(this)"/></td>' +
+                                    '<tr><td><input id="OpenRevisi" type="button" class="btn btn-success OpenRevisi" value="Select"/></td>' +
+                                    '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                                     '<td>' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                     '<td>' + data[trav].ID_PROPOSER + '</td>' +
@@ -80,7 +98,8 @@
                                     '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
                             } else {
                                 trHTML +=
-                                    '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenHasil(this, ' + data[trav].NO_DISPOSISI + ')"/></td>' +
+                                    '<tr><td><input id="OpenHasil" type="button" class="btn btn-success OpenHasil" value="Select"/></td>' +
+                                    '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                                     '<td>' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                     '<td>' + data[trav].ID_PROPOSER + '</td>' +
@@ -94,7 +113,8 @@
 
                             if (data[trav].FLAG_PIC == 'REVISI DUE DATE') {
                                 trHTML +=
-                                    '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenRevisi(this)"/></td>' +
+                                    '<tr><td><input type="button" id="OpenRevisi" class="btn btn-success OpenRevisi" value="Select"/></td>' +
+                                    '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                                     '<td>' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                     '<td>' + data[trav].ID_PROPOSER + '</td>' +
@@ -105,7 +125,8 @@
                                 @*if (data[trav].FLAG_PIC != 'REMEDIAL WAITING FOR DIV HEAD' && data[trav].FLAG_PIC != 'REMEDIAL ACCEPTED BY SPV PIC') {*@
                                     if (data[trav].FLAG_PIC != 'REMEDIAL ACCEPTED BY SPV PIC') {
                                     trHTML +=
-                                        '<tr><td><input type="button" class="btn btn-success" value="Select" onclick="OpenHasil(this, ' + data[trav].NO_DISPOSISI + ')"/></td>' +
+                                        '<tr><td><input type="button" id="OpenHasil" class="btn btn-success OpenHasil" value="Select"/></td>' +
+                                        '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                                         '<td>' + data[trav].REQ_ID + '</td>' +
                                         '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                         '<td>' + data[trav].ID_PROPOSER + '</td>' +
@@ -128,19 +149,7 @@
             });
         }
 
-        function OpenHasil(button, no_disposisi) {
-            var row = $(button).closest("TR");
-
-            var Nomor = $("TD", row).eq(1).html();
-            window.open("../SpvPIC/HasilRemedial?Nomor=" + Nomor + "&Dis=" + no_disposisi);
-        }
-
-        function OpenRevisi(button) {
-            var row = $(button).closest("TR");
-
-            var Nomor = $("TD", row).eq(1).html();
-            window.open("../SpvPIC/PICProposal?Nomor=" + Nomor);
-        }
+       
 
     </script>
 

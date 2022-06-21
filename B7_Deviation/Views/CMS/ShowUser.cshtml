@@ -59,169 +59,165 @@
         // Load User once the page is loaded
         LoadUser();
 
+        $('#datatableuser tbody').on('click', 'input[id="Update"]', function () {
+            var row = $(this).closest("TR");
+            var empid = $("TD", row).eq(1).html();
+            var username = $("TD", row).eq(2).find("input[type='text']").val();
+            var email = $("TD", row).eq(3).find("input[type='text']").val();
+            var empname = $("TD", row).eq(4).find("input[type='text']").val();
+            var jobttlname = $("TD", row).eq(5).find("input[type='text']").val();
+            var superiorid = $("TD", row).eq(6).find("input[type='text']").val();
+            var superiorname = $("TD", row).eq(7).find("input[type='text']").val();
+            var orggroupname = $("TD", row).eq(8).find("input[type='text']").val();
+            var emailsuperior = $("TD", row).eq(9).find("input[type='text']").val();
+            var role = $("TD", row).eq(10).find("select").val();
+            var kategoripenyimpangan = $("TD", row).eq(11).find("select").val();
+
+            var dto = {
+                empid: empid,
+                username: username,
+                email: email,
+                empname: empname,
+                jobttlname: jobttlname,
+                superiorid: superiorid,
+                superiorname: superiorname,
+                orggroupname: orggroupname,
+                emailsuperior: emailsuperior,
+                role: role,
+                kategoripenyimpangan: kategoripenyimpangan
+            }
+
+            $.ajax({
+                url: "../CMS/CMS_UpdateEntry",
+                type: "post",
+                data: JSON.stringify(dto),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    LoadUser();
+                    Swal.fire('Successfully Update User');
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        });
+
+        $('#datatableuser tbody').on('click', 'input[id="Cancel"]', function () {
+            // Load user once the user cancel update table
+            LoadUser();
+        });
+
+        $('#datatableuser tbody').on('click', 'input[id="Edit"]', function () {
+            var row = $(this).closest("TR");
+            var t_username = $("TD", row).eq(2).html();
+            var no = $("TD", row).eq(0).html();
+
+            $.ajax({
+                url: "../CMS/CMS_LoadUser",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+                    for (trav = 0; trav < Count; trav++) {
+
+                        var nom = trav + 1;
+                        if (Count > 0) {
+                            if (no == nom) {
+
+                                alert(data[trav].role_deviation);
+
+                                trHTML += '<tr><td hidden="hidden">' + nom + '</td>' +
+                                    '<td>' + data[trav].empid + '</td>' +
+                                    '<td> <input type="text" value="' + data[trav].username + '"/> </td>' +
+                                    '<td> <input type="text" value="' + data[trav].email + '"/> </td>' +
+                                    '<td> <input type="text" value="' + data[trav].empname + '"/> </td>' +
+                                    '<td> <input type="text" value="' + data[trav].jobttlname + '"/> </td>' +
+                                    '<td> <input type="text" value="' + data[trav].superiorid + '"/> </td>' +
+                                    '<td> <input type="text" value="' + data[trav].superiorname + '"/> </td>' +
+                                    '<td> <input type="text" value="' + data[trav].orggroupname + '"/> </td>' +
+                                    '<td> <input type="text" value="' + data[trav].emailsuperior + '"/> </td>' +
+                                    '<td> <select id="role" class="form-control"> </td>' +
+                                    '<td> <select id="penyimpangan" class="form-control"> </td>' +
+                                    '<td> <input type="button" id = "Cancel"  value="Cancel" class="btn btn-dark Cancel" style="width:40px"/><input type = "button" id = "Update" value = "Update" class="btn btn-primary Update" style="width:40px"/>' + '</td>';
+                            }
+                            else {
+                                trHTML += '<tr><td hidden="hidden">' + nom + '</td>' +
+                                    '<td>' + data[trav].empid + '</td >' +
+                                    '<td>' + data[trav].username + '</td>' +
+                                    '<td>' + data[trav].email + '</td>' +
+                                    '<td>' + data[trav].empname + '</td>' +
+                                    '<td>' + data[trav].jobttlname + '</td>' +
+                                    '<td>' + data[trav].superiorid + '</td>' +
+                                    '<td>' + data[trav].superiorname + '</td>' +
+                                    '<td>' + data[trav].orggroupname + '</td>' +
+                                    '<td>' + data[trav].emailsuperior + '</td>' +
+                                    '<td>' + data[trav].role_deviation + '</td>' +
+                                    '<td>' + data[trav].kategori_penyimpangan + '</td>' +
+                                    '<td><input type="button" id="Edit" value="Edit" class="btn btn-success Edit" style="width:40px"/><input type="button" id="Delete" value ="Delete" class="btn btn-danger" style="width:40px"/></td>';
+                            }
+                        }
+                    }
+                    GetRoleEdit(t_username);
+                    GetKategoriPenyimpangan(t_username);
+
+                    $('#datatableuser').DataTable().clear().destroy();
+                    $('#usertable').empty();
+                    $('#usertable').append(trHTML);
+                    $('#datatableuser').DataTable();
+                },
+                error: function (ex) {
+                    alert(JSON.stringify(ex));
+                }
+            });
+        });
+
+        $('#datatableuser tbody').on('click', 'input[id="Delete"]', function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    var row = $(this).closest("TR");
+                    var empid = $("TD", row).eq(1).html();
+
+                    var dto = {
+                        empid: empid
+                    }
+
+                    $.ajax({
+                        url: "../CMS/CMS_DeleteEntry",
+                        type: "post",
+                        data: JSON.stringify(dto),
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function(data) {
+                            LoadUser();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        },
+                        error: function(ex) {
+                            alert(JSON.stringify(ex));
+                        }
+                    });
+
+
+                }
+            });
+        });
     });
-
-    function Cancel(button) {
-        // Load user once the user cancel update table
-        LoadUser();
-    }
-
-    function Edit(button) {
-
-        var row = $(button).closest("TR");
-        var t_username = $("TD", row).eq(2).html();
-        var no = $("TD", row).eq(0).html();
-
-        $.ajax({
-            url: "../CMS/CMS_LoadUser",
-            type: "post",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var trHTML = '';
-                var trav = 0;
-                var Count = data.length;
-                for (trav = 0; trav < Count; trav++) {
-                   
-                    var nom = trav + 1;
-                    if (Count > 0) {
-                        if (no == nom) {
-
-                            alert(data[trav].role_deviation);
-
-                            trHTML += '<tr><td hidden="hidden">' + nom + '</td>' +
-                                '<td>' + data[trav].empid + '</td>' +
-                                '<td> <input type="text" value="' + data[trav].username + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].email + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].empname + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].jobttlname + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].superiorid + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].superiorname + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].orggroupname + '"/> </td>' +
-                                '<td> <input type="text" value="' + data[trav].emailsuperior + '"/> </td>' +
-                                '<td> <select id="role" class="form-control"> </td>' +
-                                '<td> <select id="penyimpangan" class="form-control"> </td>' +
-                                '<td> <input type="button" id = "Cancel"  value="Cancel" onclick="Cancel(this)" class="btn btn-dark" style="width:40px"/><input type = "button" id = "Update" value = "Update" onclick="Update(this)" class="btn btn-primary" style="width:40px"/>' + '</td>';
-                        }
-                        else {
-                            trHTML += '<tr><td hidden="hidden">' + nom + '</td>' +
-                                '<td>' + data[trav].empid + '</td >' +
-                                '<td>' + data[trav].username + '</td>' +
-                                '<td>' + data[trav].email + '</td>' +
-                                '<td>' + data[trav].empname + '</td>' +
-                                '<td>' + data[trav].jobttlname + '</td>' +
-                                '<td>' + data[trav].superiorid + '</td>' +
-                                '<td>' + data[trav].superiorname + '</td>' +
-                                '<td>' + data[trav].orggroupname + '</td>' +
-                                '<td>' + data[trav].emailsuperior + '</td>' +
-                                '<td>' + data[trav].role_deviation + '</td>' +
-                                '<td>' + data[trav].kategori_penyimpangan + '</td>' +
-                                '<td><input type="button" id="Edit" value="Edit" onclick=Edit(this) class="btn btn-success" style="width:40px"/><input type="button" id="Delete" value ="Delete" onclick=Delete(this) class="btn btn-danger" style="width:40px"/></td>';
-                        }
-                    }
-                }
-                GetRoleEdit(t_username);
-                GetKategoriPenyimpangan(t_username);
-
-                $('#datatableuser').DataTable().clear().destroy();
-                $('#usertable').empty();
-                $('#usertable').append(trHTML);
-                $('#datatableuser').DataTable();
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
-
-    function Update(button) {
-        var row = $(button).closest("TR");
-
-        var empid = $("TD", row).eq(1).html();
-        var username = $("TD", row).eq(2).find("input[type='text']").val();
-        var email = $("TD", row).eq(3).find("input[type='text']").val();
-        var empname = $("TD", row).eq(4).find("input[type='text']").val();
-        var jobttlname = $("TD", row).eq(5).find("input[type='text']").val();
-        var superiorid = $("TD", row).eq(6).find("input[type='text']").val();
-        var superiorname = $("TD", row).eq(7).find("input[type='text']").val();
-        var orggroupname = $("TD", row).eq(8).find("input[type='text']").val();
-        var emailsuperior = $("TD", row).eq(9).find("input[type='text']").val();
-        var role = $("TD", row).eq(10).find("select").val();
-        var kategoripenyimpangan = $("TD", row).eq(11).find("select").val();
-
-        var dto = {
-            empid: empid,
-            username: username,
-            email: email,
-            empname: empname,
-            jobttlname: jobttlname,
-            superiorid: superiorid,
-            superiorname: superiorname,
-            orggroupname: orggroupname,
-            emailsuperior: emailsuperior,
-            role: role,
-            kategoripenyimpangan: kategoripenyimpangan
-        }
-
-        $.ajax({
-            url: "../CMS/CMS_UpdateEntry",
-            type: "post",
-            data: JSON.stringify(dto),
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                LoadUser();
-                Swal.fire('Successfully Update User');
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
-
-    function Delete(button) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-
-                var row = $(button).closest("TR");
-                var empid = $("TD", row).eq(1).html();
-
-                var dto = {
-                    empid: empid
-                }
-
-                $.ajax({
-                    url: "../CMS/CMS_DeleteEntry",
-                    type: "post",
-                    data: JSON.stringify(dto),
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-                        LoadUser();
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
-                    },
-                    error: function (ex) {
-                        alert(JSON.stringify(ex));
-                    }
-                });
-
-
-
-            }
-        })
-    }
 
     function LoadUser() {
         $.ajax({
@@ -247,7 +243,7 @@
                         '<td>' + data[trav].emailsuperior + '</td>' +
                         '<td>' + data[trav].role_deviation + '</td>' +
                         '<td>' + data[trav].kategori_penyimpangan + '</td>' +
-                        '<td> <input type="button" id="Edit" value="Edit" onclick=Edit(this) class="btn btn-success" style="width:40px;"/><input type="button" id="Delete" value="Delete" onclick=Delete(this) class="btn btn-danger" style="width:40px;"/></td>';
+                        '<td> <input type="button" id="Edit" value="Edit" class="btn btn-success Edit" style="width:40px;"/><input type="button" id="Delete" value="Delete" class="btn btn-danger Delete" style="width:40px;"/></td>';
                 }
 
                 $('#usertable').empty();

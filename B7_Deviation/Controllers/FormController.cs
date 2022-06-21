@@ -784,10 +784,6 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
 
-                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@Username"].Value = Model.Username;
-
-
                             t_status = "Is Approved by Koordinator";
                         }
 

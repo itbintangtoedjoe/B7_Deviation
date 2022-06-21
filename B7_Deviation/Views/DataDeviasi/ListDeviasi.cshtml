@@ -64,6 +64,15 @@
             // Load User once the page is loaded
             LoadData();
 
+            //On click function button Print
+            $('#deviationdatatable tbody').on('click', 'input[class="Print"]', function () {
+                var row = $(this).closest("TR");
+                //var Nomor = $("TD", row).eq(0).html();
+                var Nomor = $("TD", row).eq(1).html() + $("TD", row).eq(2).html();
+
+                window.location.href = "../DataDeviasi/Report?Nomor=" + Nomor;
+            })
+
             $("#Find").click(function () {
                 window.location.href = "../DataDeviasi/FindDeviation"
             });
@@ -108,7 +117,7 @@
                             '<td align="center">' + data[trav].LOCATION_SITE + '</td>' +
                             '<td align="center">' + data[trav].DEVIATION_CATEGORY + '</td>' +
                             '<td align="center">' + data[trav].STATUS + '</td>' +
-                            '<td align="center"> <input type="button" id="Print" value="Print" onclick=Print(this) class="btn btn-success" style="width:100px;"/></td>' +
+                            '<td align="center"> <input type="button" id="Print" value="Print" class="btn btn-success Print" style="width:100px;"/></td>' +
                             '<td align="center" hidden>' + data[trav].REQ_ID + '</td>';
 
 
@@ -126,17 +135,8 @@
             });
         }
 
-        function Print(button) {
-            var row = $(button).closest("TR");
 
-            var Nomor = $("TD", row).eq(9).html();
-
-            window.location.href = "../DataDeviasi/Report?Nomor=" + Nomor
-
-
-        }
-
-        function View(button) {
+        @*function View(button) {
             var row = $(button).closest("TR");
 
             var Nomor = $("TD", row).eq(0).html();
@@ -144,7 +144,7 @@
             window.location.href = "../DataDeviasi/Deviasi?Nomor=" + Nomor
 
 
-        }
+        }*@
 
         function MasterList() {
 

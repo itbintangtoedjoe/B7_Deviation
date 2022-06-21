@@ -195,6 +195,26 @@
             //LoadFilter();
             //CheckFilter();
 
+            //On click function Button View
+            $('#deviationdatatable tbody').on('click', 'input[id="View"]', function () {
+                alert('hey')
+                    var row = $(this).closest("TR");
+
+                    //var Nomor = $("TD", row).eq(0).html();
+                    var Nomor = $("TD", row).eq(1).html();
+                    console.log(Nomor)
+                    window.location.href = "../DataDeviasi/Deviasi?Nomor=" + Nomor;
+                });
+
+            //On click function button Print
+            $('#deviationdatatable tbody').on('click', 'input[id="Print"]', function () {
+                var row = $(this).closest("TR");
+                //var Nomor = $("TD", row).eq(0).html();
+                var Nomor = $("TD", row).eq(1).html() + $("TD", row).eq(2).html();
+
+                window.location.href = "../DataDeviasi/Report?Nomor=" + Nomor;
+            })
+
             $.when.apply($, ajaxCalls()).then($.ajax(LoadData()));
             $("#Find").click(function () {
                 window.location.href = "/DataDeviasi/FindDeviation"
@@ -220,7 +240,7 @@
             ];
         }
 
-
+       
        
         function ClearFilter() {
             $("#statuspenyimpangan").val('Status Penyimpangan');
@@ -402,7 +422,7 @@
                             {
                                 // BISA DONLOT
                                 trHTML +=
-                                    '<tr><td> <input type="button" id="Print" value="Print" onclick=Print(this) class="btn btn-success" style="width:auto;"/> <input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
+                                    '<tr><td> <input type="button" id="Print" value="Print" class="btn btn-success Print" style="width:auto;"/> <input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
                                     '<td>' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                     '<td>' + data[trav].EMPNAME + '</td>' +
@@ -421,7 +441,7 @@
                             } else {
                                 // LIAT DOANG
                                 trHTML +=
-                                    '<tr><td align="center"><input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
+                                    '<tr><td align="center"><input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
                                     '<td>' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                     '<td>' + data[trav].EMPNAME + '</td>' +
@@ -621,7 +641,7 @@
                         {
                             // BISA DONLOT
                             trHTML +=
-                                '<tr><td> <input type="button" id="Print" value="Print" onclick=Print(this) class="btn btn-success" style="width:auto;"/> <input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
+                                '<tr><td> <input type="button" id="Print" value="Print" class="btn btn-success Print" style="width:auto;"/> <input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
                                 '<td>' + data[trav].REQ_ID + '</td>' +
                                 '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                 '<td>' + data[trav].EMPNAME + '</td>' +
@@ -640,7 +660,7 @@
                         } else {
                             // LIAT DOANG
                             trHTML +=
-                                '<tr><td align="center"><input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
+                                '<tr><td align="center"><input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
                                 '<td>' + data[trav].REQ_ID + '</td>' +
                                 '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                 '<td>' + data[trav].EMPNAME + '</td>' +
@@ -674,26 +694,8 @@
                     alert(JSON.stringify(ex));
                 }
             });
-        }
 
-        function Print(button) {
-            var row = $(button).closest("TR");
-
-            //var Nomor = $("TD", row).eq(0).html();
-            var Nomor = $("TD", row).eq(1).html() + $("TD", row).eq(2).html();
-            
-
-            window.location.href = "../DataDeviasi/Report?Nomor=" + Nomor;
-        }
-
-        function View(button) {
-            var row = $(button).closest("TR");
-
-            //var Nomor = $("TD", row).eq(0).html();
-            var Nomor = $("TD", row).eq(1).html();
-
-            window.location.href = "../DataDeviasi/Deviasi?Nomor=" + Nomor
-
+           
         }
 
     </script>

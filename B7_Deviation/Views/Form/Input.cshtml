@@ -611,50 +611,44 @@
 
 
 		// Generate Req ID
-		$(document).ready(function () {
-			$('#tblWho').attr('hidden', true);
+		
+        $('#tblWho').attr('hidden', true);
 
-			$.when($.ajax(GenerateDate())).then(function () {
-				GetFileAttachment();
-				LoadUserInvolved();
-			});
+        $.when($.ajax(GenerateDate())).then(function () {
+            GetFileAttachment();
+            LoadUserInvolved();
+        });
 
-		});
 
 		// Load
-		$(document).ready(function () {
-			GetSiteName();
-			GetKategoriDeviation();
-
-
-			SetupRbDtPicker();
-
-			GetSiteLokasiKejadian();
-		});
+        GetSiteName();
+        GetKategoriDeviation();
+        SetupRbDtPicker();
+        GetSiteLokasiKejadian();
+	
 
 		// Load Drop down poin keparahan
-		$(document).ready(function () {
-			GetKualitasProduk();
-			GetCompliance();
-			GetResikoOperasional();
+        GetKualitasProduk();
+        GetCompliance();
+        GetResikoOperasional();
 
-			GetResikoFinansial();
-			GetResikoOrganisasi();
-			GetResikoKeamPersonil();
+        GetResikoFinansial();
+        GetResikoOrganisasi();
+        GetResikoKeamPersonil();
 
-			GetResikoKesehatanPersonil();
-			GetResikokLingkungan();
-            GetResikoIntelektual();
-            $("#ddlKualProd").val(0);
-            $("#ddlRiskFin").val(0);
-            $("#ddlKesehatanPer").val(0);
+        GetResikoKesehatanPersonil();
+        GetResikokLingkungan();
+        GetResikoIntelektual();
+        $("#ddlKualProd").val(0);
+        $("#ddlRiskFin").val(0);
+        $("#ddlKesehatanPer").val(0);
             $("#ddlCompliance").val(0);
             $("#ddlRiskOrg").val(0);
             $("#ddlResLingk").val(0);
             $("#ddlRiskOpr").val(0);
             $("#ddlKeamamananP").val(0);
             $("#ddlRiskIntelek").val(0);
-		});
+		
 
 	});
 
@@ -847,6 +841,105 @@
 			listProduk = filteredArray;
             SetTableProduk(dev_kategori);
             //the job
+		});
+
+        //On click function button Print
+        $('#tbl_Attachment tbody').on('click', 'input[class="DeleteFileAttachment"]', function () {
+            event.preventDefault();
+            var Row = $(this).closest("TR");
+            var ReqID = $("TD", Row).eq(1).html();
+            var RecordID = $("TD", Row).eq(2).html();
+            var FileName = $("TD", Row).eq(3).html();
+            var PathFile = $("TD", Row).eq(4).html();
+
+            var dto = {
+                ReqID: ReqID,
+                RecordID: RecordID,
+                PathFile: PathFile
+            }
+
+            $.ajax({
+                url: "DeleteAttachment",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    if (data == 'S') {
+                        toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-left",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+
+                        GetFileAttachment();
+                    }
+                },
+                error: function (ex) {
+                    GetErrorInput("DeleteAttachmentInput", JSON.stringify(ex));
+                }
+            });
+
+		})
+
+        //On click function button Print
+        $('#tblBodyWho tbody').on('click', 'input[class="DeleteUserInvolved"]', function () {
+            event.preventDefault();
+            var row = $(this).closest("TR");
+            var ReqID = $("TD", row).eq(1).html();
+            var RecordID = $("TD", row).eq(2).html();
+
+            var dto = {
+                REQID: ReqID,
+                RecordID: RecordID
+            }
+
+            $.ajax({
+                url: "DeleteUserInvolved",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+                    if (data == 'S') {
+                        toastr.success("Data berhasil terhapus !", "Terhapus", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+
+                        LoadUserInvolved();
+                    }
+                }
+                , error: function (ex) {
+                    GetErrorInput("DeleteUserInvolvedInput", JSON.stringify(ex));
+                }
+            });
         });
 	});
 
@@ -856,7 +949,6 @@
 
 		$('#divproduk').hide();
         $('#divreceipt').hide();
-
 
 
 		$("#ddlKategori").change(function () {
@@ -1393,7 +1485,6 @@
 			}
 		});
 	}
-
 
 	function ClearWeb() {
 
@@ -2272,7 +2363,7 @@
 								'<td style="display:none">' + data[trav].NO_FILE + '</td>' +
 								'<td>' + data[trav].file_name_upload + '</td>' +
 								'<td style="display:none;">' + data[trav].path_file + '</td>' +
-								'<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
+								'<td><button class="btn btn-danger DeleteFileAttachment" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
 						}
 
 						$("#tbl_Attachment").show();
@@ -2295,53 +2386,7 @@
 	}
 
 	function DeleteFileAttachment(button) {
-		event.preventDefault();
-		var Row = $(button).closest("TR");
-		var ReqID = $("TD", Row).eq(1).html();
-		var RecordID = $("TD", Row).eq(2).html();
-		var FileName = $("TD", Row).eq(3).html();
-		var PathFile = $("TD", Row).eq(4).html();
-
-		var dto = {
-			ReqID: ReqID,
-			RecordID: RecordID,
-			PathFile: PathFile
-		}
-
-		$.ajax({
-			url: "DeleteAttachment",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				if (data == 'S') {
-					toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
-						"closeButton": false,
-						"debug": true,
-						"newestOnTop": false,
-						"progressBar": false,
-						"positionClass": "toast-top-left",
-						"preventDuplicates": false,
-						"onclick": null,
-						"showDuration": "100",
-						"hideDuration": "1000",
-						"timeOut": "1000",
-						"extendedTimeOut": "1000",
-						"showEasing": "swing",
-						"hideEasing": "linear",
-						"showMethod": "fadeIn",
-						"hideMethod": "fadeOut"
-					});
-
-					GetFileAttachment();
-				}
-			},
-			error: function (ex) {
-                GetErrorInput("DeleteAttachmentInput", JSON.stringify(ex));
-			}
-		});
-
+		
 	}
 
 	// Save Deviation
@@ -2487,7 +2532,7 @@
 					CheckDelete = 1;
 					$.when(
                         SendEmail()
-					).then(
+					).done(
 						window.location.href = "../DataDeviasi/PendingTask"
 					);
                 });
@@ -2520,7 +2565,7 @@
     }
 
 	function SendEmail() {
-        alert('kepanggil');
+        @*alert('kepanggil');*@
 		var REQID = $("#lblReq").text();
 		var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -2641,7 +2686,7 @@
 							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 							'<td style="display:none">' + data[trav].RecordID + '</td>' +
 							'<td>' + data[trav].USER_NAME + '</td>' +
-							'<td><button onclick="DeleteUserInvolved(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
+							'<td><button id="DeleteUserInvolved"  class="btn btn-danger DeleteUserInvolved"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
 					}
 
 					$("#tblBodyWho").empty();
@@ -2660,52 +2705,6 @@
 		});
 	}
 
-	function DeleteUserInvolved(button) {
-		event.preventDefault();
-		var row = $(button).closest("TR");
-		var ReqID = $("TD", row).eq(1).html();
-		var RecordID = $("TD", row).eq(2).html();
-
-		var dto = {
-			REQID: ReqID,
-			RecordID: RecordID
-		}
-
-		$.ajax({
-			url: "DeleteUserInvolved",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-
-				if (data == 'S') {
-					toastr.success("Data berhasil terhapus !", "Terhapus", {
-						"closeButton": false,
-						"debug": true,
-						"newestOnTop": false,
-						"progressBar": false,
-						"positionClass": "toast-top-right",
-						"preventDuplicates": false,
-						"onclick": null,
-						"showDuration": "100",
-						"hideDuration": "1000",
-						"timeOut": "1000",
-						"extendedTimeOut": "1000",
-						"showEasing": "swing",
-						"hideEasing": "linear",
-						"showMethod": "fadeIn",
-						"hideMethod": "fadeOut"
-					});
-
-					LoadUserInvolved();
-				}
-			}
-			, error: function (ex) {
-                GetErrorInput("DeleteUserInvolvedInput", JSON.stringify(ex));
-			}
-		});
-	}
 
 	function s() {
 		return false;

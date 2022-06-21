@@ -20,15 +20,16 @@
                                 <thead>
                                     <tr>
                                         <th style="text-align:center" width="100px">Action</th>
-                                        <th style="text-align:center"width="100px">Request ID</th>
-                                        <th style="text-align:center"width="100px">Status</th>
-                                        <th style="text-align:center"width="350px">Disposisi</th>
-                                        <th style="text-align:center"width="100px">Due Date</th>
-                                        <th style="text-align:center"width="300px">Action PIC</th>
-                                        <th style="text-align:center"width="100px">NIK PIC</th>
-                                        <th style="text-align:center"width="100px">Nama PIC</th>
-                                        <th style="text-align:center"width="200px">Keterangan Reject</th>
-                                        <th style="text-align:center"width="100px">Revisi Due Date/Tindakan</th>
+                                        <th style="text-align:center" width="100px" hidden>Deviation No</th>
+                                        <th style="text-align:center" width="100px">Request ID</th>
+                                        <th style="text-align:center" width="100px">Status</th>
+                                        <th style="text-align:center" width="350px">Disposisi</th>
+                                        <th style="text-align:center" width="100px">Due Date</th>
+                                        <th style="text-align:center" width="300px">Action PIC</th>
+                                        <th style="text-align:center" width="100px">NIK PIC</th>
+                                        <th style="text-align:center" width="100px">Nama PIC</th>
+                                        <th style="text-align:center" width="200px">Keterangan Reject</th>
+                                        <th style="text-align:center" width="100px">Revisi Due Date/Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody id="deviationtable" >
@@ -54,6 +55,24 @@
         // Load User once the page is loaded
         LoadData();
 
+        // Open btn onclick
+        $('#deviationdatatable tbody').on('click', 'input[id="Open"]', function () {
+            var row = $(this).closest("TR");
+
+            var Nomor = $("TD", row).eq(2).html();
+            var no_disposisi = $("TD", row).eq(1).html();
+            @*alert(no_disposisi)*@
+            window.open("../PICRemidial/PICHeader?Nomor=" + Nomor + "&Urutan=" + no_disposisi);
+        });
+
+        // Revisi btn Onclick
+        $('#deviationdatatable tbody').on('click', 'input[id="Revisi"]', function () {
+            var row = $(this).closest("TR");
+            var Nomor = $("TD", row).eq(2).html();
+            var no_disposisi = $("TD", row).eq(1).html();
+            window.open("../PICRemidial/UsulanRevisi?Nomor=" + Nomor + "&Urutan=" + no_disposisi);
+        });
+        
     });
 
     function LoadData() {
@@ -85,7 +104,8 @@
                         // KALAU ASSIGNED, BRARTI BISA ISI / MINTA REVISI
                         if (data[trav].FLAG_PIC == 'ASSIGNED') {
                             trHTML +=
-                                '<tr><td style="text-align:center"><input value="Select" onclick="Open(this, ' + data[trav].NO_DISPOSISI +')" type="button" class="btn btn-success"/>' +
+                                '<tr><td style="text-align:center"><input id="Open" value="Select" type="button" class="btn btn-success Open"/>' +
+                                '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
@@ -95,7 +115,7 @@
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td style="text-align:center;"><input value="Revisi" onclick="Revisi(this, ' + data[trav].NO_DISPOSISI+')" type="button" class="btn btn-danger"/>';
+                                '<td style="text-align:center;"><input  id="Revisi" value="Revisi" type="button" class="btn btn-danger Revisi"/>';
 
                             // BISANYA ISI DOANG
                         } else if (
@@ -109,8 +129,9 @@
                             data[trav].FLAG_VERIFIKASI == 'REJECTED'
                         ) {
                             trHTML +=
-                                '<tr><td style="text-align:center"><input value="Select" onclick="Open(this, ' + data[trav].NO_DISPOSISI +')" type="button" class="btn btn-success"/>' +
-                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
+                                '<tr><td style="text-align:center"><input id="Open" value="Select" type="button" class="btn btn-success Open"/>' +
+                                '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
+                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
@@ -125,6 +146,7 @@
                         } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE' || data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC' || data[trav].FLAG_PIC == 'REMEDIAL WAITING FOR DIV HEAD') {
                             trHTML +=
                                 '<tr><td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Approval </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
@@ -142,6 +164,7 @@
                         if (data[trav].FLAG_PIC == 'ASSIGNED') {
                             trHTML +=
                                 '<tr><td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
@@ -166,6 +189,7 @@
                         ) {
                             trHTML +=
                                 '<tr><td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
@@ -181,6 +205,7 @@
                         } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE') {
                             trHTML +=
                                 '<tr><td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Approval </td>' +
                                 '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
@@ -213,20 +238,7 @@
         });
     }
 
-    function Open(button, no_disposisi) {
-        var row = $(button).closest("TR");
-
-        var Nomor = $("TD", row).eq(1).html();
-        window.open("../PICRemidial/PICHeader?Nomor=" + Nomor + "&Urutan=" + no_disposisi);
-    }
-
-    function Revisi(button, no_disposisi) {
-
-        var row = $(button).closest("TR");
-
-        var Nomor = $("TD", row).eq(1).html();
-        window.open("../PICRemidial/UsulanRevisi?Nomor=" + Nomor + "&Urutan=" + no_disposisi);
-    }
+  
 
 </script>
 

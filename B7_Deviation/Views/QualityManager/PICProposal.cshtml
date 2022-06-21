@@ -45,6 +45,190 @@
             // Load User once the page is loaded
             LoadData();
 
+            $('#deviationdatatable tbody').on('click', 'input[id="ApprovePIC"]', function () {
+                var row = $(this).closest("TR");
+
+                var no_disposisi = $("TD", row).eq(8).html();
+                var req_id = @ViewBag.nomor;
+                var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+
+                function ApproveProposal() {
+                    var dto = {
+                        REQID: req_id,
+                        NO_DISPOSISI: no_disposisi,
+                        IDUSER: curr_user
+                    }
+
+                    $.ajax({
+                        url: "../QualityManager/QM_ApprovePIC",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+
+                            Swal.fire({
+                                title: 'Revisi Disposisi Approved',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 3000
+                            }).then(() => {
+                                LoadData()
+                            });
+                        }
+                        , error: function (ex) {
+                            GetErrorQMAppProp("PICPropApprove", JSON.stringify(ex));
+                        }
+                    });
+                }
+
+                function NotifyProposal() {
+                    var receiver = $("TD", row).eq(8).html();
+                    var tabletype = "More Than One";
+                    var whoreceiver = "PIC Approved Usulan Revisi by QM";
+                    var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+                    var dto = {
+                        Username: curr_user,
+                        ReqID: req_id,
+                        TableType: tabletype,
+                        WhoReceiver: whoreceiver
+                    };
+
+                    $.ajax({
+                        type: "post",
+                        url: '../Form/SendEmailInputProposal',
+                        data: JSON.stringify(dto),
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+
+                            toastr.success("Email Sent Successfully !", "Notification", {
+                                "closeButton": false,
+                                "debug": true,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-bottom-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "100",
+                                "hideDuration": "1000",
+                                "timeOut": "2000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            })
+
+                        }, error: function (ex) {
+                            GetErrorQMAppProp("PICPropNotifyApp", JSON.stringify(ex));
+                        }
+                    });
+                }
+
+                $.when(ApproveProposal()).done(NotifyProposal());
+            });
+
+            $('#deviationdatatable tbody').on('click', 'input[id="Reject"]', function () {
+                Swal.fire({
+			    title: 'Reason???',
+			    input: 'text',
+			    inputAttributes: {
+				    autocapitalize: 'off'
+			    },
+			    showCancelButton: true,
+			    confirmButtonText: 'Submit',
+			    showLoaderOnConfirm: true,
+
+			    allowOutsideClick: () => Swal.isLoading()
+		        }).then((result) => {
+                    if (result.value == null || result.value == '') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please Insert Reason!'
+                        });
+                    } else if (result.isConfirmed) {
+
+                        var row = $(this).closest("TR");
+
+                        var no_disposisi = $("TD", row).eq(8).html();
+                        var req_id = @ViewBag.nomor;
+                        var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+                        var receiver = $("TD", row).eq(8).html();
+                        var alasanReject = result.value;
+
+                        var dto = {
+                            REQID: req_id,
+                            NO_DISPOSISI: no_disposisi,
+                            IDUSER: curr_user,
+                            ALASAN_REJECT:alasanReject
+                        }
+
+                        $.ajax({
+                            url: "../QualityManager/QM_RejectPIC",
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(dto),
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+                                Swal.fire({
+                                    title: 'Revisi Disposisi Rejected',
+                                    showDenyButton: false,
+                                    showCancelButton: false,
+                                    confirmButtonText: `OK`
+                                });
+
+                                LoadData();
+                            }
+                            , error: function (ex) {
+                                GetErrorQMAppProp("PICPropQM_RejectPIC", JSON.stringify(ex));
+                            }
+                        });
+
+                        var tabletype = "More Than One";
+                        var whoreceiver = "PIC Rejected Usulan Revisi";
+
+                        var dto = {
+                            Username: curr_user,
+                            ReqID: REQID,
+                            TableType: tabletype,
+                            WhoReceiver: whoreceiver
+                        };
+
+                        $.ajax({
+                            type: "post",
+                            url: '../Form/SendEmailInputProposal',
+                            data: JSON.stringify(dto),
+                            dataType: "json",
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+                                toastr.success("Email Sent Successfully !", "Notification", {
+                                    "closeButton": false,
+                                    "debug": true,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-bottom-right",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "100",
+                                    "hideDuration": "1000",
+                                    "timeOut": "1000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                });
+                            }, error: function (ex) {
+                                GetErrorQMAppProp("PICPropNotifyRej", JSON.stringify(ex));
+                            }
+                        });
+                    }
+		        });
+            });
         });
 
         function LoadData() {
@@ -88,7 +272,7 @@
                             '<td>' + revisiTindakan + '</td>' +
                             '<td>' + data[trav].ALASAN_REVISI + '</td>' +
                             '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
-                            '<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" onclick=ApprovePIC(this) class="btn btn-success" style="width:120px;"/> <input type="button" id="Reject" value="Reject" onclick=RejectPIC(this) class="btn btn-danger" style="width:100px;"/></td>';
+                            '<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" class="btn btn-success ApprovePIC" style="width:120px;"/> <input type="button" id="Reject" value="Reject" class="btn btn-danger Reject" style="width:100px;"/></td>';
                     }
                     if (Count > 0) {
                         $('#deviationtable').empty();
@@ -98,201 +282,13 @@
                     else {
                         window.location.href = "../DataDeviasi/PendingTask"
                     }
-                    
+
 
                 },
                 error: function (ex) {
                     GetErrorQMAppProp("PICPropQM_PICLoadDataTable", JSON.stringify(ex));
                 }
             });
-        }
-
-        function ApprovePIC(button) {
-
-            var row = $(button).closest("TR");
-
-            var no_disposisi = $("TD", row).eq(8).html();
-            var req_id = @ViewBag.nomor;
-            var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-
-            function ApproveProposal() {
-                var dto = {
-                    REQID: req_id,
-                    NO_DISPOSISI: no_disposisi,
-                    IDUSER: curr_user
-                }
-
-                $.ajax({
-                    url: "../QualityManager/QM_ApprovePIC",
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(dto),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-
-                        Swal.fire({
-                            title: 'Revisi Disposisi Approved',
-                            icon: 'success',
-                            showConfirmButton: false,
-                            timer: 3000
-                        }).then(() => {
-                            LoadData()
-                        });
-                    }
-                    , error: function (ex) {
-                        GetErrorQMAppProp("PICPropApprove", JSON.stringify(ex));
-                    }
-                });
-            }
-            
-            function NotifyProposal() {
-                var receiver = $("TD", row).eq(8).html();
-                var tabletype = "More Than One";
-                var whoreceiver = "PIC Approved Usulan Revisi by QM";
-                var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-                var dto = {
-                    Username: curr_user,
-                    ReqID: req_id,
-                    TableType: tabletype,
-                    WhoReceiver: whoreceiver
-                };
-
-                $.ajax({
-                    type: "post",
-                    url: '../Form/SendEmailInputProposal',
-                    data: JSON.stringify(dto),
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-                        
-                        toastr.success("Email Sent Successfully !", "Notification", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-bottom-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "100",
-                            "hideDuration": "1000",
-                            "timeOut": "2000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        })
-                       
-                    }, error: function (ex) {
-                        GetErrorQMAppProp("PICPropNotifyApp", JSON.stringify(ex));
-                    }
-                });
-            }
-
-            $.when(ApproveProposal()).done(NotifyProposal());
-        }
-
-        function RejectPIC(button) {
-            Swal.fire({
-			title: 'Reason???',
-			input: 'text',
-			inputAttributes: {
-				autocapitalize: 'off'
-			},
-			showCancelButton: true,
-			confirmButtonText: 'Submit',
-			showLoaderOnConfirm: true,
-
-			allowOutsideClick: () => Swal.isLoading()
-		    }).then((result) => {
-                if (result.value == null || result.value == '') {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Please Insert Reason!'
-                    });
-                } else if (result.isConfirmed) {
-
-                    var row = $(button).closest("TR");
-
-                    var no_disposisi = $("TD", row).eq(8).html();
-                    var req_id = @ViewBag.nomor;
-                    var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                    var receiver = $("TD", row).eq(8).html();
-                    var alasanReject = result.value;
-
-                    var dto = {
-                        REQID: req_id,
-                        NO_DISPOSISI: no_disposisi,
-                        IDUSER: curr_user,
-                        ALASAN_REJECT:alasanReject
-                    }
-
-                    $.ajax({
-                        url: "../QualityManager/QM_RejectPIC",
-                        type: "post",
-                        dataType: "json",
-                        data: JSON.stringify(dto),
-                        contentType: "application/json;charset=utf-8",
-                        success: function (data) {
-                            Swal.fire({
-                                title: 'Revisi Disposisi Rejected',
-                                showDenyButton: false,
-                                showCancelButton: false,
-                                confirmButtonText: `OK`
-                            });                            
-
-                            LoadData();
-                        }
-                        , error: function (ex) {
-                            GetErrorQMAppProp("PICPropQM_RejectPIC", JSON.stringify(ex));
-                        }
-                    });
-
-                    
-
-                    var tabletype = "More Than One";
-                    var whoreceiver = "PIC Rejected Usulan Revisi";
-
-                    var dto = {
-                        Username: curr_user,
-                        ReqID: REQID,
-                        TableType: tabletype,
-                        WhoReceiver: whoreceiver
-                    };
-
-                    $.ajax({
-                        type: "post",
-                        url: '../Form/SendEmailInputProposal',
-                        data: JSON.stringify(dto),
-                        dataType: "json",
-                        contentType: "application/json;charset=utf-8",
-                        success: function (data) {
-                            toastr.success("Email Sent Successfully !", "Notification", {
-                                "closeButton": false,
-                                "debug": true,
-                                "newestOnTop": false,
-                                "progressBar": false,
-                                "positionClass": "toast-bottom-right",
-                                "preventDuplicates": false,
-                                "onclick": null,
-                                "showDuration": "100",
-                                "hideDuration": "1000",
-                                "timeOut": "1000",
-                                "extendedTimeOut": "1000",
-                                "showEasing": "swing",
-                                "hideEasing": "linear",
-                                "showMethod": "fadeIn",
-                                "hideMethod": "fadeOut"
-                            });
-                        }, error: function (ex) {
-                            GetErrorQMAppProp("PICPropNotifyRej", JSON.stringify(ex));
-                        }
-                    });
-                }
-		    });
         }
 
         function GetErrorQMAppProp(ErrorType, ErrorMsg) {

@@ -58,6 +58,74 @@
             // Load User once the page is loaded
             LoadData();
 
+            $('#deviationdatatable tbody').on('click', 'input[id="Open"]', function () {
+                var row = $(this).closest("TR");
+
+                var Nomor = $("TD", row).eq(1).html();
+                window.open("../Reviewer/ReviewerHeader?Nomor=" + Nomor);
+            });
+
+            $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
+                 event.preventDefault();
+
+                $("#reviewerbuktidatatable").removeAttr("hidden");
+
+                var row = $(this).closest("TR");
+                var ReqID = @ViewBag.nomor;
+                var reviewer = $("TD", row).eq(4).html();
+
+                var dto = {
+                    REQID: ReqID,
+                    USER_NIK: reviewer
+                }
+
+                $.ajax({
+                    url: "../Koordinator/Coor_ShowReviewerBukti",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        var trHTML = '';
+                        var trav = 0;
+                        var Count = data.length;
+                        //alert(reviewer);
+
+                        if (Count == '0') {
+                            trHTML +=
+                                '<tr><td> - </td>' +
+                                '<td> N/A </td>' +
+                                '<td> N/A </td>';
+                        } else {
+                            for (trav = 0; trav < Count; trav++) {
+                                var no = 1;
+                                no = no + trav;
+                                trHTML +=
+                                    '<tr><td>' + no + '</td>' +
+                                    '<td>' + data[trav].REVIEWER_NAME + '</td>' +
+                                    '<td><a href="../' + data[trav].DOWNLOAD_PATH_FILE + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+
+                            }
+                        }
+
+                        $('#reviewerbuktidatatable').DataTable().clear().destroy();
+                        $('#reviewerbukti').empty();
+                        $('#reviewerbukti').append(trHTML);
+                        $('#reviewerbuktidatatable').DataTable({
+                            "searching": false,
+                            "paging": false,
+                            "info": false,
+                            "ordering": false
+                        });
+
+                    }
+                    , error: function (ex) {
+
+                        Error("Error Delete User Involved", JSON.stringify(ex));
+                    }
+                });
+            });
+
         });
 
         function LoadData() {
@@ -82,7 +150,7 @@
 
                         if (data[trav].USER_ID == data[trav].USER_NIK) {
                             trHTML +=
-                                '<tr><td><input type="button" class="btn btn-success" value="Open" onclick="Open(this)"></td>';
+                                '<tr><td><input id="Open" type="button" class="btn btn-success Open" value="Open"></td>';
 
                         } else {
                             trHTML +=
@@ -120,7 +188,7 @@
                         trHTML+=
                             '<td>' + data[trav].KETERANGAN_REVIEW + '</td>' +
                             '<td>' + data[trav].KETERANGAN_REJECT + '</td>' +
-                            '<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info">View</button ></td ></tr > ';
+                            '<td align="center"><button id="btnShowBukti" class="btn btn-info btnShowBukti">View</button ></td ></tr > ';
 
 
                     }
@@ -140,74 +208,6 @@
                 }
             });
         }
-
-        function Open(button) {
-            var row = $(button).closest("TR");
-
-            var Nomor = $("TD", row).eq(1).html();
-            window.open("../Reviewer/ReviewerHeader?Nomor=" + Nomor);
-        }
-
-        function ShowBukti(button) {
-			event.preventDefault();
-
-			$("#reviewerbuktidatatable").removeAttr("hidden");
-
-			var row = $(button).closest("TR");
-			var ReqID = @ViewBag.nomor;
-			var reviewer = $("TD", row).eq(4).html();
-
-			var dto = {
-				REQID: ReqID,
-				USER_NIK: reviewer
-			}
-
-			$.ajax({
-                url: "../Koordinator/Coor_ShowReviewerBukti",
-				type: "post",
-				dataType: "json",
-				data: JSON.stringify(dto),
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
-					var trHTML = '';
-					var trav = 0;
-					var Count = data.length;
-                    //alert(reviewer);
-
-					if (Count == '0') {
-						trHTML +=
-							'<tr><td> - </td>' +
-							'<td> N/A </td>' +
-							'<td> N/A </td>';
-					} else {
-						for (trav = 0; trav < Count; trav++) {
-							var no = 1;
-							no = no + trav;
-							trHTML +=
-								'<tr><td>' + no + '</td>' +
-								'<td>' + data[trav].REVIEWER_NAME + '</td>' +
-                                '<td><a href="../' + data[trav].DOWNLOAD_PATH_FILE + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
-
-						}
-					}
-
-                    $('#reviewerbuktidatatable').DataTable().clear().destroy();
-					$('#reviewerbukti').empty();
-					$('#reviewerbukti').append(trHTML);
-					$('#reviewerbuktidatatable').DataTable({
-                        "searching": false,
-                        "paging": false,
-                        "info": false,
-						"ordering": false
-					});
-
-				}
-				, error: function (ex) {
-
-					Error("Error Delete User Involved", JSON.stringify(ex));
-				}
-			});
-		}
 
     </script>
 

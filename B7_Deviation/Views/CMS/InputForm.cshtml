@@ -84,8 +84,8 @@
                             </div>
 
                             @*<div class="col-lg-2 col-form-label" hidden="hidden">
-                <button class="btn btn-success" type="button" style="width:150px;" onclick="GetVendorID();">Generate VendorID</button>
-            </div>*@
+                                <button class="btn btn-success GetVendorID" id="btnGenerateVendorID" type="button" style="width:150px;"">Generate VendorID</button>
+                            </div>*@
 
                         </div>
 
@@ -265,7 +265,38 @@
         GetSuperior();
         $("#role").change(function () {
             GetKategoriPenyimpangan();
-            GetVendorID();
+            $("#btnGenerateVendorID").click(function (e) {
+                let option;
+                if ($("#role option:selected").val() == 'Admin') {
+                    option = 'Get AdminID'
+                }
+                else {
+                    option = 'Get UserID'
+                }
+
+                $.ajax({
+                    url: "../CMS/CMS_GetVendorID",
+                    type: "post",
+                    data: JSON.stringify({
+                        Option: option
+                    }),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+
+                        $("#empid").val(data[0].VENDORID);
+                        $("#empid").attr("disabled", true);
+
+                        //$("#superiorid").val(data[0].SPVVENDOR);
+                        //$("#superiorid").attr("disabled", true);
+
+
+
+                    }, error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+                });
+            });
             GetSuperior();
 
         });
@@ -458,39 +489,6 @@
         });
     }
 
-    function GetVendorID() {
-        let option
-        if ($("#role option:selected").val() == 'Admin') {
-            option = 'Get AdminID'
-        }
-        else {
-            option = 'Get UserID'
-        }
-
-
-        $.ajax({
-            url: "../CMS/CMS_GetVendorID",
-            type: "post",
-            data: JSON.stringify({
-                Option: option
-            }),
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-
-                $("#empid").val(data[0].VENDORID);
-                $("#empid").attr("disabled", true);
-
-                //$("#superiorid").val(data[0].SPVVENDOR);
-                //$("#superiorid").attr("disabled", true);
-
-
-
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
 
     function CheckEmpID() {
         var empid = $('#empid').val();

@@ -382,7 +382,128 @@
 		$("#btnReject").click(function () {
 			Reject();
 		});
-	});
+
+
+		$('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
+            event.preventDefault();
+            var row = $(this).closest("TR");
+            var ReqID = @ViewBag.nomor;
+            var picnik = $("TD", row).eq(16).html();
+            var seq = $("TD", row).eq(0).html();
+
+            var dto = {
+                REQID: ReqID,
+                IDUSER: picnik,
+                NO_DISPOSISI: seq
+            }
+
+            $.ajax({
+                url: "../QualityManager/QM_ShowBuktiTable",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+                    if (Count == '0') {
+                        trHTML +=
+                            '<tr><td> - </td>' +
+                            '<td> - </td>' +
+                            '<td> - </td>';
+
+                    } else {
+                        for (trav = 0; trav < Count; trav++) {
+                            var no = 1;
+                            no = no + trav;
+                            trHTML +=
+                                '<tr><td>' + no + '</td>' +
+                                '<td>' + data[trav].PIC_ID + '</td>' +
+                                '<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+                        }
+                    }
+
+                    $('#buktidatatable').DataTable().clear().destroy();
+
+                    $('#buktitable').empty();
+                    $('#buktitable').append(trHTML);
+                    $('#buktidatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false
+                    });
+
+                    $("#tabel2").removeAttr("hidden");
+                }
+                , error: function (ex) {
+                    GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
+                }
+            });
+        });
+
+		$('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
+            event.preventDefault();
+            var row = $(this).closest("TR");
+            var ReqID = @ViewBag.nomor;
+            var picnik = $("TD", row).eq(16).html();
+            var seq = $("TD", row).eq(0).html();
+
+            var dto = {
+                REQID: ReqID,
+                IDUSER: picnik,
+                NO_DISPOSISI: seq
+            }
+
+            $.ajax({
+                url: "../QualityManager/QM_ShowBuktiTable",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+                    if (Count == '0') {
+                        trHTML +=
+                            '<tr><td> - </td>' +
+                            '<td> - </td>' +
+                            '<td> - </td>';
+
+                    } else {
+                        for (trav = 0; trav < Count; trav++) {
+                            var no = 1;
+                            no = no + trav;
+                            trHTML +=
+                                '<tr><td>' + no + '</td>' +
+                                '<td>' + data[trav].PIC_ID + '</td>' +
+                                '<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+                        }
+                    }
+
+                    $('#buktidatatable').DataTable().clear().destroy();
+
+                    $('#buktitable').empty();
+                    $('#buktitable').append(trHTML);
+                    $('#buktidatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false
+                    });
+
+                    $("#tabel2").removeAttr("hidden");
+                }
+                , error: function (ex) {
+                    GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
+                }
+            });
+        });
+    });
 
 	@*function GetUsulanTindakan() {
 		var REQID = @ViewBag.nomor;
@@ -953,7 +1074,7 @@
 
 						} else {
 							trHTML +=
-								'<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+								'<td align="center"><button id="btnShowBukti" class="btn btn-info btnShowBukti"><span class="fa fa-info"><strong></strong></span></button ></td > ';
 						}
 
 					}
@@ -1063,67 +1184,7 @@
 
 	};
 
-	function ShowBukti(button) {
-		event.preventDefault();
-		var row = $(button).closest("TR");
-		var ReqID = @ViewBag.nomor;
-		var picnik = $("TD", row).eq(16).html();
-        var seq = $("TD", row).eq(0).html();
-
-		var dto = {
-			REQID: ReqID,
-			IDUSER: picnik,
-            NO_DISPOSISI: seq
-		}
-
-		$.ajax({
-            url: "../QualityManager/QM_ShowBuktiTable",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				var trHTML = '';
-				var trav = 0;
-				var Count = data.length;
-
-				if (Count == '0') {
-					trHTML +=
-						'<tr><td> - </td>' +
-						'<td> - </td>' +
-						'<td> - </td>';
-
-				} else {
-					for (trav = 0; trav < Count; trav++) {
-						var no = 1;
-						no = no + trav;
-						trHTML +=
-							'<tr><td>' + no + '</td>' +
-							'<td>' + data[trav].PIC_ID + '</td>' +
-							'<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
-					}
-				}
-
-                $('#buktidatatable').DataTable().clear().destroy();
-
-				$('#buktitable').empty();
-				$('#buktitable').append(trHTML);
-				$('#buktidatatable').DataTable({
-                    "searching": false,
-                    "paging": false,
-                    "info": false,
-                    "ordering": false
-				});
-
-				$("#tabel2").removeAttr("hidden");
-			}
-			, error: function (ex) {
-                GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
-			}
-		});
-	}
-
-	@*function LoadReviewerData() {
+    @*function LoadReviewerData() {
 		var nomor = @ViewBag.nomor;
 
 		var dto = {
@@ -1702,7 +1763,7 @@
 						if (picIsGroup === true) {
 							tabletype = "More than One";
                         }
-						
+
 						var whoreceiver = "PIC after Superior Rejected Cost";
 
 						var dto = {
@@ -1844,4 +1905,5 @@
 			}
 		});
 	}
+
 </script>

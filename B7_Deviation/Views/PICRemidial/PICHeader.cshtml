@@ -363,7 +363,6 @@
             CheckHiddenCostType();
 		});
 
-
 		$("#btnSave").click(function () {
 			Save();
 		});
@@ -371,7 +370,6 @@
 		$('#spanBukti').click(function () {
 			InsertBukti();
 		});
-
 
         $("input[data-type='currency']").on({
 			keyup: function () {
@@ -383,7 +381,62 @@
             }
         });
 
-	});
+        $('#tblBukti tbody').on('click', 'input[id="DeleteFileAttachment"]', function() {
+                var Row = $(this).closest("TR");
+                var ReqID = $("TD", Row).eq(1).html();
+                var RecordID = $("TD", Row).eq(2).html();
+                var FileName = $("TD", Row).eq(3).html();
+                var PathFile = $("TD", Row).eq(4).html();
+                var urutan = @ViewBag.urutan;
+
+                var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+                var dto = {
+                    ReqID: ReqID,
+                    RecordID: RecordID,
+                    PathFile: PathFile,
+                    USERNIK: usernik,
+                    NO_DISPOSISI: urutan
+                }
+
+                $.ajax({
+                    url: "../PICRemidial/PIC_DeleteAttachment",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto),
+                    contentType: "application/json;charset=utf-8",
+                    success: function(data) {
+                        if (data == 'S') {
+
+                            toastr.success("File Attachment " + FileName + " Berhasil dihapus",
+                                "Berhasil",
+                                {
+                                    "closeButton": false,
+                                    "debug": true,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-top-left",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "100",
+                                    "hideDuration": "1000",
+                                    "timeOut": "2000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                });
+
+                            LoadBukti();
+                        }
+                    },
+                    error: function(ex) {
+                        ErrorPIC("Delete AtachmentPIC", JSON.stringify(ex));
+                    }
+                });
+            });
+    });
 
 
 
@@ -665,7 +718,7 @@
 								'<td style="display:none">' + data[trav].NO_BUKTI + '</td>' +
 								'<td>' + data[trav].FILE_NAME_UPLOAD + '</td>' +
 								'<td style="display:none;">' + data[trav].PATH_FILE + '</td>' +
-								'<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
+								'<td><button id="DeleteFileAttachment"  class="btn btn-danger DeleteFileAttachment" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
 						}
 
 						$("#tblBukti").attr('hidden', false);
@@ -923,62 +976,7 @@
 
 	}
 
-	function DeleteFileAttachment(button) {
-		var Row = $(button).closest("TR");
-		var ReqID = $("TD", Row).eq(1).html();
-		var RecordID = $("TD", Row).eq(2).html();
-		var FileName = $("TD", Row).eq(3).html();
-		var PathFile = $("TD", Row).eq(4).html();
-		var urutan = @ViewBag.urutan;
-
-		var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-		var dto = {
-			ReqID: ReqID,
-			RecordID: RecordID,
-			PathFile: PathFile,
-			USERNIK: usernik,
-            NO_DISPOSISI: urutan
-		}
-
-		$.ajax({
-            url: "../PICRemidial/PIC_DeleteAttachment",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				if (data == 'S') {
-
-					toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
-						"closeButton": false,
-						"debug": true,
-						"newestOnTop": false,
-						"progressBar": false,
-						"positionClass": "toast-top-left",
-						"preventDuplicates": false,
-						"onclick": null,
-						"showDuration": "100",
-						"hideDuration": "1000",
-						"timeOut": "2000",
-						"extendedTimeOut": "1000",
-						"showEasing": "swing",
-						"hideEasing": "linear",
-						"showMethod": "fadeIn",
-						"hideMethod": "fadeOut"
-					});
-
-					LoadBukti();
-				}
-			},
-			error: function (ex) {
-                ErrorPIC("Delete AtachmentPIC", JSON.stringify(ex));
-			}
-		});
-
-	}
-
-	function ErrorPIC(ErrorType, ErrorMsg) {
+    function ErrorPIC(ErrorType, ErrorMsg) {
 		var REQID = @ViewBag.nomor;
 		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
 

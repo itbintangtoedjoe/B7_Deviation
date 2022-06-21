@@ -184,8 +184,54 @@
                     }
 		});
 
+        $('#tblBodyWho_Rev tbody').on('click', 'input[id="DeleteUserInvolved"]', function () {
+            event.preventDefault();
+            var row = $(this).closest("TR");
+            var ReqID = $("TD", row).eq(1).html();
+            var RecordID = $("TD", row).eq(2).html();
 
-	});
+            var dto = {
+                REQID: ReqID,
+                RecordID: RecordID
+            }
+
+            $.ajax({
+                url: "../Koordinator/Coor_DeleteUserInvolved",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+                    if (data == 'S') {
+
+                        toastr.success("Data berhasil terhapus !", "Terhapus", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+
+                        Coor_LoadUserInvolved();
+                    }
+                }
+                , error: function (ex) {
+                    GetErrorHeader("HedKorCoor_DeleteUserInvolved", JSON.stringify(ex));
+                }
+            });
+		});
+    });
 
 	function CheckEmailAvailability() {
 		var UserInvolved = document.getElementById('ddlReviewer').value;
@@ -548,7 +594,7 @@
 							'<td style="display:none">' + data[trav].RecordID + '</td>' +
 							'<td>' + data[trav].USER_NAME + '</td>' +
 							'<td>' + data[trav].USER_NIK + '</td>' +
-							'<td><button onclick="DeleteUserInvolved(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
+							'<td><button id="DeleteUserInvolved" class="btn btn-danger DeleteUserInvolved"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
 					}
 
 					$("#tblBodyWho_Rev").empty();
@@ -567,54 +613,7 @@
 		});
 	}
 
-	function DeleteUserInvolved(button) {
-		event.preventDefault();
-		var row = $(button).closest("TR");
-		var ReqID = $("TD", row).eq(1).html();
-		var RecordID = $("TD", row).eq(2).html();
-
-		var dto = {
-			REQID: ReqID,
-			RecordID: RecordID
-		}
-
-		$.ajax({
-			url: "../Koordinator/Coor_DeleteUserInvolved",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-
-				if (data == 'S') {
-
-					toastr.success("Data berhasil terhapus !", "Terhapus", {
-						"closeButton": false,
-						"debug": true,
-						"newestOnTop": false,
-						"progressBar": false,
-						"positionClass": "toast-top-right",
-						"preventDuplicates": false,
-						"onclick": null,
-						"showDuration": "100",
-						"hideDuration": "1000",
-						"timeOut": "1000",
-						"extendedTimeOut": "1000",
-						"showEasing": "swing",
-						"hideEasing": "linear",
-						"showMethod": "fadeIn",
-						"hideMethod": "fadeOut"
-					});
-
-					Coor_LoadUserInvolved();
-				}
-			}
-			, error: function (ex) {
-                GetErrorHeader("HedKorCoor_DeleteUserInvolved", JSON.stringify(ex));
-			}
-		});
-	}
-
+	
 	function GetCurrStat() {
 
 		$("#partialview").attr("hidden", true);

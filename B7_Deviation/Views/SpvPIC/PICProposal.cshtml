@@ -50,7 +50,199 @@
 			// Load User once the page is loaded
 			LoadData();
 
-		});
+			$('#deviationdatatable tbody').on('click', 'input[id="ApprovePIC"]', function () {
+                var row = $(this).closest("TR");
+                var no_disposisi = $("TD", row).eq(8).html();
+				var req_id = @ViewBag.nomor;
+				var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+				function AppSupPIC() {
+					var dto = {
+						REQID: req_id,
+						NO_DISPOSISI: no_disposisi,
+						IDUSER: curr_user
+					}
+
+					$.ajax({
+						url: "../SpvPelapor/Spv_ApprovePIC",
+						type: "post",
+						dataType: "json",
+						data: JSON.stringify(dto),
+						contentType: "application/json;charset=utf-8",
+						success: function (data) {
+
+							toastr.success("Revisi Berhasil Diapprove!", "Tersimpan", {
+								"closeButton": false,
+								"debug": true,
+								"newestOnTop": false,
+								"progressBar": false,
+								"positionClass": "toast-top-right",
+								"preventDuplicates": false,
+								"onclick": null,
+								"showDuration": "100",
+								"hideDuration": "1000",
+								"timeOut": "2000",
+								"extendedTimeOut": "1000",
+								"showEasing": "swing",
+								"hideEasing": "linear",
+								"showMethod": "fadeIn",
+								"hideMethod": "fadeOut"
+							});
+						}
+						, error: function (ex) {
+							ErrorSupPIC("Spv_ApprovePIC", JSON.stringify(ex));
+						}
+					});
+				}
+
+				function NotifySupPIC() {
+					var tabletype = "More Than One";
+					var whoreceiver = "QM PIC Usulan Revisi";
+
+					var dto = {
+						Receiver: curr_user,
+						ReqID: REQID,
+						TableType: tabletype,
+						WhoReceiver: whoreceiver
+					};
+
+					$.ajax({
+						type: "post",
+						url: '../Form/SendEmailInputProposal',
+						data: JSON.stringify(dto),
+						dataType: "json",
+						contentType: "application/json;charset=utf-8",
+						success: function (data) {
+
+							function LoadNotify() {
+								toastr.success("Email Sent Successfully !", "Notification", {
+									"closeButton": false,
+									"debug": true,
+									"newestOnTop": false,
+									"progressBar": false,
+									"positionClass": "toast-bottom-right",
+									"preventDuplicates": false,
+									"onclick": null,
+									"showDuration": "200",
+									"hideDuration": "1000",
+									"timeOut": "2000",
+									"extendedTimeOut": "1000",
+									"showEasing": "swing",
+									"hideEasing": "linear",
+									"showMethod": "fadeIn",
+									"hideMethod": "fadeOut"
+								});
+
+								LoadData();
+							}
+
+							$.when(LoadNotify()).done(window.location.href = "../DataDeviasi/PendingTask");
+						}, error: function (ex) {
+							ErrorSupPIC("AppEmailSupPIC", JSON.stringify(ex));
+						}
+					});
+				}
+
+				$.when(AppSupPIC()).done(NotifySupPIC());
+			});
+
+			$('#deviationdatatable tbody').on('click', 'input[id="Reject"]', function () {
+                var row = $(this).closest("TR");
+                var no_disposisi = $("TD", row).eq(8).html();
+				var req_id = @ViewBag.nomor;
+				var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+				var receiver = $("TD", row).eq(8).html();
+
+				function RejectSupPIC() {
+					var dto = {
+						REQID: req_id,
+						NO_DISPOSISI: no_disposisi,
+						IDUSER: curr_user
+					}
+
+					$.ajax({
+						url: "../SpvPelapor/Spv_RejectPIC",
+						type: "post",
+						dataType: "json",
+						data: JSON.stringify(dto),
+						contentType: "application/json;charset=utf-8",
+						success: function (data) {
+
+							toastr.success("Reject Revisi Berhasil!", "Tersimpan", {
+								"closeButton": false,
+								"debug": true,
+								"newestOnTop": false,
+								"progressBar": false,
+								"positionClass": "toast-top-right",
+								"preventDuplicates": false,
+								"onclick": null,
+								"showDuration": "100",
+								"hideDuration": "1000",
+								"timeOut": "2000",
+								"extendedTimeOut": "1000",
+								"showEasing": "swing",
+								"hideEasing": "linear",
+								"showMethod": "fadeIn",
+								"hideMethod": "fadeOut"
+							});
+
+							LoadData();
+							window.location.href = "../DataDeviasi/PendingTask"
+						}
+						, error: function (ex) {
+							ErrorSupPIC("RejectSUpPIC", JSON.stringify(ex));
+						}
+					});
+				}
+
+				function NotifySupPICRej() {
+					var tabletype = "More Than One";
+					var whoreceiver = "PIC Rejected Usulan Revisi";
+					var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+					var dtx = {
+						Username: curr_user,
+						ReqID: REQID,
+						TableType: tabletype,
+						WhoReceiver: whoreceiver
+					};
+
+					$.ajax({
+						type: "post",
+						url: '../Form/SendEmailInputProposal',
+						data: JSON.stringify(dtx),
+						dataType: "json",
+						contentType: "application/json;charset=utf-8",
+						success: function (data) {
+							toastr.success("Reject Revisi Berhasil!", "Tersimpan", {
+								"closeButton": false,
+								"debug": true,
+								"newestOnTop": false,
+								"progressBar": false,
+								"positionClass": "toast-top-right",
+								"preventDuplicates": false,
+								"onclick": null,
+								"showDuration": "100",
+								"hideDuration": "1000",
+								"timeOut": "2000",
+								"extendedTimeOut": "1000",
+								"showEasing": "swing",
+								"hideEasing": "linear",
+								"showMethod": "fadeIn",
+								"hideMethod": "fadeOut"
+							});
+						}, error: function (ex) {
+							ErrorSupPIC("RjtEmailSupPIC", JSON.stringify(ex));
+						}
+					});
+				}
+
+				$.when(RejectSupPIC()).done(NotifySupPICRej());
+            });
+
+
+
+        });
 
 		function LoadData() {
 			var nikUserLogin = '@Request.RequestContext.HttpContext.Session["nik"]';
@@ -67,7 +259,7 @@
 				dataType: "json",
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
-					
+
 					var trHTML = '';
 					var trav = 0;
 					var Count = data.length;
@@ -94,7 +286,7 @@
 						var nikSuperior = data[trav].PIC_REMEDIAL_SUPERIOR_NIK;
 						if (nikSuperior == nikUserLogin) {
 							trHTML +=
-								'<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" onclick=ApprovePIC(this) class="btn btn-success" style="width:120px;"/> <input type="button" id="RejectPIC" value="Reject" onclick=RejectPIC(this) class="btn btn-danger" style="width:100px;"/></td>'
+								'<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" class="btn btn-success ApprovePIC" style="width:120px;"/> <input type="button" id="Reject" value="Reject" class="btn btn-danger Reject" style="width:100px;"/></td>'
 						}
 						else {
                             trHTML += '<td align="center">N/A</td>';
@@ -112,201 +304,7 @@
 			});
 		}
 
-		function ApprovePIC(button) {
-
-			var row = $(button).closest("TR");
-
-			var no_disposisi = $("TD", row).eq(8).html();
-			var req_id = @ViewBag.nomor;
-			var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-			function AppSupPIC() {
-                var dto = {
-                    REQID: req_id,
-                    NO_DISPOSISI: no_disposisi,
-                    IDUSER: curr_user
-                }
-
-                $.ajax({
-                    url: "../SpvPelapor/Spv_ApprovePIC",
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(dto),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-
-                        toastr.success("Revisi Berhasil Diapprove!", "Tersimpan", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "100",
-                            "hideDuration": "1000",
-                            "timeOut": "2000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
-                    }
-                    , error: function (ex) {
-                        ErrorSupPIC("Spv_ApprovePIC", JSON.stringify(ex));
-                    }
-                });
-			}
-
-			function NotifySupPIC() {
-                var tabletype = "More Than One";
-                var whoreceiver = "QM PIC Usulan Revisi";
-
-                var dto = {
-                    Receiver: curr_user,
-                    ReqID: REQID,
-                    TableType: tabletype,
-                    WhoReceiver: whoreceiver
-                };
-
-                $.ajax({
-                    type: "post",
-                    url: '../Form/SendEmailInputProposal',
-                    data: JSON.stringify(dto),
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-
-                        function LoadNotify() {
-                            toastr.success("Email Sent Successfully !", "Notification", {
-                                "closeButton": false,
-                                "debug": true,
-                                "newestOnTop": false,
-                                "progressBar": false,
-                                "positionClass": "toast-bottom-right",
-                                "preventDuplicates": false,
-                                "onclick": null,
-                                "showDuration": "200",
-                                "hideDuration": "1000",
-                                "timeOut": "2000",
-                                "extendedTimeOut": "1000",
-                                "showEasing": "swing",
-                                "hideEasing": "linear",
-                                "showMethod": "fadeIn",
-                                "hideMethod": "fadeOut"
-                            });
-
-                            LoadData();
-                        }
-                        
-                        $.when(LoadNotify()).done(window.location.href = "../DataDeviasi/PendingTask");
-                    }, error: function (ex) {
-                        ErrorSupPIC("AppEmailSupPIC", JSON.stringify(ex));
-                    }
-                });
-			}
-
-            $.when(AppSupPIC()).done(NotifySupPIC());
-		}
-
-		function RejectPIC(button) {
-
-			var row = $(button).closest("TR");
-
-			var no_disposisi = $("TD", row).eq(8).html();
-			var req_id = @ViewBag.nomor;
-			var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-			var receiver = $("TD", row).eq(8).html();
-
-			function RejectSupPIC() {
-                var dto = {
-                    REQID: req_id,
-                    NO_DISPOSISI: no_disposisi,
-                    IDUSER: curr_user
-                }
-
-                $.ajax({
-                    url: "../SpvPelapor/Spv_RejectPIC",
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(dto),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-
-                        toastr.success("Reject Revisi Berhasil!", "Tersimpan", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "100",
-                            "hideDuration": "1000",
-                            "timeOut": "2000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
-
-                        LoadData();
-                        window.location.href = "../DataDeviasi/PendingTask"
-                    }
-                    , error: function (ex) {
-                        ErrorSupPIC("RejectSUpPIC", JSON.stringify(ex));
-                    }
-                });
-            }
-
-            function NotifySupPICRej() {
-                var tabletype = "More Than One";
-                var whoreceiver = "PIC Rejected Usulan Revisi";
-                var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-                var dtx = {
-                    Username: curr_user,
-                    ReqID: REQID,
-                    TableType: tabletype,
-                    WhoReceiver: whoreceiver
-                };
-
-                $.ajax({
-                    type: "post",
-                    url: '../Form/SendEmailInputProposal',
-                    data: JSON.stringify(dtx),
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-                        toastr.success("Reject Revisi Berhasil!", "Tersimpan", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "100",
-                            "hideDuration": "1000",
-                            "timeOut": "2000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
-                    }, error: function (ex) {
-                        ErrorSupPIC("RjtEmailSupPIC", JSON.stringify(ex));
-                    }
-                });
-            }
-			
-            $.when(RejectSupPIC()).done(NotifySupPICRej());
-		}
-
-		function ErrorSupPIC(ErrorType, ErrorMsg) {
+        function ErrorSupPIC(ErrorType, ErrorMsg) {
 		var REQID = @ViewBag.nomor;
 		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
 

@@ -127,6 +127,57 @@
 
 	$(document).ready(function () {
 		LoadDataReview();
+
+        $('#tbl_AttachmentReviewer tbody').on('click', 'input[id="DeleteFileAttachment"]', function() {
+            var Row = $(this).closest("TR");
+            var ReqID = $("TD", Row).eq(1).html();
+            var RecordID = $("TD", Row).eq(2).html();
+            var FileName = $("TD", Row).eq(3).html();
+            var PathFile = $("TD", Row).eq(4).html();
+
+            var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+            var dto = {
+                ReqID: ReqID,
+                RecordID: RecordID,
+                PathFile: PathFile,
+                USERNIK: usernik
+            }
+
+            $.ajax({
+                url: "../Reviewer/Rev_DeleteAttachment",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+                    if (data == 'S') {
+                        toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+                        GetFileAttachmentReviewer();
+                    }
+                },
+                error: function (ex) {
+                    GetErrorReview("DeleteFileAttachmentReview", JSON.stringify(ex));
+                }
+            });
+            });
 	});
 
 	function BeforeUnload() {
@@ -204,7 +255,7 @@
                 }
             });
 		}
-		
+
 
 		function EmailSubmitReview() {
             var tabletype = "More Than One";
@@ -335,7 +386,7 @@
 								'<td style="display:none">' + data[trav].NO_FILE + '</td>' +
 								'<td>' + data[trav].FILE_NAME_UPLOAD + '</td>' +
 								'<td style="display:none;">' + data[trav].PATH_FILE + '</td>' +
-								'<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
+								'<td><button id="DeleteFileAttachment"  class="btn btn-danger DeleteFileAttachment" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
 						}
 
 						$("#tbl_AttachmentReviewer").show();
@@ -363,56 +414,6 @@
 		});
 	}
 
-	function DeleteFileAttachment(button) {
-		var Row = $(button).closest("TR");
-		var ReqID = $("TD", Row).eq(1).html();
-		var RecordID = $("TD", Row).eq(2).html();
-		var FileName = $("TD", Row).eq(3).html();
-		var PathFile = $("TD", Row).eq(4).html();
-
-		var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-		var dto = {
-			ReqID: ReqID,
-			RecordID: RecordID,
-			PathFile: PathFile,
-			USERNIK: usernik
-		}
-
-		$.ajax({
-			url: "../Reviewer/Rev_DeleteAttachment",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-
-				if (data == 'S') {
-					toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
-						"closeButton": false,
-						"debug": false,
-						"newestOnTop": false,
-						"progressBar": false,
-						"positionClass": "toast-top-right",
-						"preventDuplicates": false,
-						"onclick": null,
-						"showDuration": "100",
-						"hideDuration": "1000",
-						"timeOut": "1000",
-						"extendedTimeOut": "1000",
-						"showEasing": "swing",
-						"hideEasing": "linear",
-						"showMethod": "fadeIn",
-						"hideMethod": "fadeOut"
-					});
-					GetFileAttachmentReviewer();
-				}
-			},
-			error: function (ex) {
-                GetErrorReview("DeleteFileAttachmentReview", JSON.stringify(ex));
-			}
-		});
-	}
 
 	function s() {
 		return false;

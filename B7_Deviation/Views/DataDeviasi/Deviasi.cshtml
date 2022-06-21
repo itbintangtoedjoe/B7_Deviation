@@ -791,6 +791,58 @@
 
     $(document).ready(function () {
 
+        $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
+            event.preventDefault();
+            $('#buktidatatable').DataTable().clear().destroy();
+
+            var row = $(this).closest("TR");
+            var ReqID = @ViewBag.nomor;
+            var picnik = $("TD", row).eq(16).html();
+            var seq = $("TD", row).eq(0).html();
+
+            var dto = {
+                REQID: ReqID,
+                IDUSER: picnik,
+                NO_DISPOSISI: seq
+            }
+
+            $.ajax({
+                url: "../QualityManager/QM_ShowBuktiTable",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+                    for (trav = 0; trav < Count; trav++) {
+                        var no = 1;
+                        no = no + trav;
+                        trHTML +=
+                            '<tr><td>' + no + '</td>' +
+                            '<td>' + data[trav].PIC_ID + '</td>' +
+                            '<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+
+                    }
+
+                    $('#buktitable').empty();
+                    $('#buktitable').append(trHTML);
+                    $('#buktidatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false
+                    });
+
+                    $("#tabel2").removeAttr("hidden");
+                }
+                , error: function (ex) {
+                    alert('Error Show Bukti Table : ' + JSON.stringify(ex));
+                }
+            });
+        });
     });
 
     function GetCurrStatus() {
@@ -1061,7 +1113,7 @@
         });
     }
 
-    
+
 
     function LoadListProduk() {
         var dev_kategori = $("#ddlKategori option:selected").val();
@@ -1114,7 +1166,7 @@
                         api.columns([1]).visible(showColumnQMT);
                     }
                 });
-               
+
 
                 //if (dev_kategori == 'QPR') {
                 //    $('#thQCNum').attr('hidden', false);
@@ -1554,7 +1606,7 @@
 
                             } else {
                                 trHTML +=
-                                    '<td align="center"><button onclick="ShowBukti(this)" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td ></tr > ';
+                                    '<td align="center"><button id="btnShowBukti" class="btn btn-info btnShowBukti"><span class="fa fa-info"><strong></strong></span></button ></td ></tr > ';
 
                             }
                         }
@@ -1623,58 +1675,6 @@
         );
     };*@
 
-    function ShowBukti(button) {
-        event.preventDefault();
-        $('#buktidatatable').DataTable().clear().destroy();
-
-        var row = $(button).closest("TR");
-        var ReqID = @ViewBag.nomor;
-        var picnik = $("TD", row).eq(16).html();
-        var seq = $("TD", row).eq(0).html();
-
-        var dto = {
-            REQID: ReqID,
-            IDUSER: picnik,
-            NO_DISPOSISI: seq
-        }
-
-        $.ajax({
-            url: "../QualityManager/QM_ShowBuktiTable",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                var trHTML = '';
-                var trav = 0;
-                var Count = data.length;
-
-                for (trav = 0; trav < Count; trav++) {
-                    var no = 1;
-                    no = no + trav;
-                    trHTML +=
-                        '<tr><td>' + no + '</td>' +
-                        '<td>' + data[trav].PIC_ID + '</td>' +
-                        '<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
-
-                }
-
-                $('#buktitable').empty();
-                $('#buktitable').append(trHTML);
-                $('#buktidatatable').DataTable({
-                    "searching": false,
-                    "paging": false,
-                    "info": false,
-                    "ordering": false
-                });
-
-                $("#tabel2").removeAttr("hidden");
-            }
-            , error: function (ex) {
-                alert('Error Show Bukti Table : ' + JSON.stringify(ex));
-            }
-        });
-    }
 
     function LoadKoorSub() {
 
