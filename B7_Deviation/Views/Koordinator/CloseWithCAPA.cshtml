@@ -415,11 +415,11 @@
                 function NotifyHedKor() {
                     var tabletype = "More Than One";
                     var whoreceiver = "Canceled";
-
+                    var nodis = $("TD", row).eq(0).html();
                     var dtx = {
-                        Receiver: iduser,
+                        Username: iduser,
                         ReqID: REQID,
-
+                        Urutan: nodis ,
                         TableType: tabletype,
                         WhoReceiver: whoreceiver
                     };

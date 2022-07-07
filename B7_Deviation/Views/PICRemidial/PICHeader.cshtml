@@ -387,7 +387,7 @@
                 var RecordID = $("TD", Row).eq(2).html();
                 var FileName = $("TD", Row).eq(3).html();
                 var PathFile = $("TD", Row).eq(4).html();
-                var urutan = @ViewBag.urutan;
+                var urutan = @ViewBag.urutan@ViewBag.urutan;
 
                 var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -718,7 +718,7 @@
 								'<td style="display:none">' + data[trav].NO_BUKTI + '</td>' +
 								'<td>' + data[trav].FILE_NAME_UPLOAD + '</td>' +
 								'<td style="display:none;">' + data[trav].PATH_FILE + '</td>' +
-								'<td><button id="DeleteFileAttachment"  class="btn btn-danger DeleteFileAttachment" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
+								'<td><input type="button" id="DeleteFileAttachment"  class="btn btn-danger DeleteFileAttachment" title="Delete" ><span class="fa fa-trash-o"/><strong></strong></span></td></tr>';
 						}
 
 						$("#tblBukti").attr('hidden', false);
@@ -882,8 +882,10 @@
 							var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 							var tabletype = "More Than One";
 							var whoreceiver = "Superior PIC after PIC Submit Cost";
+							var urutan = @ViewBag.urutan;
 
-							var dtx = {
+                            var dtx = {
+                                Urutan: urutan,
 								Username: receiver,
 								ReqID: REQID,
 								TableType: tabletype,
@@ -925,9 +927,12 @@
 							var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 							var tabletype = "More Than One";
 							var whoreceiver = "Koordinator after PIC Submit";
+							var urutan = @ViewBag.urutan;
 
 							var dtx = {
-								Receiver: receiver,
+								Urutan: urutan,
+								TotalCost: 0,
+								Username: receiver,
 								ReqID: REQID,
 								TableType: tabletype,
 								WhoReceiver: whoreceiver

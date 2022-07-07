@@ -242,7 +242,246 @@
 
         var dev_kategori = $("#ddlKategori").val();
 
+
+
+
     $(document).ready(function () {
+
+        $('#deviationdatatable tbody').on('click', 'input[id="btnVerifikasi"]', function () {
+            var row = this.closest("TR");
+            var ReqID = @ViewBag.nomor;
+            var no_disposisi = $("TD", row).eq(0).html();
+            var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+            var dto = {
+                REQ_ID: ReqID,
+                NO_DISPOSISI: no_disposisi,
+                CURR_USER: username
+            }
+
+            $.ajax({
+                url: "../Koordinator/VerifikasiPerPIC",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    LoadStatus();
+                }
+                , error: function (ex) {
+                    GetErrorVerifikasi("VerifikasiPerPIC", JSON.stringify(ex));
+                }
+            });
+
+            var tabletype = "More Than One";
+            var whoreceiver = "PIC after Koordinator Verifikasi OK";
+
+            //send email function
+            var dtx = {
+                Username: username,
+                ReqID: ReqID,
+                Urutan: no_disposisi,
+                TableType: tabletype,
+                WhoReceiver: whoreceiver
+            };
+
+            $.ajax({
+                type: "post",
+                url: '../Form/SendEmailInputProposal',
+                data: JSON.stringify(dtx),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    toastr.success("Email Sent Successfully !", "Notification", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-bottom-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "1000",
+                        "timeOut": "1000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+                }, error: function (ex) {
+                    GetErrorVerifikasi("VerifikasiNotifyApprove", JSON.stringify(ex));
+                }
+            });
+
+        });
+
+        $('#deviationdatatable tbody').on('click', 'input[id="btnRejectVerifikasi"]', function () {
+
+            var empid = '@Request.RequestContext.HttpContext.Session["nik"]';
+            var empUsername = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            var row = this.closest("TR");
+            var ReqID = @ViewBag.nomor;
+            var no_disposisi = $("TD", row).eq(0).html();
+
+            Swal.fire({
+                title: 'Mohon masukkan alasan reject!',
+                input: 'textarea',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Submit',
+                showLoaderOnConfirm: true,
+
+                allowOutsideClick: () => Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (result.value == null || result.value == '') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Alasan reject wajib diisi',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                    else {
+                        var keteranganReject = result.value;
+                        var dto = {
+                            REQ_ID: ReqID,
+                            NO_DISPOSISI: no_disposisi,
+                            KETERANGAN_REJECT: keteranganReject,
+                            USER_NIK: empid,
+                            CURR_USER: empUsername
+                        }
+
+                        $.ajax({
+                            url: "../Koordinator/RejectVerifikasiPerPIC",
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(dto),
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+
+                                Swal.fire({
+                                    title: 'Berhasil direject',
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    LoadStatus();
+                                });
+                            }
+                            , error: function (ex) {
+                                GetErrorVerifikasi("Koor:RejectVerifikasiPerPIC", JSON.stringify(ex));
+                            }
+                        });
+
+                        //send email function
+                        var tabletype = "More Than One";
+                        var whoreceiver = "PIC after Koordinator Verifikasi Rejected";
+
+                        var dtx = {
+                            Username: empUsername,
+                            ReqID: ReqID,
+                            Urutan: no_disposisi,
+                            TableType: tabletype,
+                            WhoReceiver: whoreceiver
+                        };
+
+                        $.ajax({
+                            type: "post",
+                            url: '../Form/SendEmailInputProposal',
+                            data: JSON.stringify(dtx),
+                            dataType: "json",
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+                                toastr.success("Email Sent Successfully !", "Notification", {
+                                    "closeButton": false,
+                                    "debug": true,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-bottom-right",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "100",
+                                    "hideDuration": "3000",
+                                    "timeOut": "3000",
+                                    "extendedTimeOut": "3000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                });
+                            }, error: function (ex) {
+                                GetErrorVerifikasi("VerifikasiNotifyApprove", JSON.stringify(ex));
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
+            var row = this.closest("TR");
+            var ReqID = @ViewBag.nomor;
+            var picnik = $("TD", row).eq(16).html();
+            var seq = $("TD", row).eq(0).html();
+
+            var dto = {
+                REQID: ReqID,
+                IDUSER: picnik,
+                NO_DISPOSISI: seq
+            }
+
+            $.ajax({
+                url: "../QualityManager/QM_ShowBuktiTable",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+                    if (Count == '0') {
+                        trHTML +=
+                            '<tr><td> - </td>' +
+                            '<td> - </td>' +
+                            '<td> - </td>';
+
+                    } else {
+                        for (trav = 0; trav < Count; trav++) {
+                            var no = 1;
+                            no = no + trav;
+                            trHTML +=
+                                '<tr><td>' + no + '</td>' +
+                                '<td>' + data[trav].PIC_ID + '</td>' +
+                                '<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+                        }
+                    }
+
+                    $('#buktidatatable').DataTable().clear().destroy();
+
+                    $('#buktitable').empty();
+                    $('#buktitable').append(trHTML);
+                    $('#buktidatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false
+                    });
+
+                    $("#tabel2").removeAttr("hidden");
+                }
+                , error: function (ex) {
+                    GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
+                }
+            });
+
+        });
 
         CheckFormStatus();
         GetUsulanTindakan();
@@ -329,161 +568,6 @@
                 }
             }
 
-
-        });
-
-        $('#deviationdatatable tbody').on('click', 'input[id="btnVerifikasi"]', function () {
-            e.preventDefault();
-            var row = this.closest("TR");
-            var ReqID = @ViewBag.nomor;
-            var no_disposisi = $("TD", row).eq(0).html();
-            var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-            var dto = {
-                REQ_ID: ReqID,
-                NO_DISPOSISI: no_disposisi,
-                CURR_USER:username
-            }
-
-            $.ajax({
-                url: "../Koordinator/VerifikasiPerPIC",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    LoadStatus();
-                }
-                , error: function (ex) {
-                    GetErrorVerifikasi("VerifikasiPerPIC", JSON.stringify(ex));
-                }
-            });
-        });
-
-        $('#deviationdatatable tbody').on('click', 'input[id="btnRejectVerifikasi"]', function () {
-                 e.preventDefault();
-            var empid = '@Request.RequestContext.HttpContext.Session["nik"]';
-            var empUsername = '@Request.RequestContext.HttpContext.Session["xUser"]';
-            var row = this.closest("TR");
-            var ReqID = @ViewBag.nomor;
-            var no_disposisi = $("TD", row).eq(0).html();
-
-            Swal.fire({
-                title: 'Mohon masukkan alasan reject!',
-                input: 'textarea',
-                inputAttributes: {
-                    autocapitalize: 'off'
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Submit',
-                showLoaderOnConfirm: true,
-
-                allowOutsideClick: () => Swal.isLoading()
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    if (result.value == null || result.value == '') {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Alasan reject wajib diisi',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
-                    }
-                    else {
-                        var keteranganReject = result.value;
-                        var dto = {
-                            REQ_ID: ReqID,
-                            NO_DISPOSISI: no_disposisi,
-                            KETERANGAN_REJECT: keteranganReject,
-                            USER_NIK: empid,
-                            CURR_USER: empUsername
-                        }
-
-                        $.ajax({
-                            url: "../Koordinator/RejectVerifikasiPerPIC",
-                            type: "post",
-                            dataType: "json",
-                            data: JSON.stringify(dto),
-                            contentType: "application/json;charset=utf-8",
-                            success: function (data) {
-
-                                Swal.fire({
-                                    title: 'Berhasil direject',
-                                    icon: 'success',
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                }).then(() => {
-                                    LoadStatus();
-                                });
-                            }
-                            , error: function (ex) {
-                                GetErrorVerifikasi("Koor:RejectVerifikasiPerPIC", JSON.stringify(ex));
-                            }
-                        });
-                    }
-                }
-            });
-        });
-
-        $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
-              e.preventDefault();
-            var row = this.closest("TR");
-            var ReqID = @ViewBag.nomor;
-            var picnik = $("TD", row).eq(16).html();
-            var seq = $("TD", row).eq(0).html();
-
-            var dto = {
-                REQID: ReqID,
-                IDUSER: picnik,
-                NO_DISPOSISI: seq
-            }
-
-            $.ajax({
-                url: "../QualityManager/QM_ShowBuktiTable",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    var trHTML = '';
-                    var trav = 0;
-                    var Count = data.length;
-
-                    if (Count == '0') {
-                        trHTML +=
-                            '<tr><td> - </td>' +
-                            '<td> - </td>' +
-                            '<td> - </td>';
-
-                    } else {
-                        for (trav = 0; trav < Count; trav++) {
-                            var no = 1;
-                            no = no + trav;
-                            trHTML +=
-                                '<tr><td>' + no + '</td>' +
-                                '<td>' + data[trav].PIC_ID + '</td>' +
-                                '<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].PATH_FILE + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
-                        }
-                    }
-
-                    $('#buktidatatable').DataTable().clear().destroy();
-
-                    $('#buktitable').empty();
-                    $('#buktitable').append(trHTML);
-                    $('#buktidatatable').DataTable({
-                        "searching": false,
-                        "paging": false,
-                        "info": false,
-                        "ordering": false
-                    });
-
-                    $("#tabel2").removeAttr("hidden");
-                }
-                , error: function (ex) {
-                    GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
-                }
-            });
 
         });
 
@@ -622,14 +706,15 @@
                             '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>'+
 							'<td align="left">' + data[trav].FLAG_PIC + '</td>';
 
-                        @data[trav].FLAG_PIC == 'REJECTED' ||@
+                        @*data[trav].FLAG_PIC == 'REJECTED' ||*@
 						if (data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
 							trHTML +=
 								'<td align="center"> - </td>';
 
-						} else {
-							trHTML +=
-                                '<td align="center"><button id="btnShowBukti" class="btn btn-info"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+                        } else {
+                            //<span class="fa fa-info"></i>
+                            trHTML +=
+                                '<td align="center"><input type="button" id="btnShowBukti" class="btn btn-info" style="font-weight: bold; font-size:15px" value="i"></td > ';
 						}
 						// || data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY DIV HEAD'
 						//if ((data[trav].FLAG_VERIFIKASI == '-' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC') ||
@@ -637,8 +722,8 @@
                         if (data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC' || data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY DIV HEAD') {
 							trHTML +=
 								'<td align="center">' +
-								'<button style="width:50px" id = "btnVerifikasi" class="btn btn-success">Verifikasi</button>&nbsp;&nbsp;' +
-								'<button style="width:50px" id = "btnRejectVerifikasi" class="btn btn-danger">Reject</button>' +
+								'<input type="button" style="width:50px" id = "btnVerifikasi" class="btn btn-success" value="Verifikasi&nbsp;&nbsp;"/>' +
+								'<input type="button" style="width:50px" id = "btnRejectVerifikasi" class="btn btn-danger" value="Reject"/>' +
 								'</td > ';
 							//15 Nov 21, tampilkan cap verified
                         } else if ((data[trav].FLAG_VERIFIKASI == 'VERIFIED' && data[trav].FLAG_PIC == 'REMEDIAL APPROVED BY COORDINATOR'))
@@ -667,9 +752,9 @@
                         $('#headVerify').focus();
 					}
 
-                    Verifikasi();
+                    @*Verifikasi();
                     RejectVerifikasi();
-					ShowBukti();
+					ShowBukti();*@
 				},
 				error: function (ex) {
                     GetErrorVerifikasi("LoadDataVerifikasi", JSON.stringify(ex));
@@ -939,11 +1024,11 @@
 
 
                 function NotifyHedKor() {
-                    var tabletype = "One";
+                    var tabletype = "More Than One";
                     var whoreceiver = "Canceled";
 
                     var dtx = {
-                        Receiver: iduser,
+                        Username: iduser,
                         ReqID: REQID,
 
                         TableType: tabletype,
@@ -1035,7 +1120,6 @@
 
 		function ApproveUpdate() {
             var dto = {
-
                 REQID: REQID,
                 IDUSER: iduser,
                 ITDP: itdp,
@@ -1068,13 +1152,11 @@
             });
 		}
 
-
 		function NotifyApproveVerify() {
             var tabletype = "More Than One";
             var whoreceiver = "QM after Koordinator Verifikasi OK";
-
             var dtx = {
-                Receiver: iduser,
+                Username: iduser,
                 ReqID: REQID,
                 TableType: tabletype,
                 WhoReceiver: whoreceiver
@@ -1108,14 +1190,15 @@
                     GetErrorVerifikasi("VerifikasiNotifyApprove", JSON.stringify(ex));
                 }
             });
-		}
+        }
+
         $.when(ApproveUpdate()).done(NotifyApproveVerify());
 	}
 
 	function Reject() {
 
 		Swal.fire({
-			title: 'Reason???',
+			title: 'Masukkan Alasan Reject!',
 			input: 'textarea',
 			inputAttributes: {
 				autocapitalize: 'off'

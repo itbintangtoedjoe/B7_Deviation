@@ -67,6 +67,10 @@
         function LoadData() {
             var reqid = @ViewBag.nomor;
             var userid = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            var jobTtl = '@Request.RequestContext.HttpContext.Session["jobttlname"]';
+            var isDivHead = jobTtl.includes("Division Head");
+
+            console.log(isDivHead);
             var dto = {
                 REQID: reqid,
                 IDUSER: userid
@@ -107,11 +111,13 @@
                                     '<td> Pending Approval </td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
                             }
-                           
+
                         // USULAN REVISI
                         } else if (data[trav].STATUSCODE == 'PICDD1') {
 
+
                             if (data[trav].FLAG_PIC == 'REVISI DUE DATE') {
+                            
                                 trHTML +=
                                     '<tr><td><input type="button" id="OpenRevisi" class="btn btn-success OpenRevisi" value="Select"/></td>' +
                                     '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
@@ -121,20 +127,32 @@
                                     '<td>' + data[trav].PROPOSER_NAME + '</td>' +
                                     '<td> Pending Approval </td>' +
                                     '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
-                            } else {
-                                @*if (data[trav].FLAG_PIC != 'REMEDIAL WAITING FOR DIV HEAD' && data[trav].FLAG_PIC != 'REMEDIAL ACCEPTED BY SPV PIC') {*@
-                                    if (data[trav].FLAG_PIC != 'REMEDIAL ACCEPTED BY SPV PIC') {
-                                    trHTML +=
-                                        '<tr><td><input type="button" id="OpenHasil" class="btn btn-success OpenHasil" value="Select"/></td>' +
-                                        '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
-                                        '<td>' + data[trav].REQ_ID + '</td>' +
-                                        '<td>' + data[trav].DEVIATION_NO + '</td>' +
-                                        '<td>' + data[trav].ID_PROPOSER + '</td>' +
-                                        '<td>' + data[trav].PROPOSER_NAME + '</td>' +
-                                        '<td> Pending Approval </td>' +
-                                        '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
-                                }
                             }
+
+                            else if ((data[trav].FLAG_PIC == 'REMEDIAL WAITING FOR DIV HEAD' && jobTtl.includes("Head") == true) || data[trav].FLAG_PIC == 'SUBMITTED') {
+                                trHTML +=
+                                    '<tr><td><input type="button" id="OpenHasil" class="btn btn-success OpenHasil" value="Select"/></td>' +
+                                    '<td hidden>' +
+                                    data[trav].NO_DISPOSISI +
+                                    '</td>' +
+                                    '<td>' +
+                                    data[trav].REQ_ID +
+                                    '</td>' +
+                                    '<td>' +
+                                    data[trav].DEVIATION_NO +
+                                    '</td>' +
+                                    '<td>' +
+                                    data[trav].ID_PROPOSER +
+                                    '</td>' +
+                                    '<td>' +
+                                    data[trav].PROPOSER_NAME +
+                                    '</td>' +
+                                    '<td> Pending Approval </td>' +
+                                    '<td>' +
+                                    data[trav].PIC_REMEDIAL_NAME +
+                                    '</td>';
+                            } 
+
                         }
                     }
 
@@ -149,7 +167,7 @@
             });
         }
 
-       
+
 
     </script>
 

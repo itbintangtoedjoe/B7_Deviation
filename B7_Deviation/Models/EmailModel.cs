@@ -28,5 +28,12 @@ namespace B7_Deviation.Models
         //KHUSUS DISPOSISI PIC KE GROUP
         public string Group { get; set; }
         public string Site { get; set; }
+
+        // KHUSUS OPTION "Koordinator after Superior PIC Approved Cost"
+        public string TotalCost { get; set; }
+
+        // UNTUK OPTION "REVIEWER AFTER APPOINTED "
+        public string PICNameAfter { get; set; }
+        public string PICNameBefore { get; set; }
     }
 }

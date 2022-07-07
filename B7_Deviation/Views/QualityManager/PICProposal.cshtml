@@ -84,12 +84,12 @@
                 }
 
                 function NotifyProposal() {
-                    var receiver = $("TD", row).eq(8).html();
                     var tabletype = "More Than One";
                     var whoreceiver = "PIC Approved Usulan Revisi by QM";
                     var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
                     var dto = {
+                        Urutan: no_disposisi,
                         Username: curr_user,
                         ReqID: req_id,
                         TableType: tabletype,
@@ -133,99 +133,119 @@
 
             $('#deviationdatatable tbody').on('click', 'input[id="Reject"]', function () {
                 Swal.fire({
-			    title: 'Reason???',
-			    input: 'text',
-			    inputAttributes: {
-				    autocapitalize: 'off'
-			    },
-			    showCancelButton: true,
-			    confirmButtonText: 'Submit',
-			    showLoaderOnConfirm: true,
+                    title: 'Mohon masukkan alasan reject!',
+			        input: 'text',
+			        inputAttributes: {
+				         autocapitalize: 'off'
+			         },
+			        showCancelButton: true,
+			        confirmButtonText: 'Submit',
+			        showLoaderOnConfirm: true,
 
-			    allowOutsideClick: () => Swal.isLoading()
+			        allowOutsideClick: () => Swal.isLoading()
 		        }).then((result) => {
                     if (result.value == null || result.value == '') {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Please Insert Reason!'
+                            text: 'Mohon masukkan alasan pembatalan Penyimpangan ini!'
                         });
                     } else if (result.isConfirmed) {
 
                         var row = $(this).closest("TR");
-
                         var no_disposisi = $("TD", row).eq(8).html();
                         var req_id = @ViewBag.nomor;
                         var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                        var receiver = $("TD", row).eq(8).html();
                         var alasanReject = result.value;
 
-                        var dto = {
-                            REQID: req_id,
-                            NO_DISPOSISI: no_disposisi,
-                            IDUSER: curr_user,
-                            ALASAN_REJECT:alasanReject
+                        function rejectPIC() {
+                            /*alert('masuk reject')*/
+                            var dto = {
+                                REQID: req_id,
+                                NO_DISPOSISI: no_disposisi,
+                                IDUSER: curr_user,
+                                ALASAN_REJECT:alasanReject
+                            }
+
+                            $.ajax({
+                                url: "../QualityManager/QM_RejectPIC",
+                                type: "post",
+                                dataType: "json",
+                                data: JSON.stringify(dto),
+                                contentType: "application/json;charset=utf-8",
+                                success: function (data) {
+
+                                    toastr.success("Reject Revisi Disposisi Berhasil!", "Tersimpan", {
+                                        "closeButton": false,
+                                        "debug": true,
+                                        "newestOnTop": false,
+                                        "progressBar": false,
+                                        "positionClass": "toast-top-right",
+                                        "preventDuplicates": false,
+                                        "onclick": null,
+                                        "showDuration": "100",
+                                        "hideDuration": "3000",
+                                        "timeOut": "3000",
+                                        "extendedTimeOut": "3000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    });
+
+                                    LoadData();
+                                }
+                                , error: function (ex) {
+                                    GetErrorQMAppProp("PICPropQM_RejectPIC", JSON.stringify(ex));
+                                }
+                            });
+                        }
+                       
+                        function NotifyEmail() {
+                            @*alert('masuk email')*@
+                            var tabletype = "More Than One";
+                            var whoreceiver = "PIC Rejected Usulan Revisi";
+
+                            var dto = {
+                                Urutan: no_disposisi,
+                                Username: curr_user,
+                                ReqID: req_id,
+                                TableType: tabletype,
+                                WhoReceiver: whoreceiver
+                            };
+
+                            $.ajax({
+                                type: "post",
+                                url: '../Form/SendEmailInputProposal',
+                                data: JSON.stringify(dto),
+                                dataType: "json",
+                                contentType: "application/json;charset=utf-8",
+                                success: function (data) {
+                                    console.log(data)
+                                    toastr.success("Email Sent Successfully!", "Notification", {
+                                        "closeButton": false,
+                                        "debug": true,
+                                        "newestOnTop": false,
+                                        "progressBar": false,
+                                        "positionClass": "toast-bottom-right",
+                                        "preventDuplicates": false,
+                                        "onclick": null,
+                                        "showDuration": "100",
+                                        "hideDuration": "3000",
+                                        "timeOut": "3000",
+                                        "extendedTimeOut": "3000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    });
+                                }, error: function (ex) {
+                                    GetErrorQMAppProp("PICPropNotifyRej", JSON.stringify(ex));
+                                }
+                            });
                         }
 
-                        $.ajax({
-                            url: "../QualityManager/QM_RejectPIC",
-                            type: "post",
-                            dataType: "json",
-                            data: JSON.stringify(dto),
-                            contentType: "application/json;charset=utf-8",
-                            success: function (data) {
-                                Swal.fire({
-                                    title: 'Revisi Disposisi Rejected',
-                                    showDenyButton: false,
-                                    showCancelButton: false,
-                                    confirmButtonText: `OK`
-                                });
-
-                                LoadData();
-                            }
-                            , error: function (ex) {
-                                GetErrorQMAppProp("PICPropQM_RejectPIC", JSON.stringify(ex));
-                            }
-                        });
-
-                        var tabletype = "More Than One";
-                        var whoreceiver = "PIC Rejected Usulan Revisi";
-
-                        var dto = {
-                            Username: curr_user,
-                            ReqID: REQID,
-                            TableType: tabletype,
-                            WhoReceiver: whoreceiver
-                        };
-
-                        $.ajax({
-                            type: "post",
-                            url: '../Form/SendEmailInputProposal',
-                            data: JSON.stringify(dto),
-                            dataType: "json",
-                            contentType: "application/json;charset=utf-8",
-                            success: function (data) {
-                                toastr.success("Email Sent Successfully !", "Notification", {
-                                    "closeButton": false,
-                                    "debug": true,
-                                    "newestOnTop": false,
-                                    "progressBar": false,
-                                    "positionClass": "toast-bottom-right",
-                                    "preventDuplicates": false,
-                                    "onclick": null,
-                                    "showDuration": "100",
-                                    "hideDuration": "1000",
-                                    "timeOut": "1000",
-                                    "extendedTimeOut": "1000",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
-                                });
-                            }, error: function (ex) {
-                                GetErrorQMAppProp("PICPropNotifyRej", JSON.stringify(ex));
-                            }
-                        });
+                         $.when(rejectPIC()).then(NotifyEmail());
                     }
 		        });
             });

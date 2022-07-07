@@ -601,6 +601,9 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@NoDisposisi", SqlDbType.VarChar);
                     command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
 
+                    command.Parameters.Add("@AlasanReject", SqlDbType.VarChar);
+                    command.Parameters["@AlasanReject"].Value = Model.ALASAN_REJECT;
+
                     command.Parameters.Add("@Option", SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "SPV Reject PIC Proposal";
 

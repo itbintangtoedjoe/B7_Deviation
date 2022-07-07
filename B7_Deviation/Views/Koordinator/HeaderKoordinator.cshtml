@@ -267,7 +267,7 @@
 	}
 
 		function ApproveHeaderKoordinator() {
-            alert('approve');
+           @* alert('approve');*@
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -292,13 +292,12 @@
 				}).then(() => {
 
 					function SendEmailToReviewer() {
-                        alert('email')
+                        @*alert('email')*@
 						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 						var tabletype = "More Than One";
 						var whoreceiver = "Reviewer after Appointed";
-
-						var dtx = {
-							Username: receiver,
+                        var dtx = {
+                            Username: receiver,
 							ReqID: REQID,
 							TableType: tabletype,
 							WhoReceiver: whoreceiver
@@ -594,7 +593,7 @@
 							'<td style="display:none">' + data[trav].RecordID + '</td>' +
 							'<td>' + data[trav].USER_NAME + '</td>' +
 							'<td>' + data[trav].USER_NIK + '</td>' +
-							'<td><button id="DeleteUserInvolved" class="btn btn-danger DeleteUserInvolved"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
+							'<td><input type="button" id="DeleteUserInvolved" class="btn btn-danger DeleteUserInvolved"/><span class="fa fa-trash-o"><strong></strong></span></td ></tr > ';
 					}
 
 					$("#tblBodyWho_Rev").empty();
@@ -754,7 +753,7 @@
                     var whoreceiver = "Canceled";
 
                     var dtx = {
-                        Receiver: iduser,
+                        Username: iduser,
                         ReqID: REQID,
 
                         TableType: tabletype,

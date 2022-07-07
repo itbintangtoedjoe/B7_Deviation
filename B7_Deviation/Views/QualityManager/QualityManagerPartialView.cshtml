@@ -263,7 +263,7 @@
 								'<td>' + nom + '</td>' +
 								'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 								'<td><textarea class="form-control">' + data[trav].KETERANGAN_DISPOSISI+'</textarea></td>' +
-								'<td><button id="Cancel" class="btn btn-danger Cancel"><span class="fa fa-ban"><strong></strong></span></button> <button id="Update" class="btn btn-success Update"><span class="fa fa-floppy-o"><strong></strong></span></button ></td ></tr > ';
+								'<td><input type="button" id="Cancel" class="btn btn-danger Cancel"/><span class="fa fa-ban"><strong></strong></span> <input type="button" id="Update" class="btn btn-success Update"/><span class="fa fa-floppy-o"><strong></strong></span></td ></tr > ';
 
 
 						} else {
@@ -271,7 +271,7 @@
 								'<td>' + nom + '</td>' +
 								'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 								'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-								'<td><button id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi"><span class="fa fa-trash-o"><strong></strong></span></button> <button id="EditDisposisi" class="btn btn-success EditDisposisi"><span class="fa fa-pencil"><strong></strong></span></button ></td ></tr > ';
+								'<td><input type="button" id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi"/><span class="fa fa-trash-o"><strong></strong></span> <input type="button" id="EditDisposisi" class="btn btn-success EditDisposisi"/><span class="fa fa-pencil"><strong></strong></span></td ></tr > ';
 
 						}
 
@@ -512,8 +512,8 @@
 					if (data[trav].FLAG_REVIEW == "REVIEW APPROVED BY COORDINATOR" || data[trav].FLAG_REVIEW == "DONE REVISE FROM QUALITY MANAGER") {
 						text +=
 							'<div class="row form-group center">' +
-							'<div class="form-group">' + '<button type="button" id="Approve' + trav + '"class="btn mb-1 btn-success  form-group" style="width:100px;">Approve</button>' + '</div>' +
-							'<div class="form-group">' + '<button type="button" id="Reject' + trav + '"class="btn mb-1 btn-danger  form-group" style="width:100px;">Reject</button>' + '</div>' +
+							'<div class="form-group">' + '<input type="button" id="Approve' + trav + '"class="btn mb-1 btn-success  form-group" style="width:100px;" value="Approve">' + '</div>' +
+							'<div class="form-group">' + '<input type="button" id="Reject' + trav + '"class="btn mb-1 btn-danger  form-group" style="width:100px;" value="Reject">' + '</div>' +
 							'</div>';
 					}
 
@@ -886,7 +886,7 @@
 							'<td>' + no + '</td>' +
 							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-							'<td><button id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi"><span class="fa fa-trash-o"><strong></strong></span></button> <button id="EditDisposisi" class="btn btn-success EditDisposisi"><span class="fa fa-pencil"><strong></strong></span></button ></td ></tr > ';
+							'<td><input type="button" id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi"/><span class="fa fa-trash-o"><strong></strong></span></> <input type="button" id="EditDisposisi" class="btn btn-success EditDisposisi"/><span class="fa fa-pencil"><strong></strong></span></td ></tr > ';
 					}
 
 					$("#tblDisKet").empty();

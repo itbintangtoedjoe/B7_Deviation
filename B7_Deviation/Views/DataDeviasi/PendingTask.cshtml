@@ -106,12 +106,14 @@
                                     '<tr><td><a class="btn btn-success" href="../PelaporPenyimpangan/ProposerEdit?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             }
 
-                        } else if (data[trav].SEND_TO == 'Supervisor') {
-                            
+                        }
+
+                        else if (data[trav].SEND_TO == 'Supervisor') {
                             trHTML +=
                                 '<tr><td><a class="btn btn-success" href="../SpvPelapor/ApprovalHeader?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
+                        }
 
-                        } else if (data[trav].SEND_TO == 'Koordinator') {
+                        else if (data[trav].SEND_TO == 'Koordinator') {
                             if (data[trav].STAT == "DTRQM1") {
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../Koordinator/AssignPIC?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
@@ -138,7 +140,9 @@
                                     '<tr><td><a class="btn btn-success" href="../Koordinator/HeaderKoordinator?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             }
 
-                        } else if (data[trav].SEND_TO == 'Reviewer') {
+                        }
+
+                        else if (data[trav].SEND_TO == 'Reviewer') {
                             if (data[trav].CURRUSER == 'Coordinator_QA' || data[trav].CURRUSER == 'Coordinator_QS') {
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../Koordinator/ReviewerDataTable?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
@@ -147,7 +151,9 @@
                                     '<tr><td><a class="btn btn-success" href="../Reviewer/PendingApproval?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             }
 
-                        } else if (data[trav].SEND_TO == 'QManager') {
+                        }
+
+                        else if (data[trav].SEND_TO == 'QManager') {
                             if (data[trav].STAT == 'ADKOR1' || data[trav].STAT == 'OKKOR1' || data[trav].STAT == 'RTDQM1') {
                                 trHTML +=
                                         '<tr><td><a class="btn btn-success" href="../QualityManager/QMHeader?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
@@ -160,7 +166,9 @@
                                     '<tr><td><a class="btn btn-success" href="../QualityManager/DisposisiProdukMaterialSistem?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             }
 
-                        } else if (data[trav].SEND_TO == 'PICRemidial') {
+                        }
+
+                        else if (data[trav].SEND_TO == 'PICRemidial') {
                             // Kurang disini
                             if (data[trav].CURRUSER == 'Supervisor') {
                                 if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
@@ -224,7 +232,9 @@
                                     }
                             }
 
-                        } else if (data[trav].SEND_TO == 'Supervisor PIC') {
+                        }
+
+                        else if (data[trav].SEND_TO == 'Supervisor PIC') {
                             if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' ""> Select </td>';
@@ -244,8 +254,6 @@
                         }
 
                         // End Set button
-
-
 
                         trHTML +=
                             '<td>' + data[trav].REQ_ID + '</td>' +

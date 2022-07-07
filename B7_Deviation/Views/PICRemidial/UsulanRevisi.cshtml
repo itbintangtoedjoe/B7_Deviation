@@ -139,7 +139,7 @@
 			return;
         }
 		Swal.fire({
-			title: 'Mohon masukan alasan perubahan?',
+			title: 'Mohon masukkan alasan perubahan?',
 			input: 'textarea',
 			inputAttributes: {
 				autocapitalize: 'off'
@@ -155,7 +155,7 @@
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: 'Mohon masukan alasan pembatalan Penyimpangan ini!'
+					text: 'Mohon masukkan alasan pembatalan Penyimpangan ini!'
 				});
 			} else if (result.isConfirmed) {
 				var REQID = @ViewBag.nomor;
@@ -200,8 +200,9 @@
 				function NotifyUsulan() {
                     var tabletype = "More Than One";
                     var whoreceiver = "SPV PIC Usulan Revisi";
-
-                    var dto = {
+                    var urutan =  @ViewBag.urutan;
+					var dto = {
+						Urutan: urutan,
                         Username: iduser,
                         ReqID: REQID,
                         TableType: tabletype,

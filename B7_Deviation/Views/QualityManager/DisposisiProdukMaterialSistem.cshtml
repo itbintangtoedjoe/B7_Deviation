@@ -415,8 +415,9 @@
 		}
 		else
 		{
-			tingkatkeparahan = $('input[name="chkbx"]:checked').val();
-		}
+            tingkatkeparahan = $('input[name="chkbx"]:checked').val();
+        }
+        
 
         if (keterangan == '' || disposisi =='* SELECT *') {
             Swal.fire({
@@ -428,7 +429,7 @@
             })
             return;
 		}
-
+        /*alert(tingkatkeparahan);*/
 		function Next() {
             var dto = {
 
@@ -464,15 +465,14 @@
                 }
             });
 		}
-		
 
-		function EmailDisposisi() {
+        function EmailDisposisi() {
             var subject = 'B7 - Deviation';
             var tabletype = "More Than One";
             var whoreceiver = "Pelapor after Lanjut CAPA";
 
             var dtx = {
-                Receiver: iduser,
+                Username: iduser,
                 ReqID: REQID,
                 Body: body,
                 Subject: subject,
@@ -582,7 +582,7 @@
             var whoreceiver = "Pelapor after Tidak Lanjut CAPA";
 
             var dtx = {
-                Receiver: iduser,
+                Username: iduser,
                 ReqID: REQID,
                 Body: body,
                 Subject: subject,

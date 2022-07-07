@@ -1074,7 +1074,7 @@
 
 						} else {
 							trHTML +=
-								'<td align="center"><button id="btnShowBukti" class="btn btn-info btnShowBukti"><span class="fa fa-info"><strong></strong></span></button ></td > ';
+								'<td align="center"><input type="button" id="btnShowBukti" class="btn btn-info" style="font-weight: bold; font-size:15px" value="i"></td > ';
 						}
 
 					}
@@ -1093,7 +1093,8 @@
                         $('#headVerify').focus();
 					}
 
-                    $('#flagPIC').val(data[0].FLAG_PIC);
+					$('#flagPIC').val(data[0].FLAG_PIC);
+                    console.log(data[0].FLAG_PIC);
                     $('#picNIK').val(data[0].PIC_REMEDIAL_NIK);
                     $('#groupSite').val(data[0].GROUP_SITE);
 				},
@@ -1511,11 +1512,15 @@
 		});
 	}*@
 
+    var totalCost = 0;
+
 	function Approve() {
 		var REQID = @ViewBag.nomor;
 		var DIS = @ViewBag.dis;
-        var IDUser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-		var totalCost = $("#totalCost").val();
+		var IDUser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+        var jobTitle = '@Request.RequestContext.HttpContext.Session["jobttlname"]';
+
+		totalCost = $("#totalCost").val();
 		if (totalCost == null || totalCost == '' || totalCost == '-') {
 			totalCost = 0;
 		}
@@ -1530,18 +1535,26 @@
 		var status = 'DONE';
 
         if (totalCost >= 15000000) {
-            status = 'NOT DONE';
-			//kalau yg login sup pic
+            //kalau yg login sup pic
 			if (flagPICBefore == 'SUBMITTED') {
-				flagPICAfter = 'REMEDIAL WAITING FOR DIV HEAD';
-			}
+                if (jobTitle.includes("Head") === true) {
+                    flagPICAfter = 'REMEDIAL ACCEPTED BY DIV HEAD';
+				} else {
+                    flagPICAfter = 'REMEDIAL WAITING FOR DIV HEAD';
+                    status = 'NOT DONE';
+                }
+            }
 			//kalau yg login div head
             else if (flagPICBefore == 'REMEDIAL WAITING FOR DIV HEAD') {
 				flagPICAfter = 'REMEDIAL ACCEPTED BY DIV HEAD';
-            }
+			}
+           
 		}
-		//console.log(flagPICBefore);
-		//console.log(flagPICAfter);
+
+
+		@*console.log(flagPICBefore);
+		console.log(flagPICAfter);*@
+       @* alert(status);*@
 
 		//approve oleh sup pic maupun div head
 		function ApproveSupPIC() {
@@ -1578,9 +1591,14 @@
         function EmailApproveSupPIC() {
             var tabletype = "More Than One";
             var whoreceiver = "Koordinator after Superior PIC Approved Cost";
-
-            var dto = {
-                Receiver: IDUser,
+			var costTOTAL = $("#totalCost").val();
+            var DIS = @ViewBag.dis;
+			@*alert(totalCost)*@
+            @*alert(costTOTAL)*@
+			var dto = {
+                Urutan: DIS,
+                TotalCost: costTOTAL,
+                Username: IDUser,
                 ReqID: REQID,
                 TableType: tabletype,
                 WhoReceiver: whoreceiver
@@ -1619,8 +1637,10 @@
         function EmailApproveDivHead() {
             var tabletype = "More Than One";
             var whoreceiver = "Div Head after Sup PIC Approve Cost";
+			var urutan = @ViewBag.dis
 
             var dto = {
+                Urutan: urutan,
                 Username: IDUser,
                 ReqID: REQID,
                 TableType: tabletype,
@@ -1658,13 +1678,14 @@
         }
 
 		//kalau <15jt sup udah approve atau >=15jt div head udah approve
-        if (status =='DONE') {
+        if (status =='DONE' ) {
             $.when(ApproveSupPIC()).done(EmailApproveSupPIC());
 		}
 		//kalau approval lanjut ke div head
         else {
             $.when(ApproveSupPIC()).done(EmailApproveDivHead());
-        }
+		}
+
 	}
 
 	function Reject() {
@@ -1693,8 +1714,11 @@
                 else {
                     var flagPICBefore = $("#flagPIC").val();
                     //otomatis yg login sup pic
-					var posisi = 'SUP PIC';
-                    var flagPICAfter = 'REMEDIAL REJECTED BY SPV PIC';
+					/*var posisi = 'SUP PIC';*/
+
+                    var jobTitle = '@Request.RequestContext.HttpContext.Session["jobttlname"]';
+					var flagPICAfter = 'REMEDIAL REJECTED BY SPV PIC';
+
                     var totalCost = $("#totalCost").val();
                     if (totalCost == null || totalCost == '' || totalCost == '-') {
                         totalCost = 0;
@@ -1706,9 +1730,27 @@
 
 					//kalau yg login div head
                     if (totalCost >= 15000000 && flagPICBefore == 'REMEDIAL WAITING FOR DIV HEAD') {
-						posisi = 'DIV HEAD';
+						/*posisi = 'DIV HEAD';*/
                         flagPICAfter = 'REMEDIAL REJECTED BY DIV HEAD';
 					}
+
+                    if (totalCost >= 15000000) {
+                        //kalau yg login sup pic 
+                        if (flagPICBefore == 'SUBMITTED') {
+                            if (jobTitle.includes("Head") === true) {
+                                flagPICAfter = 'REMEDIAL REJECTED BY DIV HEAD';
+                            } else {
+                                flagPICAfter = 'REMEDIAL REJECTED BY SPV PIC';
+                            }
+                        }
+                        //kalau yg login div head
+                        else if (flagPICBefore == 'REMEDIAL WAITING FOR DIV HEAD') {
+                            flagPICAfter = 'REMEDIAL REJECTED BY DIV HEAD';
+                        }
+           
+                    }
+
+
 					var REQID = @ViewBag.nomor;
 					var DIS = @ViewBag.dis;
 
@@ -1716,10 +1758,16 @@
 					var picIsGroup = false;
 					var group = $("#picNIK").val();
 					console.log(group);
-					if (group.substring(1, 2) == 'G_') {
-						picIsGroup = true;
+
+                    //if (group.substring(1, 2) == "G_") {
+					//	picIsGroup = true;
+					//}
+                    if (group.includes("G_") === true) {
+                        picIsGroup = true;
                     }
-                    var groupSite = $('#groupSite').val();
+					var groupSite = $('#groupSite').val();
+
+                    /*alert(picIsGroup);*/
 
 					function RejectRemidialSup() {
 						var Keterangan = result.value;
@@ -1759,12 +1807,15 @@
 
 					function EmailRejectSupPIC() {
                         var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                        var tabletype = "More Than One";
+						var tabletype = "More Than One";
+                        var whoreceiver = "";
+
 						if (picIsGroup === true) {
-							tabletype = "More than One";
+                            whoreceiver = "PIC Group after Superior Rejected Cost";
+                        } else {
+                            whoreceiver = "PIC after Superior Rejected Cost";
                         }
 
-						var whoreceiver = "PIC after Superior Rejected Cost";
 
 						var dto = {
 							Receiver: receiver,
@@ -1808,13 +1859,16 @@
 
 					function EmailRejectDivHead() {
 						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                        var tabletype = "More Than One";
-                        if (picIsGroup === true) {
-                            tabletype = "More than One";
-                        }
-						var whoreceiver = "PIC after Division Head Rejected Cost";
+						var tabletype = "More Than One";
+						var whoreceiver = "";
 
-						var dto = {
+                        if (picIsGroup === true) {
+                            whoreceiver = "PIC Group after Division Head Rejected Cost";
+                        } else {
+                            whoreceiver = "PIC after Division Head Rejected Cost";
+                        }
+
+                        var dto = {
 							Receiver: receiver,
 							ReqID: REQID,
 							TableType: tabletype,
@@ -1853,7 +1907,8 @@
 							}
 						});
 					}
-                    if (posisi == 'SUP PIC') {
+
+                    if (jobTitle.includes("Head") === false) {
                         $.when(RejectRemidialSup()).done(EmailRejectSupPIC());
 					}
                     else {

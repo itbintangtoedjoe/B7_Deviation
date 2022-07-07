@@ -137,7 +137,7 @@
     </style>
 
 
-<script>
+    <script>
 
 
     $(document).ready(function () {
@@ -149,7 +149,7 @@
 
         GetNoPenyimpangan();
         LoadData();
-        
+
 
         $('#ddlNoPenyimpangan').select2();
         $('#ddlNama').select2();
@@ -161,7 +161,7 @@
             setTimeout(function () {
                 LoadData();
                 GetNamaEmployee();
-            }, 300);
+            }, 400);
 
         });
 
@@ -225,38 +225,92 @@
                 IdProposer: iduser
             }
 
-            $.ajax({
-                url: "../CMS/CMS_UpdateReviewer",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    toastr.success("Update Reviewer Berhasil!", "Tersimpan", {
-                        "closeButton": false,
-                        "debug": true,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "100",
-                        "hideDuration": "2000",
-                        "timeOut": "2000",
-                        "extendedTimeOut": "2000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    });
-                    LoadData();
-                },
-                error: function (ex) {
-                    alert(ex);
-                }
-            });
+            function updateReviewer() {
+                $.ajax({
+                    url: "../CMS/CMS_UpdateReviewer",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        toastr.success("Update Reviewer Berhasil!", "Tersimpan", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "2000",
+                            "timeOut": "2000",
+                            "extendedTimeOut": "2000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+                        LoadData();
+                    },
+                    error: function (ex) {
+                        alert(ex);
+                    }
+                });
+            }
 
-        });                           
+            //Kirim Email
+
+            function SendMailReviewer() {
+				@*var receiver = $("TD", row).eq(2).find("select").val();*@
+				var tabletype = "More Than One";
+                var whoreceiver = "Reviewer after Added by Koor";
+                var NamaEmployeeAdded = $('#ddlNama2 option:selected').text();
+				var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+
+                var dtx = {
+                    Username: curr_user,
+                    PICNameBefore: NamaEmployeeRemoved,
+                    PICNameAfter: NamaEmployeeAdded,
+					ReqID: REQID,
+					TableType: tabletype,
+					WhoReceiver: whoreceiver
+				};
+
+				$.ajax({
+					type: "post",
+					url: '../Form/SendEmailInputProposal',
+					data: JSON.stringify(dtx),
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					success: function (data) {
+
+						toastr.success("Email Sent Successfully !", "Notification", {
+							"closeButton": false,
+							"debug": true,
+							"newestOnTop": false,
+							"progressBar": false,
+							"positionClass": "toast-bottom-right",
+							"preventDuplicates": false,
+							"onclick": null,
+							"showDuration": "200",
+							"hideDuration": "3000",
+							"timeOut": "3000",
+							"extendedTimeOut": "3000",
+							"showEasing": "swing",
+							"hideEasing": "linear",
+							"showMethod": "fadeIn",
+							"hideMethod": "fadeOut"
+						});
+					}, error: function (ex) {
+						GetError("Error Email Assign", JSON.stringify(ex));
+					}
+				});
+			}
+
+            $.when(updateReviewer()).done(SendMailReviewer());
+
+        });
 
 
         $("#ddlNama2").change(function () {
@@ -290,7 +344,7 @@
                 var trHTML = '';
                 var trav = 0;
                 var Count = data.length;
-                   
+
                 for (trav = 0; trav < Count; trav++) {
 
                     trHTML +=
@@ -326,7 +380,7 @@
                             '<td> <input type="button" id = "btnUpdateValidation" value="Update" class="btn btn-success update" style="width:50px"/> </td></tr>';
                     }
 
-                        
+
 
                     $('#deviationdatatable').DataTable().clear().destroy();
                     $('#deviationtable').empty();
@@ -452,36 +506,88 @@
             IdProposer: iduser
         }
 
-        $.ajax({
-            url: "../CMS/CMS_AddReviewer",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                toastr.success("Data berhasil tersimpan!", "Tersimpan", {
-                    "closeButton": false,
-                    "debug": true,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "100",
-                    "hideDuration": "2000",
-                    "timeOut": "2000",
-                    "extendedTimeOut": "2000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                });
-                LoadData();
-            },
-            error: function (ex) {
-                alert('ohno');
-            }
-        });
+        function addReviewer() {
+            $.ajax({
+                url: "../CMS/CMS_AddReviewer",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    toastr.success("Data berhasil tersimpan!", "Tersimpan", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "100",
+                        "hideDuration": "2000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "2000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+                    LoadData();
+                },
+                error: function (ex) {
+                    alert('ohno');
+                }
+            });
+        }
+
+        function SendMailReviewer() {
+            @*var receiver = $("TD", row).eq(2).find("select").val();*@
+            var tabletype = "More Than One";
+            var whoreceiver = "Reviewer after Added by Koor";
+            var NamaEmployeeAdded = $('#ddlNama option:selected').text();
+            var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            var pic = '';
+
+            var dtx = {
+                Username: curr_user,
+                PICNameBefore: pic,
+                PICNameAfter: NamaEmployeeAdded,
+                ReqID: REQID,
+                TableType: tabletype,
+                WhoReceiver: whoreceiver
+            };
+
+            $.ajax({
+                type: "post",
+                url: '../Form/SendEmailInputProposal',
+                data: JSON.stringify(dtx),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+
+                    toastr.success("Email Sent Successfully !", "Notification", {
+                        "closeButton": false,
+                        "debug": true,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-bottom-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "200",
+                        "hideDuration": "3000",
+                        "timeOut": "3000",
+                        "extendedTimeOut": "3000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+                }, error: function (ex) {
+                    GetError("Error Email Assign", JSON.stringify(ex));
+                }
+            });
+        }
+
+        $.when(addReviewer()).done(SendMailReviewer());
     }
 
     function UpdateReviewer() {
@@ -529,7 +635,7 @@
     }
 
 
-</script>
+    </script>
 
 </body>
 

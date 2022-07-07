@@ -15,7 +15,7 @@
                             <h2 class="d-inline">Update PIC</h2>
                         </div>
 
-                        <input id="TxtReqID" disabled hidden />
+                        <input id="TxtReqID" disabled hidden/>
                         <input id="TxtEmpID" disabled hidden/>
                         <div class="row form-group">
                             <div class="col-lg-2 col-form-label">
@@ -114,6 +114,7 @@
 
 
     <script>
+        var pic_nik;
 
         $(document).ready(function() {
 
@@ -134,7 +135,7 @@
                         prevEMPID = $('#TxtEmpID').val();
 
                         var empId = $('#TxtEmpID').val();
-
+                        pic_nik = $('#TxtEmpID').val();
                         if (empId.includes("G_") == true) {
                             $('#divDdlSite').attr('hidden', false);
                         } else {
@@ -175,13 +176,15 @@
                 });
 
 
-            $("#btnUpdate").click(function() {
+            $("#btnUpdate").click(function () {
+
                 var NamaPIC = $('#ddlNama option:selected').text();
                 var NamaSite = $('#ddlSite').val();
                 var REQID = $('#TxtReqID').val();
                 var empID = $('#TxtEmpID').val();
                 var pic_is_group = false;
-
+                var groupsite = $('#ddlSite').val();
+                $('#updatePIC').modal('hide');
                 var dto = {
                     REQID: REQID,
                     NamaPIC: NamaPIC,
@@ -190,9 +193,7 @@
                     EmpID: empID
                 }
 
-                var empId = $('#TxtEmpID').val();
-
-                if (empId.includes("G_") == true) {
+                if (empID.includes("G_") == true) {
                     pic_is_group = true;
                 }
 
@@ -202,55 +203,37 @@
                     Group: empID,
                     GroupSite: NamaSite
                 }
+
                 $.ajax({
                     url: "../Form/CheckEmailAvailability",
                     type: "post",
                     dataType: "json",
                     data: JSON.stringify(dtx),
                     contentType: "application/json;charset=utf-8",
-                    success: function(data) {
-                        @*console.log(data);*@
-                        if (pic_is_group == true) {
-                            var trav = 0;
-                            var count = data.length;
-                            var listUsername = '';
-
-                            @* alert(count);*@
-                            for (trav = 1; trav < count; trav++) {
-                                listUsername += ', ' + data[trav].Username;
-                            }
-
-                            if (listUsername != '') {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Ada user dalam group yang tidak memiliki email',
-                                    text: 'Mohon lengkapi data email user: ' + listUsername
-                                });
-                            } else {
-                                var no_disposisi = $("TD", row).eq(5).find("input[type='text']").val();
-                                var req_id = $('#TxtReqID');
-                                var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-                                @*console.log('aman');*@
-                                function AssigningPIC() {
-                                    var dto = {
-                                        REQ_ID: req_id,
-                                        PIC_REMEDIAL_NIK: pic_nik,
-                                        GROUP_SITE: site_pic,
-                                        DUE_DATE: due_date,
-                                        NO_DISPOSISI: no_disposisi,
-                                        CURR_USER: curr_user
-                                    }
-
-                                    $.ajax({
-                                        url: "../Koordinator/Coor_AssignPIC",
-                                        type: "post",
-                                        dataType: "json",
-                                        data: JSON.stringify(dto),
-                                        contentType: "application/json;charset=utf-8",
-                                        success: function(data) {
-                                            function NotifyAssignT() {
-                                                toastr.success("Assign PIC Berhasil!",
+                    success: function (data) {
+                        if (data[0].STATUS == 'ADA') {
+                            /*alert('masuk if ADA');*/
+                            if (data[0].JumlahUser === 0 && pic_is_group === true) {
+                                /*alert('masuk if jumlah user = 0');*/
+							    swal({
+								    title: "Gagal",
+								    text: "Tidak ada user terdaftar dalam group terpilih. Mohon cek group dan site yang dipilih.",
+								    type: "error",
+								    timer:3000,
+								    showConfirmButton: false
+							    });
+						    }
+						    else {
+                                /*alert('masuk if jumlah user NOT 0')*/
+                                function updatePIC() {
+                                        $.ajax({
+                                            url: "../CMS/CMS_UpdatePIC",
+                                            type: "post",
+                                            dataType: "json",
+                                            data: JSON.stringify(dto),
+                                            contentType: "application/json;charset=utf-8",
+                                            success: function (data) {
+                                                toastr.success("Update PIC Berhasil!",
                                                     "Tersimpan",
                                                     {
                                                         "closeButton": false,
@@ -261,295 +244,169 @@
                                                         "preventDuplicates": false,
                                                         "onclick": null,
                                                         "showDuration": "100",
-                                                        "hideDuration": "1000",
-                                                        "timeOut": "2000",
-                                                        "extendedTimeOut": "1000",
+                                                        "hideDuration": "3000",
+                                                        "timeOut": "3000",
+                                                        "extendedTimeOut": "3000",
                                                         "showEasing": "swing",
                                                         "hideEasing": "linear",
                                                         "showMethod": "fadeIn",
                                                         "hideMethod": "fadeOut"
                                                     });
+                                                LoadData();
+                                            },
+                                            error: function (ex) {
+                                                alert(ex);
                                             }
-
-                                            function ConditionLoad() {
-                                                if (data == 'COMPLETE') {
-                                                    var url = "../DataDeviasi/PendingTask";
-                                                    $(location).attr('href', url);
-                                                } else {
-                                                    LoadData();
-                                                }
-                                            }
-
-                                            $.when(NotifyAssignT()).done(ConditionLoad());
-                                        },
-                                        error: function(ex) {
-                                            GetError('Coor_AssignPIC', JSON.stringify(ex));
-                                        }
-                                    });
-                                }
-
-                                function SendMailAssignSinglePIC() {
-                                    @*var receiver = $("TD", row).eq(2).find("select").val();*@
-                                    var tabletype = "More Than One";
-                                    var whoreceiver = "PIC after Appointed";
-                                    var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                                  
-
-                                    var dtx = {
-                                       
-                                        Username: curr_user,
-                                        ReqID: REQID,
-                                        TableType: tabletype,
-                                        WhoReceiver: whoreceiver
+                                        });
                                     };
 
-                                    $.ajax({
-                                        type: "post",
-                                        url: '../Form/SendEmailInputProposal',
-                                        data: JSON.stringify(dtx),
-                                        dataType: "json",
-                                        contentType: "application/json;charset=utf-8",
-                                        success: function(data) {
-
-                                            toastr.success("Email Sent Successfully !",
-                                                "Notification",
-                                                {
-                                                    "closeButton": false,
-                                                    "debug": true,
-                                                    "newestOnTop": false,
-                                                    "progressBar": false,
-                                                    "positionClass": "toast-bottom-right",
-                                                    "preventDuplicates": false,
-                                                    "onclick": null,
-                                                    "showDuration": "200",
-                                                    "hideDuration": "1000",
-                                                    "timeOut": "1000",
-                                                    "extendedTimeOut": "1000",
-                                                    "showEasing": "swing",
-                                                    "hideEasing": "linear",
-                                                    "showMethod": "fadeIn",
-                                                    "hideMethod": "fadeOut"
-                                                });
-                                        },
-                                        error: function(ex) {
-                                            GetError("Error Email Assign", JSON.stringify(ex));
-                                        }
-                                    });
-                                }
-
-                                function SendMailAssignPICGroup() {
-                                    var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                                    var receiver = $("TD", row).eq(2).find("select").val();
-                                    var tabletype = "More Than One";
-                                    var whoreceiver = "Group PIC after Appointed";
+							    function SendMailAssignSinglePIC() {
+								    @*var receiver = $("TD", row).eq(2).find("select").val();*@
+								    var tabletype = "More Than One";
+								    var whoreceiver = "PIC after Appointed";
+								    var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
                                     var dtx = {
                                         Username: curr_user,
-                                        Group: pic_nik,
-                                        Site: site_pic,
-                                        ReqID: REQID,
-                                        TableType: tabletype,
-                                        WhoReceiver: whoreceiver
-                                    };
+									    Receiver: pic_nik,
+									    ReqID: REQID,
+									    TableType: tabletype,
+									    WhoReceiver: whoreceiver
+								    };
 
-                                    $.ajax({
-                                        type: "post",
-                                        url: '../Form/SendEmailInputProposal',
-                                        data: JSON.stringify(dtx),
-                                        dataType: "json",
-                                        contentType: "application/json;charset=utf-8",
-                                        success: function(data) {
+								    $.ajax({
+									    type: "post",
+									    url: '../Form/SendEmailInputProposal',
+									    data: JSON.stringify(dtx),
+									    dataType: "json",
+									    contentType: "application/json;charset=utf-8",
+									    success: function (data) {
 
-                                            toastr.success("Email Sent Successfully !",
-                                                "Notification",
-                                                {
-                                                    "closeButton": false,
-                                                    "debug": true,
-                                                    "newestOnTop": false,
-                                                    "progressBar": false,
-                                                    "positionClass": "toast-bottom-right",
-                                                    "preventDuplicates": false,
-                                                    "onclick": null,
-                                                    "showDuration": "200",
-                                                    "hideDuration": "1000",
-                                                    "timeOut": "1000",
-                                                    "extendedTimeOut": "1000",
-                                                    "showEasing": "swing",
-                                                    "hideEasing": "linear",
-                                                    "showMethod": "fadeIn",
-                                                    "hideMethod": "fadeOut"
-                                                });
-                                        },
-                                        error: function(ex) {
-                                            GetError("Error Email Assign", JSON.stringify(ex));
-                                        }
-                                    });
-                                }
+										    toastr.success("Email Sent Successfully !", "Notification", {
+											    "closeButton": false,
+											    "debug": true,
+											    "newestOnTop": false,
+											    "progressBar": false,
+											    "positionClass": "toast-bottom-right",
+											    "preventDuplicates": false,
+											    "onclick": null,
+											    "showDuration": "200",
+											    "hideDuration": "3000",
+											    "timeOut": "3000",
+											    "extendedTimeOut": "3000",
+											    "showEasing": "swing",
+											    "hideEasing": "linear",
+											    "showMethod": "fadeIn",
+											    "hideMethod": "fadeOut"
+										    });
+									    }, error: function (ex) {
+										    GetError("Error Email Assign", JSON.stringify(ex));
+									    }
+								    });
+							    }
 
-                                //kalau ke group, send email ke group
-                                if (pic_is_group === true) {
-                                    @*$.when(AssignPIC()).then(SendMailAssign());*@
-                                        $.when(AssigningPIC()).done(SendMailAssignPICGroup());
-                                    }
-                                    //kalau ke 1 orang, send email ke single pic
-                                    else {
-                                        $.when(AssigningPIC()).done(SendMailAssignSinglePIC());
-                                    }
+							    function SendMailAssignPICGroup() {
+                                    var tabletype = "More Than One";
+								    var whoreceiver = "Group PIC after Appointed";
+								    var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
+								    var dtx = {
+									    Username: curr_user,
+									    Group: pic_nik,
+									    Site: groupsite,
+									    ReqID: REQID,
+									    TableType: tabletype,
+									    WhoReceiver: whoreceiver
+								    };
 
-                                    toastr.success("Email Sent Successfully!",
-                                    "Notification",
-                                    {
-                                        "closeButton": false,
-                                        "debug": true,
-                                        "newestOnTop": false,
-                                        "progressBar": false,
-                                        "positionClass": "toast-bottom-right",
-                                        "preventDuplicates": false,
-                                        "onclick": null,
-                                        "showDuration": "200",
-                                        "hideDuration": "5000",
-                                        "timeOut": "5000",
-                                        "extendedTimeOut": "5s000",
-                                        "showEasing": "swing",
-                                        "hideEasing": "linear",
-                                        "showMethod": "fadeIn",
-                                        "hideMethod": "fadeOut"
-                                    });
+								    $.ajax({
+									    type: "post",
+									    url: '../Form/SendEmailInputProposal',
+									    data: JSON.stringify(dtx),
+									    dataType: "json",
+									    contentType: "application/json;charset=utf-8",
+									    success: function (data) {
 
-                                $('#updatePIC').modal('hide');
+										    toastr.success("Email Sent Successfully !", "Notification", {
+											    "closeButton": false,
+											    "debug": true,
+											    "newestOnTop": false,
+											    "progressBar": false,
+											    "positionClass": "toast-bottom-right",
+											    "preventDuplicates": false,
+											    "onclick": null,
+											    "showDuration": "200",
+											    "hideDuration": "3000",
+											    "timeOut": "3000",
+											    "extendedTimeOut": "3000",
+											    "showEasing": "swing",
+											    "hideEasing": "linear",
+											    "showMethod": "fadeIn",
+											    "hideMethod": "fadeOut"
+										    });
+									    }, error: function (ex) {
+										    GetError("Error Email Assign", JSON.stringify(ex));
+									    }
+								    });
+							    }
+							    //kalau ke group, send email ke group
+							    if (pic_is_group===true) {
+								    @*$.when(AssignPIC()).then(SendMailAssign());*@
+								    $.when(updatePIC()).done(SendMailAssignPICGroup());
+							    }
+							    //kalau ke 1 orang, send email ke single pic
+							    else {
+								    $.when(updatePIC()).done(SendMailAssignSinglePIC());
+							    }
+						    }
+					    }
+                        else {
+                            @*alert('masuk else NOT ADA')*@
+						    if (pic_is_group == 1) {
+							    var trav = 0;
+							    var count = data.length;
+							    var listUsername = '';
+							    if (count > 0) {
+								    listUsername = data[0].Username;
+								    for (trav = 1; trav < count; trav++) {
+									    listUsername += ', ' + data[trav].Username;
+								    }
+							    }
 
-                                //Update PIC
-                                $.ajax({
-                                    url: "../CMS/CMS_UpdatePIC",
-                                    type: "post",
-                                    dataType: "json",
-                                    data: JSON.stringify(dto),
-                                    contentType: "application/json;charset=utf-8",
-                                    success: function(data) {
-                                        toastr.success("Update PIC Berhasil!",
-                                            "Tersimpan",
-                                            {
-                                                "closeButton": false,
-                                                "debug": true,
-                                                "newestOnTop": false,
-                                                "progressBar": false,
-                                                "positionClass": "toast-top-right",
-                                                "preventDuplicates": false,
-                                                "onclick": null,
-                                                "showDuration": "100",
-                                                "hideDuration": "2000",
-                                                "timeOut": "2000",
-                                                "extendedTimeOut": "2000",
-                                                "showEasing": "swing",
-                                                "hideEasing": "linear",
-                                                "showMethod": "fadeIn",
-                                                "hideMethod": "fadeOut"
-                                            });
-                                        LoadData();
-                                    },
-                                    error: function(ex) {
-                                        alert(ex);
-                                    }
-                                });
+							    Swal.fire({
+								    icon: 'error',
+								    title: 'Ada user dalam group yang tidak memiliki email',
+								    text: 'Mohon lengkapi data email user: ' + listUsername
+							    });
+						    }
+						    else {
+							    Swal.fire({
+								    icon: 'error',
+								    title: 'PIC yang dipilih belum memiliki email terdaftar',
+								    text: 'Mohon lengkapi data email user'
+							    });
+						    }
+					    }
+				    }
+				, error: function (ex) {
+					GetError('Check Email Availability', JSON.stringify(ex.responseText));
+				}
+                });
 
-                                }
-                            }
-                        }
-                    });
-
-                    if(data[0].STATUS == 'ADA') {
-                            if (pic_is_group == false) {
-                                //BLOM DITAMBAHIN FUNGSI SEND EMAIL BENERANNYA. CMN NOTIF DOANG INI.
-                                toastr.success("Email Sent Successfully!",
-                                    "Notification",
-                                    {
-                                        "closeButton": false,
-                                        "debug": true,
-                                        "newestOnTop": false,
-                                        "progressBar": false,
-                                        "positionClass": "toast-bottom-right",
-                                        "preventDuplicates": false,
-                                        "onclick": null,
-                                        "showDuration": "200",
-                                        "hideDuration": "5000",
-                                        "timeOut": "5000",
-                                        "extendedTimeOut": "5000",
-                                        "showEasing": "swing",
-                                        "hideEasing": "linear",
-                                        "showMethod": "fadeIn",
-                                        "hideMethod": "fadeOut"
-                                    });
-
-                                $('#updatePIC').modal('hide');
-
-                                //Update PIC
-                                $.ajax({
-                                    url: "../CMS/CMS_UpdatePIC",
-                                    type: "post",
-                                    dataType: "json",
-                                    data: JSON.stringify(dto),
-                                    contentType: "application/json;charset=utf-8",
-                                    success: function (data) {
-                                        toastr.success("Update PIC Berhasil!",
-                                            "Tersimpan",
-                                            {
-                                                "closeButton": false,
-                                                "debug": true,
-                                                "newestOnTop": false,
-                                                "progressBar": false,
-                                                "positionClass": "toast-top-right",
-                                                "preventDuplicates": false,
-                                                "onclick": null,
-                                                "showDuration": "100",
-                                                "hideDuration": "2000",
-                                                "timeOut": "2000",
-                                                "extendedTimeOut": "2000",
-                                                "showEasing": "swing",
-                                                "hideEasing": "linear",
-                                                "showMethod": "fadeIn",
-                                                "hideMethod": "fadeOut"
-                                            });
-                                        LoadData();
-                                    },
-                                    error: function (ex) {
-                                        alert(ex);
-                                    }
-                                });
-                            }
-                            else {
-                                if (pic_is_group == false) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'PIC yang dipilih belum memiliki email terdaftar',
-                                        text: 'Mohon lengkapi data email user'
-                                    });
-                                }
-                            }
-                        }
             });
 
 
-        $("#ddlNama").change(function () {
-            GetEmpID();
-            if ($('#ddlNama').val() != '') {
-                document.getElementById("btnUpdate").disabled = false;
-            } else {
-                document.getElementById("btnUpdate").disabled = true;
+            $("#ddlNama").change(function () {
+                GetEmpID();
+                if ($('#ddlNama').val() != '') {
+                    document.getElementById("btnUpdate").disabled = false;
+                } else {
+                    document.getElementById("btnUpdate").disabled = true;
 
-            }
+                }
+            });
 
         });
-
-
-      @*  $("#ddlSite").change(function () {
-
-
-
-
-        });*@
-
-    });
 
 
     // Check Status to Determine which Row Has Action

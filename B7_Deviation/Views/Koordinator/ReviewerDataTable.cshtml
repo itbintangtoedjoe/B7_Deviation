@@ -525,7 +525,7 @@
                     var whoreceiver = "Canceled";
 
                     var dtx = {
-                        Receiver: iduser,
+                        Username: iduser,
                         ReqID: REQID,
 
                         TableType: tabletype,
@@ -670,7 +670,7 @@
                 });
 			}
 
-            $.when(EmailEvalutor(), ApproveOKKOR()).done(window.location.href = "../DataDeviasi/PendingTask");
+            $.when(ApproveOKKOR(), EmailEvalutor()).done(window.location.href = "../DataDeviasi/PendingTask");
 		}
 
         function ShowBukti(button) {
@@ -787,7 +787,7 @@
 							;
 						}
 
-						trHTML += '<td align="center"><button id="btnShowBukti" class="btn btn-info btnShowBukti">View</button ></td ></tr > ';
+                        trHTML += '<td align="center"><input type="button" id="btnShowBukti" class="btn btn-info" style="font-weight: bold; font-size:15px" value="View"></td > ';
                         $('#deviationdatatable').DataTable().clear().destroy();
 						$('#deviationtable').empty();
 						$('#deviationtable').append(trHTML);
@@ -933,7 +933,7 @@
 								'<td>' + no + '</td>' +
 								'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 								'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-								'<td><button id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
+								'<td><input type="button" id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi"/><span class="fa fa-trash-o"><strong></strong></span></td ></tr > ';
 						}
 
 						$("#tblDisKet").empty();

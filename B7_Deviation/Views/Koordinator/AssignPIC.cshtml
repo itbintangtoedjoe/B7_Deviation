@@ -97,7 +97,6 @@
                                     </tbody>
                                 </table>
                             </div>
-							
 
 							<br />
 							<table class="table table-bordered table-hover verticle-middle table-responsive" id="reviewerbuktidatatable" hidden="hidden" style="white-space: nowrap">
@@ -141,68 +140,13 @@
 		});
 
         //On click function btnShowBukti
-        $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
-            event.preventDefault();
-
-            $("#reviewerbuktidatatable").removeAttr("hidden");
-
-
-            var row = $(this).closest("TR");
-            var ReqID = @ViewBag.nomor;
-            var reviewer = $("TD", row).eq(1).html();
-
-            var dto = {
-                REQID: ReqID,
-                USER_NIK: reviewer
-            }
-            $('#reviewerbuktidatatable').DataTable().clear().destroy();
-
-            $.ajax({
-                url: "../Koordinator/Coor_ShowReviewerBukti",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    var trHTML = '';
-                    var trav = 0;
-                    var Count = data.length;
-
-                    if (Count == '0') {
-                        trHTML +=
-                            '<tr><td> - </td>' +
-                            '<td> N/A </td>' +
-                            '<td> N/A </td>';
-                    } else {
-                        for (trav = 0; trav < Count; trav++) {
-                            var no = 1;
-                            no = no + trav;
-                            trHTML +=
-                                '<tr><td>' + no + '</td>' +
-                                '<td>' + data[trav].REVIEWER_NIK + '</td>' +
-                                '<td><a href="..' + data[trav].PATH_FILE_DOWNLOAD + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
-
-                        }
-                    }
-
-                    $('#reviewerbukti').empty();
-                    $('#reviewerbukti').append(trHTML);
-                    $('#reviewerbuktidatatable').DataTable({
-                        "searching": false,
-                        "paging": false,
-                        "info": false,
-                        "ordering": false
-                    });
-
-                }
-                , error: function (ex) {
-                    GetError('Coor_ShowReviewerBukti', JSON.stringify(ex));
-                }
-            });
-        })
-
+		$('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
+            ShowBukti(this);
+        });
+		
         //On click function button assignPIC
 		$('#datatablepic tbody').on('click', 'input[id="AssignPIC"]', function () {
+
 				//code here
 			var row = $(this).closest("TR");
 			var id = parseInt($("TD", row).eq(0).html()) - 1;
@@ -255,6 +199,19 @@
 				data: JSON.stringify(dtx),
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
+                    console.log('' + data)
+                    var datacoba;
+
+                    //function ConditionLoad() {
+                    //    if (datacoba == 'COMPLETE') {
+                    //        var url = "../DataDeviasi/PendingTask";
+                    //        $(location).attr('href', url);
+                    //    }
+                    //    else {
+                    //        LoadData();
+                    //    }
+                    //}
+
 					@*console.log(data);*@
 					if (data[0].STATUS == 'ADA') {
 						if (data[0].JumlahUser == 0) {
@@ -270,7 +227,8 @@
 							var no_disposisi = $("TD", row).eq(5).find("input[type='text']").val();
 							var req_id = @ViewBag.nomor;
 							var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-							@*console.log('aman');*@
+                            @*console.log('aman');*@
+
 							function AssigningPIC() {
 								var dto = {
 									REQ_ID: req_id,
@@ -288,6 +246,7 @@
 									data: JSON.stringify(dto),
 									contentType: "application/json;charset=utf-8",
 									success: function (data) {
+                                        datacoba = data;
 										function NotifyAssignT() {
 											toastr.success("Assign PIC Berhasil!", "Tersimpan", {
 												"closeButton": false,
@@ -308,17 +267,11 @@
 											});
 										}
 
-										function ConditionLoad() {
-											if (data == 'COMPLETE') {
-												var url = "../DataDeviasi/PendingTask";
-												$(location).attr('href', url);
-											}
-											else {
-												LoadData();
-											}
-										}
+										
+                                     
+                                        
 
-										$.when(NotifyAssignT()).done(ConditionLoad());
+                                       @* $.when(NotifyAssignT()).done(ConditionLoad());*@
 									}
 									, error: function (ex) {
 										GetError('Coor_AssignPIC',  JSON.stringify(ex));
@@ -327,15 +280,13 @@
 							}
 
 							function SendMailAssignSinglePIC() {
-								@*var receiver = $("TD", row).eq(2).find("select").val();*@
+                                @*var receiver = $("TD", row).eq(2).find("select").val();*@
 								var tabletype = "More Than One";
 								var whoreceiver = "PIC after Appointed";
 								var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-								var DIS = @ViewBag.dis;
 
-								var dtx = {
-									Urutan: DIS,
-									Username: curr_user,
+                                var dtx = {
+                                    Username: curr_user,
 									Receiver: pic_nik,
 									ReqID: REQID,
 									TableType: tabletype,
@@ -419,13 +370,22 @@
 								});
 							}
 							//kalau ke group, send email ke group
-							if (pic_is_group===true) {
+							if (pic_is_group === true) {
+
+                                var async1 = $.when(AssigningPIC()).then(SendMailAssignPICGroup());
+
+                                $.when(async1).then(function() {
+                                    CheckStatus();
+                                });  
+
+								@*alert('masuk if grup')*@
 								@*$.when(AssignPIC()).then(SendMailAssign());*@
-								$.when(AssigningPIC()).done(SendMailAssignPICGroup());
-							}
+                               @* $.when(AssigningPIC()).done($.when((SendMailAssignPICGroup()).done(ConditionLoad())));*@
+                            }
 							//kalau ke 1 orang, send email ke single pic
 							else {
 								$.when(AssigningPIC()).done(SendMailAssignSinglePIC());
+                                $.when(SendMailAssignSinglePIC()).done(CheckStatus());
 							}
 						}
 					}
@@ -471,6 +431,65 @@
         { id: "PLM", name: 'Pulomas' },
 		{ id: "CKR", name: 'Cikarang' }];
 
+	function ShowBukti(button) {
+         event.preventDefault();
+
+        $("#reviewerbuktidatatable").removeAttr("hidden");
+
+
+        var row = $(button).closest("TR");
+        var ReqID = @ViewBag.nomor;
+        var reviewer = $("TD", row).eq(1).html();
+
+        var dto = {
+            REQID: ReqID,
+            USER_NIK: reviewer
+        }
+        $('#reviewerbuktidatatable').DataTable().clear().destroy();
+
+        $.ajax({
+            url: "../Koordinator/Coor_ShowReviewerBukti",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var trHTML = '';
+                var trav = 0;
+                var Count = data.length;
+
+                if (Count == '0') {
+                    trHTML +=
+                        '<tr><td> - </td>' +
+                        '<td> N/A </td>' +
+                        '<td> N/A </td>';
+                } else {
+                    for (trav = 0; trav < Count; trav++) {
+                        var no = 1;
+                        no = no + trav;
+                        trHTML +=
+                            '<tr><td>' + no + '</td>' +
+                            '<td>' + data[trav].REVIEWER_NIK + '</td>' +
+                            '<td><a href="..' + data[trav].PATH_FILE_DOWNLOAD + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+
+                    }
+                }
+
+                $('#reviewerbukti').empty();
+                $('#reviewerbukti').append(trHTML);
+                $('#reviewerbuktidatatable').DataTable({
+                    "searching": false,
+                    "paging": false,
+                    "info": false,
+                    "ordering": false
+                });
+
+            }
+            , error: function (ex) {
+                GetError('Coor_ShowReviewerBukti', JSON.stringify(ex));
+            }
+        });
+    }
 	function Cancel() {
 		Swal.fire({
             icon: 'question',
@@ -531,11 +550,15 @@
 
 						function NotifyCancelDevKor() {
                             var tabletype = "More Than One";
-                            var whoreceiver = "Canceled";
+							var whoreceiver = "Canceled";
+                            var no_disposisi = '';
+							var REQID = @ViewBag.nomor;
+							var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-                            var dtx = {
-                                Receiver: iduser,
-                                ReqID: iduser,
+							var dtx = {
+								Urutan: no_disposisi,
+                                Username: iduser,
+                                ReqID: REQID,
                                 TableType: tabletype,
                                 WhoReceiver: whoreceiver
                             };
@@ -556,14 +579,15 @@
 
                         $.when(CancelDeviationKoor()).done(NotifyCancelDevKor());
 
-					}
+
+                    }
 			}
 
 		});
 	}
 
 	function CheckStatus() {
-		var REQID = @ViewBag.nomor;
+        var REQID = @ViewBag.nomor;
 
 		var dto = {
 			REQID: REQID
@@ -609,6 +633,11 @@
 
 					// WHEN REVIEWER FINISHED REVIEW / REVISE
 
+
+
+
+
+
 						trHTML +=
 							'<tr><td>' + data[trav].USER_NAME + '</td>' +
 							'<td>' + data[trav].USER_NIK + '</td>' +
@@ -617,7 +646,8 @@
 							'<td>' + data[trav].KETERANGAN_REVIEW + '</td>' ;
 
 
-                    trHTML += '<td align="center"><button id="btnShowBukti" class="btn btn-info btnShowBukti">View</button ></td ></tr > ';
+                    trHTML += '<td align="center"><input type="button" id="btnShowBukti" class="btn btn-info" value="View"></td > ';
+
                     $('#deviationdatatable').DataTable().destroy().clear();
 					$('#deviationtable').empty();
 					$('#deviationtable').append(trHTML);

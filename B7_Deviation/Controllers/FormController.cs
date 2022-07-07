@@ -152,426 +152,9 @@ namespace B7_Deviation.Controllers
             }
 
             DT.Reset();
-            if (Model.TableType == "One")
-            {
-                //SettingAttribute Email and Name
-                try
-                {
-                    using (SqlCommand Command = new SqlCommand("SP_FetchEmail", Conn))
-                    {
-                        Command.CommandType = CommandType.StoredProcedure;
+            //Udah gaada yg bakal masuk if One ini lagi
 
-                        #region SendToOne
-
-                        if (Model.WhoReceiver == "Superior after Form Input") //DONE (SUPERIOR + koor)
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Form Input";
-
-                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
-                            Command.Parameters["@Username"].Value = Model.Username;
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            t_status = "Need Your Approval";
-                        }
-
-                        else if (Model.WhoReceiver == "Proposer after Superior Reject") //DONE (PROPOSER)
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            t_status = "Is Rejected by Superior";
-                        }
-
-                        else if (Model.WhoReceiver == "Reviewer after Koordinator Approved") //DONE (REVIEWER + pelapor + koor)
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Reviewer One";
-
-                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@UserID"].Value = Model.UserID;
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@Username"].Value = Model.Username;
-
-
-                            t_status = "Is Approved by Koordinator";
-                        }
-
-                        else if (Model.WhoReceiver == "Reviewer after Koordinator Reject") //DONE (REVIEWER + pelapor + koor)
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Reviewer One";
-
-                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@UserID"].Value = Model.UserID;
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
-                            Command.Parameters["@Username"].Value = Model.Username;
-
-
-                            t_status = "Is Rejected by Koordinator";
-                        }
-
-                        else if (Model.WhoReceiver == "PIC after Appointed") // DONE (PIC + pelapor + koor + reviewer + evaluator)
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "PIC After Appointed";
-
-                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
-                            Command.Parameters["@Username"].Value = Model.Username;
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
-                            Command.Parameters["@Urutan"].Value = Model.Urutan;
-
-                            t_status = "Need Your Review as PIC";
-                        }
-
-                        else if (Model.WhoReceiver == "Superior PIC after PIC Submit Cost") // DONE (SUPERIOR + Pelapor + koor+ reviewer + evaluator)
-                        {
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Superior PIC after PIC Submit Cost";
-
-                            /*Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@UserID"].Value = Model.Receiver;*/
-
-                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
-                            Command.Parameters["@Username"].Value = Model.Username;
-
-                            t_status = "Need Your Approval for the Cost";
-                        }
-
-                        else if (Model.WhoReceiver == "Div Head after Sup PIC Approve Cost") // DONE (DIV HEAD + pelapor + koor + reviewer + evaluator + superior)
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Div Head after Sup PIC Approve Cost";
-
-                            /*Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@UserID"].Value = Model.Receiver;*/
-
-                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
-                            Command.Parameters["@Username"].Value = Model.Username;
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-
-                            t_status = "Need Your Approval as Division Head for the Cost";
-                        }
-
-                        else if (Model.WhoReceiver == "PIC after Superior Rejected Cost") //DONE (PIC + supeiror + Pelapor + koor+ reviewer + evaluator)
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "PIC after Superior Rejected Cost";
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
-                            Command.Parameters["@Urutan"].Value = Model.Urutan;
-
-                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
-                            Command.Parameters["@Username"].Value = Model.Username;
-
-                            t_status = "Cost Tindakan Remidial Rejected by Your Superior";
-                        } 
-
-                        else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost") //DONE (PIC + supeiror + Pelapor + koor+ reviewer + evaluator)
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "PIC after Superior Rejected Cost";
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
-                            Command.Parameters["@Urutan"].Value = Model.Urutan;
-
-                            t_status = "Cost Tindakan Remidial Rejected by Your Division Head";
-                        } 
-
-                        else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA") //Pelapor doang
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            t_status = "Has been Approved and Proceeded to CAPA";
-                        } 
-
-                        else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA") //Pelapor doang
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            t_status = "Has been Approved and Not Proceeded to CAPA";
-                        }
-
-                        else if (Model.WhoReceiver == "Canceled") //Pelapor doang
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            t_status = "Has been Canceled";
-                        }
-
-                        else if (Model.WhoReceiver == "Delegasi") 
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Delegasi";
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
-                            Command.Parameters["@Username"].Value = Model.Username;
-
-                            t_status = "Has been Delegated to you";
-                        } 
-
-                        else if (Model.WhoReceiver == "SPV PIC Usulan Revisi")
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "SPV PIC Usulan Revisi";
-
-                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@UserID"].Value = Model.Receiver;
-
-                            t_status = "Proposed Revision";
-                        }
-
-                        else if (Model.WhoReceiver == "Reviewer Rejected Usulan Revisi")
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Reviewer Rejected Usulan Revisi";
-
-                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@UserID"].Value = Model.Receiver;
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            t_status = "Proposed revision has been Rejected";
-                        }
-
-                        else if (Model.WhoReceiver == "Reviewer Approved Usulan Revisi by QM")
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Reviewer Rejected Usulan Revisi";
-
-                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@UserID"].Value = Model.Receiver;
-
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
-
-                            t_status = "Proposed Revision has been Approved";
-                        }
-
-                        #endregion
-
-                        Conn.Open();
-                        SqlDataAdapter dataAdap = new SqlDataAdapter();
-                        dataAdap.SelectCommand = Command;
-                        dataAdap.Fill(DT);
-                        Conn.Close();
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-
-                foreach (DataRow dr in DT.Rows)
-                {
-                    t_namapenerima = dr[0].ToString();
-                    t_emailpenerima = dr[1].ToString();
-                    if (dr[2].ToString() == "false")
-                    {
-                        Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
-                    }
-
-                    else if (dr[2].ToString() == "true")
-                    {
-                        Msg.CC.Add(new MailAddress(t_emailpenerima, t_namapenerima));
-                    }
-                }
-
-                #region EmailBodyOne
-
-                EmailBody = "<html><body><br/>Dear " + t_namapenerima + ",<br/>" +
-                            "Proposal with,<br/><br/>" +
-                            "<table style=" + "float:left" + ">" +
-                            "<tr>" +
-                            "<td>Req No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + Model.ReqID + "</b></td>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "<td>Deviation No</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_deviation_no + "</b></td>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "<td>Problem</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_problem + "</b></td>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "<td>Category</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_category + "</b></td>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "<td>Location</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_location + "</b></td>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "<td>Status</td>" +
-                            "<td>:</td>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                            "</tr>" +
-                            "<tr></tr>" +
-                            "<tr>" +
-                            "<td><b>" + t_status + "</b></td>" +
-                            "</tr>" +
-                            "<tr>" +
-                            "Access : " +
-                            "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + " >Click Here</a>" +
-                            "</tr>" +
-                            "</table>" +
-                            "</body></html>";
-
-                #endregion
-
-                try
-                {
-
-                    //Start Setting Send Notification
-                    Msg.Subject = "Deviation Notification";
-                    Msg.Body = EmailBody;
-
-                    MailObject.Send(Msg);
-                    //End Setting Send Notification
-
-                }
-                catch (Exception ex)
-                {
-                    using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
-                    {
-                        Command.CommandType = CommandType.StoredProcedure;
-
-                        Command.Parameters.Add("@REQID", SqlDbType.VarChar);
-                        Command.Parameters["@REQID"].Value = Model.ReqID;
-
-                        Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
-                        Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
-
-                        Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
-                        Command.Parameters["@ERR_MSG"].Value = ex.ToString();
-
-                        Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
-                        Command.Parameters["@SENDER"].Value = Model.Receiver;
-
-                        Conn.Open();
-                        result = (string) Command.ExecuteScalar();
-                        Conn.Close();
-                    }
-
-                    try
-                    {
-                        //Start Setting Send Notification
-                        Msg.Subject = "Deviation Notification";
-                        Msg.Body = EmailBody;
-                        MailObject.Send(Msg);
-                        //End Setting Send Notification
-                    }
-                    catch (Exception ex2)
-                    {
-                        using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
-                        {
-                            Command.CommandType = CommandType.StoredProcedure;
-
-                            Command.Parameters.Add("@REQID", SqlDbType.VarChar);
-                            Command.Parameters["@REQID"].Value = Model.ReqID;
-
-                            Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
-                            Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
-
-                            Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
-                            Command.Parameters["@ERR_MSG"].Value = ex2.ToString();
-
-                            Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
-                            Command.Parameters["@SENDER"].Value = Model.Receiver;
-
-                            Conn.Open();
-                            result = (string) Command.ExecuteScalar();
-                            Conn.Close();
-                        }
-
-                        try
-                        {
-                            //Start Setting Send Notification
-                            Msg.Subject = "Deviation Notification";
-                            Msg.Body = EmailBody;
-                            MailObject.Send(Msg);
-                            //End Setting Send Notification
-                        }
-                        catch (Exception ex3)
-                        {
-                            using (SqlCommand Command = new SqlCommand("SP_ERROR_NOTIFICATION", Conn))
-                            {
-                                Command.CommandType = CommandType.StoredProcedure;
-
-                                Command.Parameters.Add("@REQID", SqlDbType.VarChar);
-                                Command.Parameters["@REQID"].Value = Model.ReqID;
-
-                                Command.Parameters.Add("@OPTION_EMAIL", SqlDbType.VarChar);
-                                Command.Parameters["@OPTION_EMAIL"].Value = Model.WhoReceiver;
-
-                                Command.Parameters.Add("@ERR_MSG", SqlDbType.VarChar);
-                                Command.Parameters["@ERR_MSG"].Value = ex3.ToString();
-
-                                Command.Parameters.Add("@SENDER", SqlDbType.VarChar);
-                                Command.Parameters["@SENDER"].Value = Model.Receiver;
-
-                                Conn.Open();
-                                result = (string) Command.ExecuteScalar();
-                                Conn.Close();
-                            }
-                        }
-                    }
-                }
-            }
-
-            else if (Model.TableType == "More Than One")
+            if (Model.TableType == "More Than One")
             {
 
                 DT.Reset();
@@ -609,6 +192,28 @@ namespace B7_Deviation.Controllers
 
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
+
+
+                            t_status = "Need Your Review as Reviewer";
+                        }
+
+                        else if (Model.WhoReceiver == "Reviewer after Added by Koor") 
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "Reviewer after Added by Koor";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
+                            Command.Parameters["@Username"].Value = Model.Username;
+
+                            Command.Parameters.Add("@PICNameAfter", SqlDbType.VarChar);
+                            Command.Parameters["@PICNameAfter"].Value = Model.PICNameAfter;
+
+                            Command.Parameters.Add("@PICNameBefore", SqlDbType.VarChar);
+                            Command.Parameters["@PICNameBefore"].Value = Model.PICNameBefore;
+
 
                             t_status = "Need Your Review as Reviewer";
                         }
@@ -669,11 +274,12 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
                             Command.Parameters["@GroupSite"].Value = Model.Site;
 
+
                             t_status = "Need Your Group Member to Review as PIC";
                         }
 
-                        else if (Model.WhoReceiver == "PIC after Superior Rejected Cost" ||
-                                 Model.WhoReceiver == "PIC after Division Head Rejected Cost")// DONE (PIC + pelapor + koor +  reviewer + evaluator)
+                        else if (Model.WhoReceiver == "PIC Group after Superior Rejected Cost" ||
+                                 Model.WhoReceiver == "PIC Group after Division Head Rejected Cost")// DONE (PIC + pelapor + koor +  reviewer + evaluator)
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Group PIC after Appointed";
@@ -681,13 +287,22 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
 
-                            Command.Parameters.Add("@Group", SqlDbType.VarChar);
-                            Command.Parameters["@Group"].Value = Model.Group;
-
                             Command.Parameters.Add("@GroupSite", SqlDbType.VarChar);
                             Command.Parameters["@GroupSite"].Value = Model.Site;
 
-                            t_status = "Cost Tindakan Remidial Rejected by a Superior in Your Group";
+                            Command.Parameters.Add("@Group", SqlDbType.VarChar);
+                            Command.Parameters["@Group"].Value = Model.Group;
+
+
+                            if (Model.WhoReceiver == "PIC Group after Superior Rejected Cost")
+                            {
+                                t_status = "Cost Tindakan Remidial Rejected by a Superior in Your Group";
+                            }
+                            else if (Model.WhoReceiver == "PIC Group after Division Head Rejected Cost")
+                            {
+                                t_status = "Cost Tindakan Remidial Rejected by Your Division Head";
+                            }
+
                         }
 
                         else if (Model.WhoReceiver == "Koordinator after PIC Submit" ||
@@ -698,6 +313,15 @@ namespace B7_Deviation.Controllers
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
+                            Command.Parameters["@Username"].Value = Model.Username;
+
+                            Command.Parameters.Add("@TotalCost", SqlDbType.VarChar);
+                            Command.Parameters["@TotalCost"].Value = Model.TotalCost;
+
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@Urutan"].Value = Model.Urutan;
 
                             if (Model.WhoReceiver == "Koordinator after PIC Submit")
                             {
@@ -711,13 +335,16 @@ namespace B7_Deviation.Controllers
 
                         }
 
-                        else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK") // DONE (KOOR + pelapor + reviewer + evaluator + atasan PIC + div head)
+                        else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK") // DONE (EVALUATOR + pelapor + reviewer + PIC + Superior PIC + div head)
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "QM after Koordinator Verifikasi OK";
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@Urutan"].Value = Model.Urutan;
 
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
@@ -725,13 +352,54 @@ namespace B7_Deviation.Controllers
                             t_status = "Need Your Approval as Quality Manager";
                         }
 
-                        else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK") // DONE (KOOR + pelapor + reviewer + evaluator + atasan PIC + div head)
+                        else if (Model.WhoReceiver == "PIC after Koordinator Verifikasi OK") // DONE (PIC + pelapor + reviewer + evaluator + Koor +  Superior PIC + div head)
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "PIC after Koordinator Verifikasi OK";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@Urutan"].Value = Model.Urutan;
+
+                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
+                            Command.Parameters["@Username"].Value = Model.Username;
+
+                            t_status = "Your Remedial Action Has Been Approved by Coordinator";
+                        }
+
+                        else if (Model.WhoReceiver == "PIC after Koordinator Verifikasi Rejected") // DONE (PIC + pelapor + reviewer + evaluator + Koor +  Superior PIC + div head)
+                        {
+                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                            Command.Parameters["@Option"].Value = "PIC after Koordinator Verifikasi Rejected";
+
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@Urutan"].Value = Model.Urutan;
+
+                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
+                            Command.Parameters["@Username"].Value = Model.Username;
+
+                            t_status = "Your Remedial Action Has Been Rejected by Coordinator";
+                        }
+
+
+                        else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK") // DONE (KOOR + pelapor + reviewer + evaluator + PIC + Superior PIC + div head)
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "QM after Koordinator Verifikasi OK";
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.Urutan;
+
+                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
+                            Command.Parameters["@Username"].Value = Model.Username;
 
                             t_status = "Has been Rejected by Quality Manager, Need Your Review as Reviewer";
                         }
@@ -805,7 +473,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Is Rejected by Koordinator";
                         }
 
-                        else if (Model.WhoReceiver == "PIC after Appointed") // DONE (PIC + pelapor + koor + reviewer + evaluator)
+                        else if (Model.WhoReceiver == "PIC after Appointed" ) // DONE (PIC + pelapor + koor + reviewer + evaluator)
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "PIC After Appointed";
@@ -816,10 +484,12 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
 
-                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
-                            Command.Parameters["@Urutan"].Value = Model.Urutan;
+                            Command.Parameters.Add("@PICNIK", SqlDbType.VarChar);
+                            Command.Parameters["@PICNIK"].Value = Model.Receiver;
+
 
                             t_status = "Need Your Review as PIC";
+         
                         }
 
                         else if (Model.WhoReceiver == "Superior PIC after PIC Submit Cost") // DONE (SUPERIOR + Pelapor + koor+ reviewer + evaluator)
@@ -832,6 +502,9 @@ namespace B7_Deviation.Controllers
 
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
+
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@Urutan"].Value = Model.Urutan;
 
                             t_status = "Need Your Approval for the Cost";
                         }
@@ -849,6 +522,9 @@ namespace B7_Deviation.Controllers
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@Urutan"].Value = Model.Urutan;
 
 
                             t_status = "Need Your Approval as Division Head for the Cost";
@@ -891,10 +567,13 @@ namespace B7_Deviation.Controllers
                         else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA") //DONE (PELAPOR + koor)
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
+                            Command.Parameters["@Option"].Value = "Pelapor after Lanjut CAPA";
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
+                            Command.Parameters["@Username"].Value = Model.Username;
 
                             t_status = "Has been Approved and Proceeded to CAPA";
                         }
@@ -902,10 +581,13 @@ namespace B7_Deviation.Controllers
                         else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA") //DONE (PELAPOR + koor)
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
+                            Command.Parameters["@Option"].Value = "Pelapor after Lanjut CAPA";
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
+                            Command.Parameters["@Username"].Value = Model.Username;
 
 
                             t_status = "Has been Approved and Not Proceeded to CAPA";
@@ -914,16 +596,16 @@ namespace B7_Deviation.Controllers
                         else if (Model.WhoReceiver == "Canceled") // kirimnya tergantung flownya udah nyampe mana.. 
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
+                            Command.Parameters["@Option"].Value = "Canceled";
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
 
-                           /* Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
                             Command.Parameters["@Urutan"].Value = Model.Urutan;
 
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
-                            Command.Parameters["@Username"].Value = Model.Username;*/
+                            Command.Parameters["@Username"].Value = Model.Username;
 
                             t_status = "Has been Canceled";
                         }
@@ -947,11 +629,14 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "SPV PIC Usulan Revisi";
 
-                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@UserID"].Value = Model.Receiver;
+                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                            Command.Parameters["@ReqID"].Value = Model.ReqID;
 
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
+
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@Urutan"].Value = Model.Urutan;
 
                             t_status = "Proposed Revision";
                         }
@@ -967,6 +652,9 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
 
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@Urutan"].Value = Model.Urutan;
+
                             t_status = "Proposed revision has been Rejected";
                         }
 
@@ -981,6 +669,9 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
 
+                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                            Command.Parameters["@Urutan"].Value = Model.Urutan;
+
                             t_status = "Proposed Revision has been Approved";
                         }
 
@@ -990,7 +681,7 @@ namespace B7_Deviation.Controllers
                         SqlDataAdapter dataAdap = new SqlDataAdapter();
                         dataAdap.SelectCommand = Command;
                         dataAdap.Fill(DT);
-                        Conn.Close();
+                        Conn.Close(); 
                     }
                 }
                 catch (Exception ex)
@@ -999,7 +690,7 @@ namespace B7_Deviation.Controllers
                 }
 
                 string daftarNamaPenerima = "";
-                foreach (DataRow dr in DT.Rows)
+                        foreach (DataRow dr in DT.Rows)
                 {
                     daftarNamaPenerima += dr[0].ToString() + ", ";
                     t_namapenerima = dr[0].ToString();
