@@ -733,7 +733,7 @@
 				else {
                     $("#tblBukti").attr('hidden', true);
 				}
-
+				DeleteFileAttachment();
 			}
 			, error: function (ex) {
                 ErrorPIC('Error Load User Involved' , JSON.stringify(ex));

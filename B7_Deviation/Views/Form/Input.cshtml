@@ -68,7 +68,7 @@
 				<div class="card">
                     <div class="card-body">
                         <div class="form-validation">
-                            <form class="form-valide" onsubmit="return s();" action="#" method="post">
+                            <form name="submission" class="form-valide" action="#" method="post" >
                                 <!-- Site -->
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="ddlSite">Site Koordinator<span class="text-danger">*</span></label>
@@ -425,7 +425,7 @@
                         </div>
 
 
-                        <form class="form-valide2" onsubmit="return s();" action="#" method="post">
+                        <form name="submission" class="form-valide2"  action="#" method="post" >
 
                             @*Usulan Tindakan Remedial*@
                             <div class="form-group row">
@@ -650,6 +650,12 @@
             $("#ddlRiskIntelek").val(0);
 		
 
+        $('form[name="submission"]').submit(function (event) {
+            event.preventDefault();
+			s();
+
+            console.log(s());
+        });
 	});
 
 	// Button click
@@ -2710,6 +2716,7 @@
 		return false;
 	}
 
+   
 	function GetErrorInput(ErrorType, ErrorMsg) {
         var REQID = $('#lblReq').text();
 		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';

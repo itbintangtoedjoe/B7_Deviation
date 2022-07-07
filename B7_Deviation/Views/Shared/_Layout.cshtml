@@ -264,8 +264,6 @@
 
         $(document).ready(function () {
             CheckIsLogin();
-
-
             var Nama = '@Request.RequestContext.HttpContext.Session["xUser"]';
             var UrlMasterList = "../DataDeviasi/FindMasterList?Nama=" + Nama
             $("a[href='#LampiranBukti']").attr('href', UrlMasterList);
