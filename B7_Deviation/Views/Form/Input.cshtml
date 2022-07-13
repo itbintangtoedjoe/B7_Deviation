@@ -2398,6 +2398,7 @@
 	// Save Deviation
 	function InsertDeviation() {
 
+        $('#ModalLoading').modal('show');
 		var ID_PROPOSER = '@Request.RequestContext.HttpContext.Session["xUser"]';
 		var DEPARTEMENT = $("#TbDeptPusul").val();
 		var PROBLEM = $("#txtProblem").val();

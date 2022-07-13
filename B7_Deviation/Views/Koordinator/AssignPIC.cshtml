@@ -262,6 +262,16 @@
                                             });
                                         }
 
+                                        function ConditionLoad() {
+                                            if (data == 'COMPLETE') {
+                                                var url = "../DataDeviasi/PendingTask";
+                                                $(location).attr('href', url);
+                                            }
+                                            else {
+                                                LoadData();
+                                            }
+                                        }
+
                                         $.when(NotifyAssignT()).done(ConditionLoad());
                                     }
                                     , error: function (ex) {

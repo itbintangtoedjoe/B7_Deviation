@@ -18,6 +18,12 @@
                             <h2 class="d-inline">List Reviewer</h2>
                         </div>
 
+                        <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered text-center">
+                                <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                            </div>
+                        </div>
+
                         <button type="button" id="btnDelegate" class="col-sm-2 btn mb-1 btn-warning form-control" hidden="hidden">
                             Delegate
                         </button>
@@ -138,6 +144,7 @@
 
             // On Click Approve
             $('#deviationdatatable tbody').on('click', 'input[id="Approve"]', function () {
+                $('#ModalLoading').modal('show');
                 var row = $(this).closest("TR");
 			    var empid = $("TD", row).eq(1).html();
 			    var reqid = @ViewBag.nomor;
@@ -165,6 +172,7 @@
                             showConfirmButton: false,
                             timer: 2000
                         }).then(() => {
+                            $('#ModalLoading').modal('hide');
                             $.when(CheckRevApp()).then(LoadData());
                         });
 
@@ -597,7 +605,8 @@
 		});
 	}
 
-		function GoToManager() {
+        function GoToManager() {
+            $('#ModalLoading').modal('show');
 			var reqid = @ViewBag.nomor;
 			var curruser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
