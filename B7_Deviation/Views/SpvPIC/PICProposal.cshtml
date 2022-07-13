@@ -370,11 +370,7 @@
                         });
                     }
 
-                    var async1 = $.when(RejectSupPIC()).then(NotifySupPICRej());
-
-                    $.when(async1).then(function () {
-                        window.location.href = "../DataDeviasi/PendingTask";
-                    });
+                     $.when(RejectSupPIC(), NotifySupPICRej()).done(window.location.href = "../DataDeviasi/PendingTask");
 
                 }
             });
