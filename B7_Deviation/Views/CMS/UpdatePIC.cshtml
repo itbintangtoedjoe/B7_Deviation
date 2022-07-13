@@ -21,7 +21,7 @@
                             <div class="col-lg-2 col-form-label">
                                 <label class="col-form-label">Nomor Penyimpangan</label>
                             </div>
-                            <div class="col-lg-3" style="margin-top:5px">
+                            <div class="col-md-3" style="margin-top:5px">
                                 <select id="ddlNoPenyimpangan" class="form-control">
                                     <option value="" class="dropdown-header" selected>Select No. Penyimpangan</option>
                                 </select>
@@ -438,28 +438,6 @@
                         '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>'
 
 
-
-                    @*  if (data[trav].FLAG_REVIEW == 'NOT YET') {
-                            trHTML +=
-                                '<td> PENDING REVIEW </td>'
-
-                        }
-                        else if (data[trav].FLAG_REVIEW == 'REVIEW REJECTED BY COORDINATOR' || data[trav].FLAG_REVIEW == 'REVIEW APPROVED BY COORDINATOR') {
-                            trHTML +=
-                                '<td>' + data[trav].FLAG_REVIEW + '</td>'
-                        }
-                        else if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR' || 'DONE REVISE FROM COORDINATOR') {
-                            if (data[trav].FLAG_REVIEW == 'DONE REVIEW FROM COORDINATOR') {
-                                trHTML +=
-                                    '<td>DONE REVIEW</td>';
-                            }
-                            else {
-                                trHTML +=
-                                    '<td>' + data[trav].FLAG_REVIEW + '</td>';
-                            }
-
-                        }*@
-
                     var flagReview = data[trav].FLAG_PIC;
                     if (flagReview == 'ASSIGNED' || flagReview.toLowerCase().indexOf("rejected") >= 0) {
                         trHTML +=
@@ -478,10 +456,11 @@
                         "searching": false,
                         "paging": false,
                         "info": false,
-                        "order": [4, 'asc'],
+                        "order": [0, 'asc'],
                         "columnDefs": [
-                            { "width": "10%", "targets": 0 },
-                            { "width": "10%", "targets": 2 }
+                            { "width": "5%", "targets": 0 },
+                            { "width": "10%", "targets": 2 },
+                            { "width": "50%", "targets": 4 }
                         ]
                     });
                 }
