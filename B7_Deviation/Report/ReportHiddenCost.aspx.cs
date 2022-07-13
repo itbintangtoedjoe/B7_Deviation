@@ -18,6 +18,7 @@ namespace B7_Deviation.Report
             if (!IsPostBack && !IsCallback)
             {
                 string Period = Request.QueryString["Period"].ToString();
+                string Site = Request.QueryString["Site"].ToString();
 
                 RVHiddenCost.Reset();
                 RVHiddenCost.LocalReport.EnableExternalImages = true;
@@ -40,6 +41,9 @@ namespace B7_Deviation.Report
 
                     command.Parameters.Add("@Period", SqlDbType.VarChar);
                     command.Parameters["@Period"].Value = Period;
+
+                    command.Parameters.Add("@Site", SqlDbType.VarChar);
+                    command.Parameters["@Site"].Value = Site;
 
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;

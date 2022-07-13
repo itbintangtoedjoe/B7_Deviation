@@ -613,6 +613,9 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@DepartemenPelapor", System.Data.SqlDbType.VarChar);
                     command.Parameters["@DepartemenPelapor"].Value = Model.DepartemenPelapor;
 
+                    command.Parameters.Add("@SitePenyimpangan", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@SitePenyimpangan"].Value = Model.SitePenyimpangan;
+
                     SqlDataAdapter dataAdap = new SqlDataAdapter();
                     dataAdap.SelectCommand = command;
                     dataAdap.Fill(DT);
@@ -636,6 +639,7 @@ namespace B7_Deviation.Controllers
             }
             return Json(rows);
         }
+
         public ActionResult TahunPembuatanLTFT()
         {
             string ConString = mySetting.ConnectionString;
@@ -1001,7 +1005,7 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
-        public ActionResult DdlPeriodHiddenCoat()
+        public ActionResult DdlPeriodHiddenCost()
         {
             string ConString = mySetting.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);

@@ -86,12 +86,32 @@
                                     <div class="basic-dropdown">
                                         <div class="dropdown ">
                                             <select id="departement">
+                                                <option disabled selected hidden class="dropdown-header">Departement</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-6 col-form-label">Site Koordinator</label>
+                            <div class="col-md-6 col-form-label">
+                                <div class="btn-group">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown ">
+                                            <select id="ddlSitePenyimpangan">
+                                                <option disabled selected hidden class="dropdown-header">Site Koordinator</option>
+                                                <option class="dropdown-item" value="CKR">Cikarang</option>
+                                                <option class="dropdown-item" value="PLG">Pulogadung</option>
+                                                <option class="dropdown-item" value="PLM">Pulomas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -99,16 +119,18 @@
                 <table class="table table-striped table-bordered zero-configuration nowrap table-responsive" width="100%" id="deviationdatatable">
                     <thead>
                         <tr>
-                            <th width="100px">Bulan</th>
                             <th width="100px">Nomor Penyimpangan</th>
                             <th width="100px">Kategori Penyimpangan</th>
-                            <th width="100px">Department</th>
+                            <th width="100px">Departement</th>
+                            <th width="100px">Site Koordinator</th>
                             <th width="100px">Nama Pelapor</th>
                             <th width="100px">Tanggal Pembuatan</th>
+                            <th width="100px">Bulan</th>
                             <th width="100px">Tanggal Disposisi Tindakan Remedial</th>
                             <th width="100px">Leadtime Disposisi Tindakan Remedial (Hari)</th>
                             <th width="100px">Tanggal Closed Penyimpangan</th>
                             <th width="100px">Leadtime Closed Penyimpangan (Hari)</th>
+
                         </tr>
                     </thead>
                     <tbody id="deviationtable" class="nowrap">
@@ -134,6 +156,8 @@
         $("#ClearFilter").click(function () {
             Clear();
         });
+
+        $("#ddlSitePenyimpangan").selectpicker("refresh");
     });
 
     function Clear() {
@@ -150,10 +174,12 @@
         $("#departement").val('Departement');
         $("#departement").selectpicker("refresh");
 
+        $("#ddlSitePenyimpangan").val('Site Penyimpangan');
+        $("#ddlSitePenyimpangan").selectpicker("refresh");
+
 
         $('#deviationdatatable').DataTable().clear().destroy();
         LoadData();
-        
     }
 
     function PrintLeadTime() {
@@ -161,36 +187,43 @@
         var bulan;
         var kategori;
         var dept;
+        var site;
 
         // DEAL WITH NULL VALUE
         if (!$("#tahunpembuatan").val()) {
-            tahun === null;
+            tahun = null;
         } else {
             tahun = $("#tahunpembuatan").val();
         }
 
         if (!$("#bulanpembuatan").val()) {
-            bulan === null;
+            bulan = null;
         } else {
             bulan = $("#bulanpembuatan").val();
         }
 
         if (!$("#kategoripenyimpangan").val()) {
-            kategori === null;
+            kategori = null;
         } else {
             kategori = $("#kategoripenyimpangan").val();
         }
 
         if (!$("#departement").val()) {
-            dept === null;
+            dept = null;
         } else {
             dept = $("#departement").val();
         }
 
+        if (!$("#ddlSitePenyimpangan").val()) {
+            site = null;
+        } else {
+            site = $("#ddlSitePenyimpangan").val();
+        }
+
         var nama = '@Request.RequestContext.HttpContext.Session["xUser"]'
 
-        window.location.href = "../DataDeviasi/PrintFindLeadTime?tahun=" + tahun + "&bulan=" + bulan + "&kategori=" + kategori + "&dept=" + dept + "&nama=" + nama
-        }
+        window.location.href = "../DataDeviasi/PrintFindLeadTime?tahun=" + tahun + "&bulan=" + bulan + "&kategori=" + kategori + "&dept=" + dept + "&nama=" + nama;
+    }
 
     function CheckFilter() {
         $("#tahunpembuatan").change(function () {
@@ -200,8 +233,9 @@
                 var bulan = $("#bulanpembuatan").val();
                 var kategori = $("#kategoripenyimpangan").val();
                 var dept = $("#departement").val();
+                var site = $("#ddlSitePenyimpangan").val();
 
-                FilteredTable(tahun, bulan, kategori, dept);
+                FilteredTable(tahun, bulan, kategori, dept, site);
             }
         });
 
@@ -212,8 +246,9 @@
                 var bulan = $("#bulanpembuatan").val();
                 var kategori = $("#kategoripenyimpangan").val();
                 var dept = $("#departement").val();
+                var site = $("#ddlSitePenyimpangan").val();
 
-                FilteredTable(tahun, bulan, kategori, dept);
+                FilteredTable(tahun, bulan, kategori, dept, site);
 
             }
         });
@@ -225,8 +260,9 @@
                 var bulan = $("#bulanpembuatan").val();
                 var kategori = $("#kategoripenyimpangan").val();
                 var dept = $("#departement").val();
+                var site = $("#ddlSitePenyimpangan").val();
 
-                FilteredTable(tahun, bulan, kategori, dept);
+                FilteredTable(tahun, bulan, kategori, dept, site);
 
             }
         });
@@ -238,14 +274,29 @@
                 var bulan = $("#bulanpembuatan").val();
                 var kategori = $("#kategoripenyimpangan").val();
                 var dept = $("#departement").val();
+                var site = $("#ddlSitePenyimpangan").val();
 
-                FilteredTable(tahun, bulan, kategori, dept);
+                FilteredTable(tahun, bulan, kategori, dept, site);
+
+            }
+        });
+
+        $("#ddlSitePenyimpangan").change(function () {
+            if ($("#ddlSitePenyimpangan").val() != "") {
+               
+                var tahun = $("#tahunpembuatan").val();
+                var bulan = $("#bulanpembuatan").val();
+                var kategori = $("#kategoripenyimpangan").val();
+                var dept = $("#departement").val();
+                var site = $("#ddlSitePenyimpangan").val();
+              
+                FilteredTable(tahun, bulan, kategori, dept, site);
 
             }
         });
     }
 
-    function FilteredTable(tahun, bulan, kategori, dept) {
+    function FilteredTable(tahun, bulan, kategori, dept, sitePenyimpangan) {
 
 
         var tahunpelaporan = tahun;
@@ -253,11 +304,13 @@
         var kategoripenyimpangan = kategori;
         var departement = dept;
 
+
         var dto = {
             TahunPelaporan: tahunpelaporan,
             BulanPelaporan: bulanpelaporan,
-            KategoriPenyimpangan: kategori,
-            DepartemenPelapor: departement
+            KategoriPenyimpangan: kategoripenyimpangan,
+            DepartemenPelapor: departement,
+            SitePenyimpangan: sitePenyimpangan
         }
 
         $.ajax({
@@ -282,32 +335,33 @@
                         '<td> N/A </td>' +
                         '<td> N/A </td>' +
                         '<td> N/A </td>' +
+                        '<td> N/A </td>' +
                         '<td> N/A </td>';
                 } else {
                     for (trav = 0; trav < Count; trav++) {
 
                         trHTML +=
-                            '<tr><td>' + data[trav].BULAN + '</td>' +
-                            '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                           
+                            '<tr><td>' + data[trav].DEVIATION_NO + '</td>' +
                             '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +
                             '<td>' + data[trav].DEPARTEMENT + '</td>' +
+                            '<td>' + data[trav].LOCATION_SITE + '</td>' +
                             '<td>' + data[trav].EmpName + '</td>' +
                             '<td>' + data[trav].CREATION_DATE + '</td>' +
+                            '<td>' + data[trav].BULAN + '</td>' +
                             '<td>' + data[trav].DISPOSISI_DATE + '</td>' +
                             '<td>' + data[trav].LEADTIME_DISPOSISI + '</td>' +
                             '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
-                            '<td>' + data[trav].LEADTIME_CLOSE + '</td>';
+                            '<td>' + data[trav].LEADTIME_CLOSE + '</td>'  ;
 
                     }
                 }
 
 
-
-                $('#deviationdatatable').DataTable().clear().destroy();
                 $('#deviationtable').empty();
+                $('#deviationdatatable').DataTable().clear().destroy();
                 $('#deviationtable').append(trHTML);
                 $('#deviationdatatable').DataTable();
-
 
             },
             error: function (ex) {
@@ -330,16 +384,17 @@
 
                 for (trav = 0; trav < Count; trav++) {
                     trHTML +=
-                        '<tr><td>' + data[trav].BULAN + '</td>' +
-                        '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                        '<tr><td>' + data[trav].DEVIATION_NO + '</td>' +
                         '<td>' + data[trav].DEVIATION_CATEGORY + '</td>' +
                         '<td>' + data[trav].DEPARTEMENT + '</td>' +
+                        '<td>' + data[trav].LOCATION_SITE + '</td>' +
                         '<td>' + data[trav].EmpName + '</td>' +
                         '<td>' + data[trav].CREATION_DATE + '</td>' +
+                        '<td>' + data[trav].BULAN + '</td>' +
                         '<td>' + data[trav].DISPOSISI_DATE + '</td>' +
                         '<td>' + data[trav].LEADTIME_DISPOSISI + '</td>' +
                         '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
-                        '<td>' + data[trav].LEADTIME_CLOSE + '</td>';
+                        '<td>' + data[trav].LEADTIME_CLOSE + '</td>'  ;
 
                 }
 

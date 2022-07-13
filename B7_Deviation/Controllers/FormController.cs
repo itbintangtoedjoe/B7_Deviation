@@ -98,6 +98,7 @@ namespace B7_Deviation.Controllers
 
             Msg.From = new MailAddress("notification@bintang7.com", "Deviation Notification");
             Msg.Bcc.Add(new MailAddress("michaelken117@gmail.com"));
+            Msg.Bcc.Add(new MailAddress("feliciabrilliantb@gmail.com"));
 
             Msg.Priority = MailPriority.High;
             Msg.IsBodyHtml = true;

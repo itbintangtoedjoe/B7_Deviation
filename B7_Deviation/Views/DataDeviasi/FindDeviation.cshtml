@@ -214,6 +214,7 @@
             })
 
             $.when.apply($, ajaxCalls()).then($.ajax(LoadData()));
+
             $("#Find").click(function () {
                 window.location.href = "/DataDeviasi/FindDeviation"
             });
@@ -679,6 +680,7 @@
                 type: "post",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
+                    console.log(data)
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
@@ -737,8 +739,8 @@
                     });
 
                     objDeviation = data;
-                    Print();
-                    View();
+                  @*  Print();
+                    View();*@
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));

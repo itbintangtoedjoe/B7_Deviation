@@ -320,15 +320,6 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@ProcManhoursValue", SqlDbType.VarChar);
                     command.Parameters["@ProcManhoursValue"].Value = Model.ProcMV;
 
-                    command.Parameters.Add("@ProcMaterial", SqlDbType.VarChar);
-                    command.Parameters["@ProcMaterial"].Value = Model.ProcM;
-
-                    command.Parameters.Add("@ProcQty", SqlDbType.VarChar);
-                    command.Parameters["@ProcQty"].Value = Model.ProcQ;
-
-                    command.Parameters.Add("@ProcCostMaterial", SqlDbType.VarChar);
-                    command.Parameters["@ProcCostMaterial"].Value = Model.ProcCM;
-
                     command.Parameters.Add("@RejMaterial", SqlDbType.VarChar);
                     command.Parameters["@RejMaterial"].Value = Model.RejM;
 

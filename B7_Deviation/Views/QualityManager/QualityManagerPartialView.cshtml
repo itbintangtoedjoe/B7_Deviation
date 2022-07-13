@@ -182,7 +182,7 @@
 			InsertDisposisi();
 		});
 
-        $('#tblDisKet tbody').on('click', 'input[id="DeleteKeteranganDisposisi"]', function () {
+		$('#tblDis tbody').on('click', 'input[id="DeleteKeteranganDisposisi"]', function () {
             event.preventDefault();
             var row = $(this).closest("TR");
             var ReqID = @ViewBag.nomor;
@@ -271,7 +271,7 @@
 								'<td>' + nom + '</td>' +
 								'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 								'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-								'<td><input type="button" id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi"/><span class="fa fa-trash-o"><strong></strong></span> <input type="button" id="EditDisposisi" class="btn btn-success EditDisposisi"/><span class="fa fa-pencil"><strong></strong></span></td ></tr > ';
+								'<td><input type="button" id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi" value="Delete"/><input type="button" id="EditDisposisi" class="btn btn-success EditDisposisi" value="Edit"/></td ></tr > ';
 
 						}
 
@@ -886,7 +886,7 @@
 							'<td>' + no + '</td>' +
 							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-							'<td><input type="button" id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi"/><span class="fa fa-trash-o"><strong></strong></span></> <input type="button" id="EditDisposisi" class="btn btn-success EditDisposisi"/><span class="fa fa-pencil"><strong></strong></span></td ></tr > ';
+							'<td><input type="button" id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi" value="Delete"/> <input type="button" id="EditDisposisi" class="btn btn-success EditDisposisi" value="Edit"/></td ></tr > ';
 					}
 
 					$("#tblDisKet").empty();

@@ -75,104 +75,108 @@
 		</div>
 
 		<div class="form-group">
-			<div class="container-fluid">
-				<div class="card">
-					<div class="card-body">
-						<h4>REVIEWER</h4>
-						<div class="form-group">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>REVIEWER</h4>
+                        <div class="form-group">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover verticle-middle" id="deviationdatatable" width="1150px" style="color:black">
                                     <thead>
-                                        <tr>
-                                            <th width="50px" style="text-align:center">Nama</th>
-                                            <th width="50px" style="text-align:center">NIK</th>
-                                            <th width="40px" style="text-align:center">Status</th>
-                                            <th width="60px" style="text-align:center">Tanggal Review</th>
-                                            <th style="text-align:center">Hasil Review</th>
-                                            <th width="50px" style="text-align:center">Dokumen Pendukung</th>
+                                    <tr>
+                                        <th width="50px" style="text-align:center">Nama</th>
+                                        <th width="50px" style="text-align:center">NIK</th>
+                                        <th width="40px" style="text-align:center">Status</th>
+                                        <th width="60px" style="text-align:center">Tanggal Review</th>
+                                        <th style="text-align:center">Hasil Review</th>
+                                        <th width="50px" style="text-align:center">Dokumen Pendukung</th>
 
-                                        </tr>
+                                    </tr>
                                     </thead>
                                     <tbody id="deviationtable" class="nowrap">
                                     </tbody>
                                 </table>
                             </div>
 
-							<br />
-							<table class="table table-bordered table-hover verticle-middle table-responsive" id="reviewerbuktidatatable" hidden="hidden" style="white-space: nowrap">
-								<thead>
-									<tr>
-										<th width="75px">No</th>
-										<th width="100px">Nama Reviewer</th>
-										<th>Nama File</th>
-									</tr>
-								</thead>
-								<tbody id="reviewerbukti" class="nowrap">
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	   
-
-	</div>
+                            <br />
+                            <table class="table table-bordered table-hover verticle-middle table-responsive" id="reviewerbuktidatatable" hidden="hidden" style="white-space: nowrap">
+                                <thead>
+                                <tr>
+                                    <th width="75px">No</th>
+                                    <th width="100px">Nama Reviewer</th>
+                                    <th>Nama File</th>
+                                </tr>
+                                </thead>
+                                <tbody id="reviewerbukti" class="nowrap">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Partial("../DataDeviasi/DeviasiPartialView")
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
 <script nonce="rjDlrDsSe0nZGfjf3dLSOQ==">
 
-	$(document).ready(function () {
-        //load desposisi
-		LoadData();
-		//load reviewer
-		LoadData2();
-		CheckStatus();
-		@*LoadSiteGroupPIC();*@
 
-		$('#btnCancel').click(function () {
-			Cancel();
-		});
+
+    $(document).ready(function () {
+        //load desposisi
+        LoadData();
+        //load reviewer
+        LoadData2();
+        CheckStatus();
+        @*LoadSiteGroupPIC();*@
+
+        $('#btnCancel').click(function () {
+            Cancel();
+        });
 
         $('#goBack').click(function () {
             window.location.href = "../DataDeviasi/PendingTask"
-		});
+        });
 
         //On click function btnShowBukti
-		$('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
+        $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
             ShowBukti(this);
         });
-		
+
         //On click function button assignPIC
-		$('#datatablepic tbody').on('click', 'input[id="AssignPIC"]', function () {
+        $('#datatablepic tbody').on('click', 'input[id="AssignPIC"]', function () {
 
-				//code here
-			var row = $(this).closest("TR");
-			var id = parseInt($("TD", row).eq(0).html()) - 1;
-			@*var pic_nik = $("TD", row).eq(2).find("select").val();*@
-			var pic_nik = $('#pic' + id).val();
-			var site_pic = $('#site' + id).val();
-			var due_date = $("TD", row).eq(3).find("input[type='date']").val();
-			var pic_is_group = false;
-			@*pic_nik.startsWith('G_') ? pic_is_group == true : pic_is_group == false;*@
+            //code here
+            var row = $(this).closest("TR");
+            var id = parseInt($("TD", row).eq(0).html()) - 1;
+            @*var pic_nik = $("TD", row).eq(2).find("select").val();*@
+            var pic_nik = $('#pic' + id).val();
+            var site_pic = $('#site' + id).val();
+            var due_date = $("TD", row).eq(3).find("input[type='date']").val();
+            var pic_is_group = false;
+            @*pic_nik.startsWith('G_') ? pic_is_group == true : pic_is_group == false;*@
 
-			if (pic_nik == null || pic_nik == '' || due_date == null || due_date == '') {
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					text: 'Pelaksana dan due date wajib diisi!'
-				});
-				return;
-			} else if (pic_nik.startsWith('G_') && site_pic == null) {
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					text: 'Site grouping wajib diisi!'
-				});
-				return;
-			}
-			@*else {
+
+            if (pic_nik == null || pic_nik == '' || due_date == null || due_date == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Pelaksana dan due date wajib diisi!'
+                });
+                return;
+            } else if (pic_nik.startsWith('G_') && site_pic == null) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Site grouping wajib diisi!'
+                });
+                return;
+            }
+            @*else {
 				Swal.fire({
 					icon: 'success',
 					title: 'OK'
@@ -180,245 +184,231 @@
 				return;
 			}*@
 
-			if (pic_nik.startsWith('G_')) {
-				pic_is_group = true;
-			}
+            if (pic_nik.startsWith('G_')) {
+                pic_is_group = true;
+            }
 
-			var REQID = @ViewBag.nomor;
+            var REQID = @ViewBag.nomor;
 
-			var dtx = {
-				REQID: REQID,
-				UserInvolved: pic_nik,
-				Group: pic_nik,
-				GroupSite: site_pic
-			}
-			$.ajax({
-				url: "../Form/CheckEmailAvailability",
-				type: "post",
-				dataType: "json",
-				data: JSON.stringify(dtx),
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
-                    console.log('' + data)
-                    var datacoba;
-
-                    //function ConditionLoad() {
-                    //    if (datacoba == 'COMPLETE') {
-                    //        var url = "../DataDeviasi/PendingTask";
-                    //        $(location).attr('href', url);
-                    //    }
-                    //    else {
-                    //        LoadData();
-                    //    }
-                    //}
-
-					@*console.log(data);*@
-					if (data[0].STATUS == 'ADA') {
-						if (data[0].JumlahUser == 0) {
-							swal({
-								title: "Gagal",
-								text: "Tidak ada user terdaftar dalam group terpilih. Mohon cek group dan site yang dipilih.",
-								type: "error",
-								timer:1500,
-								showConfirmButton: false
-							});
-						}
-						else {
-							var no_disposisi = $("TD", row).eq(5).find("input[type='text']").val();
-							var req_id = @ViewBag.nomor;
-							var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            var dtx = {
+                REQID: REQID,
+                UserInvolved: pic_nik,
+                Group: pic_nik,
+                GroupSite: site_pic
+            }
+            $.ajax({
+                url: "../Form/CheckEmailAvailability",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dtx),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    console.log('' + data);
+                    @*alert(data[0].STATUS);
+                    alert(data[0].JumlahUser);*@
+                    @*console.log(data);*@
+                    
+                    if (data[0].STATUS == 'ADA') {
+                        if (data[0].JumlahUser == 0) {
+                            swal({
+                                title: "Gagal",
+                                text: "Tidak ada user terdaftar dalam group terpilih. Mohon cek group dan site yang dipilih.",
+                                type: "error",
+                                timer:3000,
+                                showConfirmButton: false
+                            });
+                        }
+                        else {
+                            var no_disposisi = $("TD", row).eq(5).find("input[type='text']").val();
+                            var req_id = @ViewBag.nomor;
+                            var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
                             @*console.log('aman');*@
 
-							function AssigningPIC() {
-								var dto = {
-									REQ_ID: req_id,
-									PIC_REMEDIAL_NIK: pic_nik,
-									GROUP_SITE: site_pic,
-									DUE_DATE: due_date,
-									NO_DISPOSISI: no_disposisi,
-									CURR_USER: curr_user
-								}
+                            function AssigningPIC() {
+                                var dto = {
+                                    REQ_ID: req_id,
+                                    PIC_REMEDIAL_NIK: pic_nik,
+                                    GROUP_SITE: site_pic,
+                                    DUE_DATE: due_date,
+                                    NO_DISPOSISI: no_disposisi,
+                                    CURR_USER: curr_user
+                                }
 
-								$.ajax({
-									url: "../Koordinator/Coor_AssignPIC",
-									type: "post",
-									dataType: "json",
-									data: JSON.stringify(dto),
-									contentType: "application/json;charset=utf-8",
-									success: function (data) {
+                                $.ajax({
+                                    url: "../Koordinator/Coor_AssignPIC",
+                                    type: "post",
+                                    dataType: "json",
+                                    data: JSON.stringify(dto),
+                                    contentType: "application/json;charset=utf-8",
+                                    success: function (data) {
                                         datacoba = data;
-										function NotifyAssignT() {
-											toastr.success("Assign PIC Berhasil!", "Tersimpan", {
-												"closeButton": false,
-												"debug": true,
-												"newestOnTop": false,
-												"progressBar": false,
-												"positionClass": "toast-top-right",
-												"preventDuplicates": false,
-												"onclick": null,
-												"showDuration": "100",
-												"hideDuration": "1000",
-												"timeOut": "2000",
-												"extendedTimeOut": "1000",
-												"showEasing": "swing",
-												"hideEasing": "linear",
-												"showMethod": "fadeIn",
-												"hideMethod": "fadeOut"
-											});
-										}
+                                        function NotifyAssignT() {
+                                            toastr.success("Assign PIC Berhasil!", "Tersimpan", {
+                                                "closeButton": false,
+                                                "debug": true,
+                                                "newestOnTop": false,
+                                                "progressBar": false,
+                                                "positionClass": "toast-top-right",
+                                                "preventDuplicates": false,
+                                                "onclick": null,
+                                                "showDuration": "100",
+                                                "hideDuration": "3000",
+                                                "timeOut": "3000",
+                                                "extendedTimeOut": "3000",
+                                                "showEasing": "swing",
+                                                "hideEasing": "linear",
+                                                "showMethod": "fadeIn",
+                                                "hideMethod": "fadeOut"
+                                            });
+                                        }
 
-										
-                                     
-                                        
+                                        $.when(NotifyAssignT()).done(ConditionLoad());
+                                    }
+                                    , error: function (ex) {
+                                        GetError('Coor_AssignPIC',  JSON.stringify(ex));
+                                    }
+                                });
+                            }
 
-                                       @* $.when(NotifyAssignT()).done(ConditionLoad());*@
-									}
-									, error: function (ex) {
-										GetError('Coor_AssignPIC',  JSON.stringify(ex));
-									}
-								});
-							}
-
-							function SendMailAssignSinglePIC() {
+                            function SendMailAssignSinglePIC() {
                                 @*var receiver = $("TD", row).eq(2).find("select").val();*@
-								var tabletype = "More Than One";
-								var whoreceiver = "PIC after Appointed";
-								var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+                                var tabletype = "More Than One";
+                                var whoreceiver = "PIC after Appointed";
+                                var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
                                 var dtx = {
                                     Username: curr_user,
-									Receiver: pic_nik,
-									ReqID: REQID,
-									TableType: tabletype,
-									WhoReceiver: whoreceiver
-								};
+                                    Receiver: pic_nik,
+                                    ReqID: REQID,
+                                    TableType: tabletype,
+                                    WhoReceiver: whoreceiver
+                                };
 
-								$.ajax({
-									type: "post",
-									url: '../Form/SendEmailInputProposal',
-									data: JSON.stringify(dtx),
-									dataType: "json",
-									contentType: "application/json;charset=utf-8",
-									success: function (data) {
+                                $.ajax({
+                                    type: "post",
+                                    url: '../Form/SendEmailInputProposal',
+                                    data: JSON.stringify(dtx),
+                                    dataType: "json",
+                                    contentType: "application/json;charset=utf-8",
+                                    success: function (data) {
 
-										toastr.success("Email Sent Successfully !", "Notification", {
-											"closeButton": false,
-											"debug": true,
-											"newestOnTop": false,
-											"progressBar": false,
-											"positionClass": "toast-bottom-right",
-											"preventDuplicates": false,
-											"onclick": null,
-											"showDuration": "200",
-											"hideDuration": "1000",
-											"timeOut": "1000",
-											"extendedTimeOut": "1000",
-											"showEasing": "swing",
-											"hideEasing": "linear",
-											"showMethod": "fadeIn",
-											"hideMethod": "fadeOut"
-										});
-									}, error: function (ex) {
-										GetError("Error Email Assign", JSON.stringify(ex));
-									}
-								});
-							}
+                                        toastr.success("Email Sent Successfully !", "Notification", {
+                                            "closeButton": false,
+                                            "debug": true,
+                                            "newestOnTop": false,
+                                            "progressBar": false,
+                                            "positionClass": "toast-bottom-right",
+                                            "preventDuplicates": false,
+                                            "onclick": null,
+                                            "showDuration": "200",
+                                            "hideDuration": "3000",
+                                            "timeOut": "3000",
+                                            "extendedTimeOut": "3000",
+                                            "showEasing": "swing",
+                                            "hideEasing": "linear",
+                                            "showMethod": "fadeIn",
+                                            "hideMethod": "fadeOut"
+                                        });
+                                    }, error: function (ex) {
+                                        GetError("Error Email Assign", JSON.stringify(ex));
+                                    }
+                                });
+                            }
 
-							function SendMailAssignPICGroup() {
-								var receiver = $("TD", row).eq(2).find("select").val();
-								var tabletype = "More Than One";
-								var whoreceiver = "Group PIC after Appointed";
-								var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+                            function SendMailAssignPICGroup() {
+                                var receiver = $("TD", row).eq(2).find("select").val();
+                                var tabletype = "More Than One";
+                                var whoreceiver = "Group PIC after Appointed";
+                                var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-								var dtx = {
-									Username: curr_user,
-									Group: pic_nik,
-									Site: site_pic,
-									ReqID: REQID,
-									TableType: tabletype,
-									WhoReceiver: whoreceiver
-								};
+                                var dtx = {
+                                    Username: curr_user,
+                                    Group: pic_nik,
+                                    Site: site_pic,
+                                    ReqID: REQID,
+                                    TableType: tabletype,
+                                    WhoReceiver: whoreceiver
+                                };
 
-								$.ajax({
-									type: "post",
-									url: '../Form/SendEmailInputProposal',
-									data: JSON.stringify(dtx),
-									dataType: "json",
-									contentType: "application/json;charset=utf-8",
-									success: function (data) {
+                                $.ajax({
+                                    type: "post",
+                                    url: '../Form/SendEmailInputProposal',
+                                    data: JSON.stringify(dtx),
+                                    dataType: "json",
+                                    contentType: "application/json;charset=utf-8",
+                                    success: function (data) {
 
-										toastr.success("Email Sent Successfully !", "Notification", {
-											"closeButton": false,
-											"debug": true,
-											"newestOnTop": false,
-											"progressBar": false,
-											"positionClass": "toast-bottom-right",
-											"preventDuplicates": false,
-											"onclick": null,
-											"showDuration": "200",
-											"hideDuration": "1000",
-											"timeOut": "1000",
-											"extendedTimeOut": "1000",
-											"showEasing": "swing",
-											"hideEasing": "linear",
-											"showMethod": "fadeIn",
-											"hideMethod": "fadeOut"
-										});
-									}, error: function (ex) {
-										GetError("Error Email Assign", JSON.stringify(ex));
-									}
-								});
-							}
-							//kalau ke group, send email ke group
-							if (pic_is_group === true) {
+                                        toastr.success("Email Sent Successfully !", "Notification", {
+                                            "closeButton": false,
+                                            "debug": true,
+                                            "newestOnTop": false,
+                                            "progressBar": false,
+                                            "positionClass": "toast-bottom-right",
+                                            "preventDuplicates": false,
+                                            "onclick": null,
+                                            "showDuration": "200",
+                                            "hideDuration": "3000",
+                                            "timeOut": "3000",
+                                            "extendedTimeOut": "3000",
+                                            "showEasing": "swing",
+                                            "hideEasing": "linear",
+                                            "showMethod": "fadeIn",
+                                            "hideMethod": "fadeOut"
+                                        });
+                                    }, error: function (ex) {
+                                        GetError("Error Email Assign", JSON.stringify(ex));
+                                    }
+                                });
+                            }
+                            //kalau ke group, send email ke group
+                            if (pic_is_group === true) {
 
                                 var async1 = $.when(AssigningPIC()).then(SendMailAssignPICGroup());
 
                                 $.when(async1).then(function() {
                                     CheckStatus();
-                                });  
+                                });
 
-								@*alert('masuk if grup')*@
-								@*$.when(AssignPIC()).then(SendMailAssign());*@
-                               @* $.when(AssigningPIC()).done($.when((SendMailAssignPICGroup()).done(ConditionLoad())));*@
+                                @*$.when(AssignPIC()).then(SendMailAssign());*@
+                                @* $.when(AssigningPIC()).done($.when((SendMailAssignPICGroup()).done(ConditionLoad())));*@
                             }
-							//kalau ke 1 orang, send email ke single pic
-							else {
-								$.when(AssigningPIC()).done(SendMailAssignSinglePIC());
+                            //kalau ke 1 orang, send email ke single pic
+                            else {
+                                $.when(AssigningPIC()).done(SendMailAssignSinglePIC());
                                 $.when(SendMailAssignSinglePIC()).done(CheckStatus());
-							}
-						}
-					}
-					else {
-						if (pic_is_group == 1) {
-							var trav = 0;
-							var count = data.length;
-							var listUsername = '';
-							if (count > 0) {
-								listUsername = data[0].Username;
-								for (trav = 1; trav < count; trav++) {
-									listUsername += ', ' + data[trav].Username;
-								}
-							}
+                            }
+                        }
+                    }
+                    else {
+                        if (pic_is_group == 1) {
+                            var trav = 0;
+                            var count = data.length;
+                            var listUsername = '';
+                            if (count > 0) {
+                                listUsername = data[0].Username;
+                                for (trav = 1; trav < count; trav++) {
+                                    listUsername += ', ' + data[trav].Username;
+                                }
+                            }
 
-							Swal.fire({
-								icon: 'error',
-								title: 'Ada user dalam group yang tidak memiliki email',
-								text: 'Mohon lengkapi data email user: ' + listUsername
-							});
-						}
-						else {
-							Swal.fire({
-								icon: 'error',
-								title: 'PIC yang dipilih belum memiliki email terdaftar',
-								text: 'Mohon lengkapi data email user'
-							});
-						}
-					}
-				}
-				, error: function (ex) {
-					GetError('Check Email Availability', JSON.stringify(ex.responseText));
-				}
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ada user dalam group yang tidak memiliki email',
+                                text: 'Mohon lengkapi data email user: ' + listUsername
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'PIC yang dipilih belum memiliki email terdaftar',
+                                text: 'Mohon lengkapi data email user'
+                            });
+                        }
+                    }
+                }
+                , error: function (ex) {
+                    GetError('Check Email Availability', JSON.stringify(ex.responseText));
+                }
             });
         });
     });
@@ -429,10 +419,10 @@
         { id: "ALL", name: 'All' },
         { id: "PLG", name: 'Pulogadung' },
         { id: "PLM", name: 'Pulomas' },
-		{ id: "CKR", name: 'Cikarang' }];
+        { id: "CKR", name: 'Cikarang' }];
 
-	function ShowBukti(button) {
-         event.preventDefault();
+    function ShowBukti(button) {
+        event.preventDefault();
 
         $("#reviewerbuktidatatable").removeAttr("hidden");
 
@@ -490,181 +480,181 @@
             }
         });
     }
-	function Cancel() {
-		Swal.fire({
+    function Cancel() {
+        Swal.fire({
             icon: 'question',
-            title: 'Mohon masukan alasan untuk membatalkan penyimpangan ini?',
-			input: 'textarea',
-			inputAttributes: {
-				autocapitalize: 'off'
-			},
-			showCancelButton: true,
-			confirmButtonText: 'Submit',
-			showLoaderOnConfirm: true,
+            title: 'Mohon masukan alasan untuk membatalkan penyimpangan ini!',
+            input: 'textarea',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Submit',
+            showLoaderOnConfirm: true,
 
-			allowOutsideClick: () => Swal.isLoading()
-		}).then((result) => {
-			if (result.isConfirmed) {
-				if (result.value == null || result.value == '') {
-					Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
-					});
-				} else
-					if (result.isConfirmed) {
-						var REQID = @ViewBag.nomor;
-						var Keterangan = result.value;
-						var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            allowOutsideClick: () => Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (result.value == null || result.value == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
+                    });
+                } else
+                if (result.isConfirmed) {
+                    var REQID = @ViewBag.nomor;
+                    var Keterangan = result.value;
+                    var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-						function CancelDeviationKoor() {
-                            var dto = {
-                                REQID: REQID,
-                                KETERANGAN: Keterangan,
-                                IDUSER: iduser
-                            };
+                    function CancelDeviationKoor() {
+                        var dto = {
+                            REQID: REQID,
+                            KETERANGAN: Keterangan,
+                            IDUSER: iduser
+                        };
 
-                            $.ajax({
-                                url: "../Koordinator/Coor_KoorCancel",
-                                type: "post",
-                                dataType: "json",
-                                data: JSON.stringify(dto),
-                                contentType: "application/json;charset=utf-8",
-                                success: function (data) {
+                        $.ajax({
+                            url: "../Koordinator/Coor_KoorCancel",
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(dto),
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
 
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Form Cancelled',
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    }).then(() => {
-                                        window.location.href = "../DataDeviasi/PendingTask"
-                                    })
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Form Cancelled',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    window.location.href = "../DataDeviasi/PendingTask"
+                                })
 
-                                }
-                                , error: function (ex) {
-                                    GetError("Coor_KoorCancel", JSON.stringify(ex));
-                                }
-                            });
-						}
-
-						function NotifyCancelDevKor() {
-                            var tabletype = "More Than One";
-							var whoreceiver = "Canceled";
-                            var no_disposisi = '';
-							var REQID = @ViewBag.nomor;
-							var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-							var dtx = {
-								Urutan: no_disposisi,
-                                Username: iduser,
-                                ReqID: REQID,
-                                TableType: tabletype,
-                                WhoReceiver: whoreceiver
-                            };
-
-                            $.ajax({
-                                type: "post",
-                                url: '../Form/SendEmailInputProposal',
-                                data: JSON.stringify(dtx),
-                                dataType: "json",
-                                contentType: "application/json;charset=utf-8",
-                                success: function (data) {
-
-                                }, error: function (ex) {
-                                    GetError("EmailCancelDeviationKoor", JSON.stringify(ex));
-                                }
-                            });
-						}
-
-                        $.when(CancelDeviationKoor()).done(NotifyCancelDevKor());
-
-
+                            }
+                            , error: function (ex) {
+                                GetError("Coor_KoorCancel", JSON.stringify(ex));
+                            }
+                        });
                     }
-			}
 
-		});
-	}
+                    function NotifyCancelDevKor() {
+                        var tabletype = "More Than One";
+                        var whoreceiver = "Canceled";
+                        var no_disposisi = '';
+                        var REQID = @ViewBag.nomor;
+                        var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-	function CheckStatus() {
+                        var dtx = {
+                            Urutan: no_disposisi,
+                            Username: iduser,
+                            ReqID: REQID,
+                            TableType: tabletype,
+                            WhoReceiver: whoreceiver
+                        };
+
+                        $.ajax({
+                            type: "post",
+                            url: '../Form/SendEmailInputProposal',
+                            data: JSON.stringify(dtx),
+                            dataType: "json",
+                            contentType: "application/json;charset=utf-8",
+                            success: function (data) {
+
+                            }, error: function (ex) {
+                                GetError("EmailCancelDeviationKoor", JSON.stringify(ex));
+                            }
+                        });
+                    }
+
+                    $.when(CancelDeviationKoor()).done(NotifyCancelDevKor());
+
+
+                }
+            }
+
+        });
+    }
+
+    function CheckStatus() {
         var REQID = @ViewBag.nomor;
 
-		var dto = {
-			REQID: REQID
-		};
+        var dto = {
+            REQID: REQID
+        };
 
-		$.ajax({
-			url: "../Koordinator/Koor_LoadAssignStatus",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				if (data == 'OK') {
+        $.ajax({
+            url: "../Koordinator/Koor_LoadAssignStatus",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data == 'OK') {
                     window.location.href = "../DataDeviasi/PendingTask"
-				}
+                }
 
-			}, error: function (ex) {
+            }, error: function (ex) {
                 GetError("Koor_LoadAssignStatus", JSON.stringify(ex));
-			}
-		});
+            }
+        });
     }
 
 
-	// Check Status to Determine which Row Has Action
-	function LoadData2() {
-		var REQID = @ViewBag.nomor;
+    // Check Status to Determine which Row Has Action
+    function LoadData2() {
+        var REQID = @ViewBag.nomor;
 
-		var dto = {
-			REQID: REQID
-		};
-		$.ajax({
-			url: "../Koordinator/Coor_LoadReviewerList",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
+        var dto = {
+            REQID: REQID
+        };
+        $.ajax({
+            url: "../Koordinator/Coor_LoadReviewerList",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
 
-				var trHTML = '';
-				var trav = 0;
-				var Count = data.length;
-				for (trav = 0; trav < Count; trav++) {
+                var trHTML = '';
+                var trav = 0;
+                var Count = data.length;
+                for (trav = 0; trav < Count; trav++) {
 
-					// WHEN REVIEWER FINISHED REVIEW / REVISE
-
-
+                    // WHEN REVIEWER FINISHED REVIEW / REVISE
 
 
 
 
-						trHTML +=
-							'<tr><td>' + data[trav].USER_NAME + '</td>' +
-							'<td>' + data[trav].USER_NIK + '</td>' +
-							'<td>' + data[trav].FLAG_REVIEW + '</td>' +
-							'<td style="text-align:center">' + data[trav].TANGGAL + '</td>' +
-							'<td>' + data[trav].KETERANGAN_REVIEW + '</td>' ;
+
+
+                    trHTML +=
+                        '<tr><td>' + data[trav].USER_NAME + '</td>' +
+                        '<td>' + data[trav].USER_NIK + '</td>' +
+                        '<td>' + data[trav].FLAG_REVIEW + '</td>' +
+                        '<td style="text-align:center">' + data[trav].TANGGAL + '</td>' +
+                        '<td>' + data[trav].KETERANGAN_REVIEW + '</td>' ;
 
 
                     trHTML += '<td align="center"><input type="button" id="btnShowBukti" class="btn btn-info" value="View"></td > ';
 
                     $('#deviationdatatable').DataTable().destroy().clear();
-					$('#deviationtable').empty();
-					$('#deviationtable').append(trHTML);
+                    $('#deviationtable').empty();
+                    $('#deviationtable').append(trHTML);
                     $('#deviationdatatable').DataTable({
                         "searching": false,
-						"paging": false,
-						"info": false,
+                        "paging": false,
+                        "info": false,
                         "ordering": false
                     });
-				}
-			}, error: function (ex) {
+                }
+            }, error: function (ex) {
                 GetError("LoadData2", JSON.stringify(ex));
-			}
-		});
-	}
+            }
+        });
+    }
 
-	@*function LoadSiteGroupPIC() {
+    @*function LoadSiteGroupPIC() {
 		console.log(jumlahdisposisi);
         $('.allDdlPIC').on('change', function () {
             alert($(this).val());
@@ -683,9 +673,9 @@
 
     function LoadData() {
 
-		var nomor = @ViewBag.nomor;
+        var nomor = @ViewBag.nomor;
 
-		function GetDisposisi() {
+        function GetDisposisi() {
             var dto = {
                 REQ_ID: nomor
             }
@@ -735,10 +725,10 @@
                             trHTML += '<tr><td align="center" class="rowNumber">' + no + '</td>' +
                                 '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td> <select id="pic' + trav + '" class="allDdlPIC"></select><select id="site' + trav + '" class="allDdlSite" style="width:200px;"></select>' + '</td>' +
-                                '<td> <input type="date" id="duedate' + trav + '"></td>' +
+                                '<td> <input type="date" id="duedate"></td>' +
                                 '<td align="center"> <input type="button" id="AssignPIC" value="Assign PIC" class="btn btn-primary" /></td>' +
                                 '<td hidden="hidden"><input type="text" value="' + data[trav].NO_DISPOSISI + '"</td>';
-						}
+                        }
                         else {
                             trHTML += '<tr><td align="center" class="rowNumber">' + no + '</td>' +
                                 '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
@@ -761,26 +751,26 @@
 
                     jumlahdisposisi = trav;
 
-					LoadPICList(jumlahdisposisi);
+                    LoadPICList(jumlahdisposisi);
 
-					//SITE PIC
+                    //SITE PIC
                     $(".allDdlSite").hide();
 
-					$('.allDdlPIC').on('change', function (event) {
-						var idPIC = $(this).val();
-						var clickedID = event.target.id;
-						clickedID = clickedID.slice(clickedID.length - 1);
+                    $('.allDdlPIC').on('change', function (event) {
+                        var idPIC = $(this).val();
+                        var clickedID = event.target.id;
+                        clickedID = clickedID.slice(clickedID.length - 1);
 
-						if (idPIC.startsWith("G_", 0)) {
+                        if (idPIC.startsWith("G_", 0)) {
                             $("#site" + clickedID).show();
                             // Populate Group Site Dropdown Lists
-							trhtml = '';
+                            trhtml = '';
                             trhtml += '<option disabled class="dropdown-header" value="" selected>Select Site</option>';
 
-							for (i = 0; i < masterSites.length; i++) {
+                            for (i = 0; i < masterSites.length; i++) {
                                 trhtml +=
                                     '<option class="dropdown-item" value = "' + masterSites[i].id + '">' + masterSites[i].name + '</option>';
-							}
+                            }
 
                             $("#site" + clickedID).empty();
                             $("#site" + clickedID).append(trhtml);
@@ -792,14 +782,17 @@
                         alert(clickedID);*@
 
                     });
+
+                    var today = new Date().toISOString().split('T')[0];
+                    $("#duedate").attr('min', today);
                 },
                 error: function (ex) {
                     GetError("Coor_LoadDisposisiData", JSON.stringify(ex));
                 }
             });
-		}
+        }
 
-		function GetEvalusiResiko() {
+        function GetEvalusiResiko() {
             var dtx = {
                 REQID: nomor
             }
@@ -817,61 +810,61 @@
                     GetError("LoadEvaluasiResiko", JSON.stringify(ex));
                 }
             });
-		}
+        }
 
         $.when(GetDisposisi()).then(GetEvalusiResiko());
-	}
+    }
 
-	function LoadPICList(jumlahdisposisi) {
-		$.ajax({
-			url: "../Koordinator/Coor_LoadPICList",
-			type: "post",
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				var trhtml = "";
-				var trav = 0;
-				var count = data.length;
+    function LoadPICList(jumlahdisposisi) {
+        $.ajax({
+            url: "../Koordinator/Coor_LoadPICList",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var trhtml = "";
+                var trav = 0;
+                var count = data.length;
 
-				trhtml += '<option disabled class="dropdown-header" value="" selected>Select PIC</option>';
-				if (count > 0) {
-					for (trav = 0; trav < count; trav++) {
-						trhtml +=
+                trhtml += '<option disabled class="dropdown-header" value="" selected>Select PIC</option>';
+                if (count > 0) {
+                    for (trav = 0; trav < count; trav++) {
+                        trhtml +=
                             '<option class="dropdown-item" value = "' + data[trav].EmpId + '">' + data[trav].EmpName + '</option>';
-					}
-				}
-				var i = 0;
+                    }
+                }
+                var i = 0;
 
-				// Populate PIC Dropdown Lists
-				for (i = 0; i < jumlahdisposisi; i++) {
-					$("#pic" + i).empty();
-					$("#pic" + i).append(trhtml);
-					$("#pic" + i).select2();
-				}
-			}, error: function (ex) {
+                // Populate PIC Dropdown Lists
+                for (i = 0; i < jumlahdisposisi; i++) {
+                    $("#pic" + i).empty();
+                    $("#pic" + i).append(trhtml);
+                    $("#pic" + i).select2();
+                }
+            }, error: function (ex) {
                 GetError("Load PIC List", JSON.stringify(ex));
-			}
-		});
-	}
+            }
+        });
+    }
 
-	function GetError(ErrorType, ErrorMsg) {
-		var REQID = @ViewBag.nomor;
-		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
+    function GetError(ErrorType, ErrorMsg) {
+        var REQID = @ViewBag.nomor;
+        var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		var dto = {
-			REQ_ID: REQID,
-			UserLogin: USERNIK,
+        var dto = {
+            REQ_ID: REQID,
+            UserLogin: USERNIK,
             ErrorType: ErrorType,
             ErrorMsg: ErrorMsg
-		}
+        }
 
-		$.ajax({
-			url: "../Form/LogError",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
+        $.ajax({
+            url: "../Form/LogError",
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(dto),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
                 toastr.warning(data +" Assign ! ", "Notification", {
                     "closeButton": false,
                     "debug": true,
@@ -889,11 +882,11 @@
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 });
-			}
-			, error: function (ex) {
+            }
+            , error: function (ex) {
 
-			}
-		});
-	}
+            }
+        });
+    }
 
 </script>

@@ -23,8 +23,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Site Koordinator</label>
+                            <div class="col-form-label">
+                                <div class="btn-group">
+                                    <div class="basic-dropdown">
+                                        <div class="dropdown ">
+                                            <select id="ddlSite">
+                                                <option disabled selected hidden class="dropdown-header">Site Koordinator</option>
+                                                <option class="dropdown-item" value="CKR">Cikarang</option>
+                                                <option class="dropdown-item" value="PLG">Pulogadung</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+
 
                 <div class="card">
                     <div class="card-body">
@@ -51,7 +69,16 @@
 
         $('#ddlPeriod').change(function () {
             ReportValidationCheck();
+
         });
+
+        $('#ddlSite').change(function () {
+            ReportValidationCheck();
+
+        });
+
+
+        $("#ddlSite").selectpicker();
     });
 
 
@@ -59,8 +86,10 @@
 
     function ReportValidationCheck() {
         var Period = $("#ddlPeriod").val();
-        
-        url = "../Report/ReportHiddenCost.aspx?Period=" + Period;
+        var Site = $("#ddlSite").val();
+     
+        url = "../Report/ReportHiddenCost.aspx?Period=" + Period + '&Site=' + Site;
+        console.log(url);
 
         var myframe = document.getElementById("ifrmReportViewer");
         if (myframe !== null) {
@@ -77,9 +106,11 @@
         return false;
     }
 
+
+
     function DDLPeriode() {
         $.ajax({
-            url: "../DataDeviasi/DdlPeriodHiddenCoat",
+            url: "../DataDeviasi/DdlPeriodHiddenCost",
             type: "post",
             contentType: "application/json;charset=utf-8",
             success: function (data) {

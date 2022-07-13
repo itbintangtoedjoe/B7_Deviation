@@ -101,7 +101,8 @@
                             if (data[trav].STAT == 'OPEN') {
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../PelaporPenyimpangan/ProposerHeader?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
-                            } else {
+                            }
+                            else {
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../PelaporPenyimpangan/ProposerEdit?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             }
@@ -273,7 +274,9 @@
                                 trHTML +=
                                     '<td>' + data[trav].ALASAN_REJECT + '</td>';
                             }
-                        } else if (data[trav].SEND_TO == 'PICRemidial') {
+                        }
+
+                        else if (data[trav].SEND_TO == 'PICRemidial') {
                             if (data[trav].ALASAN_REJECT == 'Detail PIC') {
 
                                 //if (data[trav].FLAG_QMPIC == 'QM') {
@@ -290,12 +293,14 @@
 
                                 trHTML +=
                                 //    '<td><a href="../PICRemidial/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
-                                    '<td>WAWAWAWAWAW</td>';
+                                    '<td>N/A</td>';
                             } else {
                                 trHTML +=
                                     '<td>' + data[trav].ALASAN_REJECT + '</td>';
                             }
-                        } else if (data[trav].SEND_TO == 'Supervisor PIC') {
+                        }
+
+                        else if (data[trav].SEND_TO == 'Supervisor PIC') {
                             if (data[trav].FLAG_SPVPIC == 'SPV PIC') {
                                 trHTML +=
                                     //'<td><a href="../SpvPIC/PendingApproval?Nomor=' + data[trav].REQ_ID + ' " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
@@ -306,9 +311,17 @@
                                     '<td>'+data[trav].ALASAN_REJECT+'</td>';
                             }
 
-                        } else {
-                            trHTML +=
-                                '<td " style="color:red;">' + data[trav].ALASAN_REJECT + '</td>';
+                        }
+
+                        else {
+                         
+                            if (data[trav].ALASAN_REJECT == 'N/A') {
+                                trHTML +=
+                                    '<td>' + data[trav].ALASAN_REJECT + '</td>';
+                            } else {
+                                trHTML +=
+                                    '<td " style="color:red; font-weight: bold;">' + data[trav].ALASAN_REJECT + '</td>';
+                            }
                         }
 
                         trHTML+=
