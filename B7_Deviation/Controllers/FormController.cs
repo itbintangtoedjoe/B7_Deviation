@@ -691,7 +691,8 @@ namespace B7_Deviation.Controllers
                 }
 
                 string daftarNamaPenerima = "";
-                        foreach (DataRow dr in DT.Rows)
+                string daftarNamaTo = "";
+                foreach (DataRow dr in DT.Rows)
                 {
                     daftarNamaPenerima += dr[0].ToString() + ", ";
                     t_namapenerima = dr[0].ToString();
@@ -699,6 +700,7 @@ namespace B7_Deviation.Controllers
                     if (dr[2].ToString() == "false")
                     {
                         Msg.To.Add(new MailAddress(t_emailpenerima, t_namapenerima));
+                        daftarNamaTo += dr[0].ToString() + ", ";
                     }
 
                     else if (dr[2].ToString() == "true")
@@ -710,7 +712,7 @@ namespace B7_Deviation.Controllers
 
             #region EmailBodyMoreThanOne
 
-            EmailBody = "<html><body><br/>Dear " + daftarNamaPenerima + " <br/>" +
+            EmailBody = "<html><body><br/>Dear " + daftarNamaTo + " <br/>" +
                         "Proposal with,<br/><br/>" +
                         "<table style=" + "float:left" + ">" +
                         "<tr>" +
@@ -741,13 +743,10 @@ namespace B7_Deviation.Controllers
                         "<tr>" +
                         "<td>Status</td>" +
                         "<td>:</td>" +
-                        //"<td><b>" + t_status + "</b></td>" +
                         "<td><b>" + t_status + "</b></td>" +
                         "</tr>" +
                         "<tr></tr>" +
                         "<tr>" +
-                        "<td><b>" + t_status + "</b></td>" +
-                        "</tr>" +
                         "<tr>" +
                         "Access : " +
                         "<a href=" + "https://portal.bintang7.com/B7_Deviationv2/Login/Index" + ">Click Here</a>" +
