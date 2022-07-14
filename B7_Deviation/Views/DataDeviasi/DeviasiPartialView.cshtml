@@ -1719,11 +1719,15 @@
 
         if (dev_kategori == 'QMT') {
             var noQC = data['NoQCMaterial'];
-            filteredArray = listProduk.filter(value => value.NoQCMaterial != noQC);
+            var noWOOracle = data['NoWOOracle'];
+            filteredArray = listProduk.filter(value => value.NoQCMaterial != noQC && value.NoWOOracle != noWOOracle);
         }
         else if (dev_kategori == 'QPR') {
+            var noBO = data['NoBatchOracle'];
             var noWOOracle = data['NoWOOracle'];
-            filteredArray = listProduk.filter(value => value.NoWOOracle != noWOOracle);
+            var itemCode = data['ItemCodeOracle'];
+            console.log(noBO + noWOOracle + itemCode )
+            filteredArray = listProduk.filter(value =>  value.NoWOOracle != noWOOracle && value.NoBatchOracle != noBO && value.ItemCodeOracle != itemCode);
         }
 
 

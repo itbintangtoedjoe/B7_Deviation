@@ -265,7 +265,7 @@
         GetSuperior();
         $("#role").change(function () {
             GetKategoriPenyimpangan();
-            $("#btnGenerateVendorID").click(function (e) {
+            
                 let option;
                 if ($("#role option:selected").val() == 'Admin') {
                     option = 'Get AdminID'
@@ -283,24 +283,21 @@
                     dataType: "json",
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
-
                         $("#empid").val(data[0].VENDORID);
                         $("#empid").attr("disabled", true);
 
                         //$("#superiorid").val(data[0].SPVVENDOR);
                         //$("#superiorid").attr("disabled", true);
 
-
-
                     }, error: function (ex) {
                         alert(JSON.stringify(ex));
                     }
                 });
-            });
+            
+
             GetSuperior();
 
         });
-
 
         $('#submit').click(function () {
             $.when(
@@ -331,7 +328,6 @@
             ).done(
                 //alert('haha')
                 function () {
-                    alert(CekAja)
                     //var x = document.getElementById("password");
                     //var y = document.getElementById("repassword");
                     if (CekAja == false) {
