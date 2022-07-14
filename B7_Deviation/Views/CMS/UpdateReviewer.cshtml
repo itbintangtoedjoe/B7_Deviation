@@ -17,7 +17,6 @@
                             <h2 class="d-inline">Update Reviewer</h2>
                         </div>
 
-                        <input id="TxtReqID" disabled hidden/>
                         <div class="row form-group">
                             <div class="col-lg-2 col-form-label">
                                 <label class="col-form-label">Nomor Penyimpangan</label>
@@ -157,12 +156,8 @@
 
         $("#ddlNoPenyimpangan").change(function () {
             $('#headerTabel').attr('hidden', false);
-            GetReqID();
-            setTimeout(function () {
-                LoadData();
-                GetNamaEmployee();
-            }, 400);
-
+            LoadData();
+            GetNamaEmployee();
         });
 
         $("#ddlNama").change(function () {
@@ -179,7 +174,7 @@
 
         $("#btnAddReviewer").click(function () {
 
-            if ($('#TxtReqID').val() == '') {
+            if ($('#ddlNoPenyimpangan').val() == '') {
                 alert('Please Choose the Deviation Number.');
             } else {
                 AddReviewer();
@@ -213,7 +208,7 @@
         $("#btnUpdate").click(function () {
             var NamaEmployeeAdded = $('#ddlNama2 option:selected').text();
 
-            var REQID = $('#TxtReqID').val();
+            var REQID = $('#ddlNoPenyimpangan').val();
             var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
             $('#updateReviewer').modal('hide');
 
@@ -328,7 +323,7 @@
 
     // Check Status to Determine which Row Has Action
     function LoadData() {
-        var REQID = $('#TxtReqID').val();
+        var REQID = $('#ddlNoPenyimpangan').val();
         @*alert(REQID);*@
         var dto = {
             REQID: REQID
@@ -417,7 +412,7 @@
                 if (tableDataCount > 0) {
                     for (trav = 0; trav < tableDataCount; trav++) {
                         trhtml +=
-                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].DEVIATION_NO;
+                            '<option class="dropdown-item" value = "' + data[trav].REQ_ID + '" > ' + data[trav].DEVIATION_NO;
                     }
 
                 }
@@ -435,7 +430,7 @@
     }
 
     function GetNamaEmployee() {
-        var REQID = $('#TxtReqID').val();
+        var REQID =  $('#ddlNoPenyimpangan').val();
 
         var dto = {
             REQID: REQID
@@ -473,7 +468,7 @@
 
     }
 
-    function GetReqID() {
+    @*function GetReqID() {
         var devNo = $('#ddlNoPenyimpangan option:selected').text();
 
         var dto = {
@@ -486,18 +481,18 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                @*$("#TxtReqID").val('wasup');*@
+                @*$("#TxtReqID").val('wasup');
                 $("#TxtReqID").val(data);
 
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
             }
         });
-    }
+    }*@
 
     function AddReviewer() {
         var UserInvolved = $('#ddlNama option:selected').text();
-        var REQID = $('#TxtReqID').val();
+        var REQID = $('#ddlNoPenyimpangan').val();
         var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
         var dto = {
@@ -593,7 +588,7 @@
     function UpdateReviewer() {
         var NamaEmployeeRemoved = $('#ddlNama2 option:selected').text();
         var NamaEmployeeAdded = $('#ddlNama2 option:selected').text();
-        var REQID = $('#TxtReqID').val();
+        var REQID =  $('#ddlNoPenyimpangan').val();
         var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
         var dto = {

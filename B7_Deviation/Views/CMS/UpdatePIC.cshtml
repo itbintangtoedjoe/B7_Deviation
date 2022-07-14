@@ -15,8 +15,6 @@
                             <h2 class="d-inline">Update PIC</h2>
                         </div>
 
-                        <input id="TxtReqID" disabled hidden/>
-                        <input id="TxtEmpID" disabled hidden/>
                         <div class="row form-group">
                             <div class="col-lg-2 col-form-label">
                                 <label class="col-form-label">Nomor Penyimpangan</label>
@@ -114,39 +112,11 @@
 
 
     <script>
-        var pic_nik;
 
         $(document).ready(function() {
-
-            //fungsi buat nangkep perubahan di textbox reqid biar manggil fungsi
-            var prevREQID = $('#TxtReqID').val();
-            setInterval(function() {
-                    if (prevREQID != $('#TxtReqID').val()) {
-                        prevREQID = $('#TxtReqID').val();
-                        LoadData();
-                        GetNamaPIC();
-                    }
-                },
-                100);
-
-            var prevEMPID = $('#TxtEmpID').val();
-            setInterval(function() {
-                    if (prevEMPID != $('#TxtEmpID').val()) {
-                        prevEMPID = $('#TxtEmpID').val();
-
-                        var empId = $('#TxtEmpID').val();
-                        pic_nik = $('#TxtEmpID').val();
-                        if (empId.includes("G_") == true) {
-                            $('#divDdlSite').attr('hidden', false);
-                        } else {
-                            $('#divDdlSite').attr('hidden', true);
-                        }
-                    }
-                },
-                100);
-
             GetNoPenyimpangan();
             LoadData();
+            GetNamaPIC();
 
             $('#ddlNoPenyimpangan').select2();
             $('#ddlNama').select2();
@@ -154,7 +124,16 @@
 
             $("#ddlNoPenyimpangan").change(function() {
                 $('#headerTabel').attr('hidden', false);
-                GetReqID();
+                LoadData();
+            });
+
+            $("#ddlNama").change(function () {
+                var empId= $('#ddlNama').val();
+                if (empId.includes("G_") == true) {
+                    $('#divDdlSite').attr('hidden', false);
+                } else {
+                    $('#divDdlSite').attr('hidden', true);
+                }
             });
 
             var NoDisposisi = 'capek';
@@ -180,8 +159,8 @@
 
                 var NamaPIC = $('#ddlNama option:selected').text();
                 var NamaSite = $('#ddlSite').val();
-                var REQID = $('#TxtReqID').val();
-                var empID = $('#TxtEmpID').val();
+                var REQID = $('#ddlNoPenyimpangan').val();
+                var empID = $('#ddlNama').val();
                 var pic_is_group = false;
                 var groupsite = $('#ddlSite').val();
                 $('#updatePIC').modal('hide');
@@ -397,7 +376,6 @@
 
 
             $("#ddlNama").change(function () {
-                GetEmpID();
                 if ($('#ddlNama').val() != '') {
                     document.getElementById("btnUpdate").disabled = false;
                 } else {
@@ -411,7 +389,7 @@
 
     // Check Status to Determine which Row Has Action
     function LoadData() {
-        var REQID = $('#TxtReqID').val();
+        var REQID = $('#ddlNoPenyimpangan').val();
         @*alert(REQID);*@
         var dto = {
             REQID: REQID
@@ -490,7 +468,7 @@
                 if (tableDataCount > 0) {
                     for (trav = 0; trav < tableDataCount; trav++) {
                         trhtml +=
-                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].DEVIATION_NO;
+                            '<option class="dropdown-item" value = "' + data[trav].REQ_ID + '" > ' + data[trav].DEVIATION_NO;
                     }
 
                 }
@@ -498,7 +476,7 @@
                 $("#ddlNoPenyimpangan").empty();
                 $("#ddlNoPenyimpangan").append(trhtml);
                 $("#ddlNoPenyimpangan").select2();
-
+                console.log($("#ddlNoPenyimpangan").val())
 
             }, error: function (ex) {
                 alert(JSON.stringify(ex));
@@ -508,7 +486,7 @@
     }
 
     function GetNamaPIC() {
-        var REQID = $('#TxtReqID').val();
+        var REQID = $('#ddlNoPenyimpangan').val();
 
         var dto = {
             REQID: REQID
@@ -530,7 +508,7 @@
                     for (trav = 0; trav < count; trav++) {
 
                         trhtml +=
-                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].EmpName;
+                            '<option class="dropdown-item" value = "' + data[trav].EmpId + '" > ' + data[trav].EmpName;
 
                     }
                 }
@@ -543,49 +521,6 @@
             }
         });
 
-    }
-
-    function GetReqID() {
-        var devNo = $('#ddlNoPenyimpangan option:selected').text();
-
-        var dto = {
-            NoPenyimpangan: devNo
-        };
-        $.ajax({
-            url: "../CMS/CMS_GetReqID",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                @*$("#TxtReqID").val('wasup');*@
-                $("#TxtReqID").val(data);
-
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }
-
-    function GetEmpID() {
-        var picName = $('#ddlNama option:selected').text();
-
-        var dto = {
-            PICName:picName
-        };
-        $.ajax({
-            url: "../CMS/CMS_GetEmpID",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                $("#TxtEmpID").val(data);
-
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
     }
 
     </script>
