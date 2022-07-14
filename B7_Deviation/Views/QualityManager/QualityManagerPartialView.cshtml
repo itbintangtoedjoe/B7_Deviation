@@ -171,6 +171,7 @@
 	var listProduk = [];
     var editMode = false;
 	$(document).ready(function () {
+
 		$('#JenisPenyimpanganDetail').hide();
 
 		LoadHeader();
@@ -229,7 +230,7 @@
             });
         });
 
-        $('#tblDisKet tbody').on('click', 'input[id="EditDisposisi"]', function () {
+        $('#tblDis tbody').on('click', 'input[id="EditDisposisi"]', function () {
             event.preventDefault();
 
 			var row = $(this).closest("TR");
@@ -263,7 +264,7 @@
 								'<td>' + nom + '</td>' +
 								'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 								'<td><textarea class="form-control">' + data[trav].KETERANGAN_DISPOSISI+'</textarea></td>' +
-								'<td><input type="button" id="Cancel" class="btn btn-danger Cancel"/><span class="fa fa-ban"><strong></strong></span> <input type="button" id="Update" class="btn btn-success Update"/><span class="fa fa-floppy-o"><strong></strong></span></td ></tr > ';
+								'<td><input type="button" id="Cancel" class="btn btn-danger Cancel" value="Cancel"/> <input type="button" id="Update" class="btn btn-success Update" value="Update"/></td ></tr > ';
 
 
 						} else {
@@ -294,12 +295,12 @@
 			});
         });
 
-        $('#tblDisKet tbody').on('click', 'input[id="Cancel"]', function () {
+        $('#tblDis tbody').on('click', 'input[id="Cancel"]', function () {
             event.preventDefault();
             LoadKeteranganDisposisi();
         });
 
-        $('#tblDisKet tbody').on('click', 'input[id="Update"]', function () {
+        $('#tblDis tbody').on('click', 'input[id="Update"]', function () {
             event.preventDefault();
             var row = $(this).closest("TR");
 

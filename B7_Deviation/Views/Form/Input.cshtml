@@ -2369,7 +2369,7 @@
 								'<td style="display:none">' + data[trav].NO_FILE + '</td>' +
 								'<td>' + data[trav].file_name_upload + '</td>' +
 								'<td style="display:none;">' + data[trav].path_file + '</td>' +
-								'<td><input type="button" class="btn btn-danger DeleteFileAttachment" title="Delete"/><span class="fa fa-trash-o"><strong></strong></span></td></tr>';
+								'<td><input type="button" class="btn btn-danger DeleteFileAttachment" title="Delete" value="Delete"/></td></tr>';
 						}
 
 						$("#tbl_Attachment").show();
@@ -2391,11 +2391,7 @@
 		});
 	}
 
-	function DeleteFileAttachment(button) {
-		
-	}
-
-	// Save Deviation
+    // Save Deviation
 	function InsertDeviation() {
 
         $('#ModalLoading').modal('show');
@@ -2693,7 +2689,7 @@
 							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 							'<td style="display:none">' + data[trav].RecordID + '</td>' +
 							'<td>' + data[trav].USER_NAME + '</td>' +
-							'<td><input type="button" id="DeleteUserInvolved"  class="btn btn-danger DeleteUserInvolved"/><span class="fa fa-trash-o"><strong></strong></span></td ></tr > ';
+							'<td><input type="button" id="DeleteUserInvolved"  class="btn btn-danger DeleteUserInvolved" value="Delete"/></td ></tr > ';
 					}
 
 					$("#tblBodyWho").empty();

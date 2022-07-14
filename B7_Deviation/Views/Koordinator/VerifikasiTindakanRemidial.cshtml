@@ -242,9 +242,6 @@
 
         var dev_kategori = $("#ddlKategori").val();
 
-
-
-
     $(document).ready(function () {
 
         $('#deviationdatatable tbody').on('click', 'input[id="btnVerifikasi"]', function () {
@@ -722,7 +719,7 @@
                         if (data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC' || data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY DIV HEAD') {
 							trHTML +=
 								'<td align="center">' +
-								'<input type="button" style="width:50px" id = "btnVerifikasi" class="btn btn-success" value="Verifikasi&nbsp;&nbsp;"/>' +
+								'<input type="button" style="width:50px" id = "btnVerifikasi" class="btn btn-success" value="Verifikasi"/>' +
 								'<input type="button" style="width:50px" id = "btnRejectVerifikasi" class="btn btn-danger" value="Reject"/>' +
 								'</td > ';
 							//15 Nov 21, tampilkan cap verified

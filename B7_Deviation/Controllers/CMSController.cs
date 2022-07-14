@@ -986,7 +986,7 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
-        /*Added by Michael Ken (03/06/2022)*/
+        /*Added by MK (03/06/2022)*/
         public ActionResult CMS_GetNoPenyimpangan()
         {
             string conString = mySetting.ConnectionString;

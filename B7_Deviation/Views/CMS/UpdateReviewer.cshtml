@@ -468,28 +468,6 @@
 
     }
 
-    @*function GetReqID() {
-        var devNo = $('#ddlNoPenyimpangan option:selected').text();
-
-        var dto = {
-            NoPenyimpangan: devNo
-        };
-        $.ajax({
-            url: "../CMS/CMS_GetReqID",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                @*$("#TxtReqID").val('wasup');
-                $("#TxtReqID").val(data);
-
-            }, error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-        });
-    }*@
-
     function AddReviewer() {
         var UserInvolved = $('#ddlNama option:selected').text();
         var REQID = $('#ddlNoPenyimpangan').val();

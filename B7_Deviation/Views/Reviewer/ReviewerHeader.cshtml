@@ -151,8 +151,7 @@
                 data: JSON.stringify(dto),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-
-                    if (data == 'S') {
+                    if (data == 'S' || data == 'E') {
                         toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
                             "closeButton": false,
                             "debug": false,
@@ -336,9 +335,9 @@
 							"preventDuplicates": false,
 							"onclick": null,
 							"showDuration": "100",
-							"hideDuration": "1000",
-							"timeOut": "1000",
-							"extendedTimeOut": "1000",
+							"hideDuration": "3000",
+							"timeOut": "3000",
+							"extendedTimeOut": "3000",
 							"showEasing": "swing",
 							"hideEasing": "linear",
 							"showMethod": "fadeIn",
@@ -386,7 +385,7 @@
 								'<td style="display:none">' + data[trav].NO_FILE + '</td>' +
 								'<td>' + data[trav].FILE_NAME_UPLOAD + '</td>' +
 								'<td style="display:none;">' + data[trav].PATH_FILE + '</td>' +
-								'<td><input type="button" id="DeleteFileAttachment"  class="btn btn-danger DeleteFileAttachment" title="Delete" /><span class="fa fa-trash-o"><strong></strong></span></td></tr>';
+								'<td><input type="button" id="DeleteFileAttachment"  class="btn btn-danger DeleteFileAttachment" title="Delete" Value="Delete"/></td></tr>';
 						}
 
 						$("#tbl_AttachmentReviewer").show();
@@ -478,9 +477,9 @@
                     "preventDuplicates": false,
                     "onclick": null,
                     "showDuration": "200",
-                    "hideDuration": "1000",
-                    "timeOut": "1000",
-                    "extendedTimeOut": "1000",
+                    "hideDuration": "3000",
+                    "timeOut": "3000",
+                    "extendedTimeOut": "3000",
                     "showEasing": "swing",
                     "hideEasing": "linear",
                     "showMethod": "fadeIn",

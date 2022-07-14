@@ -821,7 +821,7 @@
             event.preventDefault();
             $('#buktidatatable').DataTable().clear().destroy();
 
-            var row = $(button).closest("TR");
+            var row = $(this).closest("TR");
             var ReqID = @ViewBag.nomor;
             var picnik = $("TD", row).eq(16).html();
             var seq = $("TD", row).eq(0).html();

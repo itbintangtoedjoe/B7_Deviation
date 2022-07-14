@@ -99,7 +99,8 @@ namespace B7_Deviation.Controllers
             Msg.From = new MailAddress("notification@bintang7.com", "Deviation Notification");
             Msg.Bcc.Add(new MailAddress("michaelken117@gmail.com"));
             Msg.Bcc.Add(new MailAddress("musicdoesmagicinlife@gmail.com"));
-
+            Msg.Bcc.Add(new MailAddress("felicia.benaly@bintang7.com"));
+            
             Msg.Priority = MailPriority.High;
             Msg.IsBodyHtml = true;
             Msg.Subject = "Deviation Notification";
@@ -176,6 +177,9 @@ namespace B7_Deviation.Controllers
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
+
+                            Command.Parameters.Add("@TotalCost", SqlDbType.VarChar);
+                            Command.Parameters["@TotalCost"].Value = Model.TotalCost;
 
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;

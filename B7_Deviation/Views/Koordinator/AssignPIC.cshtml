@@ -127,6 +127,7 @@
 
 
     $(document).ready(function () {
+        $('#btnTambahProduk').attr('hidden', true);
         //load desposisi
         LoadData();
         //load reviewer
@@ -266,7 +267,7 @@
                                         function ConditionLoad() {
                                             if (data == 'COMPLETE') {
                                                 var url = "../DataDeviasi/PendingTask";
-                                                $(location).attr('href', url);
+                                                $.when(LoadData()).done($(location).attr('href', url));
                                             }
                                             else {
                                                 LoadData();
@@ -374,7 +375,7 @@
                             //kalau ke group, send email ke group
                             if (pic_is_group === true) {
 
-                                 $.when(AssigningPIC(), SendMailAssignPICGroup()).then(CheckStatus());
+                                 $.when(AssigningPIC(), SendMailAssignPICGroup()).done(CheckStatus());
 
                                  @*$.when(AssignPIC()).then(SendMailAssign());*@
                                 @* $.when(AssigningPIC()).done($.when((SendMailAssignPICGroup()).done(ConditionLoad())));*@

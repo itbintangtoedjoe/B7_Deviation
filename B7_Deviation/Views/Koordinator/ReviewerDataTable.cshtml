@@ -69,7 +69,7 @@
                         <hr />
 
                         <div class="form-group" id="disposisi">
-                            <label class="">Disposisi Tindakan Remedial<span class="text-danger">*</span></label>
+                            <label class="">Disposisi Tindakan Remedial</label>
                             <div class="">
                                 <div class="input-group">
                                     <textarea id="txtDisposisi" placeholder="Disposisi Tindakan Remedial" class="form-control"></textarea>
@@ -253,7 +253,7 @@
 				}
 				else if (result.isConfirmed) {
 
-					var row = $(button).closest("TR");
+					var row = $(this).closest("TR");
 					var empid = $("TD", row).eq(1).html();
 					var reqid = @ViewBag.nomor;
 					var keteranganReject = result.value;
@@ -337,9 +337,9 @@
             });
 
             // On Click DeleteKeteranganDisposisi
-            $('#tblDisKet tbody').on('click', 'input[id="DeleteKeteranganDisposisi"]', function () {
+            $('#tblDis tbody').on('click', 'input[id="DeleteKeteranganDisposisi"]', function () {
                 event.preventDefault();
-                var row = $(button).closest("TR");
+                var row = $(this).closest("TR");
                 var ReqID = @ViewBag.nomor;
                 var RecordID = $("TD", row).eq(0).html();
 
@@ -942,7 +942,7 @@
 								'<td>' + no + '</td>' +
 								'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 								'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-								'<td><input type="button" id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi"/><span class="fa fa-trash-o"><strong></strong></span></td ></tr > ';
+								'<td><input type="button" id="DeleteKeteranganDisposisi" class="btn btn-danger DeleteKeteranganDisposisi" value="Delete"/></td ></tr > ';
 						}
 
 						$("#tblDisKet").empty();

@@ -59,6 +59,8 @@
     <script>
         $(document).ready(function () {
             // Load User once the page is loaded
+            $('#btnTambahProduk').attr('hidden', true);
+
             LoadData();
 
             $('#deviationdatatable tbody').on('click', 'input[id="Open"]', function () {
@@ -128,6 +130,8 @@
                     }
                 });
             });
+
+
 
         });
 
