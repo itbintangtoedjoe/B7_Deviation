@@ -23,6 +23,10 @@
                                     <br />
                                     <label type="text" id="lblReq" style="font-weight:bold" disabled>@ViewBag.nomor</label>
                                 </div>
+                                
+                                <div>
+                                    <img src="/Content/Pict/cancelled.png" width="200px" height="120px" id="cancelledImg" hidden>
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col">
@@ -860,9 +864,8 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-
                 if (data == 'CANCEL') {
-
+                    $("#cancelledImg").attr("hidden", false);
                     $("#cancelid").removeAttr("hidden");
 
                     $.ajax({
