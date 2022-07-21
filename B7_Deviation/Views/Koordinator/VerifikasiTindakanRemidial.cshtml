@@ -250,67 +250,77 @@
             var no_disposisi = $("TD", row).eq(0).html();
             var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-            var dto = {
-                REQ_ID: ReqID,
-                NO_DISPOSISI: no_disposisi,
-                CURR_USER: username
-            }
+            Swal.fire({
+                title: 'Apakah Anda yakin untuk verifikasi tindakan remedial terpilih?',
+                showCancelButton: true,
+                icon: 'warning',
+                confirmButtonText: 'Ya, verifikasi',
+                showLoaderOnConfirm: true,
+                allowOutsideClick: () => Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var dto = {
+                        REQ_ID: ReqID,
+                        NO_DISPOSISI: no_disposisi,
+                        CURR_USER: username
+                    }
 
-            $.ajax({
-                url: "../Koordinator/VerifikasiPerPIC",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    LoadStatus();
-                }
-                , error: function (ex) {
-                    GetErrorVerifikasi("VerifikasiPerPIC", JSON.stringify(ex));
-                }
-            });
-
-            var tabletype = "More Than One";
-            var whoreceiver = "PIC after Koordinator Verifikasi OK";
-
-            //send email function
-            var dtx = {
-                Username: username,
-                ReqID: ReqID,
-                Urutan: no_disposisi,
-                TableType: tabletype,
-                WhoReceiver: whoreceiver
-            };
-
-            $.ajax({
-                type: "post",
-                url: '../Form/SendEmailInputProposal',
-                data: JSON.stringify(dtx),
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-                    toastr.success("Email Sent Successfully !", "Notification", {
-                        "closeButton": false,
-                        "debug": true,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-bottom-right",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "100",
-                        "hideDuration": "1000",
-                        "timeOut": "1000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
+                    $.ajax({
+                        url: "../Koordinator/VerifikasiPerPIC",
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(dto),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            LoadStatus();
+                        }
+                        , error: function (ex) {
+                            GetErrorVerifikasi("VerifikasiPerPIC", JSON.stringify(ex));
+                        }
                     });
-                }, error: function (ex) {
-                    GetErrorVerifikasi("VerifikasiNotifyApprove", JSON.stringify(ex));
+
+                    var tabletype = "More Than One";
+                    var whoreceiver = "PIC after Koordinator Verifikasi OK";
+
+                    //send email function
+                    var dtx = {
+                        Username: username,
+                        ReqID: ReqID,
+                        Urutan: no_disposisi,
+                        TableType: tabletype,
+                        WhoReceiver: whoreceiver
+                    };
+
+                    $.ajax({
+                        type: "post",
+                        url: '../Form/SendEmailInputProposal',
+                        data: JSON.stringify(dtx),
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            toastr.success("Email Sent Successfully !", "Notification", {
+                                "closeButton": false,
+                                "debug": true,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-bottom-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "100",
+                                "hideDuration": "1000",
+                                "timeOut": "1000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            });
+                        }, error: function (ex) {
+                            GetErrorVerifikasi("VerifikasiNotifyApprove", JSON.stringify(ex));
+                        }
+                    });
                 }
             });
-
         });
 
         $('#deviationdatatable tbody').on('click', 'input[id="btnRejectVerifikasi"]', function () {
