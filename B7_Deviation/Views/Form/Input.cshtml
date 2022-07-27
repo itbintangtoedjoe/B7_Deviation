@@ -856,7 +856,7 @@
 
         //On click function button Print
 		$('#tbl_Attachment tbody').on('click', 'input[id="DeleteFileAttachment"]', function () {
-			alert("hapus attachment");
+			//alert("hapus attachment");
             event.preventDefault();
             var Row = $(this).closest("TR");
             var ReqID = $("TD", Row).eq(1).html();
@@ -870,7 +870,7 @@
                 PathFile: PathFile
 			}
 
-			alert(JSON.stringify(dto));
+			//alert(JSON.stringify(dto));
 
             $.ajax({
                 url: "DeleteAttachment",

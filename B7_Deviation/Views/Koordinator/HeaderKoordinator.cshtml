@@ -194,7 +194,7 @@
 		});
 
         $('#tblBodyWho_Rev tbody').on('click', 'input[id="DeleteUserInvolved"]', function () {
-            event.preventDefault();
+			event.preventDefault();
             var row = $(this).closest("TR");
             var ReqID = $("TD", row).eq(1).html();
             var RecordID = $("TD", row).eq(2).html();

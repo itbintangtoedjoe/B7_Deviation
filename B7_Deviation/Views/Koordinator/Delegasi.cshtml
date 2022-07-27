@@ -101,7 +101,7 @@
 	});
 
 	function Delegate() {
-        alert('masuk fungsi delegate');
+        //alert('masuk fungsi delegate');
 		var nomor = @ViewBag.nomor;
         var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 		var userid = $("#listDelegasi").val();
@@ -111,7 +111,7 @@
 		// Should have be KETERANGAN_DELEGASI
 
 		function DelegasiSend() {
-            alert('delegasi send');
+            //alert('delegasi send');
             var dto = {
                 USER_NIK: userid,
                 REQID: nomor,
@@ -145,7 +145,7 @@
 		}
 
 		function EmailDelegasi() {
-            alert('email delegasi');
+            //alert('email delegasi');
             var tabletype = "More Than One";
             var whoreceiver = "Delegasi";
 
