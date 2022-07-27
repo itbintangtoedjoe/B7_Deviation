@@ -39,7 +39,7 @@
                                         <th width="75px">Manhours Cost (Rp)</th>
                                         <th width="75px">Nama Sparepart</th>
                                         <th width="75px">Harga Sparepart (Rp)</th>
-                                        <th width="75px" hidden="hidden">NIK PIC</th>
+                                        <th width="75px" hidden="hidden">Nama PIC</th>
                                     </tr>
 
                                 </thead>
@@ -59,7 +59,7 @@
                             <thead>
                                 <tr>
                                     <th width="75px">No</th>
-                                    <th width="100px">NIK PIC</th>
+                                    <th width="100px">Nama PIC</th>
                                     <th width="75px">Nama File</th>
 
                                 </tr>
@@ -82,12 +82,11 @@
          $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
 
             event.preventDefault();
-
-            $("#reviewerbuktidatatable").removeAttr("hidden");
+            //$("#buktidatatable").removeAttr("hidden");
 
             var row = $(this).closest("TR");
             var ReqID = @ViewBag.nomor;
-            var reviewer = $("TD", row).eq(1).html();
+            var reviewer = $("TD", row).eq(2).html();
 
             var dto = {
                 REQID: ReqID,
@@ -101,6 +100,7 @@
                 data: JSON.stringify(dto),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
+                    alert(JSON.stringify(data))
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
@@ -122,17 +122,18 @@
                         }
                     }
 
-
-                    $('#reviewerbuktidatatable').DataTable().clear().destroy();
-                    $('#reviewerbukti').empty();
-                    $('#reviewerbukti').append(trHTML);
-                    $('#reviewerbuktidatatable').DataTable({
+                    alert(trHTML)
+                    $('#buktidatatable').DataTable().clear().destroy();
+                    $('#buktitable').empty();
+                    $('#buktitable').append(trHTML);
+                    $('#buktidatatable').DataTable({
                         "searching": false,
                         "paging": false,
                         "info": false,
                         "ordering": false
                     });
 
+                    $("#tabel2").removeAttr("hidden");
                 }
                 , error: function (ex) {
 

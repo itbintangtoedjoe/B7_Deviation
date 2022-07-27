@@ -445,13 +445,14 @@
             }
         });
 
-        $('#tblBukti tbody').on('click', 'input[id="DeleteFileAttachment"]', function() {
+        $('#tblBukti tbody').on('click', 'input[id="DeleteFileAttachment"]', function () {
+            
                 var Row = $(this).closest("TR");
                 var ReqID = $("TD", Row).eq(1).html();
                 var RecordID = $("TD", Row).eq(2).html();
                 var FileName = $("TD", Row).eq(3).html();
                 var PathFile = $("TD", Row).eq(4).html();
-                var urutan = @ViewBag.urutan@ViewBag.urutan;
+                var urutan = @ViewBag.urutan;
 
                 var usernik = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -469,7 +470,7 @@
                     dataType: "json",
                     data: JSON.stringify(dto),
                     contentType: "application/json;charset=utf-8",
-                    success: function(data) {
+                    success: function (data) {
                         if (data == 'S') {
 
                             toastr.success("File Attachment " + FileName + " Berhasil dihapus",
@@ -1069,7 +1070,6 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-
 				if (data != '') {
 
 					var trHTML = '';

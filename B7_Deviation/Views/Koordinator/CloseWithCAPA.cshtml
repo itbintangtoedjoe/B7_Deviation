@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            @*<div class="card">
                 <div class="card-body">
                     <div class="form-group">
                         <h4>Cancel Deviation</h4>
@@ -54,7 +54,7 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
         </div>
 
@@ -305,7 +305,7 @@
 
         $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
             event.preventDefault();
-            $('#buktidatatable').DataTable().clear().destroy();
+            //$('#buktidatatable').DataTable().clear().destroy();
 
             var row = $(this).closest("TR");
             var ReqID = @ViewBag.nomor;
@@ -339,6 +339,7 @@
 
                     }
 
+                    $('#buktidatatable').DataTable().clear().destroy();
                     $('#buktitable').empty();
                     $('#buktitable').append(trHTML);
                     $('#buktidatatable').DataTable({

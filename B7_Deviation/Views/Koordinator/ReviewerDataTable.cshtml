@@ -610,7 +610,8 @@
 			var reqid = @ViewBag.nomor;
 			var curruser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-			function ApproveOKKOR() {
+            function ApproveOKKOR() {
+                alert('apporvekor')
 				var dto = {
 					IDUSER: curruser,
 					REQID: reqid
@@ -620,7 +621,8 @@
 					url: "../Koordinator/Coor_GoToManager",
 					type: "post",
 					data: JSON.stringify(dto),
-					dataType: "json",
+                    dataType: "json",
+                    async: false,
 					contentType: "application/json;charset=utf-8",
 					success: function (data) {
 						Swal.fire({
@@ -636,7 +638,8 @@
 				});
 			}
 
-			function EmailEvalutor() {
+            function EmailEvalutor() {
+                alert('email')
                 var tabletype = "More Than One";
                 var whoreceiver = "QM after Koordinator Approve Reviewer";
                 var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
@@ -652,6 +655,7 @@
                     type: "post",
                     url: '../Form/SendEmailInputProposal',
                     data: JSON.stringify(dtx),
+                    async: false,
                     dataType: "json",
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {

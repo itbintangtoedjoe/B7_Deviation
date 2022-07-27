@@ -855,7 +855,8 @@
 		});
 
         //On click function button Print
-        $('#tbl_Attachment tbody').on('click', 'input[class="DeleteFileAttachment"]', function () {
+		$('#tbl_Attachment tbody').on('click', 'input[id="DeleteFileAttachment"]', function () {
+			alert("hapus attachment");
             event.preventDefault();
             var Row = $(this).closest("TR");
             var ReqID = $("TD", Row).eq(1).html();
@@ -867,7 +868,9 @@
                 ReqID: ReqID,
                 RecordID: RecordID,
                 PathFile: PathFile
-            }
+			}
+
+			alert(JSON.stringify(dto));
 
             $.ajax({
                 url: "DeleteAttachment",
@@ -906,11 +909,11 @@
 		})
 
         //On click function button Print
-        $('#tblBodyWho tbody').on('click', 'input[class="DeleteUserInvolved"]', function () {
+        $("#tblWho tbody").on('click', 'input[id="DeleteUserInvolved"]', function () {
             event.preventDefault();
             var row = $(this).closest("TR");
             var ReqID = $("TD", row).eq(1).html();
-            var RecordID = $("TD", row).eq(2).html();
+			var RecordID = $("TD", row).eq(2).html();
 
             var dto = {
                 REQID: ReqID,
@@ -2374,7 +2377,7 @@
 								'<td style="display:none">' + data[trav].NO_FILE + '</td>' +
 								'<td>' + data[trav].file_name_upload + '</td>' +
 								'<td style="display:none;">' + data[trav].path_file + '</td>' +
-								'<td><input type="button" class="btn btn-danger DeleteFileAttachment" title="Delete" value="Delete"/></td></tr>';
+								'<td><input type="button" id="DeleteFileAttachment"  class="btn btn-danger DeleteFileAttachment" title="Delete" value="Delete"/></td></tr>';
 						}
 
 						$("#tbl_Attachment").show();

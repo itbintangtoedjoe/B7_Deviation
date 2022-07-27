@@ -97,7 +97,7 @@ namespace B7_Deviation.Controllers
             SmtpClient MailObject = new SmtpClient("mail.kalbe.co.id");
 
             Msg.From = new MailAddress("notification@bintang7.com", "Deviation Notification");
-            Msg.Bcc.Add(new MailAddress("michaelken117@gmail.com"));
+            Msg.Bcc.Add(new MailAddress("akiptsaqif@gmail.com"));
             Msg.Bcc.Add(new MailAddress("musicdoesmagicinlife@gmail.com"));
             Msg.Bcc.Add(new MailAddress("felicia.benaly@bintang7.com"));
             
@@ -184,7 +184,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
 
-                            t_status = "Need Your Approval as Coordinator";
+                            t_status = "Waiting Approval Coordinator";
                         }
 
                         else if (Model.WhoReceiver == "Reviewer after Appointed") //DONE (REVIEWER + koor + pelapor)
@@ -199,7 +199,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters["@Username"].Value = Model.Username;
 
 
-                            t_status = "Need Your Review as Reviewer";
+                            t_status = "Waiting Review";
                         }
 
                         else if (Model.WhoReceiver == "Reviewer after Added by Koor") 
@@ -234,7 +234,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
 
-                            t_status = "Need Your Approval as Coordinator";
+                            t_status = "Waiting Confirmation Coordinator";
                         }
 
                         else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer") // DONE (EVALUATOR[QM] + pelapor + koor + reviewer)
@@ -248,7 +248,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
 
-                            t_status = "Need Your Approval as Quality Manager";
+                            t_status = "Waiting Remedial Disposition";
                         }
 
                         else if (Model.WhoReceiver == "Koordinator after QM Approve") // DONE (KOOR + pelapor + reviewer + evaluator) 
@@ -262,7 +262,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
 
-                            t_status = "Need Assign PIC";
+                            t_status = "Approved for Remedial Action";
                         }
 
                         else if (Model.WhoReceiver == "Group PIC after Appointed") // DONE (PIC + pelapor + koor +  reviewer + evaluator)
@@ -330,12 +330,12 @@ namespace B7_Deviation.Controllers
 
                             if (Model.WhoReceiver == "Koordinator after PIC Submit")
                             {
-                                t_status = "Need Verifikasi Tindakan Remedial";
+                                t_status = "Waiting Verification Coordinator";
                             }
 
                             if (Model.WhoReceiver == "Koordinator after Superior PIC Approved Cost")
                             {
-                                t_status = "Need Your Approval for Disposition Cost";
+                                t_status = "Waiting Verification Coordinator";
                             }
 
                         }
@@ -354,7 +354,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
 
-                            t_status = "Need Your Approval as Quality Manager";
+                            t_status = "Waiting Final Disposition";
                         }
 
                         else if (Model.WhoReceiver == "PIC after Koordinator Verifikasi OK") // DONE (PIC + pelapor + reviewer + evaluator + Koor +  Superior PIC + div head)
@@ -371,7 +371,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
 
-                            t_status = "Your Remedial Action Has Been Approved by Coordinator";
+                            t_status = "Remedial Action Approved by Coordinator";
                         }
 
                         else if (Model.WhoReceiver == "PIC after Koordinator Verifikasi Rejected") // DONE (PIC + pelapor + reviewer + evaluator + Koor +  Superior PIC + div head)
@@ -432,7 +432,8 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
 
-                            t_status = "Need Your Approval";
+                            // ganti status imel pas pelapor submit ke atasan pelapor
+                            t_status = "Waiting Approval Superior";
                         }
 
                         else if (Model.WhoReceiver == "Proposer after Superior Reject") //DONE (PROPOSER + koor)
@@ -457,7 +458,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
 
-                            t_status = "Is Approved by Koordinator";
+                            t_status = "Attachment Approved by Coordinator";
                         }
 
                         else if (Model.WhoReceiver == "Reviewer after Koordinator Reject") //DONE (REVIEWER + pelapor + koor)
@@ -493,7 +494,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters["@PICNIK"].Value = Model.Receiver;
 
 
-                            t_status = "Need Your Review as PIC";
+                            t_status = "Waiting Follow Up Remedial";
          
                         }
 
@@ -511,7 +512,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
                             Command.Parameters["@Urutan"].Value = Model.Urutan;
 
-                            t_status = "Need Your Approval for the Cost";
+                            t_status = "Waiting Approval Quality Hidden Cost";
                         }
 
                         else if (Model.WhoReceiver == "Div Head after Sup PIC Approve Cost") // DONE (DIV HEAD + pelapor + koor + reviewer + evaluator + superior)
@@ -532,7 +533,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters["@Urutan"].Value = Model.Urutan;
 
 
-                            t_status = "Need Your Approval as Division Head for the Cost";
+                            t_status = "Waiting Approval Quality Hidden Cost";
                         }
 
                         else if (Model.WhoReceiver == "PIC after Superior Rejected Cost") //DONE (PIC + supeiror + Pelapor + koor+ reviewer + evaluator)
@@ -580,7 +581,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
 
-                            t_status = "Has been Approved and Proceeded to CAPA";
+                            t_status = "Deviation CLOSED and Waiting CAPA Request";
                         }
 
                         else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA") //DONE (PELAPOR + koor)
@@ -595,7 +596,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters["@Username"].Value = Model.Username;
 
 
-                            t_status = "Has been Approved and Not Proceeded to CAPA";
+                            t_status = "Deviation CLOSED";
                         }
 
                         else if (Model.WhoReceiver == "Canceled") // kirimnya tergantung flownya udah nyampe mana.. 
@@ -1064,20 +1065,22 @@ namespace B7_Deviation.Controllers
             }
 
             /*Delete File*/
-
-            if (!System.IO.File.Exists(PathFile))
+            if (!Request.IsLocal)
             {
-                result = "E";
-            }
-            else
-            {
-                try
+                if (!System.IO.File.Exists(PathFile))
                 {
-                    System.IO.File.Delete(PathFile);
+                    result = "E";
                 }
-                catch (Exception ex)
+                else
                 {
-                    throw ex;
+                    try
+                    {
+                        System.IO.File.Delete(PathFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
                 }
             }
 

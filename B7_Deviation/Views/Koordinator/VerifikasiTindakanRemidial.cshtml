@@ -433,7 +433,7 @@
         $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
             var row = this.closest("TR");
             var ReqID = @ViewBag.nomor;
-            var picnik = $("TD", row).eq(16).html();
+            var picnik = $("TD", row).eq(2).html();
             var seq = $("TD", row).eq(0).html();
 
             var dto = {
@@ -441,6 +441,7 @@
                 IDUSER: picnik,
                 NO_DISPOSISI: seq
             }
+
 
             $.ajax({
                 url: "../QualityManager/QM_ShowBuktiTable",
@@ -671,7 +672,7 @@
 				data: JSON.stringify(dto),
 				dataType: "json",
 				contentType: "application/json;charset=utf-8",
-				success: function (data) {
+                success: function (data) {
 					var checkVerify = 0;
 					var trHTML = '';
 					var trav = 0;
@@ -708,8 +709,9 @@
                             '<td align="right">' + data[trav].MC_MANHOURS_VALUE + '</td>' +
                             '<td>' + data[trav].MC_SPAREPART + '</td>' +
                             '<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
-                            '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>'+
-							'<td align="left">' + data[trav].FLAG_PIC + '</td>';
+                            '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
+                        if (data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC')
+                            trHTML +='<td align="left">' + 'REMEDIAL ACCEPTED BY SUPERIOR PIC' + '</td>';
 
                         @*data[trav].FLAG_PIC == 'REJECTED' ||*@
 						if (data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
