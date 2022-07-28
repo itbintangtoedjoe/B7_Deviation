@@ -879,26 +879,28 @@
                 data: JSON.stringify(dto),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    if (data == 'S') {
-                        toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-left",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "100",
-                            "hideDuration": "1000",
-                            "timeOut": "1000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
+					if (data == 'S') {
+						toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
+							"closeButton": false,
+							"debug": true,
+							"newestOnTop": false,
+							"progressBar": false,
+							"positionClass": "toast-top-left",
+							"preventDuplicates": false,
+							"onclick": null,
+							"showDuration": "100",
+							"hideDuration": "1000",
+							"timeOut": "1000",
+							"extendedTimeOut": "1000",
+							"showEasing": "swing",
+							"hideEasing": "linear",
+							"showMethod": "fadeIn",
+							"hideMethod": "fadeOut"
+						});
 
-                        GetFileAttachment();
+						GetFileAttachment();
+					} else {
+						alert(data);
                     }
                 },
                 error: function (ex) {

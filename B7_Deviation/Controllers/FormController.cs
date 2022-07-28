@@ -1076,6 +1076,7 @@ namespace B7_Deviation.Controllers
                     try
                     {
                         System.IO.File.Delete(PathFile);
+                        result = "O";
                     }
                     catch (Exception ex)
                     {
