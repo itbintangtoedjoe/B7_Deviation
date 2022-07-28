@@ -270,6 +270,7 @@
                         type: "post",
                         dataType: "json",
                         data: JSON.stringify(dto),
+                        async: false,
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
                             LoadStatus();
@@ -296,6 +297,7 @@
                         url: '../Form/SendEmailInputProposal',
                         data: JSON.stringify(dtx),
                         dataType: "json",
+                        async: false,
                         contentType: "application/json;charset=utf-8",
                         success: function (data) {
                             toastr.success("Email Sent Successfully !", "Notification", {
@@ -368,6 +370,7 @@
                             type: "post",
                             dataType: "json",
                             data: JSON.stringify(dto),
+                            async: false,
                             contentType: "application/json;charset=utf-8",
                             success: function (data) {
 
@@ -402,6 +405,7 @@
                             url: '../Form/SendEmailInputProposal',
                             data: JSON.stringify(dtx),
                             dataType: "json",
+                            async: false,
                             contentType: "application/json;charset=utf-8",
                             success: function (data) {
                                 toastr.success("Email Sent Successfully !", "Notification", {
@@ -629,7 +633,8 @@
 
 	}
 
-	function LoadStatus() {
+    function LoadStatus() {
+
 		var REQID = @ViewBag.nomor;
 
 		var dto = {
@@ -659,7 +664,7 @@
 	}
 
 	function LoadDataVerifikasiTindakan() {
-
+        console.log("TABEL KE RELOAD");
 		var nomor = @ViewBag.nomor;
 		var dto = {
 			REQID: nomor
@@ -673,6 +678,7 @@
 				dataType: "json",
 				contentType: "application/json;charset=utf-8",
                 success: function (data) {
+                    console.log(data);
 					var checkVerify = 0;
 					var trHTML = '';
 					var trav = 0;
@@ -711,7 +717,16 @@
                             '<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
                             '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
                         if (data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC')
-                            trHTML +='<td align="left">' + 'REMEDIAL ACCEPTED BY SUPERIOR PIC' + '</td>';
+                            trHTML += '<td align="left">' + 'REMEDIAL ACCEPTED BY SUPERIOR PIC' + '</td>';
+
+                        if (data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY DIV HEAD')
+                            trHTML += '<td align="left">' + 'REMEDIAL ACCEPTED BY DIV HEAD' + '</td>'
+
+                        if (data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY COORDINATOR')
+                            trHTML += '<td align="left">' + 'REMEDIAL REJECTED BY COORDINATOR' + '</td>'
+
+                        if (data[trav].FLAG_PIC == 'REMEDIAL APPROVED BY COORDINATOR')
+                            trHTML += '<td align="left">' + 'REMEDIAL APPROVED BY COORDINATOR' + '</td>'
 
                         @*data[trav].FLAG_PIC == 'REJECTED' ||*@
 						if (data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {

@@ -97,6 +97,7 @@
                 var trav = 0;
                 var Count = data.length;
                 for (trav = 0; trav < Count; trav++) {
+                    if (data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC') data[trav].STATUS = 'REMEDIAL ACCEPTED BY SUPERIOR PIC'
                     var group = data[trav].PIC_REMEDIAL_NIK.substring(2, data[trav].PIC_REMEDIAL_NIK.count);
                     //CODE HERE
                     if ((data[trav].USER_ID == data[trav].PIC_REMEDIAL_NIK) || group == usergroup) {
@@ -192,7 +193,8 @@
                                 '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                                 //'<td> Pending Submission </td>' +
-                                '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
+                                // ganti dari flag_pic jadi status
+                                '<td style="text-align:center">' + data[trav].STATUS + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].HASIL_TINDAKAN + '</td>' +
