@@ -1067,21 +1067,27 @@ namespace B7_Deviation.Controllers
             /*Delete File*/
             if (!Request.IsLocal)
             {
-                if (!System.IO.File.Exists(PathFile))
+                try
                 {
-                    result = "E";
-                }
-                else
+                    if (!System.IO.File.Exists(PathFile))
+                    {
+                        result = "E";
+                    }
+                    else
+                    {
+                        try
+                        {
+                            System.IO.File.Delete(PathFile);
+                            result = "O";
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+                    }
+                } catch (Exception e)
                 {
-                    try
-                    {
-                        System.IO.File.Delete(PathFile);
-                        result = "O";
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    result = e.Message;
                 }
             }
 
