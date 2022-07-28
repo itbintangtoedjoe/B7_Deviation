@@ -1034,7 +1034,7 @@ namespace B7_Deviation.Controllers
         {
             //int tempP = 0;
             string result;
-            string PathFile = Model.PathFile;
+            string PathFile = "//10.100.18.138" + Model.PathFile;
             string ConString = MyDB.ConnectionString;
             SqlConnection Conn = new SqlConnection(ConString);
             try
@@ -1065,24 +1065,24 @@ namespace B7_Deviation.Controllers
             }
 
             /*Delete File*/
-            //if (!Request.IsLocal)
-            //{
-            //    if (!System.IO.File.Exists(PathFile))
-            //    {
-            //        result = "E";
-            //    }
-            //    else
-            //    {
-            //        try
-            //        {
-            //            System.IO.File.Delete(PathFile);
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            throw ex;
-            //        }
-            //    }
-            //}
+            if (!Request.IsLocal)
+            {
+                if (!System.IO.File.Exists(PathFile))
+                {
+                    result = "E";
+                }
+                else
+                {
+                    try
+                    {
+                        System.IO.File.Delete(PathFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
