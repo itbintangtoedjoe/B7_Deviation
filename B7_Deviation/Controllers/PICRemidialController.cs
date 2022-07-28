@@ -507,24 +507,24 @@ namespace B7_Deviation.Controllers
             }
 
             /*Delete File*/
-            if (!Request.IsLocal)
-            {
-                if (!System.IO.File.Exists(PathFile))
-                {
-                    result = "E";
-                }
-                else
-                {
-                    try
-                    {
-                        System.IO.File.Delete(PathFile);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                }
-            }
+            //if (!Request.IsLocal)
+            //{
+            //    if (!System.IO.File.Exists(PathFile))
+            //    {
+            //        result = "E";
+            //    }
+            //    else
+            //    {
+            //        try
+            //        {
+            //            System.IO.File.Delete(PathFile);
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            throw ex;
+            //        }
+            //    }
+            //}
 
             return Json(result, JsonRequestBehavior.AllowGet);
 
