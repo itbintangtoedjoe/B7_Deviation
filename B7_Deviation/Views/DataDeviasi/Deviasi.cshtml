@@ -795,7 +795,7 @@
 
     $(document).ready(function () {
 
-        $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
+        @*$('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
             event.preventDefault();
             $('#buktidatatable').DataTable().clear().destroy();
 
@@ -846,7 +846,7 @@
                     alert('Error Show Bukti Table : ' + JSON.stringify(ex));
                 }
             });
-        });
+        });*@
     });
 
     function GetCurrStatus() {

@@ -132,10 +132,21 @@
                             trHTML +=
                                 '<tr><td style="text-align:center"><input id="Open" value="Select" type="button" class="btn btn-success Open"/>' +
                                 '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
-                                 '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
+                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>';
                                 //'<td> Pending Submission </td>' +
-                                '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
-                                '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                            if (data[trav].FLAG_PIC == 'REMEDIAL REJECTED BY SPV PIC') {
+                                trHTML += '<td align="center">' + 'REMEDIAL REJECTED BY SUPERIOR PIC' + '</td>';
+                            }
+                            else if (data[trav].FLAG_PIC == 'PROPOSAL REJECTED BY SPV PIC') {
+                                trHTML += '<td align="center">' + 'PROPOSAL REJECTED BY SUPERIOR PIC' + '</td>';
+                            }
+                            else if (data[trav].FLAG_PIC == 'PROPOSAL APPROVED BY SPV PIC') {
+                                trHTML += '<td align="center">' + 'PROPOSAL APPROVED BY SUPERIOR PIC' + '</td>';
+                            }
+                            else {
+                                trHTML += '<td align="center">' + data[trav].FLAG_PIC + '</td>';
+                            }
+                            trHTML += '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].HASIL_TINDAKAN + '</td>' +
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
@@ -148,10 +159,15 @@
                             trHTML +=
                                 '<tr><td style="text-align:center"> N/A </td>' +
                                 '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
-                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
+                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>';
                                 //'<td> Pending Approval </td>' +
-                                '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
-                                '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                            if (data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC') {
+                                trHTML += '<td align="center">' + 'REMEDIAL ACCEPTED BY SUPERIOR PIC' + '</td>';
+                            }
+                            else {
+                                trHTML += '<td align="center">' + data[trav].FLAG_PIC + '</td>';
+                            }
+                            trHTML +='<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].HASIL_TINDAKAN + '</td>' +
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
@@ -191,33 +207,45 @@
                             trHTML +=
                                 '<tr><td style="text-align:center"> N/A </td>' +
                                 '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
-                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
+                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>';
                                 //'<td> Pending Submission </td>' +
                                 // ganti dari flag_pic jadi status
-                                '<td style="text-align:center">' + data[trav].STATUS + '</td>' +
-                                '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                            if (data[trav].STATUS == 'REMEDIAL ACCEPTED BY SPV PIC') {
+                                trHTML += '<td align="center">' + 'REMEDIAL ACCEPTED BY SUPERIOR PIC' + '</td>';
+                            }
+                            else if (data[trav].STATUS == 'REMEDIAL REJECTED BY SPV PIC') {
+                                trHTML += '<td align="center">' + 'REMEDIAL REJECTED BY SUPERIOR PIC' + '</td>';
+                            }
+                            else if (data[trav].STATUS == 'PROPOSAL REJECTED BY SPV PIC') {
+                                trHTML += '<td align="center">' + 'PROPOSAL REJECTED BY SUPERIOR PIC' + '</td>';
+                            }
+                            else if (data[trav].STATUS == 'PROPOSAL APPROVED BY SPV PIC') {
+                                trHTML += '<td align="center">' + 'PROPOSAL APPROVED BY SUPERIOR PIC' + '</td>';
+                            }
+                            else {
+                                trHTML += '<td align="center">' + data[trav].STATUS + '</td>';
+                            }
+                            trHTML += '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].HASIL_TINDAKAN + '</td>' +
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td style="text-align:center"> N/A </td>'
+                                '<td style="text-align:center"> N/A </td>';
 
                             // KALAU UDAH ISI / MINTA REVISI, STATUSNYA PENDING DAN GABISA NGAPA2IN
                         } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE') {
                             trHTML +=
                                 '<tr><td style="text-align:center"> N/A </td>' +
                                 '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
-                                '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
-                                //'<td> Pending Approval </td>' +
-                                '<td style="text-align:center">' + data[trav].FLAG_PIC + '</td>' +
-                                '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                            '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
+                            '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
                                 '<td style="text-align:center">' + data[trav].DUE_DATE + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].HASIL_TINDAKAN + '</td>' +
                                 '<td style="text-align:center">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
                                 '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
                                 '<td style="text-align:justify">' + data[trav].ALASAN_REJECT + '</td>' +
-                                '<td style="text-align:center"> N/A </td>'
+                                '<td style="text-align:center"> N/A </td>';
                         }
 
                     }

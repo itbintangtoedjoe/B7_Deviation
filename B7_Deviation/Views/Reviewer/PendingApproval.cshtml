@@ -74,6 +74,7 @@
             });
 
             $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
+                console.log('masok')
                  event.preventDefault();
 
                 $("#reviewerbuktidatatable").removeAttr("hidden");
@@ -86,7 +87,7 @@
                     REQID: ReqID,
                     USER_NIK: reviewer
                 }
-
+                console.log(dto)
                 $.ajax({
                     url: "../Koordinator/Coor_ShowReviewerBukti",
                     type: "post",
@@ -94,6 +95,7 @@
                     data: JSON.stringify(dto),
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
+                        console.log(data)
                         var trHTML = '';
                         var trav = 0;
                         var Count = data.length;
@@ -111,7 +113,7 @@
                                 trHTML +=
                                     '<tr><td>' + no + '</td>' +
                                     '<td>' + data[trav].REVIEWER_NIK + '</td>' +
-                                    '<td><a href="../' + data[trav].DOWNLOAD_PATH_FILE + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+                                '<td><a href="../' + data[trav].PATH_FILE_DOWNLOAD + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
 
                             }
                         }

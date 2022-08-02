@@ -675,7 +675,7 @@
             }
         });
 
-        $("#btnCancelEdit").click(function () {
+        @*$("#btnCancelEdit").click(function () {
             Swal.fire({
                 title: 'Apakah anda yakin tidak menyimpan perubahan ini?',
                 icon: 'question',
@@ -684,12 +684,11 @@
                 confirmButtonText: 'Yes',
                 denyButtonText: 'No',
             }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     window.location.href = "../DataDeviasi/PendingTask"
                 }
             });
-        });
+        });*@
 
         $('#btnEdit').click(function () {
             editMode = true;
@@ -771,16 +770,18 @@
             $('#TxtBatchNo').val('');
             $("#TxtNoWO").val('');
             $('#TxtItemCode').val('');
-            $('#txtKetKategori').val('');
+            @*$('#txtKetKategori').val('');*@
             $('#TxtQCMaterialNo').val('');
 
 
             //Receipt hidden or show
             if (dev_kategori == 'QPR') {
                 $("#divreceipt").attr("hidden", true);
+                 $('#txtKetKategori').val('');
             } else {
                 if (dev_kategori == 'QMT') {
                     $("#divreceipt").attr("hidden", false);
+                     $('#txtKetKategori').val('');
 
 
                 } else {
@@ -2996,7 +2997,7 @@
                  var dev_kategori = data[0].ID_DEVIATION_CATEGORY;
 
                 if (dev_kategori == 'QPR') {
-
+                    $("#txtKetKategori").val('');
                     @*$("#TxtNoWO").attr("hidden", false);
                     $("#TxtItemCode").attr("hidden", false);
                     $('#TxtBatchNo').attr('hidden', false);*@
@@ -3006,6 +3007,7 @@
                     // MATERIAL AWAL (MASIH ADA LAGI)
                 } else
                     if (dev_kategori == 'QMT') {
+                        $("#txtKetKategori").val('');
                         @*$("#TxtItemCode").attr("hidden", false);
                         $('#TxtQCMaterialNo').attr('hidden', false);*@
                         //$("#txtKetKategori").attr("hidden", true);
@@ -3014,7 +3016,8 @@
                     } else {
                         $("#divTblDaftarProduk").attr("hidden", true);
                         $("#divreceipt").attr("hidden", true);
-                     
+
+                        $('#txtKetKategori').val(data[0].KET_CATEGORY);
                     }
 
                 $('input[name=r_receipt][value=' + data[0].FLAG_RECEIPT + ']').prop('checked', true);
@@ -3025,7 +3028,6 @@
 
 
 
-                $('#txtKetKategori').val(data[0].KET_CATEGORY);
 
                 if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
                     $("#divsimpang").show();
@@ -3061,7 +3063,7 @@
                       
                         @*$("#JenisPenyimpanganDetail").attr("hidden", true);*@
                        @* $("#JenisPenyimpanganDetail").attr("hidden", true);*@
-                        $('#txtKetKategori').val('');
+                        @*$('#txtKetKategori').val('');*@
                     }
                 }
 

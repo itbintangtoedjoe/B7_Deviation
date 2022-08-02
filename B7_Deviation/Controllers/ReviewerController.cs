@@ -327,6 +327,9 @@ namespace B7_Deviation.Controllers
                         command.Parameters.Add("@REQID", SqlDbType.VarChar);
                         command.Parameters["@REQID"].Value = ReqID;
 
+                        command.Parameters.Add("@PATH_FILE_FISIK", SqlDbType.VarChar);
+                        command.Parameters["@PATH_FILE_FISIK"].Value = URLAttachment;
+
                         result = (string)command.ExecuteScalar();
                     }
                     Conn.Close();
@@ -399,7 +402,7 @@ namespace B7_Deviation.Controllers
         public ActionResult Rev_DeleteAttachment(DeviationModel Model)
         {
             string result;
-            string PathFile = "//10.100.18.138" + Model.PathFile;
+            string PathFile = Model.PathFile;
 
             List<string> ModelData = new List<string>();
             string ConString = mySetting.ConnectionString;
@@ -434,22 +437,15 @@ namespace B7_Deviation.Controllers
                 return Json(result);
             }
 
-            /*Delete File*/
-
-            if (!System.IO.File.Exists(PathFile))
+            /*Delete file fisik*/
+            try
             {
-                result = "E";
+                System.IO.File.Delete(PathFile);
+                result = "S";
             }
-            else
+            catch (Exception ex)
             {
-                try
-                {
-                    System.IO.File.Delete(PathFile);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                result = ex.Message;
             }
       
             return Json(result, JsonRequestBehavior.AllowGet);

@@ -77,6 +77,7 @@
 </body>
 
 <script nonce="CmeTsLKZ0UrxmNoxywWrPg==">
+    var pageUrl = window.location.href;
     $(document).ready(function () {
 
          $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
@@ -86,15 +87,17 @@
 
             var row = $(this).closest("TR");
             var ReqID = @ViewBag.nomor;
-            var reviewer = $("TD", row).eq(2).html();
+             var reviewer = $("TD", row).eq(2).html();
+             var seq = $("TD", row).eq(0).html();
 
             var dto = {
                 REQID: ReqID,
-                USER_NIK: reviewer
+                USER_NIK: reviewer,
+                NO_DISPOSISI: seq
             }
-
+             @*console.log(dto);*@
             $.ajax({
-                url: "../Koordinator/Coor_ShowReviewerBukti",
+                url: "../QualityManager/QM_ShowBuktiTable",
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify(dto),
@@ -116,7 +119,7 @@
                             no = no + trav;
                             trHTML +=
                                 '<tr><td>' + no + '</td>' +
-                                '<td>' + data[trav].REVIEWER_NIK + '</td>' +
+                            '<td>' + data[trav].PIC_ID + '</td>' +
                                 '<td><a href="../' + data[trav].PATH_FILE_DOWNLOAD + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
 
                         }
@@ -193,8 +196,11 @@
                             '<td align="right">' + data[trav].MC_MANHOURS_VALUE + '</td>' +
                             '<td>' + data[trav].MC_SPAREPART + '</td>' +
                             '<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
-                            '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
+                            '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>'+
                             '<td align="left">' + data[trav].FLAG_PIC + '</td>';
+                        @*if (pageUrl.indexOf("/DataDeviasi/Deviasi?") == -1) {
+                            trHTML += '<td align="left">' + data[trav].FLAG_PIC + '</td>';
+                        }*@
 
                         @*data[trav].FLAG_PIC == 'REJECTED' ||*@
 						if (data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
@@ -206,23 +212,25 @@
 								'<td align="center"><input type="button" id="btnShowBukti" class="btn btn-info" style="font-weight: bold; font-size:15px" value="i"></td > ';
 						}
 
-						if ((data[trav].FLAG_VERIFIKASI == '-' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC') ||
-							(data[trav].FLAG_VERIFIKASI == 'REJECTED' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC')) {
-							trHTML +=
-								'<td align="center">' +
-								'<button style="width:50px" onclick="Verifikasi(this)" class="btn btn-success">Verifikasi</button>' +
-								'<button style="width:50px" onclick="RejectVerifikasi(this)" class="btn btn-danger" >Reject</button>' +
-								'</td > ';
-							//15 Nov 21, tampilkan cap verified
-						} else if ((data[trav].FLAG_VERIFIKASI == 'VERIFIED' && data[trav].FLAG_PIC == 'REMEDIAL APPROVED BY COORDINATOR')) {
-							trHTML += '<td align="center"><img src="../Content/Pict/verified4.png" /></td>';
-						} else {
-							trHTML += '<td> N/A </td>';
-						}
+                        @*if (pageUrl.indexOf("/DataDeviasi/Deviasi?") == -1) {*@
+                            if ((data[trav].FLAG_VERIFIKASI == '-' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC') ||
+                                (data[trav].FLAG_VERIFIKASI == 'REJECTED' && data[trav].FLAG_PIC == 'REMEDIAL ACCEPTED BY SPV PIC')) {
+                                trHTML +=
+                                    '<td align="center">' +
+                                    '<button style="width:50px" onclick="Verifikasi(this)" class="btn btn-success">Verifikasi</button>' +
+                                    '<button style="width:50px" onclick="RejectVerifikasi(this)" class="btn btn-danger" >Reject</button>' +
+                                    '</td > ';
+                                //15 Nov 21, tampilkan cap verified
+                            } else if ((data[trav].FLAG_VERIFIKASI == 'VERIFIED' && data[trav].FLAG_PIC == 'REMEDIAL APPROVED BY COORDINATOR')) {
+                                trHTML += '<td align="center"><img src="../Content/Pict/verified4.png" /></td>';
+                            } else {
+                                trHTML += '<td> N/A </td>';
+                            }
 
-						if (data[trav].FLAG_VERIFIKASI == 'VERIFIED') {
-							checkVerify = checkVerify + 1;
-						}
+                            if (data[trav].FLAG_VERIFIKASI == 'VERIFIED') {
+                                checkVerify = checkVerify + 1;
+                            }
+                        @*}*@
 					}
 
 					$('#deviationdatatable').DataTable().clear().destroy();
@@ -233,12 +241,20 @@
                         "searching": false,
                         "paging": false,
                         "info": false,
-						"ordering": false,
-                        "columnsDefs": [{
+                        "ordering": false,
+                        "columnDefs": [
+                            {
+                                "targets": [22,24],
+                                "visible": false,
+                                "searchable": false
+                            }
+                        ]
+                        @*"columnsDefs": [{
                             type: 'html-num', targets: '_all'
-                        }]
+                        }]*@
                     });
 
+                    $('#deviationdatatable').column(2).visible(false);
 					if (checkVerify > 0) {
 						$('#headVerify').focus();
 					}
@@ -282,7 +298,7 @@
                             '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_MANHOURS_COST + '</td>' +
                             '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
 
-                            '<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MANHOURS + '</td>' +
+                            '<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
                             '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_PROC_COST + '</td>' +
 
                             '<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +

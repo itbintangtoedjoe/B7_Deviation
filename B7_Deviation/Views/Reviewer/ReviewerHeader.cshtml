@@ -29,7 +29,7 @@
                                         <textarea id="txtReason" class="form-control" style="background-color:lightyellow;"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-text">Supporting File:</span></label>
+                                        <label class="form-text">Supporting File:</label>
                                         @using (Html.BeginForm("Index", "Reviewer", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                         {
                                             <input type="file" name="NamaFileUpload" id="idFileUploadAttach" style="padding-top:10px;" />
@@ -151,7 +151,7 @@
                 data: JSON.stringify(dto),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    if (data == 'S' || data == 'E') {
+                    if (data == 'S') {
                         toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
                             "closeButton": false,
                             "debug": false,

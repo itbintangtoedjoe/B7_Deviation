@@ -191,6 +191,9 @@ namespace B7_Deviation.Controllers
                         command.Parameters.Add("@PATH_FILE", SqlDbType.VarChar);
                         command.Parameters["@PATH_FILE"].Value = URLDownload;
 
+                        command.Parameters.Add("@PATH_FILE_FISIK", SqlDbType.VarChar);
+                        command.Parameters["@PATH_FILE_FISIK"].Value = URLAttachment;
+
                         command.Parameters.Add("@REQID", SqlDbType.VarChar);
                         command.Parameters["@REQID"].Value = ReqID;
 
@@ -468,7 +471,7 @@ namespace B7_Deviation.Controllers
         public ActionResult PIC_DeleteAttachment(DeviationModel Model)
         {
             string result;
-            string PathFile = "//10.100.18.138" +  Model.PathFile;
+            string PathFile = Model.PathFile;
 
             List<string> ModelData = new List<string>();
             string ConString = mySetting.ConnectionString;
@@ -507,24 +510,24 @@ namespace B7_Deviation.Controllers
             }
 
             /*Delete File*/
-            //if (!Request.IsLocal)
-            //{
-            //    if (!System.IO.File.Exists(PathFile))
-            //    {
-            //        result = "E";
-            //    }
-            //    else
-            //    {
-            //        try
-            //        {
-            //            System.IO.File.Delete(PathFile);
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            throw ex;
-            //        }
-            //    }
-            //}
+            if (!Request.IsLocal)
+            {
+                if (!System.IO.File.Exists(PathFile))
+                {
+                    result = "E";
+                }
+                else
+                {
+                    try
+                    {
+                        System.IO.File.Delete(PathFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        result = ex.Message;
+                    }
+                }
+            }
 
             return Json(result, JsonRequestBehavior.AllowGet);
 
