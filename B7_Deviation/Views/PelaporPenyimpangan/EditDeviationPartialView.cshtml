@@ -803,7 +803,7 @@
 
         });
 
-        $('#tblBodyWho tbody').on('click', 'input[id="DeleteUserInvolved"]', function () {
+        $('#tblWho tbody').on('click', 'input[id="DeleteUserInvolved"]', function () {
             event.preventDefault();
             var row = $(this).closest("TR");
             var ReqID = $("TD", row).eq(1).html();

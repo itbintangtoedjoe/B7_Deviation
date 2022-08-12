@@ -193,7 +193,8 @@
                     }
 		});
 
-        $('#tblBodyWho_Rev tbody').on('click', 'input[id="DeleteUserInvolved"]', function () {
+        $('#tblWho_Rev tbody').on('click', 'input[id="DeleteUserInvolved"]', function () {
+			@*console.log('masok')*@
 			event.preventDefault();
             var row = $(this).closest("TR");
             var ReqID = $("TD", row).eq(1).html();

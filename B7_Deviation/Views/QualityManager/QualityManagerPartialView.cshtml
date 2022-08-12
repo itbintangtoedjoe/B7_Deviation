@@ -758,7 +758,7 @@
 				data: JSON.stringify(dto),
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
-                    console.log(data);
+                    @*console.log(data);*@
 					document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
 					document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
 					document.getElementById('TbPesul').value = data[0].NAME_PROPOSER;

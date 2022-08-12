@@ -6214,52 +6214,70 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.64548cm</Width>
+                  <Width>1.59311cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.18257cm</Width>
+                  <Width>0.86421cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.06689cm</Width>
+                  <Width>0.59763cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.89962cm</Width>
+                  <Width>0.59763cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.01186cm</Width>
+                  <Width>0.46648cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.2188cm</Width>
+                  <Width>0.87877cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.17618cm</Width>
+                  <Width>1.16643cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.86012cm</Width>
+                  <Width>0.59763cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.02068cm</Width>
+                  <Width>0.59763cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.98504cm</Width>
+                  <Width>0.47992cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.9766cm</Width>
+                  <Width>0.90409cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.16362cm</Width>
+                  <Width>0.66864cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03515cm</Width>
+                  <Width>0.68886cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.14218cm</Width>
+                  <Width>1.06573cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.19214cm</Width>
+                  <Width>0.59763cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.22663cm</Width>
+                  <Width>0.59763cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.48009cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.76563cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.73031cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.95923cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.13977cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.17426cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -6367,9 +6385,10 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>4</ColSpan>
+                        <ColSpan>5</ColSpan>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell />
                     <TablixCell />
                     <TablixCell />
                     <TablixCell />
@@ -6406,9 +6425,10 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>3</ColSpan>
+                        <ColSpan>4</ColSpan>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell />
                     <TablixCell />
                     <TablixCell />
                     <TablixCell>
@@ -6451,7 +6471,7 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox69">
+                        <Textbox Name="Textbox113">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -6470,7 +6490,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox69</rd:DefaultName>
+                          <rd:DefaultName>Textbox113</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -6482,9 +6502,13 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>2</ColSpan>
+                        <ColSpan>6</ColSpan>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
@@ -6639,9 +6663,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Jumlah Personel</Value>
+                                  <Value>Jumlah Personel(orang)</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>3.5pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -6674,9 +6698,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Durasi</Value>
+                                  <Value>Durasi(jam)</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -6711,7 +6735,7 @@
                                 <TextRun>
                                   <Value>Manhours</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>3.5pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -6737,6 +6761,41 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox128">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Manhours Cost (Rp)</Value>
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox128</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox40">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -6744,9 +6803,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Harga Analisa</Value>
+                                  <Value>Cost of Analysis (Rp)</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -6779,9 +6838,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Jumlah Personel</Value>
+                                  <Value>Jumlah Personel(orang)</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>3.5pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -6814,9 +6873,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Durasi</Value>
+                                  <Value>Durasi(jam)</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -6851,7 +6910,7 @@
                                 <TextRun>
                                   <Value>Manhours</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>3.5pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -6877,6 +6936,41 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox133">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Manhours Cost (Rp)</Value>
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox133</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox52">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -6884,9 +6978,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Nama produk</Value>
+                                  <Value>Material</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>3.5pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -6919,9 +7013,23 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Jumlah</Value>
+                                  <Value>Qty</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -6954,9 +7062,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Harga</Value>
+                                  <Value>Cost Material (Rp)</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -6982,6 +7090,146 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox114">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Jumlah Teknisi (orang)</Value>
+                                  <Style>
+                                    <FontSize>3.5pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox114</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox120">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Durasi (jam)</Value>
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox120</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox123">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Manhous</Value>
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox123</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox126">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Manhours Cost (Rp)</Value>
+                                  <Style>
+                                    <FontSize>3.5pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox126</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox70">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -6991,7 +7239,7 @@
                                 <TextRun>
                                   <Value>Nama part</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -7024,9 +7272,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total Harga</Value>
+                                  <Value>Total HargaSparepart (Rp)</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -7136,7 +7384,7 @@
                                 <TextRun>
                                   <Value>=Fields!KETERANGAN_DISPOSISI.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7170,7 +7418,7 @@
                                 <TextRun>
                                   <Value>=Fields!PIC_REMEDIAL_NAME.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7204,7 +7452,7 @@
                                 <TextRun>
                                   <Value>=Fields!TESTING_JUMLAH_PELAKSANA.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7225,6 +7473,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -7238,7 +7487,7 @@
                                 <TextRun>
                                   <Value>=Fields!TESTING_DURASI_PENGERJAAN.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7276,7 +7525,7 @@ IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-",0,Fields!TESTING_DURASI_PENGERJAA
 * 
 CDbl(IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-", 0,Fields!TESTING_DURASI_PENGERJAAN.Value)))</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7297,7 +7546,40 @@ CDbl(IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-", 0,Fields!TESTING_DURASI_PEN
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox129">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox129</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -7311,7 +7593,7 @@ CDbl(IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-", 0,Fields!TESTING_DURASI_PEN
                                 <TextRun>
                                   <Value>=Fields!TESTING_COST_OF_ANALYSIS.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7345,7 +7627,7 @@ CDbl(IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-", 0,Fields!TESTING_DURASI_PEN
                                 <TextRun>
                                   <Value>=Fields!PROC_JUMLAH_PELAKSANA.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7379,7 +7661,7 @@ CDbl(IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-", 0,Fields!TESTING_DURASI_PEN
                                 <TextRun>
                                   <Value>=Fields!PROC_DURASI_PENGERJAAN.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7417,7 +7699,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
 * 
 CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAAN.Value)))</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7442,6 +7724,40 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox134">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox134</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="REJ_MATERIAL">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -7451,7 +7767,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>=Fields!REJ_MATERIAL.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7485,7 +7801,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>=Fields!REJ_QTY.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7519,7 +7835,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>=Fields!REJ_COST_MATERIAL.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7544,6 +7860,142 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox115">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox115</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox121">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox121</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox124">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox124</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox127">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox127</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="MC_SPAREPART">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -7553,7 +8005,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>=Fields!MC_SPAREPART.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7587,7 +8039,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>=Fields!MC_TOTAL_HARGA_SPAREPART.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7621,7 +8073,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>=Fields!HASIL_TINDAKAN.Value</Value>
                                   <Style>
-                                    <FontSize>5pt</FontSize>
+                                    <FontSize>4pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7649,7 +8101,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                         <Image Name="Image7">
                           <Source>Embedded</Source>
                           <Value>verified3</Value>
-                          <Sizing>Fit</Sizing>
+                          <Sizing>FitProportional</Sizing>
                           <Visibility>
                             <Hidden>=IIF(Fields!FLAG_VERIFIKASI.Value = "VERIFIED", False, True)</Hidden>
                           </Visibility>
@@ -7668,6 +8120,12 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -7703,7 +8161,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
             <Top>0.75142cm</Top>
             <Left>0.05998cm</Left>
             <Height>2.31125cm</Height>
-            <Width>18.80356cm</Width>
+            <Width>18.61131cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -7944,22 +8402,31 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.82805cm</Width>
+                  <Width>2.52284cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.97837cm</Width>
+                  <Width>1.1979cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.2188cm</Width>
+                  <Width>1.27711cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.05698cm</Width>
+                  <Width>1.16643cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.12963cm</Width>
+                  <Width>1.18391cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.17296cm</Width>
+                  <Width>1.42cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.42324cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.67536cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.45517cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -8012,7 +8479,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total Testing Manhours</Value>
+                                  <Value>Total Testing Manhours(jam)</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
                                   </Style>
@@ -8049,7 +8516,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total Testing Cost</Value>
+                                  <Value>Total Testing Cost (Rp)</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
                                   </Style>
@@ -8079,6 +8546,43 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox135">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Total Analysis Cost (Rp)</Value>
+                                  <Style>
+                                    <FontSize>6pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox135</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <TopBorder>
+                              <Style>None</Style>
+                            </TopBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox277">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -8086,7 +8590,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total Processing Manhours</Value>
+                                  <Value>Total Processing Manhours(jam)</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
                                   </Style>
@@ -8116,6 +8620,43 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox137">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Total Processing Cost (Rp)</Value>
+                                  <Style>
+                                    <FontSize>6pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox137</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <TopBorder>
+                              <Style>None</Style>
+                            </TopBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox305">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -8123,7 +8664,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total Rejected Cost</Value>
+                                  <Value>Total Rejected Cost (Rp)</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
                                   </Style>
@@ -8153,6 +8694,43 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox145">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Total Machine Manhours Cost (Rp)</Value>
+                                  <Style>
+                                    <FontSize>6pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox145</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <TopBorder>
+                              <Style>None</Style>
+                            </TopBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox307">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -8160,7 +8738,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total Machine Cost</Value>
+                                  <Value>Total Machine Cost (Rp)</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
                                   </Style>
@@ -8293,6 +8871,40 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox136">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>6pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox136</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="TOTAL_PROC_MAHOURS">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -8327,6 +8939,40 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox138">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>6pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox138</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="TOTAL_REJ_COST">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -8346,6 +8992,40 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>TOTAL_REJ_COST</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox146">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>6pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox146</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -8430,12 +9110,47 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>4</ColSpan>
+                        <ColSpan>5</ColSpan>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
                     <TablixCell />
                     <TablixCell />
+                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox139">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>6pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox139</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TOTAL_TIMES">
@@ -8468,9 +9183,10 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>2</ColSpan>
+                        <ColSpan>3</ColSpan>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell />
                     <TablixCell />
                   </TablixCells>
                 </TablixRow>
@@ -8509,12 +9225,47 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>4</ColSpan>
+                        <ColSpan>5</ColSpan>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
                     <TablixCell />
                     <TablixCell />
+                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox140">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontSize>6pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox140</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="TOTAL_COST">
@@ -8547,9 +9298,10 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>2</ColSpan>
+                        <ColSpan>3</ColSpan>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell />
                     <TablixCell />
                   </TablixCells>
                 </TablixRow>
@@ -8557,6 +9309,9 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -8586,7 +9341,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
             <Top>3.07082cm</Top>
             <Left>0.05998cm</Left>
             <Height>2.81038cm</Height>
-            <Width>15.38479cm</Width>
+            <Width>15.32196cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -8602,7 +9357,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
         <Top>46.64815cm</Top>
         <Left>0.14181cm</Left>
         <Height>13.51565cm</Height>
-        <Width>18.89953cm</Width>
+        <Width>18.91645cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -9032,7 +9787,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
       <BackgroundColor>White</BackgroundColor>
     </Style>
   </Body>
-  <Width>19.22015cm</Width>
+  <Width>19.33329cm</Width>
   <Page>
     <PageHeader>
       <Height>2.1905cm</Height>
@@ -10082,7 +10837,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportTindakanRemedialDataSet</rd:DataSetName>
-        <rd:SchemaPath>D:\B7_OnlineApp\B7_Deviation\B7_Deviation\DataSource\ReportTindakanRemedialDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\FELI\Projects\21\Deviation Online 21\projek\B7_Deviation\B7_Deviation\DataSource\ReportTindakanRemedialDataSet.xsd</rd:SchemaPath>
         <rd:TableName>SP_ReportTindakanRemedial</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
