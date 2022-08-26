@@ -293,6 +293,14 @@ namespace B7_Deviation.DataSource {
             
             private global::System.Data.DataColumn columnTOTAL_COST;
             
+            private global::System.Data.DataColumn columnTOTAL_TESTING_MANHOURS_COST;
+            
+            private global::System.Data.DataColumn columnTOTAL_PROC_COST;
+            
+            private global::System.Data.DataColumn columnTOTAL_MC_MANHOURS;
+            
+            private global::System.Data.DataColumn columnTOTAL_MC_MANHOURS_COST;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SP_CountTotalPICTableDataTable() {
@@ -384,6 +392,38 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TOTAL_TESTING_MANHOURS_COSTColumn {
+                get {
+                    return this.columnTOTAL_TESTING_MANHOURS_COST;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TOTAL_PROC_COSTColumn {
+                get {
+                    return this.columnTOTAL_PROC_COST;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TOTAL_MC_MANHOURSColumn {
+                get {
+                    return this.columnTOTAL_MC_MANHOURS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TOTAL_MC_MANHOURS_COSTColumn {
+                get {
+                    return this.columnTOTAL_MC_MANHOURS_COST;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -419,7 +459,7 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SP_CountTotalPICTableRow AddSP_CountTotalPICTableRow(string TOTAL_TESTING_MANHOURS, string TOTAL_TESTING_COA, string TOTAL_PROC_MAHOURS, string TOTAL_REJ_COST, string TOTAL_MC_HARGA_SPAREPART, string TOTAL_TIMES, string TOTAL_COST) {
+            public SP_CountTotalPICTableRow AddSP_CountTotalPICTableRow(string TOTAL_TESTING_MANHOURS, string TOTAL_TESTING_COA, string TOTAL_PROC_MAHOURS, string TOTAL_REJ_COST, string TOTAL_MC_HARGA_SPAREPART, string TOTAL_TIMES, string TOTAL_COST, string TOTAL_TESTING_MANHOURS_COST, string TOTAL_PROC_COST, string TOTAL_MC_MANHOURS, string TOTAL_MC_MANHOURS_COST) {
                 SP_CountTotalPICTableRow rowSP_CountTotalPICTableRow = ((SP_CountTotalPICTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         TOTAL_TESTING_MANHOURS,
@@ -428,7 +468,11 @@ namespace B7_Deviation.DataSource {
                         TOTAL_REJ_COST,
                         TOTAL_MC_HARGA_SPAREPART,
                         TOTAL_TIMES,
-                        TOTAL_COST};
+                        TOTAL_COST,
+                        TOTAL_TESTING_MANHOURS_COST,
+                        TOTAL_PROC_COST,
+                        TOTAL_MC_MANHOURS,
+                        TOTAL_MC_MANHOURS_COST};
                 rowSP_CountTotalPICTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSP_CountTotalPICTableRow);
                 return rowSP_CountTotalPICTableRow;
@@ -458,6 +502,10 @@ namespace B7_Deviation.DataSource {
                 this.columnTOTAL_MC_HARGA_SPAREPART = base.Columns["TOTAL_MC_HARGA_SPAREPART"];
                 this.columnTOTAL_TIMES = base.Columns["TOTAL_TIMES"];
                 this.columnTOTAL_COST = base.Columns["TOTAL_COST"];
+                this.columnTOTAL_TESTING_MANHOURS_COST = base.Columns["TOTAL_TESTING_MANHOURS_COST"];
+                this.columnTOTAL_PROC_COST = base.Columns["TOTAL_PROC_COST"];
+                this.columnTOTAL_MC_MANHOURS = base.Columns["TOTAL_MC_MANHOURS"];
+                this.columnTOTAL_MC_MANHOURS_COST = base.Columns["TOTAL_MC_MANHOURS_COST"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -477,6 +525,14 @@ namespace B7_Deviation.DataSource {
                 base.Columns.Add(this.columnTOTAL_TIMES);
                 this.columnTOTAL_COST = new global::System.Data.DataColumn("TOTAL_COST", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTOTAL_COST);
+                this.columnTOTAL_TESTING_MANHOURS_COST = new global::System.Data.DataColumn("TOTAL_TESTING_MANHOURS_COST", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTOTAL_TESTING_MANHOURS_COST);
+                this.columnTOTAL_PROC_COST = new global::System.Data.DataColumn("TOTAL_PROC_COST", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTOTAL_PROC_COST);
+                this.columnTOTAL_MC_MANHOURS = new global::System.Data.DataColumn("TOTAL_MC_MANHOURS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTOTAL_MC_MANHOURS);
+                this.columnTOTAL_MC_MANHOURS_COST = new global::System.Data.DataColumn("TOTAL_MC_MANHOURS_COST", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTOTAL_MC_MANHOURS_COST);
                 this.columnTOTAL_TESTING_MANHOURS.ReadOnly = true;
                 this.columnTOTAL_TESTING_MANHOURS.MaxLength = 8000;
                 this.columnTOTAL_TESTING_COA.ReadOnly = true;
@@ -491,6 +547,14 @@ namespace B7_Deviation.DataSource {
                 this.columnTOTAL_TIMES.MaxLength = 8000;
                 this.columnTOTAL_COST.ReadOnly = true;
                 this.columnTOTAL_COST.MaxLength = 8000;
+                this.columnTOTAL_TESTING_MANHOURS_COST.ReadOnly = true;
+                this.columnTOTAL_TESTING_MANHOURS_COST.MaxLength = 8000;
+                this.columnTOTAL_PROC_COST.ReadOnly = true;
+                this.columnTOTAL_PROC_COST.MaxLength = 8000;
+                this.columnTOTAL_MC_MANHOURS.ReadOnly = true;
+                this.columnTOTAL_MC_MANHOURS.MaxLength = 8000;
+                this.columnTOTAL_MC_MANHOURS_COST.ReadOnly = true;
+                this.columnTOTAL_MC_MANHOURS_COST.MaxLength = 8000;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -750,6 +814,74 @@ namespace B7_Deviation.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TOTAL_TESTING_MANHOURS_COST {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_CountTotalPICTable.TOTAL_TESTING_MANHOURS_COSTColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TOTAL_TESTING_MANHOURS_COST\' in table \'SP_CountTotalPICTabl" +
+                                "e\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_CountTotalPICTable.TOTAL_TESTING_MANHOURS_COSTColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TOTAL_PROC_COST {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_CountTotalPICTable.TOTAL_PROC_COSTColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TOTAL_PROC_COST\' in table \'SP_CountTotalPICTable\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_CountTotalPICTable.TOTAL_PROC_COSTColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TOTAL_MC_MANHOURS {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_CountTotalPICTable.TOTAL_MC_MANHOURSColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TOTAL_MC_MANHOURS\' in table \'SP_CountTotalPICTable\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_CountTotalPICTable.TOTAL_MC_MANHOURSColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TOTAL_MC_MANHOURS_COST {
+                get {
+                    try {
+                        return ((string)(this[this.tableSP_CountTotalPICTable.TOTAL_MC_MANHOURS_COSTColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TOTAL_MC_MANHOURS_COST\' in table \'SP_CountTotalPICTable\' is" +
+                                " DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSP_CountTotalPICTable.TOTAL_MC_MANHOURS_COSTColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsTOTAL_TESTING_MANHOURSNull() {
                 return this.IsNull(this.tableSP_CountTotalPICTable.TOTAL_TESTING_MANHOURSColumn);
             }
@@ -830,6 +962,54 @@ namespace B7_Deviation.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetTOTAL_COSTNull() {
                 this[this.tableSP_CountTotalPICTable.TOTAL_COSTColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTOTAL_TESTING_MANHOURS_COSTNull() {
+                return this.IsNull(this.tableSP_CountTotalPICTable.TOTAL_TESTING_MANHOURS_COSTColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTOTAL_TESTING_MANHOURS_COSTNull() {
+                this[this.tableSP_CountTotalPICTable.TOTAL_TESTING_MANHOURS_COSTColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTOTAL_PROC_COSTNull() {
+                return this.IsNull(this.tableSP_CountTotalPICTable.TOTAL_PROC_COSTColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTOTAL_PROC_COSTNull() {
+                this[this.tableSP_CountTotalPICTable.TOTAL_PROC_COSTColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTOTAL_MC_MANHOURSNull() {
+                return this.IsNull(this.tableSP_CountTotalPICTable.TOTAL_MC_MANHOURSColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTOTAL_MC_MANHOURSNull() {
+                this[this.tableSP_CountTotalPICTable.TOTAL_MC_MANHOURSColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTOTAL_MC_MANHOURS_COSTNull() {
+                return this.IsNull(this.tableSP_CountTotalPICTable.TOTAL_MC_MANHOURS_COSTColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTOTAL_MC_MANHOURS_COSTNull() {
+                this[this.tableSP_CountTotalPICTable.TOTAL_MC_MANHOURS_COSTColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -999,6 +1179,10 @@ namespace B7_Deviation.DataSource.DataSourceFooterTotalTableAdapters {
             tableMapping.ColumnMappings.Add("TOTAL_MC_HARGA_SPAREPART", "TOTAL_MC_HARGA_SPAREPART");
             tableMapping.ColumnMappings.Add("TOTAL_TIMES", "TOTAL_TIMES");
             tableMapping.ColumnMappings.Add("TOTAL_COST", "TOTAL_COST");
+            tableMapping.ColumnMappings.Add("TOTAL_TESTING_MANHOURS_COST", "TOTAL_TESTING_MANHOURS_COST");
+            tableMapping.ColumnMappings.Add("TOTAL_PROC_COST", "TOTAL_PROC_COST");
+            tableMapping.ColumnMappings.Add("TOTAL_MC_MANHOURS", "TOTAL_MC_MANHOURS");
+            tableMapping.ColumnMappings.Add("TOTAL_MC_MANHOURS_COST", "TOTAL_MC_MANHOURS_COST");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1018,27 +1202,34 @@ namespace B7_Deviation.DataSource.DataSourceFooterTotalTableAdapters {
             this._commandCollection[0].CommandText = "dbo.SP_CountTotalPICTable";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Option", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Nomor", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NoDisposisi", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(DataSourceFooterTotal.SP_CountTotalPICTableDataTable dataTable, string Nomor, string Option) {
+        public virtual int Fill(DataSourceFooterTotal.SP_CountTotalPICTableDataTable dataTable, string Option, string Nomor, string NoDisposisi) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((Nomor == null)) {
+            if ((Option == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nomor));
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Option));
             }
-            if ((Option == null)) {
+            if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.SelectCommand.Parameters[2].Value = ((string)(Option));
+                this.Adapter.SelectCommand.Parameters[2].Value = ((string)(Nomor));
+            }
+            if ((NoDisposisi == null)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((string)(NoDisposisi));
             }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -1051,19 +1242,25 @@ namespace B7_Deviation.DataSource.DataSourceFooterTotalTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DataSourceFooterTotal.SP_CountTotalPICTableDataTable GetData(string Nomor, string Option) {
+        public virtual DataSourceFooterTotal.SP_CountTotalPICTableDataTable GetData(string Option, string Nomor, string NoDisposisi) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((Nomor == null)) {
+            if ((Option == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Nomor));
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Option));
             }
-            if ((Option == null)) {
+            if ((Nomor == null)) {
                 this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.SelectCommand.Parameters[2].Value = ((string)(Option));
+                this.Adapter.SelectCommand.Parameters[2].Value = ((string)(Nomor));
+            }
+            if ((NoDisposisi == null)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((string)(NoDisposisi));
             }
             DataSourceFooterTotal.SP_CountTotalPICTableDataTable dataTable = new DataSourceFooterTotal.SP_CountTotalPICTableDataTable();
             this.Adapter.Fill(dataTable);

@@ -695,9 +695,85 @@
             </div>
         </div>*@
 
-    <div class="form-group">
-        @Html.Partial("~/Views/QualityManager/ApprovedDisposisiPartialView.cshtml")
+<div class="form-group">
+    @*@Html.Partial("~/Views/QualityManager/ApprovedDisposisiPartialView.cshtml")*@
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-custom-all-bordered" id="deviationdatatable" width="3500px" style="color:black;border:solid;">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2" width="50px">No</th>
+                                        <th rowspan="2" width="250px">Usulan Tindakan Remedial</th>
+                                        <th rowspan="2" width="150px">Nama PIC</th>
+                                        <th rowspan="2">Hasil Tindakan Remedial</th>
+                                        <th colspan="5" style="text-align:center">Testing Cost</th>
+                                        <th colspan="4" style="text-align:center">Processing Cost</th>
+                                        <th colspan="3" style="text-align:center">Reject Cost</th>
+                                        <th colspan="6" style="text-align:center">Machine Cost</th>
+                                        @*<th rowspan="2" style="text-align:center" width="100px">Status</th>*@
+                                        <th rowspan="2" style="text-align:center" width="20px">Dokumen Pendukung</th>
+                                        @*<th id="headVerify" rowspan="2" style="text-align:center" width="200px">Verifikasi Tindakan Remedial</th>*@
+                                    </tr>
+                                    <tr>
+                                        <th width="75px">Jumlah Personel (orang)</th>
+                                        <th width="75px">Durasi Pengerjaan (jam)</th>
+                                        <th width="75px">Manhours</th>
+                                        <th width="75px">Manhours Cost (Rp)</th>
+                                        <th width="150px">Cost of Analysis (Rp)</th>
+                                        <th width="75px">Jumlah Personel (orang)</th>
+                                        <th width="75px">Durasi Pengerjaan (jam)</th>
+                                        <th width="75px">Manhours</th>
+                                        <th width="75px">Manhours Cost (Rp)</th>
+                                        <th width="75px">Material</th>
+                                        <th width="75px">Quantity</th>
+                                        <th width="75px">Cost Material (Rp)</th>
+                                        <th width="75px">Jumlah Teknisi (orang)</th>
+                                        <th width="75px">Durasi (jam)</th>
+                                        <th width="75px">Manhours</th>
+                                        <th width="75px">Manhours Cost (Rp)</th>
+                                        <th width="75px">Nama Sparepart</th>
+                                        <th width="75px">Harga Sparepart (Rp)</th>
+                                        <th width="75px" hidden="hidden">Nama PIC</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody id="deviationtable">
+                                </tbody>
+                                <tfoot id="picfooter">
+
+
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="tabel2" hidden="hidden">
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover verticle-middle table-responsive" id="buktidatatable" width="100%">
+                            <thead>
+                                <tr>
+                                    <th width="75px">No</th>
+                                    <th width="100px">Nama PIC</th>
+                                    <th width="75px">Nama File</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="buktitable" class="nowrap">
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
+</div>
 
     <div class="form-group" id="koorsubmission">
         <div class="container-fluid">
@@ -790,6 +866,71 @@
         /* REMEDIAL RESULT */
         LoadData();
         LoadKoorSub();
+        $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
+
+            event.preventDefault();
+            //$("#buktidatatable").removeAttr("hidden");
+
+            var row = $(this).closest("TR");
+            var ReqID = @ViewBag.nomor;
+             var reviewer = $("TD", row).eq(2).html();
+             var seq = $("TD", row).eq(0).html();
+
+            var dto = {
+                REQID: ReqID,
+                USER_NIK: reviewer,
+                NO_DISPOSISI: seq
+            }
+             @*console.log(dto);*@
+            $.ajax({
+                url: "../QualityManager/QM_ShowBuktiTable",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    //alert(JSON.stringify(data))
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+                    if (Count == '0') {
+                        trHTML +=
+                            '<tr><td> - </td>' +
+                            '<td> N/A </td>' +
+                            '<td> N/A </td>';
+                    } else {
+                        for (trav = 0; trav < Count; trav++) {
+                            var no = 1;
+                            no = no + trav;
+                            trHTML +=
+                                '<tr><td>' + no + '</td>' +
+                            '<td>' + data[trav].PIC_ID + '</td>' +
+                                '<td><a href="../' + data[trav].PATH_FILE_DOWNLOAD + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+
+                        }
+                    }
+
+                    //alert(trHTML)
+                    $('#buktidatatable').DataTable().clear().destroy();
+                    $('#buktitable').empty();
+                    $('#buktitable').append(trHTML);
+                    $('#buktidatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false
+                    });
+
+                    $("#tabel2").removeAttr("hidden");
+                }
+                , error: function (ex) {
+
+                    Error("Error Delete User Involved", JSON.stringify(ex));
+                }
+            });
+         });
+
 
     });
 
@@ -1558,6 +1699,161 @@
             }
         });
     }
+
+	function LoadData() {
+		var nomor = @ViewBag.nomor;
+		var dto = {
+			REQID: nomor
+		}
+		$.when(
+			$.ajax({
+				url: "../Koordinator/Coor_LoadPICData",
+				type: "post",
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					var checkVerify = 0;
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+					for (trav = 0; trav < Count; trav++) {
+						var counter = 1;
+						counter += trav;
+                        trHTML +=
+                            '<tr><td align="center">' + counter + '</td>' +
+                            '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+                            '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+                            '<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+
+                            '<td align="right">' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
+                            '<td align="right">' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
+                            '<td align="right">' + data[trav].TESTING_MANHOURS + '</td>' +
+                            //'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
+                            '<td align="right">' + data[trav].TESTING_MANHOURS_VALUE + '</td>' +
+                            '<td align="right">' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
+
+                            '<td align="right">' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+                            '<td align="right">' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
+                            //'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+                            '<td align="right">' + data[trav].PROC_MANHOURS + '</td>' +
+                            '<td align="right">' + data[trav].PROC_MANHOURS_VALUE + '</td>' +
+
+                            '<td align="right">' + data[trav].REJ_MATERIAL + '</td>' +
+                            '<td align="right">' + data[trav].REJ_QUANTITY + '</td>' +
+                            '<td align="right">' + data[trav].REJ_COST_MATERIAL + '</td>' +
+
+                            '<td align="right">' + data[trav].MC_JUMLAH_TEKNISI + '</td>' +
+                            '<td align="right">' + data[trav].MC_DURASI_PENGERJAAN + '</td>' +
+                            '<td align="right">' + data[trav].MC_MANHOURS + '</td>' +
+                            '<td align="right">' + data[trav].MC_MANHOURS_VALUE + '</td>' +
+                            '<td>' + data[trav].MC_SPAREPART + '</td>' +
+                            '<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
+                            '<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
+						if (data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
+							trHTML +=
+								'<td align="center"> - </td>';
+
+						} else {
+							trHTML +=
+								'<td align="center"><input type="button" id="btnShowBukti" class="btn btn-info" style="font-weight: bold; font-size:15px" value="i"></td > ';
+						}
+					}
+
+					$('#deviationdatatable').DataTable().clear().destroy();
+					$('#deviationtable').empty();
+					$('#deviationtable').append(trHTML);
+
+                    $('#deviationdatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false,
+                        @*"columnDefs": [
+                            {
+                                "targets": [22,24],
+                                "visible": false,
+                                "searchable": false
+                            }
+                        ]*@
+                        @*"columnsDefs": [{
+                            type: 'html-num', targets: '_all'
+                        }]*@
+                    });
+
+                    @*$('#deviationdatatable').column(2).visible(false);*@
+					if (checkVerify > 0) {
+						$('#headVerify').focus();
+					}
+
+                },
+				error: function (ex) {
+					alert(JSON.stringify(ex));
+				}
+			})
+		).done(
+			$.ajax({
+				url: "../Koordinator/Coor_LoadPICDataFooter",
+				type: "post",
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+					for (trav = 0; trav < Count; trav++) {
+
+						trHTML +=
+                            '<tr>' +
+                            '<th colspan="4" rowspan="2" style= "text-align: right;  background-color: #f3f3f3;vertical-align:middle;"> Total</th >' +
+                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Testing Manhours</th>' +
+                            '<th style="text-align: right; background-color: #f3f3f3">Total Testing Manhours Cost</th>' +
+                            '<th style="text-align: right; background-color: #f3f3f3">Total Analysis Cost</th>' +
+                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Processing Manhours</th>' +
+                            '<th style="text-align: right; background-color: #f3f3f3">Total Processing Cost</th>' +
+                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Rejected Cost</th>' +
+                            '<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Machine Manhours</th>' +
+                            '<th style="text-align: right; background-color: #f3f3f3">Total Machine Manhours Cost</th>' +
+                            '<th colspan="2" style="text-align: right; background-color: #f3f3f3">Total Machine Cost</th>' +
+                            '</tr >' +
+
+                            '<tr>' +
+                            '<td colspan = "3" align = "right" style = "padding:10px 8px" > ' + data[0].TOTAL_TESTING_MANHOURS + '</td > '
+                            +
+                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_MANHOURS_COST + '</td>' +
+                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
+
+                            '<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MAHOURS + '</td>' +
+                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_PROC_COST + '</td>' +
+
+                            '<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
+
+                            '<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_MC_MANHOURS + '</td>' +
+                            '<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_MANHOURS_COST + '</td>' +
+                            '<td align="right" colspan="2" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>' +
+
+
+                            '<tr><th colspan = "19" style="text-align:center;background-color: #f3f3f3">Total Times (Total Testing Manhours + Total Processing Manhours + Total Machine Manhours)</th>' +
+                            '<td colspan="3" align="right" style="padding:10px 8px">' + data[trav].TOTAL_TIMES + '</td></tr>' +
+
+                            '<tr><th colspan = "19" style="text-align:center;background-color: #f3f3f3">Total Cost (Total Testing Cost + Total Processing Cost + Total Reject Cost + Total Machine Cost)</th>' +
+                            '<td colspan="3" align="right" style="padding:10px 8px"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
+					}
+
+					// NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
+
+
+					$('#picfooter').append(trHTML);
+				},
+				error: function (ex) {
+					alert(JSON.stringify(ex));
+				}
+			})
+		);
+	}
+
 
     /* REMEDIAL RESULT */
     @*function LoadData() {

@@ -9,7 +9,7 @@
                                 <thead>
                                     <tr>
                                         <th rowspan="2" width="50px">No</th>
-                                        <th rowspan="2" width="250px">Disposisi Tindakan Remedial</th>
+                                        <th rowspan="2" width="250px">Usulan Tindakan Remedial</th>
                                         <th rowspan="2" width="150px">Nama PIC</th>
                                         <th rowspan="2">Hasil Tindakan Remedial</th>
                                         <th colspan="5" style="text-align:center">Testing Cost</th>
@@ -242,19 +242,19 @@
                         "paging": false,
                         "info": false,
                         "ordering": false,
-                        "columnDefs": [
+                        @*"columnDefs": [
                             {
                                 "targets": [22,24],
                                 "visible": false,
                                 "searchable": false
                             }
-                        ]
+                        ]*@
                         @*"columnsDefs": [{
                             type: 'html-num', targets: '_all'
                         }]*@
                     });
 
-                    $('#deviationdatatable').column(2).visible(false);
+                    @*$('#deviationdatatable').column(2).visible(false);*@
 					if (checkVerify > 0) {
 						$('#headVerify').focus();
 					}

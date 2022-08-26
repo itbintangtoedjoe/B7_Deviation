@@ -5353,6 +5353,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FormDetailDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSource\ReportTindakanRemedialDataSet.cs">
+      <DependentUpon>ReportTindakanRemedialDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -5802,7 +5805,7 @@
     <Content Include="Report\LeadTime.rdlc" />
     <Content Include="Report\MasterList.rdlc" />
     <Content Include="Report\PrintFindLeadTime.rdlc" />
-    <EmbeddedResource Include="Report\PrintFindMasterList.rdlc" />
+    <Content Include="Report\PrintFindMasterList.rdlc" />
     <Content Include="Report\Report1.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

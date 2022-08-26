@@ -23,22 +23,33 @@
             </MainSource>
             <Mappings>
               <Mapping SourceColumn="KETERANGAN_DISPOSISI" DataSetColumn="KETERANGAN_DISPOSISI" />
-              <Mapping SourceColumn="PIC_REMEDIAL_NAME" DataSetColumn="PIC_REMEDIAL_NAME" />
               <Mapping SourceColumn="PIC_REMEDIAL_NIK" DataSetColumn="PIC_REMEDIAL_NIK" />
+              <Mapping SourceColumn="PIC_REMEDIAL_NAME" DataSetColumn="PIC_REMEDIAL_NAME" />
+              <Mapping SourceColumn="TESTING_JUMLAH_PELAKSANA" DataSetColumn="TESTING_JUMLAH_PELAKSANA" />
+              <Mapping SourceColumn="TESTING_DURASI_PENGERJAAN" DataSetColumn="TESTING_DURASI_PENGERJAAN" />
+              <Mapping SourceColumn="TESTING_MANHOURS" DataSetColumn="TESTING_MANHOURS" />
+              <Mapping SourceColumn="TESTING_MANHOURS_VALUE" DataSetColumn="TESTING_MANHOURS_VALUE" />
+              <Mapping SourceColumn="TESTING_COST_OF_ANALYSIS" DataSetColumn="TESTING_COST_OF_ANALYSIS" />
+              <Mapping SourceColumn="PROC_JUMLAH_PELAKSANA" DataSetColumn="PROC_JUMLAH_PELAKSANA" />
+              <Mapping SourceColumn="PROC_DURASI_PENGERJAAN" DataSetColumn="PROC_DURASI_PENGERJAAN" />
+              <Mapping SourceColumn="PROC_MANHOURS" DataSetColumn="PROC_MANHOURS" />
+              <Mapping SourceColumn="PROC_MANHOURS_VALUE" DataSetColumn="PROC_MANHOURS_VALUE" />
               <Mapping SourceColumn="REJ_MATERIAL" DataSetColumn="REJ_MATERIAL" />
-              <Mapping SourceColumn="HASIL_TINDAKAN" DataSetColumn="HASIL_TINDAKAN" />
-              <Mapping SourceColumn="TESTING_JUMLAH_PELAKSANA" DataSetColumn="TESTING_JUMLAH_PELAKSANA1" />
-              <Mapping SourceColumn="TESTING_DURASI_PENGERJAAN" DataSetColumn="TESTING_DURASI_PENGERJAAN1" />
-              <Mapping SourceColumn="TESTING_MANHOURS_VALUE" DataSetColumn="TESTING_MANHOURS_VALUE1" />
-              <Mapping SourceColumn="PROC_JUMLAH_PELAKSANA" DataSetColumn="PROC_JUMLAH_PELAKSANA1" />
-              <Mapping SourceColumn="PROC_DURASI_PENGERJAAN" DataSetColumn="PROC_DURASI_PENGERJAAN1" />
-              <Mapping SourceColumn="PROC_MANHOURS_VALUE" DataSetColumn="PROC_MANHOURS_VALUE1" />
-              <Mapping SourceColumn="REJ_QTY" DataSetColumn="REJ_QTY1" />
-              <Mapping SourceColumn="REJ_COST_MATERIAL" DataSetColumn="REJ_COST_MATERIAL1" />
-              <Mapping SourceColumn="MC_SPAREPART" DataSetColumn="MC_SPAREPART1" />
-              <Mapping SourceColumn="MC_TOTAL_HARGA_SPAREPART" DataSetColumn="MC_TOTAL_HARGA_SPAREPART1" />
-              <Mapping SourceColumn="TESTING_COST_OF_ANALYSIS" DataSetColumn="TESTING_COST_OF_ANALYSIS1" />
+              <Mapping SourceColumn="REJ_QUANTITY" DataSetColumn="REJ_QUANTITY" />
+              <Mapping SourceColumn="REJ_COST_MATERIAL" DataSetColumn="REJ_COST_MATERIAL" />
+              <Mapping SourceColumn="MC_DURASI_PENGERJAAN" DataSetColumn="MC_DURASI_PENGERJAAN" />
+              <Mapping SourceColumn="MC_JUMLAH_TEKNISI" DataSetColumn="MC_JUMLAH_TEKNISI" />
+              <Mapping SourceColumn="MC_MANHOURS" DataSetColumn="MC_MANHOURS" />
+              <Mapping SourceColumn="MC_MANHOURS_VALUE" DataSetColumn="MC_MANHOURS_VALUE" />
+              <Mapping SourceColumn="MC_NAMA_MESIN" DataSetColumn="MC_NAMA_MESIN" />
+              <Mapping SourceColumn="MC_TOTAL_MACHINE_HOURS_VALUE" DataSetColumn="MC_TOTAL_MACHINE_HOURS_VALUE" />
+              <Mapping SourceColumn="MC_SPAREPART" DataSetColumn="MC_SPAREPART" />
+              <Mapping SourceColumn="MC_TOTAL_HARGA_SPAREPART" DataSetColumn="MC_TOTAL_HARGA_SPAREPART" />
+              <Mapping SourceColumn="FLAG_PIC" DataSetColumn="FLAG_PIC" />
               <Mapping SourceColumn="FLAG_VERIFIKASI" DataSetColumn="FLAG_VERIFIKASI" />
+              <Mapping SourceColumn="MANHOURS_VALUE_TESTING" DataSetColumn="MANHOURS_VALUE_TESTING" />
+              <Mapping SourceColumn="HASIL_TINDAKAN" DataSetColumn="HASIL_TINDAKAN" />
+              <Mapping SourceColumn="FLAG_VERIFIKASI1" DataSetColumn="FLAG_VERIFIKASI1" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -50,20 +61,13 @@
   <xs:element name="ReportTindakanRemedialDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ReportTindakanRemedialDataSet" msprop:Generator_UserDSName="ReportTindakanRemedialDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="SP_ReportTindakanRemedial" msprop:Generator_TableClassName="SP_ReportTindakanRemedialDataTable" msprop:Generator_TableVarName="tableSP_ReportTindakanRemedial" msprop:Generator_RowChangedName="SP_ReportTindakanRemedialRowChanged" msprop:Generator_TablePropName="SP_ReportTindakanRemedial" msprop:Generator_RowDeletingName="SP_ReportTindakanRemedialRowDeleting" msprop:Generator_RowChangingName="SP_ReportTindakanRemedialRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportTindakanRemedialRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportTindakanRemedialRowDeleted" msprop:Generator_RowClassName="SP_ReportTindakanRemedialRow" msprop:Generator_UserTableName="SP_ReportTindakanRemedial" msprop:Generator_RowEvArgName="SP_ReportTindakanRemedialRowChangeEvent">
+        <xs:element name="SP_ReportTindakanRemedial" msprop:Generator_TableClassName="SP_ReportTindakanRemedialDataTable" msprop:Generator_TableVarName="tableSP_ReportTindakanRemedial" msprop:Generator_TablePropName="SP_ReportTindakanRemedial" msprop:Generator_RowDeletingName="SP_ReportTindakanRemedialRowDeleting" msprop:Generator_RowChangingName="SP_ReportTindakanRemedialRowChanging" msprop:Generator_RowEvHandlerName="SP_ReportTindakanRemedialRowChangeEventHandler" msprop:Generator_RowDeletedName="SP_ReportTindakanRemedialRowDeleted" msprop:Generator_UserTableName="SP_ReportTindakanRemedial" msprop:Generator_RowChangedName="SP_ReportTindakanRemedialRowChanged" msprop:Generator_RowEvArgName="SP_ReportTindakanRemedialRowChangeEvent" msprop:Generator_RowClassName="SP_ReportTindakanRemedialRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="KETERANGAN_DISPOSISI" msprop:Generator_ColumnVarNameInTable="columnKETERANGAN_DISPOSISI" msprop:Generator_ColumnPropNameInRow="KETERANGAN_DISPOSISI" msprop:Generator_ColumnPropNameInTable="KETERANGAN_DISPOSISIColumn" msprop:Generator_UserColumnName="KETERANGAN_DISPOSISI" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="8000" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="PIC_REMEDIAL_NAME" msprop:Generator_ColumnVarNameInTable="columnPIC_REMEDIAL_NAME" msprop:Generator_ColumnPropNameInRow="PIC_REMEDIAL_NAME" msprop:Generator_ColumnPropNameInTable="PIC_REMEDIAL_NAMEColumn" msprop:Generator_UserColumnName="PIC_REMEDIAL_NAME" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -74,52 +78,73 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="PIC_REMEDIAL_NAME" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPIC_REMEDIAL_NAME" msprop:Generator_ColumnPropNameInRow="PIC_REMEDIAL_NAME" msprop:Generator_ColumnPropNameInTable="PIC_REMEDIAL_NAMEColumn" msprop:Generator_UserColumnName="PIC_REMEDIAL_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="203" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element name="TESTING_JUMLAH_PELAKSANA" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTESTING_JUMLAH_PELAKSANA" msprop:Generator_ColumnPropNameInRow="TESTING_JUMLAH_PELAKSANA" msprop:Generator_ColumnPropNameInTable="TESTING_JUMLAH_PELAKSANAColumn" msprop:Generator_UserColumnName="TESTING_JUMLAH_PELAKSANA" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="5" />
+                    <xs:maxLength value="8000" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="TESTING_DURASI_PENGERJAAN" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTESTING_DURASI_PENGERJAAN" msprop:Generator_ColumnPropNameInRow="TESTING_DURASI_PENGERJAAN" msprop:Generator_ColumnPropNameInTable="TESTING_DURASI_PENGERJAANColumn" msprop:Generator_UserColumnName="TESTING_DURASI_PENGERJAAN" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
+                    <xs:maxLength value="8000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TESTING_MANHOURS" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTESTING_MANHOURS" msprop:Generator_ColumnPropNameInRow="TESTING_MANHOURS" msprop:Generator_ColumnPropNameInTable="TESTING_MANHOURSColumn" msprop:Generator_UserColumnName="TESTING_MANHOURS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="TESTING_MANHOURS_VALUE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTESTING_MANHOURS_VALUE" msprop:Generator_ColumnPropNameInRow="TESTING_MANHOURS_VALUE" msprop:Generator_ColumnPropNameInTable="TESTING_MANHOURS_VALUEColumn" msprop:Generator_UserColumnName="TESTING_MANHOURS_VALUE" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="10" />
+                    <xs:maxLength value="8000" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="TESTING_COST_OF_ANALYSIS" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTESTING_COST_OF_ANALYSIS" msprop:Generator_ColumnPropNameInRow="TESTING_COST_OF_ANALYSIS" msprop:Generator_ColumnPropNameInTable="TESTING_COST_OF_ANALYSISColumn" msprop:Generator_UserColumnName="TESTING_COST_OF_ANALYSIS" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="10" />
+                    <xs:maxLength value="8000" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="PROC_JUMLAH_PELAKSANA" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPROC_JUMLAH_PELAKSANA" msprop:Generator_ColumnPropNameInRow="PROC_JUMLAH_PELAKSANA" msprop:Generator_ColumnPropNameInTable="PROC_JUMLAH_PELAKSANAColumn" msprop:Generator_UserColumnName="PROC_JUMLAH_PELAKSANA" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="5" />
+                    <xs:maxLength value="8000" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="PROC_DURASI_PENGERJAAN" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPROC_DURASI_PENGERJAAN" msprop:Generator_ColumnPropNameInRow="PROC_DURASI_PENGERJAAN" msprop:Generator_ColumnPropNameInTable="PROC_DURASI_PENGERJAANColumn" msprop:Generator_UserColumnName="PROC_DURASI_PENGERJAAN" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="10" />
+                    <xs:maxLength value="8000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PROC_MANHOURS" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPROC_MANHOURS" msprop:Generator_ColumnPropNameInRow="PROC_MANHOURS" msprop:Generator_ColumnPropNameInTable="PROC_MANHOURSColumn" msprop:Generator_UserColumnName="PROC_MANHOURS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="PROC_MANHOURS_VALUE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnPROC_MANHOURS_VALUE" msprop:Generator_ColumnPropNameInRow="PROC_MANHOURS_VALUE" msprop:Generator_ColumnPropNameInTable="PROC_MANHOURS_VALUEColumn" msprop:Generator_UserColumnName="PROC_MANHOURS_VALUE" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="5" />
+                    <xs:maxLength value="8000" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -130,17 +155,59 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="REJ_QTY" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnREJ_QTY" msprop:Generator_ColumnPropNameInRow="REJ_QTY" msprop:Generator_ColumnPropNameInTable="REJ_QTYColumn" msprop:Generator_UserColumnName="REJ_QTY" minOccurs="0">
+              <xs:element name="REJ_QUANTITY" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnREJ_QUANTITY" msprop:Generator_ColumnPropNameInRow="REJ_QUANTITY" msprop:Generator_ColumnPropNameInTable="REJ_QUANTITYColumn" msprop:Generator_UserColumnName="REJ_QUANTITY" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="5" />
+                    <xs:maxLength value="8000" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="REJ_COST_MATERIAL" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnREJ_COST_MATERIAL" msprop:Generator_ColumnPropNameInRow="REJ_COST_MATERIAL" msprop:Generator_ColumnPropNameInTable="REJ_COST_MATERIALColumn" msprop:Generator_UserColumnName="REJ_COST_MATERIAL" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="10" />
+                    <xs:maxLength value="8000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MC_DURASI_PENGERJAAN" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMC_DURASI_PENGERJAAN" msprop:Generator_ColumnPropNameInRow="MC_DURASI_PENGERJAAN" msprop:Generator_ColumnPropNameInTable="MC_DURASI_PENGERJAANColumn" msprop:Generator_UserColumnName="MC_DURASI_PENGERJAAN" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MC_JUMLAH_TEKNISI" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMC_JUMLAH_TEKNISI" msprop:Generator_ColumnPropNameInRow="MC_JUMLAH_TEKNISI" msprop:Generator_ColumnPropNameInTable="MC_JUMLAH_TEKNISIColumn" msprop:Generator_UserColumnName="MC_JUMLAH_TEKNISI" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MC_MANHOURS" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMC_MANHOURS" msprop:Generator_ColumnPropNameInRow="MC_MANHOURS" msprop:Generator_ColumnPropNameInTable="MC_MANHOURSColumn" msprop:Generator_UserColumnName="MC_MANHOURS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MC_MANHOURS_VALUE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMC_MANHOURS_VALUE" msprop:Generator_ColumnPropNameInRow="MC_MANHOURS_VALUE" msprop:Generator_ColumnPropNameInTable="MC_MANHOURS_VALUEColumn" msprop:Generator_UserColumnName="MC_MANHOURS_VALUE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MC_NAMA_MESIN" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMC_NAMA_MESIN" msprop:Generator_ColumnPropNameInRow="MC_NAMA_MESIN" msprop:Generator_ColumnPropNameInTable="MC_NAMA_MESINColumn" msprop:Generator_UserColumnName="MC_NAMA_MESIN" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MC_TOTAL_MACHINE_HOURS_VALUE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMC_TOTAL_MACHINE_HOURS_VALUE" msprop:Generator_ColumnPropNameInRow="MC_TOTAL_MACHINE_HOURS_VALUE" msprop:Generator_ColumnPropNameInTable="MC_TOTAL_MACHINE_HOURS_VALUEColumn" msprop:Generator_UserColumnName="MC_TOTAL_MACHINE_HOURS_VALUE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8000" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -154,7 +221,28 @@
               <xs:element name="MC_TOTAL_HARGA_SPAREPART" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMC_TOTAL_HARGA_SPAREPART" msprop:Generator_ColumnPropNameInRow="MC_TOTAL_HARGA_SPAREPART" msprop:Generator_ColumnPropNameInTable="MC_TOTAL_HARGA_SPAREPARTColumn" msprop:Generator_UserColumnName="MC_TOTAL_HARGA_SPAREPART" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="10" />
+                    <xs:maxLength value="8000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FLAG_PIC" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFLAG_PIC" msprop:Generator_ColumnPropNameInRow="FLAG_PIC" msprop:Generator_ColumnPropNameInTable="FLAG_PICColumn" msprop:Generator_UserColumnName="FLAG_PIC" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FLAG_VERIFIKASI" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFLAG_VERIFIKASI" msprop:Generator_ColumnPropNameInRow="FLAG_VERIFIKASI" msprop:Generator_ColumnPropNameInTable="FLAG_VERIFIKASIColumn" msprop:Generator_UserColumnName="FLAG_VERIFIKASI" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MANHOURS_VALUE_TESTING" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMANHOURS_VALUE_TESTING" msprop:Generator_ColumnPropNameInRow="MANHOURS_VALUE_TESTING" msprop:Generator_ColumnPropNameInTable="MANHOURS_VALUE_TESTINGColumn" msprop:Generator_UserColumnName="MANHOURS_VALUE_TESTING" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -165,18 +253,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="TESTING_JUMLAH_PELAKSANA1" msdata:ReadOnly="true" msdata:Caption="TESTING_JUMLAH_PELAKSANA" msprop:Generator_ColumnVarNameInTable="columnTESTING_JUMLAH_PELAKSANA1" msprop:Generator_ColumnPropNameInRow="TESTING_JUMLAH_PELAKSANA1" msprop:Generator_ColumnPropNameInTable="TESTING_JUMLAH_PELAKSANA1Column" msprop:Generator_UserColumnName="TESTING_JUMLAH_PELAKSANA1" type="xs:int" minOccurs="0" />
-              <xs:element name="TESTING_DURASI_PENGERJAAN1" msdata:ReadOnly="true" msdata:Caption="TESTING_DURASI_PENGERJAAN" msprop:Generator_ColumnVarNameInTable="columnTESTING_DURASI_PENGERJAAN1" msprop:Generator_ColumnPropNameInRow="TESTING_DURASI_PENGERJAAN1" msprop:Generator_ColumnPropNameInTable="TESTING_DURASI_PENGERJAAN1Column" msprop:Generator_UserColumnName="TESTING_DURASI_PENGERJAAN1" type="xs:int" minOccurs="0" />
-              <xs:element name="TESTING_MANHOURS_VALUE1" msdata:ReadOnly="true" msdata:Caption="TESTING_MANHOURS_VALUE" msprop:Generator_ColumnVarNameInTable="columnTESTING_MANHOURS_VALUE1" msprop:Generator_ColumnPropNameInRow="TESTING_MANHOURS_VALUE1" msprop:Generator_ColumnPropNameInTable="TESTING_MANHOURS_VALUE1Column" msprop:Generator_UserColumnName="TESTING_MANHOURS_VALUE1" type="xs:int" minOccurs="0" />
-              <xs:element name="PROC_JUMLAH_PELAKSANA1" msdata:ReadOnly="true" msdata:Caption="PROC_JUMLAH_PELAKSANA" msprop:Generator_ColumnVarNameInTable="columnPROC_JUMLAH_PELAKSANA1" msprop:Generator_ColumnPropNameInRow="PROC_JUMLAH_PELAKSANA1" msprop:Generator_ColumnPropNameInTable="PROC_JUMLAH_PELAKSANA1Column" msprop:Generator_UserColumnName="PROC_JUMLAH_PELAKSANA1" type="xs:int" minOccurs="0" />
-              <xs:element name="PROC_DURASI_PENGERJAAN1" msdata:ReadOnly="true" msdata:Caption="PROC_DURASI_PENGERJAAN" msprop:Generator_ColumnVarNameInTable="columnPROC_DURASI_PENGERJAAN1" msprop:Generator_ColumnPropNameInRow="PROC_DURASI_PENGERJAAN1" msprop:Generator_ColumnPropNameInTable="PROC_DURASI_PENGERJAAN1Column" msprop:Generator_UserColumnName="PROC_DURASI_PENGERJAAN1" type="xs:int" minOccurs="0" />
-              <xs:element name="PROC_MANHOURS_VALUE1" msdata:ReadOnly="true" msdata:Caption="PROC_MANHOURS_VALUE" msprop:Generator_ColumnVarNameInTable="columnPROC_MANHOURS_VALUE1" msprop:Generator_ColumnPropNameInRow="PROC_MANHOURS_VALUE1" msprop:Generator_ColumnPropNameInTable="PROC_MANHOURS_VALUE1Column" msprop:Generator_UserColumnName="PROC_MANHOURS_VALUE1" type="xs:int" minOccurs="0" />
-              <xs:element name="REJ_QTY1" msdata:ReadOnly="true" msdata:Caption="REJ_QTY" msprop:Generator_ColumnVarNameInTable="columnREJ_QTY1" msprop:Generator_ColumnPropNameInRow="REJ_QTY1" msprop:Generator_ColumnPropNameInTable="REJ_QTY1Column" msprop:Generator_UserColumnName="REJ_QTY1" type="xs:int" minOccurs="0" />
-              <xs:element name="REJ_COST_MATERIAL1" msdata:ReadOnly="true" msdata:Caption="REJ_COST_MATERIAL" msprop:Generator_ColumnVarNameInTable="columnREJ_COST_MATERIAL1" msprop:Generator_ColumnPropNameInRow="REJ_COST_MATERIAL1" msprop:Generator_ColumnPropNameInTable="REJ_COST_MATERIAL1Column" msprop:Generator_UserColumnName="REJ_COST_MATERIAL1" type="xs:int" minOccurs="0" />
-              <xs:element name="MC_SPAREPART1" msdata:ReadOnly="true" msdata:Caption="MC_SPAREPART" msprop:Generator_ColumnVarNameInTable="columnMC_SPAREPART1" msprop:Generator_ColumnPropNameInRow="MC_SPAREPART1" msprop:Generator_ColumnPropNameInTable="MC_SPAREPART1Column" msprop:Generator_UserColumnName="MC_SPAREPART1" type="xs:int" minOccurs="0" />
-              <xs:element name="MC_TOTAL_HARGA_SPAREPART1" msdata:ReadOnly="true" msdata:Caption="MC_TOTAL_HARGA_SPAREPART" msprop:Generator_ColumnVarNameInTable="columnMC_TOTAL_HARGA_SPAREPART1" msprop:Generator_ColumnPropNameInRow="MC_TOTAL_HARGA_SPAREPART1" msprop:Generator_ColumnPropNameInTable="MC_TOTAL_HARGA_SPAREPART1Column" msprop:Generator_UserColumnName="MC_TOTAL_HARGA_SPAREPART1" type="xs:int" minOccurs="0" />
-              <xs:element name="TESTING_COST_OF_ANALYSIS1" msdata:ReadOnly="true" msdata:Caption="TESTING_COST_OF_ANALYSIS" msprop:Generator_ColumnVarNameInTable="columnTESTING_COST_OF_ANALYSIS1" msprop:Generator_ColumnPropNameInRow="TESTING_COST_OF_ANALYSIS1" msprop:Generator_ColumnPropNameInTable="TESTING_COST_OF_ANALYSIS1Column" msprop:Generator_UserColumnName="TESTING_COST_OF_ANALYSIS1" type="xs:int" minOccurs="0" />
-              <xs:element name="FLAG_VERIFIKASI" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFLAG_VERIFIKASI" msprop:Generator_ColumnPropNameInRow="FLAG_VERIFIKASI" msprop:Generator_ColumnPropNameInTable="FLAG_VERIFIKASIColumn" msprop:Generator_UserColumnName="FLAG_VERIFIKASI" minOccurs="0">
+              <xs:element name="FLAG_VERIFIKASI1" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFLAG_VERIFIKASI1" msprop:Generator_ColumnPropNameInRow="FLAG_VERIFIKASI1" msprop:Generator_ColumnPropNameInTable="FLAG_VERIFIKASI1Column" msprop:Generator_UserColumnName="FLAG_VERIFIKASI1" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />

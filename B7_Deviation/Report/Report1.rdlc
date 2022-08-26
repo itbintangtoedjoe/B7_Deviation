@@ -40,7 +40,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Format(Now(),"dd/MM/yyyy")</Value>
+                    <Value>=Format(First(Fields!CREATION_DATE.Value, "UpdatedReportData"),"dd/MM/yyyy")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -7473,7 +7473,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -7512,18 +7511,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TESTING_MANHOURS_VALUE">
+                        <Textbox Name="TESTING_MANHOURS">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIf(IIf(Fields!TESTING_JUMLAH_PELAKSANA.Value = "-",0,Fields!TESTING_JUMLAH_PELAKSANA.Value)
-* 
-IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-",0,Fields!TESTING_DURASI_PENGERJAAN.Value)=0,"-",CDbl(IIf(Fields!TESTING_JUMLAH_PELAKSANA.Value="-",0,Fields!TESTING_JUMLAH_PELAKSANA.Value))
-* 
-CDbl(IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-", 0,Fields!TESTING_DURASI_PENGERJAAN.Value)))</Value>
+                                  <Value>=Fields!TESTING_MANHOURS.Value</Value>
                                   <Style>
                                     <FontSize>4pt</FontSize>
                                   </Style>
@@ -7534,7 +7529,7 @@ CDbl(IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-", 0,Fields!TESTING_DURASI_PEN
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TESTING_MANHOURS_VALUE</rd:DefaultName>
+                          <rd:DefaultName>TESTING_MANHOURS</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -7550,14 +7545,14 @@ CDbl(IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-", 0,Fields!TESTING_DURASI_PEN
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox129">
+                        <Textbox Name="TESTING_MANHOURS_VALUE">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!TESTING_MANHOURS_VALUE.Value</Value>
                                   <Style>
                                     <FontSize>4pt</FontSize>
                                   </Style>
@@ -7568,7 +7563,7 @@ CDbl(IIf(Fields!TESTING_DURASI_PENGERJAAN.Value="-", 0,Fields!TESTING_DURASI_PEN
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox129</rd:DefaultName>
+                          <rd:DefaultName>TESTING_MANHOURS_VALUE</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -7724,14 +7719,14 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox134">
+                        <Textbox Name="PROC_MANHOURS_VALUE1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!PROC_MANHOURS_VALUE.Value</Value>
                                   <Style>
                                     <FontSize>4pt</FontSize>
                                   </Style>
@@ -7742,7 +7737,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox134</rd:DefaultName>
+                          <rd:DefaultName>PROC_MANHOURS_VALUE1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -7792,14 +7787,14 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="REJ_QTY">
+                        <Textbox Name="REJ_QUANTITY">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!REJ_QTY.Value</Value>
+                                  <Value>=Fields!REJ_QUANTITY.Value</Value>
                                   <Style>
                                     <FontSize>4pt</FontSize>
                                   </Style>
@@ -7810,7 +7805,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>REJ_QTY</rd:DefaultName>
+                          <rd:DefaultName>REJ_QUANTITY</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -7860,14 +7855,14 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox115">
+                        <Textbox Name="MC_JUMLAH_TEKNISI">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!MC_JUMLAH_TEKNISI.Value</Value>
                                   <Style>
                                     <FontSize>4pt</FontSize>
                                   </Style>
@@ -7878,7 +7873,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox115</rd:DefaultName>
+                          <rd:DefaultName>MC_JUMLAH_TEKNISI</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -7894,14 +7889,14 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox121">
+                        <Textbox Name="MC_DURASI_PENGERJAAN">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!MC_DURASI_PENGERJAAN.Value</Value>
                                   <Style>
                                     <FontSize>4pt</FontSize>
                                   </Style>
@@ -7912,7 +7907,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox121</rd:DefaultName>
+                          <rd:DefaultName>MC_DURASI_PENGERJAAN</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -7928,14 +7923,14 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox124">
+                        <Textbox Name="MC_MANHOURS">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!MC_MANHOURS.Value</Value>
                                   <Style>
                                     <FontSize>4pt</FontSize>
                                   </Style>
@@ -7946,7 +7941,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox124</rd:DefaultName>
+                          <rd:DefaultName>MC_MANHOURS</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -7962,14 +7957,14 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox127">
+                        <Textbox Name="MC_MANHOURS_VALUE">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!MC_MANHOURS_VALUE.Value</Value>
                                   <Style>
                                     <FontSize>4pt</FontSize>
                                   </Style>
@@ -7980,7 +7975,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox127</rd:DefaultName>
+                          <rd:DefaultName>MC_MANHOURS_VALUE</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -8444,7 +8439,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>Total</Value>
                                   <Style>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>5pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8479,9 +8474,9 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total Testing Manhours(jam)</Value>
+                                  <Value>Total Testing Manhours (jam)</Value>
                                   <Style>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>5pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8518,7 +8513,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>Total Testing Cost (Rp)</Value>
                                   <Style>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>5pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8555,7 +8550,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>Total Analysis Cost (Rp)</Value>
                                   <Style>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>5pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8590,9 +8585,9 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total Processing Manhours(jam)</Value>
+                                  <Value>Total Processing Manhours (jam)</Value>
                                   <Style>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>5pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8629,7 +8624,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>Total Processing Cost (Rp)</Value>
                                   <Style>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>5pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8666,7 +8661,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>Total Rejected Cost (Rp)</Value>
                                   <Style>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>5pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8703,7 +8698,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>Total Machine Manhours Cost (Rp)</Value>
                                   <Style>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>5pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8740,7 +8735,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                                 <TextRun>
                                   <Value>Total Machine Cost (Rp)</Value>
                                   <Style>
-                                    <FontSize>6pt</FontSize>
+                                    <FontSize>5pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8837,7 +8832,41 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TOTAL_TESTING_COA">
+                        <Textbox Name="TOTAL_TESTING_MANHOURS_COST">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!TOTAL_TESTING_MANHOURS_COST.Value</Value>
+                                  <Style>
+                                    <FontSize>6pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>TOTAL_TESTING_MANHOURS_COST</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TOTAL_TESTING_COA1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -8855,41 +8884,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TOTAL_TESTING_COA</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox136">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontSize>6pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox136</rd:DefaultName>
+                          <rd:DefaultName>TOTAL_TESTING_COA1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -8939,14 +8934,14 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox138">
+                        <Textbox Name="TOTAL_PROC_COST">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!TOTAL_PROC_COST.Value</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
                                   </Style>
@@ -8957,7 +8952,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox138</rd:DefaultName>
+                          <rd:DefaultName>TOTAL_PROC_COST</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -9007,14 +9002,14 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox146">
+                        <Textbox Name="TOTAL_MC_MANHOURS">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!TOTAL_MC_MANHOURS.Value</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
                                   </Style>
@@ -9025,7 +9020,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox146</rd:DefaultName>
+                          <rd:DefaultName>TOTAL_MC_MANHOURS</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -9041,14 +9036,14 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TOTAL_MC_HARGA_SPAREPART">
+                        <Textbox Name="TOTAL_MC_MANHOURS_COST">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TOTAL_MC_HARGA_SPAREPART.Value</Value>
+                                  <Value>=Fields!TOTAL_MC_MANHOURS_COST.Value</Value>
                                   <Style>
                                     <FontSize>6pt</FontSize>
                                   </Style>
@@ -9059,7 +9054,7 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TOTAL_MC_HARGA_SPAREPART</rd:DefaultName>
+                          <rd:DefaultName>TOTAL_MC_MANHOURS_COST</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -10726,12 +10721,12 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
           <DataField>KETERANGAN_DISPOSISI</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PIC_REMEDIAL_NAME">
-          <DataField>PIC_REMEDIAL_NAME</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="PIC_REMEDIAL_NIK">
           <DataField>PIC_REMEDIAL_NIK</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PIC_REMEDIAL_NAME">
+          <DataField>PIC_REMEDIAL_NAME</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="TESTING_JUMLAH_PELAKSANA">
@@ -10740,6 +10735,10 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
         </Field>
         <Field Name="TESTING_DURASI_PENGERJAAN">
           <DataField>TESTING_DURASI_PENGERJAAN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TESTING_MANHOURS">
+          <DataField>TESTING_MANHOURS</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="TESTING_MANHOURS_VALUE">
@@ -10758,6 +10757,10 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
           <DataField>PROC_DURASI_PENGERJAAN</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="PROC_MANHOURS">
+          <DataField>PROC_MANHOURS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="PROC_MANHOURS_VALUE">
           <DataField>PROC_MANHOURS_VALUE</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -10766,12 +10769,36 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
           <DataField>REJ_MATERIAL</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="REJ_QTY">
-          <DataField>REJ_QTY</DataField>
+        <Field Name="REJ_QUANTITY">
+          <DataField>REJ_QUANTITY</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="REJ_COST_MATERIAL">
           <DataField>REJ_COST_MATERIAL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MC_DURASI_PENGERJAAN">
+          <DataField>MC_DURASI_PENGERJAAN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MC_JUMLAH_TEKNISI">
+          <DataField>MC_JUMLAH_TEKNISI</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MC_MANHOURS">
+          <DataField>MC_MANHOURS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MC_MANHOURS_VALUE">
+          <DataField>MC_MANHOURS_VALUE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MC_NAMA_MESIN">
+          <DataField>MC_NAMA_MESIN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MC_TOTAL_MACHINE_HOURS_VALUE">
+          <DataField>MC_TOTAL_MACHINE_HOURS_VALUE</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="MC_SPAREPART">
@@ -10782,56 +10809,24 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
           <DataField>MC_TOTAL_HARGA_SPAREPART</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="FLAG_PIC">
+          <DataField>FLAG_PIC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FLAG_VERIFIKASI">
+          <DataField>FLAG_VERIFIKASI</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MANHOURS_VALUE_TESTING">
+          <DataField>MANHOURS_VALUE_TESTING</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="HASIL_TINDAKAN">
           <DataField>HASIL_TINDAKAN</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TESTING_JUMLAH_PELAKSANA1">
-          <DataField>TESTING_JUMLAH_PELAKSANA</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="TESTING_DURASI_PENGERJAAN1">
-          <DataField>TESTING_DURASI_PENGERJAAN</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="TESTING_MANHOURS_VALUE1">
-          <DataField>TESTING_MANHOURS_VALUE</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="PROC_JUMLAH_PELAKSANA1">
-          <DataField>PROC_JUMLAH_PELAKSANA</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="PROC_DURASI_PENGERJAAN1">
-          <DataField>PROC_DURASI_PENGERJAAN</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="PROC_MANHOURS_VALUE1">
-          <DataField>PROC_MANHOURS_VALUE</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="REJ_QTY1">
-          <DataField>REJ_QTY</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="REJ_COST_MATERIAL1">
-          <DataField>REJ_COST_MATERIAL</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="MC_SPAREPART1">
-          <DataField>MC_SPAREPART</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="MC_TOTAL_HARGA_SPAREPART1">
-          <DataField>MC_TOTAL_HARGA_SPAREPART</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="TESTING_COST_OF_ANALYSIS1">
-          <DataField>TESTING_COST_OF_ANALYSIS</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="FLAG_VERIFIKASI">
-          <DataField>FLAG_VERIFIKASI</DataField>
+        <Field Name="FLAG_VERIFIKASI1">
+          <DataField>FLAG_VERIFIKASI1</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -10974,10 +10969,26 @@ CInt(IIf(Fields!PROC_DURASI_PENGERJAAN.Value="-", 0,Fields!PROC_DURASI_PENGERJAA
           <DataField>TOTAL_COST</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="TOTAL_TESTING_MANHOURS_COST">
+          <DataField>TOTAL_TESTING_MANHOURS_COST</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_PROC_COST">
+          <DataField>TOTAL_PROC_COST</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_MC_MANHOURS">
+          <DataField>TOTAL_MC_MANHOURS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_MC_MANHOURS_COST">
+          <DataField>TOTAL_MC_MANHOURS_COST</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DataSourceFooterTotal</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\ignatius.kurniawan\source\repos\ignatiusipin\B7_Deviation\B7_Deviation\DataSource\DataSourceFooterTotal.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\FELI\Projects\21\Deviation Online 21\projek\B7_Deviation\B7_Deviation\DataSource\DataSourceFooterTotal.xsd</rd:SchemaPath>
         <rd:TableName>SP_CountTotalPICTable</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

@@ -21,10 +21,10 @@
                                             Submit
                                             <span class="fa fa-check-square-o"></span>
                                         </button>
-                                        <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control">
+                                        @*<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control">
                                             Cancel
                                             <span class="fa fa-ban"></span>
-                                        </button>
+                                        </button>*@
 
                                         <button type="button" id="btnEdit" class="col-sm-2 btn mb-1 btn-warning form-control">
                                             Edit
@@ -86,7 +86,6 @@
 
      // Save Deviation
     function InsertDeviation() {
-
         var ID_PROPOSER = '@Request.RequestContext.HttpContext.Session["xUser"]';
         var DEPARTEMENT = $("#TbDeptPusul").val();
         var PROBLEM = $("#txtProblem").val();
@@ -116,7 +115,7 @@
         var SAME_POTEN_DEV_FLAG = $('input[name="travel1"]:checked').val();
         var SAME_POTEN_DEV = $("#txtsama").val();
         var POTEN_DEV_RLS_FLG = $('input[name="travel2"]:checked').val();
-        var POTEN_DEV_RLS = $("#txtrilis").val();ntfs
+        var POTEN_DEV_RLS = $("#txtrilis").val();
         var POTEN_DEV_OTH_FLG = $('input[name="travel3"]:checked').val();
         var POTEN_DEV_OTH = $("#txtlain").val();
         var ACTION_WHEN_DEV = $("#txtTindakan").val();

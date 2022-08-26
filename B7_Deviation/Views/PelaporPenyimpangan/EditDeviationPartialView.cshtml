@@ -707,6 +707,7 @@
             document.getElementById("terencana_no_2").disabled = false;
             document.getElementById("r_receipt_y").disabled = false;
             document.getElementById("r_receip_n").disabled = false;
+            document.getElementById("txtKetKategori").disabled = false;
             document.getElementById("txtProblem").disabled = false;
             document.getElementById("txtReq").disabled = false;
             document.getElementById("date-format").disabled = false;
@@ -1055,7 +1056,6 @@
             $('#TxtBatchNo').val('');
             $("#TxtNoWO").val('');
             $('#TxtItemCode').val('');
-            $('#txtKetKategori').val('');
             $('#TxtQCMaterialNo').val('');
 
 
@@ -1070,6 +1070,7 @@
 
             // Kualitas Produk
             if (kategoriDev == 'QPR') {
+                $('#txtKetKategori').val('');
                 if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
                     swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
 
@@ -1107,6 +1108,7 @@
             else {
                 // Kualitas Materi Awal
                 if (kategoriDev == 'QMT') {
+                    $('#txtKetKategori').val('');
                     if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
                         swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
 
@@ -1157,7 +1159,7 @@
                     $("#divProduk").hide();
                     $("#divMaterial").hide();
                     $("#TxtNoWO").attr("disabled", true);
-                    $('#txtKetKategori').val('');
+                    @*$('#txtKetKategori').val('');*@
                     $("#TxtItemCode").css("display", "none");
                     $("#TxtBatchNo").css("display", "none");
                     $("#TxtNoWO").css("display", "none");

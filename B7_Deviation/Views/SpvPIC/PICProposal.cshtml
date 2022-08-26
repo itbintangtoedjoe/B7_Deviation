@@ -62,19 +62,19 @@
 				dataType: "json",
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
-
-					var trHTML = '';
+                    var trHTML, revisiDueDate, revisiTindakan, flag_pic = '';
 					var trav = 0;
 					var Count = data.length;
-					var revisiDueDate = data[trav].REVISI_DUE_DATE;
-					var revisiTindakan = data[trav].REVISI_TINDAKAN_REMEDIAL;
-					if (revisiDueDate == null) {
-						revisiDueDate = '-';
-					}
-					if (revisiTindakan == null) {
-						revisiTindakan = '-';
-                    }
-					for (trav = 0; trav < Count; trav++) {
+                    for (trav = 0; trav < Count; trav++) {
+                        revisiDueDate = data[trav].REVISI_DUE_DATE;
+                        revisiTindakan = data[trav].REVISI_TINDAKAN_REMEDIAL;
+                        flag_pic = data[trav].FLAG_PIC;
+                        if (revisiDueDate == null) {
+                            revisiDueDate = '-';
+                        }
+                        if (revisiTindakan == null) {
+                            revisiTindakan = '-';
+                        }
 						trHTML +=
 							'<tr><td>' + data[trav].REQ_ID + '</td>' +
 							'<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
@@ -87,9 +87,17 @@
 							'<td hidden>' + data[trav].NO_DISPOSISI + '</td>';
 
 						var nikSuperior = data[trav].PIC_REMEDIAL_SUPERIOR_NIK;
-						if (nikSuperior == nikUserLogin) {
-							trHTML +=
-								'<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" class="btn btn-success ApprovePIC" style="width:120px;"/> <input type="button" id="Reject" value="Reject" class="btn btn-danger Reject" style="width:100px;"/></td>'
+                        if (nikSuperior == nikUserLogin) {
+                            if (flag_pic == 'PROPOSAL APPROVED BY SPV PIC') {
+                                trHTML += '<td align="center"><img src="../Content/Pict/approved.png" width="90" height="50" /></td>';
+                            }
+                            else if (flag_pic == 'PROPOSAL REJECTED BY SPV PIC') {
+                                trHTML += '<td align="center"><img src="../Content/Pict/rejected.png" width="90" height="50"  /></td>';
+                            }
+                            else {
+                                trHTML +=
+                                    '<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" class="btn btn-success ApprovePIC" style="width:120px;"/> <input type="button" id="Reject" value="Reject" class="btn btn-danger Reject" style="width:100px;"/></td>';
+                            }
 						}
 						else {
                             trHTML += '<td align="center">N/A</td>';
@@ -99,8 +107,8 @@
 					$('#deviationtable').empty();
 					$('#deviationtable').append(trHTML);
 					$('#deviationdatatable').DataTable();
-                    ApprovePIC();
-                    RejectPIC();
+                    @*ApprovePIC();
+                    RejectPIC();*@
 				},
 				error: function (ex) {
                     ErrorSupPIC("Spv_PICLoadDataTable", JSON.stringify(ex));

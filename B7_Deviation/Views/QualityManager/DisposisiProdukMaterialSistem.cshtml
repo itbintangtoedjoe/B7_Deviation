@@ -205,7 +205,35 @@
 		// Load Investigation and Meeting Time
 		LoadKoorSub();
 
-		$("#btnLanjut").click(function () {
+        $("#btnLanjut").click(function () {
+            //code here
+            var tingkatkeparahan = $('input[name="chkbx"]:checked').val();
+            var ketJustifikasiLain = $("#txtJustifikasiLain").val();
+            var disposisi = $("#disposisi").val();
+            var keterangan = $("#keterangandisposisi").val();
+
+            if (keterangan == '' || disposisi == '* SELECT *') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Disposisi Produk atau Sistem dan Keterangannya tidak boleh kosong!',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+                return;
+            }
+
+            if (tingkatkeparahan == 'Justifikasi Lain' && (ketJustifikasiLain == '' || ketJustifikasiLain == null || ketJustifikasiLain == undefined)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Keterangan justifikasi lain belum diisi!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                return;
+            }
+
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -421,16 +449,6 @@
         }
         
 
-        if (keterangan == '' || disposisi =='* SELECT *') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Disposisi Produk atau Sistem dan Keterangannya tidak boleh kosong !',
-                showConfirmButton: false,
-                timer: 2000
-            })
-            return;
-		}
         /*alert(tingkatkeparahan);*/
 		function Next() {
             var dto = {

@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-md-6 col-form-label">Tahun Pembuatan Laporan</label>
+                            <label class="col-md-6 col-form-label">Tahun Approval Koordinator</label>
                             <div class="col-md-6 col-form-label">
                                 <div class="btn-group">
                                     <div class="basic-dropdown">
@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-md-6 col-form-label">Bulan Pembuatan Laporan</label>
+                            <label class="col-md-6 col-form-label">Bulan Approval Koordinator</label>
                             <div class="col-md-6 col-form-label">
                                 <div class="btn-group">
                                     <div class="basic-dropdown">
@@ -104,7 +104,7 @@
                                                 <option disabled selected hidden class="dropdown-header">Site Koordinator</option>
                                                 <option class="dropdown-item" value="CKR">Cikarang</option>
                                                 <option class="dropdown-item" value="PLG">Pulogadung</option>
-                                                <option class="dropdown-item" value="PLM">Pulomas</option>
+                                                @*<option class="dropdown-item" value="PLM">Pulomas</option>*@
                                             </select>
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@
                             <th width="100px">Departement</th>
                             <th width="100px">Site Koordinator</th>
                             <th width="100px">Nama Pelapor</th>
-                            <th width="100px">Tanggal Pembuatan</th>
+                            <th width="100px">Tanggal Approval Koordinator</th>
                             <th width="100px">Bulan</th>
                             <th width="100px">Tanggal Disposisi Tindakan Remedial</th>
                             <th width="100px">Leadtime Disposisi Tindakan Remedial (Hari)</th>
@@ -400,7 +400,10 @@
 
                 $('#deviationtable').empty();
                 $('#deviationtable').append(trHTML);
-                $('#deviationdatatable').DataTable();
+                $('#deviationdatatable').DataTable({
+                    'aaSorting':[]
+                }
+                );
 
 
             },
