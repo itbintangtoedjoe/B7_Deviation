@@ -19,7 +19,6 @@ namespace B7_Deviation.Models
         public string Role { get; set; }
         public string Password { get; set; }
         public string KategoriPenyimpangan { get; set; }
-        public string Option { get; set; }
 
     }
 }

@@ -5,7 +5,7 @@
 }
 
 <link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer nonce="m7qUmw5fgrux7KUIkOhNEw=="></script>
 
 <body>
 	<div class="content-body">
@@ -45,9 +45,14 @@
 		</div>
 	</div>
 
-    <script nonce="lALgaGMar5wggAXln8BUog==">
+    <script nonce="r/Vw+9TUjOjnGc1sR0G4tQ==">
+		$(document).ready(function () {
+			// Load User once the page is loaded
+			LoadData();
 
-    function LoadData() {
+		});
+
+		function LoadData() {
 			var nikUserLogin = '@Request.RequestContext.HttpContext.Session["nik"]';
 			var REQID = @ViewBag.nomor;
 
@@ -62,19 +67,19 @@
 				dataType: "json",
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {
-                    var trHTML, revisiDueDate, revisiTindakan, flag_pic = '';
+					
+					var trHTML = '';
 					var trav = 0;
 					var Count = data.length;
-                    for (trav = 0; trav < Count; trav++) {
-                        revisiDueDate = data[trav].REVISI_DUE_DATE;
-                        revisiTindakan = data[trav].REVISI_TINDAKAN_REMEDIAL;
-                        flag_pic = data[trav].FLAG_PIC;
-                        if (revisiDueDate == null) {
-                            revisiDueDate = '-';
-                        }
-                        if (revisiTindakan == null) {
-                            revisiTindakan = '-';
-                        }
+					var revisiDueDate = data[trav].REVISI_DUE_DATE;
+					var revisiTindakan = data[trav].REVISI_TINDAKAN_REMEDIAL;
+					if (revisiDueDate == null) {
+						revisiDueDate = '-';
+					}
+					if (revisiTindakan == null) {
+						revisiTindakan = '-';
+                    }
+					for (trav = 0; trav < Count; trav++) {
 						trHTML +=
 							'<tr><td>' + data[trav].REQ_ID + '</td>' +
 							'<td>' + data[trav].PIC_REMEDIAL_NIK + '</td>' +
@@ -87,17 +92,9 @@
 							'<td hidden>' + data[trav].NO_DISPOSISI + '</td>';
 
 						var nikSuperior = data[trav].PIC_REMEDIAL_SUPERIOR_NIK;
-                        if (nikSuperior == nikUserLogin) {
-                            if (flag_pic == 'PROPOSAL APPROVED BY SPV PIC') {
-                                trHTML += '<td align="center"><img src="../Content/Pict/approved.png" width="90" height="50" /></td>';
-                            }
-                            else if (flag_pic == 'PROPOSAL REJECTED BY SPV PIC') {
-                                trHTML += '<td align="center"><img src="../Content/Pict/rejected.png" width="90" height="50"  /></td>';
-                            }
-                            else {
-                                trHTML +=
-                                    '<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" class="btn btn-success ApprovePIC" style="width:120px;"/> <input type="button" id="Reject" value="Reject" class="btn btn-danger Reject" style="width:100px;"/></td>';
-                            }
+						if (nikSuperior == nikUserLogin) {
+							trHTML +=
+								'<td align="center"> <input type="button" id="ApprovePIC" value="Approve Proposal" onclick=ApprovePIC(this) class="btn btn-success" style="width:120px;"/> <input type="button" id="RejectPIC" value="Reject" onclick=RejectPIC(this) class="btn btn-danger" style="width:100px;"/></td>'
 						}
 						else {
                             trHTML += '<td align="center">N/A</td>';
@@ -107,8 +104,7 @@
 					$('#deviationtable').empty();
 					$('#deviationtable').append(trHTML);
 					$('#deviationdatatable').DataTable();
-                    @*ApprovePIC();
-                    RejectPIC();*@
+
 				},
 				error: function (ex) {
                     ErrorSupPIC("Spv_PICLoadDataTable", JSON.stringify(ex));
@@ -116,7 +112,200 @@
 			});
 		}
 
-    function ErrorSupPIC(ErrorType, ErrorMsg) {
+		function ApprovePIC(button) {
+
+			var row = $(button).closest("TR");
+
+			var no_disposisi = $("TD", row).eq(8).html();
+			var req_id = @ViewBag.nomor;
+			var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+			function AppSupPIC() {
+                var dto = {
+                    REQID: req_id,
+                    NO_DISPOSISI: no_disposisi,
+                    IDUSER: curr_user
+                }
+
+                $.ajax({
+                    url: "../SpvPelapor/Spv_ApprovePIC",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+
+                        toastr.success("Revisi Berhasil Diapprove!", "Tersimpan", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+                    }
+                    , error: function (ex) {
+                        ErrorSupPIC("Spv_ApprovePIC", JSON.stringify(ex));
+                    }
+                });
+			}
+
+			function NotifySupPIC() {
+                var tabletype = "More Than One";
+                var whoreceiver = "QM PIC Usulan Revisi";
+
+                var dto = {
+                    Receiver: curr_user,
+                    ReqID: REQID,
+                    TableType: tabletype,
+                    WhoReceiver: whoreceiver
+                };
+
+                $.ajax({
+                    type: "post",
+                    url: '../Form/SendEmailInputProposal',
+                    data: JSON.stringify(dto),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+
+                        function LoadNotify() {
+                            toastr.success("Email Sent Successfully !", "Notification", {
+                                "closeButton": false,
+                                "debug": true,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-bottom-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "200",
+                                "hideDuration": "1000",
+                                "timeOut": "2000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            });
+
+                            LoadData();
+                        }
+                        
+                        $.when(LoadNotify()).done(window.location.href = "../DataDeviasi/PendingTask");
+                    }, error: function (ex) {
+                        ErrorSupPIC("AppEmailSupPIC", JSON.stringify(ex));
+                    }
+                });
+			}
+
+            $.when(AppSupPIC()).done(NotifySupPIC());
+		}
+
+		function RejectPIC(button) {
+
+			var row = $(button).closest("TR");
+
+			var no_disposisi = $("TD", row).eq(8).html();
+			var req_id = @ViewBag.nomor;
+			var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
+			var receiver = $("TD", row).eq(8).html();
+
+			function RejectSupPIC() {
+                var dto = {
+                    REQID: req_id,
+                    NO_DISPOSISI: no_disposisi,
+                    IDUSER: curr_user
+                }
+
+                $.ajax({
+                    url: "../SpvPelapor/Spv_RejectPIC",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+
+                        toastr.success("Reject Revisi Berhasil!", "Tersimpan", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+
+                        LoadData();
+                        window.location.href = "../DataDeviasi/PendingTask"
+                    }
+                    , error: function (ex) {
+                        ErrorSupPIC("RejectSUpPIC", JSON.stringify(ex));
+                    }
+                });
+            }
+
+            function NotifySupPICRej() {
+                var tabletype = "One";
+                var whoreceiver = "Reviewer Rejected Usulan Revisi";
+
+                var dtx = {
+                    Receiver: receiver,
+                    ReqID: REQID,
+                    TableType: tabletype,
+                    WhoReceiver: whoreceiver
+                };
+
+                $.ajax({
+                    type: "post",
+                    url: '../Form/SendEmailInputProposal',
+                    data: JSON.stringify(dtx),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        toastr.success("Reject Revisi Berhasil!", "Tersimpan", {
+                            "closeButton": false,
+                            "debug": true,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "100",
+                            "hideDuration": "1000",
+                            "timeOut": "2000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        });
+                    }, error: function (ex) {
+                        ErrorSupPIC("RjtEmailSupPIC", JSON.stringify(ex));
+                    }
+                });
+            }
+			
+            $.when(RejectSupPIC()).done(NotifySupPICRej());
+		}
+
+		function ErrorSupPIC(ErrorType, ErrorMsg) {
 		var REQID = @ViewBag.nomor;
 		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -156,236 +345,7 @@
 
 			}
 		});
-        }
-
-    $(document).ready(function () {
-        // Load User once the page is loaded
-        LoadData();
-
-        $('#deviationdatatable tbody').on('click', 'input[id="ApprovePIC"]', function () {
-
-           @* alert('approve clicked')*@
-
-            var row = $(this).closest("TR");
-            var no_disposisi = $("TD", row).eq(8).html();
-            var req_id = @ViewBag.nomor;
-            var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-            function AppSupPIC() {
-                var dto = {
-                    REQID: req_id,
-                    NO_DISPOSISI: no_disposisi,
-                    IDUSER: curr_user
-                }
-
-                    $.ajax({
-                        url: "../SpvPelapor/Spv_ApprovePIC",
-                        type: "post",
-                        dataType: "json",
-                        data: JSON.stringify(dto),
-                        contentType: "application/json;charset=utf-8",
-                        success: function (data) {
-
-                        toastr.success("Revisi Berhasil Diapprove!", "Tersimpan", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "100",
-                            "hideDuration": "1000",
-                            "timeOut": "2000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
-                    }
-                    , error: function (ex) {
-                        ErrorSupPIC("Spv_ApprovePIC", JSON.stringify(ex));
-                    }
-                });
-            }
-
-            function NotifySupPIC() {
-                var tabletype = "More Than One";
-                var whoreceiver = "QM PIC Usulan Revisi";
-
-                var dto = {
-                    Receiver: curr_user,
-                    ReqID: req_id,
-                    TableType: tabletype,
-                    WhoReceiver: whoreceiver
-                };
-
-                    $.ajax({
-                        type: "post",
-                        url: '../Form/SendEmailInputProposal',
-                        data: JSON.stringify(dto),
-                        dataType: "json",
-                        contentType: "application/json;charset=utf-8",
-                        success: function (data) {
-
-                            function LoadNotify() {
-                                toastr.success("Email Sent Successfully !", "Notification", {
-                                    "closeButton": false,
-                                    "debug": true,
-                                    "newestOnTop": false,
-                                    "progressBar": false,
-                                    "positionClass": "toast-bottom-right",
-                                    "preventDuplicates": false,
-                                    "onclick": null,
-                                    "showDuration": "200",
-                                    "hideDuration": "1000",
-                                    "timeOut": "2000",
-                                    "extendedTimeOut": "1000",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
-                                });
-
-                            LoadData();
-                        }
-
-                        $.when(LoadNotify()).done(window.location.href = "../DataDeviasi/PendingTask");
-                    }, error: function (ex) {
-                        ErrorSupPIC("AppEmailSupPIC", JSON.stringify(ex));
-                    }
-                });
-            }
-
-            $.when(AppSupPIC()).done(NotifySupPIC());
-        });
-
-        $('#deviationdatatable tbody').on('click', 'input[id="Reject"]', function () {
-            Swal.fire({
-                title: 'Mohon masukkan alasan reject!',
-                input: 'textarea',
-                inputAttributes: {
-                    autocapitalize: 'off'
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Submit',
-                showLoaderOnConfirm: true,
-
-                allowOutsideClick: () => Swal.isLoading()
-            }).then((result) => {
-                if (result.value == null || result.value == '') {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Mohon masukkan alasan pembatalan Penyimpangan ini!'
-                    });
-                }
-                else if (result.isConfirmed) {
-                    
-                    var row = $(this).closest("TR");
-                    var no_disposisi = $("TD", row).eq(8).html();
-                    var req_id = @ViewBag.nomor;
-                    var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                    var alasan = result.value;
-                    @*alert(alasan);*@
-                    function RejectSupPIC() {
-                        var dto = {
-                            REQID: req_id,
-                            NO_DISPOSISI: no_disposisi,
-                            ALASAN_REJECT: alasan,
-                            IDUSER: curr_user
-                        }
-
-                        $.ajax({
-                            url: "../SpvPelapor/Spv_RejectPIC",
-                            type: "post",
-                            dataType: "json",
-                            data: JSON.stringify(dto),
-                            contentType: "application/json;charset=utf-8",
-                            success: function (data) {
-                                console.log(data)
-                                toastr.success("Reject Revisi Berhasil!", "Tersimpan", {
-                                    "closeButton": false,
-                                    "debug": true,
-                                    "newestOnTop": false,
-                                    "progressBar": false,
-                                    "positionClass": "toast-top-right",
-                                    "preventDuplicates": false,
-                                    "onclick": null,
-                                    "showDuration": "100",
-                                    "hideDuration": "3000",
-                                    "timeOut": "3000",
-                                    "extendedTimeOut": "3000",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
-                                });
-
-                                LoadData();
-
-                            }
-                            , error: function (ex) {
-                                ErrorSupPIC("RejectSUpPIC", JSON.stringify(ex));
-                            }
-                        });
-                    }
-
-                    function NotifySupPICRej() {
-                        var tabletype = "More Than One";
-                        var whoreceiver = "PIC Rejected Usulan Revisi";
-                        var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
-                        var REQID= @ViewBag.nomor;
-                        var no_disposisi = $("TD", row).eq(8).html();
-
-                        var dtx = {
-                            Urutan: no_disposisi,
-                            Username: curr_user,
-                            ReqID: REQID,
-                            TableType: tabletype,
-                            WhoReceiver: whoreceiver
-                        };
-
-                        $.ajax({
-                            type: "post",
-                            url: '../Form/SendEmailInputProposal',
-                            data: JSON.stringify(dtx),
-                            dataType: "json",
-                            contentType: "application/json;charset=utf-8",
-                            success: function (data) {
-                                console.log(data)
-                                toastr.success("Email Sent Successfully!", "Tersimpan", {
-                                    "closeButton": false,
-                                    "debug": true,
-                                    "newestOnTop": false,
-                                    "progressBar": false,
-                                    "positionClass": "toast-top-right",
-                                    "preventDuplicates": false,
-                                    "onclick": null,
-                                    "showDuration": "100",
-                                    "hideDuration": "3000",
-                                    "timeOut": "3000",
-                                    "extendedTimeOut": "3000",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
-                                });
-                            }, error: function (ex) {
-                                ErrorSupPIC("RjtEmailSupPIC", JSON.stringify(ex));
-                            }
-                        });
-                    }
-
-                     $.when(RejectSupPIC(), NotifySupPICRej()).done(window.location.href = "../DataDeviasi/PendingTask");
-
-                }
-            });
-        });
-    });
-
-
+	}
     </script>
 
 

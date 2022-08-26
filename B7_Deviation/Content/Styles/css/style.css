@@ -5578,13 +5578,6 @@ button.close {
     overflow: hidden;
     outline: 0;
 }
-.modal-open .select2-dropdown {
-    z-index: 10060;
-}
-
-.modal-open .select2-close-mask {
-    z-index: 10055;
-}
 
 .modal-dialog {
     position: relative;
@@ -21454,19 +21447,4 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
             color: #fff;
         }
 
-
-
-
-/*CUSTOM CSS*/
-
-.input-inline{
-/*    display:inline;*/
-float:left;
-}
-
-.table-custom-all-bordered th, .table-custom-all-bordered td {
-    border: 1px solid black;
-}
-
-/*CUSTOM CSS*/
 /*# sourceMappingURL=style.css.map */

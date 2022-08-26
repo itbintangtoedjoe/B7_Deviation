@@ -6,113 +6,105 @@
 
 
 <div class="content-body">
-    <div class="form-group">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
+	<div class="form-group">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="form-group">
+								<h4 class="d-inline">Laporan Penyimpangan / Potensi Penyimpangan</h4>
 
-                            </div>
+							</div>
 
-                            <div class="form-group row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
+							<div class="form-group row">
+								<div class="col-md-8">
+									<div class="form-group">
 
-                                        @* APPROVE PER HEADER *@
-                                        <button type="button" id="btnApprove" style="width:108.11px" class="btn mb-1 btn-success form-control">
-                                            Approve
-                                            <span class="fa fa-check-square-o"></span>
-                                        </button>
+										@* APPROVE PER HEADER *@
+										<button type="button" id="btnApprove" style="width:108.11px" class="btn mb-1 btn-success form-control">
+											Approve
+											<span class="fa fa-check-square-o"></span>
+										</button>
 
-                                        @* REJECT PER HEADER *@
-                                        <button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
-                                            Reject
-                                            <span class="fa fa-ban"></span>
-                                        </button>
+										@* REJECT PER HEADER *@
+										<button type="button" id="btnReject" class="col-sm-2 btn mb-1 btn-danger form-control">
+											Reject
+											<span class="fa fa-ban"></span>
+										</button>
 
 
-                                        <button type="button" id="btnShowRev" class="col-sm-2 btn mb-1 btn-info form-control" hidden="hidden">
-                                            Show Reviewer
-                                        </button>
+										<button type="button" id="btnShowRev" class="col-sm-2 btn mb-1 btn-info form-control" hidden="hidden">
+											Show Reviewer
+										</button>
 
-                                        <br />
 
-                                        <button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control">
-                                            Cancel
-                                            <span class="fa fa-trash-o"></span>
-                                        </button>
-                                    </div>
+										<button type="button" id="btnCancel" class="col-sm-2 btn mb-1 btn-danger form-control" hidden="hidden">
+											Cancel
+											<span class="fa fa-trash-o"></span>
+										</button>
+									</div>
 
-                                    <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered text-center">
-                                            <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
-                                        </div>
-                                    </div>
+									<div class="form-group" id="xddlx" hidden="hidden">
+										<div class="col">
+											<label class="col col-form-label">Reviewer<span class="text-danger">*</span> :</label>
+										</div>
+										<div class="col">
+											<div class="col input-group form-group">
+												<div class="basic-dropdown">
+													<div class="dropdown user-dropdown form-inline">
+														<select id="ddlReviewer" name="ddlReviewer" class="form-control"></select>
+													</div>
+												</div>
+												<span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
+													<span class="input-group-text btn-success">
+														<i class="fa fa-user-plus"></i>
+													</span>
+												</span>
+											</div>
+											<div class="col form-group">
+												<table id="tblWho_Rev" class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th style="width:20px">No</th>
+															<th>Nama</th>
+															<th>NIK</th>
+															<th style="width:30px">Action</th>
+														</tr>
+													</thead>
+													<tbody id="tblBodyWho_Rev">
+													</tbody>
+												</table>
+											</div>
+										</div>
 
-                                    <div class="form-group" id="xddlx" hidden="hidden">
-                                        <div class="col">
-                                            <label class="col col-form-label">Reviewer<span class="text-danger">*</span> :</label>
-                                        </div>
-                                        <div class="col">
-                                            <div class="col input-group form-group">
-                                                <div class="basic-dropdown">
-                                                    <div class="dropdown user-dropdown form-inline">
-                                                        <select id="ddlReviewer" name="ddlReviewer" class="form-control"></select>
-                                                    </div>
-                                                </div>
-                                                <span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
-                                                    <span class="input-group-text btn-success">
-                                                        <i class="fa fa-user-plus"></i>
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <div class="col form-group">
-                                                <table id="tblWho_Rev" class="table table-striped table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width:20px">No</th>
-                                                            <th>Nama</th>
-                                                            <th>NIK</th>
-                                                            <th style="width:30px">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="tblBodyWho_Rev">
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Nama</label>
+										<input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
+									</div>
+									<div class="form-group">
+										<label for="txtTanggal">Tanggal:</label>
+										<input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Nama</label>
-                                        <input id="xdxdxdxd" type="text" class="form-control" readonly="readonly" value="@Request.RequestContext.HttpContext.Session["fullname"]">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtTanggal">Tanggal:</label>
-                                        <input class="form-control" readonly="readonly" value="@System.DateTime.Now.ToString("dd-MM-yyyy")" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	</div>
 
-    <div class="form-group" id="partialview">
-        @Html.Partial("../SpvPelapor/Approval")
-    </div>
+	<div class="form-group" id="partialview">
+		@Html.Partial("../SpvPelapor/Approval")
+	</div>
 </div>
 
-
-
-<script nonce="HAmxxyvoWVmmY/IcUK9zBQ==">
+<script nonce="LcNHmhpw8Xq7eCyN/Je3jA==">
 	let checkEvaluator = '';
 	let countBtn = 0;
 	let btnText = '';;
@@ -140,7 +132,7 @@
 
 		});
 
-		$("#btnApprove").click(function () {
+        $("#btnApprove").click(function () {
             btnText = $("#btnApprove").text();
 			NoDevOl = $('#TbNmrDev').val();
 
@@ -171,8 +163,8 @@
                         })
 
                         swalWithBootstrapButtons.fire({
-                            title: 'Apakah Anda yakin?',
-                            text: "Pastikan nama reviewer sudah lengkap!",
+                            title: 'Apakah anda yakin?',
+                            text: "Pastikan nama reviwer sudah lengkap!",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonText: 'Ya, sudah lengkap',
@@ -180,7 +172,6 @@
                             reverseButtons: true
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                $('#ModalLoading').modal('show');
                                 ApproveHeaderKoordinator();
 							}
 							else
@@ -189,63 +180,12 @@
 
 								}
                         })
-
+                        
                     }
 		});
 
-        $('#tblWho_Rev tbody').on('click', 'input[id="DeleteUserInvolved"]', function () {
-			@*console.log('masok')*@
-			event.preventDefault();
-            var row = $(this).closest("TR");
-            var ReqID = $("TD", row).eq(1).html();
-            var RecordID = $("TD", row).eq(2).html();
 
-            var dto = {
-                REQID: ReqID,
-                RecordID: RecordID
-            }
-
-            $.ajax({
-                url: "../Koordinator/Coor_DeleteUserInvolved",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-
-                    if (data == 'S') {
-
-                        toastr.success("Data berhasil terhapus !", "Terhapus", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "100",
-                            "hideDuration": "1000",
-                            "timeOut": "1000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
-
-                        Coor_LoadUserInvolved();
-                    }
-                }
-                , error: function (ex) {
-                    GetErrorHeader("HedKorCoor_DeleteUserInvolved", JSON.stringify(ex));
-                }
-            });
-		});
-    });
-
-
-
-
+	});
 
 	function CheckEmailAvailability() {
 		var UserInvolved = document.getElementById('ddlReviewer').value;
@@ -255,6 +195,7 @@
 			REQID: REQID,
 			UserInvolved: UserInvolved
 		}
+
 		$.ajax({
 			url: "../Form/CheckEmailAvailability",
 			type: "post",
@@ -262,7 +203,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				if (data[0].STATUS == 'ADA') {
+				if (data == 'ADA') {
 					InsertNamaTerlibat();
 				} else {
                     Swal.fire({
@@ -280,8 +221,7 @@
 		});
 	}
 
-		function ApproveHeaderKoordinator() {
-           @* alert('approve');*@
+	function ApproveHeaderKoordinator() {
 		var REQID = @ViewBag.nomor;
 		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
@@ -306,12 +246,12 @@
 				}).then(() => {
 
 					function SendEmailToReviewer() {
-                        @*alert('email')*@
 						var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
 						var tabletype = "More Than One";
 						var whoreceiver = "Reviewer after Appointed";
-                        var dtx = {
-                            Username: receiver,
+
+						var dtx = {
+							Receiver: receiver,
 							ReqID: REQID,
 							TableType: tabletype,
 							WhoReceiver: whoreceiver
@@ -468,6 +408,7 @@
 			LocationSite: location,
 			Departement: dept
 		};
+
 		$.ajax({
 			url: "../Koordinator/Coor_GetDevNum",
 			type: "post",
@@ -607,7 +548,7 @@
 							'<td style="display:none">' + data[trav].RecordID + '</td>' +
 							'<td>' + data[trav].USER_NAME + '</td>' +
 							'<td>' + data[trav].USER_NIK + '</td>' +
-							'<td><input type="button" id="DeleteUserInvolved" class="btn btn-danger DeleteUserInvolved" value="Delete"/></span></td ></tr > ';
+							'<td><button onclick="DeleteUserInvolved(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
 					}
 
 					$("#tblBodyWho_Rev").empty();
@@ -626,7 +567,54 @@
 		});
 	}
 
-	
+	function DeleteUserInvolved(button) {
+		event.preventDefault();
+		var row = $(button).closest("TR");
+		var ReqID = $("TD", row).eq(1).html();
+		var RecordID = $("TD", row).eq(2).html();
+
+		var dto = {
+			REQID: ReqID,
+			RecordID: RecordID
+		}
+
+		$.ajax({
+			url: "../Koordinator/Coor_DeleteUserInvolved",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				if (data == 'S') {
+
+					toastr.success("Data berhasil terhapus !", "Terhapus", {
+						"closeButton": false,
+						"debug": true,
+						"newestOnTop": false,
+						"progressBar": false,
+						"positionClass": "toast-top-right",
+						"preventDuplicates": false,
+						"onclick": null,
+						"showDuration": "100",
+						"hideDuration": "1000",
+						"timeOut": "1000",
+						"extendedTimeOut": "1000",
+						"showEasing": "swing",
+						"hideEasing": "linear",
+						"showMethod": "fadeIn",
+						"hideMethod": "fadeOut"
+					});
+
+					Coor_LoadUserInvolved();
+				}
+			}
+			, error: function (ex) {
+                GetErrorHeader("HedKorCoor_DeleteUserInvolved", JSON.stringify(ex));
+			}
+		});
+	}
+
 	function GetCurrStat() {
 
 		$("#partialview").attr("hidden", true);
@@ -642,17 +630,17 @@
 			url: "../Koordinator/Coor_GetCurrStat",
 			type: "post",
 			dataType: "json",
-			data: JSON.stringify(dto),
+			data: JSON.stringify(dto),			
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				@*console.log(data);*@
+				console.log(data);
 				if (data == '' || data == null) {
 
 				}
 				else
 				if (data[0].STAT == 'S') {
 
-					//$("#btnCancel").removeAttr('hidden');
+					$("#btnCancel").removeAttr('hidden');
 					$("#btnShowRev").removeAttr('hid\en');
 
 					$("#btnShowRev").click(function () {
@@ -669,7 +657,7 @@
                         GetDDL();
                         $("#partialview").attr("hidden", false);
                         $("#btnShowRev").attr("hidden", true);
-                        //$("#btnCancel").attr("hidden", true);
+                        $("#btnCancel").attr("hidden", true);
                         $("#btnApprove").removeAttr("hidden");
                         $("#btnReject").removeAttr("hidden");
 
@@ -712,7 +700,7 @@
 	function Cancel() {
 		Swal.fire({
             icon: 'question',
-            title: 'Mohon masukan alasan untuk membatalkan penyimpangan ini!',
+            title: 'Mohon masukan alasan untuk membatalkan penyimpangan ini?',
 			input: 'textarea',
 			inputAttributes: {
 				autocapitalize: 'off'
@@ -725,36 +713,11 @@
 		}).then((result) => {
 
 			if (result.value == null || result.value == '') {
-				//Swal.fire({
-				//	icon: 'error',
-				//	title: 'Oops...',
-    //                text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
-				//});
-                let timerInterval
-                Swal.fire({
-
-
-                    timer: 1600,
-                    timerProgressBar: true,
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Alasan untuk membatalkan penyimpangan harus diisi !',
-                    didOpen: () => {
-                        Swal.showLoading()
-                        const b = Swal.getHtmlContainer().querySelector('b')
-                        timerInterval = setInterval(() => {
-                            b.textContent = Swal.getTimerLeft()
-                        }, 100)
-                    },
-                    willClose: () => {
-                        clearInterval(timerInterval)
-                    }
-                }).then((result) => {
-                    /* Read more about handling dismissals below */
-                    if (result.dismiss === Swal.DismissReason.timer) {
-                        console.log('I was closed by the timer')
-                    }
-                });
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+                    text: 'Alasan untuk membatalkan penyimpangan harus diisi !'
+				});
 			} else if (result.isConfirmed) {
 
 				var REQID = @ViewBag.nomor;
@@ -763,11 +726,11 @@
 
 
                 function NotifyHedKor() {
-                    var tabletype = "More Than One";
+                    var tabletype = "One";
                     var whoreceiver = "Canceled";
 
                     var dtx = {
-                        Username: iduser,
+                        Receiver: iduser,
                         ReqID: REQID,
 
                         TableType: tabletype,
@@ -880,4 +843,4 @@
 			}
 		});
 	}
-    </script>
+</script>

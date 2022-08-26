@@ -135,12 +135,6 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@TahunPelaporan", System.Data.SqlDbType.VarChar);
                     command.Parameters["@TahunPelaporan"].Value = Model.TahunPelaporan;
-
-                    command.Parameters.Add("@BulanPelaporan", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@BulanPelaporan"].Value = Model.BulanPelaporan;
-
-                    command.Parameters.Add("@SitePenyimpangan", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@SitePenyimpangan"].Value = Model.SitePenyimpangan;
                     SqlDataAdapter dataAdap = new SqlDataAdapter();
                     dataAdap.SelectCommand = command;
                     dataAdap.Fill(DT);
@@ -374,12 +368,6 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@TahunPelaporan", System.Data.SqlDbType.VarChar);
                     command.Parameters["@TahunPelaporan"].Value = Model.TahunPelaporan;
-
-                    command.Parameters.Add("@BulanPelaporan", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@BulanPelaporan"].Value = Model.BulanPelaporan;
-
-                    command.Parameters.Add("@SitePenyimpangan", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@SitePenyimpangan"].Value = Model.SitePenyimpangan;
                     SqlDataAdapter dataAdap = new SqlDataAdapter();
                     dataAdap.SelectCommand = command;
                     dataAdap.Fill(DT);
@@ -973,8 +961,6 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@UserID", System.Data.SqlDbType.VarChar);
                     command.Parameters["@UserID"].Value = Model.IDUSER;
-
-                    command.CommandTimeout = 950;
                     SqlDataAdapter dataAdap = new SqlDataAdapter();
                     dataAdap.SelectCommand = command;
                     dataAdap.Fill(DT);

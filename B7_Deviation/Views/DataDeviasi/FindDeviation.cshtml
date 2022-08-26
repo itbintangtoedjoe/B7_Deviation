@@ -6,7 +6,7 @@
 
 
 <link href="~/Content/Styles/css/jquery.dataTables.min.css" rel="stylesheet" />
-<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer></script>
+<script src="~/Content/Styles/js/jquery.dataTables.min.js" defer nonce="HGcXqMJby7bETESIO68xBg=="></script>
 
 @*<style>
     .ellipsis {
@@ -21,6 +21,7 @@
     <div class="content-body">
         <div class="container-fluid">
             <div class="card">
+
                 <div class="card-body">
                     <div class="form-group">
                         <h2 class="d-inline">Find Deviaton</h2>
@@ -48,16 +49,41 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-5 col-form-label">Site Penyimpangan</label>
+                                <label class="col-md-5 col-form-label">Departemen Pelapor</label>
                                 <div class="col-md-6 col-form-label">
                                     <div class="btn-group">
                                         <div class="basic-dropdown">
                                             <div class="dropdown ">
-                                                <select id="ddlSitePenyimpangan">
-                                                    <option disabled selected hidden class="dropdown-header">Site Penyimpangan</option>
-                                                    <option class="dropdown-item" value="CKR">Cikarang</option>
-                                                    <option class="dropdown-item" value="PLG">Pulogadung</option>
-                                                    <option class="dropdown-item" value="PLM">Pulomas</option>
+                                                <select id="departemenpelapor">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label">Kategori Penyimpangan</label>
+                                <div class="col-md-6 col-form-label">
+                                    <div class="btn-group">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown ">
+                                                <select id="kategoripenyimpangan">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-md-5 col-form-label">Jenis Penyimpangan</label>
+                                <div class="col-md-6 col-form-label">
+                                    <div class="btn-group">
+                                        <div class="basic-dropdown">
+                                            <div class="dropdown ">
+                                                <select id="jenispenyimpangan">
                                                 </select>
                                             </div>
                                         </div>
@@ -78,76 +104,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-5 col-form-label">Jenis Penyimpangan</label>
-                                <div class="col-md-6 col-form-label">
-                                    <div class="btn-group">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown ">
-                                                <select id="jenispenyimpangan">
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-md-5 col-form-label">Kategori Penyimpangan</label>
-                                <div class="col-md-6 col-form-label">
-                                    <div class="btn-group">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown ">
-                                                <select id="kategoripenyimpangan">
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <label class="col-md-5 col-form-label">Departemen Pelapor</label>
-                                <div class="col-md-6 col-form-label">
-                                    <div class="btn-group">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown ">
-                                                <select id="departemenpelapor">
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-5 col-form-label">Bulan Pelaporan</label>
-                                <div class="col-md-6 col-form-label">
-                                    <div class="btn-group">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown ">
-                                                <select id="ddlBulanPelaporan">
-                                                    <option disabled selected hidden class="dropdown-header">Bulan Pelaporan</option>
-                                                    <option class="dropdown-item" value="01">Januari</option>
-                                                    <option class="dropdown-item" value="02">Februari</option>
-                                                    <option class="dropdown-item" value="03">Maret</option>
-                                                    <option class="dropdown-item" value="04">April</option>
-                                                    <option class="dropdown-item" value="05">Mei</option>
-                                                    <option class="dropdown-item" value="06">Juni</option>
-                                                    <option class="dropdown-item" value="07">Juli</option>
-                                                    <option class="dropdown-item" value="08">Agustus</option>
-                                                    <option class="dropdown-item" value="09">September</option>
-                                                    <option class="dropdown-item" value="10">Oktober</option>
-                                                    <option class="dropdown-item" value="11">November</option>
-                                                    <option class="dropdown-item" value="12">Desember</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div id="divLoading" class="row">
                         <div class="col-md-12" style="text-align:center">
@@ -168,9 +126,7 @@
                                 <th width="100px">Kategori Penyimpangan</th>
                                 <th width="100px">Jenis Penyimpangan</th>
                                 <th width="100px">Deskripsi Singkat</th>
-                                @*<th width="100px">Outstanding</th>*@
                                 <th width="100px">Status</th>
-                                <th width="100px">Outstanding Approver</th>
                                 <th width="100px">Nomor CAPA</th>
                                 <th width="100px">Tanggal Closed</th>
                                 <th width="100px">Alasan Cancelled</th>
@@ -186,7 +142,7 @@
         </div>
     </div>
 
-    <script nonce="i9AecplAtcnLMLksdM4qAg==">
+    <script nonce="tZCs005apscfe4S5pz/3ng==">
         let checkLoading = 0;
         $(document).ready(function () {
             // Load User once the page is loaded
@@ -194,27 +150,7 @@
             //LoadFilter();
             //CheckFilter();
 
-            //On click function Button View
-            $('#deviationdatatable tbody').on('click', 'input[id="View"]', function () {
-                var row = $(this).closest("TR");
-
-                    //var Nomor = $("TD", row).eq(0).html();
-                    var Nomor = $("TD", row).eq(1).html();
-                    @*console.log(Nomor)*@
-                    window.location.href = "../DataDeviasi/Deviasi?Nomor=" + Nomor;
-                });
-
-            //On click function button Print
-            $('#deviationdatatable tbody').on('click', 'input[id="Print"]', function () {
-                var row = $(this).closest("TR");
-                //var Nomor = $("TD", row).eq(0).html();
-                var Nomor = $("TD", row).eq(1).html() + $("TD", row).eq(2).html();
-
-                window.location.href = "../DataDeviasi/Report?Nomor=" + Nomor;
-            })
-
             $.when.apply($, ajaxCalls()).then($.ajax(LoadData()));
-
             $("#Find").click(function () {
                 window.location.href = "/DataDeviasi/FindDeviation"
             });
@@ -228,8 +164,6 @@
                 $('#cardTable').prop('hidden', true);
                 
             }
-            $("#ddlSitePenyimpangan").selectpicker("refresh");
-            $("#ddlBulanPelaporan").selectpicker("refresh"); 
         });
 
         function ajaxCalls() {
@@ -239,50 +173,32 @@
             ];
         }
 
-       
+
        
         function ClearFilter() {
-            if (checkLoading == 0) {
-                $('#divLoading').prop('hidden', false);
-                $('#cardTable').prop('hidden', true);
+            $("#statuspenyimpangan").val('Status Penyimpangan');
+            $("#statuspenyimpangan").selectpicker("refresh");
 
-                $("#statuspenyimpangan").val('Status Penyimpangan');
-                $("#statuspenyimpangan").selectpicker("refresh");
+            $("#departemenpelapor").val('Departemen Pelapor');
+            $("#departemenpelapor").selectpicker("refresh");
 
-                $("#departemenpelapor").val('Departemen Pelapor');
-                $("#departemenpelapor").selectpicker("refresh");
+            $("#kategoripenyimpangan").val('Kategori Penyimpangan');
+            $("#kategoripenyimpangan").selectpicker("refresh");
 
-                $("#kategoripenyimpangan").val('Kategori Penyimpangan');
-                $("#kategoripenyimpangan").selectpicker("refresh");
+            $("#jenispenyimpangan").val('Jenis Penyimpangan');
+            $("#jenispenyimpangan").selectpicker("refresh");
 
-                $("#jenispenyimpangan").val('Jenis Penyimpangan');
-                $("#jenispenyimpangan").selectpicker("refresh");
+            $("#tahunpelaporan").val('Tahun Pelaporan');
+            $("#tahunpelaporan").selectpicker("refresh");
 
-                $("#tahunpelaporan").val('Tahun Pelaporan');
-                $("#tahunpelaporan").selectpicker("refresh");
-
-                $("#ddlSitePenyimpangan").val('Site Penyimpangan');
-                $("#ddlSitePenyimpangan").selectpicker("refresh");
-
-                $("#ddlBulanPelaporan").val('Bulan Pelaporan');
-                $("#ddlBulanPelaporan").selectpicker("refresh");
-
-                $('#deviationdatatable').DataTable().clear().destroy();
-                LoadData();
-            }
-            
+            $('#deviationdatatable').DataTable().clear().destroy();
+            LoadData();
         }
 
         //AUTO SEND PARAMETER
 
         function CheckFilter() {
             $("#statuspenyimpangan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
-
                 if ($("#statuspenyimpangan").val() != "") {
 
                     var sp = $("#statuspenyimpangan").val();
@@ -290,19 +206,12 @@
                     var kp = $("#kategoripenyimpangan").val();
                     var jp = $("#jenispenyimpangan").val();
                     var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
 
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
+                    FilteredTable(sp, dp, kp, jp, tp);
                 }
             });
 
             $("#departemenpelapor").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
                 if ($("#departemenpelapor").val() != "") {
 
                     var sp = $("#statuspenyimpangan").val();
@@ -310,20 +219,13 @@
                     var kp = $("#kategoripenyimpangan").val();
                     var jp = $("#jenispenyimpangan").val();
                     var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
 
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
+                    FilteredTable(sp, dp, kp, jp, tp);
 
                 }
             });
 
             $("#kategoripenyimpangan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
                 if ($("#kategoripenyimpangan").val() != "") {
 
                     var sp = $("#statuspenyimpangan").val();
@@ -331,20 +233,13 @@
                     var kp = $("#kategoripenyimpangan").val();
                     var jp = $("#jenispenyimpangan").val();
                     var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
 
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
+                    FilteredTable(sp, dp, kp, jp, tp);
 
                 }
             });
 
             $("#jenispenyimpangan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
                 if ($("#jenispenyimpangan").val() != "") {
 
                     var sp = $("#statuspenyimpangan").val();
@@ -352,20 +247,13 @@
                     var kp = $("#kategoripenyimpangan").val();
                     var jp = $("#jenispenyimpangan").val();
                     var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
 
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
+                    FilteredTable(sp, dp, kp, jp, tp);
 
                 }
             });
 
             $("#tahunpelaporan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
                 if ($("#tahunpelaporan").val() != "") {
 
                     var sp = $("#statuspenyimpangan").val();
@@ -373,74 +261,30 @@
                     var kp = $("#kategoripenyimpangan").val();
                     var jp = $("#jenispenyimpangan").val();
                     var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
 
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
+                    FilteredTable(sp, dp, kp, jp, tp);
 
                 }
             });
 
-            $("#ddlBulanPelaporan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
-                if ($("#ddlBulanPelaporan").val() != "") {
-
-                    var sp = $("#statuspenyimpangan").val();
-                    var dp = $("#departemenpelapor").val();
-                    var kp = $("#kategoripenyimpangan").val();
-                    var jp = $("#jenispenyimpangan").val();
-                    var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
-
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
-                }
-            });
-
-            $("#ddlSitePenyimpangan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
-                if ($("#ddlSitePenyimpangan").val() != "") {
-
-                    var sp = $("#statuspenyimpangan").val();
-                    var dp = $("#departemenpelapor").val();
-                    var kp = $("#kategoripenyimpangan").val();
-                    var jp = $("#jenispenyimpangan").val();
-                    var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
-
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
-                }
-            });
         }
 
         // SEND PARAMETER TO CONTROLLER
 
-        function FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan) {
+        function FilteredTable(sp, dp, kp, jp, tp) {
 
             var statuspenyimpangan = sp;
             var departemenpelapor = dp;
             var kategoripenyimpangan = kp;
             var jenispenyimpangan = jp;
             var tahunpelaporan = tp;
-            var bulanPelaporan = bp;
 
             var dto = {
                 StatusPenyimpangan: statuspenyimpangan,
                 DepartemenPelapor: departemenpelapor,
                 KategoriPenyimpangan: kategoripenyimpangan,
                 JenisPenyimpangan: jenispenyimpangan,
-                TahunPelaporan: tahunpelaporan,
-                BulanPelaporan: bulanPelaporan,
-                SitePenyimpangan: sitePenyimpangan
+                TahunPelaporan: tahunpelaporan
             }
 
             $.ajax({
@@ -453,7 +297,7 @@
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
-                    checkLoading = 1;
+
                     if (Count == '0') {
                       
                     } else {
@@ -463,7 +307,7 @@
                             {
                                 // BISA DONLOT
                                 trHTML +=
-                                    '<tr><td> <input type="button" id="Print" value="Print" class="btn btn-success Print" style="width:auto;"/> <input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
+                                    '<tr><td> <input type="button" id="Print" value="Print" onclick=Print(this) class="btn btn-success" style="width:auto;"/> <input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
                                     '<td>' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                     '<td>' + data[trav].EMPNAME + '</td>' +
@@ -471,7 +315,6 @@
                                     '<td>' + data[trav].PLAN_DEV + '</td>' +
                                     '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
                                     '<td>' + data[trav].STATUS + '</td>' +
-                                    '<td>' + data[trav].APPROVERNAME + '</td>' +
                                     '<td>' + data[trav].NO_CARPAR + '</td>' +
                                     '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
                                     '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
@@ -482,7 +325,7 @@
                             } else {
                                 // LIAT DOANG
                                 trHTML +=
-                                    '<tr><td align="center"><input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
+                                    '<tr><td align="center"><input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
                                     '<td>' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                     '<td>' + data[trav].EMPNAME + '</td>' +
@@ -490,7 +333,6 @@
                                     '<td>' + data[trav].PLAN_DEV + '</td>' +
                                     '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
                                     '<td>' + data[trav].STATUS + '</td>' +
-                                    '<td>' + data[trav].APPROVERNAME + '</td>' +
                                     '<td>' + data[trav].NO_CARPAR + '</td>' +
                                     '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
                                     '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
@@ -507,13 +349,6 @@
                     });
 
 
-                    if (checkLoading > 0) {
-                        $('#divLoading').prop('hidden', true);
-                        $('#cardTable').prop('hidden', false);
-                        checkLoading = 0;
-                    }
-                    @*Print();
-                    View();*@
                 },
                 error: function (ex) {
 
@@ -644,7 +479,7 @@
                     var count = data.length;
                     var trhtml = '';
                     var trav = 0;
-                    trhtml += '<option disabled selected hidden class="dropdown-header">Tahun Pelaporan</option>';
+                    trhtml += '<option disabled selected hidden class="dropdown-header">   Tahun Laporan   </option>';
                     if (count > 0) {
                         for (trav = 0; trav < count; trav++) {
                             trhtml += '<Option class="dropdown-item" value = "' + data[trav].TAHUN_LAPORAN + '" > ' + data[trav].TAHUN_LAPORAN;
@@ -675,22 +510,22 @@
         }
 
         function LoadData() {
+
             $.ajax({
-                url: "../DataDeviasi/FilteredTable",
+                url: "../DataDeviasi/DD_LoadDataTable",
                 type: "post",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    @*console.log(data)*@
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
-                    checkLoading = 1;
+                    checkLoading = Count;
                     for (trav = 0; trav < Count; trav++) {
                         if (data[trav].STAT == 'PICDD1' || data[trav].STAT == 'CAPANO' || data[trav].STAT == 'CAPAYS' || data[trav].STAT == 'CLOSE')
                         {
                             // BISA DONLOT
                             trHTML +=
-                                '<tr><td> <input type="button" id="Print" value="Print" class="btn btn-success Print" style="width:auto;"/> <input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
+                                '<tr><td> <input type="button" id="Print" value="Print" onclick=Print(this) class="btn btn-success" style="width:auto;"/> <input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
                                 '<td>' + data[trav].REQ_ID + '</td>' +
                                 '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                 '<td>' + data[trav].EMPNAME + '</td>' +
@@ -698,7 +533,6 @@
                                 '<td>' + data[trav].PLAN_DEV + '</td>' +
                                 '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
                                 '<td>' + data[trav].STATUS + '</td>' +
-                                '<td>' + data[trav].APPROVERNAME + '</td>' +
                                 '<td>' + data[trav].NO_CARPAR + '</td>' +
                                 '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
                                 '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
@@ -709,7 +543,7 @@
                         } else {
                             // LIAT DOANG
                             trHTML +=
-                                '<tr><td align="center"><input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
+                                '<tr><td align="center"><input type="button" id="View" value="View" onclick=View(this) class="btn btn-info" style="width:auto;"/></td>' +
                                 '<td>' + data[trav].REQ_ID + '</td>' +
                                 '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                 '<td>' + data[trav].EMPNAME + '</td>' +
@@ -717,7 +551,6 @@
                                 '<td>' + data[trav].PLAN_DEV + '</td>' +
                                 '<td align="justify" style="text-overflow:ellipsis;" class="ellipsis">' + data[trav].PROBLEM + '</td>' +
                                 '<td>' + data[trav].STATUS + '</td>' +
-                                '<td>' + data[trav].APPROVERNAME + '</td>' +
                                 '<td>' + data[trav].NO_CARPAR + '</td>' +
                                 '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
                                 '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
@@ -729,7 +562,6 @@
                     if (checkLoading > 0) {
                         $('#divLoading').prop('hidden', true);
                         $('#cardTable').prop('hidden', false);
-                        checkLoading = 0;
                     }
 
                     $('#deviationtable').empty();
@@ -739,8 +571,6 @@
                     });
 
                     objDeviation = data;
-                  @*  Print();
-                    View();*@
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));

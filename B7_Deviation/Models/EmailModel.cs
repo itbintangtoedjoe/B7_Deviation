@@ -14,8 +14,8 @@ namespace B7_Deviation.Models
         public string Sender { get; set; }
         public string Body { get; set; }
         public string Subject { get; set; }
-        public string UserID { get; set; }
-        public string  Username { get; set; }
+
+
 
 
         // SORT BASED ON RECEIVER
@@ -24,16 +24,5 @@ namespace B7_Deviation.Models
 
         //KHUSUS DISPOSISI
         public string Urutan { get; set; }
-
-        //KHUSUS DISPOSISI PIC KE GROUP
-        public string Group { get; set; }
-        public string Site { get; set; }
-
-        // KHUSUS OPTION "Koordinator after Superior PIC Approved Cost"
-        public string TotalCost { get; set; }
-
-        // UNTUK OPTION "REVIEWER AFTER APPOINTED "
-        public string PICNameAfter { get; set; }
-        public string PICNameBefore { get; set; }
     }
 }

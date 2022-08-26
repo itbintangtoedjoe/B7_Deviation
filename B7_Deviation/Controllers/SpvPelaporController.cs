@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace B7_Deviation.Controllers
@@ -26,11 +28,6 @@ namespace B7_Deviation.Controllers
             return PartialView("~/SpvPelapor/ApprovalForm/Approval.cshtml");
         }
 
-        public ActionResult EditDeviationPartialView()
-        {
-            return PartialView("~Views/PelaporPenyimpangan/EditDeviationPartialView");
-        }
-
         // Page for Data Table
         public ActionResult PendingApproval()
         {
@@ -48,7 +45,7 @@ namespace B7_Deviation.Controllers
             ViewBag.nomor = Nomor;
             return View();
         }
-
+        
         public ActionResult PICProposal(String Nomor)
         {
             ViewBag.nomor = Nomor;
@@ -490,51 +487,6 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
-        public ActionResult LoadListProduk(ApprovalModel Model)
-        {
-            string conString = mySetting.ConnectionString;
-            SqlConnection conn = new SqlConnection(conString);
-            try
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationData]", conn))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Option"].Value = "Load List Produk";
-
-                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Nomor"].Value = Model.REQID;
-
-                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                    dataAdapt.SelectCommand = command;
-
-                    dataAdapt.Fill(DT);
-                }
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-            Dictionary<string, object> row;
-            foreach (DataRow dr in DT.Rows)
-            {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in DT.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);
-                }
-                rows.Add(row);
-            }
-
-            return Json(rows);
-        }
-
         public ActionResult Spv_ApprovePIC(UsulanRevisiModel Model)
         {
             string result;
@@ -622,10 +574,4 @@ namespace B7_Deviation.Controllers
 
 
     }
-
-
-
-
-
-
 }

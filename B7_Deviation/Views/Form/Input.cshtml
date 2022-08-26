@@ -66,9 +66,9 @@
 		<div id="formBody" class="row">
 			<div class="col-lg-12">
 				<div class="card">
-                    <div class="card-body">
-                        <div class="form-validation">
-                            <form name="submission" class="form-valide" action="#" method="post" >
+					<div class="card-body">
+						<div class="form-validation">
+                            <form class="form-valide" onsubmit="return s();" action="#" method="post">
                                 <!-- Site -->
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="ddlSite">Site Koordinator<span class="text-danger">*</span></label>
@@ -102,6 +102,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="ddlKategori">Kategori Penyimpangan<span class="text-danger">*</span></label>
                                     <div class="col-sm-4">
@@ -113,79 +114,41 @@
                                             </div>
                                         </div>
                                         <br>
+                                        <div id="divsimpang">
+                                            <div class="basic-dropdown">
+                                                <div id="divreceipt" class="form-group">
+                                                    <div class="form-check form-check-inline">
+                                                        <label>
+                                                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receipt_y" value="Yes" checked> Receipt
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label>
+                                                            <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receip_n" value="No"> Vendor
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control">
+                                                <br />
+                                                <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control">
+                                                <br />
+                                                <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control" placeholder="No Batch Oracle">
+                                                <br />
+                                                <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control" placeholder="No WO Oracle">
+                                            </div>
+                                            <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered text-center">
+                                                    <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
                                     </div>
                                     <div class="col-sm-6">
                                         <textarea id="txtKetKategori" name="txtKetKategori" class="form-control" placeholder="Informasi tambahan terkait penyimpangan"></textarea>
                                     </div>
                                 </div>
 
-                                <div id="divsimpang">
-                                    <div class="basic-dropdown">
-                                        <div id="divreceipt" class="form-group">
-                                            <div class="form-check form-check-inline">
-                                                <label>
-                                                    <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receipt_y" value="Yes" checked> Receipt
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <label>
-                                                    <input type="radio" name="r_receipt" data-travelNumber="1" id="r_receip_n" value="No"> Vendor
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group name1 col-md-3" id="divQCMaterial">
-                                            <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control input-inline">
-                                        </div>
-
-                                        <div class="form-group name2 col-md-3">
-                                            <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control input-inline">
-                                        </div>
-                                        <div class="form-group name1 col-md-3" id="divBatchNo">
-                                            <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control input-inline" placeholder="No Batch Oracle">
-                                        </div>
-
-                                        <div class="form-group name2 col-md-3" id="divWoOracle">
-                                            <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control input-inline" placeholder="No WO Oracle">
-                                        </div>
-
-                                        <div class="form-group name2 col-md-3">
-                                            <button type="button" id="btnTambahProduk" class="col-sm-12 btn mb-1 btn-success form-control">Tambah Produk</button>
-                                        </div>
-                                        @*<br />*@
-
-                                        @*<br />*@
-
-                                        <br />
-
-                                    </div>
-                                    <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered text-center">
-                                            <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" style="margin-top : 10px; margin-left : -15px" id="divProduk">
-                                        <table id="tblListProduk" class="table table-striped table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width:20px">No</th>
-                                                    <th id="thQCNum">QC Material/Manufacturing Number</th>
-                                                    <th id="thItemCode">Item Code</th>
-                                                    <th id="thNoBatch">No Batch</th>
-                                                    <th id="thNoWO">No WO Oracle</th>
-                                                    <th>Keterangan</th>
-                                                    <th style="width:30px">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tblListProdukBody">
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <br />
                                 <!-- Problem (What) -->
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Problem (What)<span class="text-danger">*</span></label>
@@ -385,197 +348,196 @@
                                 </div>
                             </form>
 
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
+							<div class="form-group row">
+								<div class="col-sm-2 col-form-label">
 
-                                </div>
-                                <div class="col-sm-10">
+								</div>
+								<div class="col-sm-10">
 
-                                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                    {
-                                        <input type="file" style="margin-left:-15px" name="NamaFileUpload" class="col-sm-6" id="idFileUpload" />
-                                        <br />
-                                        <br />
-                                        <button type="button" id="btnUpload" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>
-                                    }
-
-
-                                    @*<button type="button" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>*@
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label"></label>
-
-                                <div class="col-sm-10">
-                                    <div class="table-responsive">
-                                        <table id="tbl_Attachment" class="table header-border">
-                                            <thead>
-                                                <tr>
-                                                    <th><b>No</b></th>
-                                                    <th><b>File Name</b></th>
-                                                    <th><b>Action</b></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbody_Attachment"></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+									@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+									{
+										<input type="file" style="margin-left:-15px" name="NamaFileUpload" class="col-sm-6" id="idFileUpload" />
+										<br />
+										<br />
+										<button type="button" id="btnUpload" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>
+									}
 
 
-                        <form name="submission" class="form-valide2"  action="#" method="post" >
+									@*<button type="button" class="col-sm-2 btn mb-1 btn-success form-control">Upload</button>*@
+								</div>
+							</div>
 
-                            @*Usulan Tindakan Remedial*@
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
-                                    <label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial"></textarea>
-                                </div>
-                            </div>
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label"></label>
 
-                            <br />
-                            <h4>Penilaian Potensi Dampak dari Penyimpangan/ Potensi Penyimpangan</h4>
+								<div class="col-sm-10">
+									<div class="table-responsive">
+										<table id="tbl_Attachment" class="table header-border">
+											<thead>
+												<tr>
+													<th><b>No</b></th>
+													<th><b>File Name</b></th>
+													<th><b>Action</b></th>
+												</tr>
+											</thead>
+											<tbody id="tbody_Attachment"></tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
 
-                            <div class="form-group row">
-                                <div class="col">
-                                    <label for="ddlKualProd">Kualitas Produk</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlKualProd" name="ddlKualProd" title="Kualitas Produk"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="col">
-                                    <label for="ddlRiskFin">Risiko Finansial</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlRiskFin" name="ddlRiskFin" title="Risiko Finansial"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="ddlKesehatanPer">Risiko Kesehatan Personil</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlKesehatanPer" name="ddlKesehatanPer" title="Risiko Kesehatan Personil"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+						<form class="form-valide2" onsubmit="return s();" action="#" method="post">
 
-                            </div>
-                            <div class="form-group row">
-                                @*Baris 2*@
+							@*Usulan Tindakan Remedial*@
+							<div class="form-group row">
+								<div class="col-sm-2 col-form-label">
+									<label>Usulan Tindakan Remedial<span class="text-danger">*</span></label>
+								</div>
+								<div class="col-sm-10">
+									<textarea style="height:150px" id="txtUsulanRemidial" name="txtUsulanRemidial" class="form-control" placeholder="Usulan Tindakan Remedial"></textarea>
+								</div>
+							</div>
 
-                                <div class="col">
-                                    <label for="ddlCompliance">Compliance</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlCompliance" name="ddlCompliance" title="Compliance"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="ddlRiskOrg">Risiko Organisasi</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlRiskOrg" name="ddlRiskOrg" title="Risiko Organisasi"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="ddlResLingk">Resiko Lingkungan</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlResLingk" name="ddlResLingk" title="Risiko Lingkungan"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+							<br />
+							<h4>Penilaian Potensi Dampak dari Penyimpangan/ Potensi Penyimpangan</h4>
 
-                            </div>
-                            <div class="form-group row">
-                                @*Baris 3*@
+							<div class="form-group row">
+								<div class="col">
+									<label for="ddlKualProd">Kualitas Produk</label>
+									<br />
+									<div class="btn-group mb-2">
+										<div class="basic-dropdown">
+											<div class="dropdown">
+												<select id="ddlKualProd" name="ddlKualProd" title="Kualitas Produk"></select>
+											</div>
+										</div>
+									</div>
+								</div>
 
-                                <div class="col">
-                                    <label for="ddlRiskOpr">Risiko Operasional</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlRiskOpr" name="ddlRiskOpr" title="Risiko Operasional"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="ddlKeamamananP">Risiko Keamanan Personil</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlKeamamananP" name="ddlKeamamananP" title="Risiko Keamanan Personil"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="ddlRiskIntelek">Risiko Hak Kekayaan Intelektual (HKI)</label>
-                                    <br />
-                                    <div class="btn-group mb-2">
-                                        <div class="basic-dropdown">
-                                            <div class="dropdown">
-                                                <select id="ddlRiskIntelek" name="ddlRiskIntelek" title="Risiko Hak Kekayaan Intelektual (HKI)"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="txtKeparahan">Tingkat Keparahan Penyimpangan</label>
-                                        <br />
-                                        <div class="btn-group mb-2">
-                                            <input id="txtKeparahan" name="txtKeparahan" type="text" class="form-control" readonly="readonly">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+								<div class="col">
+									<label for="ddlRiskFin">Risiko Finansial</label>
+									<br />
+									<div class="btn-group mb-2">
+										<div class="basic-dropdown">
+											<div class="dropdown">
+												<select id="ddlRiskFin" name="ddlRiskFin" title="Risiko Finansial"></select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<label for="ddlKesehatanPer">Risiko Kesehatan Personil</label>
+									<br />
+									<div class="btn-group mb-2">
+										<div class="basic-dropdown">
+											<div class="dropdown">
+												<select id="ddlKesehatanPer" name="ddlKesehatanPer" title="Risiko Kesehatan Personil"></select>
+											</div>
+										</div>
+									</div>
+								</div>
 
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <button id="btnSaveForm" class="btn mb-1 btn-success">
-                                        Submit Penyimpangan
-                                        <span class="btn-icon-right">
-                                            <i class="fa fa-paper-plane"></i>
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+							</div>
+							<div class="form-group row">
+								@*Baris 2*@
 
+								<div class="col">
+									<label for="ddlCompliance">Compliance</label>
+									<br />
+									<div class="btn-group mb-2">
+										<div class="basic-dropdown">
+											<div class="dropdown">
+												<select id="ddlCompliance" name="ddlCompliance" title="Compliance"></select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<label for="ddlRiskOrg">Risiko Organisasi</label>
+									<br />
+									<div class="btn-group mb-2">
+										<div class="basic-dropdown">
+											<div class="dropdown">
+												<select id="ddlRiskOrg" name="ddlRiskOrg" title="Risiko Organisasi"></select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<label for="ddlResLingk">Resiko Lingkungan</label>
+									<br />
+									<div class="btn-group mb-2">
+										<div class="basic-dropdown">
+											<div class="dropdown">
+												<select id="ddlResLingk" name="ddlResLingk" title="Risiko Lingkungan"></select>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="form-group row">
+								@*Baris 3*@
+
+								<div class="col">
+									<label for="ddlRiskOpr">Risiko Operasional</label>
+									<br />
+									<div class="btn-group mb-2">
+										<div class="basic-dropdown">
+											<div class="dropdown">
+												<select id="ddlRiskOpr" name="ddlRiskOpr" title="Risiko Operasional"></select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<label for="ddlKeamamananP">Risiko Keamanan Personil</label>
+									<br />
+									<div class="btn-group mb-2">
+										<div class="basic-dropdown">
+											<div class="dropdown">
+												<select id="ddlKeamamananP" name="ddlKeamamananP" title="Risiko Keamanan Personil"></select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<label for="ddlRiskIntelek">Risiko Intelektual</label>
+									<br />
+									<div class="btn-group mb-2">
+										<div class="basic-dropdown">
+											<div class="dropdown">
+												<select id="ddlRiskIntelek" name="ddlRiskIntelek" title="Risiko Intelektual"></select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col">
+										<label for="txtKeparahan">Tingkat Keparahan Penyimpangan</label>
+										<br />
+										<div class="btn-group mb-2">
+											<input id="txtKeparahan" name="txtKeparahan" type="text" class="form-control" readonly="readonly">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-sm-3">
+									<button id="btnSaveForm" class="btn mb-1 btn-success">
+										Submit Penyimpangan
+										<span class="btn-icon-right">
+											<i class="fa fa-paper-plane"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -586,7 +548,7 @@
 <!--**********************************
 	Content body end
 ***********************************-->
-<script nonce="H/GWUKOFWNdWlWa+U6h0PQ==">
+<script nonce="t4FgCqgtfVl5Fcr+tSMbuw==">
 	//var $ = jQuery.noConflict();
 	//window.addEventListener('beforeunload', function (e) {
 
@@ -596,7 +558,6 @@
 
 	//});
 	var CheckDelete = 0;
-	var listProduk = [];
 
 	$(document).ready(function () {
 		$(window).bind('beforeunload', function () {
@@ -611,51 +572,51 @@
 
 
 		// Generate Req ID
-		
-        $('#tblWho').attr('hidden', true);
+		$(document).ready(function () {
+			$('#tblWho').attr('hidden', true);
 
-        $.when($.ajax(GenerateDate())).then(function () {
-            GetFileAttachment();
-            LoadUserInvolved();
-        });
+			$.when($.ajax(GenerateDate())).then(function () {
+				GetFileAttachment();
+				LoadUserInvolved();
+			});
 
+		});
 
 		// Load
-        GetSiteName();
-        GetKategoriDeviation();
-        SetupRbDtPicker();
-        GetSiteLokasiKejadian();
-	
+		$(document).ready(function () {
+			GetSiteName();
+			GetKategoriDeviation();
+
+
+			SetupRbDtPicker();
+
+			GetSiteLokasiKejadian();
+		});
 
 		// Load Drop down poin keparahan
-        GetKualitasProduk();
-        GetCompliance();
-        GetResikoOperasional();
+		$(document).ready(function () {
+			GetKualitasProduk();
+			GetCompliance();
+			GetResikoOperasional();
 
-        GetResikoFinansial();
-        GetResikoOrganisasi();
-        GetResikoKeamPersonil();
+			GetResikoFinansial();
+			GetResikoOrganisasi();
+			GetResikoKeamPersonil();
 
-        GetResikoKesehatanPersonil();
-        GetResikokLingkungan();
-        GetResikoIntelektual();
-        $("#ddlKualProd").val(0);
-        $("#ddlRiskFin").val(0);
-        $("#ddlKesehatanPer").val(0);
+			GetResikoKesehatanPersonil();
+			GetResikokLingkungan();
+            GetResikoIntelektual();
+            $("#ddlKualProd").val(0);
+            $("#ddlRiskFin").val(0);
+            $("#ddlKesehatanPer").val(0);
             $("#ddlCompliance").val(0);
             $("#ddlRiskOrg").val(0);
             $("#ddlResLingk").val(0);
             $("#ddlRiskOpr").val(0);
             $("#ddlKeamamananP").val(0);
             $("#ddlRiskIntelek").val(0);
-		
+		});
 
-        $('form[name="submission"]').submit(function (event) {
-            event.preventDefault();
-			s();
-
-            console.log(s());
-        });
 	});
 
 	// Button click
@@ -665,41 +626,6 @@
 		$('#spanUser').click(function () {
 			InsertNamaTerlibat();
 		});
-
-		$("#btnTambahProduk").click(function () {
-            var dev_kategori = $("#ddlKategori").val();
-            var item_code = $('#TxtItemCode').val().trim();
-            var no_wo = $('#TxtNoWO').val().trim();
-            var no_batch = $('#TxtBatchNo').val().trim();
-            var no_qc = $('#TxtQCMaterialNo').val().trim();
-			var ket_kategori = $("#txtKetKategori").val().trim();
-
-			if (dev_kategori == 'QPR') {
-				if (item_code == '' || no_wo == '' || no_batch == '' || ket_kategori == '') {
-					Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: 'Keterangan produk belum lengkap!',
-						showConfirmButton: false,
-						timer: 1000
-					});
-					return;
-				}
-			}
-			else if (dev_kategori == 'QMT') {
-				if (item_code == '' || no_qc == '' || ket_kategori == '') {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Keterangan material belum lengkap!',
-                        showConfirmButton: false,
-                        timer: 1000
-                    });
-                    return;
-                }
-			}
-			TambahProdukList(dev_kategori, item_code, no_wo, no_batch, no_qc, ket_kategori);
-        });
 
 		$("#btnUpload").click(function () {
 
@@ -813,11 +739,8 @@
 				}
 				return;
 			}
-
-            @*InsertMultipleProduk();*@
 			InsertDeviation();
-            @*SendEmail();*@
-        });
+		});
 
 		// Set Form Input Hidden
 		$('#formBody').attr('hidden', true);
@@ -827,136 +750,6 @@
 			$('#formBody').attr('hidden', false);
 			$('#btnGenerateNumber').attr('hidden', true);
 		});
-
-		//code here
-		$('#tblListProduk tbody').on('click', '.deleteProduk', function () {
-			@*var data = $('#tblListProduk').DataTable().row(this).data();*@
-            var data = $('#tblListProduk').DataTable().row($(this).parents('tr')).data();
-			var dev_kategori = $("#ddlKategori").val();
-			var filteredArray = listProduk;
-
-            if (dev_kategori == 'QMT') {
-                var noQC = data['NoQCMaterial'];
-                var itemCode = data['ItemCodeOracle'];
-                var itemToBeDeleted = noQC + itemCode;
-                filteredArray = listProduk.filter(value => itemToBeDeleted != (value.NoQCMaterial + value.ItemCodeOracle));
-			}
-            else if (dev_kategori == 'QPR') {
-                var noBO = data['NoBatchOracle'];
-                var noWOOracle = data['NoWOOracle'];
-                var itemCode = data['ItemCodeOracle'];
-                var itemToBeDeleted = noBO + noWOOracle + itemCode;
-                filteredArray = listProduk.filter(value => itemToBeDeleted != (value.NoBatchOracle + value.NoWOOracle + value.ItemCodeOracle));
-			}
-
-			listProduk = filteredArray;
-            SetTableProduk(dev_kategori);
-            //the job
-		});
-
-        //On click function button Print
-		$('#tbl_Attachment tbody').on('click', 'input[id="DeleteFileAttachment"]', function () {
-			//alert("hapus attachment");
-            event.preventDefault();
-            var Row = $(this).closest("TR");
-            var ReqID = $("TD", Row).eq(1).html();
-            var RecordID = $("TD", Row).eq(2).html();
-            var FileName = $("TD", Row).eq(3).html();
-            var PathFile = $("TD", Row).eq(4).html();
-
-            var dto = {
-                ReqID: ReqID,
-                RecordID: RecordID,
-                PathFile: PathFile
-			}
-
-			//alert(JSON.stringify(dto));
-
-            $.ajax({
-                url: "DeleteAttachment",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-					if (data == 'S') {
-						toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
-							"closeButton": false,
-							"debug": true,
-							"newestOnTop": false,
-							"progressBar": false,
-							"positionClass": "toast-top-left",
-							"preventDuplicates": false,
-							"onclick": null,
-							"showDuration": "100",
-							"hideDuration": "1000",
-							"timeOut": "1000",
-							"extendedTimeOut": "1000",
-							"showEasing": "swing",
-							"hideEasing": "linear",
-							"showMethod": "fadeIn",
-							"hideMethod": "fadeOut"
-						});
-
-						GetFileAttachment();
-					} else {
-						alert(data);
-                    }
-                },
-                error: function (ex) {
-                    GetErrorInput("DeleteAttachmentInput", JSON.stringify(ex));
-                }
-            });
-
-		})
-
-        //On click function button Print
-        $("#tblWho tbody").on('click', 'input[id="DeleteUserInvolved"]', function () {
-            event.preventDefault();
-            var row = $(this).closest("TR");
-            var ReqID = $("TD", row).eq(1).html();
-			var RecordID = $("TD", row).eq(2).html();
-
-            var dto = {
-                REQID: ReqID,
-                RecordID: RecordID
-            }
-
-            $.ajax({
-                url: "DeleteUserInvolved",
-                type: "post",
-                dataType: "json",
-                data: JSON.stringify(dto),
-                contentType: "application/json;charset=utf-8",
-                success: function (data) {
-
-                    if (data == 'S') {
-                        toastr.success("Data berhasil terhapus !", "Terhapus", {
-                            "closeButton": false,
-                            "debug": true,
-                            "newestOnTop": false,
-                            "progressBar": false,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "100",
-                            "hideDuration": "1000",
-                            "timeOut": "1000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        });
-
-                        LoadUserInvolved();
-                    }
-                }
-                , error: function (ex) {
-                    GetErrorInput("DeleteUserInvolvedInput", JSON.stringify(ex));
-                }
-            });
-        });
 	});
 
 	// Drop Down List Click
@@ -967,8 +760,9 @@
         $('#divreceipt').hide();
 
 
+
 		$("#ddlKategori").change(function () {
-            $('#divreceipt').hide();
+			$('#divreceipt').hide();
 
             $("#TxtNoWO").attr("hidden", true);
 			$("#TxtItemCode").attr("hidden", true);
@@ -984,15 +778,11 @@
 			$('#txtKetKategori').val('');
 			$('#TxtQCMaterialNo').val('');
 
-			listProduk = [];
-
-            var kategoriDev = $(this).val();
-            SetTableProduk(kategoriDev);
-
             var jenisPenyimpangan = $('input[name="travel5"]:checked').val();
 
 			// Kualitas Produk
-            if (kategoriDev == 'QPR') {
+			if ($("#ddlKategori").val() == 'QPR') {
+
 				if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
 					swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
 
@@ -1004,11 +794,6 @@
 					return;
 				} else {
                     $("#divsimpang").show();
-                    $("#divProduk").show();
-                    $("#divMaterial").hide();
-					$("#divQCMaterial").hide();
-                    $("#divBatchNo").show();
-					$("#divWoOracle").show();
 
                     $("#TxtNoWO").attr("hidden", false);
                     $('#TxtBatchNo').attr('hidden', false);
@@ -1020,7 +805,7 @@
 			}
 			else {
 				// Kualitas Materi Awal
-                if (kategoriDev == 'QMT') {
+				if ($("#ddlKategori").val() == 'QMT') {
 					if ($('#ddlSite').val() == ' ' || $('#ddlSite').val() == null) {
 						swal("Oops.. !", "Mohon pilih Site Koordinator", "error");
 
@@ -1032,16 +817,10 @@
 						return;
 					} else {
 						$("#divsimpang").show();
-                        $('#divreceipt').show();
-                        $("#divProduk").show();
-                        $("#divMaterial").show();
-                        $("#divQCMaterial").show();
-                        $("#divBatchNo").hide();
-                        $("#divWoOracle").hide();
+						$('#divreceipt').show();
 
                         $('#TxtQCMaterialNo').attr("hidden", false);
-                        $("#TxtItemCode").attr("hidden", false);
-                        $('#TxtQCMaterialNo').attr("hidden", false);
+						$("#TxtItemCode").attr("hidden", false);
 
 						$('#txtKetKategori').attr('disabled', true);
 						$("#TxtItemCode").attr("disable", true);
@@ -1054,9 +833,7 @@
 
 				}
 				else {
-                    $("#divsimpang").hide();
-                    $("#divProduk").hide();
-                    $("#divMaterial").hide();
+					$("#divsimpang").hide();
 					$("#TxtNoWO").attr("disabled", true);
 					$('#txtKetKategori').val('');
 				}
@@ -1065,7 +842,7 @@
 		});
 
 		$('input[type=radio][name=r_receipt]').change(function () {
-			listProduk = [];
+
 			$('#TxtItemCode').val('');
             $('#txtKetKategori').val('');
 			$('#TxtQCMaterialNo').val('');
@@ -1431,7 +1208,6 @@
     }
 
 	$('input[type=radio][name=travel5]').change(function () {
-		listProduk = [];
         var jenisPenyimpangan = this.value;
 		ToggleShowKualitasProdukFields(jenisPenyimpangan);
 
@@ -1501,6 +1277,7 @@
 			}
 		});
 	}
+
 
 	function ClearWeb() {
 
@@ -1655,12 +1432,12 @@
 						var results = $.ui.autocomplete.filter(jsonObj, request.term);
 						response(results.slice(0, 10));
 
-                        $.map(results, function (el) {
+                        add($.map(results, function (el) {
                             return {
                                 label: el.label,
                                 value: el.value
                             };
-                        });
+                        }));
                     },
 
 					select: function (e, ui) {
@@ -1668,7 +1445,7 @@
                         $('#TxtItemCode').val('');
                         $('#txtKetKategori').val('');
                         $('#TxtQCMaterialNo').val('');
-
+						
 						for (var i = 0; i < count; i++) {
 							if (data[i].NO_BATCH + '-' + data[i].WO_NUMBER == ui.item.label) {
                                 $("#TxtNoWO").val(data[i].WO_NUMBER);
@@ -1734,12 +1511,12 @@
                             var results = $.ui.autocomplete.filter(jsonObj, request.term);
 							response(results.slice(0, 20));
 
-                            $.map(results, function (el) {
+                            add($.map(results, function (el) {
                                 return {
                                     label: el.label,
                                     value: el.value
                                 };
-							});
+							}));
 
 						},
 
@@ -2235,71 +2012,6 @@
 		});
 	}
 
-    function TambahProdukList(dev_kategori, item_code, no_wo, no_batch, no_qc, ket_kategori) {
-
-		var prod = {
-            "ItemCodeOracle": item_code,
-            "NoBatchOracle": no_batch,
-            "NoWOOracle": no_wo,
-            "NoQCMaterial": no_qc,
-            "KeteranganKategori": ket_kategori,
-		}
-		listProduk.push(prod);
-		SetTableProduk(dev_kategori);
-	}
-
-    function SetTableProduk(dev_kategori) {
-        $('#tblListProduk').DataTable({
-            "pageLength": 10,
-            "lengthChange": false,
-            "searching": false,
-            "data": listProduk,
-            "select": true,
-            "bDestroy": true,
-            "scrollCollapse": true,
-            "scrollX": true,
-            "paging": false,
-            "info": false,
-            "ordering": false,
-            "columns": [
-                {
-                    "data": "id",
-                    render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    }
-                },
-                { "data": "NoQCMaterial" },
-                { "data": "ItemCodeOracle" },
-                { "data": "NoBatchOracle" },
-                { "data": "NoWOOracle" },
-                { "data": "KeteranganKategori" },
-                {
-                    "data": null,
-                    "defaultContent": '<input type="button" value="Delete" class="btn btn-danger deleteProduk" style="width:auto;"/>'
-                },
-            ],
-            "initComplete": function (settings) {
-                var api = new $.fn.dataTable.Api(settings);
-
-                var showColumnQPR = dev_kategori == 'QPR' ? true : false;
-                var showColumnQMT = dev_kategori == 'QMT' ? true : false;
-
-                api.columns([3, 4]).visible(showColumnQPR);
-                api.columns([1]).visible(showColumnQMT);
-            }
-        });
-
-        if (dev_kategori == 'QPR') {
-            $('#thQCNum').attr('hidden', true);
-            $('#thNoBatch').attr('hidden', false);
-            $('#thNoWO').attr('hidden', false);
-        } else if (dev_kategori == 'QMT') {
-            $('#thQCNum').attr('hidden', false);
-            $('#thNoBatch').attr('hidden', true);
-            $('#thNoWO').attr('hidden', true);
-        }
-    }
-
 	// File Attachment Deviation
 	function UploadAttachmentDeviation() {
 		var formData = new FormData();
@@ -2365,7 +2077,6 @@
 			dataType: "json",
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				console.log(data);
 				if (data != '') {
 					var trHTML = '';
 					var trav = 0;
@@ -2380,7 +2091,7 @@
 								'<td style="display:none">' + data[trav].NO_FILE + '</td>' +
 								'<td>' + data[trav].file_name_upload + '</td>' +
 								'<td style="display:none;">' + data[trav].path_file + '</td>' +
-								'<td><input type="button" id="DeleteFileAttachment"  class="btn btn-danger DeleteFileAttachment" title="Delete" value="Delete"/></td></tr>';
+								'<td><button onclick = "DeleteFileAttachment(this)"  class="btn btn-danger" title="Delete" ><span class="fa fa-trash-o"><strong></strong></span></button></td></tr>';
 						}
 
 						$("#tbl_Attachment").show();
@@ -2402,10 +2113,59 @@
 		});
 	}
 
-    // Save Deviation
+	function DeleteFileAttachment(button) {
+		event.preventDefault();
+		var Row = $(button).closest("TR");
+		var ReqID = $("TD", Row).eq(1).html();
+		var RecordID = $("TD", Row).eq(2).html();
+		var FileName = $("TD", Row).eq(3).html();
+		var PathFile = $("TD", Row).eq(4).html();
+
+		var dto = {
+			ReqID: ReqID,
+			RecordID: RecordID,
+			PathFile: PathFile
+		}
+
+		$.ajax({
+			url: "DeleteAttachment",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				if (data == 'S') {
+					toastr.success("File Attachment " + FileName + " Berhasil dihapus", "Berhasil", {
+						"closeButton": false,
+						"debug": true,
+						"newestOnTop": false,
+						"progressBar": false,
+						"positionClass": "toast-top-left",
+						"preventDuplicates": false,
+						"onclick": null,
+						"showDuration": "100",
+						"hideDuration": "1000",
+						"timeOut": "1000",
+						"extendedTimeOut": "1000",
+						"showEasing": "swing",
+						"hideEasing": "linear",
+						"showMethod": "fadeIn",
+						"hideMethod": "fadeOut"
+					});
+
+					GetFileAttachment();
+				}
+			},
+			error: function (ex) {
+                GetErrorInput("DeleteAttachmentInput", JSON.stringify(ex));
+			}
+		});
+
+	}
+
+	// Save Deviation
 	function InsertDeviation() {
 
-        $('#ModalLoading').modal('show');
 		var ID_PROPOSER = '@Request.RequestContext.HttpContext.Session["xUser"]';
 		var DEPARTEMENT = $("#TbDeptPusul").val();
 		var PROBLEM = $("#txtProblem").val();
@@ -2534,22 +2294,23 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
+
 				Swal.fire({
 					icon: 'success',
 					title: 'Form Submitted',
 					showConfirmButton: false,
                     timer: 2000
                 }).then(() => {
-					if (DEVIATION_CATEGORY == 'QPR' || DEVIATION_CATEGORY == 'QMT') {
-						InsertMultipleProduk();
-                    }
+
 					CheckDelete = 1;
 					$.when(
                         SendEmail()
-					).done(
+					).then(
 						window.location.href = "../DataDeviasi/PendingTask"
 					);
                 });
+
+
 			}
 			, error: function (ex) {
                 GetErrorInput("InsertFormDeviationInput", JSON.stringify(ex));
@@ -2557,37 +2318,16 @@
 		});
 	}
 
-    function InsertMultipleProduk() {
-        var ReqID = $('#lblReq').text();
-		var dto = {
-			ReqID,
-			ListProduk: listProduk
-        }
-
-        $.ajax({
-            url: "InsertMultipleProduk",
-            type: "post",
-            dataType: "json",
-            data: JSON.stringify(dto),
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-            }
-            , error: function (ex) {
-                GetErrorInput("InsertMultipleProduk", JSON.stringify(ex));
-            }
-        });
-    }
-
 	function SendEmail() {
-        @*alert('kepanggil');*@
-		var REQID = $("#lblReq").text();
-		var username = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
-		var tabletype = "More Than One";
+		var REQID = $("#lblReq").text();
+		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var tabletype = "One";
 		var whoreceiver = "Superior after Form Input";
 
 		var dto = {
-			Username: username,
+			Receiver: receiver,
 			ReqID: REQID,
 			TableType: tabletype,
 			WhoReceiver: whoreceiver
@@ -2700,7 +2440,7 @@
 							'<td style="display:none">' + data[trav].REQ_ID + '</td>' +
 							'<td style="display:none">' + data[trav].RecordID + '</td>' +
 							'<td>' + data[trav].USER_NAME + '</td>' +
-							'<td><input type="button" id="DeleteUserInvolved"  class="btn btn-danger DeleteUserInvolved" value="Delete"/></td ></tr > ';
+							'<td><button onclick="DeleteUserInvolved(this)" class="btn btn-danger"><span class="fa fa-trash-o"><strong></strong></span></button ></td ></tr > ';
 					}
 
 					$("#tblBodyWho").empty();
@@ -2719,12 +2459,57 @@
 		});
 	}
 
+	function DeleteUserInvolved(button) {
+		event.preventDefault();
+		var row = $(button).closest("TR");
+		var ReqID = $("TD", row).eq(1).html();
+		var RecordID = $("TD", row).eq(2).html();
+
+		var dto = {
+			REQID: ReqID,
+			RecordID: RecordID
+		}
+
+		$.ajax({
+			url: "DeleteUserInvolved",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				if (data == 'S') {
+					toastr.success("Data berhasil terhapus !", "Terhapus", {
+						"closeButton": false,
+						"debug": true,
+						"newestOnTop": false,
+						"progressBar": false,
+						"positionClass": "toast-top-right",
+						"preventDuplicates": false,
+						"onclick": null,
+						"showDuration": "100",
+						"hideDuration": "1000",
+						"timeOut": "1000",
+						"extendedTimeOut": "1000",
+						"showEasing": "swing",
+						"hideEasing": "linear",
+						"showMethod": "fadeIn",
+						"hideMethod": "fadeOut"
+					});
+
+					LoadUserInvolved();
+				}
+			}
+			, error: function (ex) {
+                GetErrorInput("DeleteUserInvolvedInput", JSON.stringify(ex));
+			}
+		});
+	}
 
 	function s() {
 		return false;
 	}
 
-   
 	function GetErrorInput(ErrorType, ErrorMsg) {
         var REQID = $('#lblReq').text();
 		var USERNIK = '@Request.RequestContext.HttpContext.Session["xUser"]';

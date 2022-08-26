@@ -137,102 +137,6 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
-        public ActionResult LoadPICCost(ApprovalModel Model)
-        {
-            string conString = mySetting.ConnectionString;
-            SqlConnection conn = new SqlConnection(conString);
-            try
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_LoadDeviationData]", conn))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Option"].Value = "Load PIC Table By Disposition";
-
-                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Nomor"].Value = Model.REQID;
-
-                    command.Parameters.Add("@NoDisposisi", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@NoDisposisi"].Value = Model.NoDisposisi;
-
-                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                    dataAdapt.SelectCommand = command;
-
-                    dataAdapt.Fill(DT);
-                }
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-            Dictionary<string, object> row;
-            foreach (DataRow dr in DT.Rows)
-            {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in DT.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);
-                }
-                rows.Add(row);
-            }
-
-            return Json(rows);
-        }
-
-        public ActionResult LoadPICCostFooter(ApprovalModel Model)
-        {
-            string conString = mySetting.ConnectionString;
-            SqlConnection conn = new SqlConnection(conString);
-            try
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_CountTotalPICTable]", conn))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Option"].Value = "FooterPerPIC";
-
-                    command.Parameters.Add("@Nomor", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Nomor"].Value = Model.REQID;
-
-                    command.Parameters.Add("@NoDisposisi", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@NoDisposisi"].Value = Model.NoDisposisi;
-
-                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                    dataAdapt.SelectCommand = command;
-
-                    dataAdapt.Fill(DT);
-                }
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-            Dictionary<string, object> row;
-            foreach (DataRow dr in DT.Rows)
-            {
-                row = new Dictionary<string, object>();
-                foreach (DataColumn col in DT.Columns)
-                {
-                    row.Add(col.ColumnName, dr[col]);
-                }
-                rows.Add(row);
-            }
-
-            return Json(rows);
-        }
-
         public ActionResult LoadBukti(DisposisiModel Model)
         {
             string ConString = mySetting.ConnectionString;
@@ -363,9 +267,6 @@ namespace B7_Deviation.Controllers
                     /* Header*/
                     command.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.Add("@Option", SqlDbType.VarChar);
-                    command.Parameters["@Option"].Value = "SPV PIC";
-
                     command.Parameters.Add("@Nomor", SqlDbType.VarChar);
                     command.Parameters["@Nomor"].Value = Model.REQ_ID;
 
@@ -375,8 +276,8 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@IDUser", SqlDbType.VarChar);
                     command.Parameters["@IDUser"].Value = Model.CURR_USER;
 
-                    command.Parameters.Add("@Status", SqlDbType.VarChar);
-                    command.Parameters["@Status"].Value = Model.STATUS;
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "SPV PIC";
 
                     result = (string)command.ExecuteScalar();
                 }
@@ -407,9 +308,6 @@ namespace B7_Deviation.Controllers
                     /* Header*/
                     command.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.Add("@Option", SqlDbType.VarChar);
-                    command.Parameters["@Option"].Value = "SPV PIC";
-
                     command.Parameters.Add("@Nomor", SqlDbType.VarChar);
                     command.Parameters["@Nomor"].Value = Model.REQ_ID;
 
@@ -422,8 +320,8 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@NoDisposisi", SqlDbType.VarChar);
                     command.Parameters["@NoDisposisi"].Value = Model.NO_DISPOSISI;
 
-                    command.Parameters.Add("@Status", SqlDbType.VarChar);
-                    command.Parameters["@Status"].Value = Model.STATUS;
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = "SPV PIC";
 
                     result = (string)command.ExecuteScalar();
                 }

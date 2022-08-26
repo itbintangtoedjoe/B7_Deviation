@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <button class="btn btn-primary" id="new" style="width:125px" hidden>
+                <button class="btn btn-primary" id="new" style="width:125px">
                     New
                     <span class="btn-icon-right">
                         <i class="fa fa-paperclip"></i>
@@ -41,36 +41,6 @@
 
                 <div class="form-validation">
                     <form class="form-user" action="" method="post" id="form-user" onsubmit="return falsefunction(this);">
-
-
-                        <div class="row form-group">
-                            <div class="col-lg-4 col-form-label">
-                                <label for="role" class="col-form-label">
-                                    Deviation Role
-                                    <span class="text-danger">*</span>
-                                </label>
-                            </div>
-                            <div class="col-lg-6">
-                                <select id="role" class="form-control">
-                                    <option value="" class="dropdown-header" selected>Select Role</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row form-group" id="kategori2">
-                            <div class="col-lg-4 col-form-label">
-                                <label for="kategori" class="col-form-label">
-                                    Kategori Penyimpangan
-                                    <span class="text-danger">*</span>
-                                </label>
-                            </div>
-                            <div class="col-lg-6">
-                                <select id="kategori" class="form-control">
-                                    <option value="" class="dropdown-header" selected>Kategori Penyimpangan</option>
-                                </select>
-                            </div>
-                        </div>
-
                         <div class="row form-group">
                             <div class="col-lg-4 col-form-label">
                                 <label for="empid" class="col-form-label">
@@ -79,12 +49,12 @@
                                 </label>
                             </div>
                             <div class="col-lg-6">
-                                <input class="form-control" id="empid" type="text" placeholder="Enter Employee ID" style="display:block;" name="empid" required disabled />
+                                <input class="form-control" id="empid" type="text" placeholder="Enter Employee ID" style="display:block;" name="empid" required />
                                 <span hidden="hidden" id="confid" class="text-danger">Employee ID Already Exists, Please Insert a Different Employee ID</span>
                             </div>
 
                             @*<div class="col-lg-2 col-form-label" hidden="hidden">
-                                <button class="btn btn-success GetVendorID" id="btnGenerateVendorID" type="button" style="width:150px;"">Generate VendorID</button>
+                                <button class="btn btn-success" type="button" style="width:150px;" onclick="GetVendorID();">Generate VendorID</button>
                             </div>*@
 
                         </div>
@@ -92,20 +62,13 @@
                         <div class="row form-group">
                             <div class="col-lg-4 col-form-label">
                                 <label for="username" class="col-form-label">
-                                    Username (tanpa spasi)
+                                    Username
                                     <span class="text-danger">*</span>
                                 </label>
                             </div>
                             <div class="col-lg-6">
                                 <input class="form-control" id="username" type="text" placeholder="Enter Username" style="display:block;" name="username" required />
                                 <span hidden="hidden" id="confusername" class="text-danger">Username Already Exists, Please Insert a Different Username</span>
-                                <span hidden="hidden" id="confusername2" class="text-success">Username Available</span>
-                                <span hidden="hidden" id="confusername3" class="text-danger">Invalid Username</span>
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-primary" data-toggle="button" id="btncheckusername">
-                                    Check Username
-                                </button>
                             </div>
                         </div>
 
@@ -158,7 +121,7 @@
                             </div>
                         </div>
 
-                        <div class="row form-group" id="job">
+                        <div class="row form-group">
                             <div class="col-lg-4 col-form-label">
                                 <label for="jobttlname" class="col-form-label">
                                     Job
@@ -169,8 +132,8 @@
                                 <input class="form-control" id="jobttlname" type="text" placeholder="Enter Job" style="display:block;" name="jobttlname" required />
                             </div>
                         </div>
-
-                        <div class="row form-group" id="superiorddl">
+                        
+                        <div class="row form-group">
                             <div class="col-lg-4 col-form-label">
                                 <label for="superiorid" class="col-form-label">
                                     Superior
@@ -184,21 +147,21 @@
                                 <input class="form-control" id="superiorid" type="text" placeholder="Enter Superior ID" style="display:block;" name="superiorid" hidden />
                             </div>
                         </div>
-
-
+                        
+                                    
                         @*<div class="row form-group">
-            <div class="col-lg-4 col-form-label">
-                <label for="superiorid" class="col-form-label">
-                    Superior ID
-                    <span class="text-danger">*</span>
-                </label>
-            </div>
-            <div class="col-lg-6">
-                <input class="form-control" id="superiorid" type="text" placeholder="Enter Superior ID" style="display:block;" name="superiorid" required />
-            </div>
-        </div>*@
+                            <div class="col-lg-4 col-form-label">
+                                <label for="superiorid" class="col-form-label">
+                                    Superior ID
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" id="superiorid" type="text" placeholder="Enter Superior ID" style="display:block;" name="superiorid" required />
+                            </div>
+                        </div>*@
 
-                        <div class="row form-group" id="superior2">
+                        <div class="row form-group">
                             <div class="col-lg-4 col-form-label">
                                 <label for="superiorname" class="col-form-label">
                                     Superior Name
@@ -210,7 +173,7 @@
                             </div>
                         </div>
 
-                        <div class="row form-group" id="department">
+                        <div class="row form-group">
                             <div class="col-lg-4 col-form-label">
                                 <label for="orggroupname" class="col-form-label">
                                     Department
@@ -222,7 +185,7 @@
                             </div>
                         </div>
 
-                        <div class="row form-group" id="superioremail">
+                        <div class="row form-group">
                             <div class="col-lg-4 col-form-label">
                                 <label for="emailsuperior" class="col-form-label">
                                     Superior Email
@@ -234,7 +197,33 @@
                             </div>
                         </div>
 
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="role" class="col-form-label">
+                                    Deviation Role
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <select id="role" class="form-control">
+                                    <option value="" class="dropdown-header" selected>Select Role</option>
+                                </select>
+                            </div>
+                        </div>
 
+                        <div class="row form-group">
+                            <div class="col-lg-4 col-form-label">
+                                <label for="kategori" class="col-form-label">
+                                    Kategori Penyimpangan
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <select id="kategori" class="form-control">
+                                    <option value="" class="dropdown-header" selected>Kategori Penyimpangan</option>
+                                </select>
+                            </div>
+                        </div>
 
                         <input type="text" hidden="hidden" id="reconfid" value="" />
                         <input type="text" hidden="hidden" id="reconfusername" value="" />
@@ -254,48 +243,19 @@
 
 
 
-<script>
+<script nonce="9suu/yHWc4EUPySQ6NpQ/Q==">
     let CekAja = true;
     $(document).ready(function () {
-        //$('#repassword').on('change'){
-        //    CheckPassword();
-        //}
+
         GetRole();
-        
+        GetVendorID();
         GetSuperior();
         $("#role").change(function () {
             GetKategoriPenyimpangan();
-            
-                let option;
-                if ($("#role option:selected").val() == 'Admin') {
-                    option = 'Get AdminID'
-                }
-                else {
-                    option = 'Get UserID'
-                }
 
-                $.ajax({
-                    url: "../CMS/CMS_GetVendorID",
-                    type: "post",
-                    data: JSON.stringify({
-                        Option: option
-                    }),
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-                        $("#empid").val(data[0].VENDORID);
-                        $("#empid").attr("disabled", true);
+        });
 
-                        //$("#superiorid").val(data[0].SPVVENDOR);
-                        //$("#superiorid").attr("disabled", true);
-
-                    }, error: function (ex) {
-                        alert(JSON.stringify(ex));
-                    }
-                });
-            
-
-            GetSuperior();
+        $('#new').click(function () {
 
         });
 
@@ -316,48 +276,19 @@
                 //    alert('habis if 2');
                     CheckEmpID(),
                     //alert('CheckEmpID');
-                    CheckUserName(),
-                    //CheckPassword(),
-                    CheckAllForm()
-                    //$("#confusername2").attr("Hidden", true);
+                    CheckUserName()
                     //alert('CheckUserName');
                     //if ($("#reconfid").val() != "ga ok" && $("#reconfusername").val() != "ga ok") {
                     //    return
                     //}
                 //}
             ).done(
-                //alert('haha')
+                
                 function () {
-                    //var x = document.getElementById("password");
-                    //var y = document.getElementById("repassword");
+                    alert(CekAja)
                     if (CekAja == false) {
-                        SaveFormUser();
-                    }
-                    else if (CekAja == true) {
-                        let timerInterval
-                        Swal.fire({
-                            timer: 1600,
-                            timerProgressBar: true,
-                            icon: 'error',
-                            title: 'Data Harus diisi',
-                            text: 'Data Belum Lengkap',
-                            //backdrop: 'rgb(255, 0, 0, 0.5)',
-                            didOpen: () => {
-                                Swal.showLoading()
-                                //const b = Swal.getHtmlContainer().querySelector('b')
-                                //timerInterval = setInterval(() => {
-                                //    b.textContent = Swal.getTimerLeft()
-                                //}, 100)
-                            },
-                            willClose: () => {
-                                clearInterval(timerInterval)
-                            }
-                        }).then((result) => {
-                            /* Read more about handling dismissals below */
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                console.log('I was closed by the timer')
-                            }
-                        });
+                        alert('Sebelum Save')
+                        SaveForm();
                     }
                     
                 }
@@ -366,61 +297,23 @@
            
         });
 
-        //function CheckPassword() {
-        //    var x = document.getElementById("password");
-        //    var y = document.getElementById("repassword");
-        //    if (x.value == y.value) {
-        //        $("#redconf").prop('hidden', true);
-        //        return;
-        //    }
-        //    else {
-        //        CekAja = true;
-        //        $("#redconf").removeAttr("Hidden");
-        //    }
-        //}
-
         $('#clearall').click(function () {
-            //$('#empid').val(null);
+            $('#empid').val(null);
             $('#username').val(null);
             $('#email').val(null);
             $('#empname').val(null);
-            $('#password').val(null);
-            $('#repassword').val(null);
             $('#jobttlname').val(null);
             $('#superiorid').val(null);
             $('#superiorname').val(null);
             $('#orggroupname').val(null);
             $('#emailsuperior').val(null);
-            $('#kategori option:selected').val(null);
-            $("#confusername3").attr("Hidden", true);
-            $("#confusername2").attr("Hidden", true);
-            $("#confusername").attr("Hidden", true);
-
+            $('kategori').val(null);
             GetRole();
-            let timerInterval
-            Swal.fire({
-                timer: 1600,
-                timerProgressBar: true,
-                icon: 'success',
-                title: 'Data Berhasil Di Clear',
-                text: 'Successfully Cleared Form!',
-                //backdrop: 'rgb(255, 0, 0, 0.5)',
-                didOpen: () => {
-                    Swal.showLoading()
-                    const b = Swal.getHtmlContainer().querySelector('b')
-                    timerInterval = setInterval(() => {
-                        b.textContent = Swal.getTimerLeft()
-                    }, 100)
-                },
-                willClose: () => {
-                    clearInterval(timerInterval)
-                }
-            }).then((result) => {
-                /* Read more about handling dismissals below */
-                if (result.dismiss === Swal.DismissReason.timer) {
-                    console.log('I was closed by the timer')
-                }
-            });
+            Swal.fire(
+                'Form Cleared!',
+                'Successfuly Cleared Form!',
+                'success'
+            )
         });
 
     });
@@ -451,22 +344,10 @@
 
                         if ($("#role").val() == 'Coordinator_QA' || $("#role").val() == 'Coordinator_QS') {
                             trhtml += '<Option value = "' + data[trav].DDL_CODE + '" > ' + data[trav].DDL_DESCRIPTION;
-                            document.getElementById('kategori2').removeAttribute("style")
-                        }
-                        //else if ($("#role option:selected").val() == 'Admin') {
-                        //    document.getElementById('#kategori').hidden = true;
-                        //}
-                        //else if ($('#role option:selected').val() == 'Admin') {
-                        //    document.getElementById('kategori2').style.display = 'none'
-
-                        //}
-                        else {
+                        } else {
                             trhtml += '<Option class="dropdown-item" selected value = " " > - ';
-                            document.getElementById('kategori2').style.display = 'none'
                             break;
                         }
-                        
-                        
 
 
                     }
@@ -485,6 +366,27 @@
         });
     }
 
+    function GetVendorID() {
+        $.ajax({
+            url: "../CMS/CMS_GetVendorID",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+
+                $("#empid").val(data[0].VENDORID);
+                $("#empid").attr("disabled", true);
+
+                //$("#superiorid").val(data[0].SPVVENDOR);
+                //$("#superiorid").attr("disabled", true);
+
+
+
+            }, error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+        });
+    }
 
     function CheckEmpID() {
         var empid = $('#empid').val();
@@ -518,13 +420,8 @@
 
     }
 
-    $('#btncheckusername').click(function () {
-        CheckUserName();
-    });
-
     function CheckUserName() {
         var username = $('#username').val();
-        //var usernamekosong = $('#username').val('');
 
         var dto = {
             Username: username
@@ -532,33 +429,21 @@
 
         $.ajax({
             url: '../CMS/CMS_CheckUsername',
-            //async: false,
             type: 'post',
             data: JSON.stringify(dto),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 if (data == "Username Exists") {
-                    //alert('HAHA');
-                    $("#confusername2").attr("Hidden", true);
-                    $("#confusername3").attr("Hidden", true);
                     $("#confusername").removeAttr("Hidden");
                     $("#username").val(null);
                     $("#reconfusername").val("Username Ada");
                    
 
-                }
-                else if (username == null || username == "") {
-                    $("#confusername3").removeAttr("Hidden");
-                    $("#confusername2").attr("Hidden", true);
+                } else {
                     $("#confusername").attr("Hidden", true);
-                }
-                else if (data == "Username Available"){
-                    $("#confusername").attr("Hidden", true);
-                    $("#confusername3").attr("Hidden", true);
-                    $("#confusername2").removeAttr("Hidden");
                     $("#reconfusername").val("ga ok");
-                    //CekAja = false;
+                    CekAja = false;
                 }
             },
             error: function (ex) {
@@ -568,48 +453,34 @@
         });
     }
 
-    function CheckAllForm() {
-        var x = document.getElementById("password");
-        var y = document.getElementById("repassword");
-        if ($('#role').val() == '' || $('#username').val() == '' || $('#password').val() == '' || $('#repassword').val() == ''
-            || $('#email').val() == '' || $('#jobttlname').val() == '' || $('#ddlsuperior').val() == '' || $('#superiorname').val() == '' || $('#orggroupname').val() == '' 
-            || $('#emailsuperior').val() == '' || $('#empid').val() == ''|| $('#empname').val() == ''){
-            CekAja = true;
-        }
-       
-        else {
+    function SaveForm() {
 
-            if (x.value != y.value) {
-                $("#redconf").prop('hidden', false);
-                CekAja = true;
-            }
-            else {
-                $("#redconf").prop('hidden', true);
-                CekAja = false;
-            }
-        }
-        //else if ($('#password').val == null || $('#password').val == '') {
-        //    CekAja = true;
-        //}
-        
-    }
-
-    function SaveFormUser() {
+        var empid = $('#empid').val();
+        var username = $('#username').val();
+        var password = $('#password').val();
+        var email = $('#email').val();
+        var empname = $('#empname').val();
+        var jobttlname = $('#jobttlname').val();
+        var superiorid = $('#superiorid').val();
+        var superiorname = $('#superiorname').val();
+        var orggroupname = $('#orggroupname').val();
+        var emailsuperior = $('#emailsuperior').val();
+        var role = $('#role').val();
+        var kategori = $('#kategori').val();
 
         var dto = {
-            empid: $('#empid').val(),
-            username: $('#username').val(),
-            email: $('#email').val(),
-            empname: $('#empname').val(),
-            password: $('#password').val(),
-            jobttlname: $('#jobttlname').val(),
-            superiorid: $('#superiorid').val(),
-            superiorname: $('#superiorname').val(),
-            orggroupname: $('#orggroupname').val(),
-            emailsuperior: $('#emailsuperior').val(),
-            role: $('#role').val(),
-            KategoriPenyimpangan: $('#kategori').val(),
-            //Option: 'Add User'
+            empid: empid,
+            username: username,
+            email: email,
+            empname: empname,
+            password: password,
+            jobttlname: jobttlname,
+            superiorid: superiorid,
+            superiorname: superiorname,
+            orggroupname: orggroupname,
+            emailsuperior: emailsuperior,
+            role: role,
+            KategoriPenyimpangan: kategori
         }
 
         $.ajax({
@@ -635,47 +506,6 @@
         });
     }
 
-    //function SaveFormAdmin() {
-
-    //    var dto = {
-    //        empid: $('#empid').val(),
-    //        username: $('#username').val(),
-    //        email: $('#email').val(),
-    //        empname: $('#empname').val(),
-    //        password: $('#password').val(),
-    //        jobttlname: $('#jobttlname').val(),
-    //        superiorid: $('#superiorid').val(),
-    //        superiorname: $('#superiorname').val(),
-    //        orggroupname: $('#orggroupname').val(),
-    //        emailsuperior: $('#emailsuperior').val(),
-    //        role: $('#role').val(),
-    //        KategoriPenyimpangan: $('#kategori').val(),
-    //        Option: 'Add Admin'
-    //    }
-
-    //    $.ajax({
-    //        url: '../CMS/CMS_SaveForm',
-    //        type: 'post',
-    //        data: JSON.stringify(dto),
-    //        dataType: 'json',
-    //        contentType: 'application/json; charset=utf-8',
-    //        success: function (data) {
-    //            Swal.fire({
-    //                position: 'middle',
-    //                icon: 'success',
-    //                title: 'Successfully Insert User',
-    //                showConfirmButton: false,
-    //                timer: 1500
-    //            });
-    //            window.location.href = "/CMS/MasterAdmin"
-    //        },
-    //        error: function (ex) {
-    //            alert(JSON.stringify(ex));
-    //        }
-
-    //    });
-    //}
-
     function GetRole() {
         $.ajax({
             url: "../CMS/CMS_GetRole",
@@ -695,7 +525,6 @@
                             '<option class="dropdown-item" value = "' + data[trav].rolename + '" > ' + data[trav].rolename;
                     }
                 }
-               
 
                 $("#role").empty();
                 $("#role").append(trhtml);
@@ -721,34 +550,8 @@
                 trhtml += '<option disabled selected class="dropdown-header">Select Role</option>';
                 if (count > 0) {
                     for (trav = 0; trav < count; trav++) {
-                            trhtml += '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].empname;
-
-                        if ($("#role").val() == 'Coordinator_QA' || $("#role").val() == 'Coordinator_QS'){
-                            document.getElementById('superiorddl').removeAttribute("style")
-                            document.getElementById('superior2').removeAttribute("style")
-                            document.getElementById('department').removeAttribute("style")
-                            document.getElementById('superioremail').removeAttribute("style")
-                        }
-                        else if ($("#role").val() == 'Pelapor' || $("#role").val() == 'Superior') {
-                            $('#kategori').val("-");
-                        }
-                        else if ($("#role option:selected").val() == 'Admin') {
-                            //trhtml += '<Option class="dropdown-item" selected value = " " > - ';
-                            document.getElementById('superiorddl').style.display = 'none'
-                            document.getElementById('superior2').style.display = 'none'
-                            document.getElementById('department').style.display = 'none'
-                            document.getElementById('superioremail').style.display = 'none'
-                            document.getElementById('job').style.display = 'none'
-                            $('#superiorid').val("-");
-                            $('#ddlSuperior').val("-");
-                            $('#superiorname').val("-");
-                            $('#orggroupname').val("-");
-                            $('#emailsuperior').val("-");
-                            $('#kategori').val("-");
-                            $('#jobttlname').val("-");
-
-                            break;
-                        }
+                        trhtml +=
+                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].empname;
                     }
                 }
 
