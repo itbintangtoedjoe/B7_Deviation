@@ -1109,7 +1109,7 @@
                     item["value"] = arr[trav];
                     jsonObj.push(item);
                 }
-
+                console.log(data)
                 $("#TxtBatchNo").autocomplete({
                     source: function (request, response) {
                         var results = $.ui.autocomplete.filter(jsonObj, request.term);

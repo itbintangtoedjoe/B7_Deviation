@@ -317,6 +317,7 @@
                                         <label class="col-sm-2 col-form-label" style="font-weight: bold">Total Cost (Rp) </label>
                                         <div class="col-sm-2">
                                             <input type="text" value="" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" class="form-control" style="font-weight: bold " id="textRejectedTotalCost" disabled />
+                                            <input type="hidden" id="valRejectedTotalCost"/>
                                         </div>
                                     </div>
                                 </div>
@@ -528,7 +529,8 @@
                     testingTotalManhour = 0;
                 }
 
-                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour; console.log(totalManhourALL);
+                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
+                @*console.log(totalManhourALL);*@
                 $('#textTotalManhoursALL').val(totalManhourALL);
 
                 $('#textManhoursValue').val(testingTotalManhour);
@@ -554,7 +556,8 @@
                     testingTotalManhour = 0;
                 }
 
-                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour; console.log(totalManhourALL);
+                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
+                @*console.log(totalManhourALL);*@
                 $('#textTotalManhoursALL').val(totalManhourALL);
 
 
@@ -607,7 +610,7 @@
                 //console.log(durasiPengerjaan * jumlahPelaksana);
 
                 var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
-                console.log(totalManhourALL);
+                @*console.log(totalManhourALL);*@
                 $('#textTotalManhoursALL').val(totalManhourALL);
 
                 $('#textManhoursValueProc').val(procTotalManhour);
@@ -633,7 +636,7 @@
                 }
 
                 var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
-                console.log(totalManhourALL);
+                @*console.log(totalManhourALL);*@
                 $('#textTotalManhoursALL').val(totalManhourALL);
 
                 $('#textManhoursValueProc').val(procTotalManhour);
@@ -656,7 +659,7 @@
 
                 procTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
                 var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost;
-                console.log(totalAll)
+                @*console.log(totalAll)*@
                 $('#textTotalManHoursCostProc').val(currencyDecimal(procTotalCost));
                 $('#divTotalManHoursCostProc').attr('hidden', false);
                 $('#textTotalCostALL').val(currencyDecimal(totalAll));
@@ -677,7 +680,8 @@
                 rejTotalCost = material.replace(',', '') * qty.replace(',', '');
 
                 $('#textRejectedTotalCost').val(currencyDecimal(rejTotalCost));
-
+                $('#valRejectedTotalCost').val(rejTotalCost);
+                
                 $('#divRejectedTotalCost').attr('hidden', false);
             } else {
                 $('#divRejectedTotalCost').attr('hidden', true);
@@ -695,8 +699,9 @@
 
                 rejTotalCost = qty.replace(',', '') * costMaterial.replace(',', '');
                 var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost;
-                console.log(totalAll);
+                @*console.log(totalAll);*@
                 $('#textRejectedTotalCost').val(currencyDecimal(rejTotalCost));
+                $('#valRejectedTotalCost').val(rejTotalCost);
                 $('#divRejectedTotalCost').attr('hidden', false);
                 $('#textTotalCostALL').val(currencyDecimal(totalAll));
             }
@@ -723,7 +728,8 @@
 
                 $('#textMCTotalManhours').val(mcTotalManhour);
 
-                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour; console.log(totalManhourALL);
+                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
+                @*console.log(totalManhourALL);*@
                 $('#textTotalManhoursALL').val(totalManhourALL);
 
                 // console.log(material * qty);
@@ -733,7 +739,8 @@
                 var manhoursValue2 = $('#textMCTotalManhours').val();
                 var manhoursCost = $('#mcManhoursValue').val();
 
-                var totalManHoursCost = manhoursValue2.replace(',', '') * manhoursCost.replace(',', ''); console.log(totalManhourALL);
+                var totalManHoursCost = manhoursValue2.replace(',', '') * manhoursCost.replace(',', '');
+                @*console.log(totalManhourALL);*@
 
                 $('#mcTotalMachineHours').val(totalManHoursCost);
 
@@ -758,7 +765,8 @@
                     mcTotalManhour = 0;
                 }
 
-                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour; console.log(totalManhourALL);
+                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
+                @*console.log(totalManhourALL);*@
                 $('#textTotalManhoursALL').val(totalManhourALL);
 
                 $('#textMCTotalManhours').val(mcTotalManhour);
@@ -788,7 +796,7 @@
 
                 mcTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
                 var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost;
-                console.log(totalAll)
+                @*console.log(totalAll)*@
                 $('#mcTotalMachineHours').val(currencyDecimal(mcTotalCost));
                 $('#divMCTotalManhoursCost').attr('hidden', false);
                 $('#textTotalCostALL').val(currencyDecimal(totalAll));
@@ -1134,7 +1142,8 @@
 		// Rejection Section
 		var rejM = $("#rejMaterial").val();
         var rejQ = $("#rejQty").val().replaceAll(',', '');
-        var rejCM = $("#rejCostMaterial").val().replaceAll(',', '');
+        //code here
+        var rejCM = $("#valRejectedTotalCost").val().replaceAll(',', '');
 
 		// Machine Cost
         var mcDP = $("#mcDurasiPengerjaan").val().replaceAll(',', '');

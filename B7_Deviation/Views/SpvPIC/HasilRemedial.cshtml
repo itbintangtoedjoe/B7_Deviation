@@ -439,7 +439,7 @@
                     $("#tabel2").removeAttr("hidden");
                 }
                 , error: function (ex) {
-                    GetErrorVerifikasi("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
+                    GetErrorSupRemedial("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
                 }
             });
         });
@@ -1039,7 +1039,7 @@
                     $('#groupSite').val(data[0].GROUP_SITE);
 				},
 				error: function (ex) {
-                    GetErrorVerifikasi("LoadDataVerifikasi", JSON.stringify(ex));
+                    GetErrorSupRemedial("LoadDataVerifikasi", JSON.stringify(ex));
 				}
 			})
 
@@ -1104,7 +1104,7 @@
                 $('#totalCost').val(data[0].TOTAL_COST);
             },
             error: function (ex) {
-                GetErrorVerifikasi("FooterVerifikasi", JSON.stringify(ex));
+                GetErrorSupRemedial("FooterVerifikasi", JSON.stringify(ex));
             }
         })
 
@@ -1119,7 +1119,7 @@
 				$("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
 			},
 			error: function (ex) {
-                GetErrorVerifikasi("LoadEvaluasiResikoVerifikasi", JSON.stringify(ex));
+                GetErrorSupRemedial("LoadEvaluasiResikoVerifikasi", JSON.stringify(ex));
 			}
 		});
 
