@@ -304,7 +304,73 @@
 		});
 	});
 
+<<<<<<< HEAD
 	function GetUsulanTindakan() {
+=======
+		$('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
+            event.preventDefault();
+            var row = $(this).closest("TR");
+            var ReqID = @ViewBag.nomor;
+            var picnik = $("TD", row).eq(22).html();
+            var seq = $("TD", row).eq(0).html();
+
+            var dto = {
+                REQID: ReqID,
+                IDUSER: picnik,
+                NO_DISPOSISI: seq
+            }
+			@*console.log(dto);*@
+            $.ajax({
+                url: "../QualityManager/QM_ShowBuktiTable",
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(dto),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    @*console.log(data);*@
+                    var trHTML = '';
+                    var trav = 0;
+                    var Count = data.length;
+
+                    if (Count == '0') {
+                        trHTML +=
+                            '<tr><td> - </td>' +
+                            '<td> - </td>' +
+                            '<td> - </td>';
+
+                    } else {
+                        for (trav = 0; trav < Count; trav++) {
+                            var no = 1;
+                            no = no + trav;
+                            trHTML +=
+                                '<tr><td>' + no + '</td>' +
+                                '<td>' + data[trav].PIC_ID + '</td>' +
+                            '<td><a href="' + data[trav].PATH_FILE + '" download="' + data[trav].FILE_NAME_UPLOAD + '">' + data[trav].FILE_NAME_UPLOAD + '</a></td>';
+                        }
+                    }
+
+                    $('#buktidatatable').DataTable().clear().destroy();
+
+                    $('#buktitable').empty();
+                    $('#buktitable').append(trHTML);
+                    $('#buktidatatable').DataTable({
+                        "searching": false,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false
+                    });
+
+                    $("#tabel2").removeAttr("hidden");
+                }
+                , error: function (ex) {
+                    GetErrorSupRemedial("Koor:Coor_ShowBuktiTable", JSON.stringify(ex));
+                }
+            });
+        });
+    });
+
+	@*function GetUsulanTindakan() {
+>>>>>>> master
 		var REQID = @ViewBag.nomor;
 		var dis = @ViewBag.dis;
 
@@ -809,7 +875,186 @@
         });
 	}
 
+<<<<<<< HEAD
 	@*function LoadReviewerData() {
+=======
+
+
+	function LoadDataVerifikasiTindakan() {
+
+		var nomor = @ViewBag.nomor;
+		var urutan = @ViewBag.dis;
+
+		var dto = {
+            REQID: nomor,
+            NoDisposisi: urutan
+		}
+
+			$.ajax({
+                url: "../SpvPIC/LoadPICCost",
+				type: "post",
+				data: JSON.stringify(dto),
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					@*console.log(data);*@
+					var checkVerify = 0;
+					var trHTML = '';
+					var trav = 0;
+					var Count = data.length;
+					for (trav = 0; trav < Count; trav++) {
+						var counter = 1;
+						counter += trav;
+						trHTML +=
+							'<tr><td align="center">' + counter + '</td>' +
+							'<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
+							'<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>' +
+						'<td>' + data[trav].HASIL_TINDAKAN + '</td>' +
+
+							'<td align="right">' + data[trav].TESTING_JUMLAH_PELAKSANA + '</td>' +
+							'<td align="right">' + data[trav].TESTING_DURASI_PENGERJAAN + '</td>' +
+							'<td align="right">' + data[trav].TESTING_MANHOURS + '</td>' +
+							//'<td>' + data[trav].TESTING_DURASI_PENGERJAAN * data[trav].TESTING_JUMLAH_PELAKSANA  + '</td>' +
+							'<td align="right">' + data[trav].TESTING_MANHOURS_VALUE + '</td>' +
+						'<td align="right">' + data[trav].TESTING_COST_OF_ANALYSIS + '</td>' +
+
+							'<td align="right">' + data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+							'<td align="right">' + data[trav].PROC_DURASI_PENGERJAAN + '</td>' +
+                        //'<td>' + data[trav].PROC_DURASI_PENGERJAAN * data[trav].PROC_JUMLAH_PELAKSANA + '</td>' +
+							'<td align="right">' + data[trav].PROC_MANHOURS + '</td>' +
+						'<td align="right">' + data[trav].PROC_MANHOURS_VALUE + '</td>' +
+
+							'<td align="right">' + data[trav].REJ_MATERIAL + '</td>' +
+							'<td align="right">' + data[trav].REJ_QUANTITY + '</td>' +
+							'<td align="right">' + data[trav].REJ_COST_MATERIAL + '</td>' +
+
+							'<td align="right">' + data[trav].MC_JUMLAH_TEKNISI + '</td>' +
+							'<td align="right">' + data[trav].MC_DURASI_PENGERJAAN + '</td>' +
+							'<td align="right">' + data[trav].MC_MANHOURS + '</td>' +
+							'<td align="right">' + data[trav].MC_MANHOURS_VALUE + '</td>' +
+							'<td>' + data[trav].MC_SPAREPART + '</td>' +
+							'<td align="right">' + data[trav].MC_TOTAL_HARGA_SPAREPART + '</td>' +
+							'<td hidden="hidden">' + data[trav].PIC_REMEDIAL_NIK + '</td>';
+
+						if (data[trav].FLAG_PIC == null || data[trav].FLAG_PIC == 'ASSIGNED') {
+							trHTML +=
+								'<td align="center"> - </td>';
+
+						} else {
+							trHTML +=
+								'<td align="center"><input type="button" id="btnShowBukti" class="btn btn-info" style="font-weight: bold; font-size:15px" value="i"></td > ';
+						}
+
+					}
+
+					$('#deviationdatatable').DataTable().clear().destroy();
+					$('#deviationtable').empty();
+					$('#deviationtable').append(trHTML);
+					$('#deviationdatatable').DataTable({
+						"searching": false,
+						"paging": false,
+						"info": false,
+						"ordering": false
+					});
+
+					if (checkVerify > 0) {
+                        $('#headVerify').focus();
+					}
+
+					$('#flagPIC').val(data[0].FLAG_PIC);
+                    @*console.log(data[0].FLAG_PIC);*@
+                    $('#picNIK').val(data[0].PIC_REMEDIAL_NIK);
+                    $('#groupSite').val(data[0].GROUP_SITE);
+				},
+				error: function (ex) {
+                    GetErrorSupRemedial("LoadDataVerifikasi", JSON.stringify(ex));
+				}
+			})
+
+        $.ajax({
+            url: "../SpvPIC/LoadPICCostFooter",
+            type: "post",
+            data: JSON.stringify(dto),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				@*console.log(data);*@
+                var trHTML = '';
+                var trav = 0;
+                var Count = data.length;
+                for (trav = 0; trav < Count; trav++) {
+
+					trHTML +=
+						'<tr>' +
+						'<th colspan="4" rowspan="2" style= "text-align: right;  background-color: #f3f3f3;vertical-align:middle;"> Total</th >' +
+						'<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Testing Manhours</th>' +
+						'<th style="text-align: right; background-color: #f3f3f3">Total Testing Manhours Cost</th>' +
+						'<th style="text-align: right; background-color: #f3f3f3">Total Analysis Cost</th>' +
+						'<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Processing Manhours</th>' +
+						'<th style="text-align: right; background-color: #f3f3f3">Total Processing Cost</th>' +
+						'<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Rejected Cost</th>' +
+						'<th colspan="3" style="text-align: right; background-color: #f3f3f3">Total Machine Manhours</th>' +
+						'<th style="text-align: right; background-color: #f3f3f3">Total Machine Manhours Cost</th>' +
+						'<th colspan="2" style="text-align: right; background-color: #f3f3f3">Total Machine Cost</th>' +
+						'</tr >' +
+
+						'<tr>' +
+						'<td colspan = "3" align = "right" style = "padding:10px 8px" > ' + data[0].TOTAL_TESTING_MANHOURS + '</td > '
+						+
+						'<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_MANHOURS_COST + '</td>' +
+						'<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_TESTING_COA + '</td>' +
+
+						'<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_PROC_MANHOURS + '</td>' +
+						'<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_PROC_COST + '</td>' +
+
+						'<td align="right" colspan="3" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_REJ_COST + '</td>' +
+
+						'<td align="right" colspan="3" style="padding:10px 8px">' + data[0].TOTAL_MC_MANHOURS + '</td>' +
+						'<td align="right" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_MANHOURS_COST + '</td>' +
+						'<td align="right" colspan="2" style="padding:10px 8px"> Rp. ' + data[0].TOTAL_MC_HARGA_SPAREPART + '</td></tr>'+
+
+
+						'<tr><th colspan = "19" style="text-align:center;background-color: #f3f3f3">Total Times (Total Testing Manhours + Total Processing Manhours + Total Machine Manhours)</th>' +
+						'<td colspan="3" align="right" style="padding:10px 8px">' + data[trav].TOTAL_TIMES + '</td></tr>' +
+
+						'<tr><th colspan = "19" style="text-align:center;background-color: #f3f3f3">Total Cost (Total Testing Cost + Total Processing Cost + Total Reject Cost + Total Machine Cost)</th>' +
+						'<td colspan="3" align="right" style="padding:10px 8px"> Rp. ' + data[trav].TOTAL_COST + '</td></tr>';
+
+                }
+
+                // NO NEED TO DECLARE DATA TABLE COZ FOOTER IS FOOTER AND THE TABLE IS NOT GONNA CHANGE ANYWAY
+
+
+                $('#picfooter').empty();
+				$('#picfooter').append(trHTML);
+
+
+                $('#totalCost').val(data[0].TOTAL_COST);
+            },
+            error: function (ex) {
+                GetErrorSupRemedial("FooterVerifikasi", JSON.stringify(ex));
+            }
+        })
+
+		// GET EVALUASI RESIKO
+		$.ajax({
+			url: "../Koordinator/LoadEvaluasiResiko",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				$("input[name=radbut][value=" + data[0].EVALUASI_RESIKO + "]").prop('checked', true);
+			},
+			error: function (ex) {
+                GetErrorSupRemedial("LoadEvaluasiResikoVerifikasi", JSON.stringify(ex));
+			}
+		});
+
+	};
+
+    @*function LoadReviewerData() {
+>>>>>>> master
 		var nomor = @ViewBag.nomor;
 
 		var dto = {

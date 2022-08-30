@@ -284,6 +284,7 @@
 									</div>
 								</div>
 
+<<<<<<< HEAD
 								<div class="form-group">
 									<div class="row form-group">
 										<h4 class="d-inline">Machine Cost</h4>
@@ -332,6 +333,114 @@
 									</div>
 								</div>
 							</div>
+=======
+                                <div class="form-group">
+                                    <div class="row form-group">
+                                        <h4 class="d-inline">Rejected</h4>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Material/Product</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="rejMaterial" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Quantity</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="currency-field" value="" data-type="currency" class="form-control" id="rejQty" />
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group row" id="divTotalMaterialQty" hidden>
+                <label class="col-sm-2 col-form-label" style="font-weight: bold">Total Material Quantity</label>
+                <div class="col-sm-2">
+                    <input type="text" value="" class="form-control" style="border-radius: 10px; font-weight: bold " id="textTotalMaterialQty" disabled/>
+                </div>
+            </div>*@
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Cost Material (Rp)</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" class="form-control" id="rejCostMaterial" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="divRejectedTotalCost" hidden>
+                                        <label class="col-sm-2 col-form-label" style="font-weight: bold">Total Cost (Rp) </label>
+                                        <div class="col-sm-2">
+                                            <input type="text" value="" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" class="form-control" style="font-weight: bold " id="textRejectedTotalCost" disabled />
+                                            <input type="hidden" id="valRejectedTotalCost"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <h4 class="d-inline">Machine Cost</h4>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Durasi Pengerjaan (Jam)</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="currency-field" value="" data-type="currency" class="form-control" id="mcDurasiPengerjaan" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Jumlah Teknisi (Orang)</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="currency-field" value="" data-type="currency" class="form-control" id="mcJumlahTeknisi" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="divMCTotalManhours" hidden>
+                                        <label class="col-sm-2 col-form-label" style="font-weight: bold">Total Machine Manhours (Jam)</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" value="" class="form-control" style=" font-weight: bold" id="textMCTotalManhours" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Manhours Cost (Rp)</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" class="form-control" id="mcManhoursValue" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" id="divMCTotalManhoursCost" hidden>
+                                        <label class="col-sm-2 col-form-label" style="font-weight: bold">Total Machine Hours Cost(Rp)</label>
+                                        <div class="col-sm-2">
+                                            <input type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" style="font-weight: bold" class="form-control" id="mcTotalMachineHours" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Nama Mesin</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="mcNamaMesin" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Sparepart/Service</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="mcSparepart" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Harga Sparepart (Rp)</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" class="form-control" id="mcHargaSparepart" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="form-group" id="divTotalALL">
+                                <br/>
+                                <h4 class="d-inline">Total Manhours and Cost</h4>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Total Manhours (Jam)</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="currency-field" value="" data-type="currency" class="form-control" id="textTotalManhoursALL" disabled/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Total Cost (Rp)</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="currency-field" value="" data-type="currency" class="form-control" id="textTotalCostALL" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+>>>>>>> master
 						</div>
 					</div>
 				</div>
@@ -386,6 +495,367 @@
 	});
 
 
+<<<<<<< HEAD
+=======
+                var dto = {
+                    ReqID: ReqID,
+                    RecordID: RecordID,
+                    PathFile: PathFile,
+                    USERNIK: usernik,
+                    NO_DISPOSISI: urutan
+                }
+
+                $.ajax({
+                    url: "../PICRemidial/PIC_DeleteAttachment",
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(dto),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        if (data == 'S') {
+
+                            toastr.success("File Attachment " + FileName + " Berhasil dihapus",
+                                "Berhasil",
+                                {
+                                    "closeButton": false,
+                                    "debug": true,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-top-left",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "100",
+                                    "hideDuration": "1000",
+                                    "timeOut": "2000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                });
+
+                            LoadBukti();
+                        }
+                    },
+                    error: function(ex) {
+                        ErrorPIC("Delete AtachmentPIC", JSON.stringify(ex));
+                    }
+                });
+            });
+    });
+
+    function HiddenText() {
+        var testingTotalCost = 0;
+        var procTotalCost = 0;
+        var rejTotalCost = 0;
+        var mcTotalCost = 0;
+
+        var testingTotalManhour = 0;
+        var procTotalManhour = 0;
+        var rejTotalManhour = 0;
+        var mcTotalManhour = 0;
+        
+
+		//Testing Cost
+        $('#testingDurasiPengerjaan').on('input', function (e) {
+            if ($('#testingJumlahPelaksana').val() !== '') {
+
+                var durasiPengerjaan = parseInt($('#testingJumlahPelaksana').val());
+                var jumlahPelaksana = parseInt($('#testingDurasiPengerjaan').val());
+                testingTotalManhour = durasiPengerjaan * jumlahPelaksana;
+               // console.log(durasiPengerjaan * jumlahPelaksana);
+
+                if ($('#testingJumlahPelaksana').val() == '' || $('#testingDurasiPengerjaan').val() == '') {
+                    testingTotalManhour = 0;
+                }
+
+                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
+                @*console.log(totalManhourALL);*@
+                $('#textTotalManhoursALL').val(totalManhourALL);
+
+                $('#textManhoursValue').val(testingTotalManhour);
+
+                $('#divManHours').attr('hidden', false);
+            } else {
+                $('#divManHours').attr('hidden', true);
+            }
+            if ($('#testingDurasiPengerjaan').val() === '') {
+                $('#divManHours').attr('hidden', true);
+                testingTotalManhour = 0
+            }
+        });
+
+        $('#testingJumlahPelaksana').on('input', function (e) {
+            if ($('#testingDurasiPengerjaan').val() !== '') {
+                var durasiPengerjaan = parseInt($('#testingJumlahPelaksana').val());
+                var jumlahPelaksana = parseInt($('#testingDurasiPengerjaan').val());
+                testingTotalManhour = durasiPengerjaan * jumlahPelaksana;
+                //console.log(durasiPengerjaan * jumlahPelaksana);
+
+                if ($('#testingJumlahPelaksana').val() == '' || $('#testingDurasiPengerjaan').val() == '') {
+                    testingTotalManhour = 0;
+                }
+
+                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
+                @*console.log(totalManhourALL);*@
+                $('#textTotalManhoursALL').val(totalManhourALL);
+
+
+                $('#textManhoursValue').val(testingTotalManhour);
+
+                $('#divManHours').attr('hidden', false);
+            } else {
+                $('#divManHours').attr('hidden', true);
+            }
+            if ($('#testingJumlahPelaksana').val() === '') {
+                $('#divManHours').attr('hidden', true);
+                testingTotalManhour = 0
+            }
+        });
+
+        $('#testingManhoursValue').on('input', function (e) {
+            if ($('#textManhoursValue').val() !== '') {
+
+                var manhoursValue = $('#textManhoursValue').val();
+                var manhoursCost = $('#testingManhoursValue').val();
+
+                testingTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
+                var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost;
+
+
+                $('#textTotalManHoursCost').val(currencyDecimal(testingTotalCost));
+                $('#divTotalManHoursCost').attr('hidden', false);
+                $('#textTotalCostALL').val(currencyDecimal(totalAll));
+
+            }
+            else {
+                $('#divTotalManHoursCost').attr('hidden', true);
+            }
+            if ($('#testingManhoursValue').val() === '') {
+                $('#divTotalManHoursCost').attr('hidden', true);
+            }
+        });
+
+		//Processing
+        $('#procDurasiPengerjaan').on('input', function (e) {
+            if ($('#procJumlahPelaksana').val() !== '') {
+
+                var durasiPengerjaan = parseInt($('#procJumlahPelaksana').val());
+                var jumlahPelaksana = parseInt($('#procDurasiPengerjaan').val());
+                procTotalManhour = durasiPengerjaan * jumlahPelaksana;
+
+                if ($('#procJumlahPelaksana').val() == '' || $('#procDurasiPengerjaan').val() == '') {
+                    procTotalManhour = 0;
+                }
+                //console.log(durasiPengerjaan * jumlahPelaksana);
+
+                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
+                @*console.log(totalManhourALL);*@
+                $('#textTotalManhoursALL').val(totalManhourALL);
+
+                $('#textManhoursValueProc').val(procTotalManhour);
+
+                $('#divManHoursProc').attr('hidden', false);
+            } else {
+                $('#divManHoursProc').attr('hidden', true);
+            }
+            if ($('#procDurasiPengerjaan').val() === '') {
+                $('#divManHoursProc').attr('hidden', true);
+                procTotalManhour = 0;
+            }
+        });
+
+        $('#procJumlahPelaksana').on('input', function (e) {
+            if ($('#procDurasiPengerjaan').val() !== '') {
+                var durasiPengerjaan = parseInt($('#procJumlahPelaksana').val());
+                var jumlahPelaksana = parseInt($('#procDurasiPengerjaan').val());
+                procTotalManhour = durasiPengerjaan * jumlahPelaksana;
+
+                if ($('#procJumlahPelaksana').val() == '' || $('#procDurasiPengerjaan').val() == '') {
+                    procTotalManhour = 0;
+                }
+
+                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
+                @*console.log(totalManhourALL);*@
+                $('#textTotalManhoursALL').val(totalManhourALL);
+
+                $('#textManhoursValueProc').val(procTotalManhour);
+
+                $('#divManHoursProc').attr('hidden', false);
+            } else {
+                $('#divManHoursProc').attr('hidden', true);
+            }
+            if ($('#procJumlahPelaksana').val() === '') {
+                $('#divManHoursProc').attr('hidden', true);
+                procTotalManhour = 0;
+            }
+        });
+
+        $('#procManhoursValue').on('input', function (e) {
+            if ($('#procManhoursValue').val() !== '') {
+
+                var manhoursValue = $('#textManhoursValueProc').val();
+                var manhoursCost = $('#procManhoursValue').val();
+
+                procTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
+                var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost;
+                @*console.log(totalAll)*@
+                $('#textTotalManHoursCostProc').val(currencyDecimal(procTotalCost));
+                $('#divTotalManHoursCostProc').attr('hidden', false);
+                $('#textTotalCostALL').val(currencyDecimal(totalAll));
+            }
+            else {
+                $('#divTotalManHoursCostProc').attr('hidden', true);
+            }
+            if ($('#procManhoursValue').val() === '') {
+                $('#divTotalManHoursCostProc').attr('hidden', true);
+            }
+		});
+
+		//Rejected
+        $('#rejQty').on('input', function (e) {
+            if ($('#rejCostMaterial').val() !== '') {
+                var material = parseInt($('#rejCostMaterial').val());
+                var qty = parseInt($('#rejQty').val());
+                rejTotalCost = material.replace(',', '') * qty.replace(',', '');
+
+                $('#textRejectedTotalCost').val(currencyDecimal(rejTotalCost));
+                $('#valRejectedTotalCost').val(rejTotalCost);
+                
+                $('#divRejectedTotalCost').attr('hidden', false);
+            } else {
+                $('#divRejectedTotalCost').attr('hidden', true);
+            }
+            if ($('#rejQty').val() === '') {
+                $('#divRejectedTotalCost').attr('hidden', true);
+            }
+        });
+
+        $('#rejCostMaterial').on('input', function (e) {
+            if ($('#rejQty').val() !== '') {
+
+                var qty = $('#rejQty').val();
+                var costMaterial = $('#rejCostMaterial').val();
+
+                rejTotalCost = qty.replace(',', '') * costMaterial.replace(',', '');
+                var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost;
+                @*console.log(totalAll);*@
+                $('#textRejectedTotalCost').val(currencyDecimal(rejTotalCost));
+                $('#valRejectedTotalCost').val(rejTotalCost);
+                $('#divRejectedTotalCost').attr('hidden', false);
+                $('#textTotalCostALL').val(currencyDecimal(totalAll));
+            }
+            else {
+                $('#divRejectedTotalCost').attr('hidden', true);
+            }
+            if ($('#rejCostMaterial').val() === '') {
+                $('#divRejectedTotalCost').attr('hidden', true);
+            }
+		});
+
+		//Machine Cost
+        $('#mcDurasiPengerjaan').on('input', function (e) {
+            if ($('#mcJumlahTeknisi').val() !== '' || $('#mcManhoursValue').val() !== '') {
+
+                var durasiPengerjaan = $('#mcJumlahTeknisi').val();
+                var jumlahPelaksana = $('#mcDurasiPengerjaan').val();
+                mcTotalManhour = durasiPengerjaan.replace(',', '') * jumlahPelaksana.replace(',', '');
+                //console.log(durasiPengerjaan * jumlahPelaksana);
+
+                if ($('#mcJumlahTeknisi').val() == '' || $('#mcDurasiPengerjaan').val() == '') {
+                    mcTotalManhour = 0;
+                }
+
+                $('#textMCTotalManhours').val(mcTotalManhour);
+
+                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
+                @*console.log(totalManhourALL);*@
+                $('#textTotalManhoursALL').val(totalManhourALL);
+
+                // console.log(material * qty);
+
+                $('#divRejectedTotalCost').val(mcTotalManhour);
+
+                var manhoursValue2 = $('#textMCTotalManhours').val();
+                var manhoursCost = $('#mcManhoursValue').val();
+
+                var totalManHoursCost = manhoursValue2.replace(',', '') * manhoursCost.replace(',', '');
+                @*console.log(totalManhourALL);*@
+
+                $('#mcTotalMachineHours').val(totalManHoursCost);
+
+                $('#divMCTotalManhours').attr('hidden', false);
+            } else {
+                $('#divMCTotalManhours').attr('hidden', true);
+            }
+            if ($('#mcDurasiPengerjaan').val() === '') {
+                $('#divMCTotalManhours').attr('hidden', true);
+                mcTotalManhour = 0;
+            }
+        });
+
+        $('#mcJumlahTeknisi').on('input', function (e) {
+            if ($('#mcDurasiPengerjaan').val() !== '' || $('#mcManhoursValue').val() !== '') {
+                var durasiPengerjaan = $('#mcJumlahTeknisi').val();
+                var jumlahPelaksana = $('#mcDurasiPengerjaan').val();
+                mcTotalManhour = durasiPengerjaan.replace(',', '') * jumlahPelaksana.replace(',', '');
+                //console.log(durasiPengerjaan * jumlahPelaksana);
+
+                if ($('#mcJumlahTeknisi').val() == '' || $('#mcDurasiPengerjaan').val() == '') {
+                    mcTotalManhour = 0;
+                }
+
+                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
+                @*console.log(totalManhourALL);*@
+                $('#textTotalManhoursALL').val(totalManhourALL);
+
+                $('#textMCTotalManhours').val(mcTotalManhour);
+
+                var manhoursValue2 = $('#textMCTotalManhours').val();
+                var manhoursCost = $('#mcManhoursValue').val();
+
+                var totalManHoursCost = manhoursValue2.replace(',', '') * manhoursCost.replace(',', '');
+
+                $('#mcTotalMachineHours').val(totalManHoursCost);
+
+                $('#divMCTotalManhours').attr('hidden', false);
+            } else {
+                $('#divMCTotalManhours').attr('hidden', true);
+            }
+            if ($('#mcJumlahTeknisi').val() === '') {
+                $('#divMCTotalManhours').attr('hidden', true);
+                mcTotalManhour = 0;
+            }
+        });
+
+        $('#mcManhoursValue').on('input', function (e) {
+            if ($('#textMCTotalManhours').val() !== '') {
+
+                var manhoursValue = $('#textMCTotalManhours').val();
+                var manhoursCost = $('#mcManhoursValue').val();
+
+                mcTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
+                var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost;
+                @*console.log(totalAll)*@
+                $('#mcTotalMachineHours').val(currencyDecimal(mcTotalCost));
+                $('#divMCTotalManhoursCost').attr('hidden', false);
+                $('#textTotalCostALL').val(currencyDecimal(totalAll));
+            }
+            else {
+                $('#divMCTotalManhoursCost').attr('hidden', true);
+            }
+            if ($('#mcManhoursValue').val() === '') {
+                $('#divMCTotalManhoursCost').attr('hidden', true);
+            }
+        });
+
+       
+    }
+
+	function currencyDecimal(input) {
+        return "Rp. " + input.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    }
+>>>>>>> master
 
 	function CheckHiddenCostType() {
         var x = $('input[name="checkhiddencost"]:checked').val();
@@ -714,7 +1184,8 @@
 		// Rejection Section
 		var rejM = $("#rejMaterial").val();
         var rejQ = $("#rejQty").val().replaceAll(',', '');
-        var rejCM = $("#rejCostMaterial").val().replaceAll(',', '');
+        //code here
+        var rejCM = $("#valRejectedTotalCost").val().replaceAll(',', '');
 
 		// Machine Cost
         var mcDP = $("#mcDurasiPengerjaan").val().replaceAll(',', '');
