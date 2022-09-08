@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using B7_Deviation.Models;
 
 namespace B7_Deviation.Controllers
@@ -14,6 +17,8 @@ namespace B7_Deviation.Controllers
     public class LoginController : Controller
     {
         private readonly string constr = ConfigurationManager.ConnectionStrings["DB_DEVIATION"].ConnectionString;
+        //Teddy:30-08-2022 tambahan connection string untuk SSO
+        public static ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["B7PortalDB"];
 
         [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = false)]
         public static extern bool LogonUser(string lpszUsername, string lpszDomain, string lpszPassword, int dwLogonType, int dwLogonProvider, ref IntPtr phToken);
@@ -25,12 +30,120 @@ namespace B7_Deviation.Controllers
         readonly private DataTable DT = new DataTable();
         readonly private DataTable DT2 = new DataTable();
 
+        public string identifers;
+
         public ActionResult Index()
         {
+            //Teddy: 30-08-2022 untuk membaca identifier (SSO)
+            string autologin_token = Request.QueryString["autologinToken"];
+            identifers = Request.QueryString["identifier"];
+            TempData["identifier"] = identifers;
+            string conString = mySetting.ConnectionString;
+            DataTable dt = new DataTable();
+
+            if (autologin_token != null)
+            {
+                string query = "SELECT username_apps FROM [dbo].[application_user_token] where token='" + autologin_token + "'";
+                bool setAutologin = this.AutomaticToken(autologin_token);
+                if (setAutologin)
+                {
+                    SqlConnection conn = new SqlConnection(conString);
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    conn.Open();
+
+                    // create data adapter
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                    // this will query your database and return the result to your datatable
+                    da.Fill(dt);
+                    conn.Close();
+                    da.Dispose();
+                    string username;
+                    if (dt.Rows[0]["username_apps"] != null)
+                    {
+                        username = dt.Rows[0]["username_apps"].ToString();
+                    }
+                    else
+                    {
+                        username = "-";
+                    }
+                    GetParam(username);
+                    //  bool SetParam = SetAuthParameter(username);
+                    return RedirectToAction("../HomePage/Index");
+                }
+            }
+
             Session.Clear();
             return View();
         }
 
+        //Teddy:30-08-2022 Automatic Token untuk SSO
+        public bool AutomaticToken(string autologin_token)
+        {
+            string postString = string.Format("token={0}", autologin_token);
+            WebRequest request = WebRequest.Create("http://intranetportal.bintang7.com/B7-Portal/api/v1/applicationUser/validateToken");
+            request.Method = "POST";
+            request.ContentLength = postString.Length;
+            request.ContentType = "application/x-www-form-urlencoded";
+
+            StreamWriter requestWriter = new StreamWriter(request.GetRequestStream());
+            requestWriter.Write(postString);
+            requestWriter.Close();
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Console.WriteLine(response.StatusDescription);
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string responseFromServer = reader.ReadToEnd();
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            dynamic responseJson = js.Deserialize<dynamic>(responseFromServer);
+
+            var responseData = responseJson["data"];
+
+            reader.Close();
+            dataStream.Close();
+            response.Close();
+
+            return true;
+        }
+
+        //Teddy:30-08-2022 RevalidateUsername unntuk SSO
+        private void revalidateUsername(string identifier, string usernameApps)
+        {
+            string postString = string.Format("identifier={0}&username_application={1}", identifier, usernameApps);
+            // Create a request for the URL. 		
+            WebRequest request = WebRequest.Create("http://intranetportal.bintang7.com/B7-Portal/api/v1/applicationUser/revalidateUsername");
+            request.Method = "POST";
+            request.ContentLength = postString.Length;
+            request.ContentType = "application/x-www-form-urlencoded";
+
+            StreamWriter requestWriter = new StreamWriter(request.GetRequestStream());
+            requestWriter.Write(postString);
+            requestWriter.Close();
+
+            // Get the response.
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            // Display the status.
+            Console.WriteLine(response.StatusDescription);
+            // Get the stream containing content returned by the server.
+            Stream dataStream = response.GetResponseStream();
+            // Open the stream using a StreamReader for easy access.
+            StreamReader reader = new StreamReader(dataStream);
+            // Read the content.
+            string responseFromServer = reader.ReadToEnd();
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            dynamic responseJson = js.Deserialize<dynamic>(responseFromServer);
+
+            var responseData = responseJson["data"];
+
+            // Cleanup the streams and the response.
+            reader.Close();
+            dataStream.Close();
+            response.Close();
+        }
         public ActionResult LoginProcess(LoginModel Model)
         {
             List<string> List = new List<string>();
@@ -253,6 +366,8 @@ namespace B7_Deviation.Controllers
                                     dataAdapt.SelectCommand = cmd;
                                     dataAdapt.Fill(DT);
 
+
+
                                     result = DT.Rows[0]["EMPID"].ToString();
                                     t_LVL = DT.Rows[0]["LVL"].ToString();
                                 }
@@ -313,7 +428,7 @@ namespace B7_Deviation.Controllers
                                         dataAdapt.SelectCommand = cmd;
                                         dataAdapt.Fill(DT);
 
-                                        result = DT.Rows[0]["EMPID"].ToString();
+                                    result = DT.Rows[0]["EMPID"].ToString();
                                         t_LVL = DT.Rows[0]["LVL"].ToString();
                                     }
                                     conn.Close();
@@ -349,41 +464,51 @@ namespace B7_Deviation.Controllers
                 }
                 else
                 {
-                    // Get Role Login
-                    SqlConnection conn2 = new SqlConnection(constr);
-                    try
-                    {
-                        conn2.Open();
-                        using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn2))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                            cmd.Parameters["@pilih"].Value = 2;
+                    //Teddy:30-08-2022 untuk fungsi yang dibawah dipindahin ke method GetParam
+                    /*   // Get Role Login
+                       SqlConnection conn2 = new SqlConnection(constr);
+                       try
+                       {
+                           conn2.Open();
+                           using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn2))
+                           {
+                               cmd.CommandType = CommandType.StoredProcedure;
+                               cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+                               cmd.Parameters["@pilih"].Value = 2;
 
-                            cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                            cmd.Parameters["@Username"].Value = Model.Username;
+                               cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+                               cmd.Parameters["@Username"].Value = Model.Username;
 
-                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                            //result = (string)cmd.ExecuteScalar();
-                            dataAdapt.SelectCommand = cmd;
+                               SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                               //result = (string)cmd.ExecuteScalar();
+                               dataAdapt.SelectCommand = cmd;
 
-                            dataAdapt.Fill(DT2);
-                        }
-                        conn2.Close();
-                        Session["role"] = DT2.Rows[0]["role_deviation"].ToString();
-                        Session["fullname"] = DT2.Rows[0]["empname"].ToString();
-                        Session["jobttlname"] = DT2.Rows[0]["jobttlname"].ToString();
-                        Session["nik"] = DT2.Rows[0]["empid"].ToString();
-                        Session["usergroup"] = DT2.Rows[0]["dept"].ToString();
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                    finally
-                    {
+                               dataAdapt.Fill(DT2);
+                           }
+                           conn2.Close();
+                           string identifier;
 
-                    }
+                           if (TempData["identifier"] != null)
+                           {
+                               identifier = TempData["identifier"].ToString();
+                               this.revalidateUsername(identifier, Model.Username);
+                           }
+
+                           Session["role"] = DT2.Rows[0]["role_deviation"].ToString();
+                           Session["fullname"] = DT2.Rows[0]["empname"].ToString();
+                           Session["jobttlname"] = DT2.Rows[0]["jobttlname"].ToString();
+                           Session["nik"] = DT2.Rows[0]["empid"].ToString();
+                           Session["usergroup"] = DT2.Rows[0]["dept"].ToString();
+                       }
+                       catch (Exception ex)
+                       {
+                           throw ex;
+                       }
+                       finally
+                       {
+
+                       }*/
+                    GetParam(Model.Username);
                 }
             }
 
@@ -391,5 +516,67 @@ namespace B7_Deviation.Controllers
 
             return Json(List);
         }
+
+        //Teddy:30-08-2022 method GetParam
+        public void GetParam(string userAD)
+        {
+            // Get Role Login
+            SqlConnection conn2 = new SqlConnection(constr);
+
+
+            try
+            {
+                conn2.Open();
+                using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn2))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+                    cmd.Parameters["@pilih"].Value = 2;
+
+                    cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+                    cmd.Parameters["@Username"].Value = userAD;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    //result = (string)cmd.ExecuteScalar();
+                    dataAdapt.SelectCommand = cmd;
+
+                    dataAdapt.Fill(DT2);
+                }
+                conn2.Close();
+
+                //Teddy:30-08-2022 untuk mengecek identifier
+                string identifier;
+
+                if (TempData["identifier"] != null)
+                {
+                    identifier = TempData["identifier"].ToString();
+                    this.revalidateUsername(identifier, userAD);
+                }
+
+                Session["role"] = DT2.Rows[0]["role_deviation"].ToString();
+                Session["fullname"] = DT2.Rows[0]["empname"].ToString();
+                Session["jobttlname"] = DT2.Rows[0]["jobttlname"].ToString();
+                Session["nik"] = DT2.Rows[0]["empid"].ToString();
+                Session["usergroup"] = DT2.Rows[0]["dept"].ToString();
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+
+          
+        }
+
     }
+    
+    
+    
 }
