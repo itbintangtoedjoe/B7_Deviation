@@ -1083,7 +1083,7 @@
             $('#ModalLoading').modal('hide');
         }, 2000);
 
-        var LocationSite = LOCATION_SITE = $("#ddlSite").val();
+        var LocationSite = LOCATION_SITE = $("#ddlSiteLokasi").val();
         var dto = {
             LocationSite: LocationSite
         }
@@ -1450,12 +1450,13 @@
 
                 document.getElementById('txtLokasi').value = data[0].LOCATION;
 
-                text = '<Option class="dropdown-item" value = "' + data[0].SITE_LOKASI_KEJADIAN + '" selected >' + data[0].SITE_LOKASI_KEJADIAN;
+                text = '<Option class="dropdown-item" value = "' + data[0].SITE_LOKASI_KEJADIAN_CODE + '" selected >' + data[0].SITE_LOKASI_KEJADIAN;
 
                 $("#ddlSiteLokasi").empty();
                 $("#ddlSiteLokasi").append(text);
                 $("#ddlSiteLokasi").selectpicker();
 
+                GetNoBatchOracle();
 
                 text = '';
                 text = '<Option class="dropdown-item" value = "' + data[0].DEPT_LOKASI_KEJADIAN + '" selected >' + data[0].DEPT_LOKASI_KEJADIAN;

@@ -40,7 +40,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-validation">
-                        <form class="form-valide" onsubmit="return s();" action="#" method="post">
+                        <form class="form-valide3" onsubmit="return s();" action="#" method="post">
                             <!-- Site -->
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label" for="ddlSite">Site<span class="text-danger">*</span></label>
@@ -113,28 +113,27 @@
                                     <div class="row form-group name1 col-md-3" id="divQCMaterial" style="margin-right:10px">
                                         <input id="TxtQCMaterialNo" name="TxtQCMaterialNo" type="text" class="form-control input-inline">
                                     </div>
-                                    
-                                        <div class="row form-group name2 col-md-3"  style="margin-right:10px">
-                                            <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control input-inline">
-                                        </div>
-                                        <div class="row form-group name1 col-md-3" id="divBatchNo"  style="margin-right:10px">
-                                            <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control input-inline" placeholder="No Batch Oracle">
-                                        </div>
 
-                                        <div class="row form-group name2 col-md-3" id="divWoOracle" style="margin-right:10px">
-                                            <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control input-inline" placeholder="No WO Oracle">
-                                        </div>
-
-                                        <div class="row form-group name2 col-md-3" style="margin-right:10px">
-                                            <button type="button" id="btnTambahProduk" class="col-sm-12 btn mb-1 btn-success form-control">Tambah Produk</button>
-                                        </div>
-                                        @*<br />*@
-
-                                        @*<br />*@
-
-                                        <br />
-
+                                    <div class="row form-group name2 col-md-3" style="margin-right:10px">
+                                        <input id="TxtItemCode" name="TxtItemCode" type="text" class="form-control input-inline">
                                     </div>
+                                    <div class="row form-group name1 col-md-3" id="divBatchNo" style="margin-right:10px">
+                                        <input id="TxtBatchNo" name="TxtBatchNo" type="text" class="form-control input-inline" placeholder="No Batch Oracle">
+                                    </div>
+                                    <div class="row form-group name2 col-md-3" id="divWoOracle" style="margin-right:10px">
+                                        <input id="TxtNoWO" name="TxtNoWO" type="text" class="form-control input-inline" placeholder="No WO Oracle">
+                                    </div>
+
+                                    <div class="row form-group name2 col-md-3" style="margin-right:10px">
+                                        <button type="button" id="btnTambahProduk" class="col-sm-12 btn mb-1 btn-success form-control">Tambah Produk</button>
+                                    </div>
+                                    @*<br />*@
+
+                                    @*<br />*@
+
+                                    <br />
+
+                                </div>
                                 <div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered text-center">
                                         <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
@@ -1773,7 +1772,7 @@
             $('#ModalLoading').modal('hide');
         }, 2000);
 
-        var LocationSite = LOCATION_SITE = $("#ddlSite").val();
+        var LocationSite = LOCATION_SITE = $("#txtSiteLokasi").val();
         var dto = {
             LocationSite: LocationSite
         }
@@ -3215,6 +3214,7 @@
                 $("#txtSiteLokasi").select2();
 
                 GetDepartementLokasiKejadian();
+                GetNoBatchOracle();
             }
             , error: function (ex) {
 

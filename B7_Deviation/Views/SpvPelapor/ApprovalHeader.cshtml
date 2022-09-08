@@ -229,9 +229,11 @@
 	});
 
     $("#btnSubmit").click(function () {
-        if (!$(".form-valide").valid()) {
+        if (!$(".form-valide3").valid()) {
+            @*alert('form invalid')*@
             return;
         }
+        @*alert('form valid bos')*@
         InsertDeviation();
 
     });
