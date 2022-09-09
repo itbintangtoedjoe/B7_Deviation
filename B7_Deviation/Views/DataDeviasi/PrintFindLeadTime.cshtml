@@ -22,6 +22,7 @@
         <input type="text" id="tahun" value="@ViewBag.tahun">
         <input type="text" id="bulan" value="@ViewBag.bulan">
         <input type="text" id="kategori" value="@ViewBag.kategori">
+        <input type="text" id="site" value="@ViewBag.site">
         <input type="text" id="dept" value="@ViewBag.dept">
         <input type="text" id="nama" value="@ViewBag.nama">
     </div>
@@ -42,8 +43,9 @@
         var kategori = $("#kategori").val();
         var dept = $("#dept").val();
         var nama = $("#nama").val();
+        var site = $("#site").val();
 
-        url = "../Report/PrintFindLeadTime.aspx?tahun=" + tahun + "&bulan=" + bulan + "&kategori=" + kategori + "&dept=" + dept + "&nama=" + nama;
+        url = "../Report/PrintFindLeadTime.aspx?tahun=" + tahun + "&bulan=" + bulan + "&kategori=" + kategori + "&site=" + site + "&dept=" + dept + "&nama=" + nama;
 
         var myframe = document.getElementById("ifrmReportViewer");
         if (myframe !== null) {
