@@ -20,6 +20,7 @@ namespace B7_Deviation.Report
                 string Tahun = Request.QueryString["tahun"].ToString();
                 string Bulan = Request.QueryString["bulan"].ToString();
                 string Kategori = Request.QueryString["kategori"].ToString();
+                string Site = Request.QueryString["site"].ToString();
                 string Dept = Request.QueryString["dept"].ToString();
                 string Nama = Request.QueryString["nama"].ToString();
 
@@ -46,6 +47,9 @@ namespace B7_Deviation.Report
 
                     command.Parameters.Add("@Kategori", SqlDbType.VarChar);
                     command.Parameters["@Kategori"].Value = Kategori;
+
+                    command.Parameters.Add("@Site", SqlDbType.VarChar);
+                    command.Parameters["@Site"].Value = Site;
 
                     command.Parameters.Add("@Dept", SqlDbType.VarChar);
                     command.Parameters["@Dept"].Value = Dept;

@@ -287,7 +287,8 @@ namespace B7_Deviation.Controllers
                             }
                             else
                             {
-                                status = "Username atau password yang dimasukkan tidak sesuai!";
+                                //Username atau password yang dimasukkan tidak sesuai
+                                status = "Password yang dimasukkan salah (User sudah terdaftar di sistem DEVOL)";
                             }
                         }
                         //login AD berhasil
@@ -402,7 +403,7 @@ namespace B7_Deviation.Controllers
                                 }
                                 else
                                 {
-                                    status = "Username atau password yang dimasukkan tidak sesuai!";
+                                    status = "Username atau password AD yang dimasukkan tidak sesuai (Belum terdaftar di sistem DEVOL)!";
                                 }
                             }
                             //login AD berhasil
@@ -514,7 +515,7 @@ namespace B7_Deviation.Controllers
 
             List.Add(status);
 
-            return Json(List);
+            return Json(List, JsonRequestBehavior.AllowGet);
         }
 
         //Teddy:30-08-2022 method GetParam

@@ -75,11 +75,12 @@ namespace B7_Deviation.Controllers
             return View();
         }
 
-        public ActionResult PrintFindLeadTime(String tahun, String bulan, String kategori, String dept, String Nama)
+        public ActionResult PrintFindLeadTime(String tahun, String bulan, String kategori, string site, String dept, String Nama)
         {
             ViewBag.tahun = tahun;
             ViewBag.bulan = bulan;
             ViewBag.kategori = kategori;
+            ViewBag.site = site;
             ViewBag.dept = dept;
             ViewBag.nama = Nama;
 
