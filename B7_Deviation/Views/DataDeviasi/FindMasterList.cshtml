@@ -28,7 +28,9 @@
 
                     <div class="form-group">
                         <button class="btn btn-danger" value="Clear" id="ClearFilter">Clear Filter</button>
-                        <button class="btn btn-success" id="PrintFindMasterList">Print</button>
+                        <button class="btn btn-success" id="PrintFindMasterListExcel">Print Excel</button>
+                        <button class="btn btn-success" id="PrintFindMasterListPDF">Print PDF</button>
+                        <button class="btn btn-success" id="PrintFindMasterListWord">Print Word</button>
                     </div>
 
                     <div class="row">
@@ -204,12 +206,20 @@
                 ClearFilter();
             });
 
-            $("#PrintFindMasterList").click(function () {
-                PrintFindMasterList();
+            $("#PrintFindMasterListExcel").click(function () {
+                PrintFindMasterListExcel();
+            });
+
+            $("#PrintFindMasterListPDF").click(function () {
+                PrintFindMasterListPDF();
+            });
+
+            $("#PrintFindMasterListWord").click(function () {
+                PrintFindMasterListWord();
             });
 
             $("#ddlSitePenyimpangan").selectpicker("refresh");
-            $("#ddlBulanPelaporan").selectpicker("refresh"); 
+            $("#ddlBulanPelaporan").selectpicker("refresh");
         });
 
         // CLEAR FILTER
@@ -245,7 +255,7 @@
             LoadData();
         }
 
-        function PrintFindMasterList() {
+        function PrintFindMasterListExcel() {
             var sp;
             var dp;
             var kp;
@@ -285,9 +295,103 @@
 
             var nama = '@Request.RequestContext.HttpContext.Session["xUser"]'
 
-            window.location.href = "../DataDeviasi/PrintFindMasterList?sp=" + sp + "&dp=" + dp + "&kp=" + kp + "&jp=" + jp + "&tp=" + tp + "&nama=" + nama
+        //   window.location.href = "../DataDeviasi/PrintFindMasterList?sp=" + sp + "&dp=" + dp + "&kp=" + kp + "&jp=" + jp + "&tp=" + tp + "&nama=" + nama
+
+            //Edit by Teddy window open for word
+            window.open("../DataDeviasi/PrindReportFindMasterList?Sp=" + sp + "&Dp=" + dp + "&Kp=" + kp + "&Jp=" + jp + "&Tp=" + tp + "&Name="+ nama + "&Tipe=Excel")
         }
 
+         function PrintFindMasterListPDF() {
+            var sp;
+            var dp;
+            var kp;
+            var jp;
+            var tp;
+
+            // DEAL WITH NULL VALUE
+            if (!$("#statuspenyimpangan").val()) {
+                sp === null;
+            } else {
+                sp = $("#statuspenyimpangan").val();
+            }
+
+            if (!$("#departemenpelapor").val()) {
+                dp === null;
+            } else {
+                dp = $("#departemenpelapor").val();
+            }
+
+            if (!$("#kategoripenyimpangan").val()) {
+                kp === null;
+            } else {
+                kp = $("#kategoripenyimpangan").val();
+            }
+
+            if (!$("#jenispenyimpangan").val()) {
+                jp === null;
+            } else {
+                jp = $("#jenispenyimpangan").val();
+            }
+
+            if (!$("#tahunpelaporan").val()) {
+                tp === null;
+            } else {
+                tp = $("#tahunpelaporan").val();
+            }
+
+            var nama = '@Request.RequestContext.HttpContext.Session["xUser"]'
+
+        //   window.location.href = "../DataDeviasi/PrintFindMasterList?sp=" + sp + "&dp=" + dp + "&kp=" + kp + "&jp=" + jp + "&tp=" + tp + "&nama=" + nama
+
+            //Edit by Teddy window open for word
+            window.open("../DataDeviasi/PrindReportFindMasterList?Sp=" + sp + "&Dp=" + dp + "&Kp=" + kp + "&Jp=" + jp + "&Tp=" + tp + "&Name="+ nama + "&Tipe=PDF")
+        }
+
+         function PrintFindMasterListWord() {
+            var sp;
+            var dp;
+            var kp;
+            var jp;
+            var tp;
+
+            // DEAL WITH NULL VALUE
+            if (!$("#statuspenyimpangan").val()) {
+                sp === null;
+            } else {
+                sp = $("#statuspenyimpangan").val();
+            }
+
+            if (!$("#departemenpelapor").val()) {
+                dp === null;
+            } else {
+                dp = $("#departemenpelapor").val();
+            }
+
+            if (!$("#kategoripenyimpangan").val()) {
+                kp === null;
+            } else {
+                kp = $("#kategoripenyimpangan").val();
+            }
+
+            if (!$("#jenispenyimpangan").val()) {
+                jp === null;
+            } else {
+                jp = $("#jenispenyimpangan").val();
+            }
+
+            if (!$("#tahunpelaporan").val()) {
+                tp === null;
+            } else {
+                tp = $("#tahunpelaporan").val();
+            }
+
+            var nama = '@Request.RequestContext.HttpContext.Session["xUser"]'
+
+        //   window.location.href = "../DataDeviasi/PrintFindMasterList?sp=" + sp + "&dp=" + dp + "&kp=" + kp + "&jp=" + jp + "&tp=" + tp + "&nama=" + nama
+
+            //Edit by Teddy window open for word
+            window.open("../DataDeviasi/PrindReportFindMasterList?Sp=" + sp + "&Dp=" + dp + "&Kp=" + kp + "&Jp=" + jp + "&Tp=" + tp + "&Name="+ nama + "&Tipe=Word")
+        }
         //AUTO SEND PARAMETER
 
         function CheckFilter() {
@@ -307,7 +411,7 @@
 
                         FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
                     }
-                    
+
                 }
             });
 
@@ -326,7 +430,7 @@
 
                         FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
                     }
-                    
+
 
                 }
             });
@@ -346,7 +450,7 @@
 
                         FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
                     }
-                   
+
 
                 }
             });
@@ -367,7 +471,7 @@
                         FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
 
                     }
-                    
+
                 }
             });
 
@@ -386,7 +490,7 @@
 
                         FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
                     }
-                    
+
 
                 }
             });
@@ -406,7 +510,7 @@
 
                         FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
                     }
-                    
+
                 }
             });
 
@@ -426,7 +530,7 @@
 
                         FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
                     }
-                    
+
                 }
             });
         }
@@ -496,7 +600,7 @@
                         }
                     }
 
-                    
+
 
                     $('#deviationdatatable').DataTable().clear().destroy();
                     $('#deviationtable').empty();
