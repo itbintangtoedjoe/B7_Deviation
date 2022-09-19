@@ -75,6 +75,9 @@ namespace B7_Deviation.Models
         public string NamaSite { get; set; }
 
         public string EmpID { get; set; }
+
+        //Edit by Teddy, untuk report hiddencost
+        public string Period { get; set; }
     }
 
     public class LoginModel

@@ -799,6 +799,54 @@ namespace B7_Deviation.Controllers
             return Json(rows);
         }
 
+       
+
+        // Edit by Teddy, HiddenCost Load Filter Data 
+        public ActionResult HiddenCostFilteredTable(DeviationModel model)
+        {
+            string ConString = mySetting.ConnectionString;
+            SqlConnection Conn = new SqlConnection(ConString);
+            try
+            {
+                Conn.Open();
+                using (SqlCommand command = new SqlCommand("SP_ReportHiddenCost", Conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = 1;
+
+                    command.Parameters.Add("@Period", SqlDbType.VarChar);
+                    command.Parameters["@Period"].Value = model.Period;
+
+                    command.Parameters.Add("@Site", SqlDbType.VarChar);
+                    command.Parameters["@Site"].Value = model.LocationSite;
+
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+                }
+                Conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in DT.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in DT.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return Json(rows);
+        }
+
+      
+
         public ActionResult SemiMasterView(ApprovalModel Model)
         {
             string conString = mySetting.ConnectionString;
@@ -1358,18 +1406,19 @@ namespace B7_Deviation.Controllers
 
         }
 
-        public void PrindReportFindMasterList(string Tipe,string Name,string Sp,string Dp,string Kp,string Jp,string Tp )
+        public void PrintReportFindMasterList(string Tipe,string Name,string Sp,string Dp,string Kp,string Jp,string Tp,string Bp,string Sitep )
         {
 
             ReportViewer PrintFindMasterListViewer1 = new ReportViewer();
 
             string StatusPenyimpangan = Sp;
-                string DepartemenPelapor = Dp;
-                string KategoriPenyimpangan = Kp;
+            string DepartemenPelapor = Dp;
+            string KategoriPenyimpangan = Kp;
             string JenisPenyimpangan = Jp;
-                string TahunPelaporan = Tp;
-                string Nama = Name;
-
+            string TahunPelaporan = Tp;
+            string Nama = Name;
+            string BulanPelaporan = Bp;
+            string SitePenyimpangan=Sitep;
 
                 PrintFindMasterListViewer1.Reset();
                 PrintFindMasterListViewer1.LocalReport.EnableExternalImages = true;
@@ -1404,7 +1453,17 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@Nama", SqlDbType.VarChar);
                     command.Parameters["@Nama"].Value = Nama;
 
-                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    command.Parameters.Add("@BulanPelaporan", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@BulanPelaporan"].Value = BulanPelaporan;
+                    
+                    command.Parameters.Add("@SitePenyimpangan", System.Data.SqlDbType.VarChar);
+                    command.Parameters["@SitePenyimpangan"].Value = SitePenyimpangan;
+
+
+
+
+
+                SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
                     dataAdapt.Fill(dt);
                 }
@@ -1425,7 +1484,7 @@ namespace B7_Deviation.Controllers
                 Response.Buffer = true;
                 Response.Clear();
                 Response.ContentType = mimeType;
-                Response.AddHeader("content-disposition", "attachment; filename=  Deviation_ " + Name+ "." + extension);
+                Response.AddHeader("content-disposition", "attachment; filename=  Deviation_ReportMasterList" + "." + extension);
                 Response.OutputStream.Write(Bytes, 0, Bytes.Length); // create the file  
                 Response.Flush(); // send it to the client to download  
                 Response.End();
@@ -1433,5 +1492,141 @@ namespace B7_Deviation.Controllers
 
         }
 
+        public void PrintReportFindLeadTime(string Tipe,string Year,string Month,string Category,string Sites,string Department,string Name)
+        {
+            ReportViewer PrintFindLeadTimeViewer1 = new ReportViewer();
+
+                string Tahun = Year;
+                string Bulan = Month;
+                string Kategori = Category;
+                string Site = Sites;
+                string Dept = Department;
+                string Nama = Name;
+
+                PrintFindLeadTimeViewer1.Reset();
+                PrintFindLeadTimeViewer1.LocalReport.EnableExternalImages = true;
+
+                PrintFindLeadTimeViewer1.LocalReport.ReportPath = Server.MapPath("~/Report/PrintFindLeadTime.rdlc");
+                ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["DB_DEVIATION"];
+                string conString = mySetting.ConnectionString;
+                SqlConnection conn = new SqlConnection(conString);
+                DataTable dt = new DataTable();
+
+                conn.Open();
+
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_PrintFindLeadTime]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Tahun", SqlDbType.VarChar);
+                    command.Parameters["@Tahun"].Value = Tahun;
+
+                    command.Parameters.Add("@Bulan", SqlDbType.VarChar);
+                    command.Parameters["@Bulan"].Value = Bulan;
+
+                    command.Parameters.Add("@Kategori", SqlDbType.VarChar);
+                    command.Parameters["@Kategori"].Value = Kategori;
+
+                    command.Parameters.Add("@Site", SqlDbType.VarChar);
+                    command.Parameters["@Site"].Value = Site;
+
+                    command.Parameters.Add("@Dept", SqlDbType.VarChar);
+                    command.Parameters["@Dept"].Value = Dept;
+
+                    command.Parameters.Add("@Nama", SqlDbType.VarChar);
+                    command.Parameters["@Nama"].Value = Nama;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+                    dataAdapt.Fill(dt);
+                }
+
+                conn.Close();
+
+                ReportDataSource DataSource = new ReportDataSource("PrintFindLeadTimeDataSource", dt);
+                PrintFindLeadTimeViewer1.LocalReport.DataSources.Clear();
+                PrintFindLeadTimeViewer1.LocalReport.DataSources.Add(DataSource);
+                PrintFindLeadTimeViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("PrintFindLeadTimeDataSet", dt));
+
+                Warning[] warnings;
+                string[] streamIds;
+                string mimeType = string.Empty;
+                string encoding = string.Empty;
+                string extension = string.Empty;
+                byte[] Bytes = PrintFindLeadTimeViewer1.LocalReport.Render(format: Tipe, null, out mimeType, out encoding, out extension, out streamIds, out warnings);
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = mimeType;
+                Response.AddHeader("content-disposition", "attachment; filename=  Deviation_ReportLeadTime "  + "." + extension);
+                Response.OutputStream.Write(Bytes, 0, Bytes.Length); // create the file  
+                Response.Flush(); // send it to the client to download  
+                Response.End();
+
         }
+
+        public void PrintReportHiddenCost(string Tipe,string Periode,string Sites)
+        {
+            ReportViewer RVHiddenCost = new ReportViewer();
+
+            string Period = Periode;
+            string Site = Sites;
+
+                RVHiddenCost.Reset();
+                RVHiddenCost.LocalReport.EnableExternalImages = true;
+
+                RVHiddenCost.LocalReport.ReportPath = Server.MapPath("~/Report/ReportHiddenCost.rdlc");
+                ConnectionStringSettings mySetting = ConfigurationManager.ConnectionStrings["DB_DEVIATION"];
+                string conString = mySetting.ConnectionString;
+                SqlConnection conn = new SqlConnection(conString);
+                DataTable dt = new DataTable();
+
+
+                conn.Open();
+
+                using (SqlCommand command = new SqlCommand("SP_ReportHiddenCost", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Option", SqlDbType.VarChar);
+                    command.Parameters["@Option"].Value = 1;
+
+                    command.Parameters.Add("@Period", SqlDbType.VarChar);
+                    command.Parameters["@Period"].Value = Period;
+
+                    command.Parameters.Add("@Site", SqlDbType.VarChar);
+                    command.Parameters["@Site"].Value = Site;
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+                    dataAdapt.Fill(dt);
+                }
+
+
+
+                conn.Close();
+
+                ReportDataSource DataSource = new ReportDataSource("ReportHiddenCostDataSource", dt);
+                RVHiddenCost.LocalReport.DataSources.Clear();
+                RVHiddenCost.LocalReport.DataSources.Add(DataSource);
+                RVHiddenCost.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("ReportHiddenCostDataSet", dt));
+
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType = string.Empty;
+            string encoding = string.Empty;
+            string extension = string.Empty;
+            byte[] Bytes = RVHiddenCost.LocalReport.Render(format: Tipe, null, out mimeType, out encoding, out extension, out streamIds, out warnings);
+            Response.Buffer = true;
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("content-disposition", "attachment; filename=  Deviation_ReportHiddenCost " + "." + extension);
+            Response.OutputStream.Write(Bytes, 0, Bytes.Length); // create the file  
+            Response.Flush(); // send it to the client to download  
+            Response.End();
+
+
+        }
+
+    
+    }
 }

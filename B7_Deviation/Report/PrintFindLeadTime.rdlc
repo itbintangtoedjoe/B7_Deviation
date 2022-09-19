@@ -6,39 +6,39 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>1.11782cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.32432cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.61667cm</Width>
+              <Width>3.23449cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.04517cm</Width>
+              <Width>2.66299cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.405cm</Width>
+              <Width>3.02282cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.4685cm</Width>
+              <Width>3.08632cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.42617cm</Width>
+              <Width>3.04399cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.3415cm</Width>
+              <Width>1.73165cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.135cm</Width>
+              <Width>1.75282cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.30434cm</Width>
+              <Width>1.92216cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.6cm</Height>
+              <Height>0.55767cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -51,6 +51,7 @@
                             <TextRun>
                               <Value>Bulan</Value>
                               <Style>
+                                <FontSize>6pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -85,6 +86,7 @@
                             <TextRun>
                               <Value>Nomor Penyimpangan</Value>
                               <Style>
+                                <FontSize>6pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -119,6 +121,7 @@
                             <TextRun>
                               <Value>Kategori Penyimpangan</Value>
                               <Style>
+                                <FontSize>6pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -153,6 +156,7 @@
                             <TextRun>
                               <Value>Departement</Value>
                               <Style>
+                                <FontSize>6pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -187,6 +191,7 @@
                             <TextRun>
                               <Value>Nama Pelapor</Value>
                               <Style>
+                                <FontSize>6pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -221,6 +226,7 @@
                             <TextRun>
                               <Value>Tanggal Approval Koordinator</Value>
                               <Style>
+                                <FontSize>6pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -255,6 +261,7 @@
                             <TextRun>
                               <Value>Tanggal Disposisi Tindakan Remedial</Value>
                               <Style>
+                                <FontSize>6pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -289,6 +296,7 @@
                             <TextRun>
                               <Value>Leadtime Disposisi Tindakan Remedial (Hari)</Value>
                               <Style>
+                                <FontSize>6pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -323,6 +331,7 @@
                             <TextRun>
                               <Value>Tanggal Closed Penyimpangan</Value>
                               <Style>
+                                <FontSize>6pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -357,6 +366,7 @@
                             <TextRun>
                               <Value>Leadtime Closed Penyimpangan (Hari)</Value>
                               <Style>
+                                <FontSize>6pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -383,7 +393,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.6cm</Height>
+              <Height>0.55767cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -395,7 +405,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!BULAN.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>6pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -427,7 +439,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!DEVIATION_NO.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>6pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -459,7 +473,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!DEVIATION_CATEGORY.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>6pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -491,7 +507,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!DEPARTEMENT.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>6pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -523,7 +541,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!EmpName.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>6pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -555,7 +575,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!CREATION_DATE.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>6pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -587,7 +609,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!DISPOSISI_DATE.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>6pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -619,7 +643,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!LEADTIME_DISPOSISI.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>6pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -651,7 +677,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!TANGGAL_CLOSE.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>6pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -683,7 +711,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!LEADTIME_CLOSE.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>6pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -734,10 +764,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>PrintFindLeadTimeDataSet</DataSetName>
-        <Top>3.27237cm</Top>
+        <Top>3.61104cm</Top>
         <Left>0.2667cm</Left>
-        <Height>1.2cm</Height>
-        <Width>37.74235cm</Width>
+        <Height>1.11533cm</Height>
+        <Width>23.89935cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -752,7 +782,9 @@
             <TextRuns>
               <TextRun>
                 <Value>=First(Fields!NAMA.Value, "PrintFindLeadTimeDataSet")</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -760,9 +792,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox21</rd:DefaultName>
         <Top>2.19287cm</Top>
-        <Left>34.7047cm</Left>
+        <Left>11.82035cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.30434cm</Width>
+        <Width>7.27666cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -782,9 +814,7 @@
             <TextRuns>
               <TextRun>
                 <Value>Report Lead Time Deviation Online</Value>
-                <Style>
-                  <FontSize>12pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style>
@@ -793,8 +823,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>0.33868cm</Top>
-        <Left>11.3062cm</Left>
+        <Top>0.59268cm</Top>
+        <Left>7.60118cm</Left>
         <Height>1.27cm</Height>
         <Width>11.49583cm</Width>
         <ZIndex>2</ZIndex>
@@ -813,7 +843,7 @@
         <Value>logotext</Value>
         <Sizing>FitProportional</Sizing>
         <Top>0.13333in</Top>
-        <Left>2.93833in</Left>
+        <Left>2.17966in</Left>
         <Height>0.5in</Height>
         <Width>1.27735in</Width>
         <ZIndex>3</ZIndex>
@@ -831,7 +861,9 @@
             <TextRuns>
               <TextRun>
                 <Value>Nama:</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -839,7 +871,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
         <Top>2.19287cm</Top>
-        <Left>31.5697cm</Left>
+        <Left>10.69618cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
         <ZIndex>4</ZIndex>
@@ -854,13 +886,13 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>3.25in</Height>
+    <Height>2.16667in</Height>
     <Style />
   </Body>
-  <Width>15.33919in</Width>
+  <Width>9.68086in</Width>
   <Page>
-    <PageHeight>29.7cm</PageHeight>
-    <PageWidth>21cm</PageWidth>
+    <PageHeight>21cm</PageHeight>
+    <PageWidth>29.7cm</PageWidth>
     <LeftMargin>2cm</LeftMargin>
     <RightMargin>2cm</RightMargin>
     <TopMargin>2cm</TopMargin>

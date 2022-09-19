@@ -186,8 +186,33 @@
         </div>
     </div>
 
+    @*Edit by Teddy , Modal for Print*@
+    <div class="modal fade" id="Modal_Print" tabindex="-1" role="dialog" aria-labelledby="PrintModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="PrintModalLabel">Download File</h5>
+                </div>
+                <div class="modal-body justify-content-center">
+                    <p>Silahkan pilih tipe file yang diperlukan</p>
+
+                    <div class="row form-group justify-content-center">
+                        <button class="btn btn-success" id="PrintFindDeviationExcel" style="margin-right:4px;">Print Excel</button>
+                        <button class="btn btn-danger" id="PrintFindDeviationPDF" style="margin-right:4px;">Print PDF</button>
+                        <button class="btn btn-primary" id="PrintFindDeviationWord" style="margin-right:4px;" hidden>Print Word</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <script nonce="i9AecplAtcnLMLksdM4qAg==">
         let checkLoading = 0;
+
+        //Variable global edit by teddy , untuk menampun Nomor.
+        var nomor;
+
         $(document).ready(function () {
             // Load User once the page is loaded
             //LoadData();
@@ -204,35 +229,29 @@
                     window.location.href = "../DataDeviasi/Deviasi?Nomor=" + Nomor;
                 });
 
-            //Edit by Teddy: 08-09-2022 Print on click word,excel,pdf
-            //On click function button Print
-            $('#deviationdatatable tbody').on('click', 'input[id="PrintExcel"]', function () {
+
+            //Edit by teddy, on click print get the data of Nomor
+            $('#deviationdatatable tbody').on('click', 'input[id="Print"]', function () {
                 var row = $(this).closest("TR");
                 //var Nomor = $("TD", row).eq(0).html();
                 var Nomor = $("TD", row).eq(1).html() + $("TD", row).eq(2).html();
 
-                //Change to window open to download excel (Teddy)
-                window.open( "../DataDeviasi/PrintReportFindDeviation?Number=" + Nomor +"&Tipe=Excel")
+                nomor = Nomor;
+
             })
 
-            $('#deviationdatatable tbody').on('click', 'input[id="PrintWord"]', function () {
-                var row = $(this).closest("TR");
-                //var Nomor = $("TD", row).eq(0).html();
-                var Nomor = $("TD", row).eq(1).html() + $("TD", row).eq(2).html();
+            //Edit by teddy, download function for excel,pdf,and word
+            $("#PrintFindDeviationExcel").click(function () {
+                window.open("../DataDeviasi/PrintReportFindDeviation?Number=" + nomor + "&Tipe=Excel")
+            });
 
-                    //Change to window open to download word (Teddy)
-                window.open("../DataDeviasi/PrintReportFindDeviation?Number=" + Nomor + "&Tipe=Word")
-            })
+            $("#PrintFindDeviationPDF").click(function () {
+                window.open("../DataDeviasi/PrintReportFindDeviation?Number=" + nomor + "&Tipe=PDF")
+            });
 
-            $('#deviationdatatable tbody').on('click', 'input[id="PrintPDF"]', function () {
-                var row = $(this).closest("TR");
-                //var Nomor = $("TD", row).eq(0).html();
-                var Nomor = $("TD", row).eq(1).html() + $("TD", row).eq(2).html();
-
-
-                   //Change to window open to download pdf (Teddy)
-                window.open("../DataDeviasi/PrintReportFindDeviation?Number=" + Nomor + "&Tipe=PDF")
-            })
+            $("#PrintFindDeviationWord").click(function () {
+                window.open("../DataDeviasi/PrintReportFindDeviation?Number=" + nomor + "&Tipe=Word")
+            });
 
             $.when.apply($, ajaxCalls()).then($.ajax(LoadData()));
 
@@ -247,10 +266,10 @@
             if (checkLoading == 0) {
                 $('#divLoading').prop('hidden', false);
                 $('#cardTable').prop('hidden', true);
-                
+
             }
             $("#ddlSitePenyimpangan").selectpicker("refresh");
-            $("#ddlBulanPelaporan").selectpicker("refresh"); 
+            $("#ddlBulanPelaporan").selectpicker("refresh");
         });
 
         function ajaxCalls() {
@@ -260,8 +279,8 @@
             ];
         }
 
-       
-       
+
+
         function ClearFilter() {
             if (checkLoading == 0) {
                 $('#divLoading').prop('hidden', false);
@@ -291,7 +310,7 @@
                 $('#deviationdatatable').DataTable().clear().destroy();
                 LoadData();
             }
-            
+
         }
 
         //AUTO SEND PARAMETER
@@ -476,7 +495,7 @@
                     var Count = data.length;
                     checkLoading = 1;
                     if (Count == '0') {
-                      
+
                     } else {
                         for (trav = 0; trav < Count; trav++) {
 
@@ -484,7 +503,7 @@
                             {
                                 // BISA DONLOT
                                 trHTML +=
-                                    '<tr><td> <input type="button" id="PrintExcel" value="Print Excel" class="btn btn-success Print" style="width:auto;margin-right:4px;"/><input type="button" id="PrintPDF" value="Print PDF" class="btn btn-success Print" style="width:auto;margin-right:4px;"/><input type="button" id="PrintWord" value="Print Word" class="btn btn-success Print" style="width:auto;"/> <input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
+                                    '<tr><td> <input type="button" class="btn btn-success" style="margin-right:4px;width:auto" id="Print" data-toggle="modal" data-target="#Modal_Print" value="Print" /><input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
                                     '<td>' + data[trav].REQ_ID + '</td>' +
                                     '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                     '<td>' + data[trav].EMPNAME + '</td>' +
@@ -496,7 +515,7 @@
                                     '<td>' + data[trav].NO_CARPAR + '</td>' +
                                     '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
                                     '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
-                                    '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +                                    
+                                    '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
                                     '<td hidden>' + data[trav].REQ_ID + '</td></tr>';
 
                                 // WHEN GOT REJECTED WHATSOEVER
@@ -515,7 +534,7 @@
                                     '<td>' + data[trav].NO_CARPAR + '</td>' +
                                     '<td>' + data[trav].TANGGAL_CLOSE + '</td>' +
                                     '<td>' + data[trav].KETERANGAN_CANCEL + '</td>' +
-                                    '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +                                    
+                                    '<td>' + data[trav].TANGGAL_CANCEL + '</td>' +
                                 '<td hidden>' + data[trav].REQ_ID + '</td></tr>';
                             }
                         }
@@ -682,11 +701,11 @@
         }
 
         function LoadFilter() {
-            
+
             StatusPenyimpangan();
-            
+
             DepartementPelapor();
-            
+
             KategoriPenyimpangan();
 
             JenisPenyimpangan();
@@ -711,7 +730,7 @@
                         {
                             // BISA DONLOT
                             trHTML +=
-                                '<tr><td> <input type="button" id="PrintExcel" value="Print Excel" class="btn btn-success Print" style="width:auto;margin-right:4px;"/><input type="button" id="PrintPDF" value="Print PDF" class="btn btn-success Print" style="width:auto;margin-right:4px;"/><input type="button" id="PrintWord" value="Print Word" class="btn btn-success Print" style="width:auto;"/> <input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
+                                '<tr><td> <input type="button" class="btn btn-success" style="margin-right:4px;width:auto;" id="Print" data-toggle="modal" data-target="#Modal_Print" value="Print" /><input type="button" id="View" value="View" class="btn btn-info View" style="width:auto;"/></td>' +
                                 '<td>' + data[trav].REQ_ID + '</td>' +
                                 '<td>' + data[trav].DEVIATION_NO + '</td>' +
                                 '<td>' + data[trav].EMPNAME + '</td>' +
@@ -756,7 +775,7 @@
                     $('#deviationtable').empty();
                     $('#deviationtable').append(trHTML);
                     $('#deviationdatatable').DataTable({
-                        aaSorting: [[1, 'desc']]                  
+                        aaSorting: [[1, 'desc']]
                     });
 
                     objDeviation = data;
@@ -774,7 +793,7 @@
 
             //var Nomor = $("TD", row).eq(0).html();
             var Nomor = $("TD", row).eq(1).html() + $("TD", row).eq(2).html();
-            
+
 
             window.location.href = "../DataDeviasi/Report?Nomor=" + Nomor;
         }
