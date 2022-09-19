@@ -270,13 +270,6 @@ jQuery(".form-valide3").validate({
         "ddlKategori": {
             required: !0
         },
-        "txtKetKategori": {
-            required: !0,
-            minlength: 3
-        },
-        "TxtNoWO": {
-            required: !0
-        },
         "txtProblem": {
             required: !0
         },
