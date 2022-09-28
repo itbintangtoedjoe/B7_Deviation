@@ -235,8 +235,9 @@
 
                             // KALAU UDAH ISI / MINTA REVISI, STATUSNYA PENDING DAN GABISA NGAPA2IN
                         } else if (data[trav].FLAG_PIC == 'SUBMITTED' || data[trav].FLAG_PIC == 'REVISI DUE DATE') {
+                            trHTML += '<tr><td style="text-align:center"> N/A </td>';
                             trHTML +=
-                                '<tr><td style="text-align:center"> N/A </td>' +
+                                '<td style="text-align:center"> N/A </td>' +
                                 '<td style="text-align:center" hidden>' + data[trav].NO_DISPOSISI + '</td>' +
                             '<td style="text-align:center">' + data[trav].REQ_ID + '</td>' +
                             '<td style="text-align:justify">' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
