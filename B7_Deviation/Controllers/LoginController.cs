@@ -204,7 +204,7 @@ namespace B7_Deviation.Controllers
 
                         status = "True";
                         returnValue = true;
-                        GetParam(response.data.username);
+                        GetParam(UserName);
                     }
                     else
                     {
