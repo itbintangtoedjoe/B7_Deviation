@@ -6,11 +6,15 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using B7_Deviation.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace B7_Deviation.Controllers
 {
@@ -144,7 +148,7 @@ namespace B7_Deviation.Controllers
             dataStream.Close();
             response.Close();
         }
-        public ActionResult LoginProcess(LoginModel Model)
+        public async System.Threading.Tasks.Task<ActionResult> LoginProcess(LoginModel Model)
         {
             List<string> List = new List<string>();
             
@@ -164,354 +168,404 @@ namespace B7_Deviation.Controllers
             const int LOGON32_PROVIDER_DEFAULT = 0;
             const int LOGON32_LOGON_INTERACTIVE = 2;
             IntPtr tokenHandle = IntPtr.Zero;
-            try
+
+            using (var client = new HttpClient())
             {
-                //cek apakah user ada di table users devol
-                SqlConnection Conn2 = new SqlConnection(constr);
+                string LoginApiBasePath = ConfigurationManager.AppSettings["LoginApiBasePath"];
+                client.DefaultRequestHeaders.Clear();
+
                 try
                 {
-                    using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", Conn2))
+                    var json = JsonConvert.SerializeObject(new
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        Username = UserName,
+                        Password = Pwd,
+                    });
 
-                        cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                        cmd.Parameters["@pilih"].Value = 3;
-                        cmd.Parameters.Add("@username", System.Data.SqlDbType.VarChar);
-                        cmd.Parameters["@username"].Value = Model.Username;
-                        cmd.Parameters.Add("@password", System.Data.SqlDbType.VarChar);
-                        cmd.Parameters["@password"].Value = Model.Password;
-                        Conn2.Open();
-                        check_login = (int)cmd.ExecuteScalar();
-                        Conn2.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    status = "Error Web silahkan hubungin IT";
-                    throw ex;
-                }
+                    HttpResponseMessage Res = await client.PostAsync(LoginApiBasePath + "/Login", new StringContent(json, UnicodeEncoding.UTF8, "application/json"));
 
-                //username dan password terdaftar di devol users --> vendor/admin
-                //code here
-                if (check_login == 2)
-                {
-                    status = "True";
-                    Session["xUser"] = Model.Username;
+                    // Cek return dari Api Login, login berhasil jika return == "Success"
 
-                    SqlConnection conn = new SqlConnection(constr);
-                    try
+                    dynamic response = JObject.Parse(await Res.Content.ReadAsStringAsync());
+                    string responseMessage = response.message.ToString().ToLower();
+
+                    if (Res.IsSuccessStatusCode && responseMessage == "success")
                     {
-                        conn.Open();
-                        using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                            cmd.Parameters["@pilih"].Value = 1;
+                        Session["UserAD"] = response.data.userAd;
+                        Session["Username"] = response.data.username;
+                        Session["NIK"] = response.data.nik;
+                        Session["Dept"] = response.data.dept;
+                        Session["xUser"] = response.data.userAd;
+                        Session["LoginSuccess"] = response.message;
+                        Session["IsLogin"] = "True";
+                        Session.Timeout = 60;
 
-                            cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                            cmd.Parameters["@Username"].Value = Model.Username;
-
-                            result = (string)cmd.ExecuteScalar();
-                        }
-                        conn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        status = $"Error Web silahkan hubungin IT {ex}";
-                        //throw ex;
-                    }
-                    finally
-                    {
-                        if (result == "kosong")
-                        {
-                            status = "kosong";
-                        }
-                    }
-                }
-                //username ada, tapi password salah di devol users --> khusus cek AD 
-                else if (check_login == 1)
-                {
-                    if (Model.Password == "B7Portal")
-                    {
                         status = "True";
-                        Session["xUser"] = Model.Username;
-
-                        SqlConnection conn = new SqlConnection(constr);
-                        try
-                        {
-                            conn.Open();
-                            using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
-                            {
-                                cmd.CommandType = CommandType.StoredProcedure;
-                                cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                                cmd.Parameters["@pilih"].Value = 1;
-
-                                cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                                cmd.Parameters["@Username"].Value = Model.Username;
-
-                                SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                                dataAdapt.SelectCommand = cmd;
-                                dataAdapt.Fill(DT);
-
-                                result = DT.Rows[0]["EMPID"].ToString();
-                                t_LVL = DT.Rows[0]["LVL"].ToString();
-                            }
-                            conn.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            throw ex;
-                        }
-                        finally
-                        {
-                            if (result == "kosong")
-                            {
-                                status = "kosong";
-                            }
-                        }
+                        returnValue = true;
                     }
                     else
                     {
-                        //Call the LogonUser function to obtain a handle to an access token.
-                        returnValue = LogonUser(UserName, MachineName, Pwd, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, ref tokenHandle);
-
-                        //login AD gagal
-                        if (returnValue == false)
-                        {
-                            //This function returns the error code that the last unmanaged function returned.
-                            int ret = Marshal.GetLastWin32Error();
-                            if (ret == 1329)
-                            {
-                                Session["xUser"] = Model.Username;
-                                status = "Account directory tidak valid";
-                            }
-                            else
-                            {
-                                //Username atau password yang dimasukkan tidak sesuai
-                                status = "Password yang dimasukkan salah (User sudah terdaftar di sistem DEVOL)";
-                            }
-                        }
-                        //login AD berhasil
-                        else
-                        {
-                            status = "True";
-                            Session["xUser"] = Model.Username;
-
-                            SqlConnection conn = new SqlConnection(constr);
-                            try
-                            {
-                                conn.Open();
-                                using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
-                                {
-                                    cmd.CommandType = CommandType.StoredProcedure;
-                                    cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                                    cmd.Parameters["@pilih"].Value = 1;
-
-                                    cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                                    cmd.Parameters["@Username"].Value = Model.Username;
-
-                                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                                    dataAdapt.SelectCommand = cmd;
-                                    dataAdapt.Fill(DT);
-
-                                    result = DT.Rows[0]["EMPID"].ToString();
-                                    t_LVL = DT.Rows[0]["LVL"].ToString();
-                                }
-                                conn.Close();
-
-                            }
-                            catch (Exception ex)
-                            {
-                                throw ex;
-                            }
-                            finally
-                            {
-                                if (result == "kosong")
-                                {
-                                    status = "kosong";
-                                }
-                            }
-                        }
+                        status = "kosong";
+                        returnValue = false;
                     }
                 }
-                //username tidak terdaftar di devol users
-                else if (check_login == 0)
+                catch (Exception)
                 {
-                    //khusus vendor/admin
-                    //if(UserName.StartsWith("V_") || UserName.StartsWith("A_"))
-                    //{
-                    //    status = "Username tidak terdaftar";
-                    //}
-                    //cek apakah ada di AD
-                    //else
-                    //{
-                        if (Model.Password == "B7Portal")
-                        {
-                            status = "True";
-                            Session["xUser"] = Model.Username;
-
-                            SqlConnection conn = new SqlConnection(constr);
-                            try
-                            {
-                                conn.Open();
-                                using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
-                                {
-                                    cmd.CommandType = CommandType.StoredProcedure;
-                                    cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                                    cmd.Parameters["@pilih"].Value = 1;
-
-                                    cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                                    cmd.Parameters["@Username"].Value = Model.Username;
-
-                                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                                    dataAdapt.SelectCommand = cmd;
-                                    dataAdapt.Fill(DT);
-
-
-
-                                    result = DT.Rows[0]["EMPID"].ToString();
-                                    t_LVL = DT.Rows[0]["LVL"].ToString();
-                                }
-                                conn.Close();
-                            }
-                            catch (Exception ex)
-                            {
-                                throw ex;
-                            }
-                            finally
-                            {
-                                if (result == "kosong")
-                                {
-                                    status = "kosong";
-                                }
-                            }
-                        }
-                        else
-                        {
-                            //Call the LogonUser function to obtain a handle to an access token.
-                            returnValue = LogonUser(UserName, MachineName, Pwd, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, ref tokenHandle);
-
-                            //login AD gagal
-                            if (returnValue == false)
-                            {
-                                //This function returns the error code that the last unmanaged function returned.
-                                int ret = Marshal.GetLastWin32Error();
-                                if (ret == 1329)
-                                {
-                                    Session["xUser"] = Model.Username;
-                                    status = "Account directory tidak valid";
-                                }
-                                else
-                                {
-                                    status = "Username atau password AD yang dimasukkan tidak sesuai (Belum terdaftar di sistem DEVOL)!";
-                                }
-                            }
-                            //login AD berhasil
-                            else
-                            {
-                                status = "True";
-                                Session["xUser"] = Model.Username;
-
-                                SqlConnection conn = new SqlConnection(constr);
-                                try
-                                {
-                                    conn.Open();
-                                    using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
-                                    {
-                                        cmd.CommandType = CommandType.StoredProcedure;
-                                        cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                                        cmd.Parameters["@pilih"].Value = 1;
-
-                                        cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                                        cmd.Parameters["@Username"].Value = Model.Username;
-
-                                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                                        dataAdapt.SelectCommand = cmd;
-                                        dataAdapt.Fill(DT);
-
-                                    result = DT.Rows[0]["EMPID"].ToString();
-                                        t_LVL = DT.Rows[0]["LVL"].ToString();
-                                    }
-                                    conn.Close();
-
-                                }
-                                catch (Exception ex)
-                                {
-                                    throw ex;
-                                }
-                                finally
-                                {
-                                    if (result == "kosong")
-                                    {
-                                        status = "kosong";
-                                    }
-                                }
-                            }
-                        }
-                    //}
+                    status = "kosong";
+                    returnValue = false;
                 }
             }
 
-            catch (Exception ex)
-            {
-                status = ex.ToString();
-            }
+            //from here
+            //try
+            //{
+            //    //cek apakah user ada di table users devol
+            //    SqlConnection Conn2 = new SqlConnection(constr);
+            //    try
+            //    {
+            //        using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", Conn2))
+            //        {
+            //            cmd.CommandType = CommandType.StoredProcedure;
 
-            if (status == "True")
-            {
-                if (t_LVL == "STAFF")
-                {
-                    status = "staff";
-                }
-                else
-                {
-                    //Teddy:30-08-2022 untuk fungsi yang dibawah dipindahin ke method GetParam
-                    /*   // Get Role Login
-                       SqlConnection conn2 = new SqlConnection(constr);
-                       try
-                       {
-                           conn2.Open();
-                           using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn2))
-                           {
-                               cmd.CommandType = CommandType.StoredProcedure;
-                               cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
-                               cmd.Parameters["@pilih"].Value = 2;
+            //            cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+            //            cmd.Parameters["@pilih"].Value = 3;
+            //            cmd.Parameters.Add("@username", System.Data.SqlDbType.VarChar);
+            //            cmd.Parameters["@username"].Value = Model.Username;
+            //            cmd.Parameters.Add("@password", System.Data.SqlDbType.VarChar);
+            //            cmd.Parameters["@password"].Value = Model.Password;
+            //            Conn2.Open();
+            //            check_login = (int)cmd.ExecuteScalar();
+            //            Conn2.Close();
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        status = "Error Web silahkan hubungin IT";
+            //        throw ex;
+            //    }
 
-                               cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
-                               cmd.Parameters["@Username"].Value = Model.Username;
+            //    //username dan password terdaftar di devol users --> vendor/admin
+            //    //code here
+            //    if (check_login == 2)
+            //    {
+            //        status = "True";
+            //        Session["xUser"] = Model.Username;
 
-                               SqlDataAdapter dataAdapt = new SqlDataAdapter();
-                               //result = (string)cmd.ExecuteScalar();
-                               dataAdapt.SelectCommand = cmd;
+            //        SqlConnection conn = new SqlConnection(constr);
+            //        try
+            //        {
+            //            conn.Open();
+            //            using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
+            //            {
+            //                cmd.CommandType = CommandType.StoredProcedure;
+            //                cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+            //                cmd.Parameters["@pilih"].Value = 1;
 
-                               dataAdapt.Fill(DT2);
-                           }
-                           conn2.Close();
-                           string identifier;
+            //                cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+            //                cmd.Parameters["@Username"].Value = Model.Username;
 
-                           if (TempData["identifier"] != null)
-                           {
-                               identifier = TempData["identifier"].ToString();
-                               this.revalidateUsername(identifier, Model.Username);
-                           }
+            //                result = (string)cmd.ExecuteScalar();
+            //            }
+            //            conn.Close();
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            status = $"Error Web silahkan hubungin IT {ex}";
+            //            //throw ex;
+            //        }
+            //        finally
+            //        {
+            //            if (result == "kosong")
+            //            {
+            //                status = "kosong";
+            //            }
+            //        }
+            //    }
+            //    //username ada, tapi password salah di devol users --> khusus cek AD 
+            //    else if (check_login == 1)
+            //    {
+            //        if (Model.Password == "B7Portal")
+            //        {
+            //            status = "True";
+            //            Session["xUser"] = Model.Username;
 
-                           Session["role"] = DT2.Rows[0]["role_deviation"].ToString();
-                           Session["fullname"] = DT2.Rows[0]["empname"].ToString();
-                           Session["jobttlname"] = DT2.Rows[0]["jobttlname"].ToString();
-                           Session["nik"] = DT2.Rows[0]["empid"].ToString();
-                           Session["usergroup"] = DT2.Rows[0]["dept"].ToString();
-                       }
-                       catch (Exception ex)
-                       {
-                           throw ex;
-                       }
-                       finally
-                       {
+            //            SqlConnection conn = new SqlConnection(constr);
+            //            try
+            //            {
+            //                conn.Open();
+            //                using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
+            //                {
+            //                    cmd.CommandType = CommandType.StoredProcedure;
+            //                    cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+            //                    cmd.Parameters["@pilih"].Value = 1;
 
-                       }*/
-                    GetParam(Model.Username);
-                }
-            }
+            //                    cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+            //                    cmd.Parameters["@Username"].Value = Model.Username;
+
+            //                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+            //                    dataAdapt.SelectCommand = cmd;
+            //                    dataAdapt.Fill(DT);
+
+            //                    result = DT.Rows[0]["EMPID"].ToString();
+            //                    t_LVL = DT.Rows[0]["LVL"].ToString();
+            //                }
+            //                conn.Close();
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                throw ex;
+            //            }
+            //            finally
+            //            {
+            //                if (result == "kosong")
+            //                {
+            //                    status = "kosong";
+            //                }
+            //            }
+            //        }
+            //        else
+            //        {
+            //            //Call the LogonUser function to obtain a handle to an access token.
+            //            returnValue = LogonUser(UserName, MachineName, Pwd, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, ref tokenHandle);
+
+            //            //login AD gagal
+            //            if (returnValue == false)
+            //            {
+            //                //This function returns the error code that the last unmanaged function returned.
+            //                int ret = Marshal.GetLastWin32Error();
+            //                if (ret == 1329)
+            //                {
+            //                    Session["xUser"] = Model.Username;
+            //                    status = "Account directory tidak valid";
+            //                }
+            //                else
+            //                {
+            //                    //Username atau password yang dimasukkan tidak sesuai
+            //                    status = "Password yang dimasukkan salah (User sudah terdaftar di sistem DEVOL)";
+            //                }
+            //            }
+            //            //login AD berhasil
+            //            else
+            //            {
+            //                status = "True";
+            //                Session["xUser"] = Model.Username;
+
+            //                SqlConnection conn = new SqlConnection(constr);
+            //                try
+            //                {
+            //                    conn.Open();
+            //                    using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
+            //                    {
+            //                        cmd.CommandType = CommandType.StoredProcedure;
+            //                        cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+            //                        cmd.Parameters["@pilih"].Value = 1;
+
+            //                        cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+            //                        cmd.Parameters["@Username"].Value = Model.Username;
+
+            //                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
+            //                        dataAdapt.SelectCommand = cmd;
+            //                        dataAdapt.Fill(DT);
+
+            //                        result = DT.Rows[0]["EMPID"].ToString();
+            //                        t_LVL = DT.Rows[0]["LVL"].ToString();
+            //                    }
+            //                    conn.Close();
+
+            //                }
+            //                catch (Exception ex)
+            //                {
+            //                    throw ex;
+            //                }
+            //                finally
+            //                {
+            //                    if (result == "kosong")
+            //                    {
+            //                        status = "kosong";
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //    //username tidak terdaftar di devol users
+            //    else if (check_login == 0)
+            //    {
+            //        //khusus vendor/admin
+            //        //if(UserName.StartsWith("V_") || UserName.StartsWith("A_"))
+            //        //{
+            //        //    status = "Username tidak terdaftar";
+            //        //}
+            //        //cek apakah ada di AD
+            //        //else
+            //        //{
+            //            if (Model.Password == "B7Portal")
+            //            {
+            //                status = "True";
+            //                Session["xUser"] = Model.Username;
+
+            //                SqlConnection conn = new SqlConnection(constr);
+            //                try
+            //                {
+            //                    conn.Open();
+            //                    using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
+            //                    {
+            //                        cmd.CommandType = CommandType.StoredProcedure;
+            //                        cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+            //                        cmd.Parameters["@pilih"].Value = 1;
+
+            //                        cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+            //                        cmd.Parameters["@Username"].Value = Model.Username;
+
+            //                        SqlDataAdapter dataAdapt = new SqlDataAdapter();
+            //                        dataAdapt.SelectCommand = cmd;
+            //                        dataAdapt.Fill(DT);
+
+
+
+            //                        result = DT.Rows[0]["EMPID"].ToString();
+            //                        t_LVL = DT.Rows[0]["LVL"].ToString();
+            //                    }
+            //                    conn.Close();
+            //                }
+            //                catch (Exception ex)
+            //                {
+            //                    throw ex;
+            //                }
+            //                finally
+            //                {
+            //                    if (result == "kosong")
+            //                    {
+            //                        status = "kosong";
+            //                    }
+            //                }
+            //            }
+            //            else
+            //            {
+            //                //Call the LogonUser function to obtain a handle to an access token.
+            //                returnValue = LogonUser(UserName, MachineName, Pwd, LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, ref tokenHandle);
+
+            //                //login AD gagal
+            //                if (returnValue == false)
+            //                {
+            //                    //This function returns the error code that the last unmanaged function returned.
+            //                    int ret = Marshal.GetLastWin32Error();
+            //                    if (ret == 1329)
+            //                    {
+            //                        Session["xUser"] = Model.Username;
+            //                        status = "Account directory tidak valid";
+            //                    }
+            //                    else
+            //                    {
+            //                        status = "Username atau password AD yang dimasukkan tidak sesuai (Belum terdaftar di sistem DEVOL)!";
+            //                    }
+            //                }
+            //                //login AD berhasil
+            //                else
+            //                {
+            //                    status = "True";
+            //                    Session["xUser"] = Model.Username;
+
+            //                    SqlConnection conn = new SqlConnection(constr);
+            //                    try
+            //                    {
+            //                        conn.Open();
+            //                        using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn))
+            //                        {
+            //                            cmd.CommandType = CommandType.StoredProcedure;
+            //                            cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+            //                            cmd.Parameters["@pilih"].Value = 1;
+
+            //                            cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+            //                            cmd.Parameters["@Username"].Value = Model.Username;
+
+            //                            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+            //                            dataAdapt.SelectCommand = cmd;
+            //                            dataAdapt.Fill(DT);
+
+            //                        result = DT.Rows[0]["EMPID"].ToString();
+            //                            t_LVL = DT.Rows[0]["LVL"].ToString();
+            //                        }
+            //                        conn.Close();
+
+            //                    }
+            //                    catch (Exception ex)
+            //                    {
+            //                        throw ex;
+            //                    }
+            //                    finally
+            //                    {
+            //                        if (result == "kosong")
+            //                        {
+            //                            status = "kosong";
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        //}
+            //    }
+            //}
+
+            //catch (Exception ex)
+            //{
+            //    status = ex.ToString();
+            //}
+
+            //if (status == "True")
+            //{
+            //    if (t_LVL == "STAFF")
+            //    {
+            //        status = "staff";
+            //    }
+            //    else
+            //    {
+            //        //Teddy:30-08-2022 untuk fungsi yang dibawah dipindahin ke method GetParam
+            //        /*   // Get Role Login
+            //           SqlConnection conn2 = new SqlConnection(constr);
+            //           try
+            //           {
+            //               conn2.Open();
+            //               using (SqlCommand cmd = new SqlCommand("LOGIN_FORM_DEVIATION", conn2))
+            //               {
+            //                   cmd.CommandType = CommandType.StoredProcedure;
+            //                   cmd.Parameters.Add("@pilih", System.Data.SqlDbType.Int);
+            //                   cmd.Parameters["@pilih"].Value = 2;
+
+            //                   cmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar);
+            //                   cmd.Parameters["@Username"].Value = Model.Username;
+
+            //                   SqlDataAdapter dataAdapt = new SqlDataAdapter();
+            //                   //result = (string)cmd.ExecuteScalar();
+            //                   dataAdapt.SelectCommand = cmd;
+
+            //                   dataAdapt.Fill(DT2);
+            //               }
+            //               conn2.Close();
+            //               string identifier;
+
+            //               if (TempData["identifier"] != null)
+            //               {
+            //                   identifier = TempData["identifier"].ToString();
+            //                   this.revalidateUsername(identifier, Model.Username);
+            //               }
+
+            //               Session["role"] = DT2.Rows[0]["role_deviation"].ToString();
+            //               Session["fullname"] = DT2.Rows[0]["empname"].ToString();
+            //               Session["jobttlname"] = DT2.Rows[0]["jobttlname"].ToString();
+            //               Session["nik"] = DT2.Rows[0]["empid"].ToString();
+            //               Session["usergroup"] = DT2.Rows[0]["dept"].ToString();
+            //           }
+            //           catch (Exception ex)
+            //           {
+            //               throw ex;
+            //           }
+            //           finally
+            //           {
+
+            //           }*/
+            //        GetParam(Model.Username);
+            //    }
+            //}
+            //to here
 
             List.Add(status);
 
