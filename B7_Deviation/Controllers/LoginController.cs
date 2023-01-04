@@ -45,40 +45,42 @@ namespace B7_Deviation.Controllers
             string conString = mySetting.ConnectionString;
             DataTable dt = new DataTable();
 
-            if (autologin_token != null)
-            {
-                string query = "SELECT username_apps FROM [dbo].[application_user_token] where token='" + autologin_token + "'";
-                bool setAutologin = this.AutomaticToken(autologin_token);
-                if (setAutologin)
-                {
-                    SqlConnection conn = new SqlConnection(conString);
+            //if (autologin_token != null)
+            //{
+            //    string query = "SELECT username_apps FROM [dbo].[application_user_token] where token='" + autologin_token + "'";
+            //    bool setAutologin = this.AutomaticToken(autologin_token);
+            //    if (setAutologin)
+            //    {
+            //        SqlConnection conn = new SqlConnection(conString);
 
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    conn.Open();
+            //        SqlCommand cmd = new SqlCommand(query, conn);
+            //        conn.Open();
 
-                    // create data adapter
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+            //        // create data adapter
+            //        SqlDataAdapter da = new SqlDataAdapter(cmd);
 
-                    // this will query your database and return the result to your datatable
-                    da.Fill(dt);
-                    conn.Close();
-                    da.Dispose();
-                    string username;
-                    if (dt.Rows[0]["username_apps"] != null)
-                    {
-                        username = dt.Rows[0]["username_apps"].ToString();
-                    }
-                    else
-                    {
-                        username = "-";
-                    }
-                    GetParam(username);
-                    //  bool SetParam = SetAuthParameter(username);
-                    return RedirectToAction("../HomePage/Index");
-                }
-            }
+            //        // this will query your database and return the result to your datatable
+            //        da.Fill(dt);
+            //        conn.Close();
+            //        da.Dispose();
+            //        string username;
+            //        if (dt.Rows[0]["username_apps"] != null)
+            //        {
+            //            username = dt.Rows[0]["username_apps"].ToString();
+            //        }
+            //        else
+            //        {
+            //            username = "-";
+            //        }
+            //        GetParam(username);
+            //        //  bool SetParam = SetAuthParameter(username);
+            //        return RedirectToAction("../HomePage/Index");
+            //    }
+            //}
 
-            Session.Clear();
+            //Session.Clear();
+
+
             return View();
         }
 
@@ -202,6 +204,7 @@ namespace B7_Deviation.Controllers
 
                         status = "True";
                         returnValue = true;
+                        GetParam(response.data.username);
                     }
                     else
                     {
@@ -600,13 +603,13 @@ namespace B7_Deviation.Controllers
                 conn2.Close();
 
                 //Teddy:30-08-2022 untuk mengecek identifier
-                string identifier;
+                //string identifier;
 
-                if (TempData["identifier"] != null)
-                {
-                    identifier = TempData["identifier"].ToString();
-                    this.revalidateUsername(identifier, userAD);
-                }
+                //if (TempData["identifier"] != null)
+                //{
+                //    identifier = TempData["identifier"].ToString();
+                //    this.revalidateUsername(identifier, userAD);
+                //}
 
                 Session["role"] = DT2.Rows[0]["role_deviation"].ToString();
                 Session["fullname"] = DT2.Rows[0]["empname"].ToString();
