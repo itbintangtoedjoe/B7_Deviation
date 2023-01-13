@@ -168,7 +168,7 @@
                                                         <th id="thNoWO">No WO Oracle</th>
                                                         <th>Keterangan</th>
                                                         @*
-                <th style="width:30px">Action</th>
+                                                            <th style="width:30px">Action</th>
                                                         *@
                                                     </tr>
                                                 </thead>
@@ -176,14 +176,14 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
 
                                 @*PARTIAL VIEW TABLE
-                                <div class="form-group">
-                                    @Html.Partial("../DataDeviasi/TablePartialView")
-                                </div>*@
+                                    <div class="form-group">
+                                        @Html.Partial("../DataDeviasi/TablePartialView")
+                                    </div>*@
 
 
 
@@ -260,7 +260,7 @@
                                                         <th style="width:20px">No</th>
                                                         <th>Nama</th>
                                                         @*
-                                                        <th style="width:30px">Action</th>
+                                                            <th style="width:30px">Action</th>
                                                         *@
                                                     </tr>
                                                 </thead>
@@ -567,6 +567,7 @@
         </div>
     </div>
 
+
 </body>
 
 
@@ -583,9 +584,14 @@
 	});
 
 	function LoadAll() {
-		var nomor = @ViewBag.nomor;
+        var nomor = @ViewBag.nomor;
+
+      
+
 		var dto = {
-			ReqID: nomor
+            ReqID: nomor
+
+              
 		}
 		$.ajax({
 			url: "../SpvPelapor/App_LoadDeviationApproval",

@@ -178,6 +178,7 @@
                 alert('Please Choose the Deviation Number.');
             } else {
                 AddReviewer();
+                GetNamaEmployee();
                 $('#addReviewerValidation').modal('hide');
                 $(".modal-backdrop").remove();
             }
@@ -246,6 +247,7 @@
                             "hideMethod": "fadeOut"
                         });
                         LoadData();
+                        GetNamaEmployee();
                     },
                     error: function (ex) {
                         alert(ex);
