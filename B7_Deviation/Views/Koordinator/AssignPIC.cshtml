@@ -147,7 +147,6 @@
         $('#deviationdatatable tbody').on('click', 'input[id="btnShowBukti"]', function () {
             ShowBukti(this);
         });
-
         //On click function button assignPIC
         $('#datatablepic tbody').on('click', 'input[id="AssignPIC"]', function () {
 
@@ -422,6 +421,7 @@
                 }
             });
         });
+
     });
 
 
@@ -735,7 +735,7 @@
                         if (data[trav].PIC_REMEDIAL_NIK == '-' && data[trav].PIC_REMEDIAL_NAME == 'NOT YET ASSIGNED') {
                             trHTML += '<tr><td align="center" class="rowNumber">' + no + '</td>' +
                                 '<td>' + data[trav].KETERANGAN_DISPOSISI + '</td>' +
-                                '<td> <select id="pic' + trav + '" class="allDdlPIC"></select><select id="site' + trav + '" class="allDdlSite" style="width:200px;"></select>' + '</td>' +
+                                '<td> <select id="pic' + trav + '" class="allDdlPIC"></select><div id="hidsite'+trav+'"><select id="site' + trav + '" class="allDdlSite" style="width:200px;"></select></div>' + '</td>' +
                                 '<td> <input type="date" id="duedate"></td>' +
                                 '<td align="center"> <input type="button" id="AssignPIC" value="Assign PIC" class="btn btn-primary" /></td>' +
                                 '<td hidden="hidden"><input type="text" value="' + data[trav].NO_DISPOSISI + '"</td>';
@@ -772,8 +772,8 @@
                         var clickedID = event.target.id;
                         clickedID = clickedID.slice(clickedID.length - 1);
 
-                        if (idPIC.startsWith("G_", 0)) {
-                            $("#site" + clickedID).show();
+                        if (idPIC.indexOf('G_') == 0) {
+                            $("#hidsite" + clickedID).removeAttr("hidden");
                             // Populate Group Site Dropdown Lists
                             trhtml = '';
                             trhtml += '<option disabled class="dropdown-header" value="" selected>Select Site</option>';
@@ -787,10 +787,10 @@
                             $("#site" + clickedID).append(trhtml);
                             $("#site" + clickedID).select2();
                         } else {
-                            $("#site" + clickedID).hide();
+                            $("#hidsite" + clickedID).attr("hidden",true);
                         }
-                        @*alert($(this).val());
-                        alert(clickedID);*@
+                        //console.log(idPIC);
+                        //console.log("#site" + clickedID);
 
                     });
 

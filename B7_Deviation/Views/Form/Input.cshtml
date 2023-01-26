@@ -1376,7 +1376,7 @@
                 $('#txtKetKategori').attr('disabled', false);
 
 				GetItemKualitasProduk();
-
+                GetNoBatchOracle();
 				$("#TxtNoWO").attr("disabled", false);
 			}
 			else {
@@ -1394,7 +1394,7 @@
 					$("#divsimpang").show();
 					$('#divreceipt').show();
 
-
+                    GetItemKualitasProduk();
 					$('#TxtQCMaterialNo').attr("hidden", false);
 					$('#TxtQCMaterialNo').val('');
 					$("#TxtItemCode").attr("hidden", false);
@@ -1816,7 +1816,7 @@
                     var arrLabel = new Array();
                     var arrValue = new Array();
                     var jsonObj = [];
-
+					console.log(data);
 					for (trav = 0; trav < count; trav++) {
 						arrLabel[trav] = data[trav].ITEM_CODE;
                         //arrValue[trav] = data[trav].ITEM_CODE;
@@ -1846,7 +1846,7 @@
 							for (var i = 0; i < count; i++) {
                                 if (data[i].ITEM_CODE == ui.item.label) {
                                      //$("#TxtItemCode").val(data[i].ITEM_CODE);
-
+									/*$('#TxtBatchNo').val()*/
                                     $("#txtKetKategori").val(data[i].ITEM_DESCRIPTION);
                                     break;
                                 } else {
