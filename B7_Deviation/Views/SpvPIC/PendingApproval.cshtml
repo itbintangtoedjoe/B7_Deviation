@@ -117,7 +117,7 @@
 
 
                             if (data[trav].FLAG_PIC == 'REVISI DUE DATE') {
-                            
+
                                 trHTML +=
                                     '<tr><td><input type="button" id="OpenRevisi" class="btn btn-success OpenRevisi" value="Select"/></td>' +
                                     '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
@@ -151,7 +151,19 @@
                                     '<td>' +
                                     data[trav].PIC_REMEDIAL_NAME +
                                     '</td>';
-                            } 
+                            }
+
+                            else {
+                                trHTML +=
+                                        '<tr><td><input type="button" id="OpenHasil" class="btn btn-success OpenRevisi" value="Select" disabled/></td>' +
+                                        '<td hidden>' + data[trav].NO_DISPOSISI + '</td>' +
+                                        '<td>' + data[trav].REQ_ID + '</td>' +
+                                        '<td>' + data[trav].DEVIATION_NO + '</td>' +
+                                        '<td>' + data[trav].ID_PROPOSER + '</td>' +
+                                        '<td>' + data[trav].PROPOSER_NAME + '</td>' +
+                                        '<td> Pending Approval CC </td>' +
+                                        '<td>' + data[trav].PIC_REMEDIAL_NAME + '</td>';
+                            }
 
                         }
                     }
