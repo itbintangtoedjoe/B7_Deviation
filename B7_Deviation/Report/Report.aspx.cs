@@ -47,6 +47,7 @@ namespace B7_Deviation.Report
                 DataTable dt13 = new DataTable();
                 DataTable dt14 = new DataTable();
                 DataTable dt15 = new DataTable();
+                DataTable dt16 = new DataTable();
 
                 conn.Open();
 
@@ -247,6 +248,19 @@ namespace B7_Deviation.Report
                     dataAdapt.SelectCommand = command;
                     dataAdapt.Fill(dt15);
                 }
+
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_ReportListProdukMaterial]", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                    command.Parameters["@Nomor"].Value = Nomor;
+
+
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    dataAdapt.SelectCommand = command;
+                    dataAdapt.Fill(dt16);
+                }
                 conn.Close();
 
                 ReportDataSource DataSource = new ReportDataSource("B7_QUALITY_SYSTEMData", dt);
@@ -309,6 +323,10 @@ namespace B7_Deviation.Report
                 ReportDataSource DataSource15 = new ReportDataSource("DataSourceFooterTotal", dt15);
                 this.ReportViewer1.LocalReport.DataSources.Add(DataSource15);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetFooterTotal", dt15));
+
+                ReportDataSource DataSource16 = new ReportDataSource("ListProdukMaterialDataSource", dt16);
+                this.ReportViewer1.LocalReport.DataSources.Add(DataSource16);
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("ListProdukMaterialDataset", dt16));
 
             }
         }
