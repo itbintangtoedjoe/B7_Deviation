@@ -406,7 +406,8 @@
     var procTotalCost = 0;
     var rejTotalCost = 0;
     var mcTotalCost = 0;
-
+    var valcostanalysis = 0;
+    var valsparepart = 0;
     var testingTotalManhour = 0;
     var procTotalManhour = 0;
     var rejTotalManhour = 0;
@@ -526,6 +527,8 @@
                     testingTotalManhour = 0;
                 }
 
+              
+
                 var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
                 @*console.log(totalManhourALL);*@
                 $('#textTotalManhoursALL').val(totalManhourALL);
@@ -543,6 +546,7 @@
             }
         });
 
+
         $('#testingJumlahPelaksana').on('input', function (e) {
             formatCurrency($(this))
             if ($('#testingDurasiPengerjaan').val() !== '') {
@@ -555,7 +559,10 @@
                     testingTotalManhour = 0;
                 }
 
-                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
+           
+
+
+                var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour ;
                 @*console.log(totalManhourALL);*@
                 $('#textTotalManhoursALL').val(totalManhourALL);
 
@@ -587,6 +594,24 @@
             }
         });
 
+        //Untuk testing cost analysus edit by teddy
+        $('#testingCostAnalysis').on('input', function (e) {
+            formatCurrency($(this))
+            if ($('#testingCostAnalysis').val() !== '') {
+                console.log('tESTING')
+                checkTestingCost();
+                //var manhoursValue = $('#textManhoursValue').val();
+                //var manhoursCost = $('#testingManhoursValue').val();
+                //valcostanalysis = $("#testingCostAnalysis").val();
+                //valsparepart = $("#mcHargaSparepart").val();
+                //var costanalysis = Number(valcostanalysis.replace(/[^0-9.-]+/g, ""));
+                //var sparepart = Number(valsparepart.replace(/[^0-9.-]+/g, ""));
+                //mcTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
+                //var totalAll = testingTotalCost + costanalysis;
+
+                //$('#textTotalCostALL').val(currencyDecimal(totalAll));
+            }
+        })
 		//Processing
         $('#procDurasiPengerjaan').on('input', function (e) {
             formatCurrency($(this));
@@ -665,13 +690,18 @@
 		//Rejected
         $('#rejQty').on('input', function (e) {
             if ($('#rejCostMaterial').val() !== '') {
-                var material = parseFloat($('#rejCostMaterial').val());
-                var qty = parseFloat($('#rejQty').val());
-                rejTotalCost = material.replace(',', '') * qty.replace(',', '');
-
+                //var costMaterial = parseFloat($('#rejCostMaterial').val());
+                //var qty = parseFloat($('#rejQty').val());
+                var qty = $('#rejQty').val();
+                var costMaterial = $('#rejCostMaterial').val();
+              /*  rejTotalCost = material.replace(',', '') * qty.replace(',', '');*/
+                var x = Number(qty.replace(/[^0-9.-]+/g, ""));
+                var y = Number(costMaterial.replace(/[^0-9.-]+/g, ""));
+                rejTotalCost = x * y;
                 $('#textRejectedTotalCost').val(currencyDecimal(rejTotalCost));
                 $('#valRejectedTotalCost').val(rejTotalCost);
-                
+
+                checkRejectCost();
                 $('#divRejectedTotalCost').attr('hidden', false);
             } else {
                 $('#divRejectedTotalCost').attr('hidden', true);
@@ -686,9 +716,15 @@
 
                 var qty = $('#rejQty').val();
                 var costMaterial = $('#rejCostMaterial').val();
-
-                rejTotalCost = qty.replace(',', '') * costMaterial.replace(',', '');
-                var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost;
+                valcostanalysis = $("#testingCostAnalysis").val();
+                valsparepart = $("#mcHargaSparepart").val();
+                var costanalysis = Number(valcostanalysis.replace(/[^0-9.-]+/g, ""));
+                var sparepart = Number(valsparepart.replace(/[^0-9.-]+/g, ""));
+               // rejTotalCost = qty.replace(',', '') * costMaterial.replace(',', '');
+                var x = Number(qty.replace(/[^0-9.-]+/g, ""));
+                var y = Number(costMaterial.replace(/[^0-9.-]+/g, ""));
+                rejTotalCost = x * y;
+                var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost + costanalysis + sparepart ;
                 @*console.log(totalAll);*@
                 $('#textRejectedTotalCost').val(currencyDecimal(rejTotalCost));
                 $('#valRejectedTotalCost').val(rejTotalCost);
@@ -720,6 +756,7 @@
 
                 var totalManhourALL = testingTotalManhour + procTotalManhour + rejTotalManhour + mcTotalManhour;
                 @*console.log(totalManhourALL);*@
+
                 $('#textTotalManhoursALL').val(totalManhourALL);
 
                 // console.log(material * qty);
@@ -733,7 +770,7 @@
                 @*console.log(totalManhourALL);*@
 
                 $('#mcTotalMachineHours').val(totalManHoursCost);
-
+                checkMachineCost();
                 $('#divMCTotalManhours').attr('hidden', false);
             } else {
                 $('#divMCTotalManhours').attr('hidden', true);
@@ -768,6 +805,7 @@
 
                 $('#mcTotalMachineHours').val(totalManHoursCost);
 
+                checkMachineCost();
                 $('#divMCTotalManhours').attr('hidden', false);
             } else {
                 $('#divMCTotalManhours').attr('hidden', true);
@@ -783,9 +821,18 @@
 
                 var manhoursValue = $('#textMCTotalManhours').val();
                 var manhoursCost = $('#mcManhoursValue').val();
+                valcostanalysis = $("#testingCostAnalysis").val();
+                valsparepart = $("#mcHargaSparepart").val();
+                var costanalysis = Number(valcostanalysis.replace(/[^0-9.-]+/g, ""));
+                var sparepart = Number(valsparepart.replace(/[^0-9.-]+/g, ""));
+                //var costanalysis = Number(valcostanalysis.replace(/[^0-9.-]+/g, ""));
+                //var sparepart = Number(valsparepart.replace(/[^0-9.-]+/g, ""));
+                var x = Number(manhoursValue.replace(/[^0-9.-]+/g, ""));
+                var y = Number(manhoursCost.replace(/[^0-9.-]+/g, ""));
+                mcTotalCost = x * y;
 
-                mcTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
-                var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost;
+                //mcTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
+                var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost + costanalysis + sparepart ;
                 @*console.log(totalAll)*@
                 $('#mcTotalMachineHours').val(currencyDecimal(mcTotalCost));
                 $('#divMCTotalManhoursCost').attr('hidden', false);
@@ -799,6 +846,22 @@
             }
         });
 
+        $('#mcHargaSparepart').on('input', function (e) {
+            formatCurrency($(this))
+            if ($('#mcHargaSparepart').val() !== '') {
+               
+                var manhoursValue = $('#textManhoursValue').val();
+                var manhoursCost = $('#testingManhoursValue').val();
+                valcostanalysis = $("#testingCostAnalysis").val();
+                valsparepart = $("#mcHargaSparepart").val();
+                var costanalysis = Number(valcostanalysis.replace(/[^0-9.-]+/g, ""));
+                var sparepart = Number(valsparepart.replace(/[^0-9.-]+/g, ""));
+                mcTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
+                var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost + costanalysis + sparepart;
+
+                $('#textTotalCostALL').val(currencyDecimal(totalAll));
+            }
+        })
        
     }
 
@@ -866,6 +929,10 @@
     function checkTestingCost() {
         var manhoursValue = $('#textManhoursValue').val();
         var manhoursCost = $('#testingManhoursValue').val();
+        valcostanalysis = $("#testingCostAnalysis").val();
+        valsparepart = $("#mcHargaSparepart").val();
+        var costanalysis = Number(valcostanalysis.replace(/[^0-9.-]+/g, ""));
+        var sparepart = Number(valsparepart.replace(/[^0-9.-]+/g, ""));
         //var x = parseInt(manhoursValue.replace(',', ''));
         //var y = parseInt(manhoursCost.replace(',', ''));
         var x = Number(manhoursValue.replace(/[^0-9.-]+/g, ""));
@@ -874,7 +941,7 @@
         console.log("x: " + x)
         console.log("y:" + y)
         testingTotalCost = x * y;
-        var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost;
+        var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost + costanalysis + sparepart ;
 
         console.log("testingTotalCost   :" + testingTotalCost)
 
@@ -885,13 +952,68 @@
     function checkProccessingCost() {
         var manhoursValue = $('#textManhoursValueProc').val();
         var manhoursCost = $('#procManhoursValue').val();
+        valcostanalysis = $("#testingCostAnalysis").val();
+        valsparepart = $("#mcHargaSparepart").val();
+        var costanalysis = Number(valcostanalysis.replace(/[^0-9.-]+/g, ""));
+        var sparepart = Number(valsparepart.replace(/[^0-9.-]+/g, ""));
 
-        procTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
-        var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost;
+        //procTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
+        var x = Number(manhoursValue.replace(/[^0-9.-]+/g, ""));
+        var y = Number(manhoursCost.replace(/[^0-9.-]+/g, ""));
+        procTotalCost = x * y;
+        var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost + + costanalysis + sparepart;
 
         $('#textTotalManHoursCostProc').val(currencyDecimal(procTotalCost));
         $('#textTotalCostALL').val(currencyDecimal(totalAll));
     }
+
+    function checkRejectCost() {
+        var qty = $('#rejQty').val();
+        var costMaterial = $('#rejCostMaterial').val();
+        valcostanalysis = $("#testingCostAnalysis").val();
+        valsparepart = $("#mcHargaSparepart").val();
+        var costanalysis = Number(valcostanalysis.replace(/[^0-9.-]+/g, ""));
+        var sparepart = Number(valsparepart.replace(/[^0-9.-]+/g, ""));
+        // rejTotalCost = qty.replace(',', '') * costMaterial.replace(',', '');
+        var x = Number(qty.replace(/[^0-9.-]+/g, ""));
+        var y = Number(costMaterial.replace(/[^0-9.-]+/g, ""));
+        rejTotalCost = x * y;
+        var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost + costanalysis + sparepart;
+        @* console.log(totalAll);*@
+        $('#textRejectedTotalCost').val(currencyDecimal(rejTotalCost));
+        //$('#valRejectedTotalCost').val(rejTotalCost);
+        //$('#divRejectedTotalCost').attr('hidden', false);
+        $('#textTotalCostALL').val(currencyDecimal(totalAll));
+
+    }
+
+    function checkMachineCost() {
+
+        var manhoursValue = $('#textMCTotalManhours').val();
+        var manhoursCost = $('#mcManhoursValue').val();
+        valcostanalysis = $("#testingCostAnalysis").val();
+        valsparepart = $("#mcHargaSparepart").val();
+        var costanalysis = Number(valcostanalysis.replace(/[^0-9.-]+/g, ""));
+        var sparepart = Number(valsparepart.replace(/[^0-9.-]+/g, ""));
+        //var costanalysis = Number(valcostanalysis.replace(/[^0-9.-]+/g, ""));
+        //var sparepart = Number(valsparepart.replace(/[^0-9.-]+/g, ""));
+        var x = Number(manhoursValue.replace(/[^0-9.-]+/g, ""));
+        var y = Number(manhoursCost.replace(/[^0-9.-]+/g, ""));
+        mcTotalCost = x * y;
+
+        //mcTotalCost = manhoursValue.replace(',', '') * manhoursCost.replace(',', '');
+        var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost + costanalysis + sparepart;
+        @* console.log(totalAll) *@
+        $('#mcTotalMachineHours').val(currencyDecimal(mcTotalCost));
+        //$('#divMCTotalManhoursCost').attr('hidden', false);
+        $('#textTotalCostALL').val(currencyDecimal(totalAll));
+
+    }
+
+
+
+
+
 	function currencyDecimal(input) {
         return "Rp. " + input.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
