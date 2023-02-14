@@ -1127,8 +1127,9 @@ namespace B7_Deviation.Controllers
                 DataTable dt13 = new DataTable();
                 DataTable dt14 = new DataTable();
                 DataTable dt15 = new DataTable();
+                DataTable dt16 = new DataTable();
 
-                conn.Open();
+            conn.Open();
 
                 using (SqlCommand command = new SqlCommand("[dbo].[SP_Report]", conn))
                 {
@@ -1326,8 +1327,21 @@ namespace B7_Deviation.Controllers
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
                     dataAdapt.Fill(dt15);
-                }
-                conn.Close();
+            }
+
+            using (SqlCommand command = new SqlCommand("[dbo].[SP_ReportListProdukMaterial]", conn))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@Nomor", SqlDbType.VarChar);
+                command.Parameters["@Nomor"].Value = Nomor;
+
+
+                SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                dataAdapt.SelectCommand = command;
+                dataAdapt.Fill(dt16);
+            }
+            conn.Close();
 
                 ReportDataSource DataSource = new ReportDataSource("B7_QUALITY_SYSTEMData", dt);
                 ReportViewer1.LocalReport.DataSources.Clear();
@@ -1390,7 +1404,11 @@ namespace B7_Deviation.Controllers
                 ReportViewer1.LocalReport.DataSources.Add(DataSource15);
                 ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("DataSetFooterTotal", dt15));
 
-                Warning[] warnings;
+                ReportDataSource DataSource16 = new ReportDataSource("ListProdukMaterialDataSource", dt16);
+                ReportViewer1.LocalReport.DataSources.Add(DataSource16);
+                ReportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WebForms.ReportDataSource("ListProdukMaterialDataset", dt16));
+
+            Warning[] warnings;
                 string[] streamIds;
                 string mimeType = string.Empty;
                 string encoding = string.Empty;

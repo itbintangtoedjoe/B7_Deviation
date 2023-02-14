@@ -5360,6 +5360,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="DataSource\ListProdukMaterialDataSource.cs">
+      <DependentUpon>ListProdukMaterialDataSource.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSource\ListProdukMaterialDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListProdukMaterialDataSource.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Models\ApprovalModel.cs" />
     <Compile Include="Models\CARPARModel.cs" />
     <Compile Include="Models\DAL.cs" />
@@ -5553,6 +5561,17 @@
     </None>
     <Content Include="DataSource\FormDetailDataSet.xss">
       <DependentUpon>FormDetailDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSource\ListProdukMaterialDataSource.xsc">
+      <DependentUpon>ListProdukMaterialDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSource\ListProdukMaterialDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ListProdukMaterialDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSource\ListProdukMaterialDataSource.xss">
+      <DependentUpon>ListProdukMaterialDataSource.xsd</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
