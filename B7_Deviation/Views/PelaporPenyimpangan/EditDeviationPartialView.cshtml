@@ -24,6 +24,7 @@
                         <div class="col">
                             <label>Pengusul</label>
                             <input id="TbPesul" type="text" class="form-control" readonly="readonly">
+                            <input id="usernamePesul" type="hidden">
                         </div>
                         <div class="col">
                             <label>Departemen</label>
@@ -916,7 +917,7 @@
 
     $(document).ready(function () {
 
-        GenerateDepartment();
+        @*GenerateDepartment();*@
 
         // Generate Req ID
         $(document).ready(function () {
@@ -2503,7 +2504,7 @@
         var dto = {
             IdProposer: ID_PROPOSER
         }
-
+        console.log(ID_PROPOSER);
         $.ajax({
             type: "POST",
             url: "../Form/GenerateDepartment",
@@ -2978,7 +2979,7 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var text = '';
-                //console.log(data);
+                @*console.log(data);*@
                 //BUGGY
                 GetFileAttachment();
                 GetFileAttachmentApprove();
@@ -2987,7 +2988,7 @@
 
                 document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
                 document.getElementById('TbNmrDev').value = data[0].DEVIATION_NO;
-                //document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
+                document.getElementById('usernamePesul').value = data[0].ID_PROPOSER;
                 document.getElementById('TbPesul').value = data[0].NAME_PROPOSER;
                 document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
 

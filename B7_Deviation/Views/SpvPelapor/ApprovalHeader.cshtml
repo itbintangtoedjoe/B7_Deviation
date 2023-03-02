@@ -364,7 +364,7 @@
 
 			RoleEditor: 'Sup Pelapor', //jgn lupa diganti
         };
-
+        console.log(JSON.stringify(dto));
         $.ajax({
             url: "../Form/InsertFormDeviation",
             type: "post",
@@ -380,12 +380,10 @@
                     timer: 2000
                 }).then(() => {
                     if (DEVIATION_CATEGORY == 'QPR' || DEVIATION_CATEGORY == 'QMT') {
-                        @*InsertMultipleProduk();*@
                         UpdateMultipleProduk();
                     }
                     CheckDelete = 1;
                     $.when(
-                       @* SendEmailRev()*@
                        SendEmailApproveSpvApv()
                     ).then(
                         window.location.href = "../DataDeviasi/PendingTask"
