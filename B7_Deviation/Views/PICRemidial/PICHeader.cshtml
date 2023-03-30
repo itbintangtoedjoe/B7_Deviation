@@ -26,42 +26,6 @@
 										</button>
 
 									</div>
-
-									<div class="form-group" id="xddlx" hidden="hidden">
-										<div class="col">
-											<label class="col col-form-label">Reviewer<span class="text-danger">*</span> :</label>
-										</div>
-										<div class="col">
-											<div class="col input-group form-group">
-												<div class="basic-dropdown">
-													<div class="dropdown user-dropdown form-inline">
-														<select id="ddlReviewer" name="ddlReviewer" class="form-control">
-														</select>
-													</div>
-												</div>
-												<span id="spanUser" class="input-group-append" title="Tambah orang terlibat">
-													<span class="input-group-text btn-success">
-														<i class="fa fa-user-plus"></i>
-													</span>
-												</span>
-											</div>
-											<div class="col form-group">
-												<table id="tblWho" class="table table-striped table-bordered">
-													<thead>
-														<tr>
-															<th style="width:20px">No</th>
-															<th>Nama</th>
-															<th>NIK</th>
-															<th style="width:30px">Action</th>
-														</tr>
-													</thead>
-													<tbody id="tblBodyWho">
-													</tbody>
-												</table>
-											</div>
-										</div>
-
-									</div>
 								</div>
 
 								<div class="col-md-4">
@@ -598,7 +562,7 @@
         $('#testingCostAnalysis').on('input', function (e) {
             formatCurrency($(this))
             if ($('#testingCostAnalysis').val() !== '') {
-                console.log('tESTING')
+                @*console.log('tESTING')*@
                 checkTestingCost();
                 //var manhoursValue = $('#textManhoursValue').val();
                 //var manhoursCost = $('#testingManhoursValue').val();
@@ -938,12 +902,12 @@
         var x = Number(manhoursValue.replace(/[^0-9.-]+/g, ""));
         var y = Number(manhoursCost.replace(/[^0-9.-]+/g, ""));
 
-        console.log("x: " + x)
-        console.log("y:" + y)
+        @*console.log("x: " + x)
+        console.log("y:" + y)*@
         testingTotalCost = x * y;
         var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost + costanalysis + sparepart ;
 
-        console.log("testingTotalCost   :" + testingTotalCost)
+        @*console.log("testingTotalCost   :" + testingTotalCost)*@
 
         $('#textTotalManHoursCost').val(currencyDecimal(testingTotalCost));
         $('#textTotalCostALL').val(currencyDecimal(totalAll));
@@ -1095,7 +1059,7 @@
 			data: JSON.stringify(dtx),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				console.log(data);
+				@*console.log(data);*@
                 $('#disposisitindakan').val(data[0].DISPOSISI_TINDAKAN);
                 $('#txtHasilTindakan').val(data[0].HASIL_TINDAKAN);
                 var adaCost = data[0].HIDDEN_COST_TYPE;

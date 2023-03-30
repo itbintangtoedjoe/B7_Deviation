@@ -175,7 +175,7 @@
 		$('#JenisPenyimpanganDetail').hide();
 
 		LoadHeader();
-        LoadReviewerData();
+        LoadReviewerDataForEvaluator();
         GetCurrStat();
 		CheckDelegate();
 
@@ -342,112 +342,8 @@
 
 	});
 
-	function CheckDelegate() {
-		var REQID = @ViewBag.nomor;
-		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-		var dto = {
-			REQID: REQID,
-			IDUSER: iduser
-		};
-
-		$.ajax({
-			url: "../QualityManager/QM_CheckDelegate",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-
-				if (data == 'YA, DELEGASI') {
-					$("#gambardelegate").attr("hidden", false);
-
-				} else {
-					$("#gambardelegate").attr("hidden", true);
-
-				}
-
-
-
-
-			}, error: function (ex) {
-				Error("Check Delegate", JSON.stringify(ex));
-			}
-		});
-
-	}
-
-	function SendEmail() {
-		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
-
-		var tabletype = "More Than One";
-		var whoreceiver = "Koordinator after QM Approve";
-
-		var dtx = {
-			Username: receiver,
-			ReqID: REQID,
-			TableType: tabletype,
-			WhoReceiver: whoreceiver
-		};
-
-		$.ajax({
-			type: "post",
-			url: '../Form/SendEmailInputProposal',
-			data: JSON.stringify(dtx),
-			dataType: "json",
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-			},
-			error: function (ex) {
-                Error("Email Notifikasi", JSON.stringify(ex))
-			}
-		});
-	}
-
-	function GetCurrStat() {
-
-		@*$('#can').attr("hidden", true);*@
-		var REQID = @ViewBag.nomor;
-		var showDisposisi = "@ViewBag.DisplayTambahanDisposisi";
-
-		var dto = {
-			REQID: REQID
-		};
-
-		$.ajax({
-			url: "../QualityManager/QM_GetCurrStat",
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(dto),
-			contentType: "application/json;charset=utf-8",
-			success: function (data) {
-				@*if (data == "CAN") {
-					$("#can").attr("hidden", false);
-					LoadKeteranganDisposisi();
-
-				} else {
-					//15 Nov 21
-                    $("#can").attr("hidden", true);
-
-				}*@
-                //15 Nov 21
-                if (showDisposisi =="0") {
-                    $("#can").attr("hidden", true);
-
-                } else {
-                    $("#can").attr("hidden", false);
-                    LoadKeteranganDisposisi();
-                }
-                //15 Nov 21
-
-			}, error: function (ex) {
-				Error("Get Current Stat", JSON.stringify(ex));
-			}
-		});
-
-	}
-
-	function LoadReviewerData() {
+	//function ini khusus untuk reviewer di halaman evaluator
+	function LoadReviewerDataForEvaluator() {
 		var nomor = @ViewBag.nomor;
 		var urutan = @ViewBag.urutan;
 		var dto = {
@@ -650,7 +546,7 @@
                                             timer: 2000
 										}).then(() => {
 
-											LoadReviewerData();
+                                            LoadReviewerDataForEvaluator();
 											GetCurrStat();
 
 											// QM HEADER JQUERY FUNCTION
@@ -715,7 +611,7 @@
                                                     showConfirmButton: false,
                                                     timer: 2000
 												}).then(() => {
-														LoadReviewerData();
+                                                    LoadReviewerDataForEvaluator();
 														GetCurrStat();
 												})
 											}
@@ -743,6 +639,111 @@
 				alert(JSON.stringify(ex));
 			}, async: false
 		});
+	}
+
+	function CheckDelegate() {
+		var REQID = @ViewBag.nomor;
+		var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var dto = {
+			REQID: REQID,
+			IDUSER: iduser
+		};
+
+		$.ajax({
+			url: "../QualityManager/QM_CheckDelegate",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+
+				if (data == 'YA, DELEGASI') {
+					$("#gambardelegate").attr("hidden", false);
+
+				} else {
+					$("#gambardelegate").attr("hidden", true);
+
+				}
+
+
+
+
+			}, error: function (ex) {
+				Error("Check Delegate", JSON.stringify(ex));
+			}
+		});
+
+	}
+
+	function SendEmail() {
+		var receiver = '@Request.RequestContext.HttpContext.Session["xUser"]';
+
+		var tabletype = "More Than One";
+		var whoreceiver = "Koordinator after QM Approve";
+
+		var dtx = {
+			Username: receiver,
+			ReqID: REQID,
+			TableType: tabletype,
+			WhoReceiver: whoreceiver
+		};
+
+		$.ajax({
+			type: "post",
+			url: '../Form/SendEmailInputProposal',
+			data: JSON.stringify(dtx),
+			dataType: "json",
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+			},
+			error: function (ex) {
+                Error("Email Notifikasi", JSON.stringify(ex))
+			}
+		});
+	}
+
+	function GetCurrStat() {
+
+		@*$('#can').attr("hidden", true);*@
+		var REQID = @ViewBag.nomor;
+		var showDisposisi = "@ViewBag.DisplayTambahanDisposisi";
+
+		var dto = {
+			REQID: REQID
+		};
+
+		$.ajax({
+			url: "../QualityManager/QM_GetCurrStat",
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(dto),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				@*if (data == "CAN") {
+					$("#can").attr("hidden", false);
+					LoadKeteranganDisposisi();
+
+				} else {
+					//15 Nov 21
+                    $("#can").attr("hidden", true);
+
+				}*@
+                //15 Nov 21
+                if (showDisposisi =="0") {
+                    $("#can").attr("hidden", true);
+
+                } else {
+                    $("#can").attr("hidden", false);
+                    LoadKeteranganDisposisi();
+                }
+                //15 Nov 21
+
+			}, error: function (ex) {
+				Error("Get Current Stat", JSON.stringify(ex));
+			}
+		});
+
 	}
 
 	function LoadHeader() {

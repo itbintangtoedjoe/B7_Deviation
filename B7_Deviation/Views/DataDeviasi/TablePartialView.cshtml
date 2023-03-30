@@ -243,6 +243,9 @@
                 if (dev_kategori == 'QPR' || dev_kategori == 'QMT') {
                     LoadListProduk();
                 }
+                else {
+                    document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
+                }
 
                 // INPUTS
                 @*document.getElementById('TxtNoWO').value = data[0].NO_WO_ORACLE;
@@ -250,7 +253,6 @@
                 document.getElementById('TxtItemCode').value = data[0].ITEM_CODE_ORACLE;
                 document.getElementById('TxtQCMaterialNo').value = data[0].QC_MATERIAL_NO;*@
 
-                document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
                 document.getElementById('txtProblem').value = data[0].PROBLEM;
 
                 document.getElementById('txtLokasi').value = data[0].LOCATION;

@@ -1101,7 +1101,10 @@
                 $('input[name=r_receipt][value=' + data[0].FLAG_RECEIPT + ']').prop('checked', true);
 
                 if (dev_kategori == 'QPR' || dev_kategori == 'QMT') {
-                    LoadListProduk();
+                    LoadListProduk(dev_kategori);
+                }
+                else {
+                    document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
                 }
 
                 // INPUTS
@@ -1109,8 +1112,6 @@
                 document.getElementById('TxtBatchNo').value = data[0].NO_BATCH_ORACLE;
                 document.getElementById('TxtItemCode').value = data[0].ITEM_CODE_ORACLE;
                 document.getElementById('TxtQCMaterialNo').value = data[0].QC_MATERIAL_NO;*@
-
-                document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
                 document.getElementById('txtProblem').value = data[0].PROBLEM;
 
                 document.getElementById('txtLokasi').value = data[0].LOCATION;
@@ -1259,10 +1260,11 @@
 
 
 
-    function LoadListProduk() {
-        var dev_kategori = $("#ddlKategori option:selected").val();
+    function LoadListProduk(dev_kategori) {
+		//var dev_kategori = $("#ddlKategori option:selected").val();
+		console.log(dev_kategori);
+		//var dev_kategori = [];
 		var REQID = @ViewBag.nomor;
-
 		var dto = {
 			ReqID: REQID
 		}
@@ -1274,7 +1276,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-                console.log(data);
+				console.log(data);
                 $('#tblListProduk').DataTable({
                     "pageLength": 10,
                     "lengthChange": false,
@@ -1283,14 +1285,14 @@
                     "select": true,
                     "bDestroy": true,
                     "scrollCollapse": true,
-                    "scrollX": true,
+                    "scrollX": false,
                     "paging": false,
                     "info": false,
                     "ordering": false,
                     "columns": [
                         {
                             "data": "id",
-                            render: function (data, type, row, meta) {
+                            "render": function (data, type, row, meta) {
                                 return meta.row + meta.settings._iDisplayStart + 1;
                             }
                         },
@@ -1299,29 +1301,33 @@
                         { "data": "NO_BATCH_ORACLE" },
                         { "data": "NO_WO_ORACLE" },
                         { "data": "KET_CATEGORY" },
+                        @*{
+                            "data": null,
+                            "defaultContent": '<input type="button" value="Delete" class="btn btn-danger deleteProduk" style="width:auto;"/>'
+                        },*@
                     ],
                     "initComplete": function (settings) {
                         var api = new $.fn.dataTable.Api(settings);
 
                         var showColumnQPR = dev_kategori == 'QPR' ? true : false;
-                        var showColumnQMT = dev_kategori == 'QMT' ? true : false;
+						var showColumnQMT = dev_kategori == 'QMT' ? true : false;
+
+
 
                         api.columns([3, 4]).visible(showColumnQPR);
                         api.columns([1]).visible(showColumnQMT);
                     }
                 });
 
-
-                //if (dev_kategori == 'QPR') {
-                //    $('#thQCNum').attr('hidden', false);
-                //    $('#thNoBatch').attr('hidden', false);
-                //    $('#thNoWO').attr('hidden', false);
-                //} else if (dev_kategori == 'QMT') {
-                //    $('#thQCNum').attr('hidden', false);
-                //    $('#thNoBatch').attr('hidden', true);
-                //    $('#thNoWO').attr('hidden', true);
-                //}
-
+                if (dev_kategori == 'QPR') {
+                    $('#thQCNum').attr('hidden', true);
+                    $('#thNoBatch').attr('hidden', false);
+                    $('#thNoWO').attr('hidden', false);
+                } else if (dev_kategori == 'QMT') {
+                    $('#thQCNum').attr('hidden', false);
+                    $('#thNoBatch').attr('hidden', true);
+                    $('#thNoWO').attr('hidden', true);
+                }
 			}
 			, error: function (ex) {
                 GetErrorSupPel("LoadListProduk", JSON.stringify(ex));

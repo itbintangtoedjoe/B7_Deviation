@@ -317,7 +317,7 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <textarea name="travelDetails" id="txt1" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" disabled="disabled"></textarea>
+                                                <textarea name="travelDetails" id="txt30hari" class="form-control" placeholder="Apakah penyimpangan serupa pernah terjadi dalam 30 hari terakhir? Berapa kali?" disabled="disabled"></textarea>
                                             </div>
                                         </div>
 
@@ -809,8 +809,12 @@
         //    GetAllSite();
         //});
 
-        /* LIST OF REVIEWER AND DISPOSISI */
-        LoadReviewerData();
+    /* LIST OF REVIEWER AND DISPOSISI */
+        //kalau bukan halaman evaluator, tampilan sama semua. kalo evaluator, panggil different function di QMPartialView
+        var webUrl = $(location).attr('href');
+        if (webUrl.indexOf("QualityManager/QMHeader") == -1) {
+            LoadReviewerData();
+        }
         LoadKeteranganDisposisi();
 
         /* REMEDIAL RESULT */
@@ -964,7 +968,7 @@
                         $('#txtKetKategori').attr('disabled', true);
                         $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                         $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
-                        GetQCMaterialNoOracle();
+                        GetQCMaterialNoOracle($('#ddlSite').val());
                         EmptyFields();
                         ToggleShowKualitasProdukFields(jenisPenyimpangan);
                     }
@@ -1060,6 +1064,10 @@
         });
 
 
+        $("#ddlSite").change(function () {
+            GetNoBatchOracle($("#ddlSite").val());
+            GetQCMaterialNoOracle($("#ddlSite").val());
+        });
     });
 
     function ToggleByCategory() {
@@ -1075,18 +1083,21 @@
             $("#txtTindakan").attr("disabled", false);
             $('#txtKetKategori').attr("disabled", true);
         }
-    }
+    } 
 
-    function GetNoBatchOracle() {
+    function GetNoBatchOracle(siteKoor) {
+        siteKoor = siteKoor.trim();
         $('#ModalLoading').modal('show');
         setTimeout(function () {
             $('#ModalLoading').modal('hide');
         }, 2000);
 
-        var LocationSite = LOCATION_SITE = $("#ddlSiteLokasi").val();
+        @*var LocationSite = LOCATION_SITE = $("#ddlSite").val();*@
+
         var dto = {
-            LocationSite: LocationSite
+            LocationSite: siteKoor
         }
+        @*console.log(LocationSite)*@
 
         $.ajax({
             url: "../Form/GetNoBatchOracle",
@@ -1094,6 +1105,7 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
+                @*console.log(data)*@
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
@@ -1109,7 +1121,6 @@
                     item["value"] = arr[trav];
                     jsonObj.push(item);
                 }
-                console.log(data)
                 $("#TxtBatchNo").autocomplete({
                     source: function (request, response) {
                         var results = $.ui.autocomplete.filter(jsonObj, request.term);
@@ -1147,15 +1158,15 @@
                 GetErrorInput("GetNoBatchOracleInput", JSON.stringify(ex));
             }
         });
-    }
+    } 
 
-    function GetQCMaterialNoOracle() {
-        var LocationSite = $("#ddlSite").val();
+    function GetQCMaterialNoOracle(siteKoor) {
+        @*var LocationSite = $("#ddlSite").val();*@
         var DEVIATION_CATEGORY = $("#ddlKategori").val();
         var FlagReceipt = $('input[name="r_receipt"]:checked').val();
 
         var dto = {
-            LocationSite: LocationSite,
+            LocationSite: siteKoor,
             DeviationCategory: DEVIATION_CATEGORY,
             FlagReceipt: FlagReceipt
         }
@@ -1253,7 +1264,7 @@
                 $("#TxtItemCode").attr("hidden", false);
                 $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
 
-                GetNoBatchOracle();
+                GetNoBatchOracle($("#ddlSite").val());
                 $("#TxtNoWO").attr("disabled", true);
             }
         }
@@ -1331,7 +1342,6 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-
                 var text = '';
 
                 document.getElementById('TbTglCreated').value = data[0].CREATION_DATE;
@@ -1339,6 +1349,7 @@
                 //document.getElementById('TbPesul').value = data[0].ID_PROPOSER;
                 document.getElementById('TbPesul').value = data[0].NAME_PROPOSER;
                 document.getElementById('TbDeptPusul').value = data[0].DEPARTEMENT;
+
 
                 //GetAllSite();
 
@@ -1366,7 +1377,6 @@
 
 
                 var dev_kategori = data[0].ID_DEVIATION_CATEGORY;
-
                 if (dev_kategori == 'QPR') {
 
                   @*  $("#TxtNoWO").attr("hidden", false);
@@ -1390,6 +1400,9 @@
                 if (dev_kategori == 'QPR' || dev_kategori == 'QMT') {
                     LoadListProduk(dev_kategori);
                 }
+                else {
+                    document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
+                }
 
                 // INPUTS
                 @*document.getElementById('TxtNoWO').value = data[0].NO_WO_ORACLE;
@@ -1397,7 +1410,6 @@
                 document.getElementById('TxtItemCode').value = data[0].ITEM_CODE_ORACLE;
                 document.getElementById('TxtQCMaterialNo').value = data[0].QC_MATERIAL_NO;*@
 
-                document.getElementById('txtKetKategori').value = data[0].KET_CATEGORY;
 
                 if (data[0].ID_DEVIATION_CATEGORY == 'QPR') {
                     $("#divsimpang").show();
@@ -1410,7 +1422,7 @@
                     $("#divQCMaterial").css("display", "none");
                     $("#TxtItemCode").attr('placeholder', 'Item Code');
 
-                    GetNoBatchOracle();
+                    GetNoBatchOracle(data[0].LOCATION_SITE);
                     $('#txtKetKategori').attr('disabled', true);
                 }
                 else {
@@ -1428,7 +1440,7 @@
                         $('#txtKetKategori').attr('disabled', true);
                         $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                         $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
-                        GetQCMaterialNoOracle();
+                        GetQCMaterialNoOracle(data[0].LOCATION_SITE);
                     }
                     else {
                         $("#divsimpang").hide();
@@ -1436,7 +1448,7 @@
                         $('#divProduk').hide();
                         $('#TxtQCMaterialNo').attr("hidden", true);
                         $("#TxtNoWO").attr("disabled", true);
-                        $('#txtKetKategori').val('');
+                        @*$('#txtKetKategori').val('');*@
                     }
                 }
 
@@ -1456,7 +1468,7 @@
                 $("#ddlSiteLokasi").append(text);
                 $("#ddlSiteLokasi").selectpicker();
 
-                GetNoBatchOracle();
+                GetNoBatchOracle(data[0].LOCATION_SITE);
 
                 text = '';
                 text = '<Option class="dropdown-item" value = "' + data[0].DEPT_LOKASI_KEJADIAN + '" selected >' + data[0].DEPT_LOKASI_KEJADIAN;
@@ -1992,7 +2004,7 @@
     }
 
     /* LIST OF REVIEWER AND DISPOSISI */
-    function LoadReviewerData() {
+	function LoadReviewerData() {
         var nomor = @ViewBag.nomor;
 
         var dto = {
@@ -2029,7 +2041,7 @@
                             '</div>' +
 
                             '<div class="row form-group">' +
-                        '<textarea class="form-control"  style="width: 500px; height: 200px;" disabled>' + data[trav].KETERANGAN_REVIEW + '</textarea>' +
+                            '<input type="text" class="form-control" placeholder="Keterangan Reviewer" style="width: 500px;" disabled value="' + data[trav].KETERANGAN_REVIEW + '">' +
                             '</div>' +
 
                             '<div class="row form-group">' +
@@ -2038,7 +2050,7 @@
 
                             '<div class="row form-group">' +
                             '<div class="table-responsive">' +
-                            '<table id="tbl_Attachmentyuhu" class="table table-info table-striped table-bordered" style="width: 500px">' +
+                            '<table id="tbl_Attachmentyuhu" class="table table-striped table-bordered" style="width: 500px">' +
                             '<thead>' +
                             '<tr>' +
                             '<th>' +
@@ -2063,17 +2075,7 @@
                             '<label class="col-form-label label-trigger">Nama Reviewer</label>' +
                             '</div>' +
                             '<div class="row form-group">' +
-                            '<input type text class="form-control" disabled="disabled" value="' + data[trav].USER_NAME + '">' +
-                            '</div>';
-
-					    // TANGGAL
-                        text +=
-                            '<div class="row form-group">' +
-                            '<label class="col-form-label label-trigger">Tanggal Review</label>' +
-                            '</div>' +
-
-                            '<div class="row form-group">' +
-                            '<input class="form-control"  disabled="disabled"  style="width: 500px;" value="' + data[trav].TANGGAL_REVIEW + '">' +
+                            '<input type text class="form-control" placeholder="Nama Reviewer" disabled="disabled" value="' + data[trav].USER_NAME + '">' +
                             '</div>';
 
                         text +=
@@ -2119,7 +2121,7 @@
 
                                             trHTML +=
                                                 '<tr><td>' + no + '</td>' +
-                                                '<td><a href="' + datac[trap].PATH_FILE_DOWNLOAD + '" download="' + datac[trap].FILE_NAME_UPLOAD + '">' + datac[trap].FILE_NAME_UPLOAD + '</a></td>' +
+												'<td><a href=..' + datac[trap].PATH_FILE_DOWNLOAD + ' download="' + datac[trap].FILE_NAME_UPLOAD + '">' + datac[trap].FILE_NAME_UPLOAD + '</a></td>' +
                                                 '<td hidden="hidden">' + datac[trap].REVIEWER_ID + '</td>';
 
                                             $("#tbody_Attachmentx" + flag).empty();
@@ -2132,7 +2134,7 @@
                                 }
 
                             }, error: function (ex) {
-                                alert('Error Load Attachment : ' + JSON.stringify(ex));
+                                GetErrorSupRemedial("AttchmentSupPIC", JSON.stringify(ex));
                             }, async: true
 
                         });
@@ -2153,10 +2155,10 @@
 
 
             }, error: function (ex) {
-                alert(JSON.stringify(ex));
+                GetErrorSupRemedial("DeviationApprovalSupPIC", JSON.stringify(ex));
             }, async: false
         });
-    }
+	}
 
     function LoadKeteranganDisposisi() {
 

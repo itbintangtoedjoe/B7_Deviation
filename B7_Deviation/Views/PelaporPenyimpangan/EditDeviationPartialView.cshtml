@@ -667,11 +667,11 @@
             //Y -> Receipt; N-> Vendor
             if ($('input[name="r_receipt"]:checked').val() == 'Yes') {
                 $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
-                GetQCMaterialNoOracle();
+                @*GetQCMaterialNoOracle();*@
             }
             else {
                 $("#TxtQCMaterialNo").attr('placeholder', 'Manufacturing Number');
-                GetQCMaterialNoOracle();
+                @*GetQCMaterialNoOracle();*@
             }
         });
 
@@ -694,7 +694,7 @@
             editMode = true;
             var dev_kategori = $("#ddlKategori").val();
 
-            GetQCMaterialNoOracle();
+            GetQCMaterialNoOracle($('#ddlSite').val());
             SetTableProduk(dev_kategori);
 
 
@@ -1173,6 +1173,11 @@
 
         });
 
+        $("#ddlSite").change(function () {
+            GetNoBatchOracle($("#ddlSite").val());
+            GetQCMaterialNoOracle($("#ddlSite").val());
+        });
+
         $("#txtSiteLokasi").change(function () {
             $('#txtDept').attr('hidden', false);
             GetDepartementLokasiKejadian();
@@ -1490,13 +1495,14 @@
         })
     });
 
-    function GetQCMaterialNoOracle() {
-        var LocationSite = $("#ddlSite").val();
+    function GetQCMaterialNoOracle(siteKoor) {
+        siteKoor = siteKoor.trim();
+        @*var LocationSite = $("#ddlSite").val();*@
         var DEVIATION_CATEGORY = $("#ddlKategori").val();
         var FlagReceipt = $('input[name="r_receipt"]:checked').val();
-
+        @*console.log(siteKoor)*@
         var dto = {
-            LocationSite: LocationSite,
+            LocationSite: siteKoor,
             DeviationCategory: DEVIATION_CATEGORY,
             FlagReceipt: FlagReceipt
         }
@@ -1512,6 +1518,7 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
+                console.log(data)
                 var count = data.length;
                 if (count > 0) {
 
@@ -1669,7 +1676,7 @@
                 $("#TxtItemCode").attr("hidden", false);
                 $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
 
-                GetNoBatchOracle();
+                GetNoBatchOracle($("#ddlSite").val());
                 $("#TxtNoWO").attr("disabled", true);
             }
         }
@@ -1680,7 +1687,7 @@
             }
             else {
                 $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
-                GetQCMaterialNoOracle();
+                GetQCMaterialNoOracle($("#ddlKategori").val());
                
             }
         }
@@ -1768,15 +1775,16 @@
 
 
 
-    function GetNoBatchOracle() {
+    function GetNoBatchOracle(siteKoor) {
+        siteKoor = siteKoor.trim();
         $('#ModalLoading').modal('show');
         setTimeout(function () {
             $('#ModalLoading').modal('hide');
         }, 2000);
-
-        var LocationSite = LOCATION_SITE = $("#txtSiteLokasi").val();
+        @*console.log(':' + siteKoor + ':');*@
+		@*var LocationSite = LOCATION_SITE = $("#ddlSite").val();*@
         var dto = {
-            LocationSite: LocationSite
+            LocationSite: siteKoor
         }
 
         $.ajax({
@@ -1785,6 +1793,7 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
+                @*console.log(data)*@
                 var count = data.length;
                 var trhtml = '';
                 var trav = 0;
@@ -3040,7 +3049,7 @@
                     $('#TxtQCMaterialNo').attr("hidden", true);
                     $("#divQCMaterial").css("display", "none");
                     $("#TxtItemCode").attr('placeholder', 'Item Code');
-                    GetNoBatchOracle();
+                    GetNoBatchOracle(data[0].LOCATION_SITE);
                     $('#txtKetKategori').attr('disabled', true);
                 }
                 else {
@@ -3056,7 +3065,7 @@
                         $('#txtKetKategori').attr('disabled', true);
                         $("#TxtItemCode").attr('placeholder', 'Item Code Oracle');
                         $("#TxtQCMaterialNo").attr('placeholder', 'QC Material Number');
-                        GetQCMaterialNoOracle();
+                        GetQCMaterialNoOracle(data[0].LOCATION_SITE);
                     }
                     else {
                         $("#divsimpang").hide();
@@ -3216,7 +3225,7 @@
                 $("#txtSiteLokasi").select2();
 
                 GetDepartementLokasiKejadian();
-                GetNoBatchOracle();
+                @*GetNoBatchOracle();*@
             }
             , error: function (ex) {
 
