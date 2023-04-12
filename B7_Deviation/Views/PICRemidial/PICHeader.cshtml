@@ -901,13 +901,8 @@
         //var y = parseInt(manhoursCost.replace(',', ''));
         var x = Number(manhoursValue.replace(/[^0-9.-]+/g, ""));
         var y = Number(manhoursCost.replace(/[^0-9.-]+/g, ""));
-
-        @*console.log("x: " + x)
-        console.log("y:" + y)*@
         testingTotalCost = x * y;
         var totalAll = testingTotalCost + procTotalCost + rejTotalCost + mcTotalCost + costanalysis + sparepart ;
-
-        @*console.log("testingTotalCost   :" + testingTotalCost)*@
 
         $('#textTotalManHoursCost').val(currencyDecimal(testingTotalCost));
         $('#textTotalCostALL').val(currencyDecimal(totalAll));
@@ -978,8 +973,11 @@
 
 
 
-	function currencyDecimal(input) {
-        return "Rp. " + input.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    function currencyDecimal(input) {
+        @*console.log(input.toLocaleString('en'));*@
+        var currResult = input.toLocaleString('en');
+        return "Rp. " + currResult;
+        @*return "Rp. " + input.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");*@
     }
 
 	function CheckHiddenCostType() {

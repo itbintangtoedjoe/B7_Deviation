@@ -246,6 +246,7 @@
         @*LoadFormInput().done(function () {
             }*@
 
+        GetFileAttachment();
         $('#deviationdatatable tbody').on('click', 'input[id="btnVerifikasi"]', function () {
             var row = this.closest("TR");
             var ReqID = @ViewBag.nomor;

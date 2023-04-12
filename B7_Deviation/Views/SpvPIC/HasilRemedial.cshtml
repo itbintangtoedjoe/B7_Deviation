@@ -355,17 +355,17 @@
 </div>
 
 
-<div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
+@*<div class="modal fade" data-backdrop="static" tabindex="-1" role="document" id="ModalLoading" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered text-center">
         <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
     </div>
-</div>
+</div>*@
 
 
 <script nonce="FDaVOmGSur+NPTb0b64Xkg==">
 	$(document).ready(function () {
 		//FORM INPUT
-        $('#ModalLoading').modal('show');
+        @*$('#ModalLoading').modal('show');*@
 		LoadFormInput();
 		//LoadUserInvolved();
 		//GetFileAttachment();
@@ -1291,7 +1291,7 @@
 	function LoadKeteranganDisposisi() {
 
 		var REQID = @ViewBag.nomor;
-        $('#ModalLoading').modal('show');
+        @*$('#ModalLoading').modal('show');*@
 		var dto = {
 			REQ_ID: REQID
 		}
@@ -1330,7 +1330,7 @@
 					$('#tblDis').attr('hidden', true);
 					$("#tblDisKet").addBack();
 				}
-                    $('#ModalLoading').modal('hide');
+                    @*$('#ModalLoading').modal('hide');*@
 			}
 
 			, error: function (ex) {
