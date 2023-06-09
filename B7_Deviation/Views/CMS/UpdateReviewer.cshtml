@@ -161,7 +161,7 @@
         });
 
         $("#ddlNama").change(function () {
-
+            console.log($("#ddlNama").val());
             if ($('#ddlNama').val() != '') {
                 document.getElementById("btnAddReviewerValidation").disabled = false;
             } else {
@@ -444,7 +444,7 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-
+                console.log(data);
                 var trhtml = "";
                 var trav = 0;
                 var count = data.length;
@@ -454,7 +454,7 @@
                     for (trav = 0; trav < count; trav++) {
 
                         trhtml +=
-                            '<option class="dropdown-item" value = "' + trav + '" > ' + data[trav].empname;
+                            '<option class="dropdown-item" value = "' + data[trav].empid + '" > ' + data[trav].empname;
                     }
                 }
 
@@ -471,14 +471,16 @@
     }
 
     function AddReviewer() {
-        var UserInvolved = $('#ddlNama option:selected').text();
+        var UserInvolved = $('#ddlNama option:selected').text().trim();
+        var userNIK = $('#ddlNama').val();
         var REQID = $('#ddlNoPenyimpangan').val();
         var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
         var dto = {
             REQID: REQID,
             UserInvolved: UserInvolved,
-            IdProposer: iduser
+            IdProposer: iduser,
+            USERNIK:userNIK
         }
 
         function addReviewer() {
@@ -515,8 +517,7 @@
         }
 
         function SendMailReviewer() {
-            @*var receiver = $("TD", row).eq(2).find("select").val();*@
-            var tabletype = "More Than One";
+    var tabletype = "More Than One";
             var whoreceiver = "Reviewer after Added by Koor";
             var NamaEmployeeAdded = $('#ddlNama option:selected').text();
             var curr_user = '@Request.RequestContext.HttpContext.Session["xUser"]';
@@ -568,13 +569,15 @@
     function UpdateReviewer() {
         var NamaEmployeeRemoved = $('#ddlNama2 option:selected').text();
         var NamaEmployeeAdded = $('#ddlNama2 option:selected').text();
+        var userNIKAdded = $('#ddlNama').val();
         var REQID =  $('#ddlNoPenyimpangan').val();
         var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
 
         var dto = {
             REQID: REQID,
             NamaEmployee: NamaEmployee,
-            IdProposer: iduser
+            IdProposer: iduser,
+            USERNIK: userNIKAdded
         }
 
         $.ajax({

@@ -1302,6 +1302,9 @@ namespace B7_Deviation.Controllers
                     Command.Parameters.Add("@USER_INVOLVED", SqlDbType.NVarChar);
                     Command.Parameters["@USER_INVOLVED"].Value = Model.UserInvolved;
 
+                    Command.Parameters.Add("@USER_NIK_PARAM", SqlDbType.NVarChar);
+                    Command.Parameters["@USER_NIK_PARAM"].Value = Model.USERNIK;
+
                     Command.Parameters.Add("@ID_PROPOSER", SqlDbType.VarChar);
                     Command.Parameters["@ID_PROPOSER"].Value = Model.IdProposer;
 
@@ -1343,6 +1346,9 @@ namespace B7_Deviation.Controllers
 
                     Command.Parameters.Add("@NamaEmployeeAdded", SqlDbType.NVarChar);
                     Command.Parameters["@NamaEmployeeAdded"].Value = Model.NamaEmployeeAdded;
+
+                    Command.Parameters.Add("@USER_NIK_PARAM", SqlDbType.NVarChar);
+                    Command.Parameters["@USER_NIK_PARAM"].Value = Model.USERNIK;
 
                     Command.Parameters.Add("@ID_PROPOSER", SqlDbType.VarChar);
                     Command.Parameters["@ID_PROPOSER"].Value = Model.IdProposer;
