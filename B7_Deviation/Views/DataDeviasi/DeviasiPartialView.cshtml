@@ -1726,10 +1726,12 @@
             var noBO = data['NoBatchOracle'];
             var noWOOracle = data['NoWOOracle'];
             var itemCode = data['ItemCodeOracle'];
-            console.log(noBO + noWOOracle + itemCode )
-            filteredArray = listProduk.filter(value =>  value.NoWOOracle != noWOOracle && value.NoBatchOracle != noBO && value.ItemCodeOracle != itemCode);
-        }
+            console.log(noBO + noWOOracle + itemCode);
+            var gabunganCode = noBO + noWOOracle + itemCode;
 
+            filteredArray = listProduk.filter(value => (value.NoBatchOracle + value.NoWOOracle +  value.ItemCodeOracle) != gabunganCode);
+        }
+        console.log(filteredArray);
 
         listProduk = filteredArray;
         SetTableProduk(dev_kategori);
