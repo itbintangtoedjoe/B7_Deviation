@@ -1719,19 +1719,20 @@
 
         if (dev_kategori == 'QMT') {
             var noQC = data['NoQCMaterial'];
-            var noWOOracle = data['NoWOOracle'];
-            filteredArray = listProduk.filter(value => value.NoQCMaterial != noQC && value.NoWOOracle != noWOOracle);
+            var itemCode = data['ItemCodeOracle'];
+            var itemToBeDeleted = noQC + itemCode;
+            filteredArray = listProduk.filter(value => itemToBeDeleted != (value.NoQCMaterial + value.ItemCodeOracle));
         }
         else if (dev_kategori == 'QPR') {
             var noBO = data['NoBatchOracle'];
             var noWOOracle = data['NoWOOracle'];
             var itemCode = data['ItemCodeOracle'];
-            console.log(noBO + noWOOracle + itemCode);
-            var gabunganCode = noBO + noWOOracle + itemCode;
-
-            filteredArray = listProduk.filter(value => (value.NoBatchOracle + value.NoWOOracle +  value.ItemCodeOracle) != gabunganCode);
+            var itemToBeDeleted = noBO + noWOOracle + itemCode;
+            @*console.log(noBO + noWOOracle + itemCode)
+            console.log(listProduk[0].NoBatchOracle + listProduk[0].NoWOOracle + listProduk[0].ItemCodeOracle)*@
+            filteredArray = listProduk.filter(value => itemToBeDeleted != (value.NoBatchOracle + value.NoWOOracle+value.ItemCodeOracle));
         }
-        console.log(filteredArray);
+
 
         listProduk = filteredArray;
         SetTableProduk(dev_kategori);

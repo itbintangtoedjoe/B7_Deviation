@@ -1008,11 +1008,16 @@
 
         if (dev_kategori == 'QMT') {
             var noQC = data['NoQCMaterial'];
-            filteredArray = listProduk.filter(value => value.NoQCMaterial != noQC);
+            var itemCode = data['ItemCodeOracle'];
+            var itemToBeDeleted = noQC + itemCode;
+            filteredArray = listProduk.filter(value => itemToBeDeleted != (value.NoQCMaterial + value.ItemCodeOracle));
         }
         else if (dev_kategori == 'QPR') {
+            var noBO = data['NoBatchOracle'];
             var noWOOracle = data['NoWOOracle'];
-            filteredArray = listProduk.filter(value => value.NoWOOracle != noWOOracle);
+            var itemCode = data['ItemCodeOracle'];
+            var itemToBeDeleted = noBO + noWOOracle + itemCode;
+            filteredArray = listProduk.filter(value => itemToBeDeleted != (value.NoBatchOracle + value.NoWOOracle + value.ItemCodeOracle));
         }
 
 
