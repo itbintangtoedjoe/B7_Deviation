@@ -1518,7 +1518,7 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                console.log(data)
+                @*console.log(data)*@
                 var count = data.length;
                 if (count > 0) {
 
@@ -2513,7 +2513,7 @@
         var dto = {
             IdProposer: ID_PROPOSER
         }
-        console.log(ID_PROPOSER);
+        @*console.log(ID_PROPOSER);*@
         $.ajax({
             type: "POST",
             url: "../Form/GenerateDepartment",

@@ -188,7 +188,7 @@
             $('#addReviewerValidation').modal('show');
         });
 
-        var NamaEmployeeRemoved = 'capek';
+        var NamaEmployeeRemoved = '';
 
         // Update Function
         $('#deviationdatatable').on('click',
@@ -211,6 +211,7 @@
 
             var REQID = $('#ddlNoPenyimpangan').val();
             var iduser = '@Request.RequestContext.HttpContext.Session["xUser"]';
+            var userNIK = $('#ddlNama2').val();
             $('#updateReviewer').modal('hide');
 
             @*alert(NamaEmployeeRemoved + ' ' + NamaEmployeeAdded + ' ' + REQID + ' ' + iduser)*@
@@ -218,9 +219,10 @@
                 REQID: REQID,
                 NamaEmployeeRemoved: NamaEmployeeRemoved,
                 NamaEmployeeAdded: NamaEmployeeAdded,
-                IdProposer: iduser
+                IdProposer: iduser,
+                USERNIK: userNIK
             }
-
+            @*console.log(dto);*@
             function updateReviewer() {
                 $.ajax({
                     url: "../CMS/CMS_UpdateReviewer",
@@ -258,7 +260,6 @@
             //Kirim Email
 
             function SendMailReviewer() {
-				@*var receiver = $("TD", row).eq(2).find("select").val();*@
 				var tabletype = "More Than One";
                 var whoreceiver = "Reviewer after Added by Koor";
                 var NamaEmployeeAdded = $('#ddlNama2 option:selected').text();
@@ -444,7 +445,7 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                console.log(data);
+                @*console.log(data);*@
                 var trhtml = "";
                 var trav = 0;
                 var count = data.length;
@@ -454,7 +455,7 @@
                     for (trav = 0; trav < count; trav++) {
 
                         trhtml +=
-                            '<option class="dropdown-item" value = "' + data[trav].empid + '" > ' + data[trav].empname;
+                            '<option class="dropdown-item" value = "' + data[trav].empid + '">' + data[trav].empname+'</option>';
                     }
                 }
 
@@ -566,7 +567,7 @@
         $.when(addReviewer()).done(SendMailReviewer());
     }
 
-    function UpdateReviewer() {
+    @*function UpdateReviewer() {
         var NamaEmployeeRemoved = $('#ddlNama2 option:selected').text();
         var NamaEmployeeAdded = $('#ddlNama2 option:selected').text();
         var userNIKAdded = $('#ddlNama').val();
@@ -610,7 +611,7 @@
                 alert(ex);
             }
         });
-    }
+    }*@
 
 
     </script>

@@ -233,8 +233,11 @@
                                                     });
                                                 LoadData();
                                             },
-                                            error: function (ex) {
-                                                alert(ex);
+                                            error: function (xhr, textStatus, error) {
+                                                console.log(xhr.responseText);
+                                                console.log(xhr.statusText);
+                                                console.log(textStatus);
+                                                console.log(error);
                                             }
                                         });
                                     };
@@ -247,7 +250,7 @@
 
                                     var dtx = {
                                         Username: curr_user,
-									    Receiver: pic_nik,
+                                        Receiver: empID,
 									    ReqID: REQID,
 									    TableType: tabletype,
 									    WhoReceiver: whoreceiver
@@ -291,7 +294,7 @@
 
 								    var dtx = {
 									    Username: curr_user,
-									    Group: pic_nik,
+                                        Group: empID,
 									    Site: groupsite,
 									    ReqID: REQID,
 									    TableType: tabletype,

@@ -144,6 +144,8 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@SitePenyimpangan", System.Data.SqlDbType.VarChar);
                     command.Parameters["@SitePenyimpangan"].Value = Model.SitePenyimpangan;
+
+                    command.CommandTimeout = 950;
                     SqlDataAdapter dataAdap = new SqlDataAdapter();
                     dataAdap.SelectCommand = command;
                     dataAdap.Fill(DT);

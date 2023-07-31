@@ -397,7 +397,7 @@
             var row = $(this).closest("TR");
             var ReqID = @ViewBag.nomor;
             var picnik = $("TD", row).eq(22).html();
-            var seq = $("TD", row).eq(0).html();
+            var seq = @ViewBag.dis;
 
             var dto = {
                 REQID: ReqID,
@@ -412,7 +412,7 @@
                 data: JSON.stringify(dto),
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    @*console.log(data);*@
+                    console.log(data);
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
