@@ -28,6 +28,7 @@
 
                     <div class="form-group">
                         <button class="btn btn-danger" value="Clear" id="ClearFilter">Clear Filter</button>
+                        <button class="btn btn-success" value="Clear" id="btnFindDeviation">Find Deviation</button>
                     </div>
 
                     <div class="row">
@@ -149,7 +150,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="divLoading" class="row">
+                    <div id="divLoading" class="row" hidden>
                         <div class="col-md-12" style="text-align:center">
                             <img src="~/Content/Styles/images/loading2.gif" width="400" height="300" />
                         </div>
@@ -157,7 +158,7 @@
                     </div>
                 </div>
 
-                <div class="card-body" id="cardTable">
+                <div class="card-body" id="cardTable" hidden>
                     <table class="table table-striped table-bordered table-hover nowrap table-responsive" width="100%" id="deviationdatatable">
                         <thead>
                             <tr>
@@ -208,7 +209,7 @@
     </div>
 
     <script nonce="i9AecplAtcnLMLksdM4qAg==">
-        let checkLoading = 0;
+        let checkLoading = 1;
 
         //Variable global edit by teddy , untuk menampun Nomor.
         var nomor;
@@ -253,10 +254,33 @@
                 window.open("../DataDeviasi/PrintReportFindDeviation?Number=" + nomor + "&Tipe=Word")
             });
 
-            $.when.apply($, ajaxCalls()).then($.ajax(LoadData()));
+            //$.when.apply($, ajaxCalls()).then($.ajax(LoadData()));
+            $.when.apply($, ajaxCalls()).then(console.log('yoi'));
 
-            $("#Find").click(function () {
-                window.location.href = "/DataDeviasi/FindDeviation"
+            //$("#Find").click(function () {
+            //    window.location.href = "/DataDeviasi/FindDeviation"
+            //});
+
+            $("#btnFindDeviation").click(function () {
+                //if (checkLoading > 0) {
+                //    console.log('mashok')
+                //    $('#divLoading').prop('hidden', false);
+                //    $('#cardTable').prop('hidden', true);
+                //    checkLoading = 0;
+                //}
+                $('#divLoading').prop('hidden', false);
+                $('#cardTable').prop('hidden', true);
+                $('#ClearFilter').prop('disabled', true);
+                $('#btnFindDeviation').prop('disabled', true);
+                var sp = $("#statuspenyimpangan").val();
+                var dp = $("#departemenpelapor").val();
+                var kp = $("#kategoripenyimpangan").val();
+                var jp = $("#jenispenyimpangan").val();
+                var tp = $("#tahunpelaporan").val();
+                var bp = $("#ddlBulanPelaporan").val();
+                var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
+
+                FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
             });
 
             $("#ClearFilter").click(function () {
@@ -264,203 +288,56 @@
             });
 
             if (checkLoading == 0) {
-                $('#divLoading').prop('hidden', false);
+                //$('#divLoading').prop('hidden', false);
                 $('#cardTable').prop('hidden', true);
 
             }
-            $("#ddlSitePenyimpangan").selectpicker("refresh");
-            $("#ddlBulanPelaporan").selectpicker("refresh");
         });
 
         function ajaxCalls() {
             return [
                 $.ajax(LoadFilter()),
-                $.ajax(CheckFilter())
+                //$.ajax(CheckFilter())
             ];
         }
 
 
 
         function ClearFilter() {
-            if (checkLoading == 0) {
-                $('#divLoading').prop('hidden', false);
-                $('#cardTable').prop('hidden', true);
+            //if (checkLoading == 0) {
+                //$('#divLoading').prop('hidden', false);
+            //$('#cardTable').prop('hidden', true);
 
-                $("#statuspenyimpangan").val('Status Penyimpangan');
-                $("#statuspenyimpangan").selectpicker("refresh");
+            $("#statuspenyimpangan").val('Status Penyimpangan');
+            $("#statuspenyimpangan").selectpicker("refresh");
 
-                $("#departemenpelapor").val('Departemen Pelapor');
-                $("#departemenpelapor").selectpicker("refresh");
+            $("#departemenpelapor").val('Departemen Pelapor');
+            $("#departemenpelapor").selectpicker("refresh");
 
-                $("#kategoripenyimpangan").val('Kategori Penyimpangan');
-                $("#kategoripenyimpangan").selectpicker("refresh");
+            $("#kategoripenyimpangan").val('Kategori Penyimpangan');
+            $("#kategoripenyimpangan").selectpicker("refresh");
 
-                $("#jenispenyimpangan").val('Jenis Penyimpangan');
-                $("#jenispenyimpangan").selectpicker("refresh");
+            $("#jenispenyimpangan").val('Jenis Penyimpangan');
+            $("#jenispenyimpangan").selectpicker("refresh");
 
-                $("#tahunpelaporan").val('Tahun Pelaporan');
-                $("#tahunpelaporan").selectpicker("refresh");
+            $("#tahunpelaporan").val('Tahun Pelaporan');
+            $("#tahunpelaporan").selectpicker("refresh");
 
-                $("#ddlSitePenyimpangan").val('Site Penyimpangan');
-                $("#ddlSitePenyimpangan").selectpicker("refresh");
+            $("#ddlSitePenyimpangan").val('Site Penyimpangan');
+            $("#ddlSitePenyimpangan").selectpicker("refresh");
 
-                $("#ddlBulanPelaporan").val('Bulan Pelaporan');
-                $("#ddlBulanPelaporan").selectpicker("refresh");
+            $("#ddlBulanPelaporan").val('Bulan Pelaporan');
+            $("#ddlBulanPelaporan").selectpicker("refresh");
 
-                $('#deviationdatatable').DataTable().clear().destroy();
-                LoadData();
-            }
+            $('#deviationdatatable').DataTable().clear().destroy();
+                //LoadData();
+            //}
 
         }
 
         //AUTO SEND PARAMETER
+        //26/09/23 feature removed
 
-        function CheckFilter() {
-            $("#statuspenyimpangan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
-
-                if ($("#statuspenyimpangan").val() != "") {
-
-                    var sp = $("#statuspenyimpangan").val();
-                    var dp = $("#departemenpelapor").val();
-                    var kp = $("#kategoripenyimpangan").val();
-                    var jp = $("#jenispenyimpangan").val();
-                    var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
-
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
-                }
-            });
-
-            $("#departemenpelapor").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
-                if ($("#departemenpelapor").val() != "") {
-
-                    var sp = $("#statuspenyimpangan").val();
-                    var dp = $("#departemenpelapor").val();
-                    var kp = $("#kategoripenyimpangan").val();
-                    var jp = $("#jenispenyimpangan").val();
-                    var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
-
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
-
-                }
-            });
-
-            $("#kategoripenyimpangan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
-                if ($("#kategoripenyimpangan").val() != "") {
-
-                    var sp = $("#statuspenyimpangan").val();
-                    var dp = $("#departemenpelapor").val();
-                    var kp = $("#kategoripenyimpangan").val();
-                    var jp = $("#jenispenyimpangan").val();
-                    var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
-
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
-
-                }
-            });
-
-            $("#jenispenyimpangan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
-                if ($("#jenispenyimpangan").val() != "") {
-
-                    var sp = $("#statuspenyimpangan").val();
-                    var dp = $("#departemenpelapor").val();
-                    var kp = $("#kategoripenyimpangan").val();
-                    var jp = $("#jenispenyimpangan").val();
-                    var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
-
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
-
-                }
-            });
-
-            $("#tahunpelaporan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
-                if ($("#tahunpelaporan").val() != "") {
-
-                    var sp = $("#statuspenyimpangan").val();
-                    var dp = $("#departemenpelapor").val();
-                    var kp = $("#kategoripenyimpangan").val();
-                    var jp = $("#jenispenyimpangan").val();
-                    var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
-
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
-
-                }
-            });
-
-            $("#ddlBulanPelaporan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
-                if ($("#ddlBulanPelaporan").val() != "") {
-
-                    var sp = $("#statuspenyimpangan").val();
-                    var dp = $("#departemenpelapor").val();
-                    var kp = $("#kategoripenyimpangan").val();
-                    var jp = $("#jenispenyimpangan").val();
-                    var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
-
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
-                }
-            });
-
-            $("#ddlSitePenyimpangan").change(function () {
-                if (checkLoading == 0) {
-                    $('#divLoading').prop('hidden', false);
-                    $('#cardTable').prop('hidden', true);
-
-                }
-                if ($("#ddlSitePenyimpangan").val() != "") {
-
-                    var sp = $("#statuspenyimpangan").val();
-                    var dp = $("#departemenpelapor").val();
-                    var kp = $("#kategoripenyimpangan").val();
-                    var jp = $("#jenispenyimpangan").val();
-                    var tp = $("#tahunpelaporan").val();
-                    var bp = $("#ddlBulanPelaporan").val();
-                    var sitePenyimpangan = $("#ddlSitePenyimpangan").val();
-
-                    FilteredTable(sp, dp, kp, jp, tp, bp, sitePenyimpangan);
-                }
-            });
-        }
 
         // SEND PARAMETER TO CONTROLLER
 
@@ -490,6 +367,10 @@
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
+                    $('#divLoading').prop('hidden', true);
+                    $('#cardTable').prop('hidden', false);
+                    $('#ClearFilter').prop('disabled', false);
+                    $('#btnFindDeviation').prop('disabled', false);
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
@@ -547,11 +428,11 @@
                     });
 
 
-                    if (checkLoading > 0) {
-                        $('#divLoading').prop('hidden', true);
-                        $('#cardTable').prop('hidden', false);
-                        checkLoading = 0;
-                    }
+                    //if (checkLoading == 0) {
+                    //    $('#divLoading').prop('hidden', true);
+                    //    $('#cardTable').prop('hidden', false);
+                    //    checkLoading = 0;
+                    //}
                     @*Print();
                     View();*@
                 },
@@ -712,6 +593,8 @@
 
             TahunPelaporan();
 
+            $("#ddlSitePenyimpangan").selectpicker();
+            $("#ddlBulanPelaporan").selectpicker();
         }
 
         function LoadData() {
@@ -767,7 +650,7 @@
                     }
 
                     if (checkLoading > 0) {
-                        $('#divLoading').prop('hidden', true);
+                    //$('#divLoading').prop('hidden', false);
                         $('#cardTable').prop('hidden', false);
                         checkLoading = 0;
                     }

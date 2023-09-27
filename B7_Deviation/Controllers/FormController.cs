@@ -764,7 +764,7 @@ namespace B7_Deviation.Controllers
                     //Start Setting Send Notification
                     Msg.Subject = "Deviation Notification";
                     Msg.Body = EmailBody;
-                    //MailObject.Send(Msg);
+                    MailObject.Send(Msg);
                     //End Setting Send Notification
                 }
                 catch (Exception ex)
@@ -792,7 +792,7 @@ namespace B7_Deviation.Controllers
                         //Start Setting Send Notification
                         Msg.Subject = "Deviation Notification";
                         Msg.Body = EmailBody;
-                        //MailObject.Send(Msg);
+                        MailObject.Send(Msg);
                         //End Setting Send Notification
                     }
                     catch (Exception ex2)
@@ -820,7 +820,7 @@ namespace B7_Deviation.Controllers
                             //Start Setting Send Notification
                             Msg.Subject = "Deviation Notification";
                             Msg.Body = EmailBody;
-                            //MailObject.Send(Msg);
+                            MailObject.Send(Msg);
                             //End Setting Send Notification
                         }
                         catch (Exception ex3)

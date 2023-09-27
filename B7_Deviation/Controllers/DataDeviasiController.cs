@@ -385,6 +385,8 @@ namespace B7_Deviation.Controllers
 
                     command.Parameters.Add("@SitePenyimpangan", System.Data.SqlDbType.VarChar);
                     command.Parameters["@SitePenyimpangan"].Value = Model.SitePenyimpangan;
+
+                    command.CommandTimeout = 950;
                     SqlDataAdapter dataAdap = new SqlDataAdapter();
                     dataAdap.SelectCommand = command;
                     dataAdap.Fill(DT);
@@ -731,6 +733,7 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@Option", System.Data.SqlDbType.VarChar);
                     command.Parameters["@Option"].Value = "Master List Filtered Table";
 
+                    command.CommandTimeout = 950;
                     SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
 
@@ -1479,11 +1482,8 @@ namespace B7_Deviation.Controllers
                     command.Parameters.Add("@SitePenyimpangan", System.Data.SqlDbType.VarChar);
                     command.Parameters["@SitePenyimpangan"].Value = SitePenyimpangan;
 
-
-
-
-
-                SqlDataAdapter dataAdapt = new SqlDataAdapter();
+                    command.CommandTimeout = 950;
+                    SqlDataAdapter dataAdapt = new SqlDataAdapter();
                     dataAdapt.SelectCommand = command;
                     dataAdapt.Fill(dt);
                 }

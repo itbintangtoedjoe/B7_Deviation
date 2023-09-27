@@ -405,6 +405,7 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
+                console.log(data)
                 var trHTML = '';
                 var trav = 0;
                 var Count = data.length;
@@ -420,7 +421,7 @@
 
 
                     var flagReview = data[trav].FLAG_PIC;
-                    if (flagReview == 'ASSIGNED' || flagReview.toLowerCase().indexOf("rejected") >= 0) {
+                    if (flagReview == 'ASSIGNED' || flagReview.toLowerCase().indexOf("rejected") >= 0 || flagReview.toLowerCase().indexOf("proposal") >= 0) {
                         trHTML +=
                             '<td> <input type="button" id = "btnUpdateValidation" value="Update" class="btn btn-success update" style="width:50px"/> </td></tr>';
                     } else {

@@ -645,7 +645,7 @@
 			data: JSON.stringify(dto),
 			contentType: "application/json;charset=utf-8",
 			success: function (data) {
-				@*console.log(data);*@
+				console.log(data);
 				if (data == '' || data == null) {
 
 				}
@@ -653,7 +653,7 @@
 				if (data[0].STAT == 'S') {
 
 					//$("#btnCancel").removeAttr('hidden');
-					$("#btnShowRev").removeAttr('hid\en');
+					$("#btnShowRev").removeAttr('hidden');
 
 					$("#btnShowRev").click(function () {
 						window.location.href = "../Koordinator/ReviewerDataTable?Nomor=@ViewBag.nomor";
