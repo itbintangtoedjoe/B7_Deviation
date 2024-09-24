@@ -96,7 +96,8 @@
                                  }
                     }, error: function (ex) {
                         alert('Error aplikasi, silahkan hubungi administrator!');
-                        location.reload();
+        console.log(ex.message);
+                        //location.reload();
                         }
                     });
                 });

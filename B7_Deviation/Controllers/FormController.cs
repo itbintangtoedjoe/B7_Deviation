@@ -168,7 +168,7 @@ namespace B7_Deviation.Controllers
 
                         #region Send More than One
 
-                        if (Model.WhoReceiver == "Koordinator after Superior Approved") //DONE (KOOR + pelapor)
+                        if (Model.WhoReceiver == "Koordinator after Superior Approved") //261023 only to koor QS
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
@@ -185,7 +185,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Waiting Approval Coordinator";
                         }
 
-                        else if (Model.WhoReceiver == "Reviewer after Appointed") //DONE (REVIEWER + koor + pelapor)
+                        else if (Model.WhoReceiver == "Reviewer after Appointed") //261023 only to reviewer
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Reviewer after Appointed";
@@ -200,7 +200,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Waiting Review";
                         }
 
-                        else if (Model.WhoReceiver == "Reviewer after Added by Koor")
+                        else if (Model.WhoReceiver == "Reviewer after Added by Koor") //261023 only to reviewer
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Reviewer after Added by Koor";
@@ -221,7 +221,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Need Your Review as Reviewer";
                         }
 
-                        else if (Model.WhoReceiver == "Koordinator after Reviewer Submit") // DONE (KOOR + pelapor + reviewer)
+                        else if (Model.WhoReceiver == "Koordinator after Reviewer Submit") //261023 only to koor QS
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Koordinator after Reviewer Submit";
@@ -235,7 +235,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Waiting Confirmation Coordinator";
                         }
 
-                        else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer") // DONE (EVALUATOR[QM] + pelapor + koor + reviewer)
+                        else if (Model.WhoReceiver == "QM after Koordinator Approve Reviewer") //261023 only to evaluator QS
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
@@ -249,7 +249,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Waiting Remedial Disposition";
                         }
 
-                        else if (Model.WhoReceiver == "Koordinator after QM Approve") // DONE (KOOR + pelapor + reviewer + evaluator) 
+                        else if (Model.WhoReceiver == "Koordinator after QM Approve") //261023 to koor QS, cc all kecuali eval QA
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Koordinator after QM Approved";
@@ -263,7 +263,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Approved for Remedial Action";
                         }
 
-                        else if (Model.WhoReceiver == "Group PIC after Appointed") // DONE (PIC + pelapor + koor +  reviewer + evaluator)
+                        else if (Model.WhoReceiver == "Group PIC after Appointed") //261023 only to pic
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Group PIC after Appointed";
@@ -282,7 +282,7 @@ namespace B7_Deviation.Controllers
                         }
 
                         else if (Model.WhoReceiver == "PIC Group after Superior Rejected Cost" ||
-                                 Model.WhoReceiver == "PIC Group after Division Head Rejected Cost")// DONE (PIC + pelapor + koor +  reviewer + evaluator)
+                                 Model.WhoReceiver == "PIC Group after Division Head Rejected Cost")  //261023 only to pic
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Group PIC after Appointed";
@@ -309,7 +309,7 @@ namespace B7_Deviation.Controllers
                         }
 
                         else if (Model.WhoReceiver == "Koordinator after PIC Submit" ||
-                                 Model.WhoReceiver == "Koordinator after Superior PIC Approved Cost") //TO KOOR + CC PELAPOR
+                                 Model.WhoReceiver == "Koordinator after Superior PIC Approved Cost") //261023 only to koor QSs
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Koordinator after Superior Approved";
@@ -338,7 +338,7 @@ namespace B7_Deviation.Controllers
 
                         }
 
-                        else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK") // DONE (EVALUATOR + pelapor + reviewer + PIC + Superior PIC + div head)
+                        else if (Model.WhoReceiver == "QM after Koordinator Verifikasi OK") //261023 only to eval QS
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "QM after Koordinator Verifikasi OK";
@@ -355,7 +355,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Waiting Final Disposition";
                         }
 
-                        else if (Model.WhoReceiver == "PIC after Koordinator Verifikasi OK") // DONE (PIC + pelapor + reviewer + evaluator + Koor +  Superior PIC + div head)
+                        else if (Model.WhoReceiver == "PIC after Koordinator Verifikasi OK") //BELOM 261023 only to PIC
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "PIC after Koordinator Verifikasi OK";
@@ -372,7 +372,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Remedial Action Approved by Coordinator";
                         }
 
-                        else if (Model.WhoReceiver == "PIC after Koordinator Verifikasi Rejected") // DONE (PIC + pelapor + reviewer + evaluator + Koor +  Superior PIC + div head)
+                        else if (Model.WhoReceiver == "PIC after Koordinator Verifikasi Rejected") //261023 only to PIC
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "PIC after Koordinator Verifikasi Rejected";
@@ -390,24 +390,24 @@ namespace B7_Deviation.Controllers
                         }
 
 
-                        else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK") // DONE (KOOR + pelapor + reviewer + evaluator + PIC + Superior PIC + div head)
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "QM after Koordinator Verifikasi OK";
+                        //else if (Model.WhoReceiver == "QM after Koordinator Verifikasi Not OK") // DONE (KOOR + pelapor + reviewer + evaluator + PIC + Superior PIC + div head)
+                        //{
+                        //    Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                        //    Command.Parameters["@Option"].Value = "QM after Koordinator Verifikasi OK";
 
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        //    Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                        //    Command.Parameters["@ReqID"].Value = Model.ReqID;
 
-                            Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.Urutan;
+                        //    Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
+                        //    Command.Parameters["@ReqID"].Value = Model.Urutan;
 
-                            Command.Parameters.Add("@Username", SqlDbType.VarChar);
-                            Command.Parameters["@Username"].Value = Model.Username;
+                        //    Command.Parameters.Add("@Username", SqlDbType.VarChar);
+                        //    Command.Parameters["@Username"].Value = Model.Username;
 
-                            t_status = "Has been Rejected by Quality Manager, Need Your Review as Reviewer";
-                        }
+                        //    t_status = "Has been Rejected by Quality Manager, Need Your Review as Reviewer";
+                        //}
 
-                        else if (Model.WhoReceiver == "QM PIC Usulan Revisi") // DONE (EVALUATOR[QM] + pelapor + koor + reviewer)
+                        else if (Model.WhoReceiver == "QM PIC Usulan Revisi") //261023 only to koor QS
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "QM after Koordinator Approve Reviewer";
@@ -419,7 +419,7 @@ namespace B7_Deviation.Controllers
                         }
 
                         //INI DULUNYA DI ONE
-                        else if (Model.WhoReceiver == "Superior after Form Input") //DONE (SUPERIOR + koor)
+                        else if (Model.WhoReceiver == "Superior after Form Input") //261023 only to superior
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Form Input";
@@ -434,7 +434,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Waiting Approval Superior";
                         }
 
-                        else if (Model.WhoReceiver == "Proposer after Superior Reject") //DONE (PROPOSER + koor)
+                        else if (Model.WhoReceiver == "Proposer after Superior Reject") //261023 only to proposer
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Proposer after Superior Reject";
@@ -445,21 +445,21 @@ namespace B7_Deviation.Controllers
                             t_status = "Is Rejected by Superior";
                         }
 
-                        else if (Model.WhoReceiver == "Reviewer after Koordinator Approved") //DONE (REVIEWER + pelapor + koor)
-                        {
-                            Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Reviewer One";
+                        //else if (Model.WhoReceiver == "Reviewer after Koordinator Approved") //261023 only to reviewer
+                        //{
+                        //    Command.Parameters.Add("@Option", SqlDbType.VarChar);
+                        //    Command.Parameters["@Option"].Value = "Reviewer One";
 
-                            Command.Parameters.Add("@UserID", SqlDbType.VarChar);
-                            Command.Parameters["@UserID"].Value = Model.UserID;
+                        //    Command.Parameters.Add("@UserID", SqlDbType.VarChar);
+                        //    Command.Parameters["@UserID"].Value = Model.UserID;
 
-                            Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
-                            Command.Parameters["@ReqID"].Value = Model.ReqID;
+                        //    Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
+                        //    Command.Parameters["@ReqID"].Value = Model.ReqID;
 
-                            t_status = "Attachment Approved by Coordinator";
-                        }
+                        //    t_status = "Attachment Approved by Coordinator";
+                        //}
 
-                        else if (Model.WhoReceiver == "Reviewer after Koordinator Reject") //DONE (REVIEWER + pelapor + koor)
+                        else if (Model.WhoReceiver == "Reviewer after Koordinator Reject") //261023 only to reviewer
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Reviewer One";
@@ -474,10 +474,10 @@ namespace B7_Deviation.Controllers
                             Command.Parameters["@Username"].Value = Model.Username;
 
 
-                            t_status = "Is Rejected by Koordinator";
+                            t_status = "Is Rejected by Coordinator";
                         }
 
-                        else if (Model.WhoReceiver == "PIC after Appointed") // DONE (PIC + pelapor + koor + reviewer + evaluator)
+                        else if (Model.WhoReceiver == "PIC after Appointed")  //261023 only to pic
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "PIC After Appointed";
@@ -496,7 +496,7 @@ namespace B7_Deviation.Controllers
 
                         }
 
-                        else if (Model.WhoReceiver == "Superior PIC after PIC Submit Cost") // DONE (SUPERIOR + Pelapor + koor+ reviewer + evaluator)
+                        else if (Model.WhoReceiver == "Superior PIC after PIC Submit Cost") //261023 only to superior PIC
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Superior PIC after PIC Submit Cost";
@@ -513,7 +513,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Waiting Approval Quality Hidden Cost";
                         }
 
-                        else if (Model.WhoReceiver == "Div Head after Sup PIC Approve Cost") // DONE (DIV HEAD + pelapor + koor + reviewer + evaluator + superior)
+                        else if (Model.WhoReceiver == "Div Head after Sup PIC Approve Cost") //261023 only to div head
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Div Head after Sup PIC Approve Cost";
@@ -534,7 +534,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Waiting Approval Quality Hidden Cost";
                         }
 
-                        else if (Model.WhoReceiver == "PIC after Superior Rejected Cost") //DONE (PIC + supeiror + Pelapor + koor+ reviewer + evaluator)
+                        else if (Model.WhoReceiver == "PIC after Superior Rejected Cost") //261023 only to PIC
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "PIC after Superior Rejected Cost";
@@ -551,7 +551,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Cost Tindakan Remidial Rejected by Your Superior";
                         }
 
-                        else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost") //DONE (PIC + supeiror + Pelapor + koor+ reviewer + evaluator)
+                        else if (Model.WhoReceiver == "PIC after Division Head Rejected Cost") //261023 only to PIC
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "PIC after Superior Rejected Cost";
@@ -568,10 +568,10 @@ namespace B7_Deviation.Controllers
                             t_status = "Cost Tindakan Remidial Rejected by Your Division Head";
                         }
 
-                        else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA") //DONE (PELAPOR + koor)
+                        else if (Model.WhoReceiver == "Pelapor after Lanjut CAPA") //261023 only to koor QS
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
-                            Command.Parameters["@Option"].Value = "Pelapor after Lanjut CAPA";
+                            Command.Parameters["@Option"].Value = "Koordinator after Superior Approved"; //only to koor QS
 
                             Command.Parameters.Add("@ReqID", SqlDbType.VarChar);
                             Command.Parameters["@ReqID"].Value = Model.ReqID;
@@ -579,10 +579,10 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
 
-                            t_status = "Deviation CLOSED and Waiting CAPA Request";
+                            t_status = "Deviation CLOSED and waiting for CAPA request";
                         }
 
-                        else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA") //DONE (PELAPOR + koor)
+                        else if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA") //261023 send cc all, to: koor
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Pelapor after Lanjut CAPA";
@@ -597,7 +597,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Deviation CLOSED";
                         }
 
-                        else if (Model.WhoReceiver == "Canceled") // kirimnya tergantung flownya udah nyampe mana.. 
+                        else if (Model.WhoReceiver == "Canceled") // kirimnya tergantung flownya udah sampai mana
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "Canceled";
@@ -611,7 +611,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
 
-                            t_status = "Has been Canceled";
+                            t_status = "Has been canceled";
                         }
 
                         else if (Model.WhoReceiver == "Delegasi") // DONE (Evaluator [yg baru + yg lama] + pelapor + koor + reviewer) 
@@ -625,10 +625,10 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Username", SqlDbType.VarChar);
                             Command.Parameters["@Username"].Value = Model.Username;
 
-                            t_status = "Has been Delegated to you";
+                            t_status = "Has been delegated to you";
                         }
 
-                        else if (Model.WhoReceiver == "SPV PIC Usulan Revisi") // DONE (SUPERIOR [atasan PIC] + pelapor + koor + reviewer + evaluator )
+                        else if (Model.WhoReceiver == "SPV PIC Usulan Revisi") //261023 only to superior PIC
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "SPV PIC Usulan Revisi";
@@ -645,7 +645,7 @@ namespace B7_Deviation.Controllers
                             t_status = "Proposed Revision";
                         }
 
-                        else if (Model.WhoReceiver == "PIC Rejected Usulan Revisi") // DONE (PIC + pelapor + koor +  reviewer + evaluator + superior)
+                        else if (Model.WhoReceiver == "PIC Rejected Usulan Revisi") //261023 only to PIC
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "PIC Rejected Usulan Revisi";
@@ -659,10 +659,10 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
                             Command.Parameters["@Urutan"].Value = Model.Urutan;
 
-                            t_status = "Proposed revision has been Rejected";
+                            t_status = "Proposed revision has been rejected";
                         }
 
-                        else if (Model.WhoReceiver == "PIC Approved Usulan Revisi by QM") // DONE (PIC + pelapor + koor +  reviewer + evaluator + superior)
+                        else if (Model.WhoReceiver == "PIC Approved Usulan Revisi by QM") //261023 only to PIC
                         {
                             Command.Parameters.Add("@Option", SqlDbType.VarChar);
                             Command.Parameters["@Option"].Value = "PIC Rejected Usulan Revisi";
@@ -676,7 +676,7 @@ namespace B7_Deviation.Controllers
                             Command.Parameters.Add("@Urutan", SqlDbType.VarChar);
                             Command.Parameters["@Urutan"].Value = Model.Urutan;
 
-                            t_status = "Proposed Revision has been Approved";
+                            t_status = "Proposed revision has been approved";
                         }
 
                         #endregion
@@ -695,6 +695,7 @@ namespace B7_Deviation.Controllers
 
                 string daftarNamaPenerima = "";
                 string daftarNamaTo = "";
+
                 foreach (DataRow dr in DT.Rows)
                 {
                     daftarNamaPenerima += dr[0].ToString() + ", ";
@@ -711,6 +712,11 @@ namespace B7_Deviation.Controllers
                         Msg.CC.Add(new MailAddress(t_emailpenerima, t_namapenerima));
                     }
                 }
+
+                //if (Model.WhoReceiver == "Pelapor after Tidak Lanjut CAPA")
+                //{
+                //    daftarNamaTo = "All";
+                //}
 
 
                 #region EmailBodyMoreThanOne
@@ -762,9 +768,16 @@ namespace B7_Deviation.Controllers
                 try
                 {
                     //Start Setting Send Notification
-                    Msg.Subject = "Deviation Notification";
-                    Msg.Body = EmailBody;
-                    MailObject.Send(Msg);
+                    //only if there is a recipient
+                    if (daftarNamaTo != "")
+                    {
+                        Msg.Subject = "Deviation Notification";
+                        Msg.Body = EmailBody;
+                        //Msg.To.Add("tri.pamulatsih@bintang7.com");
+                        //Msg.CC.Add("felicia.benaly@bintang7.com");
+                        //Msg.CC.Add("ade.irawan@bintang7.com");
+                        MailObject.Send(Msg);
+                    }
                     //End Setting Send Notification
                 }
                 catch (Exception ex)
@@ -974,7 +987,7 @@ namespace B7_Deviation.Controllers
                     throw ex;
                 }
             }
-            return Json(result,JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult LoadAttachment(DeviationModel Model)

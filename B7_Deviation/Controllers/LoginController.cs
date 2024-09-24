@@ -115,7 +115,7 @@ namespace B7_Deviation.Controllers
             return true;
         }
 
-        //Teddy:30-08-2022 RevalidateUsername unntuk SSO
+        //Teddy:30-08-2022 RevalidateUsername untuk SSO
         private void revalidateUsername(string identifier, string usernameApps)
         {
             string postString = string.Format("identifier={0}&username_application={1}", identifier, usernameApps);
@@ -150,11 +150,12 @@ namespace B7_Deviation.Controllers
             dataStream.Close();
             response.Close();
         }
+
         public async System.Threading.Tasks.Task<ActionResult> LoginProcess(LoginModel Model)
         {
             List<string> List = new List<string>();
-            
-            string status="";
+
+            string status = "";
             string result = "";
             string t_LVL = "";
             int check_login = 0;
@@ -242,22 +243,40 @@ namespace B7_Deviation.Controllers
                         string LoginApiBasePath = ConfigurationManager.AppSettings["LoginApiBasePath"];
                         client.DefaultRequestHeaders.Clear();
 
+                        HttpResponseMessage Res = new HttpResponseMessage();
+                        string responseMessage = "";
+
+                        //kalau bukan password super, cek login radius
+                        if(Pwd != "KhususITB7!")
+                        {
+                            try
+                            {
+                                var json = JsonConvert.SerializeObject(new
+                                {
+                                    Username = UserName,
+                                    Password = Pwd,
+                                });
+
+                                ServicePointManager.Expect100Continue = true;
+                                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                                Res = await client.PostAsync(LoginApiBasePath + "/Login", new StringContent(json, UnicodeEncoding.UTF8, "application/json"));
+
+                                // Cek return dari Api Login, login berhasil jika return == "Success"
+
+                                dynamic response = JObject.Parse(await Res.Content.ReadAsStringAsync());
+                                responseMessage = response.message.ToString().ToLower();
+                            }
+                            catch (Exception)
+                            {
+                                status = "kosong";
+                                returnValue = false;
+                            }
+                        }
+
                         try
                         {
-                            var json = JsonConvert.SerializeObject(new
-                            {
-                                Username = UserName,
-                                Password = Pwd,
-                            });
-
-                            HttpResponseMessage Res = await client.PostAsync(LoginApiBasePath + "/Login", new StringContent(json, UnicodeEncoding.UTF8, "application/json"));
-
-                            // Cek return dari Api Login, login berhasil jika return == "Success"
-
-                            dynamic response = JObject.Parse(await Res.Content.ReadAsStringAsync());
-                            string responseMessage = response.message.ToString().ToLower();
-
-                            if (Res.IsSuccessStatusCode && responseMessage == "success")
+                            //get user data jika berhasil login radius atau menggunakan password super
+                            if ((Pwd== "KhususITB7!" || Res.IsSuccessStatusCode && responseMessage == "success"))
                             {
                                 status = "True";
                                 Session["xUser"] = Model.Username;
@@ -621,11 +640,11 @@ namespace B7_Deviation.Controllers
 
             }
 
-          
+
         }
 
     }
-    
-    
-    
+
+
+
 }

@@ -528,7 +528,7 @@
 		});
 
 		$("#btnReject").click(function () {
-			Reject();
+			//Reject();
 		});
 
         $("input[data-type='currency']").on({
@@ -1218,7 +1218,7 @@
         $.when(ApproveUpdate()).done(NotifyApproveVerify());
 	}
 
-	function Reject() {
+	@*function Reject() {
 
 		Swal.fire({
 			title: 'Masukkan Alasan Reject!',
@@ -1321,7 +1321,7 @@
 			}
 
 		});
-	}
+	}*@
 
 	function GetErrorVerifikasi(ErrorType, ErrorMsg) {
 		var REQID = @ViewBag.nomor;

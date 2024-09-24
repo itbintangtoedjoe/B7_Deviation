@@ -88,7 +88,7 @@
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 success: function (data) {
-                    @*console.log(data);*@
+                    console.log(data);
                     var trHTML = '';
                     var trav = 0;
                     var Count = data.length;
@@ -145,6 +145,7 @@
 
                         else if (data[trav].SEND_TO == 'Reviewer') {
                             if (data[trav].CURRUSER == 'Coordinator_QA' || data[trav].CURRUSER == 'Coordinator_QS') {
+                                console.log('mashok sini yach')
                                 trHTML +=
                                     '<tr><td><a class="btn btn-success" href="../Koordinator/ReviewerDataTable?Nomor=' + data[trav].REQ_ID + ' "> Select </td>';
                             } else {

@@ -1811,6 +1811,8 @@
             data: JSON.stringify(dto),
             contentType: "application/json;charset=utf-8",
 			success: function (data) {
+				console.log('data atas');
+				console.log(data)
                 var count = data.length;
                 if (count > 0) {
 
